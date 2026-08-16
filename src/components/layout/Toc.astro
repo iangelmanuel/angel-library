@@ -1,0 +1,40 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  items.length > 0 && (
+    <aside class="hidden w-56 shrink-0 xl:block">
+      <nav
+        class="sticky top-14 max-h-[calc(100svh-3.5rem)] overflow-y-auto py-8 pr-4"
+        aria-label="Tabla de contenidos"
+      >
+        <p class="section-label mb-3">En esta página</p>
+        <ul class="flex flex-col gap-0.5 border-l border-border">
+          {items.map((heading) => (
+            <li>
+              <a
+                href={`#${heading.slug}`}
+                class="block py-1 text-[0.75rem] leading-snug text-muted-foreground transition-colors hover:text-foreground"
+                style={`padding-left: ${heading.depth === 2 ? 0.75 : 1.5}rem`}
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+  )
+}

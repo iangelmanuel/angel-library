@@ -1,0 +1,131 @@
+---
+import Icon from '@/components/shared/Icon.astro';
+import type { NavData } from '@/lib/nav';
+
+interface Props {
+  data: NavData;
+}
+
+const { data } = Astro.props;
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
+---
+
+<aside
+  id="sidebar"
+  transition:persist="sidebar"
+  class="hidden w-60 shrink-0 border-r border-border lg:block"
+>
+  <nav
+    class="sticky top-14 flex h-[calc(100svh-3.5rem)] flex-col gap-7 overflow-y-auto px-4 py-6"
+    aria-label="Navegación principal"
+  >
+    <div class="flex flex-col gap-0.5">
+      <a
+        href="/"
+        class:list={['nav-link', { 'is-active': isActive('/') }]}
+        aria-current={isActive('/') ? 'page' : undefined}
+      >
+        <Icon name="home" class="size-3.5" /> Inicio
+      </a>
+      <a
+        href="/search"
+        class:list={['nav-link', { 'is-active': isActive('/search') }]}
+        aria-current={isActive('/search') ? 'page' : undefined}
+      >
+        <Icon name="search" class="size-3.5" /> Buscar
+      </a>
+      <a
+        href="/tags"
+        class:list={['nav-link', { 'is-active': isActive('/tags') }]}
+        aria-current={isActive('/tags') ? 'page' : undefined}
+      >
+        <Icon name="tags" class="size-3.5" /> Tags
+      </a>
+    </div>
+
+    <section aria-label="Categorías">
+      <p class="section-label px-2 pb-2">Categorías</p>
+      <div class="flex flex-col gap-0.5">
+        {
+          data.categories.map((category) => {
+            const groupedItems = [
+              ...(category.resourceGroups ?? category.stackGroups ?? []).flatMap((group) => group.items),
+              ...category.items,
+            ];
+            const containsActive = groupedItems.some((item) => isActive(item.url));
+            return (
+              <details open={containsActive}>
+                <summary class="nav-summary">
+                  <Icon name={category.icon} class="size-3.5 text-muted-foreground" />
+                  {category.label}
+                  <Icon
+                    name="chevron-right"
+                    class="chevron size-3.5 text-muted-foreground"
+                  />
+                </summary>
+                <div class="ml-[0.95rem] flex flex-col gap-0.5 border-l border-border py-1 pl-3">
+                  {
+                    (category.resourceGroups ?? category.stackGroups)?.map((group) => (
+                      <details open={group.items.some((item) => isActive(item.url))}>
+                        <summary class="nav-summary py-1 text-muted-foreground">
+                          <span class="truncate">{group.label}</span>
+                          <Icon name="chevron-right" class="chevron size-3 text-muted-foreground" />
+                        </summary>
+                        <div class="ml-2 flex flex-col gap-0.5 border-l border-border py-1 pl-2">
+                          {group.items.map((item) => (
+                            <a
+                              href={item.url}
+                              class:list={['nav-link', { 'is-active': isActive(item.url) }]}
+                              aria-current={isActive(item.url) ? 'page' : undefined}
+                            >
+                              <Icon name={item.icon} class="size-3.5 shrink-0 opacity-60" />
+                              <span class="truncate">{item.title}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </details>
+                    ))
+                  }
+                  {
+                    category.items.map((item) => (
+                      <a
+                        href={item.url}
+                        class:list={['nav-link', { 'is-active': isActive(item.url) }]}
+                        aria-current={isActive(item.url) ? 'page' : undefined}
+                      >
+                        <Icon name={item.icon} class="size-3.5 shrink-0 opacity-60" />
+                        <span class="truncate">{item.title}</span>
+                      </a>
+                    ))
+                  }
+                </div>
+              </details>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section aria-label="Tipos de contenido">
+      <p class="section-label px-2 pb-2">Por tipo</p>
+      <div class="flex flex-col gap-0.5">
+        {
+          data.types.map((type) => (
+            <a
+              href={type.url}
+              class:list={['nav-link', { 'is-active': isActive(type.url) }]}
+              aria-current={isActive(type.url) ? 'page' : undefined}
+            >
+              <Icon name={type.icon} class="size-3.5" />
+              {type.label}
+              <span class="ml-auto font-mono text-[0.65rem] text-muted-foreground/70">
+                {type.count}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </nav>
+</aside>

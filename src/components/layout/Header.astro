@@ -1,0 +1,43 @@
+---
+import Logo from '@/components/shared/Logo.astro';
+import Icon from '@/components/shared/Icon.astro';
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-sm"
+>
+  <div class="mx-auto flex h-14 w-full max-w-[1440px] items-center gap-3 px-4">
+    <button
+      type="button"
+      data-open-nav
+      class="nav-link -ml-2 lg:hidden"
+      aria-label="Abrir menú de navegación"
+    >
+      <Icon name="menu" class="size-4" />
+    </button>
+
+    <Logo />
+
+    <div class="flex-1"></div>
+
+    <button
+      type="button"
+      data-open-search
+      class="hidden w-full max-w-xs items-center gap-2 border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground sm:flex"
+      aria-label="Abrir búsqueda (Control K)"
+    >
+      <Icon name="search" class="size-3.5" />
+      <span class="flex-1 text-left">Buscar…</span>
+      <kbd class="kbd">ctrl K</kbd>
+    </button>
+
+    <button
+      type="button"
+      data-open-search
+      class="nav-link sm:hidden"
+      aria-label="Abrir búsqueda"
+    >
+      <Icon name="search" class="size-4" />
+    </button>
+  </div>
+</header>

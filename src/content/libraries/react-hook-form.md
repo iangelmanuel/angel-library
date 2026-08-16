@@ -1,0 +1,67 @@
+---
+title: React Hook Form
+description: Formularios performantes en React con mínimos re-renders. Instalación, uso básico y patrones que uso.
+category: frontend
+stack: react
+order: 13
+tags: [react, forms, typescript]
+website: https://react-hook-form.com
+github: https://github.com/react-hook-form/react-hook-form
+install: npm install react-hook-form
+related: [libraries/zod, integrations/react-hook-form-zod, recipes/validated-form-react]
+updatedAt: 2026-08-16
+---
+
+React Hook Form evita el problema clásico de un formulario controlado con `useState` por campo: cada tecla re-renderiza el componente entero. RHF registra los inputs de forma no controlada (con refs) y solo re-renderiza lo necesario, cuando hace falta — el formulario entero puede tener decenas de campos sin que tipear en uno cueste un re-render de los demás.
+
+## Uso básico
+
+```tsx title="LoginForm.tsx"
+import { useForm } from 'react-hook-form';
+
+interface FormValues {
+  email: string;
+  password: string;
+}
+
+export function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>();
+
+  const onSubmit = async (data: FormValues) => {
+    // data ya validado
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="email" {...register('email', { required: 'El email es obligatorio' })} />
+      {errors.email && <p>{errors.email.message}</p>}
+
+      <input type="password" {...register('password', { required: true, minLength: 8 })} />
+
+      <button disabled={isSubmitting}>Entrar</button>
+    </form>
+  );
+}
+```
+
+## Cuándo uso qué
+
+- `register` → inputs nativos controlados por RHF (caso por defecto).
+- `Controller` → componentes controlados de terceros (selects, date pickers, inputs de librerías UI).
+- `watch` → solo cuando necesito reaccionar a un valor en el render. Para lógica de submit no hace falta.
+- `setError` → errores del servidor (p. ej. "email ya registrado").
+
+## Tips
+
+- `defaultValues` define la forma inicial; con un resolver tipado debe ser completo.
+- `formState.isDirty` para habilitar "guardar" solo si hubo cambios.
+- `reset(data)` tras un submit exitoso para sincronizar el estado inicial.
+
+## Errores comunes
+
+- Duplicar el `name` en dos inputs → valores pisados.
+- Usar `watch()` en la raíz y re-renderizar toda la vista en cada tecla. Mejor `useWatch` con un `name` específico.

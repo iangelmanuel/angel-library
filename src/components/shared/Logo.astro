@@ -1,0 +1,17 @@
+---
+import { SITE } from '@/config/site';
+---
+
+<a
+  href="/"
+  class="group flex items-center gap-2.5"
+  aria-label={`${SITE.name} — ir al inicio`}
+>
+  <span
+    class="pixel-corners m-[3px] grid size-6 place-items-center bg-muted font-pixel text-[0.65rem] text-foreground transition-colors group-hover:bg-accent"
+    aria-hidden="true"
+  >
+    a/
+  </span>
+  <span class="font-pixel text-sm tracking-wide">{SITE.name}</span>
+</a>
