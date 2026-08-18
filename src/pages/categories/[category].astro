@@ -3,7 +3,13 @@ import DocsLayout from '@/layouts/DocsLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 import ContentCard from '@/components/content/ContentCard.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { CATEGORY_LIST, RESOURCE_CATEGORIES, STACK_LIST, type CategoryMeta } from '@/config/site';
+import {
+  CATEGORY_LIST,
+  RESOURCE_CATEGORIES,
+  STACK_GROUPED_CATEGORIES,
+  STACK_LIST,
+  type CategoryMeta,
+} from '@/config/site';
 import { getAllEntries, groupByType } from '@/lib/content';
 
 export function getStaticPaths() {
@@ -31,14 +37,15 @@ const resourceGroups = meta.id === 'resources'
       }))
       .filter((group) => group.entries.length > 0)
   : [];
-const stackGroups = meta.id === 'frontend'
+const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
+const stackGroups = usesStackGroups
   ? STACK_LIST.map((stack) => ({
       id: stack.id,
       label: stack.label,
       entries: entries.filter((entry) => entry.data.stack === stack.id),
     })).filter((group) => group.entries.length > 0)
   : [];
-const ungroupedFrontend = meta.id === 'frontend' ? entries.filter((entry) => !entry.data.stack) : [];
+const ungroupedStack = usesStackGroups ? entries.filter((entry) => !entry.data.stack) : [];
 ---
 
 <DocsLayout title={meta.label} description={meta.description}>
@@ -72,7 +79,7 @@ const ungroupedFrontend = meta.id === 'frontend' ? entries.filter((entry) => !en
               </div>
             </section>
           ))
-        ) : meta.id === 'frontend' ? (
+        ) : usesStackGroups ? (
           <>
             {stackGroups.map((group) => (
               <section class="mb-10">
@@ -83,7 +90,7 @@ const ungroupedFrontend = meta.id === 'frontend' ? entries.filter((entry) => !en
                 </div>
               </section>
             ))}
-            {groupByType(ungroupedFrontend).map((group) => (
+            {groupByType(ungroupedStack).map((group) => (
               <section class="mb-10">
                 <h2 class="section-label mb-4 flex items-center gap-2">
                   <Icon name={group.meta.icon} class="size-3.5" />

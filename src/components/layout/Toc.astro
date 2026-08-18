@@ -15,9 +15,10 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
 {
   items.length > 0 && (
-    <aside class="hidden w-56 shrink-0 xl:block">
+    <aside class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-56 shrink-0 self-start xl:block">
       <nav
-        class="sticky top-14 max-h-[calc(100svh-3.5rem)] overflow-y-auto py-8 pr-4"
+        id="toc-nav"
+        class="h-full overflow-y-auto py-8 pr-4"
         aria-label="Tabla de contenidos"
       >
         <p class="section-label mb-3">En esta página</p>
@@ -26,7 +27,7 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
             <li>
               <a
                 href={`#${heading.slug}`}
-                class="block py-1 text-[0.75rem] leading-snug text-muted-foreground transition-colors hover:text-foreground"
+                class="toc-link block py-1 text-[0.75rem] leading-snug text-muted-foreground transition-colors hover:text-foreground"
                 style={`padding-left: ${heading.depth === 2 ? 0.75 : 1.5}rem`}
               >
                 {heading.text}
@@ -38,3 +39,39 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
     </aside>
   )
 }
+
+<script>
+  /**
+   * Scroll-spy: marca en el TOC el heading correspondiente a la sección
+   * que se está leyendo. El activo es el último heading cuyo borde
+   * superior ya cruzó la línea de activación (cerca del tope del viewport,
+   * debajo del header sticky) — mismo criterio simple de "el más profundo
+   * que ya pasamos", sin IntersectionObserver.
+   */
+  function updateActiveHeading(): void {
+    const nav = document.getElementById('toc-nav');
+    if (!nav) return;
+
+    const links = nav.querySelectorAll<HTMLAnchorElement>('.toc-link');
+    if (links.length === 0) return;
+
+    const ACTIVATION_OFFSET = 96;
+    let activeHref: string | null = null;
+
+    links.forEach((link) => {
+      const id = link.getAttribute('href')?.slice(1);
+      const heading = id ? document.getElementById(id) : null;
+      if (heading && heading.getBoundingClientRect().top <= ACTIVATION_OFFSET) {
+        activeHref = link.getAttribute('href');
+      }
+    });
+
+    links.forEach((link) => {
+      link.classList.toggle('is-active', link.getAttribute('href') === activeHref);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveHeading, { passive: true });
+  document.addEventListener('astro:page-load', updateActiveHeading);
+  updateActiveHeading();
+</script>

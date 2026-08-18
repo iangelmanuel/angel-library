@@ -19,10 +19,6 @@ Esta guía cubre **Declarative Mode**: rutas declaradas en el árbol de componen
 
 ## Setup
 
-```bash
-npm i react-router
-```
-
 ```tsx title="main.tsx"
 import { BrowserRouter } from 'react-router';
 import App from './App';

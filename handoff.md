@@ -1,79 +1,78 @@
 # Handoff — angel.library
 
-Sesión larga. Resumen para retomar sin releer todo el historial.
+Resumen para retomar sin releer todo el historial. Reemplaza el handoff anterior (Backend, Git & GitHub, IA Tools & Skills) — esta cubre lo que se sumó después: Docker, Terminal & CLI, SEO (Astro/Next.js) + patrón `SITE`, Arquitectura (principios/patrones), y un refinamiento grande de plataforma (progreso de lectura, tabs de package manager, scroll-spy del TOC).
 
-## 1. Objetivo
+## 1. Objetivo de esta sesión
 
-Biblioteca personal de conocimiento técnico (Astro + Markdown, estática, español). Durante esta sesión:
+- Crear **Docker** dentro de la categoría `devops` ya existente: 6 subcategorías, de conceptos básicos a Compose, con una sección propia para levantar Postgres.
+- Crear **Terminal & CLI** (categoría nueva): subcategoría Terminal (gestión de archivos multiplataforma Win/Mac/Linux, comandos importantes, 12 herramientas instalables) + subcategoría CLI (13 CLIs de servicios).
+- Nutrir **IA Tools & Skills → Comandos**: traducir los 5 comandos existentes de voseo argentino a inglés (son prompts para IA, no prosa del sitio) + 5 comandos nuevos (`/code-audit`, `/refactor`, `/explain`, `/add-tests`, `/pr-description`).
+- Agregar `canirun.ai` a Recursos/IA.
+- Guía de alias de imports en TypeScript (`tsconfig` `paths`).
+- Crear **Frontend → SEO**: dos recetas completas paso a paso ("SEO completo en Astro" / "SEO completo en Next.js"), dos skills reales de Claude Code (carpeta `SKILL.md` + `references/`, no un resumen), y un patrón `SITE` (variable global de configuración) en la raíz de Frontend.
+- Crear **Arquitectura**: 3 subcategorías nuevas — Principios (SOLID, DRY/KISS/YAGNI, etc.), Patrones de diseño (GoF relevantes a JS/TS), Patrones arquitectónicos (MVC, hexagonal, repository, DI, event-driven, monolito vs microservicios).
+- Refinamiento de plataforma (no contenido): barra de progreso de lectura, tabs pnpm/bun/npm automáticos en **todo** comando `npm install`/`npx` del sitio, deduplicar instalación repetida en `libraries`, scroll-spy en el TOC.
 
-- Reorganizar `general` (JS/CSS/TS) con orden e iconos coherentes.
-- Documentar Zod a fondo.
-- Crear una sección **Frontend** con subcategorías **Astro / React / Next.js**, cada una con temas nativos del framework, dependencias (npm) y kits de componentes, bien diferenciados por icono y agrupados en el sidebar — mismo patrón que ya usaba `Recursos` con sus subcategorías.
-- Cubrir una lista de temas específicos por stack que el usuario fue dando (y ampliando) a lo largo de la sesión.
+## 2. Estado al terminar
 
-## 2. En qué estado terminó todo
+**Build limpio**: `pnpm build` → 726 páginas, 0 errores. `pnpm check` → 0 errores (mismo warning preexistente de `execCommand`, sin tocar). **367 archivos de contenido en total** (+95 sobre el handoff anterior).
 
-**Build limpio**: `pnpm build` → 219 páginas, 0 errores. `pnpm check` → 0 errores, 0 warnings nuevos (solo 1 warning preexistente de `execCommand` deprecado en `BaseLayout.astro`, no se tocó).
+### Docker (`category: devops`) — 25 archivos
 
-**Sidebar "Frontend"** con 3 subgrupos agrupados y ordenados (campo `order` en frontmatter, no alfabético):
+6 subcategorías nuevas (`stack: docker-conceptos/imagenes/contenedores/redes-volumenes/compose/bases-datos`): conceptos (4), imágenes (6), contenedores (5), redes/volúmenes (3), Compose (4), bases de datos — Postgres con `docker run` y con Compose (3).
 
-| Stack | Entradas | Icono nativo |
-| --- | --- | --- |
-| Astro | 17 (15 guías + 2 libs) | Cohete naranja `#FF5D01` (logo real) |
-| React | 19 (8 hooks + 9 libs + 2 kits) | Átomo cian `#61dafb` (mismo SVG que usa React) |
-| Next.js | 18 (todas guías) | Círculo/N blanco `#ececee` (logo real) |
+### Terminal & CLI (`category: terminal`, nueva) — 35 archivos
 
-Reglas de icono (aplican en toda la librería, no solo Frontend): `libraries` → paquete verde `#4ade80`; `components` → icono amarillo `#facc15`; Zod → "Z" cian (caso especial); `language: css`/`typescript` → glifo de marca; resto → icono genérico del tipo.
+| Subcategoría | Contenido |
+| --- | --- |
+| Terminal (`stack: terminal`) | Gestión de archivos/directorios multiplataforma (5), comandos importantes — procesos, puertos, red (5), guía puente a Docker (1), 11 herramientas instalables (Chocolatey, nvm, pnpm, npm, bun, curl, PowerShell, Linux CLI, SSH, WSL, Scoop) |
+| CLI (`stack: cli`) | 13 CLIs: Vercel, Supabase, Prisma, Astro, Wrangler, AWS, Railway, Turso, Neon, OpenAI, OpenRouter, Cloudinary, Playwright — investigados contra doc oficial, no inventados |
 
-**`general`** (JS/CSS/TS): Zod primero, después 7 snippets CSS, después 9 utilities JS/TS, todo agrupado por `order`/lenguaje.
+**Ojo con dos casos**: OpenRouter no tiene CLI oficial de gestión (la guía lo dice y documenta el patrón real vía API/SDK); el CLI viejo de `pip install openai` está deprecado, hoy es un binario Go separado — se evitaron nombres de modelo no verificados.
 
-**Botón "copiar código completo"** en cada entrada con bloques `title="archivo.ts"` — junta todo el archivo real en un solo copy.
+### SEO (`category: frontend`, `stack: seo`, nueva) — 4 archivos + patrón
 
-## 3. Archivos y cambios que realizaste
+- `recipes/astro-seo-completo.md` y `recipes/nextjs-seo-completo.md`: paso a paso completo (SITE.seo → JsonLd → helpers de schema.org → meta tags/Metadata API → manifest/robots/sitemap → caso de uso), datos de una empresa simulada (**Acme**) consistentes entre las dos.
+- `skills/skill-seo-astro.md` y `skills/skill-seo-nextjs.md`: skill real de Claude Code (`SKILL.md` liviano + carpeta `references/` con el código completo, no un resumen) — detecta solo si migrar o generar de cero.
+- `patterns/site-config-global.md`: el objeto `SITE` completo (identidad, ubicación, contacto, redes, navegación, horarios, legal, stats, y el bloque `seo`) — vive en la raíz de Frontend porque aplica más allá del SEO. **La estructura la reescribió el usuario a mitad de sesión** (agregó wrapper `info`, `teams`, `navigation`, `site` técnico) — se resincronizaron los 4 archivos de arriba para que usen `SITE.info.*` en vez de los paths viejos (`SITE.name`, `SITE.company.*`).
 
-### Arquitectura (tocar esto para entender el sistema)
+### Arquitectura (`category: architecture`) — 23 archivos + 1 integrado
 
-- `src/config/site.ts` — `STACK_IDS`/`STACKS`/`STACK_LIST` (astro/react/nextjs).
-- `src/content.config.ts` — campos `stack` y `order` agregados a `baseFields` (opcionales, afectan a toda colección).
-- `src/lib/nav.ts` — `iconFor()` (reglas de icono descritas arriba), `sortForNav()` (respeta `order`), `stackGroups` (análogo a `resourceGroups` pero por stack).
-- `src/lib/icons.ts` — logos de marca a mano (`BRAND_ICONS`) + recoloreo de iconos lucide (`RECOLORED_ICONS`). Sin dependencia de `simple-icons` (se probó y se sacó, ver sección 4).
-- `src/components/shared/DynamicIcon.tsx` — mismos logos duplicados a mano para las islas React (Sidebar usa Astro, MobileNav usa React — dos sistemas, hay que tocar los dos).
-- `src/components/layout/Sidebar.astro` / `MobileNav.tsx` — renderizan `resourceGroups ?? stackGroups`, más los items sueltos (entradas sin `stack`) debajo.
-- `src/pages/categories/[category].astro` — agrupa por stack cuando `category.id === 'frontend'`.
-- `src/pages/[type]/[...slug].astro` + `src/layouts/BaseLayout.astro` — botón "copiar código completo" (detecta bloques con `title=` en el markdown crudo, concatena en el click).
-- `.claude/launch.json` — nuevo, apunta el preview a `pnpm dev` en 4321.
+| Subcategoría | Contenido |
+| --- | --- |
+| Principios (`stack: principios`) | SOLID, DRY/KISS/YAGNI, cohesión/acoplamiento, composición sobre herencia, deuda técnica, ADR (6) — más `practices/validate-at-boundaries.md` que ya existía, ahora integrado a este stack |
+| Patrones de diseño (`stack: patrones-diseno`) | Los GoF relevantes a JS/TS con ejemplos idiomáticos (funciones/closures, no clases traducidas de Java): Factory/Singleton/Builder, Adapter/Facade/Decorator/Proxy, Observer/Strategy/Command (10) |
+| Patrones arquitectónicos (`stack: patrones-arquitectonicos`) | MVC (conceptual, linkea a `patterns/backend-mvc-structure.md` real), capas, hexagonal, repository, DI, event-driven, monolito vs microservicios (7) |
 
-### Contenido nuevo
+### Refinamiento de plataforma (sin contenido nuevo)
 
-| Carpeta | Qué hay | Cantidad |
-| --- | --- | --- |
-| `src/content/utilities/` | dom (renombrado), form, array, string, storage, date, number, fetch, clipboard | 9 |
-| `src/content/snippets/` | css-reset, css-variables, css-fonts, css-gradients, css-animations, css-layout-tricks, css-scroll | 7 |
-| `src/content/libraries/` | zod (reescrito), react-hook-form (actualizado), zustand, motion, atropos, react-dropzone, react-email, react-router, axios, tanstack-query, nanostores, gsap | 12 |
-| `src/content/components/` | shadcn-ui, magicui | 2 |
-| `src/content/guides/` (Astro) | astro-islas, astro-layouts, astro-directivas, astro-global-object, astro-styles, astro-image-picture, astro-get-static-paths, astro-content-collections, astro-view-transitions, astro-env-vars, astro-endpoints, astro-server-actions, astro-middleware, astro-server-islands, astro-integrations | 15 |
-| `src/content/guides/` (React) | react-usestate, react-context-api, react-usereducer, react-useref, react-useeffect, react-usetransition, react-useoptimistic, react-useactionstate | 8 |
-| `src/content/guides/` (Next.js) | nextjs-directivas, nextjs-layouts, nextjs-page-error-loading, nextjs-params-searchparams, nextjs-link, nextjs-usepathname, nextjs-usesearchparams, nextjs-userouter, nextjs-redirect-notfound, nextjs-generate-static-params, nextjs-server-actions, nextjs-endpoints, nextjs-proxy, nextjs-metadata-seo, nextjs-fetching-revalidate, nextjs-revalidate-path, nextjs-font, nextjs-image | 18 |
+1. **Barra de progreso de lectura** — `components/layout/ReadingProgress.astro`, franja azul (`--accent-blue`) fija arriba, solo en páginas de entrada (no en listados). Mide contra `<article>` completo, no solo `.markdown` — medirlo solo contra `.markdown` hacía que la barra "empezara tarde" (había que scrollear todo el header/meta de la entrada antes de que reaccionara).
+2. **Tabs pnpm → bun → npm automáticos**, sitio completo, no solo `libraries`: pipeline nuevo `pm-commands.mjs` (traductor) → `remark-pm-tabs.mjs` (detecta bloques bash de `npm install`/`i`/`npx` y los triplica en pnpm/bun/npm) → `transformerPackageManagerMeta` en Shiki → agrupado en `rehype-code-blocks.mjs` → handler de tabs + persistencia en `localStorage` en `BaseLayout.astro`. El campo `install:` de `libraries` (renderizado por `EntryMeta.astro`) usa la misma función traductora.
+3. **Deduplicación de instalación** en `libraries/*.md` — 10 archivos reales tenían el comando de instalación dos veces (una vez en `EntryMeta` vía frontmatter, otra a mano en el cuerpo).
+4. **Scroll-spy en el TOC** (`Toc.astro`) — marca el heading activo según scroll, mismo azul que los tabs.
 
-### Borrado / limpiado
+## 3. Arquitectura — qué se extendió
 
-- `src/content/technologies/css.md`, `javascript.md` — placeholders sin contenido real.
-- `src/content/tricks/formdata-to-object.md` — reemplazado por `utilities/form.md` (más completo). La colección `tricks` quedó vacía (0 entradas, es válido).
-- Referencias rotas limpiadas en `node.md`, `zod.md` y varios `resources/*.md` que apuntaban a los `.md` borrados.
+- **`src/config/site.ts`**: `STACK_IDS` sumó `docker-*` (6), `terminal`/`cli`, `seo`, `principios`/`patrones-diseno`/`patrones-arquitectonicos`. `STACK_GROUPED_CATEGORIES` sumó `devops`, `terminal`, `architecture` (además de `general`, que el usuario agregó en paralelo con stacks `css`/`utils` propios — no tocado, solo respetado). Nueva categoría `terminal` completa (`CATEGORY_IDS`/`CATEGORIES`).
+- **Íconos**: por cada stack nuevo, una entrada en `RECOLORED_ICONS` (`icons.ts`) + su espejo en `DynamicIcon.tsx` (los "dos sistemas" que exige `CLAUDE.md` — varias veces se rompió el build por desincronizarlos, ver lecciones). Cambios visuales pedidos por el usuario: CSS pasó del glifo `{}` al escudo real de CSS3 (hermano del de HTML5 ya existente); Utils, la guía de alias de TS, y el patrón `SITE` ahora comparten el glifo "TS" de TypeScript (agrandado de `font-size 10.5` a `13` en los dos sistemas, a pedido explícito).
+- **`iconFor()` en `nav.ts`**: mecanismo de casos especiales (ya existía para Zod) usado para forzar el ícono de una entrada puntual sin stack propio — se usó para la guía de alias de TS y el patrón `SITE`.
+- **Pipeline de Markdown** (`astro.config.mjs`): antes solo tenía `rehypePlugins`. Ahora también `remarkPlugins: [remarkPmTabs]` — mismo patrón que ya usaba `transformerCodeFilename()` para `title="..."` (meta del fence → atributo `data-*` en el `<pre>` de Shiki → un plugin rehype arma la estructura final), aplicado ahora a la detección de comandos npm.
 
-## 4. Intentos fallidos
+## 4. Intentos fallidos / bugs propios / lecciones de esta sesión
 
-- **Iconos de marca, primer intento**: usé letras simples (A de Astro, N de Next) para todo. El usuario rechazó la de Astro ("una A no es suficiente") y el cuadro verde literal de "dependencia" ("no un cuadro, un icono de paquete"). Se corrigió con el logo real de Astro (SVG oficial) y el icono `package` de lucide recoloreado. Next.js quedó con letra hasta que, en la última ronda, también pidió el logo real — ya está corregido.
-- **`simple-icons` como dependencia npm**: se instaló para sacar los paths de CSS/TS/Zod, después el usuario pidió iconos más simples (no logos completos) y se desinstaló. Para el logo real de Astro/Next.js más adelante, en vez de reinstalar el paquete, se usó `curl` contra el CDN de jsdelivr — mismo resultado, sin agregar dependencia.
-- **Regex con diacríticos en `string.md`**: al escribir `slugify()`, tipear el rango Unicode de marcas diacríticas como caracter literal en el `Edit` tool resultó en un no-op silencioso (el editor normalizaba el string y el "antes"/"después" quedaban idénticos). Se resolvió generando la línea con Node (construyendo el string por code points) para garantizar el escape `̀-ͯ` literal en el archivo.
-- **Cache de content layer corrupta**: un `rm -rf node_modules/.astro` a mitad de sesión, con un dev server corriendo, lo dejó en un estado roto (Astro perdía el lock del proceso). Hubo que matar el proceso huérfano y reiniciar limpio más de una vez a lo largo de la sesión — quedó como hábito: siempre limpiar `dist .astro node_modules/.astro` **antes** de levantar el preview, no mientras corre.
-- **Puerto 4321 ocupado repetidamente**: procesos de preview anteriores quedaban colgados: hubo que matarlos a mano (`Stop-Process`) varias veces antes de cada verificación en navegador.
-- **Tool `navigate` reportando "denied or failed"** en varias ocasiones aunque la página cargaba bien por debajo (confirmado con `document.title`/`javascript_exec`) — no es un bug del sitio, es un falso negativo del tool en este entorno. Se aprendió a no confiar en su status y verificar con JS directo.
+- **Bug propio real, atrapado antes del build**: al agrupar tríos de `<pre>` pnpm/bun/npm en `rehype-code-blocks.mjs`, el primer pase volvía a visitar el wrapper recién creado y lo re-agrupaba — recursión infinita. Fix: borrar el marcador `data-pm-group` de cada `<pre>` apenas se consume.
+- **Bug propio real, en contenido**: al borrar el ícono `brand-utils` pensando que quedaba huérfano tras un pedido de cambio de ícono, rompió el build — las entradas de `utilities/*.md` calculan su ícono como `brand-${stack}` directo (no vía `STACKS[stack].icon`), sin ese ícono no resuelve. Se restauró apuntando al mismo glifo de TS.
+- **Auditoría de bugs reales en las recetas de SEO** (el usuario pidió explícitamente revisar si "conecta todo"): título duplicado en la home de Astro (default siempre truthy), `og:image:width/height` hardcodeados aunque los campos ya existían, `Layout.astro` sin importar `SITE`, `hreflang` fijo en vez de iterar — y en Next.js: `app/manifest.ts` **completamente faltante** aunque el layout ya lo linkeaba, `imageAlt` con fallback incorrecto (al título en vez de a la imagen), y `SITE.seo.languages` definido pero sin ningún consumidor real.
+- **Bug propio en mi propia auditoría de duplicados**: el primer escaneo para el punto de deduplicación (`libraries` con `install:` repetido en el cuerpo) comparaba mal — contra la propia línea de frontmatter, no contra el cuerpo real — e infló el resultado a "30 archivos duplicados". El recuento correcto, con el frontmatter excluido de verdad, era **10**. Se corrigió antes de tocar los 20 archivos de más que no tenían nada que arreglar.
+- **`grep` sobre HTML tokenizado por Shiki da falsos negativos**: Shiki envuelve cada palabra de un comando en su propio `<span>`, así que un patrón como `grep -oE 'pnpm add[^<]*'` no encuentra texto que sí está ahí, partido entre spans. Dos veces se persiguió un "bug" que no existía por esto — la forma confiable de inspeccionar HTML generado por Shiki es con `node -e` leyendo el archivo y haciendo slice, no `grep`.
+- **El navegador de este entorno no compone frames en background**: los `screenshot` fallan siempre ("Browser pane no está mostrado"), y acciones de `scroll` programático tampoco parecen aplicar (verificado: `window.scrollTo()` no movió `scrollY`). La verificación de todo lo que depende de scroll real (barra de progreso moviéndose, scroll-spy del TOC activándose) quedó por revisión de código + chequeos estructurales vía JS (estado de clases, `localStorage`), no visual. **Pendiente que el usuario lo mire con sus propios ojos.**
+- **Un mensaje propio salió corrupto** (texto repetido sin sentido) en un punto de la sesión — se lo marqué al usuario y seguimos, sin causa identificada.
 
-## 5. Próximos pasos exactos
+## 5. Próximos pasos / cosas a decidir
 
-1. **Repasar el contenido de Next.js con ojo crítico de versión**: se documentó contra Next 16.3.1 (docs oficiales en vivo, verificado con fetch real), que incluye conceptos muy nuevos (`proxy.ts` reemplazando a `middleware.ts`, Cache Components/`use cache` como modelo opcional). Si el proyecto real del usuario usa una versión de Next más vieja, confirmar qué partes aplican.
-2. **Revisar en navegador, no solo build**: se verificó estructura/orden/iconos con scripts JS, pero no hubo revisión visual real (screenshots) porque el entorno no soporta captura en este sesión. Vale la pena que el usuario abra `/categories/frontend` y las 3 subcategorías con sus propios ojos.
-3. **Decidir si "general" necesita más CSS** — quedó en 7 entradas a propósito ("no tantas como las Utils"); si hace falta más (grid/flexbox a fondo, container queries, etc.), es la próxima ronda natural ahí.
-4. **Evaluar si el patrón de subcategorías (`stack`) se extiende a otras categorías** — hoy solo `frontend` lo usa (Astro/React/Next.js), pero la arquitectura en `nav.ts`/`site.ts` ya es genérica: agregar un stack nuevo es solo sumarlo a `STACK_IDS`/`STACKS` en `site.ts`.
-5. **Sin tests ni linter configurados** — `pnpm build` + `pnpm check` siguen siendo la única validación real. Si el contenido sigue creciendo mucho, considerar si vale la pena algo más (no se tocó nada de esto esta sesión, es solo una observación).
+1. **Verificación visual real pendiente**: barra de progreso moviéndose con el scroll, y si el offset de activación del scroll-spy del TOC (96px desde arriba) se siente bien o hay que ajustarlo.
+2. **Segunda categoría nueva, nunca definida**: al empezar Docker el usuario dijo "la segunda la haremos cuando terminemos Docker" y no volvió sobre eso — confirmar si sigue en pie y cuál es.
+3. **Catálogos que van a desactualizarse** (ya era lección del handoff anterior, sigue vigente y ahora aplica también a Terminal & CLI): instalaciones/nombres de paquete de las 13 CLIs y las 12 herramientas instalables cambian con el tiempo, no son un "documentar una vez y listo".
+4. **Nada commiteado en git en toda la sesión** (ni en esta ni en la anterior) — sigue acumulándose trabajo sin respaldo. Vale la pena parar y armar un commit (o varios) antes de seguir sumando.
+5. **`tricks` collection declarada pero sin contenido** (`src/content/tricks/` no existe) — warning inofensivo en cada build, nunca se pidió resolverlo, sigue ahí.
+6. **Sin tests ni linter** — sigue siendo solo `pnpm build` + `pnpm check`.

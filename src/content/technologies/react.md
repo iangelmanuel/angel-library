@@ -2,10 +2,11 @@
 title: React
 description: Biblioteca de UI por componentes. Referencia rápida de los conceptos y APIs que uso a diario.
 category: frontend
+stack: react
 tags: [react, ui, javascript]
 website: https://react.dev
 github: https://github.com/facebook/react
-related: [libraries/react-hook-form, snippets/use-debounce]
+related: [libraries/react-hook-form]
 updatedAt: 2026-08-10
 ---
 

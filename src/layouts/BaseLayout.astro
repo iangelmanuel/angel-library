@@ -111,6 +111,25 @@ const favicon = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
         }
       }
 
+      /**
+       * Activa el tab `pm` (pnpm/bun/npm) en TODOS los bloques con tabs de la
+       * página: destapa su <pre>, oculta los otros, y marca el botón activo.
+       * Si `pm` no existe en un bloque puntual (no debería pasar, los 3 se
+       * generan siempre juntos), no hace nada en ese bloque.
+       */
+      function applyPmPreference(pm: string): void {
+        document.querySelectorAll<HTMLElement>(".code-block--pm").forEach((block) => {
+          const target = block.querySelector<HTMLElement>(`pre[data-pm="${pm}"]`)
+          if (!target) return
+          block.querySelectorAll<HTMLElement>("pre[data-pm]").forEach((pre) => {
+            pre.hidden = pre !== target
+          })
+          block.querySelectorAll<HTMLElement>("[data-pm-tab]").forEach((btn) => {
+            btn.classList.toggle("is-active", btn.getAttribute("data-pm-tab") === pm)
+          })
+        })
+      }
+
       function flashCopyLabel(button: Element): void {
         const label = button.querySelector("[data-copy-label]")
         if (!label) return
@@ -141,11 +160,23 @@ const favicon = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
         const copyButton = target.closest("[data-copy]")
         if (copyButton) {
           const block = copyButton.closest(".code-block")
-          const pre = block?.querySelector("pre")
+          const pre =
+            block?.querySelector<HTMLElement>("pre:not([hidden])") ??
+            block?.querySelector<HTMLElement>("pre")
           const text = pre?.innerText ?? ""
           if (!text) return
           await copyToClipboard(text)
           flashCopyLabel(copyButton)
+          return
+        }
+
+        const pmTab = target.closest("[data-pm-tab]")
+        if (pmTab) {
+          const pm = pmTab.getAttribute("data-pm-tab")
+          if (pm) {
+            window.localStorage.setItem("angel:pm", pm)
+            applyPmPreference(pm)
+          }
           return
         }
 
@@ -201,6 +232,14 @@ const favicon = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
         })
       }
       document.addEventListener("astro:after-swap", syncSidebarState)
+
+      // Aplica la preferencia de package manager guardada (o "pnpm" por
+      // defecto) a los bloques con tabs de cada página que carga — corre en
+      // la carga inicial Y después de cada navegación con View Transitions.
+      document.addEventListener("astro:page-load", () => {
+        const stored = window.localStorage.getItem("angel:pm")
+        applyPmPreference(stored ?? "pnpm")
+      })
     </script>
   </body>
 </html>

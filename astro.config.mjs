@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 import { unified } from '@astrojs/markdown-remark';
 import { transformerMetaHighlight, transformerNotationDiff } from '@shikijs/transformers';
 import { rehypeCodeBlocks } from './src/lib/rehype-code-blocks.mjs';
-import { transformerCodeFilename } from './src/lib/shiki-transformers.mjs';
+import { transformerCodeFilename, transformerPackageManagerMeta } from './src/lib/shiki-transformers.mjs';
+import { remarkPmTabs } from './src/lib/remark-pm-tabs.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,12 +16,14 @@ export default defineConfig({
   },
   markdown: {
     processor: unified({
+      remarkPlugins: [remarkPmTabs],
       rehypePlugins: [rehypeCodeBlocks],
     }),
     shikiConfig: {
       theme: 'github-dark-default',
       transformers: [
         transformerCodeFilename(),
+        transformerPackageManagerMeta(),
         transformerMetaHighlight(),
         transformerNotationDiff(),
       ],

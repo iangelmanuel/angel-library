@@ -2,7 +2,9 @@
 title: 'Claude Code: comandos slash personalizados'
 description: Cómo crear comandos /propios en Claude Code con archivos Markdown, a nivel de proyecto y de usuario.
 category: skills
-tags: [ai, claude-code, workflow, tooling]
+stack: claude-code
+order: 3
+tags: [ai, claude-code, workflow, tooling, comando]
 tool: Claude Code
 updatedAt: 2026-08-10
 ---

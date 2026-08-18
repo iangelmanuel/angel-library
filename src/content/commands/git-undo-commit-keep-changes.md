@@ -2,6 +2,7 @@
 title: Deshacer el último commit conservando los cambios
 description: Vuelve un commit atrás dejando los cambios en staging, listos para corregir o rehacer el commit.
 category: git
+stack: git
 tags: [git, commits, recovery]
 command: git reset --soft HEAD~1
 whenToUse: Acabas de hacer un commit (todavía sin push) y quieres corregirlo, partirlo en varios o cambiar el mensaje sin perder nada.

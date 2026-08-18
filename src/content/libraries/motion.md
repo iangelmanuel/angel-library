@@ -14,11 +14,7 @@ updatedAt: 2026-08-16
 
 Esta librería se llamaba **Framer Motion** — se renombró a **Motion**. El paquete de npm cambió de `framer-motion` a `motion`, y el import pasó a `motion/react` (antes `framer-motion`). Si ves `framer-motion` en un tutorial o proyecto viejo, es la misma librería, la sintaxis del componente `motion.*` no cambió.
 
-## Instalación e import
-
-```bash
-npm install motion
-```
+## Import
 
 ```tsx
 import { motion } from 'motion/react';

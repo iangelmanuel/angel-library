@@ -28,7 +28,7 @@ const baseFields = {
   tags: z.array(z.string()).default([]),
   /** Contenido relacionado explícito (ids). Las relaciones inversas y por tags se calculan solas. */
   related: refs,
-  /** Subcategoría dentro de una categoría (hoy solo "frontend": astro/react/nextjs). */
+  /** Subcategoría dentro de una categoría ("frontend": astro/react/nextjs; "backend": node/express/astro/nextjs). */
   stack: z.enum(STACK_IDS).optional(),
   /** Orden manual dentro de su grupo (stack, o categoría). Menor = primero. Sin definir = al final, alfabético. */
   order: z.number().optional(),

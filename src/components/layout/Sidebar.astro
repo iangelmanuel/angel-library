@@ -14,10 +14,10 @@ const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
 <aside
   id="sidebar"
   transition:persist="sidebar"
-  class="hidden w-60 shrink-0 border-r border-border lg:block"
+  class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-60 shrink-0 self-start border-r border-border lg:block"
 >
   <nav
-    class="sticky top-14 flex h-[calc(100svh-3.5rem)] flex-col gap-7 overflow-y-auto px-4 py-6"
+    class="flex h-full flex-col gap-7 overflow-y-auto px-4 py-6"
     aria-label="Navegación principal"
   >
     <div class="flex flex-col gap-0.5">

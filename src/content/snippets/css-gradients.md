@@ -2,6 +2,7 @@
 title: Degradados CSS — Referencia rápida
 description: Linear, radial y conic gradients, texto con degradado y bordes con degradado, sin imágenes.
 category: general
+stack: css
 language: css
 tags: [css, gradients, design]
 updatedAt: 2026-08-16

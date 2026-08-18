@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 import Toc from '@/components/layout/Toc.astro';
+import ReadingProgress from '@/components/layout/ReadingProgress.astro';
 import PageNav from '@/components/layout/PageNav.astro';
 import TypeBadge from '@/components/content/TypeBadge.astro';
 import TagList from '@/components/content/TagList.astro';
@@ -64,6 +65,7 @@ const hasNamedCodeBlocks = /```[^\n]*\btitle=["']/.test(entry.body ?? '');
 ---
 
 <DocsLayout title={entry.data.title} description={entry.data.description}>
+  <ReadingProgress />
   <Toc slot="aside" headings={headings} />
 
   <article class:list={['mx-auto w-full max-w-3xl', `knowledge-${entry.collection}`]}>

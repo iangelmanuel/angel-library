@@ -39,3 +39,39 @@ export function transformerCodeFilename() {
     },
   };
 }
+
+/**
+ * Conserva `pm="pnpm"`, `pmGroup="g0"` y `pmDefault` (los agrega `remarkPmTabs`
+ * al meta de cada bloque generado) como atributos `data-*` en el `<pre>` final,
+ * mismo mecanismo que `transformerCodeFilename` usa para `title=`.
+ */
+export function transformerPackageManagerMeta() {
+  function fromMeta(meta) {
+    const raw = meta && typeof meta === 'object' && '__raw' in meta ? meta.__raw : meta;
+    const str = String(raw ?? '');
+    const pm = /pm="([^"]+)"/.exec(str)?.[1];
+    const group = /pmGroup="([^"]+)"/.exec(str)?.[1];
+    const isDefault = /(?:^|\s)pmDefault(?:\s|$)/.test(str);
+    return pm ? { pm, group, isDefault } : null;
+  }
+
+  function apply(node, meta) {
+    const info = fromMeta(meta);
+    if (!info) return;
+    node.properties ??= {};
+    node.properties['data-pm'] = info.pm;
+    if (info.group) node.properties['data-pm-group'] = info.group;
+    if (info.isDefault) node.properties['data-pm-default'] = '';
+  }
+
+  return {
+    name: 'angel-library-pm-tabs',
+    pre(node) {
+      apply(node, this.options.meta);
+    },
+    root(root) {
+      const pre = root.children.find((child) => child.type === 'element' && child.tagName === 'pre');
+      if (pre) apply(pre, this.options.meta);
+    },
+  };
+}

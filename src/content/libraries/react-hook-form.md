@@ -8,7 +8,7 @@ tags: [react, forms, typescript]
 website: https://react-hook-form.com
 github: https://github.com/react-hook-form/react-hook-form
 install: npm install react-hook-form
-related: [libraries/zod, integrations/react-hook-form-zod, recipes/validated-form-react]
+related: [libraries/zod]
 updatedAt: 2026-08-16
 ---
 

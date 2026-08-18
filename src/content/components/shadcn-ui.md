@@ -8,8 +8,6 @@ tags: [react, components, ui]
 framework: React
 install: pnpm dlx shadcn@latest init
 source: https://ui.shadcn.com/docs/components
-related:
-  - components/shadcn-dialog
 updatedAt: 2026-08-16
 ---
 
@@ -54,4 +52,4 @@ Lista completa, siempre actualizada, en la [documentación oficial](https://ui.s
 
 - Al ser código copiado y no una dependencia, actualizar un componente a una versión nueva de shadcn es manual: volver a correr `add` sobre ese componente pisa tus cambios, así que si lo personalizaste, hay que mergear a mano.
 - Requiere Tailwind ya configurado en el proyecto — el `init` lo detecta pero no lo instala si falta.
-- Este mismo sitio usa varios (`Dialog`, `Command`) — ver `src/components/ui/` en el repo, y [Dialog reutilizable con shadcn/ui](/components/shadcn-dialog) para un ejemplo puntual ya documentado acá.
+- Este mismo sitio usa varios (`Dialog`, `Command`) — ver `src/components/ui/` en el repo.

@@ -3,6 +3,7 @@ import {
   CONTENT_TYPES,
   CONTENT_TYPE_LIST,
   RESOURCE_CATEGORY_LIST,
+  STACK_GROUPED_CATEGORIES,
   STACK_LIST,
   type CategoryId,
   type ContentTypeId,
@@ -24,14 +25,19 @@ const LANGUAGE_ICONS: Partial<Record<string, string>> = {
 
 /**
  * Icono por entrada: casos especiales primero (Zod), después el tipo de
- * contenido (libraries → caja verde, components → icono amarillo), después
- * el stack de frontend (Astro/React/Next.js) si está declarado, después el
- * lenguaje (CSS/TypeScript), y por defecto el icono genérico del tipo.
+ * contenido (libraries → caja verde, components → icono amarillo,
+ * hooks → glifo TS, para distinguirlos del átomo de React del stack),
+ * después el stack de frontend (Astro/React/Next.js) si está declarado,
+ * después el lenguaje (CSS/TypeScript), y por defecto el icono genérico
+ * del tipo.
  */
 function iconFor(entry: AnyEntry): string {
   if (entry.collection === 'libraries' && entry.id === 'zod') return 'brand-zod';
+  if (entry.collection === 'guides' && entry.id === 'typescript-path-aliases') return 'brand-typescript';
+  if (entry.collection === 'patterns' && entry.id === 'site-config-global') return 'brand-typescript';
   if (entry.collection === 'libraries') return 'stack-dependency';
   if (entry.collection === 'components') return 'stack-component';
+  if (entry.collection === 'hooks') return 'brand-typescript';
 
   const stack = (entry.data as { stack?: StackId }).stack;
   if (stack) return `brand-${stack === 'nextjs' ? 'nextjs' : stack}`;
@@ -128,7 +134,7 @@ export function buildNavData(all: AnyEntry[]): NavData {
   const categories: NavCategory[] = CATEGORY_LIST.map((meta) => {
     const entries = all.filter((entry) => entry.data.category === meta.id);
     const isResources = meta.id === 'resources';
-    const isFrontend = meta.id === 'frontend';
+    const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
 
     const resourceGroups = isResources
       ? RESOURCE_CATEGORY_LIST.map((resourceCategory) => ({
@@ -141,7 +147,7 @@ export function buildNavData(all: AnyEntry[]): NavData {
         })).filter((group) => group.items.length > 0)
       : undefined;
 
-    const stackGroups = isFrontend
+    const stackGroups = usesStackGroups
       ? STACK_LIST.map((stack) => ({
           id: stack.id,
           label: stack.label,
@@ -152,7 +158,7 @@ export function buildNavData(all: AnyEntry[]): NavData {
     // Lo que ya quedó agrupado (por recurso o por stack) no se repite en el listado plano.
     const ungrouped = entries.filter((entry) => {
       if (isResources) return false;
-      if (isFrontend) return !(entry.data as { stack?: StackId }).stack;
+      if (usesStackGroups) return !(entry.data as { stack?: StackId }).stack;
       return true;
     });
     const items = toNavItems(ungrouped);

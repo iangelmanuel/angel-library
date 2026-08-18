@@ -2,6 +2,7 @@
 title: Trucos de Layout CSS — Referencia rápida
 description: Centrado, grillas responsivas sin media queries, truncar texto y aspect-ratio para media, listos para copiar.
 category: general
+stack: css
 language: css
 tags: [css, layout, grid, flexbox]
 updatedAt: 2026-08-16

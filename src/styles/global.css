@@ -484,6 +484,65 @@ details[open] > .nav-summary .chevron {
   user-select: none;
 }
 
+/* Tabs pnpm/bun/npm — generados por remark-pm-tabs + rehype-code-blocks,
+   o a mano en EntryMeta.astro para el campo `install:` de las libraries. */
+.code-block__pm-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+.code-block__pm-tab {
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0.2rem 0.5rem;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+.code-block__pm-tab:hover {
+  color: var(--foreground);
+}
+.code-block__pm-tab.is-active {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.code-block--pm pre[hidden] {
+  display: none;
+}
+
+/* Scroll-spy del TOC — ver Toc.astro. El borde propio del link se pinta
+   exactamente sobre el border-l compartido del <ul> (margin-left: -1px). */
+.toc-link {
+  border-left: 1px solid transparent;
+  margin-left: -1px;
+}
+.toc-link.is-active {
+  border-left-color: var(--accent-blue);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+/* Barra de progreso de lectura — solo en páginas de entrada individual. */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: 60;
+  background: transparent;
+  pointer-events: none;
+}
+.reading-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-blue);
+  transition: width 0.1s linear;
+}
+
 /* Callouts */
 .callout {
   margin: 1.25rem 0;

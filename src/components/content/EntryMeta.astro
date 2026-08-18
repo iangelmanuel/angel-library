@@ -7,6 +7,7 @@ import {
   type ResourceCategoryId,
 } from '@/config/site';
 import { getEntryUrl, type AnyEntry } from '@/lib/content';
+import { translateBlock } from '@/lib/pm-commands.mjs';
 
 /**
  * Bloque de metadatos específicos por tipo de contenido.
@@ -37,6 +38,9 @@ const techEntries = techIds
 
 const warnings: string[] = Array.isArray(data.warnings) ? (data.warnings as string[]) : [];
 
+const showWebsite = typeof data.website === 'string';
+const showGithub = typeof data.github === 'string';
+
 const showProblem =
   (entry.collection === 'recipes' ||
     entry.collection === 'patterns' ||
@@ -44,6 +48,7 @@ const showProblem =
   typeof data.problem === 'string';
 const showCommand = entry.collection === 'commands' && typeof data.command === 'string';
 const showInstall = entry.collection === 'libraries' && typeof data.install === 'string';
+const installTabs = showInstall ? translateBlock(data.install as string) : null;
 const showResource = entry.collection === 'resources' && typeof data.url === 'string';
 const showTech = techEntries.length > 0;
 const showTool = entry.collection === 'skills' && typeof data.tool === 'string';
@@ -55,7 +60,9 @@ const showLanguage =
 ---
 
 {
-  (showProblem ||
+  (showWebsite ||
+    showGithub ||
+    showProblem ||
     showCommand ||
     showInstall ||
     showResource ||
@@ -63,6 +70,42 @@ const showLanguage =
     showTool ||
     showLanguage) && (
     <div class="mb-8 flex flex-col gap-4">
+      {(showWebsite || showGithub) && (
+        <div class="flex flex-wrap items-stretch gap-2">
+          {showWebsite && (
+            <a
+              href={data.website as string}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="card mt-0 min-w-64 flex-1 flex-row items-center gap-3"
+            >
+              <span class="grid size-9 shrink-0 place-items-center border border-border bg-muted">
+                <Icon name="external-link" class="size-4" />
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate font-mono text-xs text-muted-foreground">
+                  {data.website as string}
+                </span>
+                <span class="font-pixel text-[0.62rem] uppercase tracking-wider text-foreground">
+                  documentación oficial
+                </span>
+              </span>
+            </a>
+          )}
+          {showGithub && (
+            <a
+              href={data.github as string}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="badge shrink-0 self-start"
+            >
+              <Icon name="brand-github" class="size-3" />
+              GitHub
+            </a>
+          )}
+        </div>
+      )}
+
       {showProblem && (
         <div class="callout mt-0">
           <span class="font-pixel text-[0.62rem] uppercase tracking-wider text-muted-foreground">
@@ -126,7 +169,46 @@ const showLanguage =
         </>
       )}
 
-      {showInstall && (
+      {showInstall && installTabs && (
+        <div class="code-block code-block--pm mt-0">
+          <div class="code-block__header">
+            <div class="code-block__pm-tabs" role="tablist">
+              <button type="button" class="code-block__pm-tab is-active" data-pm-tab="pnpm">pnpm</button>
+              <button type="button" class="code-block__pm-tab" data-pm-tab="bun">bun</button>
+              <button type="button" class="code-block__pm-tab" data-pm-tab="npm">npm</button>
+            </div>
+            <button
+              type="button"
+              class="code-block__copy"
+              data-copy
+              aria-label="Copiar comando de instalación"
+              title="Copiar comando de instalación"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <span data-copy-label>copiar</span>
+            </button>
+          </div>
+          <pre class="command-line" data-pm="pnpm"><code>{installTabs.pnpm}</code></pre>
+          <pre class="command-line" data-pm="bun" hidden><code>{installTabs.bun}</code></pre>
+          <pre class="command-line" data-pm="npm" hidden><code>{installTabs.npm}</code></pre>
+        </div>
+      )}
+
+      {showInstall && !installTabs && (
         <div class="code-block mt-0">
           <div class="code-block__header">
             <span class="code-block__label">instalación</span>

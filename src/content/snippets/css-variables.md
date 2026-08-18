@@ -2,6 +2,7 @@
 title: CSS Variables — Referencia rápida
 description: Custom properties para tokens de diseño, fallbacks, overrides por scope y theming sin preprocesador.
 category: general
+stack: css
 language: css
 tags: [css, variables, theming]
 related:

@@ -2,6 +2,7 @@
 title: Fetch Utils — Referencia rápida
 description: Wrapper tipado sobre fetch con manejo de errores HTTP, timeout y reintentos, sin librerías.
 category: general
+stack: utils
 runtime: universal
 language: typescript
 related:

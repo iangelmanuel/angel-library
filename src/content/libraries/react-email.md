@@ -15,10 +15,6 @@ El HTML de un email no es HTML normal: los clientes (Gmail, Outlook) requieren t
 
 ## Setup inicial
 
-```bash
-npx create-email@latest
-```
-
 Genera una carpeta `emails/` con templates de ejemplo y un servidor de preview local.
 
 ```bash

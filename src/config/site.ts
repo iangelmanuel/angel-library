@@ -182,6 +182,7 @@ export const CATEGORY_IDS = [
   'ai',
   'devops',
   'git',
+  'terminal',
   'tools',
   'seo',
   'accessibility',
@@ -245,6 +246,12 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
     label: 'Git & GitHub',
     icon: 'git-branch',
     description: 'Control de versiones: comandos y situaciones prácticas.',
+  },
+  terminal: {
+    id: 'terminal',
+    label: 'Terminal & CLI',
+    icon: 'terminal',
+    description: 'La terminal día a día (Windows, macOS y Linux) y los CLIs de las herramientas que uso.',
   },
   tools: {
     id: 'tools',
@@ -330,6 +337,7 @@ export const RESOURCE_CATEGORY_IDS = [
   'accessibility',
   'developer-tools',
   'learning',
+  'ia',
 ] as const;
 
 export type ResourceCategoryId = (typeof RESOURCE_CATEGORY_IDS)[number];
@@ -350,6 +358,7 @@ export const RESOURCE_CATEGORIES: Record<ResourceCategoryId, string> = {
   accessibility: 'Accesibilidad',
   'developer-tools': 'Developer Tools',
   learning: 'Aprendizaje',
+  ia: 'IA',
 };
 
 export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
@@ -358,10 +367,52 @@ export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
 }));
 
 /* ------------------------------------------------------------------ */
-/* Stacks de frontend (subcategorías dentro de "Frontend")             */
+/* Stacks (subcategorías dentro de "Frontend" y "Backend")             */
 /* ------------------------------------------------------------------ */
 
-export const STACK_IDS = ['astro', 'react', 'nextjs'] as const;
+/**
+ * Orden = orden de los subgrupos en sidebar y página de categoría.
+ * Array compartido entre Frontend (astro/react/nextjs), Backend
+ * (node/express/astro/nextjs), Git & GitHub (git/github), IA Tools & Skills
+ * (claude-code/opencode/cursor/codex) UI / UX (html/react), DevOps
+ * (docker-conceptos/imagenes/contenedores/redes-volumenes/compose/bases-datos),
+ * General (css/utils), Terminal & CLI (terminal/cli) y Frontend también
+ * suma "seo" (implementación de SEO por framework) — cada grupo vacío se
+ * filtra solo, así que el orden de un stack solo importa para las
+ * categorías que realmente lo usan.
+ */
+export const STACK_IDS = [
+  'node',
+  'express',
+  'astro',
+  'html',
+  'react',
+  'nextjs',
+  'git',
+  'github',
+  'claude-code',
+  'opencode',
+  'cursor',
+  'codex',
+  'ia-comandos',
+  'ia-skills',
+  'ia-plugins',
+  'ia-mcp',
+  'docker-conceptos',
+  'docker-imagenes',
+  'docker-contenedores',
+  'docker-redes-volumenes',
+  'docker-compose',
+  'docker-bases-datos',
+  'css',
+  'utils',
+  'terminal',
+  'cli',
+  'seo',
+  'principios',
+  'patrones-diseno',
+  'patrones-arquitectonicos',
+] as const;
 
 export type StackId = (typeof STACK_IDS)[number];
 
@@ -373,9 +424,57 @@ export interface StackMeta {
 }
 
 export const STACKS: Record<StackId, StackMeta> = {
+  node: { id: 'node', label: 'Node.js', icon: 'brand-node' },
+  express: { id: 'express', label: 'Express', icon: 'brand-express' },
   astro: { id: 'astro', label: 'Astro', icon: 'brand-astro' },
+  html: { id: 'html', label: 'HTML', icon: 'brand-html' },
   react: { id: 'react', label: 'React', icon: 'brand-react' },
   nextjs: { id: 'nextjs', label: 'Next.js', icon: 'brand-nextjs' },
+  git: { id: 'git', label: 'Git', icon: 'brand-git' },
+  github: { id: 'github', label: 'GitHub CLI', icon: 'brand-github' },
+  'claude-code': { id: 'claude-code', label: 'Claude Code', icon: 'brand-claude-code' },
+  opencode: { id: 'opencode', label: 'OpenCode', icon: 'brand-opencode' },
+  cursor: { id: 'cursor', label: 'Cursor', icon: 'brand-cursor' },
+  codex: { id: 'codex', label: 'Codex CLI', icon: 'brand-codex' },
+  'ia-comandos': { id: 'ia-comandos', label: 'Comandos', icon: 'brand-ia-comandos' },
+  'ia-skills': { id: 'ia-skills', label: 'Skills', icon: 'brand-ia-skills' },
+  'ia-plugins': { id: 'ia-plugins', label: 'Plugins', icon: 'brand-ia-plugins' },
+  'ia-mcp': { id: 'ia-mcp', label: 'MCP', icon: 'brand-ia-mcp' },
+  'docker-conceptos': { id: 'docker-conceptos', label: 'Conceptos básicos', icon: 'brand-docker-conceptos' },
+  'docker-imagenes': { id: 'docker-imagenes', label: 'Imágenes', icon: 'brand-docker-imagenes' },
+  'docker-contenedores': { id: 'docker-contenedores', label: 'Contenedores', icon: 'brand-docker-contenedores' },
+  'docker-redes-volumenes': {
+    id: 'docker-redes-volumenes',
+    label: 'Redes y volúmenes',
+    icon: 'brand-docker-redes-volumenes',
+  },
+  'docker-compose': { id: 'docker-compose', label: 'Docker Compose', icon: 'brand-docker-compose' },
+  'docker-bases-datos': { id: 'docker-bases-datos', label: 'Bases de datos', icon: 'brand-docker-bases-datos' },
+  css: { id: 'css', label: 'CSS', icon: 'brand-css' },
+  utils: { id: 'utils', label: 'Utils', icon: 'brand-typescript' },
+  terminal: { id: 'terminal', label: 'Terminal', icon: 'brand-terminal' },
+  cli: { id: 'cli', label: 'CLI', icon: 'brand-cli' },
+  seo: { id: 'seo', label: 'SEO', icon: 'brand-seo' },
+  principios: { id: 'principios', label: 'Principios', icon: 'brand-principios' },
+  'patrones-diseno': { id: 'patrones-diseno', label: 'Patrones de diseño', icon: 'brand-patrones-diseno' },
+  'patrones-arquitectonicos': {
+    id: 'patrones-arquitectonicos',
+    label: 'Patrones arquitectónicos',
+    icon: 'brand-patrones-arquitectonicos',
+  },
 };
 
 export const STACK_LIST = STACK_IDS.map((id) => STACKS[id]);
+
+/** Categorías que agrupan sus entradas por stack en vez de listarlas planas. */
+export const STACK_GROUPED_CATEGORIES: CategoryId[] = [
+  'frontend',
+  'backend',
+  'git',
+  'skills',
+  'ui-ux',
+  'devops',
+  'general',
+  'terminal',
+  'architecture',
+];

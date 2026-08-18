@@ -6,7 +6,7 @@ tags: [typescript, validation, schema, forms]
 website: https://zod.dev
 github: https://github.com/colinhacks/zod
 install: npm install zod
-related: [integrations/react-hook-form-zod, recipes/validated-form-react, utilities/form]
+related: [utilities/form]
 updatedAt: 2026-08-16
 ---
 

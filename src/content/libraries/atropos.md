@@ -14,11 +14,7 @@ updatedAt: 2026-08-16
 
 Atropos inclina un elemento en 3D siguiendo el mouse (o el dedo, en touch — usa Pointer Events, así que ambos casos son el mismo código) y da profundidad a sus capas internas moviéndolas a distinta velocidad. Es liviano (~2kb) y no depende de nada más.
 
-## Instalación y uso básico
-
-```bash
-npm i atropos
-```
+## Uso básico
 
 ```tsx
 import Atropos from 'atropos/react';
