@@ -1,12 +1,22 @@
 /* ------------------------------------------------------------------ */
 /* Fuentes (self-hosted vía Fontsource)                                */
 /* ------------------------------------------------------------------ */
+/* Geist Sans queda importada por si se necesita, pero el texto general del
+   sitio (--font-sans) usa JetBrains Mono — ver más abajo. */
 @import '@fontsource/geist-sans/latin-400.css';
 @import '@fontsource/geist-sans/latin-500.css';
 @import '@fontsource/geist-sans/latin-600.css';
 @import '@fontsource/geist-mono/latin-400.css';
 @import '@fontsource/geist-mono/latin-500.css';
 @import '@fontsource/geist-pixel/latin-400.css';
+/* Fuente de código: Fira Code. Geist Mono queda importada arriba porque
+   --font-pixel la usa como fallback. */
+@import '@fontsource/fira-code/latin-400.css';
+@import '@fontsource/fira-code/latin-500.css';
+/* Fuente de texto general (todo lo que no es título ni código): JetBrains Mono. */
+@import '@fontsource/jetbrains-mono/latin-400.css';
+@import '@fontsource/jetbrains-mono/latin-500.css';
+@import '@fontsource/jetbrains-mono/latin-600.css';
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
@@ -17,27 +27,30 @@
 /* Tokens: tema oscuro permanente, escala de grises                    */
 /* ------------------------------------------------------------------ */
 :root {
-  --background: #0a0a0b;
+  --background: #000000;
   --foreground: #ececee;
-  --card: #101012;
+  --card: #000000;
   --card-foreground: #ececee;
-  --popover: #101012;
+  --popover: #000000;
   --popover-foreground: #ececee;
   --primary: #f5f5f5;
-  --primary-foreground: #0a0a0b;
-  --secondary: #17171a;
+  --primary-foreground: #000000;
+  --secondary: #0a0a0a;
   --secondary-foreground: #e4e4e7;
-  --muted: #17171a;
+  --muted: #0a0a0a;
   --muted-foreground: #9c9ca5;
-  --accent: #1e1e22;
+  --accent: #111111;
   --accent-foreground: #f5f5f5;
   --destructive: #e4e4e7;
-  --destructive-foreground: #0a0a0b;
+  --destructive-foreground: #000000;
   --border: #232329;
   --border-strong: #3f3f46;
   --input: #232329;
   --ring: #71717a;
-  --code-bg: #0d0d0f;
+  --code-bg: #000000;
+  /* Acentos: cada uno mapea 1:1 a una categoría en config/site.ts (CategoryMeta.color)
+     y también colorea títulos por tipo de contenido más abajo. Elegidos para que
+     categorías vecinas en la sidebar nunca compartan color. */
   --accent-blue: #60a5fa;
   --accent-cyan: #67e8f9;
   --accent-yellow: #facc15;
@@ -46,6 +59,11 @@
   --accent-pink: #f0abfc;
   --accent-purple: #c4b5fd;
   --accent-red: #fda4af;
+  --accent-teal: #5eead4;
+  --accent-indigo: #a5b4fc;
+  --accent-lime: #bef264;
+  --accent-amber: #fcd34d;
+  --accent-slate: #94a3b8;
   --radius: 0rem;
 }
 
@@ -71,8 +89,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-sans: 'JetBrains Mono', 'Geist Sans', ui-monospace, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
 
   --radius-sm: 0px;
@@ -166,13 +184,15 @@
   top: 1rem;
 }
 
-/* Etiqueta de sección en tipografía pixel */
+/* Etiqueta de sección: badge de texto en Geist Pixel, un único verde de
+   marca en todo el proyecto (antes rotaba 4 colores por posición — sin
+   significado real, igual que le pasaba a los h2). */
 .section-label {
   font-family: var(--font-pixel);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: var(--accent-cyan);
+  color: var(--accent-blue);
 }
 
 /* Teclas */
@@ -212,7 +232,7 @@
   font-size: 0.62rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: var(--accent-blue);
+  color: var(--accent-slate);
   white-space: nowrap;
 }
 a.badge:hover,
@@ -221,7 +241,7 @@ button.badge:hover {
   border-color: var(--border-strong);
 }
 
-/* Tag chip */
+/* Tag chip: un único morado de marca para todos los tags del sitio. */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -235,114 +255,126 @@ button.badge:hover {
   margin-right: 0.05rem;
 }
 a.tag:hover {
-  color: var(--accent-cyan);
+  opacity: 0.7;
 }
 
-/* Acentos por tipo: la interfaz sigue siendo oscura, pero cada familia
-   de conocimiento tiene una señal cromática rápida para escanearla. */
-.type-technologies,
-.knowledge-technologies h1,
-.type-technologies h1 { color: var(--accent-blue); }
-.type-libraries,
-.knowledge-libraries h1,
-.type-libraries h1 { color: var(--accent-cyan); }
-.type-integrations,
-.knowledge-integrations h1,
-.type-integrations h1 { color: var(--accent-purple); }
-.type-recipes,
-.knowledge-recipes h1,
-.type-recipes h1 { color: var(--accent-orange); }
-.type-snippets,
-.knowledge-snippets h1,
-.type-snippets h1 { color: var(--accent-green); }
-.type-hooks,
-.knowledge-hooks h1,
-.type-hooks h1 { color: var(--accent-green); }
-.type-components,
-.knowledge-components h1,
-.type-components h1 { color: var(--accent-pink); }
-.type-utilities,
-.knowledge-utilities h1,
-.type-utilities h1 { color: var(--accent-cyan); }
-.type-resources,
-.knowledge-resources h1,
-.type-resources h1 { color: var(--accent-yellow); }
-.type-skills,
-.knowledge-skills h1,
-.type-skills h1 { color: var(--accent-pink); }
-.type-commands,
-.knowledge-commands h1,
-.type-commands h1 { color: var(--accent-green); }
-.type-patterns,
-.knowledge-patterns h1,
-.type-patterns h1 { color: var(--accent-blue); }
-.type-practices,
-.knowledge-practices h1,
-.type-practices h1 { color: var(--accent-yellow); }
-.type-guides,
-.knowledge-guides h1,
-.type-guides h1 { color: var(--accent-purple); }
-.type-tricks,
-.knowledge-tricks h1,
-.type-tricks h1 { color: var(--accent-orange); }
+/* Acentos por tipo: solo para badges (.badge.type-X, ver TypeBadge.astro) —
+   cada familia de contenido tiene su color para escanear rápido. Los títulos
+   (h1) NO usan esto: llevan el morado de marca, fijo en todo el sitio (ver
+   más abajo), para que el look sea consistente en vez de arcoíris página a
+   página. El color de categoría (sidebar, badge de categoría) sigue siendo
+   inline desde CategoryMeta.color en site.ts. */
+.type-technologies { color: var(--accent-blue); }
+.type-libraries { color: var(--accent-blue); }
+.type-integrations { color: var(--accent-purple); }
+.type-recipes { color: var(--accent-orange); }
+.type-snippets { color: var(--accent-green); }
+.type-hooks { color: var(--accent-green); }
+.type-components { color: var(--accent-pink); }
+.type-utilities { color: var(--accent-blue); }
+.type-resources { color: var(--accent-yellow); }
+.type-skills { color: var(--accent-pink); }
+.type-commands { color: var(--accent-green); }
+.type-patterns { color: var(--accent-blue); }
+.type-practices { color: var(--accent-yellow); }
+.type-guides { color: var(--accent-purple); }
+.type-tricks { color: var(--accent-orange); }
 
-.category-general h1 { color: var(--accent-cyan); }
-.category-frontend h1 { color: var(--accent-blue); }
-.category-backend h1 { color: var(--accent-green); }
-.category-database h1 { color: var(--accent-purple); }
-.category-ai h1 { color: var(--accent-pink); }
-.category-devops h1 { color: var(--accent-orange); }
-.category-git h1 { color: var(--accent-yellow); }
-.category-tools h1 { color: var(--accent-cyan); }
-.category-resources h1 { color: var(--accent-yellow); }
-.category-skills h1 { color: var(--accent-pink); }
-
-main h1 { color: var(--accent-cyan); }
+/* Título: morado de marca, siempre — la señal consistente de "esto es un
+   título" en toda la biblioteca (entradas, categorías, tags). */
+main h1 { color: var(--accent-orange); }
 main header > p { color: color-mix(in srgb, var(--accent-blue) 32%, var(--muted-foreground)); }
-main section:nth-of-type(4n + 1) > .section-label { color: var(--accent-cyan); }
-main section:nth-of-type(4n + 2) > .section-label { color: var(--accent-yellow); }
-main section:nth-of-type(4n + 3) > .section-label { color: var(--accent-green); }
-main section:nth-of-type(4n) > .section-label { color: var(--accent-orange); }
 
-/* Tarjeta de contenido */
+/* Tarjeta de contenido — barra superior "title bar" en el color del tipo
+   (.type-X ya pone ese color en `currentColor` de la tarjeta, ver más
+   abajo) al pasar el mouse: la tarjeta se comporta como una ventana de
+   terminal que se "enciende" con el color de su propio contenido. */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   border: 1px solid var(--border);
   background: var(--card);
   padding: 1rem;
+  overflow: hidden;
   transition:
     border-color 150ms ease,
     background-color 150ms ease;
 }
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
 .card:hover {
-  border-color: var(--border-strong);
-  background: #121215;
+  border-color: currentColor;
+  background: #0a0a0a;
+}
+.card:hover::before {
+  opacity: 1;
+}
+.card h3::after {
+  content: '_';
+  margin-left: 1px;
+  opacity: 0;
+}
+.card:hover h3::after {
+  animation: cursor-blink 1s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card:hover h3::after {
+    animation: none;
+    opacity: 1;
+  }
+}
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ------------------------------------------------------------------ */
 /* Navegación lateral                                                  */
 /* ------------------------------------------------------------------ */
+/* Marca la entrada activa como una selección de menú de terminal (fzf,
+   lazygit, etc): un cursor `❯` a la izquierda, no una caja ni una línea.
+   El hueco queda siempre reservado (opacity, no display) para que nada
+   salte al activarse. */
 .nav-link {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.3rem 0.5rem;
-  border: 1px solid transparent;
   font-size: 0.8rem;
   color: var(--muted-foreground);
-  transition:
-    color 120ms ease,
-    background-color 120ms ease;
+  transition: color 120ms ease;
+}
+.nav-link::before {
+  content: '❯';
+  flex-shrink: 0;
+  width: 0.7em;
+  font-family: var(--font-pixel);
+  color: var(--cat-accent, var(--accent-blue));
+  opacity: 0;
+  transition: opacity 120ms ease;
 }
 .nav-link:hover {
   color: var(--foreground);
 }
 .nav-link.is-active {
   color: var(--foreground);
-  background: var(--accent);
-  border-color: var(--border);
+}
+.nav-link.is-active::before {
+  opacity: 1;
 }
 
 .nav-summary {
@@ -363,6 +395,9 @@ main section:nth-of-type(4n) > .section-label { color: var(--accent-orange); }
 }
 .nav-summary:hover {
   color: var(--foreground);
+}
+details[open] > .nav-summary {
+  color: var(--cat-accent, var(--foreground));
 }
 .nav-summary .chevron {
   margin-left: auto;
@@ -411,7 +446,7 @@ details[open] > .nav-summary .chevron {
   justify-content: space-between;
   gap: 1rem;
   border-bottom: 1px solid var(--border);
-  background: #111113;
+  background: #0a0a0a;
   padding: 0.35rem 0.75rem;
 }
 .code-block__label {
@@ -575,7 +610,7 @@ details[open] > .nav-summary .chevron {
   color: var(--foreground);
   scroll-margin-top: 5rem;
 }
-.markdown h1 { color: var(--accent-cyan); }
+.markdown h1 { color: var(--accent-orange); }
 .markdown h1 {
   font-size: 1.75rem;
   margin: 3rem 0 1.25rem;
@@ -586,26 +621,24 @@ details[open] > .nav-summary .chevron {
   font-size: 1.3rem;
   margin: 3.5rem 0 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px dashed color-mix(in srgb, var(--accent-blue) 45%, var(--border));
-  color: var(--accent-blue);
+  border-bottom: 1px dashed color-mix(in srgb, var(--accent-yellow) 45%, var(--border));
+  color: var(--accent-yellow);
 }
 .markdown h3 {
   font-size: 1.05rem;
   margin: 2.5rem 0 0.85rem;
   padding-left: 0.6rem;
-  border-left: 2px solid var(--accent-green);
-  color: var(--accent-green);
+  border-left: 2px solid var(--accent-cyan);
+  color: var(--accent-cyan);
 }
 .markdown h4 {
   font-size: 0.82rem;
   margin: 2rem 0 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--accent-orange);
+  color: var(--muted-foreground);
 }
 
-.markdown h2:nth-of-type(3n + 2) { color: var(--accent-yellow); }
-.markdown h2:nth-of-type(3n) { color: var(--accent-purple); }
 .markdown p {
   margin: 1.1rem 0;
 }
@@ -664,12 +697,15 @@ details[open] > .nav-summary .chevron {
   padding-left: 1rem;
   color: var(--muted-foreground);
 }
+/* Código inline (atributos, props, nombres de función mencionados en el
+   texto): sin relleno, solo borde — en Geist Pixel para distinguirlo del
+   cuerpo del texto sin recurrir a un color de acento. */
 .markdown :not(pre) > code {
-  background: var(--muted);
+  background: transparent;
   border: 1px solid var(--border);
   padding: 0.1rem 0.35rem;
-  font-family: var(--font-mono);
-  font-size: 0.82em;
+  font-family: var(--font-sans);
+  font-size: 0.78em;
   color: var(--foreground);
 }
 .markdown hr {

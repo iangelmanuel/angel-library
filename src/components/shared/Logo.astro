@@ -1,5 +1,7 @@
 ---
-import { SITE } from '@/config/site';
+import { Image } from "astro:assets"
+import { SITE } from "@/config/site"
+import logo from "@/assets/logo/angel-library-logo.webp"
 ---
 
 <a
@@ -7,11 +9,12 @@ import { SITE } from '@/config/site';
   class="group flex items-center gap-2.5"
   aria-label={`${SITE.name} — ir al inicio`}
 >
-  <span
-    class="pixel-corners m-[3px] grid size-6 place-items-center bg-muted font-pixel text-[0.65rem] text-foreground transition-colors group-hover:bg-accent"
-    aria-hidden="true"
-  >
-    a/
-  </span>
+  <Image
+    src={logo}
+    alt="Angel Library Logo"
+    width={30}
+    height={30}
+    class="shrink-0 transition-transform group-hover:scale-105"
+  />
   <span class="font-pixel text-sm tracking-wide">{SITE.name}</span>
 </a>

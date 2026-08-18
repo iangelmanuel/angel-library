@@ -80,7 +80,11 @@ const hasNamedCodeBlocks = /```[^\n]*\btitle=["']/.test(entry.body ?? '');
     <header class="mb-8 border-b border-border pb-8">
       <div class="mb-4 flex flex-wrap items-center gap-2">
         <TypeBadge type={entry.collection as ContentTypeId} linked />
-        <a href={`/categories/${categoryMeta.id}`} class="badge">
+        <a
+          href={`/categories/${categoryMeta.id}`}
+          class="badge"
+          style={`color: var(${categoryMeta.color}); border-color: color-mix(in srgb, var(${categoryMeta.color}) 35%, var(--border))`}
+        >
           <Icon name={categoryMeta.icon} class="size-3" />
           {categoryMeta.label}
         </a>

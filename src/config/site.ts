@@ -202,6 +202,9 @@ export interface CategoryMeta {
   label: string;
   icon: string;
   description: string;
+  /** Nombre de variable CSS (definida en global.css) usada para colorear
+   *  esta categoría en la sidebar y en el título de su página de listado. */
+  color: string;
 }
 
 export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
@@ -210,108 +213,126 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
     label: 'General',
     icon: 'globe',
     description: 'Desarrollo web transversal: HTML, CSS, JavaScript, navegador y más.',
+    color: '--accent-blue',
   },
   frontend: {
     id: 'frontend',
     label: 'Frontend',
     icon: 'monitor',
     description: 'Interfaces, frameworks de UI y experiencia de usuario.',
+    color: '--accent-indigo',
   },
   backend: {
     id: 'backend',
     label: 'Backend',
     icon: 'server',
     description: 'Servidores, APIs y arquitectura de backend.',
+    color: '--accent-green',
   },
   database: {
     id: 'database',
     label: 'Bases de datos',
     icon: 'database',
     description: 'Bases de datos, ORMs y persistencia.',
+    color: '--accent-purple',
   },
   ai: {
     id: 'ai',
     label: 'IA',
     icon: 'brain',
     description: 'Integración de modelos de IA: providers, streaming y respuestas.',
+    color: '--accent-pink',
   },
   devops: {
     id: 'devops',
     label: 'DevOps',
     icon: 'container',
     description: 'Docker, despliegue e infraestructura.',
+    color: '--accent-orange',
   },
   git: {
     id: 'git',
     label: 'Git & GitHub',
     icon: 'git-branch',
     description: 'Control de versiones: comandos y situaciones prácticas.',
+    color: '--accent-yellow',
   },
   terminal: {
     id: 'terminal',
     label: 'Terminal & CLI',
     icon: 'terminal',
     description: 'La terminal día a día (Windows, macOS y Linux) y los CLIs de las herramientas que uso.',
+    color: '--accent-teal',
   },
   tools: {
     id: 'tools',
     label: 'Herramientas',
     icon: 'wrench',
     description: 'Herramientas de desarrollo y utilidades.',
+    color: '--accent-slate',
   },
   seo: {
     id: 'seo',
     label: 'SEO',
     icon: 'search-check',
     description: 'SEO técnico, metadata, structured data y discoverability.',
+    color: '--accent-lime',
   },
   accessibility: {
     id: 'accessibility',
     label: 'Accesibilidad',
     icon: 'accessibility',
     description: 'Interfaces y contenido que pueden utilizar más personas.',
+    color: '--accent-indigo',
   },
   performance: {
     id: 'performance',
     label: 'Performance',
     icon: 'gauge',
     description: 'Carga, rendering, runtime y optimización de recursos.',
+    color: '--accent-amber',
   },
   security: {
     id: 'security',
     label: 'Seguridad',
     icon: 'shield-check',
     description: 'Prácticas de seguridad para frontend, backend y APIs.',
+    color: '--accent-red',
   },
   testing: {
     id: 'testing',
     label: 'Testing',
     icon: 'test-tube-2',
     description: 'Tests unitarios, integración, E2E y estrategias de validación.',
+    color: '--accent-green',
   },
   'ui-ux': {
     id: 'ui-ux',
     label: 'UI / UX',
     icon: 'palette',
     description: 'Diseño de interfaces, interacción y sistemas visuales.',
+    color: '--accent-purple',
   },
   architecture: {
     id: 'architecture',
     label: 'Arquitectura',
     icon: 'network',
     description: 'Decisiones estructurales y patrones para proyectos mantenibles.',
+    color: '--accent-blue',
   },
   resources: {
     id: 'resources',
     label: 'Recursos',
     icon: 'bookmark',
     description: 'Colección de recursos externos categorizados.',
+    color: '--accent-yellow',
   },
   skills: {
     id: 'skills',
     label: 'IA Tools & Skills',
     icon: 'bot',
     description: 'Herramientas de IA para programar: Claude Code, Cursor, OpenCode, Codex…',
+    color: '--accent-pink',
   },
 };
 

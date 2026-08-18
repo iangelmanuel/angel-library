@@ -20,7 +20,7 @@ export default defineConfig({
       rehypePlugins: [rehypeCodeBlocks],
     }),
     shikiConfig: {
-      theme: 'github-dark-default',
+      theme: 'tokyo-night',
       transformers: [
         transformerCodeFilename(),
         transformerPackageManagerMeta(),

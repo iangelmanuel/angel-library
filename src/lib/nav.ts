@@ -89,6 +89,7 @@ export interface NavCategory {
   id: CategoryId;
   label: string;
   icon: string;
+  color: string;
   items: NavItem[];
   resourceGroups?: NavGroup[];
   stackGroups?: NavGroup[];

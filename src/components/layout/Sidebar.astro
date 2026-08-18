@@ -55,16 +55,16 @@ const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
             ];
             const containsActive = groupedItems.some((item) => isActive(item.url));
             return (
-              <details open={containsActive}>
+              <details open={containsActive} style={`--cat-accent: var(${category.color})`}>
                 <summary class="nav-summary">
-                  <Icon name={category.icon} class="size-3.5 text-muted-foreground" />
+                  <Icon name={category.icon} class="size-3.5 text-[var(--cat-accent)]" />
                   {category.label}
                   <Icon
                     name="chevron-right"
                     class="chevron size-3.5 text-muted-foreground"
                   />
                 </summary>
-                <div class="ml-[0.95rem] flex flex-col gap-0.5 border-l border-border py-1 pl-3">
+                <div class="ml-[0.95rem] flex flex-col gap-0.5 border-l border-[var(--cat-accent)]/25 py-1 pl-3">
                   {
                     (category.resourceGroups ?? category.stackGroups)?.map((group) => (
                       <details open={group.items.some((item) => isActive(item.url))}>

@@ -29,7 +29,11 @@ const tags = getAllTags(await getAllEntries());
     <div class="flex flex-wrap gap-2">
       {
         tags.map(({ tag, count }) => (
-          <a href={`/tags/${encodeURIComponent(tag)}`} class="badge">
+          <a
+            href={`/tags/${encodeURIComponent(tag)}`}
+            class="badge"
+            style="color: var(--accent-purple); border-color: color-mix(in srgb, var(--accent-purple) 35%, var(--border))"
+          >
             <span class="font-mono text-[0.7rem] normal-case tracking-normal">
               #{tag}
             </span>

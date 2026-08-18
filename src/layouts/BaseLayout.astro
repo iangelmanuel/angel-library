@@ -1,9 +1,11 @@
 ---
 import "@/styles/global.css"
 import { ClientRouter } from "astro:transitions"
+import { getImage } from "astro:assets"
 import CommandPalette from "@/components/search/CommandPalette"
 import { CONTENT_TYPE_LIST, SITE } from "@/config/site"
 import { getAllEntries } from "@/lib/content"
+import logo from "@/assets/logo/angel-library-logo.webp"
 
 interface Props {
   title?: string
@@ -24,7 +26,7 @@ const paletteTypes = CONTENT_TYPE_LIST.map((type) => ({
   count: all.filter((entry) => entry.collection === type.id).length
 }))
 
-const favicon = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%230a0a0b'/><rect x='3' y='3' width='10' height='2' fill='%23ececee'/><rect x='3' y='7' width='6' height='2' fill='%23ececee'/><rect x='3' y='11' width='8' height='2' fill='%23ececee'/></svg>`
+const favicon = await getImage({ src: logo, width: 64, height: 64, format: "webp" })
 ---
 
 <!doctype html>
@@ -53,7 +55,8 @@ const favicon = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
     />
     <link
       rel="icon"
-      href={favicon}
+      type="image/webp"
+      href={favicon.src}
     />
     <ClientRouter />
   </head>
