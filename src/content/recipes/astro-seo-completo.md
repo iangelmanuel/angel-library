@@ -14,7 +14,7 @@ updatedAt: 2026-08-17
 
 Todo lo que cambia de proyecto a proyecto (título, descripción, keywords, imagen social, coordenadas, colores de marca) vive en **un solo objeto: `SITE.seo`**. Ningún componente ni ninguna API route de esta receta escribe un dato de la empresa a mano — todos lo leen de ahí. Copiar este setup a un proyecto nuevo es, en teoría, editar un solo archivo.
 
-Los datos de esta receta son de una empresa simulada — **Acme**, una firma boutique de software en Bogotá — para reemplazar por los reales al copiar. La forma y profundidad de los campos sí está pensada para ser real, no un placeholder vacío.
+Los datos de esta receta son directamente empresa simulada — **Acme**, una firma boutique de software en Bogotá — para reemplazar por los reales al copiar. La forma y profundidad de los campos sí está pensada para ser real, no un placeholder vacío.
 
 Requisitos: proyecto Astro con TypeScript, alias `@/*` configurado (ver [Alias de imports en TypeScript](/guides/typescript-path-aliases)), y un `SITE` global ya existente en el proyecto con al menos `info`, `location`, `contact` y `social` — ver [SITE: variable global de configuración](/patterns/site-config-global) para esa parte. Acá se documenta a fondo solo el bloque `seo`.
 
@@ -25,7 +25,7 @@ Este es el bloque que se toca en el día a día. Cada campo existe porque algo m
 ```ts title="src/lib/site-info.ts"
 export const SITE = {
   // ...el resto de SITE ya existe en tu proyecto — info, location, contact, social.
-  // No se repite acá porque no es SEO, es identidad de marca (ver el patrón
+  // No se repite aquí porque no es SEO, es identidad de marca (ver el patrón
   // "SITE: variable global de configuración"); el foco de esta receta es solo lo de abajo.
 
   seo: {
@@ -55,7 +55,7 @@ export const SITE = {
     locale: "es-CO",
     /**
      * Idiomas publicados del sitio, para generar los <link hreflang> sin repetir código.
-     * Hoy hay uno solo; agregar un segundo objeto acá alcanza para un sitio multi-idioma real.
+     * Hoy hay uno solo; agregar un segundo objeto aquí alcanza para un sitio multi-idioma real.
      */
     locales: [{ hreflang: "es-CO", default: true }] as const,
 
@@ -82,7 +82,7 @@ export const SITE = {
       { type: "Place", name: "Latin America" },
     ],
 
-    /** Geo-targeting local (meta geo.*/ICBM) — coordenadas de la ciudad, no de una dirección exacta. */
+    /** Geo-targeting local (meta geo.*/ICBM) — coordenadas de la ciudad, no directamente dirección exacta. */
     geo: {
       /** Código ISO 3166-2 de la región/departamento (Bogotá D.C. → "DC"). */
       region: "DC",
@@ -98,7 +98,7 @@ export const SITE = {
 } as const;
 ```
 
-Cada campo tiene un único consumidor claro más abajo en esta receta — si en algún punto un campo de acá no se termina usando en ningún archivo, es señal de que sobra.
+Cada campo tiene un único consumidor claro más abajo en esta receta — si en algún punto un campo de aquí no se termina usando en ningún archivo, es señal de que sobra.
 
 ## Paso 2 — `<JsonLd />`: inyectar structured data
 
@@ -126,7 +126,7 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 
 ## Paso 3 — `src/lib/seo.ts`: los helpers de schema.org
 
-Cada función arma un tipo de [schema.org](https://schema.org) distinto. Antes tenían datos sueltos escritos a mano en el archivo (`"Colombia"`, `"Spanish"`, `"$$$"` literales) — acá todo sale de `SITE`.
+Cada función arma un tipo de [schema.org](https://schema.org) distinto. Antes tenían datos sueltos escritos a mano en el archivo (`"Colombia"`, `"Spanish"`, `"$$$"` literales) — aquí todo sale de `SITE`.
 
 ```ts title="src/lib/seo.ts"
 import { SITE } from "@/lib/site-info";
@@ -177,7 +177,7 @@ export function organizationLd() {
       },
     ],
     // Object.values en vez de listar cada red a mano — agregar una red nueva a SITE.social
-    // alcanza para que aparezca acá también, sin tocar este archivo.
+    // alcanza para que aparezca aquí también, sin tocar este archivo.
     sameAs: Object.values(SITE.social),
     knowsAbout: SITE.seo.keywords,
   } as const;
@@ -362,7 +362,7 @@ const googlebot = noindex
 <link rel="manifest" href="/manifest.webmanifest" />
 ```
 
-Tres bugs reales que tenía la versión original, arreglados acá:
+Tres bugs reales que tenía la versión original, arreglados aquí:
 
 1. **Título duplicado en la home**: `title` tenía como default `SITE.seo.title`, así que la condición `title ? ... : SITE.seo.title` siempre era verdadera — la home terminaba con `"Acme — Software... — Acme"`. Ahora `title` no tiene default; sin prop, se usa `SITE.seo.title` tal cual.
 2. **`og:image:width`/`og:image:height` hardcodeados** en `"1200"`/`"630"` aunque `SITE.seo.imageWidth`/`imageHeight` ya existían — si algún día cambia el tamaño de la imagen social, antes había que acordarse de tocar dos lugares. Ahora los meta leen del mismo campo que ya se usaba para generar la imagen.
@@ -416,7 +416,7 @@ const { title, description, image, canonical, keywords, ogType, noindex } = Astr
 </html>
 ```
 
-El `Layout` no define ningún dato — recibe las mismas props opcionales que `BaseHead` (mismo `interface Props`, a propósito, para que TypeScript avise si se desalinean) y se las reenvía. Cada página elige qué pisar; lo que no pase, cae al default de `SITE.seo`. Bug arreglado acá: la versión original usaba `SITE.seo.locale` en `<html lang>` sin importar `SITE` — faltaba el `import { SITE } from "@/lib/site-info"`.
+El `Layout` no define ningún dato — recibe las mismas props opcionales que `BaseHead` (mismo `interface Props`, a propósito, para que TypeScript avise si se desalinean) y se las reenvía. Cada página elige qué pisar; lo que no pase, cae al default de `SITE.seo`. Bug arreglado aquí: la versión original usaba `SITE.seo.locale` en `<html lang>` sin importar `SITE` — faltaba el `import { SITE } from "@/lib/site-info"`.
 
 ## Paso 6 — `manifest.webmanifest`
 
@@ -475,7 +475,7 @@ export const GET: APIRoute = () => {
 import type { APIRoute } from "astro";
 import { SITE } from "@/lib/site-info";
 
-/** Una página, una entrada. Agregar rutas acá conforme crezca el sitio. */
+/** Una página, una entrada. Agregar rutas aquí conforme crezca el sitio. */
 const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }];
 
 export const GET: APIRoute = () => {
@@ -500,7 +500,7 @@ ${urls}
 };
 ```
 
-`ROUTES` queda a mano a propósito — para un sitio con pocas páginas estáticas es más simple y explícito que generarlo automáticamente a partir del filesystem. Si el sitio crece a decenas de páginas dinámicas (blog, catálogo), ahí sí conviene generar este array desde una content collection en vez de escribirlo a mano.
+`ROUTES` queda a mano a propósito — para un sitio con pocas páginas estáticas es más simple y explícito que generarlo automáticamente a partir del filesystem. Si el sitio crece a decenas de páginas dinámicas (blog, catálogo), ahí sí conviene generar este array desdirectamente content collection en vez de escribirlo a mano.
 
 ## Paso 9 — Caso de uso: una página real
 

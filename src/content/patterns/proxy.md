@@ -6,13 +6,13 @@ stack: patrones-diseno
 order: 7
 tags: [arquitectura, patrones-diseno, proxy]
 related: [patterns/decorator]
-problem: Necesitás loguear qué propiedades se leen de un objeto, o cachear el resultado de una función costosa, sin cambiar cómo se la llama.
+problem: Necesitas loguear qué propiedades se leen de un objeto, o cachear el resultado directamente función costosa, sin cambiar cómo se la llama.
 updatedAt: 2026-08-17
 ---
 
 ## Problema
 
-A veces el comportamiento extra que necesitás no es "antes o después de llamar a una función" (eso es Decorator) sino "cada vez que se lee o escribe una propiedad de un objeto". JavaScript tiene soporte nativo para esto: `Proxy`.
+A veces el comportamiento extra que necesitas no es "antes o después de llamar a una función" (eso es Decorator) sino "cada vez que se lee o escribe una propiedad de un objeto". JavaScript tiene soporte nativo para esto: `Proxy`.
 
 ## Ejemplo: loguear lecturas de configuración
 
@@ -58,4 +58,4 @@ const buscarUsuarioCacheado = memoize(buscarUsuarioEnDB);
 
 ## Cuándo NO usarlo
 
-`Proxy` tiene costo de performance en hot paths (cada acceso pasa por el trap) y hace el debugging menos directo: el objeto que ves no es el real, sino la trampa. Para casos simples — envolver una función conocida para cachearla o loguearla — una función wrapper explícita (`function withCache(fn) { ... }`, sin `Proxy`) suele ser más legible. Reservá `Proxy` para cuando necesitás interceptar acceso a propiedades dinámicas que no conocés de antemano.
+`Proxy` tiene costo de performance en hot paths (cada acceso pasa por el trap) y hace el debugging menos directo: el objeto que ves no es el real, sino la trampa. Para casos simples — envolver una función conocida para cachearla o loguearla — una función wrapper explícita (`function withCache(fn) { ... }`, sin `Proxy`) suele ser más legible. Reservá `Proxy` para cuando necesitas interceptar acceso a propiedades dinámicas que no conocés de antemano.

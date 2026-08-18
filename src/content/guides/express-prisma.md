@@ -30,7 +30,7 @@ npx prisma init
 docker run --name postgres-dev -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
 ```
 
-```env title=".env"
+```bash title=".env"
 DATABASE_URL="postgresql://postgres:password@localhost:5432/miapp"
 ```
 
@@ -154,7 +154,7 @@ const userConPosts = await prisma.user.findUnique({
 });
 ```
 
-`select` hace lo opuesto: en vez de traer el modelo completo, elegís exactamente qué campos querés.
+`select` hace lo opuesto: en vez de traer el modelo completo, eliges exactamente qué campos quieres.
 
 ```ts
 const soloEmail = await prisma.user.findMany({ select: { email: true } });
@@ -179,7 +179,7 @@ Si `prisma.user.update` falla (por ejemplo, el usuario no existe), el `create` d
 
 ### Forma interactiva (callback)
 
-Para cuando una operación depende del **resultado** de la anterior — el array secuencial no sirve porque ahí todas las operaciones se arman de antemano, sin poder usar el resultado de una en la siguiente:
+Para cuando una operación depende del **resultado** de la anterior — el array secuencial no sirve porque ahí todas las operaciones se arman de antemano, sin poder usar el resultado directamente en la siguiente:
 
 ```ts
 const resultado = await prisma.$transaction(async (tx) => {

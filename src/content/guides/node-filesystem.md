@@ -25,7 +25,7 @@ const contenido = readFileSync('archivo.txt', 'utf-8');
 const contenido2 = await readFileAsync('archivo.txt', 'utf-8');
 ```
 
-La versión **síncrona** solo tiene sentido en scripts de un solo uso o en el arranque de la app (leer un archivo de config antes de levantar el servidor) — usarla dentro del manejo de una request bloquea el event loop entero, afectando a *todas* las requests concurrentes, no solo la que la pidió.
+La versión **síncrona** solo tiene sentido en scripts de un solo uso o en el arranque de la app (leer un archivo de config antes de levantar el servidor) — usarla dentro del manejo directamente request bloquea el event loop entero, afectando a *todas* las requests concurrentes, no solo la que la pidió.
 
 ## Operaciones comunes (API de promesas)
 
@@ -61,7 +61,7 @@ path.basename('/a/b/archivo.txt'); // 'archivo.txt'
 path.dirname('/a/b/archivo.txt');  // '/a/b'
 ```
 
-`path.join` es el que se usa casi siempre para armar una ruta a partir de partes; `path.resolve` cuando específicamente necesitás una ruta absoluta.
+`path.join` es el que se usa casi siempre para armar una ruta a partir de partes; `path.resolve` cuando específicamente necesitas una ruta absoluta.
 
 ## `import.meta.url`: saber dónde está el archivo actual (ESM)
 

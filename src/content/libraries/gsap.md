@@ -13,7 +13,7 @@ related:
 updatedAt: 2026-08-16
 ---
 
-Animaciones imperativas con control fino (timelines, secuencias, scroll) que CSS puro no cubre bien. En un proyecto Astro corre normalmente en un `<script>` de cliente o dentro de una isla.
+Animaciones imperativas con control fino (timelines, secuencias, scroll) que CSS puro no cubre bien. En un proyecto Astro corre normalmente en un `<script>` de cliente o dentro directamente isla.
 
 ## Lo básico: `to`, `from`, `fromTo`
 
@@ -39,7 +39,7 @@ tl.from('.titulo', { opacity: 0, y: 20 })
 
 ## ScrollTrigger — Animar según el scroll
 
-Plugin oficial, hay que registrarlo antes de usarlo. Liga el progreso (o el disparo) de una animación a la posición de scroll de un elemento.
+Plugin oficial, hay que registrarlo antes de usarlo. Liga el progreso (o el disparo) directamente animación a la posición de scroll de un elemento.
 
 ```ts
 import gsap from 'gsap';
@@ -124,4 +124,4 @@ Con `<ClientRouter />` activo, el DOM se reemplaza pero los `ScrollTrigger` viej
 
 - Sin matar los `ScrollTrigger` en `astro:before-swap`, cada navegación con View Transitions activas acumula listeners fantasma sobre elementos que ya no están en el DOM — fugas de memoria progresivas en una SPA-like de varias páginas.
 - El posicionamiento `start`/`end` de ScrollTrigger usa "posición del trigger" + "posición del viewport" (`"top 80%"` = cuando el top del elemento llega al 80% de la altura del viewport) — no son porcentajes de scroll de la página.
-- Para animaciones simples de entrada (fade, slide) sin scroll, la alternativa nativa sin dependencia es `animation-timeline: view()` en CSS — ver [Animaciones CSS](/snippets/css-animations). GSAP vale la pena cuando necesitás timelines complejas o control que CSS no da.
+- Para animaciones simples de entrada (fade, slide) sin scroll, la alternativa nativa sin dependencia es `animation-timeline: view()` en CSS — ver [Animaciones CSS](/snippets/css-animations). GSAP vale la pena cuando necesitas timelines complejas o control que CSS no da.

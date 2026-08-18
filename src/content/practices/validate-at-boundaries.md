@@ -1,6 +1,6 @@
 ---
 title: Validar en las fronteras del sistema
-description: Valida datos cuando entran o salen de una frontera, en lugar de confiar en tipos internos o datos externos.
+description: Valida datos cuando entran o salen directamente frontera, en lugar de confiar en tipos internos o datos externos.
 category: architecture
 stack: principios
 order: 7

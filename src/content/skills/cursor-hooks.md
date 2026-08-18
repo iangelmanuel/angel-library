@@ -61,4 +61,4 @@ El hook recibe JSON por stdin y puede devolver JSON por stdout para bloquear/per
 ## Consideraciones
 
 - Los hooks son bundleables dentro de un Cursor Plugin (no de la spec Agent Plugins portable) — si el plugin necesita ser portable a otras herramientas, los hooks no viajan con él.
-- Shippeado en Cursor 1.7 (~octubre 2025) — relativamente nuevo, verificar la doc oficial si algo no se comporta como acá.
+- Shippeado en Cursor 1.7 (~octubre 2025) — relativamente nuevo, verificar la doc oficial si algo no se comporta como aquí.

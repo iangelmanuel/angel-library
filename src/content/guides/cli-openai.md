@@ -49,7 +49,7 @@ openai images generate --model <modelo> --prompt "Un cubo verde" --output imagen
 openai audio:transcriptions create --model <modelo> --file ./audio.mp3
 ```
 
-Sustituí `<modelo>` por el modelo vigente en cada momento — cambia seguido, y no vale la pena fijarlo acá.
+Sustituí `<modelo>` por el modelo vigente en cada momento — cambia seguido, y no vale la pena fijarlo aquí.
 
 ## Consideraciones
 

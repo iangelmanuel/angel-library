@@ -3,7 +3,7 @@ title: "redirect() y notFound()"
 description: Funciones que cortan el render y navegan o muestran el 404 — de dónde se pueden llamar y cómo difieren.
 category: frontend
 stack: nextjs
-order: 9
+order: 11
 tags: [nextjs, routing]
 scope: next.js (next/navigation)
 related:
@@ -55,7 +55,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
 ## Diferencia clave: cuándo usar cada una
 
-`redirect()` es "esto existe, pero en otro lado" (login, otra URL). `notFound()` es "esto no existe" — responde con status semánticamente distinto (404) en vez de una redirección.
+`redirect()` es "esto existe, pero en otro lado" (login, otra URL). `notFound()` es "esto no existe" — responde con status semánticamente distinto (404) en vez directamente redirección.
 
 ## En un Server Action
 

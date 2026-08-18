@@ -29,7 +29,7 @@ updatedAt: 2026-08-17
                                           └────────────────────┘
 ```
 
-- **`docker` (CLI)**: el comando que escribís en la terminal. No hace el trabajo pesado — solo traduce el comando en llamadas a una API y se las manda al daemon.
+- **`docker` (CLI)**: el comando que escribes en la terminal. No hace el trabajo pesado — solo traduce el comando en llamadas a una API y se las manda al daemon.
 - **`dockerd` (daemon)**: el proceso de fondo que realmente construye imágenes, crea y corre contenedores, y gestiona redes y volúmenes. Corre todo el tiempo en segundo plano.
 - **Docker Desktop**: la app con interfaz gráfica (Windows/Mac) que instala y gestiona el daemon, más una VM liviana por debajo (necesaria porque los contenedores Linux necesitan un kernel Linux) — ver [Instalación](/guides/docker-instalacion).
 - **Registry**: donde viven las imágenes publicadas (Docker Hub por defecto) — el daemon las descarga (`pull`) o las sube (`push`) ahí. Ver [Docker Hub y registries](/guides/docker-registry-hub).

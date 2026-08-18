@@ -3,7 +3,7 @@ title: "<Image /> — optimización"
 description: Extiende <img> con optimización automática — width/height o fill, sizes para responsive, priority y remotePatterns.
 category: frontend
 stack: nextjs
-order: 18
+order: 22
 tags: [nextjs, images, performance]
 scope: next.js (next/image)
 related:
@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-16
 ---
 
-Mismo problema que resuelve [`<Image />` en Astro](/guides/astro-image-picture): formato óptimo, tamaño correcto por dispositivo, sin layout shift — acá con la sintaxis de Next.
+Mismo problema que resuelve [`<Image />` en Astro](/guides/astro-image-picture): formato óptimo, tamaño correcto por dispositivo, sin layout shift — aquí con la sintaxis de Next.
 
 ## Uso básico
 
@@ -27,7 +27,7 @@ export default function Perfil() {
 
 ## `fill` — Llenar el contenedor padre
 
-Cuando no conocés las dimensiones exactas de antemano (una imagen que debe ocupar 100% de una card de tamaño variable), `fill` hace que la imagen ocupe todo el elemento padre — que necesita `position: relative` (o similar) para que funcione.
+Cuando no conocés las dimensiones exactas de antemano (una imagen que debe ocupar 100% directamente card de tamaño variable), `fill` hace que la imagen ocupe todo el elemento padre — que necesita `position: relative` (o similar) para que funcione.
 
 ```tsx
 <div style={{ position: 'relative', width: '100%', height: '300px' }}>
@@ -58,7 +58,7 @@ Por defecto, las imágenes cargan con lazy loading (no bloquean el render inicia
 
 ## `placeholder="blur"` — Difuminado mientras carga
 
-Para imágenes locales importadas (no de una URL string), Next puede generar automáticamente un placeholder borroso a partir de la imagen real, sin que vos generes ese blur a mano.
+Para imágenes locales importadas (no directamente URL string), Next puede generar automáticamente un placeholder borroso a partir de la imagen real, sin que tú generes ese blur a mano.
 
 ```tsx
 import Image from 'next/image';

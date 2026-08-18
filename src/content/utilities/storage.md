@@ -2,7 +2,6 @@
 title: Storage Utils — Referencia rápida
 description: Wrapper tipado sobre localStorage/sessionStorage con parseo JSON seguro y detección de disponibilidad.
 category: general
-stack: utils
 runtime: browser
 language: typescript
 related: []
@@ -11,7 +10,7 @@ updatedAt: 2026-08-15
 
 Utilidades mínimas sobre `localStorage`/`sessionStorage`. Importa siempre desde `@/lib/storage`.
 
-`Storage` guarda solo strings: estas funciones agregan `JSON.parse`/`JSON.stringify` con manejo de errores, para no repetir el mismo `try/catch` cada vez que leés o escribís algo.
+`Storage` guarda solo strings: estas funciones agregan `JSON.parse`/`JSON.stringify` con manejo de errores, para no repetir el mismo `try/catch` cada vez que lees o escribes algo.
 
 ## Disponibilidad
 
@@ -114,4 +113,4 @@ removeStorageItem('preferencias');
 
 - Estas funciones son para `localStorage`/`sessionStorage`, no para cookies: no viajan al servidor y no sirven para datos que el backend necesite leer.
 - No guardes nada sensible (tokens, contraseñas): cualquier script en la página puede leer `localStorage`.
-- En componentes React que se hidratan en el cliente, leé el storage dentro de `useEffect`, nunca durante el render inicial — en SSR/build no existe `window`.
+- En componentes React que se hidratan en el cliente, lee el storage dentro de `useEffect`, nunca durante el render inicial — en SSR/build no existe `window`.

@@ -3,7 +3,7 @@ title: "<Link />"
 description: La forma primaria de navegar entre rutas — extiende <a> con prefetch automático y navegación de cliente.
 category: frontend
 stack: nextjs
-order: 5
+order: 7
 tags: [nextjs, routing]
 scope: next.js (next/link)
 related:
@@ -82,5 +82,5 @@ export function NavLinks() {
 ## Consideraciones
 
 - `<Link>` **siempre** es la opción por defecto para navegar — [`useRouter`](/guides/nextjs-userouter) queda para navegación programática real (después de un submit, un timeout), no como reemplazo de un link normal.
-- El prefetch no ocurre en desarrollo — si estás probando performance de navegación, hacelo contra un build de producción, no `next dev`.
+- El prefetch no ocurre en desarrollo — si estás probando performance de navegación, hazlo contra un build de producción, no `next dev`.
 - Con [Proxy](/guides/nextjs-proxy) haciendo un rewrite, el prefetch necesita que le digas tanto la URL a mostrar como la URL real a precargar (prop `as`) — si no, Next no sabe qué precargar de antemano.

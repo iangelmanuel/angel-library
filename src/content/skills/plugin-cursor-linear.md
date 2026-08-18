@@ -19,7 +19,7 @@ Cursor Settings → Marketplace → buscar "Linear" → Install
 
 ## Qué hace
 
-Expone las tools de Linear (crear issue, buscar, actualizar estado) directamente al agente — útil para el flujo "encontrá el bug que reporté, arreglalo, cerrá el issue" en una sola sesión.
+Expone las tools de Linear (crear issue, buscar, actualizar estado) directamente al agente — útil para el flujo "encontrá el bug que reporté, arreglalo, cierra el issue" en una sola sesión.
 
 ## Consideraciones
 

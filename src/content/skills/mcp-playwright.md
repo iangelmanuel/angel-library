@@ -45,4 +45,4 @@ claude mcp add playwright npx @playwright/mcp@latest
 ## Consideraciones
 
 - Requiere Node.js 18+. Verificar con `/mcp` dentro de la sesión que aparece conectado — trae ~20 tools distintas (navigate, click, screenshot, etc.).
-- Para automatización más liviana dentro de una sesión sin instalar un MCP aparte, ver el skill [agent-browser](/skills/skill-agent-browser).
+- Para automatización más liviana dentro directamente sesión sin instalar un MCP aparte, ver el skill [agent-browser](/skills/skill-agent-browser).

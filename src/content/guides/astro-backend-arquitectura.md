@@ -13,7 +13,7 @@ related:
 updatedAt: 2026-08-16
 ---
 
-Con `output: 'server'` (o `'hybrid'`), Astro deja de ser solo un generador de sitios estáticos — sus endpoints y su middleware son un backend real, corriendo en cada request. La mecánica de cada pieza (`export function GET`, `defineMiddleware`, Server Actions) ya está documentada a fondo en Frontend/Astro: [Endpoints](/guides/astro-endpoints), [Middleware](/guides/astro-middleware), [Server Actions](/guides/astro-server-actions). Esta guía es sobre cómo se **organizan** esas piezas cuando el proyecto las usa con intención de backend, no sobre su sintaxis.
+Con `output: 'server'`, Astro deja de ser solo un generador de sitios estáticos — sus endpoints y su middleware pueden correr en cada request. También puedes mantener `output: 'static'` y marcar únicamente las rutas dinámicas con `export const prerender = false`; ese es el reemplazo actual del antiguo modo `hybrid`. La mecánica de cada pieza (`export function GET`, `defineMiddleware`, Actions) ya está documentada a fondo en Frontend/Astro: [Endpoints](/guides/astro-endpoints), [Middleware](/guides/astro-middleware), [Server Actions](/guides/astro-server-actions). Esta guía es sobre cómo se **organizan** esas piezas cuando el proyecto las usa con intención de backend, no sobre su sintaxis.
 
 ## Dónde vive cada cosa
 
@@ -40,11 +40,11 @@ Endpoints (pages/api/*.ts)  →  API pública/consumida por fetch externo, webho
 Server Actions (actions/*)  →  mutaciones desde la propia UI (formularios, componentes) de esta misma app Astro
 ```
 
-Si el único consumidor de una operación es la propia app Astro (un formulario que crea un post), una Server Action evita escribir un endpoint + el `fetch` manual del lado del cliente. Si algo externo necesita pegarle (un webhook de Stripe, un cliente mobile, otro servicio), un endpoint REST tradicional en `pages/api/` es lo que corresponde.
+Si el único consumidor directamente operación es la propia app Astro (un formulario que crea un post), una Server Action evita escribir un endpoint + el `fetch` manual del lado del cliente. Si algo externo necesita pegarle (un webhook de Stripe, un cliente mobile, otro servicio), un endpoint REST tradicional en `pages/api/` es lo que corresponde.
 
 ## El repository sigue teniendo sentido
 
-El mismo patrón de capas de [la arquitectura MVC de Express](/patterns/backend-mvc-structure) aplica acá, simplificado — Astro no tiene "controllers" separados (el endpoint mismo cumple ese rol), pero separar el acceso a datos en un `repository` sigue evitando que la lógica de Prisma/Supabase quede desparramada en cada archivo de `pages/api/`.
+El mismo patrón de capas de [la arquitectura MVC de Express](/patterns/backend-mvc-structure) aplica aquí, simplificado — Astro no tiene "controllers" separados (el endpoint mismo cumple ese rol), pero separar el acceso a datos en un `repository` sigue evitando que la lógica de Prisma/Supabase quede desparramada en cada archivo de `pages/api/`.
 
 ```ts title="pages/api/posts.ts"
 import type { APIRoute } from 'astro';
@@ -84,5 +84,5 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
 ## Consideraciones
 
-- **No hace falta CORS** en la mayoría de los casos: si el frontend y el backend son la misma app Astro (mismo origen), CORS simplemente no aplica — a diferencia de una API Express separada del frontend.
+- **No hace falta CORS** en la mayoría de los casos: si el frontend y el backend son la misma app Astro (mismo origen), CORS simplemente no aplica — a diferencia directamente API Express separada del frontend.
 - `output: 'server'` cambia el modelo de deploy (necesita un adapter — Node, Vercel, etc. — y ya no es solo archivos estáticos) — confirmar que el hosting elegido soporta SSR antes de depender de endpoints/actions en producción.

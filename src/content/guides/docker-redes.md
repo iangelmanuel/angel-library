@@ -50,7 +50,7 @@ Dos cosas distintas que se confunden seguido:
 - **`-p 8080:80`**: expone el contenedor **al host** (a tu máquina, al navegador) — necesario para acceder desde afuera de Docker.
 - **Red compartida**: conecta contenedores **entre sí** — no hace falta `-p` para que `app` hable con `db`, solo estar en la misma red.
 
-Un contenedor de base de datos para uso interno de la app normalmente **no** necesita `-p` — solo la app necesita alcanzarlo, y eso ya lo resuelve la red compartida. `-p` en la base de datos solo hace falta si además querés conectarte a ella desde afuera de Docker (por ejemplo, con un cliente en tu máquina — ver [Conectar a Postgres](/guides/docker-postgres-conectar)).
+Un contenedor de base de datos para uso interno de la app normalmente **no** necesita `-p` — solo la app necesita alcanzarlo, y eso ya lo resuelve la red compartida. `-p` en la base de datos solo hace falta si además quieres conectarte a ella desde afuera de Docker (por ejemplo, con un cliente en tu máquina — ver [Conectar a Postgres](/guides/docker-postgres-conectar)).
 
 ## Inspeccionar una red
 

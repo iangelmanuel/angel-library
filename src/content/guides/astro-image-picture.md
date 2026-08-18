@@ -3,7 +3,7 @@ title: "<Image /> y <Picture />"
 description: Componentes de imagen optimizada de Astro — locales, remotas, responsive y con múltiples formatos.
 category: frontend
 stack: astro
-order: 6
+order: 8
 tags: [astro, images, performance]
 scope: astro:assets
 updatedAt: 2026-08-16
@@ -36,7 +36,7 @@ Con imágenes remotas o de `public/`, sí hay que declarar `width`/`height` a ma
 
 ## `<Picture />`
 
-Es el componente a usar cuando un solo `<img>` no alcanza: por ejemplo, si querés servir AVIF/WebP a los navegadores que los soportan y caer a PNG/JPG en los que no. Genera un `<picture>` con un `<source>` por formato declarado en `formats`, más un `<img>` de fallback al final. El navegador —no Astro— es quien elige en runtime el primer `<source>` cuyo formato soporte; si ninguno calza, usa el `<img>`.
+Es el componente a usar cuando un solo `<img>` no alcanza: por ejemplo, si quieres servir AVIF/WebP a los navegadores que los soportan y caer a PNG/JPG en los que no. Genera un `<picture>` con un `<source>` por formato declarado en `formats`, más un `<img>` de fallback al final. El navegador —no Astro— es quien elige en runtime el primer `<source>` cuyo formato soporte; si ninguno calza, usa el `<img>`.
 
 ```astro
 ---
@@ -100,5 +100,5 @@ export default defineConfig({
 ## Consideraciones
 
 - Sin autorizar el dominio, `<Image />` con una URL remota no lanza error, pero no optimiza el archivo (solo evita el layout shift).
-- Las imágenes de `public/` nunca se procesan en build — se sirven tal cual. Si necesitás optimización real, movela a `src/assets/` e importala.
+- Las imágenes de `public/` nunca se procesan en build — se sirven tal cual. Si necesitas optimización real, movela a `src/assets/` e importala.
 - `alt` es obligatorio a propósito: Astro tira error de build si falta, no solo un warning.

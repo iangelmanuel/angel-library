@@ -24,7 +24,7 @@ description: Revisa el diff actual
 agent: build
 ---
 template: |
-  Revisá los cambios actuales con `git diff` y señalá:
+  Revisa los cambios actuales con `git diff` y señalá:
   1. Bugs potenciales
   2. Problemas de legibilidad
 
@@ -39,7 +39,7 @@ A diferencia de Claude Code (donde el cuerpo entero del archivo **es** el prompt
 {
   "command": {
     "review": {
-      "template": "Revisá el diff actual: !`git diff`",
+      "template": "Revisa el diff actual: !`git diff`",
       "description": "Revisa el diff actual",
       "agent": "build"
     }

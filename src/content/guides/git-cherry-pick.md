@@ -52,7 +52,7 @@ git cherry-pick --abort
 git cherry-pick -n <hash>    # aplica los cambios al working tree/staging, sin commitear
 ```
 
-Útil cuando querés combinar el cherry-pick con otros cambios antes de commitear todo junto.
+Útil cuando quieres combinar el cherry-pick con otros cambios antes de commitear todo junto.
 
 ## Resumen
 

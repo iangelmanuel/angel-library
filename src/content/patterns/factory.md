@@ -76,7 +76,7 @@ await notifier.send(usuario.id, 'Tu pedido fue enviado');
 
 ## En JS/TS es una función, no una jerarquía de clases
 
-En Java o C# el patrón Factory suele implementarse con una clase `Factory` y una jerarquía de clases `Product`. En JS/TS eso es innecesario en la mayoría de los casos: una función que devuelve un objeto literal (o cierra sobre variables vía closure) cumple el mismo rol, con menos ceremonia. Guardá las clases para cuando el objeto construido necesita mantener estado interno complejo.
+En Java o C# el patrón Factory suele implementarse con una clase `Factory` y una jerarquía de clases `Product`. En JS/TS eso es innecesario en la mayoría de los casos: una función que devuelve un objeto literal (o cierra sobre variables vía closure) cumple el mismo rol, con menos ceremonia. Guarda las clases para cuando el objeto construido necesita mantener estado interno complejo.
 
 ## Cuándo NO usarlo
 

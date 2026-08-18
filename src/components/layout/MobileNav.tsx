@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Search, X } from 'lucide-react';
 import { DynamicIcon } from '@/components/shared/DynamicIcon';
@@ -55,24 +55,28 @@ export default function MobileNav({ data }: { data: NavData }) {
               }}
               className="mb-4 flex w-full items-center gap-2 border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
             >
-              <Search className="size-3.5" aria-hidden="true" />
+              <Search className="size-3.5 text-[var(--accent-purple)]" aria-hidden="true" />
               <span className="flex-1 text-left">Buscar…</span>
               <kbd className="kbd">/</kbd>
             </button>
 
             <div className="flex flex-col gap-0.5 pb-4">
               <a href="/" className="nav-link" onClick={close}>
-                <DynamicIcon name="home" className="size-3.5" /> Inicio
+                <DynamicIcon name="home" className="size-3.5 text-[var(--accent-blue)]" /> Inicio
               </a>
               <a href="/tags" className="nav-link" onClick={close}>
-                <DynamicIcon name="tags" className="size-3.5" /> Tags
+                <DynamicIcon name="tags" className="size-3.5 text-[var(--accent-yellow)]" /> Tags
               </a>
             </div>
 
             {data.categories.map((category) => (
-              <div key={category.id} className="pb-4">
+              <div
+                key={category.id}
+                className="pb-4"
+                style={{ '--cat-accent': `var(${category.color})` } as CSSProperties}
+              >
                 <p className="section-label flex items-center gap-2 px-2 pb-1.5">
-                  <DynamicIcon name={category.icon} className="size-3" />
+                  <DynamicIcon name={category.icon} className="size-3 text-[var(--cat-accent)]" />
                   {category.label}
                 </p>
                 {(category.resourceGroups ?? category.stackGroups) && (
@@ -83,7 +87,7 @@ export default function MobileNav({ data }: { data: NavData }) {
                         <div className="flex flex-col gap-0.5 border-l border-border pl-2">
                           {group.items.map((item) => (
                             <a key={item.url} href={item.url} className="nav-link" onClick={close}>
-                              <DynamicIcon name={item.icon} className="size-3.5 opacity-60" />
+                              <DynamicIcon name={item.icon} className="size-3.5 text-[var(--cat-accent)]" />
                               <span className="truncate">{item.title}</span>
                             </a>
                           ))}
@@ -96,7 +100,7 @@ export default function MobileNav({ data }: { data: NavData }) {
                   <div className="flex flex-col gap-0.5">
                     {category.items.map((item) => (
                       <a key={item.url} href={item.url} className="nav-link" onClick={close}>
-                        <DynamicIcon name={item.icon} className="size-3.5 opacity-60" />
+                        <DynamicIcon name={item.icon} className="size-3.5 text-[var(--cat-accent)]" />
                         <span className="truncate">{item.title}</span>
                       </a>
                     ))}
@@ -110,7 +114,7 @@ export default function MobileNav({ data }: { data: NavData }) {
               <div className="flex flex-col gap-0.5">
                 {data.types.map((type) => (
                   <a key={type.id} href={type.url} className="nav-link" onClick={close}>
-                    <DynamicIcon name={type.icon} className="size-3.5" />
+                    <DynamicIcon name={type.icon} className={`size-3.5 type-${type.id}`} />
                     {type.label}
                     <span className="ml-auto font-mono text-[0.65rem] text-muted-foreground/70">
                       {type.count}

@@ -397,7 +397,7 @@ export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
  * (node/express/astro/nextjs), Git & GitHub (git/github), IA Tools & Skills
  * (claude-code/opencode/cursor/codex) UI / UX (html/react), DevOps
  * (docker-conceptos/imagenes/contenedores/redes-volumenes/compose/bases-datos),
- * General (css/utils), Terminal & CLI (terminal/cli) y Frontend también
+ * General (html/css/javascript), Terminal & CLI (terminal/cli) y Frontend también
  * suma "seo" (implementación de SEO por framework) — cada grupo vacío se
  * filtra solo, así que el orden de un stack solo importa para las
  * categorías que realmente lo usan.
@@ -425,6 +425,9 @@ export const STACK_IDS = [
   'docker-redes-volumenes',
   'docker-compose',
   'docker-bases-datos',
+  'ci-cd',
+  'observabilidad',
+  'javascript',
   'css',
   'utils',
   'terminal',
@@ -471,6 +474,9 @@ export const STACKS: Record<StackId, StackMeta> = {
   },
   'docker-compose': { id: 'docker-compose', label: 'Docker Compose', icon: 'brand-docker-compose' },
   'docker-bases-datos': { id: 'docker-bases-datos', label: 'Bases de datos', icon: 'brand-docker-bases-datos' },
+  'ci-cd': { id: 'ci-cd', label: 'CI/CD y despliegue', icon: 'brand-ci-cd' },
+  observabilidad: { id: 'observabilidad', label: 'Observabilidad y operación', icon: 'brand-observabilidad' },
+  javascript: { id: 'javascript', label: 'JavaScript y Web APIs', icon: 'brand-javascript' },
   css: { id: 'css', label: 'CSS', icon: 'brand-css' },
   utils: { id: 'utils', label: 'Utils', icon: 'brand-typescript' },
   terminal: { id: 'terminal', label: 'Terminal', icon: 'brand-terminal' },
@@ -486,6 +492,39 @@ export const STACKS: Record<StackId, StackMeta> = {
 };
 
 export const STACK_LIST = STACK_IDS.map((id) => STACKS[id]);
+
+/**
+ * Cada categoría necesita su propia progresión. Un único orden global hacía,
+ * por ejemplo, que Astro apareciera antes de HTML o que herramientas avanzadas
+ * se adelantaran a sus fundamentos. Los stacks no declarados se añaden al final
+ * como fallback para que una nueva subcategoría nunca desaparezca.
+ */
+export const CATEGORY_STACK_ORDER: Partial<Record<CategoryId, readonly StackId[]>> = {
+  general: ['html', 'css', 'javascript'],
+  frontend: ['astro', 'react', 'nextjs', 'seo'],
+  backend: ['node', 'express', 'astro', 'nextjs'],
+  devops: [
+    'docker-conceptos',
+    'docker-imagenes',
+    'docker-contenedores',
+    'docker-redes-volumenes',
+    'docker-compose',
+    'docker-bases-datos',
+    'ci-cd',
+    'observabilidad',
+  ],
+  git: ['git', 'github'],
+  terminal: ['terminal', 'cli'],
+  skills: ['claude-code', 'codex', 'cursor', 'opencode', 'ia-comandos', 'ia-skills', 'ia-plugins', 'ia-mcp'],
+  'ui-ux': ['html', 'react'],
+  architecture: ['principios', 'patrones-diseno', 'patrones-arquitectonicos'],
+};
+
+export function getStacksForCategory(category: CategoryId): StackMeta[] {
+  const preferred = CATEGORY_STACK_ORDER[category] ?? [];
+  const remaining = STACK_IDS.filter((id) => !preferred.includes(id));
+  return [...preferred, ...remaining].map((id) => STACKS[id]);
+}
 
 /** Categorías que agrupan sus entradas por stack en vez de listarlas planas. */
 export const STACK_GROUPED_CATEGORIES: CategoryId[] = [

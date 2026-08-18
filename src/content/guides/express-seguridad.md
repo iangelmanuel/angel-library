@@ -75,7 +75,7 @@ import rateLimit from 'express-rate-limit';
 const limiterLogin = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 5,                    // máximo 5 intentos por IP en esa ventana
-  message: { error: 'Demasiados intentos, probá de nuevo más tarde' },
+  message: { error: 'Demasiados intentos, prueba de nuevo más tarde' },
 });
 
 app.post('/login', limiterLogin, handlerDeLogin);
@@ -94,5 +94,5 @@ Aplicar el rate limit **solo** a rutas sensibles (login, registro, recuperar con
 
 ## Consideraciones
 
-- `helmet()` es un buen default, no una configuración final — un `Content-Security-Policy` real necesita ajustarse a qué scripts/estilos externos usa realmente el proyecto (un CSP muy estricto por defecto puede romper cosas que sí necesitás cargar).
+- `helmet()` es un buen default, no una configuración final — un `Content-Security-Policy` real necesita ajustarse a qué scripts/estilos externos usa realmente el proyecto (un CSP muy estricto por defecto puede romper cosas que sí necesitas cargar).
 - Rate limiting en memoria (como el ejemplo de arriba) se resetea si el proceso se reinicia y no se comparte entre múltiples instancias del servidor — para producción con más de un proceso, hace falta un store compartido (Redis) para que el límite sea real entre todas las instancias.

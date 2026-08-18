@@ -15,7 +15,7 @@ updatedAt: 2026-08-16
 
 - Preferencias del usuario (tema, idioma, tamaño de fuente) que deben sobrevivir a un refresh.
 - Estado de UI que no vale la pena perder al recargar (un filtro aplicado, un draft de formulario).
-- Cualquier `useState` que hoy escribís a mano seguido de un `useEffect` que lo guarda en `localStorage`.
+- Cualquier `useState` que hoy escribes a mano seguido de un `useEffect` que lo guarda en `localStorage`.
 
 No lo uses para datos sensibles (tokens, contraseñas) ni para estado que debe ser el mismo en el servidor durante el SSR — `localStorage` no existe ahí.
 

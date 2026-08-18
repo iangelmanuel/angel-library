@@ -28,12 +28,12 @@ argument-hint: [número-de-pr]
 allowed-tools: Bash(gh pr diff:*), Read
 ---
 
-Revisá el PR $ARGUMENTS con `gh pr diff $ARGUMENTS` y señalá:
+Revisa el PR $ARGUMENTS con `gh pr diff $ARGUMENTS` y señalá:
 1. Bugs potenciales
 2. Problemas de legibilidad
 3. Riesgos de seguridad
 
-No hagas cambios, solo dejá los comentarios.
+No hagas cambios, solo deja los comentarios.
 ```
 
 ## Campos de frontmatter que más se usan

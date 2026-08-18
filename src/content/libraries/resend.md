@@ -29,7 +29,7 @@ await resend.emails.send({
   from: 'App <noreply@midominio.com>',
   to: usuario.email,
   subject: 'Confirmá tu cuenta',
-  html: `<p>Hacé click <a href="${urlConfirmacion}">acá</a> para confirmar tu cuenta.</p>',
+  html: `<p>Haz click <a href="${urlConfirmacion}">aquí</a> para confirmar tu cuenta.</p>',
 });
 ```
 

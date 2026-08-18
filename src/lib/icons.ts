@@ -63,7 +63,7 @@ const BRAND_ICONS: Record<string, string> = {
 const RECOLORED_ICONS: Record<string, { base: string; color: string }> = {
   'stack-component': { base: 'component', color: '#facc15' },
   'stack-dependency': { base: 'package', color: '#4ade80' },
-  'brand-ia-comandos': { base: 'terminal', color: '#94a3b8' },
+  'brand-ia-comandos': { base: 'terminal', color: '#34d399' },
   'brand-ia-skills': { base: 'sparkles', color: '#fbbf24' },
   'brand-ia-plugins': { base: 'blocks', color: '#a78bfa' },
   'brand-ia-mcp': { base: 'plug', color: '#22d3ee' },
@@ -73,6 +73,9 @@ const RECOLORED_ICONS: Record<string, { base: string; color: string }> = {
   'brand-docker-redes-volumenes': { base: 'network', color: '#2496ED' },
   'brand-docker-compose': { base: 'workflow', color: '#2496ED' },
   'brand-docker-bases-datos': { base: 'database', color: '#2496ED' },
+  'brand-ci-cd': { base: 'workflow', color: '#a78bfa' },
+  'brand-observabilidad': { base: 'activity', color: '#22d3ee' },
+  'brand-javascript': { base: 'braces', color: '#facc15' },
   'brand-terminal': { base: 'square-terminal', color: '#34d399' },
   'brand-cli': { base: 'command', color: '#818cf8' },
   'brand-seo': { base: 'search-check', color: '#2dd4bf' },
@@ -102,7 +105,18 @@ function readLucideSvg(name: string): string {
 export function getIcon(name: string, className?: string): string {
   const brand = BRAND_ICONS[name];
   if (brand) {
-    return brand.replace(
+    const navColors: Partial<Record<string, string>> = {
+      'brand-nextjs': '#a1a1aa',
+      'brand-express': '#facc15',
+      'brand-github': '#a1a1aa',
+      'brand-codex': '#10a37f',
+      'brand-cursor': '#38bdf8',
+      'brand-opencode': '#fb7185',
+    };
+    const coloredBrand = navColors[name]
+      ? brand.replace(/fill="#[a-f\d]+"/i, `fill="${navColors[name]}"`)
+      : brand;
+    return coloredBrand.replace(
       '<svg',
       `<svg class="${className ?? 'size-4'}" aria-hidden="true" focusable="false"`,
     );

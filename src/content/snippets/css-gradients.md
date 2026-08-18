@@ -75,5 +75,5 @@ Los tres tipos de degradado y un par de trucos que se preguntan seguido: texto c
 ## Consideraciones
 
 - El truco de borde con degradado necesita que el color del primer `linear-gradient()` (el de `padding-box`) coincida con el fondo real detrás del elemento — si el fondo cambia, hay que actualizar ese valor.
-- `background-clip: text` deja el texto invisible en navegadores sin soporte (muy raros hoy) porque `color: transparent` no tiene fallback — si te importa ese caso, agregá un `color` sólido antes de la regla y que la cascada lo pise.
+- `background-clip: text` deja el texto invisible en navegadores sin soporte (muy raros hoy) porque `color: transparent` no tiene fallback — si te importa ese caso, agrega un `color` sólido antes de la regla y que la cascada lo pise.
 - Los degradados no son accesibles como "color de texto" para herramientas de contraste automático: si el texto necesita cumplir contraste WCAG, verificalo manualmente contra el fondo real.

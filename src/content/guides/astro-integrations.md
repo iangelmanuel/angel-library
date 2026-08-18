@@ -3,7 +3,7 @@ title: Integrations — astro add
 description: Cómo se agrega una librería/framework al proyecto — el CLI astro add y la config manual en astro.config.mjs.
 category: frontend
 stack: astro
-order: 15
+order: 18
 tags: [astro, config]
 scope: astro (astro add / astro.config.mjs)
 updatedAt: 2026-08-16
@@ -31,7 +31,7 @@ export default defineConfig({
 });
 ```
 
-Este mismo sitio tiene una sola: `react()`, para las islas de `CommandPalette`/`MobileNav`/`SearchResults` — Tailwind acá va aparte, como plugin de Vite (`@tailwindcss/vite`), no como integration.
+Este mismo sitio tiene una sola: `react()`, para las islas de `CommandPalette`/`MobileNav`/`SearchResults` — Tailwind aquí va aparte, como plugin de Vite (`@tailwindcss/vite`), no como integration.
 
 ## Instalación manual
 
@@ -51,7 +51,7 @@ export default defineConfig({
 | Comando / config | Uso |
 | --- | --- |
 | `npx astro add <nombre>` | Instala y configura en un paso |
-| `npx astro add <a> <b> <c>` | Varias integrations de una |
+| `npx astro add <a> <b> <c>` | Varias integrations directamente |
 | `integrations: [...]` en `astro.config.mjs` | Dónde quedan declaradas, siempre |
 | Instalación manual | Para integrations locales o sin soporte de `astro add` |
 

@@ -12,7 +12,7 @@ updatedAt: 2026-08-16
 
 ## El concepto ya está documentado
 
-Esta receta es la versión "con código real" de [Estructura MVC para APIs Express](/patterns/backend-mvc-structure) — mismo árbol de carpetas, mismo flujo de una request, acá con un recurso completo (`posts`) implementado en cada capa.
+Esta receta es la versión "con código real" de [Estructura MVC para APIs Express](/patterns/backend-mvc-structure) — mismo árbol de carpetas, mismo flujo directamente request, aquí con un recurso completo (`posts`) implementado en cada capa.
 
 ## Árbol completo
 
@@ -102,4 +102,4 @@ Cambiar de Prisma a otro ORM toca solo `repositories/`. Cambiar una regla de neg
 ## Consideraciones
 
 - Para un proyecto chico (un CRUD, un prototipo), cuatro capas por cada recurso puede sentirse como overhead — el patrón se justifica cuando el proyecto crece lo suficiente como para que mezclar todo en un archivo empiece a doler. No hace falta empezar así desde el día uno de un proyecto trivial.
-- El `controller` acá no tiene `try/catch` propio porque `asyncHandler` ya lo cubre (ver [Manejo de errores centralizado](/guides/express-error-handling)) — cualquier `throw` de `service` sube directo al error handler.
+- El `controller` aquí no tiene `try/catch` propio porque `asyncHandler` ya lo cubre (ver [Manejo de errores centralizado](/guides/express-error-handling)) — cualquier `throw` de `service` sube directo al error handler.

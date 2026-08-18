@@ -18,7 +18,7 @@ Cursor tiene un marketplace (`cursor.com/marketplace`) con dos formatos de plugi
 | Manifest | `plugin.json` en la raíz | `.cursor-plugin/plugin.json` |
 | Portabilidad | Sí — funciona también en Claude Code y otras herramientas | No, específico de Cursor |
 | Qué empaqueta | `skills/`, `mcp.json` | Reglas (.mdc), agentes, comandos, hooks, variables |
-| Cuándo usar | Si el plugin debe funcionar fuera de Cursor también | Si necesitás las piezas específicas de Cursor (hooks, .mdc) |
+| Cuándo usar | Si el plugin debe funcionar fuera de Cursor también | Si necesitas las piezas específicas de Cursor (hooks, .mdc) |
 
 ## Instalar uno
 

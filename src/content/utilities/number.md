@@ -2,7 +2,6 @@
 title: Number Utils — Referencia rápida
 description: Utilidades tipadas para formatear moneda, porcentajes, números compactos y tamaños de archivo con Intl.
 category: general
-stack: utils
 runtime: universal
 language: typescript
 related: []
@@ -99,7 +98,7 @@ formatCompact(2300000);
 
 ### `formatFileSize()` — Tamaño de archivo
 
-Convierte un número de bytes a la unidad legible más adecuada (B, KB, MB, GB, TB). `Intl` no tiene esto nativo, así que es la única función acá que no usa `Intl.NumberFormat`.
+Convierte un número de bytes a la unidad legible más adecuada (B, KB, MB, GB, TB). `Intl` no tiene esto nativo, así que es la única función aquí que no usa `Intl.NumberFormat`.
 
 ```ts title="lib/number.ts"
 export function formatFileSize(bytes: number, decimals = 1): string {

@@ -57,7 +57,7 @@ Quién resuelve el alias en runtime depende del entorno:
 | **Jest** | Sí — replicar el mapeo en `moduleNameMapper` de la config de Jest (con regex, no glob). |
 | **Node.js directo / `ts-node`** | Sí — `tsc` tampoco reescribe los imports al compilar a JS plano. Para desarrollo, el paquete [`tsconfig-paths`](https://www.npmjs.com/package/tsconfig-paths) registra un resolver en runtime; para build de producción, [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) reescribe los imports compilados a rutas relativas reales como paso posterior a `tsc`. |
 
-Moraleja: agregar el snippet de arriba y nada más funciona de una en Astro y Next.js. En cualquier otro entorno, hay que replicar el mismo alias en la herramienta que arma el bundle o corre el código.
+Moraleja: agregar el snippet de arriba y nada más funciona directamente en Astro y Next.js. En cualquier otro entorno, hay que replicar el mismo alias en la herramienta que arma el bundle o corre el código.
 
 ## Más formas de declarar `paths`
 
@@ -103,7 +103,7 @@ import { SITE } from '@config';
 
 ### Varias rutas candidatas para el mismo alias
 
-`paths` acepta más de una ruta por patrón — TypeScript prueba en orden y usa la primera que exista. Útil en monorepos, donde un paquete puede tener código fuente y una build ya compilada:
+`paths` acepta más directamente ruta por patrón — TypeScript prueba en orden y usa la primera que exista. Útil en monorepos, donde un paquete puede tener código fuente y una build ya compilada:
 
 ```json
 {

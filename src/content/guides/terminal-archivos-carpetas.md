@@ -17,7 +17,7 @@ Los comandos para crear, mover y borrar cosas son de los que más se escriben en
 | Acción | Windows (PowerShell) | macOS / Linux |
 | --- | --- | --- |
 | Crear una carpeta | `New-Item -ItemType Directory nombre` (alias `mkdir`) | `mkdir nombre` |
-| Crear carpetas anidadas de una | `New-Item -ItemType Directory -Path a\b\c -Force` | `mkdir -p a/b/c` |
+| Crear carpetas anidadas directamente | `New-Item -ItemType Directory -Path a\b\c -Force` | `mkdir -p a/b/c` |
 
 ```powershell title="PowerShell"
 mkdir proyectos

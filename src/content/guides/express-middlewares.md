@@ -21,7 +21,7 @@ const app = express();
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  next(); // sin esto, la request se queda colgada acá para siempre
+  next(); // sin esto, la request se queda colgada aquí para siempre
 });
 
 app.get('/usuarios', (req, res) => {
@@ -41,7 +41,7 @@ app.use(middlewareB);   // corre segundo, solo si A llamó a next()
 app.get('/ruta', handler); // corre último
 ```
 
-## Middleware de una ruta específica vs global
+## Middleware directamente ruta específica vs global
 
 ```ts
 app.use(loggerGlobal);                          // corre en TODAS las rutas
@@ -56,7 +56,7 @@ Pasar varios middlewares antes del handler final (como `verificarAdmin` arriba) 
 ```ts
 function verificarAdmin(req, res, next) {
   if (!req.user?.esAdmin) {
-    return res.status(403).json({ error: 'No autorizado' }); // corta acá, nunca llega al handler
+    return res.status(403).json({ error: 'No autorizado' }); // corta aquí, nunca llega al handler
   }
   next(); // es admin, seguir
 }
@@ -87,11 +87,11 @@ app.use(logger);            // propio
 | `(req, res, next) => {...}` | La firma de cualquier middleware |
 | `next()` | Pasa el control al siguiente eslabón de la cadena |
 | `app.use(fn)` | Middleware global, corre en toda request |
-| `app.get(ruta, mw1, mw2, handler)` | Middlewares específicos de una ruta, en orden |
+| `app.get(ruta, mw1, mw2, handler)` | Middlewares específicos directamente ruta, en orden |
 | `express.json()` | Parseo de body JSON, incluido con Express |
 
 ## Consideraciones
 
-- Olvidar `next()` en un middleware que no responde nada dejá la request colgada indefinidamente hasta el timeout del cliente — el bug más común al escribir un middleware nuevo.
+- Olvidar `next()` en un middleware que no responde nada deja la request colgada indefinidamente hasta el timeout del cliente — el bug más común al escribir un middleware nuevo.
 - El orden de `app.use()` importa de verdad: un middleware de auth registrado *después* de las rutas que debería proteger, no las protege — corre después de que el handler ya respondió.
 - Middlewares con **4** argumentos (`err, req, res, next`) son un caso especial: manejo de errores. Ver [Manejo de errores centralizado](/guides/express-error-handling).

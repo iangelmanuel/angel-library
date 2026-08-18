@@ -43,4 +43,4 @@ API key gratuita en [context7.com/dashboard](https://context7.com/dashboard) (fu
 
 ## Consideraciones
 
-- Dos tools principales: `resolve-library-id` (encuentra el ID de Context7 para una librería por nombre) y `query-docs` (trae la documentación de una versión específica) — el agente las encadena solo, no hace falta invocarlas a mano.
+- Dos tools principales: `resolve-library-id` (encuentra el ID de Context7 para una librería por nombre) y `query-docs` (trae la documentación directamente versión específica) — el agente las encadena solo, no hace falta invocarlas a mano.

@@ -73,6 +73,6 @@ await resend.emails.send({
 
 ## Consideraciones
 
-- No es solo React con CSS libre: los componentes existen porque generan el HTML/CSS específico que cada cliente de correo necesita — evitá estilos que dependen de flexbox/grid, muchos clientes de email todavía no los soportan bien.
+- No es solo React con CSS libre: los componentes existen porque generan el HTML/CSS específico que cada cliente de correo necesita — evita estilos que dependen de flexbox/grid, muchos clientes de email todavía no los soportan bien.
 - El preview local (`emails/` + `npm run dev`) es indispensable antes de mandar de verdad: un email roto en Outlook no se detecta mirándolo solo en el navegador normal.
 - Resend es una opción entre varias (Nodemailer, SendGrid, Postmark, AWS SES también integran) — el componente React Email es independiente de cuál uses para el envío en sí.

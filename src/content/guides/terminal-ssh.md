@@ -16,7 +16,7 @@ updatedAt: 2026-08-17
 ssh-keygen -t ed25519 -C "email@ejemplo.com"
 ```
 
-`-t ed25519` elige el algoritmo (ed25519 es el recomendado hoy, más rápido y seguro que RSA); `-C` es un comentario, normalmente el email, para identificar la llave después. El comando pide una ruta (Enter para la default) y opcionalmente una passphrase.
+`-t ed25519` elige el algoritmo (ed25519 es el recomendado hoy, más rápido y seguro que RSA); `-C` es un comentario, normalmente el email, para identificar la llave después. El comando pidirectamente ruta (Enter para la default) y opcionalmente una passphrase.
 
 Por default, las llaves quedan en `~/.ssh/`:
 

@@ -30,13 +30,13 @@ const actualizarUsuarioSchema = z.object({
 });
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  // 1. ¿quién sos?
+  // 1. ¿quién eres?
   const session = await auth();
   if (!session?.user) {
     return NextResponse.json({ error: { code: 'NO_AUTENTICADO' } }, { status: 401 });
   }
 
-  // 2. ¿podés hacer esto?
+  // 2. ¿puedes hacer esto?
   if (session.user.rol !== 'admin') {
     return NextResponse.json({ error: { code: 'SIN_PERMISO' } }, { status: 403 });
   }

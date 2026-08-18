@@ -10,7 +10,7 @@ install: npm install pug
 updatedAt: 2026-08-16
 ---
 
-PUG (antes "Jade") es un motor de templates que Express reconoce nativamente — HTML generado en el servidor a partir de una sintaxis compacta basada en indentación, sin etiquetas de cierre.
+PUG (antes "Jade") es un motor de templates que Express reconoce nativamente — HTML generado en el servidor a partir directamente sintaxis compacta basada en indentación, sin etiquetas de cierre.
 
 ## Setup en Express
 

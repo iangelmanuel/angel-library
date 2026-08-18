@@ -10,7 +10,7 @@ related: [guides/git-merge-vs-rebase]
 updatedAt: 2026-08-16
 ---
 
-El rebase interactivo abre una lista editable de los últimos N commits, y por cada uno decidís qué hacer: dejarlo tal cual, combinarlo con el anterior, reescribir su mensaje, o borrarlo. Es la herramienta típica para llegar a un Pull Request con un historial legible, en vez de veinte commits tipo "wip", "fix typo", "arreglo de verdad".
+El rebase interactivo abre una lista editable de los últimos N commits, y por cada uno decides qué hacer: dejarlo tal cual, combinarlo con el anterior, reescribir su mensaje, o borrarlo. Es la herramienta típica para llegar a un Pull Request con un historial legible, en vez de veinte commits tipo "wip", "fix typo", "arreglo de verdad".
 
 ## Arrancar un rebase interactivo
 
@@ -51,7 +51,7 @@ Resultado: dos commits limpios en vez de cuatro. `fixup` descarta el mensaje del
 
 ## Reordenar commits
 
-Simplemente cambiá el orden de las líneas — Git los aplica en el orden en que aparecen en el archivo, de arriba hacia abajo.
+Simplemente cambia el orden de las líneas — Git los aplica en el orden en que aparecen en el archivo, de arriba hacia abajo.
 
 ## Editar un commit puntual
 
@@ -61,7 +61,7 @@ edit e4f5g6h fix typo
 pick h7i8j9k agregar validación
 ```
 
-El rebase se detiene justo después de aplicar ese commit, dejándote en un estado donde podés modificar archivos y hacer `git commit --amend`, y después seguir:
+El rebase se detiene justo después de aplicar ese commit, dejándote en un estado donde puedes modificar archivos y hacer `git commit --amend`, y después seguir:
 
 ```bash
 # ... hacer los cambios ...

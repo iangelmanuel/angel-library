@@ -1,5 +1,5 @@
 ---
-title: Flujo completo — de una rama nueva a mergeado
+title: Flujo completo — directamente rama nueva a mergeado
 description: Todo lo de esta sección, encadenado en el orden real en que se usa — desde crear la rama hasta borrarla después de mergear el PR.
 category: git
 stack: github
@@ -22,7 +22,7 @@ git switch main
 git pull
 ```
 
-Nunca ramificar desde una copia vieja de `main` — evita traer conflictos innecesarios más adelante solo por trabajar sobre una base desactualizada.
+Nunca ramificar desdirectamente copia vieja de `main` — evita traer conflictos innecesarios más adelante solo por trabajar sobre una base desactualizada.
 
 ## 2. Crear la rama de trabajo
 

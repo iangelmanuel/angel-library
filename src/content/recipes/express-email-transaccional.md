@@ -46,7 +46,7 @@ authRouter.post('/registro', async (req, res, next) => {
       from: 'App <noreply@midominio.com>',
       to: usuario.email,
       subject: 'Confirmá tu cuenta',
-      html: `<p>Hacé click <a href="${urlConfirmacion}">acá</a> para confirmar tu cuenta. Expira en 24 horas.</p>`,
+      html: `<p>Haz click <a href="${urlConfirmacion}">aquí</a> para confirmar tu cuenta. Expira en 24 horas.</p>`,
     });
 
     res.status(201).json({ ok: true });
@@ -92,7 +92,7 @@ authRouter.post('/olvide-password', async (req, res) => {
       from: 'App <noreply@midominio.com>',
       to: usuario.email,
       subject: 'Recuperar contraseña',
-      html: `<p>Cambiá tu contraseña <a href="${process.env.APP_URL}/reset-password?token=${token}">acá</a>. Expira en 1 hora.</p>`,
+      html: `<p>Cambia tu contraseña <a href="${process.env.APP_URL}/reset-password?token=${token}">aquí</a>. Expira en 1 hora.</p>`,
     });
   }
 

@@ -15,7 +15,7 @@ updatedAt: 2026-08-17
 
 ```bash
 docker run -d --name mi-db -e POSTGRES_PASSWORD=secreto postgres:16
-# ... trabajás, creás tablas, cargás datos ...
+# ... trabajás, creas tablas, cargás datos ...
 docker rm -f mi-db
 docker run -d --name mi-db -e POSTGRES_PASSWORD=secreto postgres:16
 # la base de datos está vacía otra vez

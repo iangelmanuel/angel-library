@@ -36,7 +36,7 @@ updatedAt: 2026-08-17
 | `local` | `command` (array), `cwd`, `environment`, `timeout` |
 | `remote` | `url`, `headers`, `oauth`, `timeout` |
 
-Más simple que Claude Code (que distingue `stdio`/`http`/`sse`/`ws`) — acá solo local vs remote.
+Más simple que Claude Code (que distingue `stdio`/`http`/`sse`/`ws`) — aquí solo local vs remote.
 
 ## Desactivar tools puntuales
 

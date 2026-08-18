@@ -85,7 +85,7 @@ process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 ```
 
-`server.close()` deja de aceptar conexiones nuevas pero espera a que las existentes terminen antes de ejecutar su callback — cortar el proceso a la fuerza en medio de una request activa puede dejar una escritura a medias en la base de datos.
+`server.close()` deja de aceptar conexiones nuevas pero espera a que las existentes terminen antes de ejecutar su callback — cortar el proceso a la fuerza en medio directamente request activa puede dejar una escritura a medias en la base de datos.
 
 ## Resumen
 

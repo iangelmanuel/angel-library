@@ -11,7 +11,7 @@ updatedAt: 2026-08-17
 
 ## Problema
 
-Ejecutar una acción directo (`editor.insertar(texto)`) funciona hasta que necesitás algo más: deshacerla, encolarla para después, o loguearla con lo que la generó. Command convierte la acción en un objeto — con un método para ejecutarla y, si aplica, uno para deshacerla — para poder guardarlo, pasarlo, o guardarlo en una lista.
+Ejecutar una acción directo (`editor.insertar(texto)`) funciona hasta que necesitas algo más: deshacerla, encolarla para después, o loguearla con lo que la generó. Command convierte la acción en un objeto — con un método para ejecutarla y, si aplica, uno para deshacerla — para poder guardarlo, pasarlo, o guardarlo en una lista.
 
 ## Ejemplo: undo/redo en un editor
 
@@ -86,4 +86,4 @@ Acá el "comando" ni siquiera tiene un método `execute()` — es un objeto de d
 
 ## Cuándo NO usarlo
 
-Si la acción se ejecuta una sola vez, de una — y nunca necesita deshacerse, encolarse ni loguearse por separado — llamar la función directo es más simple. Envolver todo en objetos `Command` agrega una capa que solo se justifica cuando necesitás esa indirección real: undo/redo, colas de trabajo, auditoría de qué se ejecutó y cuándo.
+Si la acción se ejecuta una sola vez, directamente — y nunca necesita deshacerse, encolarse ni loguearse por separado — llamar la función directo es más simple. Envolver todo en objetos `Command` agrega una capa que solo se justifica cuando necesitas esa indirección real: undo/redo, colas de trabajo, auditoría de qué se ejecutó y cuándo.

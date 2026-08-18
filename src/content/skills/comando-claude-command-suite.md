@@ -23,7 +23,7 @@ O revisar el repo y copiar solo los comandos puntuales que hagan falta, en vez d
 ## Qué incluye (categorías principales)
 
 - **Code review** — revisión estructurada multi-paso
-- **Feature creation** — scaffolding de una feature nueva siguiendo convenciones del repo
+- **Feature creation** — scaffolding directamente feature nueva siguiendo convenciones del repo
 - **Security auditing** — auditoría más profunda que un comando suelto
 - **Architectural analysis** — evaluación de decisiones de arquitectura
 

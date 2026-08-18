@@ -26,21 +26,21 @@ const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
         class:list={['nav-link', { 'is-active': isActive('/') }]}
         aria-current={isActive('/') ? 'page' : undefined}
       >
-        <Icon name="home" class="size-3.5" /> Inicio
+        <Icon name="home" class="size-3.5 text-[var(--accent-blue)]" /> Inicio
       </a>
       <a
         href="/search"
         class:list={['nav-link', { 'is-active': isActive('/search') }]}
         aria-current={isActive('/search') ? 'page' : undefined}
       >
-        <Icon name="search" class="size-3.5" /> Buscar
+        <Icon name="search" class="size-3.5 text-[var(--accent-purple)]" /> Buscar
       </a>
       <a
         href="/tags"
         class:list={['nav-link', { 'is-active': isActive('/tags') }]}
         aria-current={isActive('/tags') ? 'page' : undefined}
       >
-        <Icon name="tags" class="size-3.5" /> Tags
+        <Icon name="tags" class="size-3.5 text-[var(--accent-yellow)]" /> Tags
       </a>
     </div>
 
@@ -79,7 +79,7 @@ const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
                               class:list={['nav-link', { 'is-active': isActive(item.url) }]}
                               aria-current={isActive(item.url) ? 'page' : undefined}
                             >
-                              <Icon name={item.icon} class="size-3.5 shrink-0 opacity-60" />
+                              <Icon name={item.icon} class="size-3.5 shrink-0 text-[var(--cat-accent)]" />
                               <span class="truncate">{item.title}</span>
                             </a>
                           ))}
@@ -94,7 +94,7 @@ const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
                         class:list={['nav-link', { 'is-active': isActive(item.url) }]}
                         aria-current={isActive(item.url) ? 'page' : undefined}
                       >
-                        <Icon name={item.icon} class="size-3.5 shrink-0 opacity-60" />
+                        <Icon name={item.icon} class="size-3.5 shrink-0 text-[var(--cat-accent)]" />
                         <span class="truncate">{item.title}</span>
                       </a>
                     ))
@@ -117,7 +117,7 @@ const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
               class:list={['nav-link', { 'is-active': isActive(type.url) }]}
               aria-current={isActive(type.url) ? 'page' : undefined}
             >
-              <Icon name={type.icon} class="size-3.5" />
+              <Icon name={type.icon} class={`size-3.5 type-${type.id}`} />
               {type.label}
               <span class="ml-auto font-mono text-[0.65rem] text-muted-foreground/70">
                 {type.count}

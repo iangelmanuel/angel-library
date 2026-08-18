@@ -36,7 +36,7 @@ claude mcp add --scope project github -- npx @modelcontextprotocol/server-github
 }
 ```
 
-`${VAR}` interpola variables de entorno — no hardcodear tokens acá.
+`${VAR}` interpola variables de entorno — no hardcodear tokens aquí.
 
 ## Los 3 scopes
 

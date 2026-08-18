@@ -29,12 +29,12 @@ const actualizarUsuarioSchema = z.object({
 });
 
 export const PATCH: APIRoute = async ({ params, request, locals, clientAddress }) => {
-  // 1. ¿quién sos? (ya resuelto por el middleware global, ver Backend en Astro)
+  // 1. ¿quién eres? (ya resuelto por el middleware global, ver Backend en Astro)
   if (!locals.user) {
     return new Response(JSON.stringify({ error: { code: 'NO_AUTENTICADO' } }), { status: 401 });
   }
 
-  // 2. ¿podés hacer esto?
+  // 2. ¿puedes hacer esto?
   if (locals.user.rol !== 'admin') {
     return new Response(JSON.stringify({ error: { code: 'SIN_PERMISO' } }), { status: 403 });
   }
@@ -95,5 +95,5 @@ export async function checarRateLimit(
 
 ## Consideraciones
 
-- El rate limiter en memoria de este ejemplo, igual que su equivalente en Express, no se comparte entre múltiples instancias del servidor ni sobrevive un reinicio — para producción con más de una instancia, un store compartido (Redis, o un servicio como Upstash) es lo que hace el límite real.
+- El rate limiter en memoria de este ejemplo, igual que su equivalente en Express, no se comparte entre múltiples instancias del servidor ni sobrevive un reinicio — para producción con más directamente instancia, un store compartido (Redis, o un servicio como Upstash) es lo que hace el límite real.
 - El razonamiento de "por qué ese orden" (barato primero, validación al final) es el mismo que en [API protegida (Express)](/recipes/express-api-protegida) — no cambia por el framework, solo la sintaxis de dónde se escribe cada chequeo.

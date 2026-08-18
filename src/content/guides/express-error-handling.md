@@ -37,7 +37,7 @@ app.post('/usuarios', handler);
 app.use(errorHandler); // último, siempre
 ```
 
-## Cómo llegan los errores hasta acá: `next(err)`
+## Cómo llegan los errores hasta aquí: `next(err)`
 
 Un error lanzado **síncronamente** dentro de un handler normal, Express lo atrapa solo (desde Express 5; en Express 4 solo si es síncrono). Un error **asíncrono** (dentro de un `async`, una promesa rechazada) necesita pasarse explícitamente con `next(err)`:
 
@@ -52,7 +52,7 @@ app.get('/usuarios/:id', async (req, res, next) => {
     }
     res.json(usuario);
   } catch (err) {
-    next(err); // lo manda directo al errorHandler, sin formatear la respuesta acá
+    next(err); // lo manda directo al errorHandler, sin formatear la respuesta aquí
   }
 });
 ```
@@ -119,7 +119,7 @@ import { asyncHandler } from './utils/asyncHandler';
 app.get('/usuarios/:id', asyncHandler(async (req, res) => {
   const usuario = await buscarUsuario(req.params.id);
   if (!usuario) throw new AppError(404, 'Usuario no encontrado');
-  res.json(usuario); // si algo lanza acá arriba, asyncHandler lo atrapa y lo manda a next()
+  res.json(usuario); // si algo lanza aquí arriba, asyncHandler lo atrapa y lo manda a next()
 }));
 ```
 

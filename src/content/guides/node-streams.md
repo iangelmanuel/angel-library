@@ -54,7 +54,7 @@ createReadStream('origen.txt').pipe(createWriteStream('copia.txt'));
 
 ## Streams en un servidor HTTP
 
-`req` y `res` en un servidor Node son streams (`req` es Readable, `res` es Writable) — por eso en [el servidor HTTP nativo](/guides/node-http-server) leer el body de una request implica escuchar eventos `data`/`end`, en vez de tener el body ya armado.
+`req` y `res` en un servidor Node son streams (`req` es Readable, `res` es Writable) — por eso en [el servidor HTTP nativo](/guides/node-http-server) leer el body directamente request implica escuchar eventos `data`/`end`, en vez de tener el body ya armado.
 
 ```ts
 import { createServer } from 'node:http';
@@ -81,4 +81,4 @@ const server = createServer((req, res) => {
 ## Consideraciones
 
 - Para la mayoría del código de aplicación (leer un archivo de config chico, un JSON pequeño), `readFile`/`writeFile` normal es más simple y perfectamente adecuado — streams importan específicamente cuando el tamaño de los datos es grande o desconocido de antemano (archivos, uploads, respuestas HTTP grandes).
-- `req.on('data', ...)` manual (como en el servidor HTTP nativo) es exactamente consumir un stream Readable a mano — frameworks como Express hacen esto por vos con un middleware de parseo de body.
+- `req.on('data', ...)` manual (como en el servidor HTTP nativo) es exactamente consumir un stream Readable a mano — frameworks como Express hacen esto por tú con un middleware de parseo de body.

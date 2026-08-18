@@ -65,6 +65,6 @@ dig google.com
 
 ## Consideraciones
 
-- El default distinto de `ping` (Windows corta solo, macOS/Linux no) es la trampa más común al copiar comandos de una guía pensada para otro sistema — si un `ping` "no vuelve", probablemente está en macOS/Linux esperando un `Ctrl+C`.
+- El default distinto de `ping` (Windows corta solo, macOS/Linux no) es la trampa más común al copiar comandos directamente guía pensada para otro sistema — si un `ping` "no vuelve", probablemente está en macOS/Linux esperando un `Ctrl+C`.
 - `ifconfig` está deprecado en Linux desde hace años; si no está disponible, `ip addr` es el reemplazo directo y viene preinstalado en la mayoría de las distros modernas.
 - `nslookup` alcanza para verificar que un dominio resuelve; `dig` es la herramienta para diagnosticar problemas de DNS más a fondo (registros MX, TTL, propagación).

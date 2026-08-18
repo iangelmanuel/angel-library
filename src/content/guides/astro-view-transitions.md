@@ -3,7 +3,7 @@ title: View Transitions
 description: Transiciones animadas entre páginas con el ClientRouter — transition:name, eventos de navegación, animaciones custom y redirección.
 category: frontend
 stack: astro
-order: 9
+order: 21
 tags: [astro, animation, routing]
 scope: astro:transitions
 related:
@@ -70,7 +70,7 @@ document.addEventListener('astro:before-preparation', () => {
 
 document.addEventListener('astro:after-swap', () => {
   // el DOM ya cambió, los scripts todavía no corrieron de nuevo
-  // acá se resincroniza estado que depende del nuevo DOM
+  // aquí se resincroniza estado que depende del nuevo DOM
 });
 
 document.addEventListener('astro:page-load', () => {
@@ -112,6 +112,6 @@ navigate('/gracias', { history: 'push' }); // o "replace" / "auto"
 
 ## Consideraciones
 
-- Un script `<script>` normal (no `type="module"` con listener global) se re-ejecuta en cada navegación por defecto — si necesitás que corra una sola vez por sesión, hay que engancharlo a `document` fuera del ciclo de swap, como hace este sitio en `BaseLayout.astro`.
+- Un script `<script>` normal (no `type="module"` con listener global) se re-ejecuta en cada navegación por defecto — si necesitas que corra una sola vez por sesión, hay que engancharlo a `document` fuera del ciclo de swap, como hace este sitio en `BaseLayout.astro`.
 - `transition:name` con el mismo valor en dos elementos de la misma página rompe la animación — tiene que ser único por página.
 - `navigate()` respeta las view transitions; cambiar `window.location.href` a mano no.

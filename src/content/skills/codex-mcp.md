@@ -42,7 +42,7 @@ disabled_tools = ["delete_repo"]
 approval_mode = "always"
 ```
 
-Nivel de detalle que ninguna de las otras 3 herramientas documentadas acá ofrece — permite, por ejemplo, que un servidor esté disponible pero una tool puntual (`delete_repo`) siempre pida aprobación explícita.
+Nivel de detalle que ninguna de las otras 3 herramientas documentadas aquí ofrece — permite, por ejemplo, que un servidor esté disponible pero una tool puntual (`delete_repo`) siempre pida aprobación explícita.
 
 ## Resumen
 

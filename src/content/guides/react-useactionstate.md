@@ -1,6 +1,6 @@
 ---
 title: useActionState (ex useFormState)
-description: Estado + pending de una acción de formulario sin useState/useTransition a mano — reemplaza a useFormState.
+description: Estado + pending directamente acción de formulario sin useState/useTransition a mano — reemplaza a useFormState.
 category: frontend
 stack: react
 order: 8
@@ -11,11 +11,11 @@ related:
 updatedAt: 2026-08-16
 ---
 
-Este hook se llamaba `useFormState` (vivía en `react-dom`). En React 19 estable se renombró a **`useActionState`** y pasó a `react` — la doc oficial de `useFormState` ya ni existe, redirige acá. Si ves `useFormState` en un tutorial, es la versión vieja del mismo hook; la forma cambió un poco (ver abajo), no es un simple find-and-replace del nombre.
+Este hook se llamaba `useFormState` (vivía en `react-dom`). En React 19 estable se renombró a **`useActionState`** y pasó a `react` — la doc oficial de `useFormState` ya ni existe, redirige aquí. Si ves `useFormState` en un tutorial, es la versión vieja del mismo hook; la forma cambió un poco (ver abajo), no es un simple find-and-replace del nombre.
 
 ## El problema que resuelve
 
-Manejar el resultado y el estado de carga de una acción de formulario a mano implica un `useState` para el resultado, otro (o un `useTransition`) para el "cargando", y coordinar ambos en la función que dispara la acción. `useActionState` empaqueta las tres cosas.
+Manejar el resultado y el estado de carga directamente acción de formulario a mano implica un `useState` para el resultado, otro (o un `useTransition`) para el "cargando", y coordinar ambos en la función que dispara la acción. `useActionState` empaqueta las tres cosas.
 
 ## La forma básica
 

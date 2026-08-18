@@ -30,7 +30,7 @@ const baseFields = {
   related: refs,
   /** Subcategoría dentro de una categoría ("frontend": astro/react/nextjs; "backend": node/express/astro/nextjs). */
   stack: z.enum(STACK_IDS).optional(),
-  /** Orden manual dentro de su grupo (stack, o categoría). Menor = primero. Sin definir = al final, alfabético. */
+  /** Orden manual dentro de la misma etapa de aprendizaje y grupo. Menor = primero; nunca adelanta recetas a fundamentos. */
   order: z.number().optional(),
   draft: z.boolean().default(false),
   updatedAt: z.coerce.date().optional(),

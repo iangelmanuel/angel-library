@@ -3,7 +3,7 @@ title: Content Collections
 description: Colecciones de contenido tipadas con Zod — defineCollection, loaders, getCollection, render y referencias entre colecciones.
 category: frontend
 stack: astro
-order: 8
+order: 10
 tags: [astro, content, zod]
 scope: astro:content
 related:
@@ -16,7 +16,7 @@ Content Collections tipa y valida Markdown/MDX/JSON con Zod en build — este mi
 
 ## Definir una colección
 
-Vive en `src/content.config.ts`, en la raíz de `src/` (no dentro de `content/`). `loader` dice de dónde salen las entradas; `schema` valida su frontmatter con Zod. Esto es la llamada **Content Layer API**, la forma actual desde Astro 5 — antes (Astro 2–4) una colección se detectaba sola por el nombre de la carpeta dentro de `src/content/`, sin declarar loader. Ese modelo implícito ya no existe: hoy toda colección se declara acá, explícita, con su loader.
+Vive en `src/content.config.ts`, en la raíz de `src/` (no dentro de `content/`). `loader` dice de dónde salen las entradas; `schema` valida su frontmatter con Zod. Esto es la llamada **Content Layer API**, la forma actual desde Astro 5 — antes (Astro 2–4) una colección se detectaba sola por el nombre de la carpeta dentro de `src/content/`, sin declarar loader. Ese modelo implícito ya no existe: hoy toda colección se declara aquí, explícita, con su loader.
 
 ```ts title="src/content.config.ts"
 import { defineCollection } from 'astro:content';
@@ -105,7 +105,7 @@ const relacionados = await getEntries(post.data.relacionados);
 | `getEntry(nombre, id)` | Una entrada puntual |
 | `render(entry)` | `{ Content, headings }` para renderizar el body |
 | `reference(coleccion)` | Tipar un campo como referencia a otra colección |
-| `getEntries(refs)` | Resolver varias referencias de una |
+| `getEntries(refs)` | Resolver varias referencias directamente |
 
 ## Consideraciones
 

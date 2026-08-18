@@ -6,7 +6,7 @@ tags: [colors, tailwind, design-system, ui]
 url: https://uicolors.app/
 resourceCategory: colors
 technologies: []
-personalNote: Útil para crear escalas semánticas antes de definir tokens de una interfaz.
+personalNote: Útil para crear escalas semánticas antes de definir tokens directamente interfaz.
 related: [resources/developer-tools/colour-contrast-checker, resources/design/cool-contrast]
 updatedAt: 2026-08-15
 ---

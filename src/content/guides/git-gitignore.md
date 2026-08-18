@@ -13,7 +13,7 @@ updatedAt: 2026-08-16
 
 ## Sintaxis básica
 
-```gitignore title=".gitignore"
+```text title=".gitignore"
 node_modules/       # carpeta entera, en cualquier nivel
 *.log                # cualquier archivo .log
 .env                 # archivo puntual
@@ -41,7 +41,7 @@ Archivos del editor o del sistema operativo no son parte de ningún proyecto pun
 git config --global core.excludesfile ~/.gitignore_global
 ```
 
-```gitignore title="~/.gitignore_global"
+```text title="~/.gitignore_global"
 .DS_Store
 .vscode/
 *.swp

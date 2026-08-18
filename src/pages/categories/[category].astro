@@ -7,10 +7,10 @@ import {
   CATEGORY_LIST,
   RESOURCE_CATEGORIES,
   STACK_GROUPED_CATEGORIES,
-  STACK_LIST,
+  getStacksForCategory,
   type CategoryMeta,
 } from '@/config/site';
-import { getAllEntries, groupByType } from '@/lib/content';
+import { getAllEntries, groupByType, sortByLearningPath } from '@/lib/content';
 
 export function getStaticPaths() {
   return CATEGORY_LIST.map((meta) => ({
@@ -39,10 +39,10 @@ const resourceGroups = meta.id === 'resources'
   : [];
 const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
 const stackGroups = usesStackGroups
-  ? STACK_LIST.map((stack) => ({
+  ? getStacksForCategory(meta.id).map((stack) => ({
       id: stack.id,
       label: stack.label,
-      entries: entries.filter((entry) => entry.data.stack === stack.id),
+      entries: sortByLearningPath(entries.filter((entry) => entry.data.stack === stack.id)),
     })).filter((group) => group.entries.length > 0)
   : [];
 const ungroupedStack = usesStackGroups ? entries.filter((entry) => !entry.data.stack) : [];

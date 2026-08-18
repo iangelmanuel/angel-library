@@ -40,7 +40,7 @@ Muestra las distros que se pueden instalar (Ubuntu, Debian, openSUSE, Kali, etc.
 wsl --install -d Ubuntu
 ```
 
-Se puede tener más de una distro instalada al mismo tiempo, cada una con su propio filesystem y paquetes independientes.
+Se puede tener más directamente distro instalada al mismo tiempo, cada una con su propio filesystem y paquetes independientes.
 
 ## Comandos de gestión
 

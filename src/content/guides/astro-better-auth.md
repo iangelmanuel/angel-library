@@ -3,14 +3,14 @@ title: better-auth en Astro
 description: Instalación, configuración con adapter y providers, el endpoint catch-all, y leer la sesión en middleware/páginas — sin JWT manual, sin CORS.
 category: backend
 stack: astro
-order: 2
+order: 5
 tags: [astro, better-auth, auth]
 website: https://www.better-auth.com
 related: [guides/astro-backend-arquitectura]
 updatedAt: 2026-08-17
 ---
 
-better-auth es un framework de autenticación TypeScript-first y agnóstico de framework: hashea contraseñas, emite y valida sesiones, y maneja providers OAuth por vos, con integración oficial para Astro (además de Express y Next.js).
+better-auth es un framework de autenticación TypeScript-first y agnóstico de framework: hashea contraseñas, emite y valida sesiones, y maneja providers OAuth por tú, con integración oficial para Astro (además de Express y Next.js).
 
 ## Instalación
 
@@ -75,7 +75,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 });
 ```
 
-Requiere `output: 'server'` (o `'hybrid'` con estas rutas marcadas `prerender: false`) en `astro.config.mjs`.
+Requiere `output: 'server'` o mantener `output: 'static'` y marcar las rutas de autenticación con `export const prerender = false`. El antiguo modo `hybrid` se expresa hoy con esa selección por ruta.
 
 ## Proteger una página
 

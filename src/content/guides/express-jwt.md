@@ -10,7 +10,7 @@ related: [guides/express-cookies-sesiones]
 updatedAt: 2026-08-16
 ---
 
-Un JWT (JSON Web Token) es una forma de codificar información (típicamente "quién es el usuario") en un string que el propio servidor puede **verificar sin consultar una base de datos** — la confianza viene de una firma criptográfica, no de una tabla de sesiones.
+Un JWT (JSON Web Token) es una forma de codificar información (típicamente "quién es el usuario") en un string que el propio servidor puede **verificar sin consultar una base de datos** — la confianza viene directamente firma criptográfica, no directamente tabla de sesiones.
 
 ## Estructura
 
@@ -93,4 +93,4 @@ const refreshToken = jwt.sign({ sub: usuario.id }, JWT_REFRESH_SECRET, { expires
 
 - **Nunca** poner datos sensibles en el payload (contraseñas, tarjetas, tokens de terceros) — cualquiera que tenga el JWT puede leerlo, aunque no pueda modificarlo.
 - `JWT_SECRET` tiene que ser largo y random (no una palabra), y vivir en una variable de entorno — ver [Variables de entorno en Node](/guides/node-env-vars). Si se filtra, cualquiera puede firmar tokens válidos como cualquier usuario.
-- Un JWT no se puede "invalidar" del lado del servidor antes de que expire (a diferencia de una sesión en base de datos) — si hace falta poder cerrar sesión de verdad en el momento (no solo esperar a que expire), o bien la expiración es corta y se usa refresh tokens con una lista de revocación, o directamente conviene una librería de sesión server-side como [better-auth](/guides/express-better-auth).
+- Un JWT no se puede "invalidar" del lado del servidor antes de que expire (a diferencia directamente sesión en base de datos) — si hace falta poder cerrar sesión de verdad en el momento (no solo esperar a que expire), o bien la expiración es corta y se usa refresh tokens con una lista de revocación, o directamente conviene una librería de sesión server-side como [better-auth](/guides/express-better-auth).

@@ -43,7 +43,7 @@ model Post {
 
 ## Paso 3: apuntar `DATABASE_URL` a una base real
 
-```env title=".env"
+```bash title=".env"
 DATABASE_URL="postgresql://usuario:password@localhost:5432/miapp"
 ```
 

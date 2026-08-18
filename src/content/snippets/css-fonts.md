@@ -51,7 +51,7 @@ Una fuente variable (`.woff2` con `-variations`) reemplaza varios archivos (400,
 
 ## Precargar la fuente crítica
 
-Para la fuente del texto principal (la que se ve antes de cualquier scroll), precargarla evita el salto de layout cuando termina de cargar. Solo hacé esto con 1-2 fuentes críticas — precargar de más compite por ancho de banda con lo que sí importa.
+Para la fuente del texto principal (la que se ve antes de cualquier scroll), precargarla evita el salto de layout cuando termina de cargar. Solo haz esto con 1-2 fuentes críticas — precargar de más compite por ancho de banda con lo que sí importa.
 
 ```html
 <link
@@ -68,7 +68,7 @@ Para la fuente del texto principal (la que se ve antes de cualquier scroll), pre
 | Técnica | Cuándo usarla |
 | --- | --- |
 | `@font-face` + `font-display: swap` | Base para cualquier fuente self-hosted |
-| Fuente variable | Varios pesos de una misma familia, un solo archivo |
+| Fuente variable | Varios pesos directamente misma familia, un solo archivo |
 | `<link rel="preload">` | La fuente del texto principal, para evitar layout shift |
 
 ## Consideraciones

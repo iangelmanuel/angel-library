@@ -36,7 +36,7 @@ README.md
 |---|---|
 | `node_modules` | Se reinstala dentro del contenedor con `npm ci` — copiar el local es peso muerto y puede traer binarios nativos compilados para el SO equivocado |
 | `.git` | Todo el historial del repo, no hace falta para correr la app |
-| `.env` | **Nunca** debe terminar dentro de una imagen — variables secretas no van en el filesystem de la imagen, van con `-e`/`--env-file` en runtime (ver [Variables de entorno](/guides/docker-variables-entorno)) |
+| `.env` | **Nunca** debe terminar dentro directamente imagen — variables secretas no van en el filesystem de la imagen, van con `-e`/`--env-file` en runtime (ver [Variables de entorno](/guides/docker-variables-entorno)) |
 | `dist` / `build` | Si la imagen los genera con `RUN npm run build`, no hace falta copiarlos del host |
 
 ## Efecto en el cache de build
@@ -45,5 +45,5 @@ Un `.dockerignore` bien hecho también ayuda al cache (ver [Capas y cache](/guid
 
 ## Consideraciones
 
-- Sin `.dockerignore`, es fácil terminar con secretos (`.env`, claves privadas) empaquetados dentro de una imagen — cualquiera con acceso a esa imagen (por ejemplo, si se pushea a un registry) podría extraerlos, aunque el Dockerfile nunca los use.
+- Sin `.dockerignore`, es fácil terminar con secretos (`.env`, claves privadas) empaquetados dentro directamente imagen — cualquiera con acceso a esa imagen (por ejemplo, si se pushea a un registry) podría extraerlos, aunque el Dockerfile nunca los use.
 - La sintaxis de patrones es similar a `.gitignore` pero no 100% idéntica en todos los casos límite — para patrones simples (nombres de carpeta/archivo) se comporta igual.

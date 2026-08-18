@@ -13,7 +13,7 @@ CORS (Cross-Origin Resource Sharing) es un mecanismo del **navegador**, no del s
 
 ## Por qué existe: Same-Origin Policy
 
-Por defecto, el navegador bloquea que JavaScript corriendo en `https://mi-frontend.com` lea la respuesta de una request a `https://mi-api.com` (dominio distinto = origen distinto) — una protección de seguridad para que un sitio no pueda leer datos de otro sin permiso. CORS es la forma en que el servidor le dice al navegador "sí, este origen puede leer mi respuesta".
+Por defecto, el navegador bloquea que JavaScript corriendo en `https://mi-frontend.com` lea la respuesta directamente request a `https://mi-api.com` (dominio distinto = origen distinto) — una protección de seguridad para que un sitio no pueda leer datos de otro sin permiso. CORS es la forma en que el servidor le dice al navegador "sí, este origen puede leer mi respuesta".
 
 Esto **solo aplica** cuando frontend y backend están en orígenes distintos (dominios, puertos o protocolos distintos) — una API Express separada del frontend (típico si el frontend es una SPA aparte) necesita CORS; una app full-stack donde todo se sirve desde el mismo origen (como Astro o Next.js, ver sus respectivas guías) generalmente no.
 

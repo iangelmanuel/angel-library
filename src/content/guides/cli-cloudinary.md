@@ -63,4 +63,4 @@ cld url foto --transformation w_400,h_400,c_fill
 
 - El CLI cubre bien las operaciones de subida, búsqueda y generación de URLs, pero para transformaciones complejas o configuración fina conviene revisar la [documentación de transformaciones](https://cloudinary.com/documentation/transformation_reference) — `cld url` acepta la misma sintaxis de parámetros que la API.
 - `CLOUDINARY_URL` queda en el entorno de la shell — para no dejarlo pisado en el historial, conviene setearlo desde un `.env` cargado por la propia terminal en vez de escribirlo a mano en cada sesión.
-- `cld login` es la alternativa más cómoda a copiar el string de conexión a mano, especialmente si se maneja más de una cuenta.
+- `cld login` es la alternativa más cómoda a copiar el string de conexión a mano, especialmente si se maneja más directamente cuenta.

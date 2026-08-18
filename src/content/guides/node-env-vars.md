@@ -41,7 +41,7 @@ En desarrollo, escribir variables en la terminal cada vez es incómodo — `dote
 npm install dotenv
 ```
 
-```env title=".env"
+```bash title=".env"
 DATABASE_URL=postgresql://localhost:5432/mibase
 JWT_SECRET=un-secreto-largo-y-random
 PORT=3000
@@ -62,14 +62,14 @@ node --env-file=.env server.js
 
 ## `.env` NUNCA se versiona
 
-```gitignore title=".gitignore"
+```text title=".gitignore"
 .env
 .env.local
 ```
 
 Ver [.gitignore](/guides/git-gitignore) para el patrón completo. Un `.env.example` (sin valores reales, solo los nombres de las variables esperadas) sí se versiona — documenta qué necesita configurar cualquiera que clone el proyecto.
 
-```env title=".env.example"
+```bash title=".env.example"
 DATABASE_URL=
 JWT_SECRET=
 PORT=3000
@@ -77,7 +77,7 @@ PORT=3000
 
 ## Validar `process.env`, no confiar a ciegas
 
-`process.env.PUERTO_MAL_ESCRITO` no da un error — da `undefined`, silenciosamente, y el bug aparece mucho más tarde y más confuso. La [práctica de validar en las fronteras](/practices/validate-at-boundaries) aplica directo acá: `process.env` es una frontera del sistema (viene de afuera, no lo controla el tipo de TypeScript).
+`process.env.PUERTO_MAL_ESCRITO` no da un error — da `undefined`, silenciosamente, y el bug aparece mucho más tarde y más confuso. La [práctica de validar en las fronteras](/practices/validate-at-boundaries) aplica directo aquí: `process.env` es una frontera del sistema (viene de afuera, no lo controla el tipo de TypeScript).
 
 ```ts title="env.ts"
 import { z } from 'zod';
@@ -91,7 +91,7 @@ const envSchema = z.object({
 
 export const env = envSchema.parse(process.env);
 // env.PORT ya es number, no string — y si falta DATABASE_URL, el proceso
-// falla acá, al arrancar, con un mensaje claro — no 500 requests después.
+// falla aquí, al arrancar, con un mensaje claro — no 500 requests después.
 ```
 
 Con esto, el resto de la app importa `env` (tipado, ya validado) en vez de tocar `process.env` directo en cualquier archivo — ver [Zod](/libraries/zod) para el resto de la API de validación.

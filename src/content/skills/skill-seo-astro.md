@@ -10,9 +10,9 @@ related: [recipes/astro-seo-completo]
 updatedAt: 2026-08-17
 ---
 
-Skill propio, no de skills.sh. A diferencia de un comando de una sola instrucción, esto es una **carpeta completa** — `SKILL.md` liviano más una carpeta `references/` con el código real (funciones, variables, los 5 schemas, el orden de meta tags) sacado directo de [SEO completo en Astro](/recipes/astro-seo-completo). Claude Code lee cada archivo de `references/` solo cuando lo necesita (progressive disclosure) — no es un resumen, es el código funcionando.
+Skill propio, no de skills.sh. A diferencia de un comando directamente sola instrucción, esto es una **carpeta completa** — `SKILL.md` liviano más una carpeta `references/` con el código real (funciones, variables, los 5 schemas, el orden de meta tags) sacado directo de [SEO completo en Astro](/recipes/astro-seo-completo). Claude Code lee cada archivo de `references/` solo cuando lo necesita (progressive disclosure) — no es un resumen, es el código funcionando.
 
-Este sitio no tiene descarga en `.zip` — copiás cada bloque de código de abajo al archivo indicado en el título, respetando la carpeta `references/`. El resultado en disco es idéntico a lo que sería descargar una carpeta.
+Este sitio no tiene descarga en `.zip` — copias cada bloque de código de abajo al archivo indicado en el título, respetando la carpeta `references/`. El resultado en disco es idéntico a lo que sería descargar una carpeta.
 
 ## Estructura final
 

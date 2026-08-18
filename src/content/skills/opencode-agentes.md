@@ -30,7 +30,7 @@ permission:
   bash: ask
 ---
 
-Sos un revisor de código senior. Buscá bugs, riesgos de seguridad y problemas de legibilidad. Nunca edites archivos directamente, solo reportá.
+Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas de legibilidad. Nunca edites archivos directamente, solo reportá.
 ```
 
 ## Campos que más se usan
@@ -46,7 +46,7 @@ Sos un revisor de código senior. Buscá bugs, riesgos de seguridad y problemas 
 ## Invocar
 
 ```text
-@code-reviewer revisá los últimos cambios
+@code-reviewer revisa los últimos cambios
 ```
 
 Para agentes `primary`, `Tab` cicla entre los disponibles en la sesión activa.

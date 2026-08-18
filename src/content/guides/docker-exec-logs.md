@@ -62,4 +62,4 @@ docker exec -it mi-app sh    # entrar a inspeccionar archivos, variables de ento
 ## Consideraciones
 
 - `docker exec` no funciona en un contenedor detenido — hace falta que esté `Running` (ver [Ciclo de vida](/guides/docker-lifecycle)).
-- Cualquier cambio hecho a mano dentro de una sesión `exec` (instalar algo, editar un archivo) se pierde si el contenedor se borra, y no se refleja en la imagen — para cambios permanentes, van en el Dockerfile.
+- Cualquier cambio hecho a mano dentro directamente sesión `exec` (instalar algo, editar un archivo) se pierde si el contenedor se borra, y no se refleja en la imagen — para cambios permanentes, van en el Dockerfile.

@@ -37,7 +37,7 @@ mi-plugin/
   "name": "mi-plugin",
   "description": "Skills y agentes para mi flujo de trabajo",
   "version": "1.0.0",
-  "author": "vos"
+  "author": "tú"
 }
 ```
 

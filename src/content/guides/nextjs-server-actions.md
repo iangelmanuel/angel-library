@@ -3,7 +3,7 @@ title: Server Actions
 description: Mutar datos con 'use server' — un solo roundtrip que devuelve el resultado Y la UI actualizada, más las protecciones de seguridad que trae el framework.
 category: frontend
 stack: nextjs
-order: 11
+order: 15
 tags: [nextjs, forms, backend]
 scope: next.js (use server)
 related:
@@ -51,11 +51,11 @@ export default function NuevoPost() {
 
 ## Un solo roundtrip para datos y UI
 
-Cuando la action llama `revalidatePath`, `revalidateTag`/`updateTag`, muta cookies, o hace `redirect()`, Next.js re-renderiza la ruta actual en el servidor **dentro de la misma respuesta HTTP** — no hace falta un segundo fetch para ver la UI actualizada después del submit. Esto es distinto (y más eficiente) que un endpoint REST tradicional donde vos disparás el refetch a mano.
+Cuando la action llama `revalidatePath`, `revalidateTag`/`updateTag`, muta cookies, o hace `redirect()`, Next.js re-renderiza la ruta actual en el servidor **dentro de la misma respuesta HTTP** — no hace falta un segundo fetch para ver la UI actualizada después del submit. Esto es distinto (y más eficiente) que un endpoint REST tradicional donde tú disparás el refetch a mano.
 
 ## Las actions se despachan de a una
 
-El cliente de Next.js manda las Server Actions de un mismo usuario **secuencialmente**: si se disparan tres seguidas, la segunda espera a que termine la primera. Esto mantiene consistente el árbol re-renderizado con la acción que lo produjo — pero significa que `Promise.all` sobre varias Server Actions desde el cliente no las paraleliza de verdad. Para trabajo en paralelo, hacelo adentro de una sola action.
+El cliente de Next.js manda las Server Actions de un mismo usuario **secuencialmente**: si se disparan tres seguidas, la segunda espera a que termine la primera. Esto mantiene consistente el árbol re-renderizado con la acción que lo produjo — pero significa que `Promise.all` sobre varias Server Actions desde el cliente no las paraleliza de verdad. Para trabajo en paralelo, hazlo adentro directamente sola action.
 
 ## Seguridad — lo que el framework protege, y lo que no
 
@@ -65,7 +65,7 @@ Cada Server Action es un endpoint POST alcanzable por cualquiera que sepa la URL
 - **Límite de tamaño del body**: 1MB por defecto (configurable).
 - **IDs de action encriptados**: las actions no usadas se eliminan del bundle de cliente, así que no quedan expuestas sin querer.
 
-Ninguna de esas protecciones reemplaza la autorización dentro de la action — el renderizado condicional ("este botón solo se muestra si sos admin") **no** es una barrera de seguridad, porque la request se puede mandar sin pasar por tu UI.
+Ninguna de esas protecciones reemplaza la autorización dentro de la action — el renderizado condicional ("este botón solo se muestra si eres admin") **no** es una barrera de seguridad, porque la request se puede mandar sin pasar por tu UI.
 
 ```ts title="app/posts/actions.ts"
 'use server'
@@ -75,7 +75,7 @@ export async function borrarPost(postId: string) {
   if (!session?.user) throw new Error('No autenticado');
 
   // No confiar en que el cliente mande solo IDs de posts propios:
-  // verificar ownership acá, con datos del servidor.
+  // verificar ownership aquí, con datos del servidor.
   const post = await db.post.findFirst({ where: { id: postId, authorId: session.user.id } });
   if (!post) throw new Error('No autorizado');
 
@@ -97,4 +97,4 @@ export async function borrarPost(postId: string) {
 
 - Validar `formData` con [Zod](/libraries/zod) antes de tocar la base de datos — nada de lo que llega a una action es confiable solo porque vino de tu propio formulario.
 - Mandar solo el ID desde el cliente y volver a buscar el resto de los datos del lado del servidor (con el usuario de la sesión) evita que alguien mande un objeto completo con un `ownerId` falso.
-- `redirect()` dentro de una action corta la ejecución (lanza) — cualquier `revalidatePath`/`revalidateTag` tiene que ir **antes** del `redirect`, si no nunca se ejecuta.
+- `redirect()` dentro directamente action corta la ejecución (lanza) — cualquier `revalidatePath`/`revalidateTag` tiene que ir **antes** del `redirect`, si no nunca se ejecuta.

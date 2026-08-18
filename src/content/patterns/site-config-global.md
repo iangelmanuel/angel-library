@@ -12,7 +12,7 @@ updatedAt: 2026-08-17
 
 `SITE` es un objeto, de solo lectura (`as const`), con **todo** lo que puede cambiar si mañana este proyecto se usa para otra empresa: identidad, ubicación, contacto, redes, navegación, y el bloque de SEO completo. Ningún componente escribe un dato de la empresa a mano — todos importan `SITE` y leen de ahí. Cambiar de empresa es, en teoría, editar un solo archivo.
 
-Es independiente del framework — el mismo objeto sirve en Astro, Next.js, o cualquier otro. Lo único que cambia es la carpeta donde vive (ver [Dónde vive esto](#dónde-vive-esto-por-framework) más abajo). El bloque `seo` de acá es exactamente el que consumen [SEO completo en Astro](/recipes/astro-seo-completo) y [SEO completo en Next.js](/recipes/nextjs-seo-completo) — mismos nombres de campo, mismos datos de ejemplo.
+Es independiente del framework — el mismo objeto sirve en Astro, Next.js, o cualquier otro. Lo único que cambia es la carpeta donde vive (ver [Dónde vive esto](#dónde-vive-esto-por-framework) más abajo). El bloque `seo` de aquí es exactamente el que consumen [SEO completo en Astro](/recipes/astro-seo-completo) y [SEO completo en Next.js](/recipes/nextjs-seo-completo) — mismos nombres de campo, mismos datos de ejemplo.
 
 ## Estructura completa
 
@@ -210,8 +210,8 @@ El patrón no depende del framework — solo el **consumo** cambia (meta tags a 
 
 ## Reglas del patrón
 
-- Si un dato de la empresa aparece escrito más de una vez en el código (un email, una URL, un color), es señal de que debería vivir en `SITE` en vez de repetirse.
-- `SITE` es de solo lectura (`as const`) — se lee en build time o request time, nunca se muta. Para un dato que sí cambia en runtime (el tema claro/oscuro elegido por el usuario, por ejemplo), eso va en estado de la app, no acá.
+- Si un dato de la empresa aparece escrito más directamente vez en el código (un email, una URL, un color), es señal de que debería vivir en `SITE` en vez de repetirse.
+- `SITE` es de solo lectura (`as const`) — se lee en build time o request time, nunca se muta. Para un dato que sí cambia en runtime (el tema claro/oscuro elegido por el usuario, por ejemplo), eso va en estado de la app, no aquí.
 - Las secciones marcadas "opcional" en la tabla de arriba solo se agregan si el proyecto las va a usar de verdad — un `businessHours` sin ningún componente que lo lea es peso muerto, no "por si acaso".
 
 ## Consideraciones

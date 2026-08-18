@@ -52,7 +52,7 @@ git cherry-pick --abort  # durante un cherry-pick en conflicto
 
 Cualquiera de los tres devuelve el repo exactamente a como estaba antes de intentar la operación — ningún cambio se pierde, porque nunca se llegó a confirmar nada.
 
-## Ver ambas versiones completas mientras decidís
+## Ver ambas versiones completas mientras decides
 
 ```bash
 git diff              # muestra el conflicto en formato diff, con las tres secciones
@@ -73,5 +73,5 @@ git show :3:archivo.ts  # versión "de ellos" completa del archivo
 ## Consideraciones
 
 - Un conflicto no significa que algo esté roto en el repo — es un estado esperado y temporal, se resuelve y se sigue.
-- En un rebase con varios commits, un mismo archivo puede entrar en conflicto más de una vez (uno por cada commit que lo toque) — es normal repetir el ciclo resolver → `git add` → `git rebase --continue` varias veces seguidas.
-- Antes de resolver "a lo rápido" eligiendo una versión entera sin leer la otra, vale la pena entender qué cambió cada lado — un conflicto mal resuelto no rompe Git, pero puede introducir un bug silencioso que Git no puede detectar por vos.
+- En un rebase con varios commits, un mismo archivo puede entrar en conflicto más directamente vez (uno por cada commit que lo toque) — es normal repetir el ciclo resolver → `git add` → `git rebase --continue` varias veces seguidas.
+- Antes de resolver "a lo rápido" eligiendo una versión entera sin leer la otra, vale la pena entender qué cambió cada lado — un conflicto mal resuelto no rompe Git, pero puede introducir un bug silencioso que Git no puede detectar por tú.

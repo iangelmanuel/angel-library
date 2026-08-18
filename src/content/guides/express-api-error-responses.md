@@ -93,7 +93,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 };
 ```
 
-Un error de base de datos, un stack trace, o el mensaje real de una excepción interna puede filtrar detalles de la implementación (nombres de tablas, versión de una librería, hasta paths del sistema de archivos) — útiles para un atacante, sin valor para un usuario legítimo. Solo los errores explícitamente lanzados como `AppError` (los que el código de la app decidió a propósito) exponen su mensaje tal cual.
+Un error de base de datos, un stack trace, o el mensaje real directamente excepción interna puede filtrar detalles de la implementación (nombres de tablas, versión directamente librería, hasta paths del sistema de archivos) — útiles para un atacante, sin valor para un usuario legítimo. Solo los errores explícitamente lanzados como `AppError` (los que el código de la app decidió a propósito) exponen su mensaje tal cual.
 
 ## Resumen
 

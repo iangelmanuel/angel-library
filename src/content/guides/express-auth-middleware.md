@@ -10,7 +10,7 @@ related: [guides/express-middlewares, guides/express-jwt]
 updatedAt: 2026-08-16
 ---
 
-**Autenticación** (¿quién sos?) y **autorización** (¿qué podés hacer?) son dos pasos distintos — el primero identifica al usuario, el segundo decide si ese usuario específico puede hacer la acción que está pidiendo. En Express, ambos se implementan como [middlewares](/guides/express-middlewares) en la cadena, antes del handler de la ruta.
+**Autenticación** (¿quién eres?) y **autorización** (¿qué puedes hacer?) son dos pasos distintos — el primero identifica al usuario, el segundo decide si ese usuario específico puede hacer la acción que está pidiendo. En Express, ambos se implementan como [middlewares](/guides/express-middlewares) en la cadena, antes del handler de la ruta.
 
 ## Middleware de autenticación: poblar `req.user`
 
@@ -50,7 +50,7 @@ app.get('/perfil', requireAuth, (req, res) => {
 });
 ```
 
-Aceptar el token tanto de una cookie (`req.cookies.token`) como de un header `Authorization: Bearer <token>` cubre los dos casos típicos: cliente web (cookie) y cliente API/mobile (header) — ver [Cookies vs sesiones](/guides/express-cookies-sesiones) para cuál conviene según el caso.
+Aceptar el token tanto directamente cookie (`req.cookies.token`) como de un header `Authorization: Bearer <token>` cubre los dos casos típicos: cliente web (cookie) y cliente API/mobile (header) — ver [Cookies vs sesiones](/guides/express-cookies-sesiones) para cuál conviene según el caso.
 
 ## Middleware de autorización: chequeo de rol
 
@@ -62,7 +62,7 @@ import type { Request, Response, NextFunction } from 'express';
 export function requireRole(...rolesPermitidos: string[]) {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.user || !rolesPermitidos.includes(req.user.rol)) {
-      return res.status(403).json({ error: 'No tenés permiso para esto' });
+      return res.status(403).json({ error: 'No tienes permiso para esto' });
     }
     next();
   };
@@ -72,8 +72,8 @@ export function requireRole(...rolesPermitidos: string[]) {
 ```ts
 app.delete(
   '/usuarios/:id',
-  requireAuth,                    // primero: ¿quién sos?
-  requireRole('admin'),           // segundo: ¿podés hacer esto?
+  requireAuth,                    // primero: ¿quién eres?
+  requireRole('admin'),           // segundo: ¿puedes hacer esto?
   handlerDeEliminarUsuario,
 );
 ```
@@ -83,8 +83,8 @@ app.delete(
 ## 401 vs 403: la diferencia importa
 
 ```text
-401 Unauthorized  →  "no sé quién sos" (falta o es inválido el token)
-403 Forbidden      →  "sé quién sos, pero no podés hacer esto" (rol insuficiente)
+401 Unauthorized  →  "no sé quién eres" (falta o es inválido el token)
+403 Forbidden      →  "sé quién eres, pero no puedes hacer esto" (rol insuficiente)
 ```
 
 Confundirlos no rompe nada técnicamente, pero da información engañosa al cliente sobre qué está fallando — `requireAuth` siempre debería devolver `401`, `requireRole` siempre `403`.

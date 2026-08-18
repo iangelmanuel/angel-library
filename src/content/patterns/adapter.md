@@ -69,4 +69,4 @@ await cobrarPedido(stripeAdapter, pedido);
 
 ## Cuándo NO usarlo
 
-Si controlás ambos lados de la integración (tu propio código en los dos extremos), suele ser más simple cambiar uno de los dos para que las interfaces coincidan, en vez de mantener una capa de traducción permanente. Adapter se justifica cuando uno de los lados es código externo que no podés (o no querés) tocar.
+Si controlas ambos lados de la integración (tu propio código en los dos extremos), suele ser más simple cambiar uno de los dos para que las interfaces coincidan, en vez de mantener una capa de traducción permanente. Adapter se justifica cuando uno de los lados es código externo que no puedes (o no quieres) tocar.

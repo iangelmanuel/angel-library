@@ -22,7 +22,7 @@ Ver `claude.com/plugins/commit-commands` para el nombre exacto del marketplace v
 
 ## Cuándo preferirlo sobre copiar el comando a mano
 
-- Si el equipo ya usa varios plugins del marketplace oficial y preferís mantener todo instalado de forma consistente, en vez de mezclar comandos copiados a mano con plugins instalados.
+- Si el equipo ya usa varios plugins del marketplace oficial y prefieres mantener todo instalado de forma consistente, en vez de mezclar comandos copiados a mano con plugins instalados.
 - Actualizaciones: un plugin se actualiza con el marketplace; un archivo copiado a mano no.
 
 ## Consideraciones

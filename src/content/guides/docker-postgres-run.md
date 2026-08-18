@@ -65,4 +65,4 @@ Fijar al menos la versión mayor (`postgres:16`) evita sorpresas si en algún mo
 ## Consideraciones
 
 - Para uso diario en un proyecto real, el patrón recomendado es declarar esto en un `docker-compose.yml` en vez de repetir el comando largo cada vez — ver [Postgres con Compose](/guides/docker-postgres-compose).
-- `-p 5432:5432` solo hace falta si querés conectarte desde **afuera** de Docker (un cliente en tu máquina, o la app corriendo nativa) — si la app que consume esta base de datos también corre en un contenedor en la misma red, no hace falta publicar el puerto (ver [Redes](/guides/docker-redes)).
+- `-p 5432:5432` solo hace falta si quieres conectarte desde **afuera** de Docker (un cliente en tu máquina, o la app corriendo nativa) — si la app que consume esta base de datos también corre en un contenedor en la misma red, no hace falta publicar el puerto (ver [Redes](/guides/docker-redes)).

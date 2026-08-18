@@ -23,7 +23,7 @@ npx skills add https://github.com/supabase/agent-skills --skill supabase-postgre
 
 ## Cuándo usarlo
 
-- Diseñando el schema de una tabla nueva y las políticas RLS que le corresponden — el punto donde más fácil es dejar un agujero de seguridad (ver la advertencia sobre RLS en las guías de esta biblioteca).
+- Diseñando el schema directamente tabla nueva y las políticas RLS que le corresponden — el punto donde más fácil es dejar un agujero de seguridad (ver la advertencia sobre RLS en las guías de esta biblioteca).
 - Cuando una query específica anda lenta y hace falta indexar bien, no solo "agregar un índice a todo".
 
 ## Consideraciones

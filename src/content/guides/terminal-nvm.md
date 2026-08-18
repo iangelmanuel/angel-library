@@ -12,7 +12,7 @@ updatedAt: 2026-08-17
 
 ## Por qué nvm
 
-Distintos proyectos pueden necesitar distintas versiones de Node — uno viejo que solo corre bien en Node 18, otro que ya usa features de Node 22. Instalar Node "a mano" deja una sola versión global; nvm (Node Version Manager) permite tener varias instaladas en paralelo y cambiar de una a otra por proyecto, sin desinstalar/reinstalar nada.
+Distintos proyectos pueden necesitar distintas versiones de Node — uno viejo que solo corre bien en Node 18, otro que ya usa features de Node 22. Instalar Node "a mano" deja una sola versión global; nvm (Node Version Manager) permite tener varias instaladas en paralelo y cambiar directamente a otra por proyecto, sin desinstalar/reinstalar nada.
 
 ## Dos proyectos distintos con el mismo nombre
 

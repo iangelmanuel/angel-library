@@ -17,7 +17,7 @@ Un hook es un script que Git ejecuta automáticamente en un momento puntual del 
 ls .git/hooks/
 ```
 
-Cada repo creado con `git init` (o `clone`) ya trae una carpeta `.git/hooks/` con ejemplos `.sample` de cada hook disponible — no hacen nada hasta que les sacás el `.sample` del nombre y los hacés ejecutables.
+Cada repo creado con `git init` (o `clone`) ya trae una carpeta `.git/hooks/` con ejemplos `.sample` de cada hook disponible — no hacen nada hasta que les saquís el `.sample` del nombre y los haces ejecutables.
 
 ## Los hooks más usados
 

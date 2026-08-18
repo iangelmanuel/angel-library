@@ -123,5 +123,5 @@ Desacoplar todo a través de eventos, interfaces e inyección de dependencias ti
 ## Consideraciones
 
 - Cohesión y acoplamiento están relacionados pero no son lo mismo: se puede tener alta cohesión y alto acoplamiento a la vez (un módulo bien enfocado que depende de los detalles internos de otro).
-- La señal más simple de baja cohesión: si para explicar qué hace un archivo necesitás usar la palabra "y" varias veces ("maneja usuarios y también manda emails y también trackea eventos"), probablemente son varios módulos.
+- La señal más simple de baja cohesión: si para explicar qué hace un archivo necesitas usar la palabra "y" varias veces ("maneja usuarios y también manda emails y también trackea eventos"), probablemente son varios módulos.
 - La señal más simple de alto acoplamiento: cambiar un detalle interno de un módulo (una tabla, un formato de respuesta) obliga a tocar archivos que no deberían saber que ese detalle existe.

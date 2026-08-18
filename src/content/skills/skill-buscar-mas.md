@@ -1,6 +1,6 @@
 ---
 title: Cómo buscar más skills por tecnología
-description: Para stacks específicos no cubiertos acá (Astro, Express, Zod, tu librería puntual) — dónde buscar en vivo, el catálogo cambia rápido.
+description: Para stacks específicos no cubiertos aquí (Astro, Express, Zod, tu librería puntual) — dónde buscar en vivo, el catálogo cambia rápido.
 category: skills
 stack: ia-skills
 order: 10
@@ -9,7 +9,7 @@ tool: Cross-tool
 updatedAt: 2026-08-17
 ---
 
-Los 9 skills listados en esta subcategoría son los que tenían suficiente tracción (instalaciones, mantenedor identificable) para confiar al momento de escribir esto — pero el catálogo de [skills.sh](https://www.skills.sh) crece rápido y cubre más tecnologías de las que se pueden listar acá sin quedar desactualizado.
+Los 9 skills listados en esta subcategoría son los que tenían suficiente tracción (instalaciones, mantenedor identificable) para confiar al momento de escribir esto — pero el catálogo de [skills.sh](https://www.skills.sh) crece rápido y cubre más tecnologías de las que se pueden listar aquí sin quedar desactualizado.
 
 ## Navegar por tema
 
@@ -37,4 +37,4 @@ Mismo comando para cualquier skill del catálogo — cambiar `<owner>/<repo>` y 
 ## Consideraciones
 
 - Antes de instalar un skill de un mantenedor desconocido, revisar el repo — es código/prompts de terceros ejecutándose con el mismo nivel de confianza que el resto de tu sesión.
-- Instalaciones altas (100K+) son una señal razonable de confiabilidad, pero no una garantía — mattpocock, vercel-labs, anthropics y prisma (los 9 listados acá) son mantenedores identificables con historial público, lo que pesa más que solo el número.
+- Instalaciones altas (100K+) son una señal razonable de confiabilidad, pero no una garantía — mattpocock, vercel-labs, anthropics y prisma (los 9 listados aquí) son mantenedores identificables con historial público, lo que pesa más que solo el número.

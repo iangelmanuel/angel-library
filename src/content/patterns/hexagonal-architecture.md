@@ -12,7 +12,7 @@ updatedAt: 2026-08-17
 
 ## Idea central
 
-El dominio (las reglas de negocio) no debería depender de qué base de datos usás, qué framework HTTP expone la API, o qué proveedor manda los emails. Esos son detalles de infraestructura, intercambiables. El dominio no es intercambiable — es la razón de ser de la app.
+El dominio (las reglas de negocio) no debería depender de qué base de datos usas, qué framework HTTP expone la API, o qué proveedor manda los emails. Esos son detalles de infraestructura, intercambiables. El dominio no es intercambiable — es la razón de ser de la app.
 
 ```text
               ┌── Adapter HTTP (Express, Fastify) ──┐

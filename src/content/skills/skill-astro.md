@@ -28,4 +28,4 @@ npx skills add https://github.com/astrolicious/agent-skills --skill astro
 
 ## Consideraciones
 
-- Es el único skill de Astro con tracción real que encontré al investigar — si buscás algo más específico (Astro + un integration puntual), [find-skills](/skills/skill-find-skills) o [autoskills.sh](/resources/ia/autoskills-sh) son mejor punto de partida que confiar en que exista acá.
+- Es el único skill de Astro con tracción real que encontré al investigar — si buscas algo más específico (Astro + un integration puntual), [find-skills](/skills/skill-find-skills) o [autoskills.sh](/resources/ia/autoskills-sh) son mejor punto de partida que confiar en que exista aquí.

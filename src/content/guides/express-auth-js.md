@@ -53,12 +53,12 @@ export const authConfig = {
         );
         if (!passwordValida) return null;
 
-        // Lo que se devuelve acá es lo que Auth.js usa para armar el user inicial del token
+        // Lo que se devuelve aquí es lo que Auth.js usa para armar el user inicial del token
         return { id: usuario.id, email: usuario.email, name: usuario.nombre, rol: usuario.rol };
       },
     }),
   ],
-  // callbacks va acá — ver la sección de abajo
+  // callbacks va aquí — ver la sección de abajo
 };
 ```
 
@@ -91,7 +91,7 @@ Por default, `session.user` solo trae `id`/`name`/`email`/`image` — el `rol` q
 export const authConfig = {
   providers: [ /* ... */ ],
   callbacks: {
-    // Corre cada vez que se crea o actualiza el JWT — acá se decide qué queda GUARDADO en el token
+    // Corre cada vez que se crea o actualiza el JWT — aquí se decide qué queda GUARDADO en el token
     async jwt({ token, user }) {
       if (user) {
         // "user" solo está disponible en el login inicial (viene de authorize() o del provider OAuth)
@@ -101,7 +101,7 @@ export const authConfig = {
       return token;
     },
 
-    // Corre cada vez que se LEE la sesión (auth(), getSession, etc.) — acá se decide qué queda EXPUESTO
+    // Corre cada vez que se LEE la sesión (auth(), getSession, etc.) — aquí se decide qué queda EXPUESTO
     async session({ session, token }) {
       session.user.id = token.id as string;
       session.user.rol = token.rol as string;

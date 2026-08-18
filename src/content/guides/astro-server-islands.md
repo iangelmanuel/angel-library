@@ -3,7 +3,7 @@ title: Islas dinámicas (Server Islands)
 description: Renderizar un fragmento personalizado o dinámico bajo demanda con server:defer, sin sacrificar el prerender del resto de la página.
 category: frontend
 stack: astro
-order: 14
+order: 13
 tags: [astro, performance, ssr]
 scope: astro (directiva server:defer)
 related:
@@ -51,6 +51,6 @@ Mientras la isla resuelve, se puede mostrar algo inmediato en su lugar.
 
 ## Consideraciones
 
-- Los props que le pasás al componente deferido se serializan (van encriptados en la URL de su endpoint) — no le pases funciones ni referencias circulares.
+- Los props que le pasas al componente deferido se serializan (van encriptados en la URL de su endpoint) — no le pases funciones ni referencias circulares.
 - Si los props superan ~2048 bytes cifrados, Astro cambia automáticamente a `POST` en vez de `GET` para pedir la isla — eso la saca de cualquier cache de CDN basada en URL.
 - Funciona en cualquier hosting (serverless, Docker, tradicional): cada isla deferida se vuelve su propia mini-ruta en build.

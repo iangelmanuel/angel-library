@@ -18,7 +18,7 @@ updatedAt: 2026-08-17
 .codex/agents/nombre.md        → ídem
 ```
 
-Si hay un archivo con el mismo nombre en más de una de estas carpetas, gana el de `.cursor/agents/` (proyecto).
+Si hay un archivo con el mismo nombre en más directamente de estas carpetas, gana el de `.cursor/agents/` (proyecto).
 
 ## Plantilla base
 
@@ -30,7 +30,7 @@ model: inherit
 readonly: true
 ---
 
-Sos un revisor de código senior. Buscá bugs, riesgos de seguridad y problemas de legibilidad. No edites nada, solo reportá.
+Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas de legibilidad. No edites nada, solo reportá.
 ```
 
 ## Campos que más se usan
@@ -46,7 +46,7 @@ Sos un revisor de código senior. Buscá bugs, riesgos de seguridad y problemas 
 ## Invocar
 
 ```text
-/code-reviewer revisá los últimos cambios
+/code-reviewer revisa los últimos cambios
 ```
 
 O delegación automática si la tarea matchea la `description`.

@@ -38,7 +38,7 @@ La instalación completa — Docker Desktop, WSL2 en Windows, y los pasos previo
 
 Esta guía es intencionalmente corta — el detalle de cada comando, conceptos (imágenes, contenedores, capas), redes y volúmenes, Compose multi-servicio, y una sección dedicada a levantar Postgres en un contenedor, ya están documentados en la categoría **DevOps** del sitio: [/categories/devops](/categories/devops).
 
-Puntos de entrada directos si ya sabés qué buscás:
+Puntos de entrada directos si ya sabes qué buscas:
 
 - [docker run: flags esenciales](/guides/docker-run-basico)
 - [Docker Compose: lo básico](/guides/docker-compose-basico)

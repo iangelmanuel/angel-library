@@ -67,7 +67,7 @@ function LayoutPanel() {
   return (
     <div>
       <Sidebar />
-      <Outlet /> {/* acá se renderiza ResumenPanel o AjustesPanel */}
+      <Outlet /> {/* aquí se renderiza ResumenPanel o AjustesPanel */}
     </div>
   );
 }

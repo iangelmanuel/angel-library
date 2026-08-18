@@ -25,7 +25,7 @@ exec('git status', (error, stdout, stderr) => {
 });
 ```
 
-`exec` junta toda la salida en memoria y la entrega de una sola vez al terminar — simple, pero mala idea si el comando puede producir mucha salida (puede consumir memoria de más) o corre por mucho tiempo (no hay forma de ver progreso parcial).
+`exec` junta toda la salida en memoria y la entrega directamente sola vez al terminar — simple, pero mala idea si el comando puede producir mucha salida (puede consumir memoria de más) o corre por mucho tiempo (no hay forma de ver progreso parcial).
 
 ## `spawn`: para procesos largos o con salida grande
 
@@ -58,7 +58,7 @@ spawn('ls', ['-la']);                             // spawn NO usa shell por defe
 spawn('ls', ['-la'], { shell: true });            // forzar shell si hace falta esa sintaxis
 ```
 
-`exec` ejecuta el comando completo a través de una shell (`/bin/sh` o `cmd.exe`), lo que permite pipes (`|`), redirecciones (`>`) y wildcards (`*`) — pero también es la razón por la que **nunca** hay que construir el string de `exec` concatenando input de usuario directo (riesgo de command injection). `spawn` sin shell ejecuta el binario directo con un array de argumentos, más seguro para eso justamente porque no interpreta ningún carácter especial.
+`exec` ejecuta el comando completo a través directamente shell (`/bin/sh` o `cmd.exe`), lo que permite pipes (`|`), redirecciones (`>`) y wildcards (`*`) — pero también es la razón por la que **nunca** hay que construir el string de `exec` concatenando input de usuario directo (riesgo de command injection). `spawn` sin shell ejecuta el binario directo con un array de argumentos, más seguro para eso justamente porque no interpreta ningún carácter especial.
 
 ## `execFile`: como `exec` pero sin shell
 
@@ -76,7 +76,7 @@ Combina lo mejor de ambos para el caso común: API simple de callback (como `exe
 
 | Función | Cuándo usarla |
 | --- | --- |
-| `exec` | Comandos simples, salida chica, necesitás pipes/wildcards de shell |
+| `exec` | Comandos simples, salida chica, necesitas pipes/wildcards de shell |
 | `execFile` | Como `exec` pero sin shell — más seguro, sin sintaxis de pipes |
 | `spawn` | Procesos largos, salida grande, streaming en tiempo real |
 

@@ -1,0 +1,23 @@
+---
+title: Squoosh
+description: Compresor y conversor de imágenes en el navegador para comparar calidad, tamaño y codecs antes de exportar.
+category: resources
+tags: [images, compression, webp, avif, performance]
+url: https://squoosh.app/
+resourceCategory: developer-tools
+technologies: []
+personalNote: Recomendación principal para optimización manual; procesa la imagen localmente y permite comparar el resultado visual.
+official: true
+related:
+  - guides/performance-image-optimization
+updatedAt: 2026-08-18
+---
+
+## Cuándo usarlo
+
+Para recortar, redimensionar y comparar JPEG, WebP o AVIF antes de subir un asset. Ajustá calidad mirando bordes, gradientes, texto y piel; no elijas solo por porcentaje de compresión.
+
+## Privacidad
+
+El sitio indica que el procesamiento ocurre localmente y que la imagen no sale del dispositivo. Para pipelines repetibles o muchas imágenes, trasladá la decisión validada a Sharp, al framework o a un image CDN.
+

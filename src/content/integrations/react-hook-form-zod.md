@@ -73,7 +73,7 @@ El `.refine()` sobre el objeto completo (comparar `password` con `confirmPasswor
 
 ## Tipos end-to-end, sin interface duplicado
 
-`z.infer<typeof signupSchema>` es el único lugar donde se define la forma de los datos. `useForm<SignupValues>` la usa para tipar `register`, `errors` y el argumento de `onSubmit` — si el schema cambia (agregás un campo, sacás otro), el componente deja de compilar hasta que lo actualizás. Escribir un `interface SignupValues` a mano al lado del schema es exactamente el error que este combo evita: los dos se desincronizan con el tiempo y termina habiendo un campo que el formulario valida pero el tipo no conoce (o viceversa).
+`z.infer<typeof signupSchema>` es el único lugar donde se define la forma de los datos. `useForm<SignupValues>` la usa para tipar `register`, `errors` y el argumento de `onSubmit` — si el schema cambia (agregas un campo, saquís otro), el componente deja de compilar hasta que lo actualizás. Escribir un `interface SignupValues` a mano al lado del schema es exactamente el error que este combo evita: los dos se desincronizan con el tiempo y termina habiendo un campo que el formulario valida pero el tipo no conoce (o viceversa).
 
 ## Arrays dinámicos con `useFieldArray`
 
@@ -130,7 +130,7 @@ Todo lo que sale del DOM llega como string (o, en checkboxes, como booleano real
 const profileSchema = z.object({
   age: z.coerce.number().int().min(18),       // "25" → 25
   birthDate: z.coerce.date(),                  // "2026-01-15" → Date
-  acceptsTerms: z.boolean().refine((v) => v, 'Tenés que aceptar los términos'),
+  acceptsTerms: z.boolean().refine((v) => v, 'Tienes que aceptar los términos'),
 });
 ```
 
@@ -138,7 +138,7 @@ Los checkboxes son la excepción: `register('acceptsTerms')` en un `<input type=
 
 ## Errores del servidor con `setError`
 
-Zod valida forma y reglas declarativas (formato, longitud, comparación entre campos) — lo que **no** puede validar es algo que depende de una consulta al backend, como "este email ya está registrado". Para eso, `setError` inyecta un error de servidor en un campo puntual después del submit, con el mismo aspecto que un error de Zod:
+Zod valida forma y reglas declarativas (formato, longitud, comparación entre campos) — lo que **no** puede validar es algo que depende directamente consulta al backend, como "este email ya está registrado". Para eso, `setError` inyecta un error de servidor en un campo puntual después del submit, con el mismo aspecto que un error de Zod:
 
 ```tsx
 const { setError, handleSubmit } = useForm<SignupValues>({ resolver: zodResolver(signupSchema) });

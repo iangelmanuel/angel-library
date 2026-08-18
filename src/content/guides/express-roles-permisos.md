@@ -45,7 +45,7 @@ model UserRole {
 function requireRole(...rolesPermitidos: string[]) {
   return (req: Request, res: Response, next: NextFunction) => {
     const tieneAlgunRol = req.user!.roles.some((r) => rolesPermitidos.includes(r));
-    if (!tieneAlgunRol) return res.status(403).json({ error: 'No tenés permiso' });
+    if (!tieneAlgunRol) return res.status(403).json({ error: 'No tienes permiso' });
     next();
   };
 }
@@ -66,7 +66,7 @@ function requierePermiso(permiso: string) {
   return (req: Request, res: Response, next: NextFunction) => {
     const permisosDelUsuario = PERMISOS_POR_ROL[req.user!.rol] ?? [];
     if (!permisosDelUsuario.includes(permiso)) {
-      return res.status(403).json({ error: 'No tenés permiso' });
+      return res.status(403).json({ error: 'No tienes permiso' });
     }
     next();
   };
@@ -92,7 +92,7 @@ app.put('/posts/:id', requireAuth, async (req, res) => {
   const esAdmin = req.user!.rol === 'admin';
 
   if (!esDueño && !esAdmin) {
-    return res.status(403).json({ error: 'No podés editar este post' });
+    return res.status(403).json({ error: 'No puedes editar este post' });
   }
 
   // ... actualizar el post ...

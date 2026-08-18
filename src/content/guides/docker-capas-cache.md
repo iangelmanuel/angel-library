@@ -48,7 +48,7 @@ COPY . .
 CMD ["node", "server.js"]
 ```
 
-Por qué funciona: el código de la app cambia constantemente, pero las dependencias (`package.json`) cambian rara vez. Si `COPY . .` (todo el código) fuera **antes** de `npm ci`, cualquier cambio de una línea de código invalidaría también la capa de `npm ci` — reinstalando todas las dependencias en cada build, aunque no haya cambiado ni una.
+Por qué funciona: el código de la app cambia constantemente, pero las dependencias (`package.json`) cambian rara vez. Si `COPY . .` (todo el código) fuera **antes** de `npm ci`, cualquier cambio directamente línea de código invalidaría también la capa de `npm ci` — reinstalando todas las dependencias en cada build, aunque no haya cambiado ni una.
 
 Con el orden correcto: cambiar código → solo se reconstruyen las capas desde `COPY . .` en adelante; `npm ci` sigue cacheado.
 

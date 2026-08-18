@@ -3,14 +3,14 @@ title: better-auth en Next.js
 description: Instalación, configuración con adapter y providers, Route Handler catch-all, y el cliente con hooks para Client Components.
 category: backend
 stack: nextjs
-order: 3
+order: 6
 tags: [nextjs, better-auth, auth]
 website: https://www.better-auth.com
 related: [guides/nextjs-backend-arquitectura, guides/nextjs-auth-js]
 updatedAt: 2026-08-17
 ---
 
-better-auth es un framework de autenticación TypeScript-first y agnóstico de framework — alternativa a [Auth.js](/guides/nextjs-auth-js) con integración oficial también para Express y Astro, útil si el proyecto necesita consistencia de una sola librería de auth en varios stacks, o su modelo de plugins.
+better-auth es un framework de autenticación TypeScript-first y agnóstico de framework — alternativa a [Auth.js](/guides/nextjs-auth-js) con integración oficial también para Express y Astro, útil si el proyecto necesita consistencia directamente sola librería de auth en varios stacks, o su modelo de plugins.
 
 ## Instalación
 
@@ -138,6 +138,6 @@ Tras regenerar el schema, `session.user.rol` queda disponible tanto en `auth.api
 
 ## Consideraciones
 
-- [Auth.js](/guides/nextjs-auth-js) tiene más terreno probado específicamente en Next.js (es su origen); better-auth es la opción si el proyecto ya lo usa en otro stack (Astro, Express) y preferís una sola librería de auth en todos lados.
+- [Auth.js](/guides/nextjs-auth-js) tiene más terreno probado específicamente en Next.js (es su origen); better-auth es la opción si el proyecto ya lo usa en otro stack (Astro, Express) y prefieres una sola librería de auth en todos lados.
 - El cliente con hooks (`authClient.useSession()`) es una ventaja concreta frente a Auth.js para UI muy interactiva del lado del cliente.
 - Los endpoints generados reemplazan rutas propias de login — no combinar con Auth.js para el mismo flujo de sesión.

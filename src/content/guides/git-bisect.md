@@ -9,7 +9,7 @@ scope: git bisect
 updatedAt: 2026-08-16
 ---
 
-Cuando algo funcionaba y en algún punto del historial dejó de funcionar, pero no está claro en qué commit — revisar uno por uno es lento. `git bisect` automatiza una búsqueda binaria: le decís un commit donde **sabías** que andaba bien y uno donde está roto, y Git te va llevando al punto medio exacto hasta encontrar el commit exacto responsable, en `log₂(n)` pasos en vez de `n`.
+Cuando algo funcionaba y en algún punto del historial dejó de funcionar, pero no está claro en qué commit — revisar uno por uno es lento. `git bisect` automatiza una búsqueda binaria: le dices un commit donde **sabías** que andaba bien y uno donde está roto, y Git te va llevando al punto medio exacto hasta encontrar el commit exacto responsable, en `log₂(n)` pasos en vez de `n`.
 
 ## El proceso
 
@@ -19,7 +19,7 @@ git bisect bad                    # el commit actual (HEAD) está roto
 git bisect good v1.2.0             # este commit/tag más viejo sabías que andaba bien
 ```
 
-Git hace checkout automático al commit justo en el medio de ese rango. Ahí probás la app (correr los tests, reproducir el bug a mano, lo que corresponda) y le decís el resultado:
+Git hace checkout automático al commit justo en el medio de ese rango. Ahí pruebas la app (correr los tests, reproducir el bug a mano, lo que corresponda) y le dices el resultado:
 
 ```bash
 git bisect good    # este commit anda bien, el bug está más adelante

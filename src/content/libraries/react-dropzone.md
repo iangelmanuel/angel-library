@@ -13,7 +13,7 @@ related:
 updatedAt: 2026-08-16
 ---
 
-Es un hook, no un componente con estilos propios: `useDropzone` maneja toda la lógica de drag & drop, validación y accesibilidad (teclado, focus), y vos ponés el markup completo. Nada de CSS impuesto ni de un `<Dropzone>` con apariencia fija que después hay que sobreescribir.
+Es un hook, no un componente con estilos propios: `useDropzone` maneja toda la lógica de drag & drop, validación y accesibilidad (teclado, focus), y tú pones el markup completo. Nada de CSS impuesto ni de un `<Dropzone>` con apariencia fija que después hay que sobreescribir.
 
 ## Uso básico
 
@@ -33,7 +33,7 @@ function ZonaDeSubida() {
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} />
-      {isDragActive ? <p>Soltá los archivos acá</p> : <p>Arrastrá archivos o hacé click</p>}
+      {isDragActive ? <p>Suelta los archivos aquí</p> : <p>Arrastra archivos o haz click</p>}
     </div>
   );
 }

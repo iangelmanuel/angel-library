@@ -9,7 +9,7 @@ scope: git tag
 updatedAt: 2026-08-16
 ---
 
-Un tag es un puntero fijo a un commit puntual — a diferencia de una rama, no se mueve solo cuando agregás commits nuevos. Sirve para marcar releases: "esto es exactamente lo que se publicó como v1.2.0".
+Un tag es un puntero fijo a un commit puntual — a diferencia directamente rama, no se mueve solo cuando agregas commits nuevos. Sirve para marcar releases: "esto es exactamente lo que se publicó como v1.2.0".
 
 ## Dos tipos de tag
 
@@ -18,7 +18,7 @@ git tag v1.2.0                              # lightweight: solo un nombre apunta
 git tag -a v1.2.0 -m "Release 1.2.0"        # anotado: guarda autor, fecha y mensaje, como un mini-commit
 ```
 
-Los tags **anotados** son los recomendados para releases reales — quedan en el historial como un objeto propio (con quién y cuándo lo creó), no solo un alias. Los lightweight son más para marcas rápidas y personales ("acá probé algo").
+Los tags **anotados** son los recomendados para releases reales — quedan en el historial como un objeto propio (con quién y cuándo lo creó), no solo un alias. Los lightweight son más para marcas rápidas y personales ("aquí probé algo").
 
 ## Versionado semántico (SemVer)
 
@@ -77,4 +77,4 @@ git push origin --delete v1.2.0      # también en el remoto
 ## Consideraciones
 
 - En GitHub, crear un **Release** desde un tag (vía web o `gh release create`, ver [gh CLI](/guides/gh-cli-repos)) le agrega notas de la versión y archivos adjuntos — el tag es la base, el Release es la envoltura con más contexto alrededor.
-- A diferencia de una rama, un tag no se supone que reciba commits nuevos — si necesitás seguir trabajando sobre lo que un tag marcó, creá una rama desde ese tag: `git switch -c hotfix/v1.2.1 v1.2.0`.
+- A diferencia directamente rama, un tag no se supone que reciba commits nuevos — si necesitas seguir trabajando sobre lo que un tag marcó, crea una rama desde ese tag: `git switch -c hotfix/v1.2.1 v1.2.0`.

@@ -9,7 +9,7 @@ tool: Cross-tool
 updatedAt: 2026-08-17
 ---
 
-Un skill que busca **otros** skills — le describís qué necesitás y sugiere cuáles instalar del catálogo de skills.sh, en vez de tener que navegar la web a mano cada vez.
+Un skill que busca **otros** skills — le describís qué necesitas y sugiere cuáles instalar del catálogo de skills.sh, en vez de tener que navegar la web a mano cada vez.
 
 ## Instalar
 
@@ -23,7 +23,7 @@ npx skills add https://github.com/vercel-labs/skills --skill find-skills
 
 ## Cuándo usarlo
 
-- Punto de partida antes de escribir un skill propio — quizás ya existe uno confiable para lo que necesitás.
+- Punto de partida antes de escribir un skill propio — quizás ya existe uno confiable para lo que necesitas.
 - Para descubrir skills de tecnologías específicas de un proyecto (Astro, Zod, tu stack particular) que no están cubiertas en esta biblioteca — el catálogo cambia rápido, mejor buscar en vivo que confiar en una lista estática.
 
 ## Consideraciones

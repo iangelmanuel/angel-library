@@ -82,5 +82,5 @@ function Modal({ abierto }: { abierto: boolean }) {
 ## Consideraciones
 
 - `exit` no anima nada sin `<AnimatePresence>` envolviendo al elemento condicional — es fácil olvidarlo y asumir que "no funciona la animación de salida" cuando en realidad falta el wrapper.
-- Para animaciones puramente de entrada/hover sin gestos complejos ni salida animada, `animation-timeline: view()` en CSS cubre el caso sin dependencia — ver [Animaciones CSS](/snippets/css-animations). Motion vale la pena cuando necesitás layout animations, gestos (`drag`), o coordinar salida/entrada.
+- Para animaciones puramente de entrada/hover sin gestos complejos ni salida animada, `animation-timeline: view()` en CSS cubre el caso sin dependencia — ver [Animaciones CSS](/snippets/css-animations). Motion vale la pena cuando necesitas layout animations, gestos (`drag`), o coordinar salida/entrada.
 - El nombre del paquete es lo único que cambió con el rebrand — proyectos que todavía instalan `framer-motion` siguen funcionando, pero las versiones nuevas de la librería solo se publican como `motion`.

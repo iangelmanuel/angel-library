@@ -30,7 +30,7 @@ name: revisar-pr
 description: Revisa el PR actual y deja comentarios sobre bugs y seguridad
 ---
 
-Revisá el PR actual con `gh pr diff` y señalá bugs, riesgos de seguridad y problemas de legibilidad.
+Revisa el PR actual con `gh pr diff` y señalá bugs, riesgos de seguridad y problemas de legibilidad.
 ```
 
 ## Frontmatter: más chico que el de Claude Code
@@ -41,11 +41,11 @@ Revisá el PR actual con `gh pr diff` y señalá bugs, riesgos de seguridad y pr
 | `description` | Sí — entre 1 y 1024 caracteres |
 | `license` / `compatibility` / `metadata` | No |
 
-No existen acá campos propios de Claude Code como `disable-model-invocation`, `context: fork` o `paths` — el control de acceso se maneja aparte, a nivel de `opencode.json` (ver Resumen).
+No existen aquí campos propios de Claude Code como `disable-model-invocation`, `context: fork` o `paths` — el control de acceso se maneja aparte, a nivel de `opencode.json` (ver Resumen).
 
 ## Cómo se invocan
 
-A diferencia de Claude Code (`/nombre-del-skill` tipeado por el usuario), en OpenCode el agente descubre los skills disponibles a través de una **tool nativa** llamada `skill` — el propio agente decide cuándo llamarla según la descripción de cada skill.
+A diferencia de Claude Code (`/nombre-del-skill` tipeado por el usuario), en OpenCode el agente descubre los skills disponibles a través directamente **tool nativa** llamada `skill` — el propio agente decide cuándo llamarla según la descripción de cada skill.
 
 ## Controlar el acceso
 
@@ -62,5 +62,5 @@ A diferencia de Claude Code (`/nombre-del-skill` tipeado por el usuario), en Ope
 
 ## Consideraciones
 
-- Si ya tenés skills escritos para Claude Code, **no hace falta duplicarlos** — poné el proyecto en OpenCode y va a encontrar `.claude/skills/` solo.
+- Si ya tienes skills escritos para Claude Code, **no hace falta duplicarlos** — pon el proyecto en OpenCode y va a encontrar `.claude/skills/` solo.
 - Sin el equivalente a `disable-model-invocation`, no hay forma nativa de forzar que un skill sea "solo invocable a mano" — el agente siempre puede decidir llamarlo si la descripción matchea.

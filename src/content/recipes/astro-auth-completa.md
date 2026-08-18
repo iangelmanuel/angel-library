@@ -98,5 +98,5 @@ if (!Astro.locals.user) {
 
 ## Consideraciones
 
-- Cada pieza de esta receta está documentada a fondo en [better-auth en Astro](/guides/astro-better-auth) — acá solo el ensamblado end-to-end.
+- Cada pieza de esta receta está documentada a fondo en [better-auth en Astro](/guides/astro-better-auth) — aquí solo el ensamblado end-to-end.
 - Requiere `output: 'server'` configurado en `astro.config.mjs`, y una base de datos ya migrada con el schema que genera `@better-auth/cli`.

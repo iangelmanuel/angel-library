@@ -47,7 +47,7 @@ El combo de siempre para "..." al final de un texto que no entra. Las tres propi
 
 ## Truncar texto en varias líneas
 
-Igual que arriba, pero cortando después de N líneas en vez de una. Sigue necesitando el prefijo `-webkit-` para soporte amplio, aunque la versión sin prefijo ya funciona en navegadores recientes.
+Igual que arriba, pero cortando después de N líneas en vez directamente. Sigue necesitando el prefijo `-webkit-` para soporte amplio, aunque la versión sin prefijo ya funciona en navegadores recientes.
 
 ```css
 .clamp-3 {
@@ -86,6 +86,6 @@ Igual que arriba, pero cortando después de N líneas en vez de una. Sigue neces
 
 ## Consideraciones
 
-- `auto-fit` vs `auto-fill`: `auto-fit` colapsa las columnas vacías y estira las que tienen contenido; `auto-fill` las deja como columnas vacías del mismo ancho. Para tarjetas casi siempre querés `auto-fit`.
-- `line-clamp` (sin prefijo) todavía no es universal — si necesitás soporte amplio hoy, quedate con `-webkit-line-clamp`, que funciona en todos los navegadores relevantes pese al nombre.
+- `auto-fit` vs `auto-fill`: `auto-fit` colapsa las columnas vacías y estira las que tienen contenido; `auto-fill` las deja como columnas vacías del mismo ancho. Para tarjetas casi siempre quieres `auto-fit`.
+- `line-clamp` (sin prefijo) todavía no es universal — si necesitas soporte amplio hoy, quedate con `-webkit-line-clamp`, que funciona en todos los navegadores relevantes pese al nombre.
 - `aspect-ratio` no reemplaza `width`/`height` en el HTML si te importa el SEO de imágenes o el CLS antes de que cargue el CSS — usalos juntos cuando puedas.

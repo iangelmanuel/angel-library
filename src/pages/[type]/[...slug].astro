@@ -21,7 +21,7 @@ import {
   buildEntryMap,
   formatDate,
   getAllEntries,
-  sortByTitle,
+  sortByLearningPath,
 } from '@/lib/content';
 import { getRelated, validateContentRelations } from '@/lib/relations';
 
@@ -51,7 +51,13 @@ const related = getRelated(entry, all, entryMap);
 const typeMeta = CONTENT_TYPES[entry.collection as ContentTypeId];
 const categoryMeta = CATEGORIES[entry.data.category as CategoryId];
 
-const siblings = sortByTitle(all.filter((item) => item.collection === entry.collection));
+const currentStack = (entry.data as { stack?: string }).stack;
+const siblings = sortByLearningPath(
+  all.filter((item) => {
+    if (item.data.category !== entry.data.category) return false;
+    return (item.data as { stack?: string }).stack === currentStack;
+  }),
+);
 const index = siblings.findIndex((item) => item.id === entry.id);
 const prev = index > 0 ? siblings[index - 1] : undefined;
 const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;

@@ -15,7 +15,7 @@ updatedAt: 2026-08-17
 Managed (org)              → política de la empresa, no editable por el usuario
 ~/.claude/settings.json     → tuyo, todos los proyectos
 .claude/settings.json       → del proyecto, se commitea, todo el equipo
-.claude/settings.local.json → del proyecto, gitignored, solo vos
+.claude/settings.local.json → del proyecto, gitignored, solo tú
 ```
 
 ## Plantilla con lo más usado

@@ -3,7 +3,7 @@ title: Proxy (antes Middleware)
 description: Código que corre antes de cada request para redirigir, reescribir o modificar headers — Middleware se renombró en Next 16.
 category: frontend
 stack: nextjs
-order: 13
+order: 17
 tags: [nextjs, auth, routing]
 scope: next.js (proxy.ts)
 updatedAt: 2026-08-16
@@ -82,5 +82,5 @@ NextResponse.rewrite(new URL('/y', url));      // servir otra ruta, sin cambiar 
 ## Consideraciones
 
 - El Proxy corre en el runtime de Node.js por defecto desde Next 16 (antes corría en el runtime Edge, más limitado) — código que antes evitabas ahí por esa restricción ahora puede no hacer falta evitarlo.
-- Las Server Functions (`'use server'`) no son rutas separadas en la cadena de ejecución del Proxy — son un POST a la ruta donde se usan. Un `matcher` que excluye una ruta también se salta las Server Actions de esa ruta: no confíes solo en el Proxy para proteger una action, verificá auth también adentro de cada una (ver [Server Actions](/guides/nextjs-server-actions)).
+- Las Server Functions (`'use server'`) no son rutas separadas en la cadena de ejecución del Proxy — son un POST a la ruta donde se usan. Un `matcher` que excluye una ruta también se salta las Server Actions de esa ruta: no confíes solo en el Proxy para proteger una action, verifica auth también adentro de cada una (ver [Server Actions](/guides/nextjs-server-actions)).
 - Hay un codemod oficial para migrar: `npx @next/codemod@canary middleware-to-proxy .` — renombra el archivo y la función automáticamente.

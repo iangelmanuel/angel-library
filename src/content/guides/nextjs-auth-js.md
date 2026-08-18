@@ -3,7 +3,7 @@ title: Auth.js en Next.js
 description: Instalación, Route Handler, providers (social y Credentials), los callbacks jwt/session para meter datos propios en la sesión, y cómo tiparlos.
 category: backend
 stack: nextjs
-order: 2
+order: 5
 tags: [nextjs, auth-js, nextauth, auth]
 website: https://authjs.dev
 related: [guides/nextjs-backend-arquitectura, libraries/bcrypt]
@@ -55,7 +55,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  // callbacks va acá — ver la sección de abajo
+  // callbacks va aquí — ver la sección de abajo
 });
 ```
 

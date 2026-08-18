@@ -3,7 +3,7 @@ title: Metadata para SEO
 description: El objeto metadata estático, generateMetadata para SEO dinámico, y los archivos especiales para favicon/OG images.
 category: frontend
 stack: nextjs
-order: 14
+order: 23
 tags: [nextjs, seo]
 scope: next.js (metadata API)
 updatedAt: 2026-08-16

@@ -1,6 +1,6 @@
 ---
 title: Servidor HTTP nativo
-description: http.createServer(req, res) sin ningún framework — qué resuelve por vos Node y por qué frameworks como Express existen encima de esto.
+description: http.createServer(req, res) sin ningún framework — qué resuelve por tú Node y por qué frameworks como Express existen encima de esto.
 category: backend
 stack: node
 order: 4
@@ -41,7 +41,7 @@ const server = createServer((req, res) => {
 });
 ```
 
-`req.url` viene como string crudo — Node no lo parsea en partes (ruta vs query string) por vos:
+`req.url` viene como string crudo — Node no lo parsea en partes (ruta vs query string) por tú:
 
 ```ts
 import { createServer } from 'node:http';
@@ -78,7 +78,7 @@ const server = createServer(async (req, res) => {
 });
 ```
 
-Esto — parsear el body automáticamente, dar `req.body` ya listo — es exactamente una de las cosas que un framework como Express resuelve por vos con un middleware, en vez de escribir esta función en cada proyecto.
+Esto — parsear el body automáticamente, dar `req.body` ya listo — es exactamente una de las cosas que un framework como Express resuelve por tú con un middleware, en vez de escribir esta función en cada proyecto.
 
 ## `res`: mandar la respuesta
 

@@ -25,7 +25,7 @@ COMMAND   PID   USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 node    12345  angel   23u  IPv4 ...      0t0  TCP *:3000 (LISTEN)
 ```
 
-La columna `PID` (acá `12345`) es lo que importa. Con eso:
+La columna `PID` (aquí `12345`) es lo que importa. Con eso:
 
 ```bash
 kill -9 12345

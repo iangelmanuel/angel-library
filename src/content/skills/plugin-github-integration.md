@@ -25,4 +25,4 @@ Integración de GitHub como plugin, listada como partner integration vetted en e
 
 ## Consideraciones
 
-- Si preferís configurar el MCP de GitHub vos mismo con más control sobre el token y el scope, ver la entrada dedicada de [MCP de GitHub](/skills/mcp-github) en vez de este plugin — mismo resultado final, instalación más manual.
+- Si prefieres configurar el MCP de GitHub tú mismo con más control sobre el token y el scope, ver la entrada dedicada de [MCP de GitHub](/skills/mcp-github) en vez de este plugin — mismo resultado final, instalación más manual.

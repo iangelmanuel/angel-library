@@ -23,7 +23,7 @@ npm install @supabase/supabase-js
 
 **2. Variables de entorno:**
 
-```env title=".env"
+```bash title=".env"
 SUPABASE_URL=https://tuproyecto.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 ```
@@ -151,6 +151,6 @@ const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png'
 
 ## Consideraciones
 
-- Con la service role key, el servidor es responsable de **toda** la lógica de autorización que RLS normalmente haría — un bug acá expone datos de cualquier usuario, no solo el propio.
+- Con la service role key, el servidor es responsable de **toda** la lógica de autorización que RLS normalmente haría — un bug aquí expone datos de cualquier usuario, no solo el propio.
 - `SUPABASE_SERVICE_ROLE_KEY` es tan sensible como cualquier secreto de base de datos — ver [Variables de entorno en Node](/guides/node-env-vars).
 - No es mutuamente excluyente con [Prisma](/guides/express-prisma) — es común usar Prisma para queries complejas con relaciones y tipos generados, y el client de Supabase solo para lo que Prisma no cubre (auth, storage, realtime). Ambos apuntan a la misma base Postgres.

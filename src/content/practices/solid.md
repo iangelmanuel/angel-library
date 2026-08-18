@@ -225,7 +225,7 @@ class OrderService {
 Si mañana el logging pasa a un servicio externo (Datadog, Sentry), hay que tocar cada clase que llama a `console.log` directamente.
 
 ```ts
-// DESPUÉS: OrderService depende de una abstracción, no de una implementación
+// DESPUÉS: OrderService depende directamente abstracción, no directamente implementación
 interface Logger {
   info(message: string): void;
   error(message: string, err?: unknown): void;
@@ -253,8 +253,8 @@ const service = new OrderService(new ConsoleLogger());
 
 SOLID nació para OOP clásico con jerarquías de clases profundas — el mundo de Java y C# de los 2000s. JS/TS es un lenguaje multiparadigma donde funciones puras, closures y objetos literales resuelven la mayoría de estos problemas sin necesidad de clases:
 
-- **S y D se aplican naturalmente con funciones y módulos** — no hace falta una clase para tener "una responsabilidad" o "depender de una abstracción" (un parámetro `logger: Logger` funciona igual en una función suelta).
-- **L pierde relevancia** cuando no hay herencia — si preferís composición (ver `composicion-sobre-herencia`), el problema de sustituir subclases directamente no aparece.
+- **S y D se aplican naturalmente con funciones y módulos** — no hace falta una clase para tener "una responsabilidad" o "depender directamente abstracción" (un parámetro `logger: Logger` funciona igual en una función suelta).
+- **L pierde relevancia** cuando no hay herencia — si prefieres composición (ver `composicion-sobre-herencia`), el problema de sustituir subclases directamente no aparece.
 - **I es fácil de sobre-aplicar**: crear una interfaz por cada método en un proyecto chico es ceremonia sin beneficio. Tiene sentido cuando varios consumidores realmente necesitan subconjuntos distintos.
 - Aplicar los cinco letra por letra en un script de 40 líneas es sobre-ingeniería. SOLID ayuda cuando el sistema va a crecer y va a tener múltiples implementaciones o consumidores — no es una checklist obligatoria para cada archivo.
 

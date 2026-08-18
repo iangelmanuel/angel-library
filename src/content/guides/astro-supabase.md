@@ -3,7 +3,7 @@ title: Supabase en Astro
 description: Instalación, client del servidor, RLS, auth incluida y storage — todo lo necesario para usar Supabase con output "server".
 category: backend
 stack: astro
-order: 5
+order: 8
 tags: [astro, supabase, database]
 website: https://supabase.com
 related: [guides/astro-backend-arquitectura]
@@ -24,7 +24,7 @@ npm install @supabase/supabase-js
 
 **2. Variables de entorno:**
 
-```env title=".env"
+```bash title=".env"
 SUPABASE_URL=https://tuproyecto.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 ```
@@ -76,7 +76,7 @@ on posts for select
 using (auth.uid() = author_id);
 ```
 
-Con la service role key (como acá), RLS **no aplica** — el filtro queda a cargo del código del endpoint:
+Con la service role key (como aquí), RLS **no aplica** — el filtro queda a cargo del código del endpoint:
 
 ```ts
 export const GET: APIRoute = async ({ locals }) => {
@@ -138,5 +138,5 @@ const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png'
 ## Consideraciones
 
 - Para la mayoría de los proyectos Astro con `output: 'server'`, [better-auth](/guides/astro-better-auth) o [Auth.js](/guides/astro-auth-js) son la elección recomendada para auth — Supabase Auth tiene sentido cuando el proyecto ya está fuertemente integrado con el resto del ecosistema Supabase.
-- Con la service role key, la autorización queda en manos del código del endpoint — RLS no protege nada acá.
+- Con la service role key, la autorización queda en manos del código del endpoint — RLS no protege nada aquí.
 - No es mutuamente excluyente con [Prisma](/guides/astro-prisma) — se puede combinar Prisma para queries complejas y Supabase solo para auth/storage/realtime.

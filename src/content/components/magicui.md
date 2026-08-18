@@ -46,4 +46,4 @@ Lista completa, siempre actualizada, en la [documentación oficial](https://magi
 
 - No hace falta instalar nada de Magic UI aparte — si el proyecto ya corrió `shadcn init` (por ejemplo, para los componentes base), agregar uno de Magic UI es directamente el comando `add @magicui/...`.
 - Son efectos pensados para landing pages y secciones puntuales de marketing — la mayoría no tiene sentido usarlos en una UI de aplicación/dashboard, son decorativos.
-- Igual que shadcn, el código queda copiado en el proyecto: personalizarlo es editar el archivo directo, no hay props ocultas de una librería externa.
+- Igual que shadcn, el código queda copiado en el proyecto: personalizarlo es editar el archivo directo, no hay props ocultas directamente librería externa.

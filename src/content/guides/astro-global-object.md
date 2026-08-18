@@ -3,7 +3,7 @@ title: El objeto Astro
 description: Astro.props, Astro.params, Astro.url, Astro.redirect(), Astro.cookies y Astro.locals — la API disponible en cualquier archivo .astro.
 category: frontend
 stack: astro
-order: 4
+order: 5
 tags: [astro, api]
 scope: astro (global Astro)
 related:
@@ -40,7 +40,7 @@ const { slug } = Astro.params;
 
 ## `Astro.url` y `Astro.request`
 
-`Astro.url` es un `URL` normalizado de la request actual — útil para construir canonical URLs, leer query params fuera de una ruta con `getStaticPaths`. `Astro.request` es el `Request` estándar completo (headers, method).
+`Astro.url` es un `URL` normalizado de la request actual — útil para construir canonical URLs, leer query params fuera directamente ruta con `getStaticPaths`. `Astro.request` es el `Request` estándar completo (headers, method).
 
 ```astro
 ---
@@ -99,6 +99,6 @@ if (!usuario) return Astro.redirect('/login');
 
 ## Consideraciones
 
-- `Astro.redirect()` y `Astro.cookies.set()` no funcionan en páginas prerenderizadas (estáticas) — necesitan `export const prerender = false` en ese archivo, o el proyecto entero en modo `server`/`hybrid`.
+- `Astro.redirect()` y `Astro.cookies.set()` no funcionan en páginas prerenderizadas (estáticas) — necesitan `export const prerender = false` en ese archivo, o el proyecto entero con `output: 'server'`.
 - `Astro.params` solo tiene valor en rutas dinámicas (`[algo].astro`) — en una ruta fija, es un objeto vacío.
 - `Astro.locals` está tipado como `any` por defecto — para autocompletado, se extiende la interfaz `App.Locals` en `src/env.d.ts`, igual que en Next con `App.Locals` en `env.d.ts`.

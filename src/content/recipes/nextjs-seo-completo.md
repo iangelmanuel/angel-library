@@ -28,7 +28,7 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").r
 
 export const SITE = {
   // ...el resto de SITE ya existe en tu proyecto — info, location, contact,
-  // whatsappMessages, businessHours, social, legal. No se repite acá porque no es SEO,
+  // whatsappMessages, businessHours, social, legal. No se repite aquí porque no es SEO,
   // es identidad de marca y datos de contacto (ver el patrón "SITE: variable global
   // de configuración"); el foco de esta receta es solo lo de abajo.
 
@@ -37,7 +37,7 @@ export const SITE = {
     title: "Acme — Software, marca y comunicación para empresas",
     /**
      * Template nativo de Next para el resto de páginas: %s se reemplaza por el
-     * `title` que pase cada página. Se declara acá y se aplica una sola vez, en el layout raíz (Paso 6).
+     * `title` que pase cada página. Se declara aquí y se aplica una sola vez, en el layout raíz (Paso 6).
      */
     titleTemplate: "%s | Acme",
     description:
@@ -91,7 +91,7 @@ export const SITE = {
       { type: "Place", name: "Latin America" },
     ],
 
-    /** Única fuente de coordenadas — meta geo.*, ICBM y JSON-LD GeoCoordinates leen todos de acá. */
+    /** Única fuente de coordenadas — meta geo.*, ICBM y JSON-LD GeoCoordinates leen todos de aquí. */
     geo: {
       /** Código ISO 3166-2 de la región/departamento (Bogotá D.C. → "DC"). */
       region: "DC",
@@ -150,7 +150,7 @@ export function absoluteUrl(path: string): string {
 const toIso = (value?: string | Date): string | undefined => (value ? new Date(value).toISOString() : undefined);
 
 /**
- * Arma el objeto `Metadata` completo de una página: título (vía el template nativo
+ * Arma el objeto `Metadata` completo directamente página: título (vía el template nativo
  * de Next), description, Open Graph, Twitter, robots, canonical y hreflang.
  *
  * @example
@@ -431,7 +431,7 @@ export default function robots(): MetadataRoute.Robots {
 import type { MetadataRoute } from "next";
 import { SITE } from "@/config/info";
 
-/** Rutas estáticas. Agregar acá conforme crezca el sitio. */
+/** Rutas estáticas. Agregar aquí conforme crezca el sitio. */
 const STATIC_ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
   { path: "/", changeFrequency: "daily", priority: 1 },
   { path: "/servicios", changeFrequency: "weekly", priority: 0.9 },
@@ -461,7 +461,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 ```
 
-Igual que en la versión de Astro: para un sitio con pocas páginas estáticas, un array a mano es más simple y explícito que generarlo automáticamente — recién conviene automatizarlo (leer slugs de una base de datos o content collection) cuando el sitio tiene contenido dinámico de verdad.
+Igual que en la versión de Astro: para un sitio con pocas páginas estáticas, un array a mano es más simple y explícito que generarlo automáticamente — recién conviene automatizarlo (leer slugs directamente base de datos o content collection) cuando el sitio tiene contenido dinámico de verdad.
 
 ## Paso 7 — `app/layout.tsx`: layout raíz
 
@@ -471,7 +471,7 @@ import { SITE } from "@/config/info";
 import { buildBusinessSchema, buildWebsiteSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
-// El title template se declara UNA sola vez, acá — cualquier página que solo
+// El title template se declara UNA sola vez, aquí — cualquier página que solo
 // exporte `title: "Servicios"` (vía buildMetadata) sale como "Servicios | Acme" sin repetir nada.
 export const metadata: Metadata = {
   title: { default: SITE.seo.title, template: SITE.seo.titleTemplate },
@@ -492,7 +492,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-`Organization` y `WebSite` se inyectan una única vez acá, no en cada página — schema.org espera una sola Organization por sitio, y `@id` es lo que permite que el resto de schemas (breadcrumbs, productos, artículos) la referencien sin repetirla.
+`Organization` y `WebSite` se inyectan una única vez aquí, no en cada página — schema.org espera una sola Organization por sitio, y `@id` es lo que permite que el resto de schemas (breadcrumbs, productos, artículos) la referencien sin repetirla.
 
 ## Paso 8 — Caso de uso: páginas reales
 
@@ -572,7 +572,7 @@ export default async function BlogPostPage({ params }: Props) {
 }
 ```
 
-Ver [Metadata para SEO](/guides/nextjs-metadata-seo) para el detalle general de `generateMetadata` (por qué solo corre en Server Components, cómo evitar pedir el mismo dato dos veces con `cache` de React) — acá se cubre solo el ensamblado con `SITE.seo`.
+Ver [Metadata para SEO](/guides/nextjs-metadata-seo) para el detalle general de `generateMetadata` (por qué solo corre en Server Components, cómo evitar pedir el mismo dato dos veces con `cache` de React) — aquí se cubre solo el ensamblado con `SITE.seo`.
 
 ## Paso 9 — Extra: schemas por tipo de contenido
 
@@ -640,8 +640,8 @@ Solo agregar si el proyecto de verdad tiene catálogo o blog — un schema `Prod
 
 ## Consideraciones
 
-- Bug real que tenía el borrador original de esta receta, corregido acá: `product.availability` se comparaba como `availability` a secas (variable que no existía en ese scope) — `buildProductSchema` nunca hubiera compilado tal cual estaba.
-- Mismo bug de coordenadas duplicadas que en la versión de Astro: el borrador tenía latitud/longitud en dos objetos distintos (`location.geo` con claves `lat`/`lng`, y `seo.geo` con claves `latitude`/`longitude`) — acá `SITE.seo.geo` es la única fuente, ambos formatos consolidados.
+- Bug real que tenía el borrador original de esta receta, corregido aquí: `product.availability` se comparaba como `availability` a secas (variable que no existía en ese scope) — `buildProductSchema` nunca hubiera compilado tal cual estaba.
+- Mismo bug de coordenadas duplicadas que en la versión de Astro: el borrador tenía latitud/longitud en dos objetos distintos (`location.geo` con claves `lat`/`lng`, y `seo.geo` con claves `latitude`/`longitude`) — aquí `SITE.seo.geo` es la única fuente, ambos formatos consolidados.
 - `og:image:width`/`height` ahora leen `SITE.seo.imageWidth`/`imageHeight` en vez de `1200`/`630` escritos dos veces (mismo tipo de bug que se corrigió en la versión de Astro).
 - `imageAlt` sin pasar por prop cae a `SITE.seo.imageAlt` (describe la imagen), no al título de la página — usar el título como alt del OG image es un error de accesibilidad común, el alt debería describir la imagen, no repetir el `<title>`.
 - `buildBusinessSchema()` agrega `contactPoint` con `availableLanguage: SITE.seo.languages` — sin esto, ese campo de `SITE.seo` quedaba definido pero sin ningún consumidor real en esta receta (si un campo del patrón `SITE` no lo usa nada, sobra).

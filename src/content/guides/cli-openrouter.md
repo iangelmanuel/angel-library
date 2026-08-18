@@ -10,7 +10,7 @@ related: [guides/cli-openai]
 updatedAt: 2026-08-17
 ---
 
-A diferencia de Turso, Neon o Vercel — servicios con infraestructura propia que se administra desde una terminal — [OpenRouter](https://openrouter.ai) es, ante todo, una **capa de API HTTP unificada** que enruta requests a más de 400 modelos de distintos proveedores. **OpenRouter no publica un CLI oficial** para gestionar la cuenta o hacer requests desde la terminal — se usa casi siempre vía su API HTTP, directamente con `curl` o con cualquier SDK compatible con OpenAI.
+A diferencia de Turso, Neon o Vercel — servicios con infraestructura propia que se administra desdirectamente terminal — [OpenRouter](https://openrouter.ai) es, ante todo, una **capa de API HTTP unificada** que enruta requests a más de 400 modelos de distintos proveedores. **OpenRouter no publica un CLI oficial** para gestionar la cuenta o hacer requests desde la terminal — se usa casi siempre vía su API HTTP, directamente con `curl` o con cualquier SDK compatible con OpenAI.
 
 (Existe un paquete `@openrouter/cli` en npm mantenido por gente del equipo de OpenRouter, pero es una herramienta de desarrollo específica para editores/agentes vía MCP —statusline de uso de tokens, ruteo de modelos para Claude Code, Cursor, etc.— no un CLI general para administrar la cuenta o hacer chat completions desde la terminal.)
 

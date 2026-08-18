@@ -3,7 +3,7 @@ title: Middleware
 description: Interceptar cada request antes de que llegue a la página — context.locals, encadenar middlewares con sequence() y rewrite.
 category: frontend
 stack: astro
-order: 13
+order: 17
 tags: [astro, middleware, auth]
 scope: astro:middleware
 updatedAt: 2026-08-16
@@ -102,4 +102,4 @@ export const onRequest = defineMiddleware((context, next) => {
 
 - `locals` no se puede reasignar completo (`context.locals = {...}` tira error) — solo se le agregan propiedades.
 - El middleware corre en build para páginas prerenderizadas y en cada request para las on-demand — si depende de algo que solo existe en runtime (headers reales, cookies del usuario), esa página necesita `prerender = false`.
-- Las Server Actions no pasan automáticamente por el middleware de páginas: si necesitás que también las cubra, hay que usar `getActionContext()` dentro del middleware.
+- Las Server Actions no pasan automáticamente por el middleware de páginas: si necesitas que también las cubra, hay que usar `getActionContext()` dentro del middleware.

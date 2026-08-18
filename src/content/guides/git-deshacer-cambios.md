@@ -10,7 +10,7 @@ related: [commands/git-undo-commit-keep-changes]
 updatedAt: 2026-08-16
 ---
 
-"Deshacer" en Git no es un solo comando — depende de **qué** querés deshacer y **dónde** está ese cambio (working tree, staging, o ya commiteado). Usar el comando equivocado es la fuente más común de "perdí mi trabajo" que en realidad es recuperable.
+"Deshacer" en Git no es un solo comando — depende de **qué** quieres deshacer y **dónde** está ese cambio (working tree, staging, o ya commiteado). Usar el comando equivocado es la fuente más común de "perdí mi trabajo" que en realidad es recuperable.
 
 ## Sacar un archivo del staging (sin perder el cambio)
 

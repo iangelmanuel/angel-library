@@ -22,7 +22,7 @@ useEffect(() => {
 }, [dependencias]);
 ```
 
-El array de dependencias no es una opción de "cuándo correr" que vos elegís libremente — tiene que listar **todos** los valores reactivos (props, state, y cualquier cosa derivada de ellos) que el efecto lee. React los compara con los del render anterior; si alguno cambió, vuelve a correr el efecto.
+El array de dependencias no es una opción de "cuándo correr" que tú eliges libremente — tiene que listar **todos** los valores reactivos (props, state, y cualquier cosa derivada de ellos) que el efecto lee. React los compara con los del render anterior; si alguno cambió, vuelve a correr el efecto.
 
 ## Causa 1 — Falta una dependencia real
 
@@ -89,7 +89,7 @@ useEffect(() => {
 }, [roomId]);
 ```
 
-## Causa 4 — Necesitás el valor más reciente, pero sin "reaccionar" a sus cambios
+## Causa 4 — Necesitas el valor más reciente, pero sin "reaccionar" a sus cambios
 
 A veces un efecto necesita leer algo actualizado (`isMuted`, por ejemplo) sin que ese algo dispare una re-ejecución completa del efecto cuando cambia solo. Para eso existen los Effect Events (`useEffectEvent`, React 19+): una función que siempre ve el valor más reciente, pero no cuenta como dependencia reactiva.
 
@@ -105,7 +105,7 @@ function Sala({ roomId, isMuted }: { roomId: string; isMuted: boolean }) {
     const conexion = crearConexion(roomId);
     conexion.on('mensaje', onMensaje);
     return () => conexion.desconectar();
-  }, [roomId]); // isMuted no está acá — cambiar el mute no reconecta el chat
+  }, [roomId]); // isMuted no está aquí — cambiar el mute no reconecta el chat
 }
 ```
 
@@ -116,7 +116,7 @@ function Sala({ roomId, isMuted }: { roomId: string; isMuted: boolean }) {
 | Falta una dependencia reactiva | Agregarla — el linter la señala |
 | Objeto/función nuevo cada render como dependencia | Moverlo adentro del efecto, o depender de sus valores primitivos |
 | Leer un state para actualizar ese mismo state | `setEstado(prev => ...)` en vez de leer la variable externa |
-| Necesitás el valor último sin reaccionar a sus cambios | `useEffectEvent` para esa lectura específica |
+| Necesitas el valor último sin reaccionar a sus cambios | `useEffectEvent` para esa lectura específica |
 
 ## Consideraciones
 

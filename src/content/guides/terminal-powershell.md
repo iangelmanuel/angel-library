@@ -50,7 +50,7 @@ Get-ExecutionPolicy
 
 Valores comunes: `Restricted` (bloquea todo), `RemoteSigned` (permite scripts locales, exige firma para los descargados), `Unrestricted`.
 
-Para permitir scripts locales sin firmar (el ajuste típico de una máquina de desarrollo):
+Para permitir scripts locales sin firmar (el ajuste típico directamente máquina de desarrollo):
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser

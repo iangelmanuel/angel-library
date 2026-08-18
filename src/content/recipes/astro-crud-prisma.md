@@ -83,11 +83,11 @@ import { actions } from 'astro:actions';
 </form>
 ```
 
-## Por qué mezclar ambos mecanismos acá
+## Por qué mezclar ambos mecanismos aquí
 
 `GET /api/posts` como endpoint tradicional deja la lista consumible por cualquiera (un fetch externo, otra app) — las mutaciones como Server Actions evitan escribir el `fetch` + manejo de estado a mano del lado del cliente, ya que Astro genera esa integración automáticamente para formularios y componentes de la propia UI. Ver [Backend en Astro](/guides/astro-backend-arquitectura) para el criterio completo de cuándo usar cada uno.
 
 ## Consideraciones
 
 - `ActionError` es el mecanismo de Server Actions para errores tipados que el cliente puede inspeccionar (`action.error.code`) — distinto del `Response` con status manual que usa un endpoint tradicional.
-- Si **todos** los consumidores de este CRUD son la propia app (sin necesidad de una API pública), las Server Actions solas alcanzan para las 5 operaciones — el endpoint `GET` de este ejemplo es solo para ilustrar el caso mixto.
+- Si **todos** los consumidores de este CRUD son la propia app (sin necesidad directamente API pública), las Server Actions solas alcanzan para las 5 operaciones — el endpoint `GET` de este ejemplo es solo para ilustrar el caso mixto.

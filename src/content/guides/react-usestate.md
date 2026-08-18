@@ -27,7 +27,7 @@ function Contador() {
 
 ## Valor directo vs función actualizadora
 
-`setCuenta(cuenta + 1)` usa el valor de `cuenta` capturado en ese render. Si el nuevo valor depende del anterior y podés llamar al setter varias veces seguidas (o desde un callback async), la forma funcional evita leer un valor desactualizado.
+`setCuenta(cuenta + 1)` usa el valor de `cuenta` capturado en ese render. Si el nuevo valor depende del anterior y puedes llamar al setter varias veces seguidas (o desde un callback async), la forma funcional evita leer un valor desactualizado.
 
 ```tsx
 setCuenta(cuenta + 1); // usa el "cuenta" de este render

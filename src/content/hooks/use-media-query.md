@@ -16,7 +16,7 @@ updatedAt: 2026-08-16
 - Reaccionar a `prefers-color-scheme` o `prefers-reduced-motion` desde JS, no solo desde CSS.
 - Cualquier lógica condicional que hoy depende de `window.innerWidth` leído a mano en un `resize` listener.
 
-Si el cambio es puramente visual (ocultar/mostrar, reordenar), preferí CSS (`@media`) — este hook es para cuando el breakpoint decide **qué se renderiza**, no solo cómo se ve.
+Si el cambio es puramente visual (ocultar/mostrar, reordenar), prefiere CSS (`@media`) — este hook es para cuando el breakpoint decide **qué se renderiza**, no solo cómo se ve.
 
 ## Código
 

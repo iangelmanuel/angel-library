@@ -60,7 +60,7 @@ type Action =
 function reducer(state: CarritoState, action: Action): CarritoState {
   switch (action.type) {
     case 'agregar_item':
-      // acá action.item existe y está tipado — action.id no existiría
+      // aquí action.item existe y está tipado — action.id no existiría
       return { ...state, items: [...state.items, action.item] };
     case 'quitar_item':
       return { ...state, items: state.items.filter((i) => i.id !== action.id) };

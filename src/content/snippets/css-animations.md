@@ -46,7 +46,7 @@ Un fade-in con un pequeño desplazamiento es la animación de entrada más comú
 }
 ```
 
-Slide-in para elementos que entran desde un costado (menús, tarjetas en cascada). Cambiá el signo de `translateX` para entrar desde la derecha.
+Slide-in para elementos que entran desde un costado (menús, tarjetas en cascada). Cambia el signo de `translateX` para entrar desde la derecha.
 
 ```css
 @keyframes slide-in-left {
@@ -141,7 +141,7 @@ Marquee, para un ticker de texto o logos que se desplaza sin fin. El track dupli
 
 ## Animar según el scroll (sin JS)
 
-`animation-timeline: scroll()` liga el progreso de una animación al scroll de la página en vez del tiempo — la animación "avanza" cuando el usuario scrollea, no sola. Es la forma nativa de hacer una barra de progreso de lectura sin un listener de `scroll`.
+`animation-timeline: scroll()` liga el progreso directamente animación al scroll de la página en vez del tiempo — la animación "avanza" cuando el usuario scrollea, no sola. Es la forma nativa de hacer una barra de progreso de lectura sin un listener de `scroll`.
 
 ```css title="styles/animations.css"
 @keyframes grow-progress {
@@ -252,8 +252,8 @@ Igual que en el reset: cualquier animación decorativa (no funcional) debería c
 
 ## Consideraciones
 
-- `animation-timeline: scroll()` y `animation-timeline: view()` todavía no tienen soporte en todos los navegadores (falta en Safari y Firefox al momento de escribir esto) — para algo crítico, necesitás un fallback con `IntersectionObserver`. Este sitio ya tiene [`onVisible()`](/utilities/dom) para eso.
+- `animation-timeline: scroll()` y `animation-timeline: view()` todavía no tienen soporte en todos los navegadores (falta en Safari y Firefox al momento de escribir esto) — para algo crítico, necesitas un fallback con `IntersectionObserver`. Este sitio ya tiene [`onVisible()`](/utilities/dom) para eso.
 - CSS no tiene forma de detectar "el usuario está scrolleando ahora mismo" (como un evento `scroll` en JS) — `animation-timeline` liga la animación a una posición (de la página o del elemento), no a la velocidad del scroll ni a si está activo.
 - Para saber si un elemento con `position: sticky` está "pegado" (stuck), tampoco hay una pseudo-clase CSS todavía — se resuelve con `IntersectionObserver` observando un elemento centinela justo antes del sticky.
 - El `marquee` necesita que el contenido duplicado dentro de `.marquee-track` mida lo mismo en ambas copias — si el contenido es dinámico y puede cambiar de ancho, generá las copias por JS en vez de a mano en el HTML.
-- `shimmer` usa `var(--muted)` y `var(--accent)` — ajustá esos tokens a los tuyos si no usás las variables de este sitio (ver [CSS Variables](/snippets/css-variables)).
+- `shimmer` usa `var(--muted)` y `var(--accent)` — ajustá esos tokens a los tuyos si no usas las variables de este sitio (ver [CSS Variables](/snippets/css-variables)).

@@ -16,7 +16,7 @@ updatedAt: 2026-08-16
 
 ## Piezas que se combinan
 
-Esta receta junta [JWT](/guides/express-jwt), [bcrypt](/libraries/bcrypt), [cookies httpOnly](/guides/express-cookies-sesiones) y el [middleware de auth](/guides/express-auth-middleware) en un flujo completo — cada pieza por separado ya está documentada a fondo en su propia guía; acá solo el ensamblado.
+Esta receta junta [JWT](/guides/express-jwt), [bcrypt](/libraries/bcrypt), [cookies httpOnly](/guides/express-cookies-sesiones) y el [middleware de auth](/guides/express-auth-middleware) en un flujo completo — cada pieza por separado ya está documentada a fondo en su propia guía; aquí solo el ensamblado.
 
 ## Setup
 

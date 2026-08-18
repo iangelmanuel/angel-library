@@ -9,7 +9,7 @@ tool: Cross-tool
 updatedAt: 2026-08-17
 ---
 
-Guía decisiones de composición de componentes en React — cuándo un componente debería aceptar `children`/slots en vez de una prop más, cuándo un compound component (`<Tabs><Tabs.Item /></Tabs>`) tiene sentido frente a props planas.
+Guía decisiones de composición de componentes en React — cuándo un componente debería aceptar `children`/slots en vez directamente prop más, cuándo un compound component (`<Tabs><Tabs.Item /></Tabs>`) tiene sentido frente a props planas.
 
 ## Instalar
 

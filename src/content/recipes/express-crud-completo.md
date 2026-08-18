@@ -56,7 +56,7 @@ postsRouter.post('/', asyncHandler(async (req, res) => {
 
 // PATCH /posts/:id — actualizar parcial
 postsRouter.patch('/:id', asyncHandler(async (req, res) => {
-  const datos = crearPostSchema.partial().parse(req.body); // todos los campos opcionales acá
+  const datos = crearPostSchema.partial().parse(req.body); // todos los campos opcionales aquí
   const post = await prisma.post.update({ where: { id: req.params.id }, data: datos });
   res.json(post);
 }));

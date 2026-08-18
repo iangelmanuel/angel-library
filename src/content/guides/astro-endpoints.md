@@ -3,7 +3,7 @@ title: Endpoints (API routes)
 description: Archivos en src/pages que responden JSON u otro contenido en vez de HTML — GET/POST, rutas dinámicas y modo on-demand.
 category: frontend
 stack: astro
-order: 11
+order: 15
 tags: [astro, api, backend]
 scope: astro:pages
 updatedAt: 2026-08-16
@@ -64,7 +64,7 @@ export function getStaticPaths() {
 
 ## Modo on-demand (SSR)
 
-Con `output: 'server'` (o `'hybrid'`) en `astro.config.mjs`, o `export const prerender = false` en el archivo, el endpoint corre en cada request en vez de generarse en build — necesario si depende de `request` (headers, body, cookies) en tiempo real.
+Con `output: 'server'` en `astro.config.mjs`, o con `export const prerender = false` en el archivo aunque el proyecto siga en `output: 'static'`, el endpoint corre en cada request en vez de generarse en build — necesario si depende de `request` (headers, body, cookies) en tiempo real. El antiguo valor `output: 'hybrid'` ya no forma parte de la configuración actual: el modo mixto se expresa por ruta con `prerender`.
 
 ```ts title="pages/api/echo.ts"
 export const prerender = false;
@@ -89,5 +89,5 @@ export const POST: APIRoute = async ({ request }) => {
 ## Consideraciones
 
 - En modo estático (sin `prerender = false`), `request.body` no está disponible de forma confiable — un endpoint que necesita leer el body de un POST necesita on-demand rendering.
-- Astro no valida nada del body automáticamente: seguí el mismo patrón que en cualquier boundary, `request.json()` + Zod antes de confiar en los datos.
+- Astro no valida nada del body automáticamente: sigue el mismo patrón que en cualquier boundary, `request.json()` + Zod antes de confiar en los datos.
 - Para lo que sería un formulario típico con validación, [Server Actions](/guides/astro-server-actions) suele ser menos código que un endpoint a mano.

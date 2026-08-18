@@ -71,6 +71,6 @@ En Windows el `PATH` usa `;` como separador entre entradas; en macOS/Linux usa `
 
 ## Consideraciones
 
-- Una variable definida con `export`/`$env:` y nunca persistida es la causa más común de "funciona en mi terminal pero no en la del compañero" (o en un script que abre una terminal nueva) — si algo depende de una variable, conviene persistirla o documentarla, no dejarla solo en la sesión activa.
+- Una variable definida con `export`/`$env:` y nunca persistida es la causa más común de "funciona en mi terminal pero no en la del compañero" (o en un script que abre una terminal nueva) — si algo depende directamente variable, conviene persistirla o documentarla, no dejarla solo en la sesión activa.
 - En Windows, `[Environment]::SetEnvironmentVariable` con alcance `"User"` no requiere permisos de administrador; con `"Machine"` sí.
 - `.env` files (leídos por herramientas como `dotenv`) son un mecanismo aparte, a nivel de proyecto, no de terminal — no los carga la shell automáticamente salvo que algo los procese explícitamente.

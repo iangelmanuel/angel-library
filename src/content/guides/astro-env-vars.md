@@ -3,7 +3,7 @@ title: Variables de entorno
 description: import.meta.env, el prefijo PUBLIC_, y astro:env para variables tipadas y validadas en build.
 category: frontend
 stack: astro
-order: 10
+order: 14
 tags: [astro, config, security]
 scope: astro (import.meta.env / astro:env)
 updatedAt: 2026-08-16
@@ -25,7 +25,7 @@ const nombre = import.meta.env.PUBLIC_SITE_NAME;   // disponible en servidor y c
 ---
 ```
 
-El prefijo `PUBLIC_` es la única señal que decide si una variable viaja al bundle de cliente — todo lo demás queda server-only por diseño, no por convención a cuidar vos mismo.
+El prefijo `PUBLIC_` es la única señal que decide si una variable viaja al bundle de cliente — todo lo demás queda server-only por diseño, no por convención a cuidar tú mismo.
 
 ## Variables incluidas por defecto
 
@@ -39,7 +39,7 @@ import.meta.env.BASE_URL;  // el `base` de astro.config.mjs
 
 ## `astro:env` — Tipadas y validadas
 
-Para proyectos donde una variable de entorno faltante debería fallar el build (no un `undefined` silencioso en producción), `astro:env` define un schema tipado.
+Para proyectos dondirectamente variable de entorno faltante debería fallar el build (no un `undefined` silencioso en producción), `astro:env` define un schema tipado.
 
 ```ts title="astro.config.mjs"
 import { defineConfig, envField } from 'astro/config';

@@ -50,10 +50,10 @@ docker run -d \
 ```bash
 docker run -p 8080:80 nginx
 #             │    └─ puerto DENTRO del contenedor (el que la app "escucha")
-#             └─ puerto en TU máquina (por el que accedés desde el navegador)
+#             └─ puerto en TU máquina (por el que accedes desde el navegador)
 ```
 
-Confundir el orden es un error común — `localhost:8080` es lo que escribís en el navegador; `80` es el puerto que la app dentro del contenedor ya tiene fijo (no se puede cambiar sin tocar la config de la app).
+Confundir el orden es un error común — `localhost:8080` es lo que escribes en el navegador; `80` es el puerto que la app dentro del contenedor ya tiene fijo (no se puede cambiar sin tocar la config de la app).
 
 ## Correr un shell interactivo dentro de un contenedor
 

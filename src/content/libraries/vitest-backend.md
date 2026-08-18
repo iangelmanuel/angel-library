@@ -79,7 +79,7 @@ beforeEach(async () => {
 });
 ```
 
-```env title=".env.test"
+```bash title=".env.test"
 DATABASE_URL=postgresql://localhost:5432/mibase_test
 ```
 

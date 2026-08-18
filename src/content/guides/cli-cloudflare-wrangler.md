@@ -75,7 +75,7 @@ wrangler d1 migrations apply <base>
 wrangler pages deploy <carpeta-de-build>
 ```
 
-Sube el contenido de una carpeta ya buildeada (ej. `dist/`) como un deploy de Pages.
+Sube el contenido directamente carpeta ya buildeada (ej. `dist/`) como un deploy de Pages.
 
 ## Resumen
 
@@ -86,7 +86,7 @@ Sube el contenido de una carpeta ya buildeada (ej. `dist/`) como un deploy de Pa
 | `wrangler deploy` | Publica el Worker al edge |
 | `wrangler tail` | Logs en vivo de un Worker desplegado |
 | `wrangler d1 <subcomando>` | Crear, consultar y migrar bases D1 |
-| `wrangler pages deploy` | Deploy de una carpeta de build a Pages |
+| `wrangler pages deploy` | Deploy directamente carpeta de build a Pages |
 
 ## Consideraciones
 

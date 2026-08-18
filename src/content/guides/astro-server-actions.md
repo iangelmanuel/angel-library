@@ -3,7 +3,7 @@ title: Server Actions
 description: Funciones backend con validación Zod integrada — defineAction, llamarlas desde el cliente, formularios con progressive enhancement y manejo de errores.
 category: frontend
 stack: astro
-order: 12
+order: 16
 tags: [astro, forms, backend]
 scope: astro:actions
 related:
@@ -12,7 +12,7 @@ related:
 updatedAt: 2026-08-16
 ---
 
-Para un formulario, un [endpoint](/guides/astro-endpoints) a mano implica repetir siempre lo mismo: parsear el body, validarlo, tipar la respuesta, manejar el error de red en el cliente. Las Actions empaquetan las tres cosas en una sola función: definís el schema de entrada una vez con Zod, y tanto el cliente como el servidor comparten ese tipo automáticamente — sin escribir el `fetch` a mano ni duplicar la validación en el frontend.
+Para un formulario, un [endpoint](/guides/astro-endpoints) a mano implica repetir siempre lo mismo: parsear el body, validarlo, tipar la respuesta, manejar el error de red en el cliente. Las Actions empaquetan las tres cosas en una sola función: defines el schema de entrada una vez con Zod, y tanto el cliente como el servidor comparten ese tipo automáticamente — sin escribir el `fetch` a mano ni duplicar la validación en el frontend.
 
 ## Definir una action
 
@@ -29,7 +29,7 @@ export const server = {
       postId: z.string(),
     }),
     handler: async (input) => {
-      // input ya está validado y tipado acá
+      // input ya está validado y tipado aquí
       return { id: crypto.randomUUID(), ...input };
     },
   }),

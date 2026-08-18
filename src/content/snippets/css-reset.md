@@ -89,13 +89,13 @@ ol[role='list'] {
 | `min-height: 100dvh` en `body` | `dvh` respeta la barra de direcciones en mobile, `vh` no |
 | `img, picture, video...` a `display: block` + `max-width: 100%` | Las imágenes no se desbordan del contenedor ni dejan espacio fantasma abajo (`display: inline` por defecto) |
 | `font: inherit` en inputs/botones | Los form controls no usan la tipografía del sistema por defecto, heredan la del sitio |
-| `ul[role='list']` en vez de `ul` a secas | Quita los bullets solo donde vos decidís, y mantiene la semántica de lista para lectores de pantalla (quitar `list-style` sin más hace que VoiceOver deje de anunciarlo como lista) |
+| `ul[role='list']` en vez de `ul` a secas | Quita los bullets solo donde tú decides, y mantiene la semántica de lista para lectores de pantalla (quitar `list-style` sin más hace que VoiceOver deje de anunciarlo como lista) |
 | `#root, #__next` con `isolation: isolate` | Crea un nuevo stacking context, evita que `z-index` de librerías externas (modales, tooltips) rompa el layout |
 | Bloque `prefers-reduced-motion` | Respeta la preferencia de accesibilidad del sistema operativo, forzando animaciones casi instantáneas |
 
 ## Consideraciones
 
 - Este reset no toca tipografía (`font-family`, tamaños) ni colores — eso va en tus propios tokens, no en el reset.
-- `ul[role='list']` requiere que agregues `role="list"` al HTML: `<ul role="list">`. Si no lo hacés, `list-style: none` se aplica igual pero perdés la ventaja de accesibilidad.
-- Si usás Next.js reemplazá `#__next` según corresponda; en Astro sin root wrapper, esa regla no aplica y podés quitarla.
+- `ul[role='list']` requiere que agregues `role="list"` al HTML: `<ul role="list">`. Si no lo haces, `list-style: none` se aplica igual pero perdés la ventaja de accesibilidad.
+- Si usas Next.js reemplazá `#__next` según corresponda; en Astro sin root wrapper, esa regla no aplica y puedes quitarla.
 - El bloque de `prefers-reduced-motion` es el mismo patrón que ya usa este sitio — ver `global.css`.

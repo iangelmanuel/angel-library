@@ -1,9 +1,9 @@
 ---
 title: Layouts (.astro) y &lt;slot /&gt;
-description: Componentes que envuelven el contenido de una página con <slot />, layouts anidados y el layout de frontmatter en Markdown.
+description: Componentes que envuelven el contenido directamente página con <slot />, layouts anidados y el layout de frontmatter en Markdown.
 category: frontend
 stack: astro
-order: 2
+order: 3
 tags: [astro, layouts, templating]
 scope: astro (componentes de layout)
 updatedAt: 2026-08-16

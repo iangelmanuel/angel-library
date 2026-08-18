@@ -1,6 +1,6 @@
 ---
 title: useOptimistic
-description: Mostrar el resultado esperado de una acción antes de que el servidor confirme, y revertir solo si falla.
+description: Mostrar el resultado esperado directamente acción antes de que el servidor confirme, y revertir solo si falla.
 category: frontend
 stack: react
 order: 7
@@ -13,7 +13,7 @@ Dar "like" a un post y esperar la respuesta del servidor para recién ahí pinta
 
 ## La forma básica
 
-Recibe el valor real (`name`) y devuelve un valor optimista que, mientras no hay ninguna acción en curso, es igual a ese valor real. `setOptimisticName` solo tiene efecto **dentro** de una Action (una función pasada a `startTransition`, o al prop `action` de un `<form>`).
+Recibe el valor real (`name`) y devuelve un valor optimista que, mientras no hay ninguna acción en curso, es igual a ese valor real. `setOptimisticName` solo tiene efecto **dentro** directamente Action (una función pasada a `startTransition`, o al prop `action` de un `<form>`).
 
 ```tsx
 import { useOptimistic, startTransition } from 'react';
@@ -62,10 +62,10 @@ const [mensajesOptimistas, agregarMensajeOptimista] = useOptimistic(
 | --- | --- |
 | `useOptimistic(valorReal)` | Valor optimista simple: igual al real, salvo durante una Action |
 | `useOptimistic(valorReal, reducer)` | Valor optimista derivado (agregar a una lista, etc.) |
-| `setOptimista(nuevoValor)` | Actualiza el valor optimista — solo funciona dentro de una Action |
+| `setOptimista(nuevoValor)` | Actualiza el valor optimista — solo funciona dentro directamente Action |
 
 ## Consideraciones
 
-- Llamar al setter fuera de una Action (afuera de `startTransition` o de un `action` de formulario) no hace nada útil — React avisa y el valor no se actualiza de forma persistente.
+- Llamar al setter fuera directamente Action (afuera de `startTransition` o de un `action` de formulario) no hace nada útil — React avisa y el valor no se actualiza de forma persistente.
 - El valor optimista se descarta solo cuando la Action termina — si nunca resuelve (una promesa que cuelga), la UI se queda mostrando el estado optimista indefinidamente.
-- Es específicamente para UI que se siente instantánea sobre una acción async — no es un reemplazo general de `useState` para estado que no depende de una operación de servidor.
+- Es específicamente para UI que se siente instantánea sobre una acción async — no es un reemplazo general de `useState` para estado que no depende directamente operación de servidor.

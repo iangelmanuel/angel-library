@@ -20,7 +20,7 @@ Escenario típico: el frontend (una SPA separada) usa `supabase.auth` directo pa
 npm install express @supabase/supabase-js
 ```
 
-```env title=".env"
+```bash title=".env"
 SUPABASE_URL=https://tuproyecto.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 ```
@@ -74,7 +74,7 @@ app.get('/mis-posts', requireAuth, async (req, res) => {
   const { data, error } = await supabaseAdmin
     .from('posts')
     .select('*')
-    .eq('author_id', req.user!.id); // filtra explícito, no depende de RLS acá (service role la salta)
+    .eq('author_id', req.user!.id); // filtra explícito, no depende de RLS aquí (service role la salta)
 
   if (error) return res.status(500).json({ error: 'Error al leer posts' });
   res.json(data);
@@ -92,9 +92,9 @@ app.post('/posts', requireAuth, async (req, res) => {
 });
 ```
 
-## Por qué el filtro `.eq('author_id', ...)` es explícito acá
+## Por qué el filtro `.eq('author_id', ...)` es explícito aquí
 
-Con la `SERVICE_ROLE_KEY`, RLS **no aplica** — así que a diferencia de un cliente frontend con la `ANON_KEY` (donde RLS filtraría solo por confiar en las políticas), acá el propio código de Express es responsable de esa lógica. Olvidar el `.eq()` expondría posts de cualquier usuario, no solo del autenticado.
+Con la `SERVICE_ROLE_KEY`, RLS **no aplica** — así que a diferencia de un cliente frontend con la `ANON_KEY` (donde RLS filtraría solo por confiar en las políticas), aquí el propio código de Express es responsable de esa lógica. Olvidar el `.eq()` expondría posts de cualquier usuario, no solo del autenticado.
 
 ## Consideraciones
 

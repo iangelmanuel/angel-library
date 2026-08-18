@@ -55,7 +55,7 @@ Una variable declarada en un selector más específico pisa la de `:root` solo d
 
 ```html
 <div class="card theme-danger">
-  <!-- .card usa var(--color-primary), acá sale rojo -->
+  <!-- .card usa var(--color-primary), aquí sale rojo -->
 </div>
 ```
 

@@ -3,7 +3,7 @@ title: Layouts anidados
 description: UI compartida que no se remonta al navegar — el layout raíz obligatorio, layouts anidados y route groups para organizar sin tocar la URL.
 category: frontend
 stack: nextjs
-order: 2
+order: 3
 tags: [nextjs, routing]
 scope: next.js (layout.tsx)
 related:
@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-16
 ---
 
-Un `layout.tsx` envuelve `page.tsx` y todo lo que haya debajo en su carpeta — pero a diferencia de un componente normal, **no se remonta** al navegar entre páginas hijas. Un sidebar con estado propio, un contador, un video reproduciéndose: todo eso sobrevive la navegación si vive en un layout, exactamente igual que `transition:persist` en Astro pero sin tener que declararlo — es el comportamiento por defecto acá.
+Un `layout.tsx` envuelve `page.tsx` y todo lo que haya debajo en su carpeta — pero a diferencia de un componente normal, **no se remonta** al navegar entre páginas hijas. Un sidebar con estado propio, un contador, un video reproduciéndose: todo eso sobrevive la navegación si vive en un layout, exactamente igual que `transition:persist` en Astro pero sin tener que declararlo — es el comportamiento por defecto aquí.
 
 ## Lo básico
 
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-No le agregues `<title>`/`<meta>` a mano acá — eso es trabajo de la [Metadata API](/guides/nextjs-metadata-seo).
+No le agregues `<title>`/`<meta>` a mano aquí — eso es trabajo de la [Metadata API](/guides/nextjs-metadata-seo).
 
 ## Layouts anidados
 
@@ -104,6 +104,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 ## Consideraciones
 
-- Un layout no puede pasarle datos a `children` vía props — si `layout` y `page` necesitan el mismo dato, pedilo en los dos (con `fetch`, que memoiza automáticamente, o con `cache` de React si no usás `fetch`).
+- Un layout no puede pasarle datos a `children` vía props — si `layout` y `page` necesitan el mismo dato, pedilo en los dos (con `fetch`, que memoiza automáticamente, o con `cache` de React si no usas `fetch`).
 - Navegar entre dos layouts raíz distintos (dos route groups distintos) fuerza una recarga completa de página, no una transición de cliente — es la excepción a "los layouts no se remontan".
-- `template.tsx` existe para el caso raro donde SÍ querés que algo se reinicie en cada navegación (un formulario que debe limpiarse, una animación de entrada que debe repetirse) — la mayoría de las veces, `layout.tsx` es lo correcto.
+- `template.tsx` existe para el caso raro donde SÍ quieres que algo se reinicie en cada navegación (un formulario que debe limpiarse, una animación de entrada que debe repetirse) — la mayoría de las veces, `layout.tsx` es lo correcto.

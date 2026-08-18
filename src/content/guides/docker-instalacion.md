@@ -30,7 +30,7 @@ wsl --install
 
 2. Descargar e instalar [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 3. Al abrir Docker Desktop por primera vez, ir a **Settings → General** y confirmar que **"Use the WSL 2 based engine"** esté activado (es el default en instalaciones nuevas).
-4. Si usás WSL2 con alguna distro (Ubuntu, etc.) para tu terminal de trabajo, en **Settings → Resources → WSL Integration** activar la integración con esa distro — así `docker` funciona también desde adentro de WSL, no solo desde PowerShell.
+4. Si usas WSL2 con alguna distro (Ubuntu, etc.) para tu terminal de trabajo, en **Settings → Resources → WSL Integration** activar la integración con esa distro — así `docker` funciona también desde adentro de WSL, no solo desde PowerShell.
 
 ## Mac
 

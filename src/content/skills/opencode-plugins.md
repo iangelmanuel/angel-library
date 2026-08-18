@@ -63,5 +63,5 @@ OpenCode instala el paquete automáticamente (con Bun) en el cache local al arra
 
 ## Consideraciones
 
-- Esto es lo más distinto de Claude Code de todo el sitio: acá no hay `.claude-plugin/plugin.json` ni `/plugin install` — es control total vía código, a cambio de no tener un catálogo central para descubrir plugins de otros.
-- Si venís de Claude Code buscando "dónde configuro un hook declarativo en JSON" — no existe, la funcionalidad equivalente vive acá, como código.
+- Esto es lo más distinto de Claude Code de todo el sitio: aquí no hay `.claude-plugin/plugin.json` ni `/plugin install` — es control total vía código, a cambio de no tener un catálogo central para descubrir plugins de otros.
+- Si vienes de Claude Code buscando "dónde configuro un hook declarativo en JSON" — no existe, la funcionalidad equivalente vive aquí, como código.

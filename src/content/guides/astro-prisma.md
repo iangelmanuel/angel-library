@@ -3,7 +3,7 @@ title: Prisma en Astro
 description: Instalación, schema, client, CRUD completo y transacciones — usado desde endpoints y Server Actions con output "server".
 category: backend
 stack: astro
-order: 4
+order: 7
 tags: [astro, prisma, database, orm]
 website: https://www.prisma.io
 related: [guides/astro-backend-arquitectura]
@@ -24,7 +24,7 @@ npx prisma init
 
 **1. `DATABASE_URL` en `.env`:**
 
-```env title=".env"
+```bash title=".env"
 DATABASE_URL="postgresql://postgres:password@localhost:5432/miapp"
 ```
 
@@ -63,7 +63,7 @@ import { PrismaClient } from '@prisma/client';
 export const prisma = new PrismaClient();
 ```
 
-Nada específico de Astro acá — con `output: 'server'` sobre un adapter Node tradicional, el proceso vive igual que un servidor Express, así que el mismo singleton alcanza.
+Nada específico de Astro aquí — con `output: 'server'` sobre un adapter Node tradicional, el proceso vive igual que un servidor Express, así que el mismo singleton alcanza.
 
 **5. Un endpoint real:**
 
@@ -79,7 +79,7 @@ export const GET: APIRoute = async () => {
 };
 ```
 
-Requiere `output: 'server'` (o `'hybrid'` con esta ruta marcada `prerender: false`) en `astro.config.mjs` — en modo estático puro no hay servidor corriendo para atender este endpoint en runtime.
+Requiere `output: 'server'` o mantener `output: 'static'` y marcar esta ruta con `export const prerender = false` — en una ruta prerenderizada no hay servidor corriendo para atender el endpoint en runtime. El antiguo modo `hybrid` se reemplazó por esta selección por ruta.
 
 ## CRUD básico
 

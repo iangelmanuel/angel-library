@@ -3,7 +3,7 @@ title: "Estilos con &lt;style&gt; — scoped por defecto"
 description: Cómo Astro aísla el CSS de cada componente automáticamente, is:global para salirse del scope, y define:vars para pasar valores del frontmatter.
 category: frontend
 stack: astro
-order: 5
+order: 6
 tags: [astro, css, styling]
 scope: astro (&lt;style&gt;)
 related:

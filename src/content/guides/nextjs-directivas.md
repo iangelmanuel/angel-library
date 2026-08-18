@@ -3,9 +3,12 @@ title: Directivas — 'use client', 'use server', 'use cache'
 description: Las tres directivas que definen dónde corre cada parte de tu app — la base de todo lo demás en el App Router.
 category: frontend
 stack: nextjs
-order: 1
+order: 2
 tags: [nextjs, rendering]
 scope: next.js app router (directivas)
+related:
+  - guides/nextjs-server-client-components
+  - guides/nextjs-cache-components
 updatedAt: 2026-08-16
 ---
 
@@ -13,7 +16,7 @@ En el App Router, todo componente es Server Component **por defecto** — corre 
 
 ## `'use client'` — Límite hacia el cliente
 
-Al principio del archivo, antes de cualquier import. Marca ese módulo (y todo lo que importe o renderice directamente) como parte del bundle que sí viaja al navegador — ahí es donde podés usar `useState`, `onClick`, `window`, cualquier hook.
+Al principio del archivo, antes de cualquier import. Marca ese módulo (y todo lo que importe o renderice directamente) como parte del bundle que sí viaja al navegador — ahí es donde puedes usar `useState`, `onClick`, `window`, cualquier hook.
 
 ```tsx title="app/ui/contador.tsx"
 'use client'
@@ -26,7 +29,7 @@ export default function Contador() {
 }
 ```
 
-No hace falta ponerlo en cada componente: una vez que un archivo tiene `'use client'`, todo lo que ese archivo importa y renderiza directamente ya es parte del bundle de cliente. Marcá el límite lo más abajo posible en el árbol (el componente interactivo puntual, no el layout entero) para no mandar más JS del necesario.
+No hace falta ponerlo en cada componente: una vez que un archivo tiene `'use client'`, todo lo que ese archivo importa y renderiza directamente ya es parte del bundle de cliente. Marca el límite lo más abajo posible en el árbol (el componente interactivo puntual, no el layout entero) para no mandar más JS del necesario.
 
 ## `'use server'` — Funciones que corren en el servidor
 
@@ -40,11 +43,11 @@ export async function crearPost(formData: FormData) {
 }
 ```
 
-Puede ir al principio de un archivo (aplica a todos los exports, todos deben ser `async`) o al principio de una función específica dentro de un Server Component.
+Puede ir al principio de un archivo (aplica a todos los exports, todos deben ser `async`) o al principio directamente función específica dentro de un Server Component.
 
 ## `'use cache'` — Cachear el resultado
 
-Directiva de Next.js (no de React) que cachea el resultado de una función o componente async según sus argumentos. Se puede poner a nivel de una función de datos puntual, o de una página/componente entero.
+Directiva de Next.js (no de React) que cachea el resultado directamente función o componente async según sus argumentos. Se puede poner a nivel directamente función de datos puntual, o directamente página/componente entero.
 
 ```ts title="app/lib/data.ts"
 export async function getUsuarios() {
@@ -53,7 +56,7 @@ export async function getUsuarios() {
 }
 ```
 
-Esta directiva es parte de un modelo de caché más nuevo ("Cache Components", opt-in vía `cacheComponents: true` en `next.config`) — para el modelo clásico de caché (el más común hoy en proyectos existentes), ver [Fetching con revalidate](/guides/nextjs-fetching-revalidate).
+Esta directiva es parte de Cache Components, habilitado con `cacheComponents: true` en `next.config`. Puede aplicarse a una función, componente o archivo async. La duración y la invalidación se describen con `cacheLife()` y `cacheTag()`; ver [Cache Components](/guides/nextjs-cache-components). Para proyectos que todavía usan la configuración clásica, ver [Fetching con revalidate](/guides/nextjs-fetching-revalidate).
 
 ## Resumen
 
@@ -61,7 +64,7 @@ Esta directiva es parte de un modelo de caché más nuevo ("Cache Components", o
 | --- | --- | --- |
 | `'use client'` | React | Crea un límite hacia el bundle de cliente |
 | `'use server'` | React | Expone funciones como Server Functions callables desde el cliente |
-| `'use cache'` | Next.js | Cachea el resultado de una función/componente según sus inputs |
+| `'use cache'` | Next.js | Cachea el resultado directamente función/componente según sus inputs |
 
 ## Consideraciones
 

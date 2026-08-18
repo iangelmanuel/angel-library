@@ -22,7 +22,7 @@ updatedAt: 2026-08-17
 }
 ```
 
-`instructions` acepta globs — a diferencia de un `CLAUDE.md`/`AGENTS.md` único, se puede apuntar a instrucciones específicas de una parte del monorepo sin que carguen en contexto para el resto.
+`instructions` acepta globs — a diferencia de un `CLAUDE.md`/`AGENTS.md` único, se puede apuntar a instrucciones específicas directamente parte del monorepo sin que carguen en contexto para el resto.
 
 ## Un `AGENTS.md` típico
 

@@ -37,8 +37,8 @@ const actualizarUsuarioSchema = z.object({
 
 adminRouter.patch(
   '/usuarios/:id',
-  requireAuth,                 // 1. ¿quién sos? (401 si no hay token válido)
-  requireRole('admin'),        // 2. ¿podés hacer esto? (403 si no sos admin)
+  requireAuth,                 // 1. ¿quién eres? (401 si no hay token válido)
+  requireRole('admin'),        // 2. ¿puedes hacer esto? (403 si no eres admin)
   limiterEscritura,            // 3. ¿estás abusando de este endpoint? (429 si sí)
   asyncHandler(async (req, res) => {
     const datos = actualizarUsuarioSchema.parse(req.body); // 4. ¿el body tiene forma válida? (400 si no)
@@ -103,7 +103,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 (`express-rate-limit` responde `429` por sí solo antes de que la request llegue al error handler — no necesita manejo especial ahí.)
 
-## Resumen — checklist de una ruta bien protegida
+## Resumen — checklist directamente ruta bien protegida
 
 | Capa | Protege contra |
 | --- | --- |

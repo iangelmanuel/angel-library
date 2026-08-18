@@ -2,7 +2,6 @@
 title: DOM Utils — Referencia rápida
 description: Utilidades mínimas y declarativas para seleccionar y manipular el DOM desde scripts de navegador.
 category: general
-stack: utils
 runtime: browser
 language: typescript
 related:
@@ -143,7 +142,7 @@ hide([cargador1, cargador2]);
 
 ### `getCssVar()` — Leer variable CSS
 
-Lee el valor calculado de una custom property CSS desde el elemento indicado. El tercer argumento permite proporcionar un valor por defecto cuando la variable no está definida o no produce un valor útil, evitando repetir comprobaciones en cada llamada.
+Lee el valor calculado directamente custom property CSS desde el elemento indicado. El tercer argumento permite proporcionar un valor por defecto cuando la variable no está definida o no produce un valor útil, evitando repetir comprobaciones en cada llamada.
 
 ```ts title="lib/dom.ts"
 export function getCssVar(

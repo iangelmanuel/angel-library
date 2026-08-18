@@ -37,4 +37,4 @@ Pide login OAuth con la cuenta de Sentry la primera vez.
 
 ## Consideraciones
 
-- Requiere que el proyecto ya esté reportando errores a Sentry (SDK instalado) — el MCP conecta con datos que ya existen, no instrumenta el proyecto por vos.
+- Requiere que el proyecto ya esté reportando errores a Sentry (SDK instalado) — el MCP conecta con datos que ya existen, no instrumenta el proyecto por tú.

@@ -12,7 +12,7 @@ related:
 updatedAt: 2026-08-17
 ---
 
-"Preferí composición sobre herencia" es una de las frases más repetidas del diseño de software, y con razón: la herencia profunda crea jerarquías rígidas que son difíciles de cambiar sin romper algo, mientras que componer comportamiento a partir de piezas chicas mantiene cada parte independiente y reemplazable.
+"Prefiere composición sobre herencia" es una de las frases más repetidas del diseño de software, y con razón: la herencia profunda crea jerarquías rígidas que son difíciles de cambiar sin romper algo, mientras que componer comportamiento a partir de piezas chicas mantiene cada parte independiente y reemplazable.
 
 ## El problema de la herencia profunda
 

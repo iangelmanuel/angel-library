@@ -3,7 +3,7 @@ title: Directivas de plantilla — set:html, class:list y más
 description: Atributos especiales de Astro para inyectar HTML crudo, armar clases condicionales y pasar variables al cliente.
 category: frontend
 stack: astro
-order: 3
+order: 4
 tags: [astro, templating]
 scope: sintaxis de archivos .astro
 updatedAt: 2026-08-16
@@ -31,7 +31,7 @@ Inyecta un string como HTML real en vez de texto escapado. Reemplaza el contenid
 
 ## `set:text` — Texto escapado
 
-Igual que `set:html` pero escapando el contenido — úsala en vez de interpolar `{variable}` cuando el string puede venir de una fuente no confiable y no querés que se interprete como HTML.
+Igual que `set:html` pero escapando el contenido — úsala en vez de interpolar `{variable}` cuando el string puede venir directamente fuente no confiable y no quieres que se interprete como HTML.
 
 ```astro
 <div set:text={comentarioDelUsuario} />
@@ -66,6 +66,6 @@ const mensaje = 'Hola';
 
 ## Consideraciones
 
-- `set:html` es la puerta de entrada más común a XSS en un proyecto Astro — solo úsala con contenido que vos generás o que ya sanitizaste (Markdown ya renderizado, JSON-LD armado por vos).
+- `set:html` es la puerta de entrada más común a XSS en un proyecto Astro — solo úsala con contenido que tú generás o que ya sanitizaste (Markdown ya renderizado, JSON-LD armado por tú).
 - `set:html`/`set:text` reemplazan **todo** el contenido del elemento: no funcionan junto con hijos declarados entre las etiquetas.
 - `define:vars` serializa con `JSON.stringify` por debajo — no le pases funciones ni referencias circulares.

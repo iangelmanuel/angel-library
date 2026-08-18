@@ -2,7 +2,6 @@
 title: Date Utils — Referencia rápida
 description: Utilidades tipadas para formatear fechas y tiempo relativo con Intl, sin librerías.
 category: general
-stack: utils
 runtime: universal
 language: typescript
 related: []
@@ -17,7 +16,7 @@ No hace falta `date-fns` ni `dayjs` para lo básico: formatear, calcular diferen
 
 ### `formatDate()` — Formatear una fecha
 
-Formatea una fecha con `Intl.DateTimeFormat`. Por defecto usa locale `es` y estilo `medium`, pero ambos son configurables por si necesitás otro formato puntual.
+Formatea una fecha con `Intl.DateTimeFormat`. Por defecto usa locale `es` y estilo `medium`, pero ambos son configurables por si necesitas otro formato puntual.
 
 ```ts title="lib/date.ts"
 export function formatDate(
@@ -283,5 +282,5 @@ const diasDeAgosto = eachDayOfMonth(new Date('2026-08-01'));
 - `Intl.RelativeTimeFormat`, `Intl.DateTimeFormat` y `formatRange()` están disponibles en todos los navegadores modernos y en Node — no hace falta polyfill.
 - `daysBetween()` normaliza a UTC antes de restar: comparar `Date` directamente con horas incluidas puede dar resultados fuera por un día cuando cruza un cambio de horario.
 - `dateRange()` incluye ambos extremos y no valida que `start` sea anterior a `end` — si `start` es posterior, devuelve un array vacío en vez de contar hacia atrás.
-- `eachDayOfMonth()` y `dateRange()` pueden devolver arrays grandes con rangos largos (años) — no pensadas para generar miles de fechas de una sola vez.
-- Para fechas que vienen de una API como string, convertí primero con `new Date(valor)` antes de pasarlas a estas funciones.
+- `eachDayOfMonth()` y `dateRange()` pueden devolver arrays grandes con rangos largos (años) — no pensadas para generar miles de fechas directamente sola vez.
+- Para fechas que vienen directamente API como string, convertí primero con `new Date(valor)` antes de pasarlas a estas funciones.

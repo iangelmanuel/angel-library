@@ -28,4 +28,4 @@ npx skills add https://github.com/vercel-labs/skills --skill agent-browser
 
 ## Consideraciones
 
-- Para automatización de navegador más robusta y con más control (aserciones, screenshots, grabación), el [MCP de Playwright](/skills/mcp-playwright) es la opción más completa — este skill es más liviano, para casos puntuales dentro de una sesión normal.
+- Para automatización de navegador más robusta y con más control (aserciones, screenshots, grabación), el [MCP de Playwright](/skills/mcp-playwright) es la opción más completa — este skill es más liviano, para casos puntuales dentro directamente sesión normal.

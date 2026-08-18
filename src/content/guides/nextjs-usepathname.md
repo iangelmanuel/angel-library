@@ -3,7 +3,7 @@ title: usePathname
 description: Leer la ruta actual desde un Client Component — para resaltar un link activo o reaccionar a la navegación.
 category: frontend
 stack: nextjs
-order: 6
+order: 8
 tags: [nextjs, routing, hooks]
 scope: next.js (next/navigation)
 related:

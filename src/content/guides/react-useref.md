@@ -36,7 +36,7 @@ function BuscadorConFoco() {
 
 ## Guardar un valor mutable sin re-render
 
-A diferencia de `setState`, escribir en `ref.current` **no** vuelve a renderizar el componente. Sirve para cosas que el componente necesita recordar entre renders pero que no forman parte de lo que se muestra: el id de un `setInterval`, si un efecto ya corrió, el valor anterior de una prop.
+A diferencia de `setState`, escribir en `ref.current` **no** vuelve a renderizar el componente. Sirve para cosas que el componente necesita recordar entre renders pero que no forman parte de lo que se muestra: el id de un `setInterval`, si un efecto ya corrió, el valor anterior directamente prop.
 
 ```tsx
 function Cronometro() {

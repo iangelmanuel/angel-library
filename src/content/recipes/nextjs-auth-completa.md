@@ -96,5 +96,5 @@ export default async function DashboardPage() {
 
 ## Consideraciones
 
-- Cada pieza está documentada a fondo en [Auth.js en Next.js](/guides/nextjs-auth-js) — acá solo el ensamblado end-to-end.
+- Cada pieza está documentada a fondo en [Auth.js en Next.js](/guides/nextjs-auth-js) — aquí solo el ensamblado end-to-end.
 - El provider `Credentials` sigue necesitando [bcrypt](/libraries/bcrypt) a mano dentro de `authorize` — Auth.js no reemplaza esa parte del flujo, solo el manejo de sesión alrededor.

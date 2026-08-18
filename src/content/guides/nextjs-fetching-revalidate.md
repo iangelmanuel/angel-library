@@ -3,11 +3,12 @@ title: Fetching con revalidate — las constantes de caché
 description: cache en fetch, next.revalidate/next.tags, y los exports dynamic/revalidate/fetchCache explicados uno por uno.
 category: frontend
 stack: nextjs
-order: 15
+order: 18
 tags: [nextjs, caching, performance]
 scope: next.js (route segment config)
 related:
   - guides/nextjs-revalidate-path
+  - guides/nextjs-cache-components
 updatedAt: 2026-08-16
 ---
 
@@ -86,4 +87,4 @@ Opción avanzada: cambia el comportamiento por defecto de **todos** los fetches 
 
 - En desarrollo (`next dev`), las páginas **siempre** se renderizan on-demand, nunca cacheadas — para ver el comportamiento real de caché hay que probar con `next build && next start`.
 - El valor de `revalidate` tiene que ser estáticamente analizable: `revalidate = 3600` funciona, `revalidate = 60 * 60` no (Next no evalúa expresiones ahí, necesita leer el literal en build).
-- Para datos que no vienen de `fetch` (una query directa a una base de datos, un ORM), estas opciones no aplican — para esos casos existe `unstable_cache`, que acepta las mismas ideas (`revalidate`, `tags`) pero envolviendo cualquier función async.
+- Para datos que no vienen de `fetch` (una query directa a una base de datos, un ORM), estas opciones no aplican directamente. En el modelo clásico existe `unstable_cache`; al migrar a Cache Components se reemplaza por una función async con `'use cache'`, `cacheLife()` y `cacheTag()`.

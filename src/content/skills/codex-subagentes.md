@@ -33,7 +33,7 @@ O `/experimental` dentro de la sesión.
 name = "code-reviewer"
 description = "Revisa cambios buscando bugs y riesgos de seguridad"
 developer_instructions = """
-Sos un revisor de código senior. Buscá bugs, riesgos de seguridad
+Eres un revisor de código senior. Busca bugs, riesgos de seguridad
 y problemas de legibilidad. No edites nada, solo reportá.
 """
 model = "gpt-5.1-codex"
@@ -69,5 +69,5 @@ default_subagent_model = "gpt-5.1-codex"
 
 ## Consideraciones
 
-- Cursor **también lee** `.codex/agents/` para su propio sistema de subagentes — pero el formato TOML no es markdown, así que esa compatibilidad cruzada no aplica acá sin convertir el archivo.
-- Al ser experimental, la superficie de config (`[agents]` en `config.toml`) es la más propensa a cambiar de las 4 herramientas documentadas en este sitio — confirmar contra la doc oficial antes de depender de algo avanzado acá.
+- Cursor **también lee** `.codex/agents/` para su propio sistema de subagentes — pero el formato TOML no es markdown, así que esa compatibilidad cruzada no aplica aquí sin convertir el archivo.
+- Al ser experimental, la superficie de config (`[agents]` en `config.toml`) es la más propensa a cambiar de las 4 herramientas documentadas en este sitio — confirmar contra la doc oficial antes de depender de algo avanzado aquí.

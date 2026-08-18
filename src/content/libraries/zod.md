@@ -76,7 +76,7 @@ z.string().nullable(); // string | null
 z.string().nullish();  // string | null | undefined
 ```
 
-Uniones discriminadas — cuando un campo indica qué forma tiene el resto del objeto (eventos, estados de una máquina de estado, respuestas de API con `status`):
+Uniones discriminadas — cuando un campo indica qué forma tiene el resto del objeto (eventos, estados directamente máquina de estado, respuestas de API con `status`):
 
 ```ts
 const eventSchema = z.discriminatedUnion('type', [
@@ -177,7 +177,7 @@ await userSchema.parseAsync(data);
 // igual que parse(), pero espera refinamientos/transforms async
 ```
 
-`safeParse()` es la que casi siempre querés en código de aplicación: no lanza, así que no hace falta `try/catch` para el camino esperado de "datos inválidos".
+`safeParse()` es la que casi siempre quieres en código de aplicación: no lanza, así que no hace falta `try/catch` para el camino esperado de "datos inválidos".
 
 ```ts
 const result = userSchema.safeParse(formData);
@@ -204,7 +204,7 @@ if (!result.success) {
 }
 ```
 
-Para casos donde necesitás la estructura completa (objetos anidados, arrays), `.format()` da un árbol de errores que respeta la forma del schema en vez de aplanarlo.
+Para casos donde necesitas la estructura completa (objetos anidados, arrays), `.format()` da un árbol de errores que respeta la forma del schema en vez de aplanarlo.
 
 ## Componer schemas
 
@@ -254,7 +254,7 @@ const schema = z.object({
 const result = schema.safeParse(formToObject(form));
 ```
 
-**Validar la respuesta de una API** antes de confiar en su forma — [`fetchJson()`](/utilities/fetch) tipa con un genérico, pero no valida nada en runtime; Zod sí:
+**Validar la respuesta directamente API** antes de confiar en su forma — [`fetchJson()`](/utilities/fetch) tipa con un genérico, pero no valida nada en runtime; Zod sí:
 
 ```ts
 const apiUserSchema = z.object({ id: z.string(), email: z.string() });
@@ -285,6 +285,6 @@ const user = apiUserSchema.parse(raw); // lanza si la API cambió su forma sin a
 - Si ves `.string().email()` en código o tutoriales viejos: es la sintaxis de Zod 3. Desde Zod 4 los formatos son funciones de nivel superior (`z.email()`, `z.url()`, `z.uuid()`). La forma encadenada sigue funcionando en la mayoría de los casos, pero `z.email()` es la que documenta Zod hoy.
 - Con `FormData` todo llega como string → usa `z.coerce.*`, no `z.number()` a secas.
 - `.optional()` no es lo mismo que `.nullable()`: `undefined` (campo ausente) vs `null` (campo presente con valor nulo). Si la fuente de datos puede mandar cualquiera de los dos, usa `.nullish()`.
-- `safeParse()` no lanza — si usás `.parse()` en un boundary que no controlás (input de usuario, API externa), necesitás `try/catch` alrededor.
+- `safeParse()` no lanza — si usas `.parse()` en un boundary que no controlas (input de usuario, API externa), necesitas `try/catch` alrededor.
 - `.refine()` a nivel de objeto (para comparar dos campos) necesita `path` en el segundo argumento, si no el error no queda asociado a ningún campo del formulario.
-- El schema es la única fuente de verdad: si escribís un `interface` a mano al lado de un schema "porque es más rápido", con el tiempo se desincronizan y perdés la garantía que Zod te da.
+- El schema es la única fuente de verdad: si escribes un `interface` a mano al lado de un schema "porque es más rápido", con el tiempo se desincronizan y perdés la garantía que Zod te da.

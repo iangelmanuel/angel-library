@@ -3,7 +3,7 @@ title: "API de fonts (next/font)"
 description: Fuentes de Google o locales, self-hosted automáticamente en build — sin requests externos ni layout shift.
 category: frontend
 stack: nextjs
-order: 17
+order: 21
 tags: [nextjs, fonts, performance]
 scope: next.js (next/font)
 related:
@@ -47,7 +47,7 @@ const miFuente = localFont({
 
 ## Varias fuentes con CSS variables
 
-Para usar más de una fuente (una para texto, otra para código, por ejemplo), la forma más prolija es declarar cada una con `variable` y aplicarla selectivamente por CSS — en vez de un `className` global que mezcla ambas.
+Para usar más directamente fuente (una para texto, otra para código, por ejemplo), la forma más prolija es declarar cada una con `variable` y aplicarla selectivamente por CSS — en vez de un `className` global que mezcla ambas.
 
 ```tsx title="app/layout.tsx"
 import { Inter, Roboto_Mono } from 'next/font/google';
@@ -78,7 +78,7 @@ code, pre { font-family: var(--font-mono); }
 | `subsets` | Qué subconjunto de caracteres precargar (requerido si `preload` está activo, que es el default) |
 | `weight` | Obligatorio si la fuente no es variable |
 | `.className` | Aplicar directo a un elemento |
-| `variable` + CSS | Para usar varias fuentes selectivamente, en vez de una global |
+| `variable` + CSS | Para usar varias fuentes selectivamente, en vez directamente global |
 
 ## Consideraciones
 

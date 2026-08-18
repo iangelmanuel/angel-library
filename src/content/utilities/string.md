@@ -2,7 +2,6 @@
 title: String Utils — Referencia rápida
 description: Utilidades tipadas para slugs, truncado, capitalización y escape de HTML sin librerías.
 category: general
-stack: utils
 runtime: universal
 language: typescript
 related: []
@@ -137,5 +136,5 @@ const inputId = randomId('campo');
 ## Consideraciones
 
 - `crypto.randomUUID()` requiere un contexto seguro (HTTPS o `localhost`). En producción sin HTTPS no está disponible.
-- `escapeHtml()` no reemplaza sanitizar HTML de terceros (ej. Markdown renderizado): solo protege texto plano que insertas vos mismo con `innerHTML`.
-- Preferí `textContent` sobre `innerHTML` siempre que el contenido no necesite HTML real — no hace falta escapar nada.
+- `escapeHtml()` no reemplaza sanitizar HTML de terceros (ej. Markdown renderizado): solo protege texto plano que insertas tú mismo con `innerHTML`.
+- Prefiere `textContent` sobre `innerHTML` siempre que el contenido no necesite HTML real — no hace falta escapar nada.

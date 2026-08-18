@@ -31,7 +31,7 @@ Uno de los servidores de referencia mantenidos por Anthropic — da al agente un
 ## Cuándo usarlo
 
 - Problemas de diseño/arquitectura con varias alternativas a evaluar, donde vale la pena que el razonamiento quede explícito y no solo en la respuesta final.
-- Debugging de un bug difícil de reproducir, donde ir descartando hipótesis paso a paso ayuda más que intentar resolverlo de una.
+- Debugging de un bug difícil de reproducir, donde ir descartando hipótesis paso a paso ayuda más que intentar resolverlo directamente.
 
 ## Consideraciones
 

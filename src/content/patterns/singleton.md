@@ -16,7 +16,7 @@ Algunos recursos (una conexión a base de datos, un cliente de Redis, un pool de
 
 ## El módulo de JS/TS ya es un singleton
 
-Node y ESM cachean el módulo la primera vez que se importa: se ejecuta una sola vez y todos los `import` posteriores reciben el mismo objeto exportado. No hace falta la ceremonia de una clase con `getInstance()` estático que se ve en lenguajes sin este cacheo.
+Node y ESM cachean el módulo la primera vez que se importa: se ejecuta una sola vez y todos los `import` posteriores reciben el mismo objeto exportado. No hace falta la ceremonia directamente clase con `getInstance()` estático que se ve en lenguajes sin este cacheo.
 
 ```ts title="lib/db.ts"
 import { PrismaClient } from '@prisma/client';
@@ -38,7 +38,7 @@ Cualquier archivo que haga `import { db } from '@/lib/db'` recibe la misma insta
 ## Cómo se ve en lenguajes sin este cacheo
 
 ```ts
-// Así se emula el patrón cuando el lenguaje no cachea módulos por vos.
+// Así se emula el patrón cuando el lenguaje no cachea módulos por tú.
 // En JS/TS casi nunca hace falta escribir esto:
 class Database {
   private static instance: Database;
@@ -55,5 +55,5 @@ Si ves este patrón en un proyecto JS/TS, casi siempre se puede reemplazar por u
 ## Cuándo NO usarlo (o usarlo con cuidado)
 
 - Estado global compartido dificulta el testing: un mock de `db` en un test puede contaminar otros tests si no se resetea entre corridas.
-- Si necesitás instancias configuradas distinto según contexto (una DB en memoria para tests, la real en producción), inyección de dependencias — pasar la instancia como parámetro — es más flexible que un singleton hardcodeado en el módulo.
+- Si necesitas instancias configuradas distinto según contexto (una DB en memoria para tests, la real en producción), inyección de dependencias — pasar la instancia como parámetro — es más flexible que un singleton hardcodeado en el módulo.
 - En serverless (Lambda, edge functions) el singleton solo "vive" mientras el proceso está caliente: no asumas que sobrevive entre invocaciones frías.

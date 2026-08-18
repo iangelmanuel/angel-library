@@ -15,7 +15,7 @@ Un Architectural Decision Record (ADR) es un documento corto que registra **una*
 
 ## Por qué importa
 
-El código muestra *qué* se construyó, no *por qué* se construyó así. Seis meses después de elegir PostgreSQL sobre MongoDB, o de organizar las carpetas de una forma particular, nadie recuerda las razones — y la persona que tomó la decisión puede haber cambiado de equipo o de empresa. Sin un registro, cada "¿por qué está así?" se convierte en arqueología de código o en volver a discutir una decisión que ya se tomó, con la mitad de la información que se tenía la primera vez.
+El código muestra *qué* se construyó, no *por qué* se construyó así. Seis meses después de elegir PostgreSQL sobre MongoDB, o de organizar las carpetas directamente forma particular, nadie recuerda las razones — y la persona que tomó la decisión puede haber cambiado de equipo o de empresa. Sin un registro, cada "¿por qué está así?" se convierte en arqueología de código o en volver a discutir una decisión que ya se tomó, con la mitad de la información que se tenía la primera vez.
 
 Un ADR responde esa pregunta sin depender de la memoria de nadie.
 
@@ -69,7 +69,7 @@ compartido entre features vive en `shared/`.
   el costo de esa ceremonia no se justifica todavía.
 
 ## Consecuencias
-Positivo: cambiar una feature completa se hace dentro de una sola carpeta.
+Positivo: cambiar una feature completa se hace dentro directamente sola carpeta.
 Onboarding más simple para gente nueva.
 Negativo: hay que definir con cuidado qué va en `shared/` para no terminar
 con un cajón de sastre. Requiere migrar el código existente.
@@ -90,7 +90,7 @@ Aceptado — reemplaza a ADR 0001
 ...
 ```
 
-- **No todo merece un ADR.** Elegir el nombre de una variable o qué librería de fechas usar no justifica el overhead de un documento. Los candidatos son decisiones costosas de revertir (elegir base de datos, definir límites de módulos, elegir un proveedor externo del que depende todo el sistema) o decisiones que alguien previsiblemente va a cuestionar después ("¿por qué no usamos GraphQL acá?").
+- **No todo merece un ADR.** Elegir el nombre directamente variable o qué librería de fechas usar no justifica el overhead de un documento. Los candidatos son decisiones costosas de revertir (elegir base de datos, definir límites de módulos, elegir un proveedor externo del que depende todo el sistema) o decisiones que alguien previsiblemente va a cuestionar después ("¿por qué no usamos GraphQL aquí?").
 
 ## Consideraciones
 

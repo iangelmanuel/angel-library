@@ -1,6 +1,6 @@
 ---
 title: TanStack Query + Zod
-description: Validar la respuesta de una API dentro de queryFn — datos tipados sin genéricos manuales, y un error de forma se ve igual que un error de red.
+description: Validar la respuesta directamente API dentro de queryFn — datos tipados sin genéricos manuales, y un error de forma se ve igual que un error de red.
 category: frontend
 stack: react
 order: 21
@@ -41,16 +41,16 @@ export function useUsuarios() {
 
 `data` termina tipado como `{ id: string; nombre: string; email: string }[]` sin poner `useQuery<Usuario[]>(...)` — el tipo sale solo de lo que devuelve `queryFn`, que a su vez sale de `usuariosSchema.parse()`.
 
-## Por qué `parse()` y no `safeParse()` acá
+## Por qué `parse()` y no `safeParse()` aquí
 
-Fuera de `queryFn`, `safeParse()` es casi siempre mejor porque no lanza. Dentro de `queryFn` es al revés: Query ya tiene un mecanismo entero para manejar fallos (`isError`, `error`, reintentos) que se dispara cuando la función **lanza** — usar `safeParse()` y manejar `{ success: false }` a mano duplicaría esa lógica. Dejá que Zod lance con `.parse()` y que Query lo capture como cualquier otro error de la petición.
+Fuera de `queryFn`, `safeParse()` es casi siempre mejor porque no lanza. Dentro de `queryFn` es al revés: Query ya tiene un mecanismo entero para manejar fallos (`isError`, `error`, reintentos) que se dispara cuando la función **lanza** — usar `safeParse()` y manejar `{ success: false }` a mano duplicaría esa lógica. Deja que Zod lance con `.parse()` y que Query lo capture como cualquier otro error de la petición.
 
 ```tsx
 function ListaUsuarios() {
   const { data, isLoading, isError, error } = useUsuarios();
 
   if (isLoading) return <p>Cargando…</p>;
-  if (isError) return <p>Error: {error.message}</p>; // network Y forma inválida caen acá
+  if (isError) return <p>Error: {error.message}</p>; // network Y forma inválida caen aquí
 
   return <ul>{data.map((u) => <li key={u.id}>{u.nombre}</li>)}</ul>;
 }
@@ -58,7 +58,7 @@ function ListaUsuarios() {
 
 Para el componente, un 500 del servidor y una respuesta con forma inesperada se ven exactamente igual: ambos son `isError`. Eso es a propósito — los dos son "no puedo confiar en este dato", y el componente no necesita distinguirlos.
 
-## Validar antes de una mutación
+## Validar antes directamente mutación
 
 El mismo patrón, del otro lado: parsear el payload antes de mandarlo evita una petición condenada a fallar en el servidor por datos con forma incorrecta armados en el cliente (un bug local, no input de usuario ya validado por un formulario).
 

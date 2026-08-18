@@ -56,7 +56,7 @@ app.get('/posts', async (req, res) => {
 });
 ```
 
-No permite "saltar a la página 50" directamente (no hay concepto de página, solo "seguir desde acá") — a cambio, el rendimiento es constante sin importar cuán profundo se pagine. Es el patrón típico de feeds infinitos (scroll infinito), donde no hace falta números de página.
+No permite "saltar a la página 50" directamente (no hay concepto de página, solo "seguir desde aquí") — a cambio, el rendimiento es constante sin importar cuán profundo se pagine. Es el patrón típico de feeds infinitos (scroll infinito), donde no hace falta números de página.
 
 ## Filtrado por query params
 
@@ -136,4 +136,4 @@ app.get('/posts', async (req, res) => {
 ## Consideraciones
 
 - `req.query.page` siempre llega como string (o array de strings) — `Number(...)` sin validar puede dar `NaN` con un input raro; en producción vale la pena validar con Zod (`z.coerce.number().min(1)`) en vez de confiar directo.
-- Un `limit` sin tope máximo (`?limit=999999`) permite que un cliente pida la tabla entera de una — poner un máximo razonable (`Math.min(limit, 100)`) evita ese abuso.
+- Un `limit` sin tope máximo (`?limit=999999`) permite que un cliente pida la tabla entera directamente — poner un máximo razonable (`Math.min(limit, 100)`) evita ese abuso.

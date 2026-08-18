@@ -3,7 +3,7 @@ title: Endpoints (Route Handlers)
 description: Archivos route.ts dentro de app/ que responden con las Web APIs Request/Response en vez de renderizar UI.
 category: frontend
 stack: nextjs
-order: 12
+order: 16
 tags: [nextjs, api, backend]
 scope: next.js (route.ts)
 related:
@@ -21,7 +21,7 @@ export async function GET() {
 }
 ```
 
-Métodos soportados: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`. Next implementa `HEAD` automáticamente a partir de `GET`, y `OPTIONS` si no lo definís vos.
+Métodos soportados: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`. Next implementa `HEAD` automáticamente a partir de `GET`, y `OPTIONS` si no lo defines tú.
 
 ## `NextRequest` — Request extendido
 
@@ -83,9 +83,9 @@ export async function GET() {
 }
 ```
 
-## Cuándo un endpoint en vez de una Server Action
+## Cuándo un endpoint en vez directamente Server Action
 
-Un Route Handler tiene sentido cuando el consumidor no es tu propia UI de React (un webhook de un tercero, un cliente externo, un `GET` de solo lectura que querés cachear como página) — para mutaciones desde tu propia UI, [Server Actions](/guides/nextjs-server-actions) suele ser menos código.
+Un Route Handler tiene sentido cuando el consumidor no es tu propia UI de React (un webhook de un tercero, un cliente externo, un `GET` de solo lectura que quieres cachear como página) — para mutaciones desde tu propia UI, [Server Actions](/guides/nextjs-server-actions) suele ser menos código.
 
 ## Resumen
 
@@ -100,5 +100,5 @@ Un Route Handler tiene sentido cuando el consumidor no es tu propia UI de React 
 ## Consideraciones
 
 - Un `route.ts` y un `page.tsx` no pueden convivir en la misma carpeta — un segmento es una página o un endpoint, no ambas cosas.
-- Desde Next 15, un `GET` sin configuración explícita se trata como **dinámico** por defecto (antes era estático) — si necesitás cachearlo, `export const revalidate = N` (ver [Fetching con revalidate](/guides/nextjs-fetching-revalidate)).
+- Desde Next 15, un `GET` sin configuración explícita se trata como **dinámico** por defecto (antes era estático) — si necesitas cachearlo, `export const revalidate = N` (ver [Fetching con revalidate](/guides/nextjs-fetching-revalidate)).
 - Para subir/procesar archivos grandes o streaming (por ejemplo, respuestas de un LLM), Route Handlers soportan `ReadableStream` directo de las Web APIs — no hace falta nada específico de Next para eso.

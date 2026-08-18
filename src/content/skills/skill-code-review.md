@@ -23,9 +23,9 @@ npx skills add https://github.com/mattpocock/skills --skill code-review
 
 ## Cuándo usarlo
 
-- Antes de abrir un PR, como paso automático al final de una sesión de cambios.
+- Antes de abrir un PR, como paso automático al final directamente sesión de cambios.
 - Como segunda opinión sobre código que el mismo agente acaba de escribir, no solo sobre código humano.
 
 ## Consideraciones
 
-- Ver también el [comando /review](/skills/comando-review) de esta misma biblioteca — mismo propósito, formato de comando explícito en vez de skill auto-activable. Elegir uno u otro según si preferís control manual o activación automática.
+- Ver también el [comando /review](/skills/comando-review) de esta misma biblioteca — mismo propósito, formato de comando explícito en vez de skill auto-activable. Elegir uno u otro según si prefieres control manual o activación automática.

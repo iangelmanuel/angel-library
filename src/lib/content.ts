@@ -49,6 +49,43 @@ export function sortByTitle<T extends AnyEntry>(entries: T[]): T[] {
   return [...entries].sort((a, b) => a.data.title.localeCompare(b.data.title, 'es'));
 }
 
+/**
+ * Curva editorial compartida por sidebar, categorías y navegación anterior/
+ * siguiente. `order` organiza una etapa, pero nunca puede adelantar una receta
+ * completa a los fundamentos nativos de una tecnología.
+ */
+export const LEARNING_TYPE_ORDER: ContentTypeId[] = [
+  'technologies',
+  'guides',
+  'practices',
+  'patterns',
+  'libraries',
+  'integrations',
+  'components',
+  'hooks',
+  'utilities',
+  'snippets',
+  'commands',
+  'tricks',
+  'recipes',
+  'resources',
+  'skills',
+];
+
+const learningRank = new Map(LEARNING_TYPE_ORDER.map((id, index) => [id, index]));
+
+export function sortByLearningPath<T extends AnyEntry>(entries: T[]): T[] {
+  return [...entries].sort((a, b) => {
+    const rankA = learningRank.get(a.collection as ContentTypeId) ?? Infinity;
+    const rankB = learningRank.get(b.collection as ContentTypeId) ?? Infinity;
+    if (rankA !== rankB) return rankA - rankB;
+
+    const orderA = (a.data as { order?: number }).order ?? Infinity;
+    const orderB = (b.data as { order?: number }).order ?? Infinity;
+    return orderA - orderB || a.data.title.localeCompare(b.data.title, 'es');
+  });
+}
+
 export function getEntriesByType(entries: AnyEntry[], type: ContentTypeId): AnyEntry[] {
   return entries.filter((entry) => entry.collection === type);
 }
@@ -57,9 +94,9 @@ export function getEntriesByType(entries: AnyEntry[], type: ContentTypeId): AnyE
  * Agrupa entradas por tipo, siguiendo el orden definido en CONTENT_TYPES.
  */
 export function groupByType(entries: AnyEntry[]): { meta: (typeof CONTENT_TYPES)[ContentTypeId]; entries: AnyEntry[] }[] {
-  return CONTENT_TYPE_IDS.map((id) => ({
+  return LEARNING_TYPE_ORDER.map((id) => ({
     meta: CONTENT_TYPES[id],
-    entries: sortByTitle(entries.filter((entry) => entry.collection === id)),
+    entries: sortByLearningPath(entries.filter((entry) => entry.collection === id)),
   })).filter((group) => group.entries.length > 0);
 }
 

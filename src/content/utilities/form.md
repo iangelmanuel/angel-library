@@ -2,7 +2,6 @@
 title: Form Utils — Referencia rápida
 description: Utilidades tipadas para leer, poblar y escuchar formularios HTML con FormData, sin librerías.
 category: general
-stack: utils
 runtime: browser
 language: typescript
 related:
@@ -19,7 +18,7 @@ Para un formulario simple sin campos repetidos, el one-liner de siempre alcanza:
 const datos = Object.fromEntries(new FormData(form));
 ```
 
-Pero se queda corto en varios casos: con `name` repetido (checkboxes, `<select multiple>`) solo te quedas con el último valor, los inputs `disabled` no aparecen en `FormData`, y los checkboxes marcados sin `value` explícito llegan como `"on"`. Las funciones de acá cubren esos casos: campos repetidos, archivos y poblar un formulario desde datos existentes.
+Pero se queda corto en varios casos: con `name` repetido (checkboxes, `<select multiple>`) solo te quedas con el último valor, los inputs `disabled` no aparecen en `FormData`, y los checkboxes marcados sin `value` explícito llegan como `"on"`. Las funciones de aquí cubren esos casos: campos repetidos, archivos y poblar un formulario desde datos existentes.
 
 ## Tipos
 

@@ -103,4 +103,4 @@ No hay una respuesta universalmente "mejor" — JWT gana en no depender de un st
 ## Consideraciones
 
 - `sameSite: 'strict'` bloquea incluso navegación normal desde un link externo (el usuario llega "deslogueado" la primera vez); `'lax'` (el default recomendado) permite eso pero sigue bloqueando requests cross-site iniciadas por scripts o forms — el balance correcto para la mayoría de los casos.
-- Para apps full-stack de mismo origen (Astro, Next.js), este trade-off manual casi no aplica — [better-auth](/guides/express-better-auth) y [Auth.js](/guides/express-auth-js) ya deciden esto por vos con defaults sensatos.
+- Para apps full-stack de mismo origen (Astro, Next.js), este trade-off manual casi no aplica — [better-auth](/guides/express-better-auth) y [Auth.js](/guides/express-auth-js) ya deciden esto por tú con defaults sensatos.

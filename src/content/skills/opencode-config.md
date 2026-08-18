@@ -51,7 +51,7 @@ updatedAt: 2026-08-17
 7. Config gestionada (admin, MDM)
 ```
 
-Cada fuente **aporta** campos en vez de reemplazar el archivo entero — a diferencia de Claude Code, donde `settings.local.json` gana entero sobre `settings.json` para las claves que define, acá los objetos se combinan más granularmente.
+Cada fuente **aporta** campos en vez de reemplazar el archivo entero — a diferencia de Claude Code, donde `settings.local.json` gana entero sobre `settings.json` para las claves que define, aquí los objetos se combinan más granularmente.
 
 ## Resumen
 
@@ -63,4 +63,4 @@ Cada fuente **aporta** campos en vez de reemplazar el archivo entero — a difer
 
 ## Consideraciones
 
-- El endpoint de config remota es útil para organizaciones que quieren pushear config a todos sin depender de que cada developer actualice un archivo local — ninguna otra de las 4 herramientas documentadas acá tiene esto.
+- El endpoint de config remota es útil para organizaciones que quieren pushear config a todos sin depender de que cada developer actualice un archivo local — ninguna otra de las 4 herramientas documentadas aquí tiene esto.

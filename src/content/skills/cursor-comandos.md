@@ -20,12 +20,12 @@ También hay una "librería global" de comandos a nivel usuario, configurable de
 ## Plantilla base
 
 ```md title=".cursor/commands/review.md"
-Revisá los cambios actuales con `git diff` y señalá:
+Revisa los cambios actuales con `git diff` y señalá:
 1. Bugs potenciales
 2. Problemas de legibilidad
 3. Riesgos de seguridad
 
-No hagas cambios, solo dejá comentarios.
+No hagas cambios, solo deja comentarios.
 ```
 
 Sin frontmatter obligatorio — el archivo entero es el prompt, parecido a como funcionaban los comandos clásicos de Claude Code.

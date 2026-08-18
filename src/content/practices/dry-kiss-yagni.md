@@ -74,7 +74,7 @@ function getDiscount(user: User): number {
 }
 ```
 
-KISS no significa "evitar abstracciones" — significa que la complejidad debe ser proporcional al problema. Un `reduce` encadenado con funciones anónimas no es más correcto que un `Math.max`, solo es más difícil de leer para el próximo que lo toque (incluido vos en seis meses).
+KISS no significa "evitar abstracciones" — significa que la complejidad debe ser proporcional al problema. Un `reduce` encadenado con funciones anónimas no es más correcto que un `Math.max`, solo es más difícil de leer para el próximo que lo toque (incluido tú en seis meses).
 
 ## YAGNI — You Aren't Gonna Need It
 
@@ -114,7 +114,7 @@ function sendWelcomeEmail(email: string) {
 }
 ```
 
-Si mañana aparece un segundo tipo de email con lógica distinta, ese es el momento de extraer una abstracción — con dos casos reales delante en vez de una imaginada.
+Si mañana aparece un segundo tipo de email con lógica distinta, ese es el momento de extraer una abstracción — con dos casos reales delante en vez directamente imaginada.
 
 ## Cuándo estos principios se vuelven dogma (y eso es el problema)
 

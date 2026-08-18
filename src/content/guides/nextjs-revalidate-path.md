@@ -1,9 +1,9 @@
 ---
 title: Revalidación de paths — revalidatePath()
-description: Invalidar la caché de una ruta específica bajo demanda, después de una mutación — y cuándo usar revalidateTag en vez de esto.
+description: Invalidar la caché directamente ruta específica bajo demanda, después directamente mutación — y cuándo usar revalidateTag en vez de esto.
 category: frontend
 stack: nextjs
-order: 16
+order: 19
 tags: [nextjs, caching]
 scope: next.js (next/cache)
 related:

@@ -1,9 +1,9 @@
 ---
 title: generateStaticParams()
-description: El equivalente Next del getStaticPaths de Astro — qué valores de una ruta dinámica generar en build, y qué hacer con el resto.
+description: El equivalente Next del getStaticPaths de Astro — qué valores directamente ruta dinámica generar en build, y qué hacer con el resto.
 category: frontend
 stack: nextjs
-order: 10
+order: 12
 tags: [nextjs, routing, performance]
 scope: next.js (generateStaticParams)
 related:
@@ -80,4 +80,4 @@ export async function generateStaticParams() {
 
 - Siempre hay que devolver un array, aunque sea vacío — no devolver nada hace que la ruta completa se trate como dinámica, perdiendo cualquier beneficio de pre-generación.
 - En rutas con varios segmentos dinámicos anidados, un `generateStaticParams` hijo puede usar los `params` que le pasó el padre — se puede generar "de abajo hacia arriba" (una función que devuelve todo) o "de arriba hacia abajo" (cada nivel genera su propio segmento).
-- A diferencia de `getStaticPaths` en Astro (que es obligatorio para toda ruta `[dinámica]`), acá es opcional: sin `generateStaticParams`, la ruta simplemente es 100% dinámica (se renderiza en cada request) en vez de fallar el build.
+- A diferencia de `getStaticPaths` en Astro (que es obligatorio para toda ruta `[dinámica]`), aquí es opcional: sin `generateStaticParams`, la ruta simplemente es 100% dinámica (se renderiza en cada request) en vez de fallar el build.

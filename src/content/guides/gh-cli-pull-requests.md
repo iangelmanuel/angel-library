@@ -26,7 +26,7 @@ gh pr create --fill    # usa el mensaje del último commit como título/descripc
 gh pr create --draft   # como borrador, sin pedir review todavía
 ```
 
-Requiere haber hecho `git push` de la rama antes (o `gh pr create` lo detecta y ofrece hacerlo por vos si falta).
+Requiere haber hecho `git push` de la rama antes (o `gh pr create` lo detecta y ofrece hacerlo por tú si falta).
 
 ## Listar y ver PRs
 
@@ -45,7 +45,7 @@ gh pr checkout 42     # trae la rama de ese PR y te cambia a ella local, lista p
 gh pr diff 42          # ver el diff completo sin cambiar de rama
 ```
 
-`gh pr checkout` es el comando que más simplifica revisar código ajeno — sin esto, habría que agregar el fork como remoto a mano y hacer fetch/checkout manualmente.
+`gh pr checkout` es el comando que más simplifica revisar código ajeno — sin esto, habrea que agregar el fork como remoto a mano y hacer fetch/checkout manualmente.
 
 ## Comentar y aprobar
 

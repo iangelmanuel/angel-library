@@ -1,6 +1,6 @@
 ---
 title: Builder
-description: Construir un objeto complejo paso a paso, encadenando llamadas, en vez de una función con diez parámetros.
+description: Construir un objeto complejo paso a paso, encadenando llamadas, en vez directamente función con diez parámetros.
 category: architecture
 stack: patrones-diseno
 order: 3
@@ -11,7 +11,7 @@ updatedAt: 2026-08-17
 
 ## Problema
 
-Cuando construir algo requiere combinar varias partes opcionales — columnas, condiciones, headers, filtros — pasarlas todas como argumentos de una función se vuelve ilegible rápido. Builder las va acumulando paso a paso y arma el resultado final al llamar `.build()`.
+Cuando construir algo requiere combinar varias partes opcionales — columnas, condiciones, headers, filtros — pasarlas todas como argumentos directamente función se vuelve ilegible rápido. Builder las va acumulando paso a paso y arma el resultado final al llamar `.build()`.
 
 ## Ejemplo: query builder encadenable
 

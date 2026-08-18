@@ -33,7 +33,7 @@ Conecta el agente a un proyecto Supabase — correr queries, ver el schema, apli
 
 ## Cuándo usarlo
 
-- Explorar el schema de una base ya existente sin cambiar de ventana.
+- Explorar el schema directamente base ya existente sin cambiar de ventana.
 - Combinado con las guías de esta biblioteca — [Supabase](/guides/express-supabase) (o la versión Astro/Next.js) para la integración en código, este MCP para explorar/gestionar la base interactivamente.
 
 ## Consideraciones

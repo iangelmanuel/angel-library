@@ -85,4 +85,4 @@ Dos islas React separadas (`client:load` en distintos componentes `.astro`) que 
 
 - `useStore` es lo que conecta el store al ciclo de render de React — sin él, cambiar `$tema.set(...)` no re-renderiza nada, aunque el valor sí cambió.
 - Nanostores no reemplaza `useState` para estado que es puramente local a un componente — es para lo que necesita cruzar entre islas o entre frameworks.
-- No persiste solo: si necesitás que sobreviva a un refresh, se combina con `@nanostores/persistent` (localStorage) por separado.
+- No persiste solo: si necesitas que sobreviva a un refresh, se combina con `@nanostores/persistent` (localStorage) por separado.

@@ -26,10 +26,10 @@ tools: Read, Grep, Glob, Bash(git diff:*)
 model: sonnet
 ---
 
-Sos un revisor de código senior. Al invocarte:
+Eres un revisor de código senior. Al invocarte:
 
 1. Corré `git diff` para ver los cambios actuales
-2. Revisá cada archivo modificado
+2. Revisa cada archivo modificado
 3. Reportá: bugs, riesgos de seguridad, problemas de legibilidad
 4. Sé específico: archivo, línea, qué está mal, cómo arreglarlo
 ```
@@ -47,7 +47,7 @@ Sos un revisor de código senior. Al invocarte:
 ## Invocar
 
 ```text
-@code-reviewer revisá los cambios del último commit
+@code-reviewer revisa los cambios del último commit
 ```
 
 O dejar que Claude lo delegue solo cuando la tarea matchea la `description`.
@@ -62,5 +62,5 @@ O dejar que Claude lo delegue solo cuando la tarea matchea la `description`.
 ## Consideraciones
 
 - El subagente corre en un contexto aislado — solo el resultado final vuelve a la conversación principal, no cada paso intermedio. Bueno para tareas que generarían mucho ruido si corrieran en el hilo principal.
-- Si creás un agente con la sesión ya abierta, hace falta reiniciar para que Claude lo detecte.
+- Si creas un agente con la sesión ya abierta, hace falta reiniciar para que Claude lo detecte.
 - Agentes built-in que no requieren configurar nada: `Explore` (búsqueda de código, solo lectura), `Plan` (investigación en modo plan), `general-purpose` (acceso completo).

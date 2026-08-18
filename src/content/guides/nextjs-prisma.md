@@ -3,7 +3,7 @@ title: Prisma en Next.js
 description: Instalación, schema, el singleton con globalThis para el hot-reload, CRUD completo y transacciones en Route Handlers/Server Actions.
 category: backend
 stack: nextjs
-order: 4
+order: 7
 tags: [nextjs, prisma, database, orm]
 website: https://www.prisma.io
 related: [guides/nextjs-backend-arquitectura]
@@ -24,7 +24,7 @@ npx prisma init
 
 **1. `DATABASE_URL` en `.env`:**
 
-```env title=".env"
+```bash title=".env"
 DATABASE_URL="postgresql://postgres:password@localhost:5432/miapp"
 ```
 
@@ -68,7 +68,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-`globalThis` sobrevive al hot-reload de módulos (a diferencia de una variable module-level normal) — así que en desarrollo, el mismo client se reutiliza en vez de crear uno nuevo en cada recarga. Sin este patrón, el síntoma típico en desarrollo es un error de "too many connections" después de varios hot-reloads seguidos. En producción, sin hot-reload, esta complejidad no cambia nada pero tampoco molesta.
+`globalThis` sobrevive al hot-reload de módulos (a diferencia directamente variable module-level normal) — así que en desarrollo, el mismo client se reutiliza en vez de crear uno nuevo en cada recarga. Sin este patrón, el síntoma típico en desarrollo es un error de "too many connections" después de varios hot-reloads seguidos. En producción, sin hot-reload, esta complejidad no cambia nada pero tampoco molesta.
 
 **5. Un Route Handler real:**
 

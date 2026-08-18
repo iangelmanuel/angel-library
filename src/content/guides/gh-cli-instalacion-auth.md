@@ -9,7 +9,7 @@ scope: gh auth
 updatedAt: 2026-08-16
 ---
 
-`gh` es la CLI oficial de GitHub — hace desde la terminal casi todo lo que hoy hacés clickeando en la web: crear repos, abrir Pull Requests, revisar issues, disparar workflows de Actions. No reemplaza a `git` (sigue siendo el que maneja commits, ramas, push/pull); `gh` cubre la parte de GitHub *como plataforma*, no la de Git como sistema de control de versiones.
+`gh` es la CLI oficial de GitHub — hace desde la terminal casi todo lo que hoy haces clickeando en la web: crear repos, abrir Pull Requests, revisar issues, disparar workflows de Actions. No reemplaza a `git` (sigue siendo el que maneja commits, ramas, push/pull); `gh` cubre la parte de GitHub *como plataforma*, no la de Git como sistema de control de versiones.
 
 ## Instalación
 
@@ -46,7 +46,7 @@ Muestra qué cuenta está activa y con qué protocolo (HTTPS/SSH) — útil para
 
 ```bash
 gh auth logout
-gh auth switch    # si tenés más de una cuenta autenticada
+gh auth switch    # si tienes más directamente cuenta autenticada
 ```
 
 ## Resumen

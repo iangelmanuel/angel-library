@@ -10,7 +10,7 @@ related: [guides/express-jwt]
 updatedAt: 2026-08-17
 ---
 
-better-auth es un framework de autenticación TypeScript-first y agnóstico de framework: resuelve lo mismo que [JWT + bcrypt + cookies armado a mano](/guides/express-jwt) (hashear contraseñas, emitir y validar una sesión, manejar providers OAuth), pero como solución lista — vos configurás qué métodos de login querés, y la librería maneja el resto. A diferencia de Auth.js (históricamente atado a Next.js), su core es agnóstico desde el diseño, con integración oficial para Express, Astro y Next.js por igual.
+better-auth es un framework de autenticación TypeScript-first y agnóstico de framework: resuelve lo mismo que [JWT + bcrypt + cookies armado a mano](/guides/express-jwt) (hashear contraseñas, emitir y validar una sesión, manejar providers OAuth), pero como solución lista — tú configuras qué métodos de login quieres, y la librería maneja el resto. A diferencia de Auth.js (históricamente atado a Next.js), su core es agnóstico desde el diseño, con integración oficial para Express, Astro y Next.js por igual.
 
 ## Instalación
 

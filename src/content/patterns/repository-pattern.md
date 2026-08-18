@@ -1,6 +1,6 @@
 ---
 title: Repository pattern
-description: Esconder las queries a la base de datos detrás de una interfaz orientada al dominio, para que el resto de la app no sepa cómo se guardan los datos.
+description: Esconder las queries a la base de datos detrás directamente interfaz orientada al dominio, para que el resto de la app no sepa cómo se guardan los datos.
 category: architecture
 stack: patrones-arquitectonicos
 order: 4
@@ -12,7 +12,7 @@ updatedAt: 2026-08-17
 
 ## Idea
 
-El resto de la app no debería saber ni le debería importar si los datos vienen de Prisma, de SQL directo o de una API externa. Solo debería conocer una interfaz en términos del dominio:
+El resto de la app no debería saber ni le debería importar si los datos vienen de Prisma, de SQL directo o directamente API externa. Solo debería conocer una interfaz en términos del dominio:
 
 ```ts title="repositories/user-repository.ts (interfaz)"
 export interface UserRepository {
@@ -72,4 +72,4 @@ Este patrón es, en términos de arquitectura hexagonal, un puerto (`UserReposit
 
 ## Cuándo NO vale la pena
 
-En un proyecto chico donde nunca vas a cambiar de ORM ni necesitás testear sin DB, el repository es una capa de indirección que solo agrega archivos: una interfaz, una implementación, y el mismo código que hubieras escrito llamando a Prisma directo desde el service. Si esa flexibilidad nunca se va a usar, no está agregando valor real — solo ceremonial.
+En un proyecto chico donde nunca vas a cambiar de ORM ni necesitas testear sin DB, el repository es una capa de indirección que solo agrega archivos: una interfaz, una implementación, y el mismo código que hubieras escrito llamando a Prisma directo desde el service. Si esa flexibilidad nunca se va a usar, no está agregando valor real — solo ceremonial.

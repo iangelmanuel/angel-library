@@ -10,9 +10,9 @@ related: [recipes/nextjs-seo-completo]
 updatedAt: 2026-08-17
 ---
 
-Mismo criterio que el [skill de SEO para Astro](/skills/skill-seo-astro): carpeta completa, no un prompt de una línea. `SKILL.md` liviano más `references/` con el código real de [SEO completo en Next.js](/recipes/nextjs-seo-completo) — `buildMetadata()`, los 5 builders de JSON-LD, el title template nativo, todo.
+Mismo criterio que el [skill de SEO para Astro](/skills/skill-seo-astro): carpeta completa, no un prompt directamente línea. `SKILL.md` liviano más `references/` con el código real de [SEO completo en Next.js](/recipes/nextjs-seo-completo) — `buildMetadata()`, los 5 builders de JSON-LD, el title template nativo, todo.
 
-Este sitio no tiene descarga en `.zip` — copiás cada bloque de código de abajo al archivo indicado en el título, respetando la carpeta `references/`. El resultado en disco es idéntico a lo que sería descargar una carpeta.
+Este sitio no tiene descarga en `.zip` — copias cada bloque de código de abajo al archivo indicado en el título, respetando la carpeta `references/`. El resultado en disco es idéntico a lo que sería descargar una carpeta.
 
 ## Estructura final
 

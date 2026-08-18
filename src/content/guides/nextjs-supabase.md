@@ -3,7 +3,7 @@ title: Supabase en Next.js
 description: Instalación, clients separados para servidor y cliente con @supabase/ssr, RLS y storage — todo lo necesario para el App Router.
 category: backend
 stack: nextjs
-order: 5
+order: 8
 tags: [nextjs, supabase, database]
 website: https://supabase.com
 related: [guides/nextjs-backend-arquitectura]
@@ -24,7 +24,7 @@ npm install @supabase/ssr @supabase/supabase-js
 
 **2. Variables de entorno:**
 
-```env title=".env"
+```bash title=".env"
 NEXT_PUBLIC_SUPABASE_URL=https://tuproyecto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
 SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
@@ -93,7 +93,7 @@ const { error } = await supabase.from('posts').delete().eq('id', postId);
 
 ## Row Level Security (RLS)
 
-Con el client de `@supabase/ssr` (anon key + cookies de sesión), RLS **sí aplica** — a diferencia de usar la service role key, acá las políticas de Postgres son las que deciden qué fila puede tocar cada usuario:
+Con el client de `@supabase/ssr` (anon key + cookies de sesión), RLS **sí aplica** — a diferencia de usar la service role key, aquí las políticas de Postgres son las que deciden qué fila puede tocar cada usuario:
 
 ```sql
 create policy "Los usuarios ven sus propios posts"
