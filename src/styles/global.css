@@ -467,32 +467,23 @@ details[open] > .nav-summary .chevron {
   transform: rotate(90deg);
 }
 
-/* Scrollbar lateral: una guía fina, cuadrada y con patrón de terminal. */
+/* Scrollbar lateral: fino, cuadrado y discreto como una guía de terminal. */
 #sidebar nav {
-  scrollbar-color: var(--accent-green) #050505;
+  scrollbar-color: #25252b #08080a;
   scrollbar-width: thin;
 }
 #sidebar nav::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 #sidebar nav::-webkit-scrollbar-track {
-  border-left: 1px solid var(--border);
-  background: #050505;
+  border-left: 1px solid #151519;
+  background: #08080a;
 }
 #sidebar nav::-webkit-scrollbar-thumb {
-  border: 1px solid #050505;
-  background: repeating-linear-gradient(
-    180deg,
-    var(--accent-green) 0 3px,
-    color-mix(in srgb, var(--accent-green) 35%, #050505) 3px 6px
-  );
+  background: #25252b;
 }
 #sidebar nav::-webkit-scrollbar-thumb:hover {
-  background: repeating-linear-gradient(
-    180deg,
-    var(--accent-purple) 0 3px,
-    color-mix(in srgb, var(--accent-purple) 35%, #050505) 3px 6px
-  );
+  background: #34343c;
 }
 
 /* Botón "copiar código completo", junto al título de la entrada */
@@ -1140,6 +1131,12 @@ details[open] > .nav-summary .chevron {
   --terminal-chrome: #09090b;
   --terminal-scanline: rgb(255 255 255 / 0.012);
   --terminal-accent: var(--accent-purple);
+  --terminal-positive: var(--accent-green);
+  --terminal-error: var(--accent-red);
+  --terminal-emphasis: var(--accent-yellow);
+  --terminal-user: var(--accent-cyan);
+  --terminal-path: var(--accent-blue);
+  --terminal-prompt: var(--accent-green);
   border: 1px solid var(--border-strong);
   background: var(--terminal-bg);
   box-shadow:
@@ -1227,6 +1224,23 @@ details[open] > .nav-summary .chevron {
   --terminal-scanline: rgb(245 158 11 / 0.04);
   --terminal-accent: var(--accent-amber);
 }
+.search-terminal[data-terminal-theme='angel'] {
+  --terminal-bg: #020203;
+  --terminal-panel: #08070a;
+  --terminal-chrome: #0e0b12;
+  --terminal-scanline: rgb(168 85 247 / 0.032);
+  --terminal-accent: #a855f7;
+  --terminal-positive: #facc15;
+  --terminal-error: #facc15;
+  --terminal-emphasis: #fde047;
+  --terminal-user: #c4b5fd;
+  --terminal-path: #facc15;
+  --terminal-prompt: #a1a1aa;
+  border-color: #3f3f46;
+  box-shadow:
+    4px 4px 0 #0e0b12,
+    5px 5px 0 #3f3f46;
+}
 .search-terminal[data-scanlines='off'] .search-terminal__screen {
   background: var(--terminal-bg);
 }
@@ -1291,7 +1305,7 @@ details[open] > .nav-summary .chevron {
   color: var(--muted-foreground);
 }
 .search-terminal__boot span {
-  color: var(--accent-green);
+  color: var(--terminal-positive);
 }
 .search-terminal__output {
   display: flex;
@@ -1325,10 +1339,10 @@ details[open] > .nav-summary .chevron {
   margin-top: auto;
 }
 .search-terminal__welcome > p > span {
-  color: var(--accent-green);
+  color: var(--terminal-positive);
 }
 .search-terminal__welcome strong {
-  color: var(--accent-yellow);
+  color: var(--terminal-emphasis);
 }
 .search-terminal__history {
   flex: 0 0 auto;
@@ -1344,17 +1358,17 @@ details[open] > .nav-summary .chevron {
   color: var(--foreground);
 }
 .search-terminal__echo span {
-  color: var(--accent-cyan);
+  color: var(--terminal-user);
 }
 .search-terminal__response {
   padding-left: 0.7rem;
   white-space: pre-wrap;
 }
 .search-terminal__history[data-tone='error'] .search-terminal__response {
-  color: var(--accent-red);
+  color: var(--terminal-error);
 }
 .search-terminal__history[data-tone='success'] .search-terminal__response {
-  color: var(--accent-green);
+  color: var(--terminal-positive);
 }
 .search-terminal__command-preview {
   display: grid;
@@ -1379,10 +1393,10 @@ details[open] > .nav-summary .chevron {
   color: var(--muted-foreground);
 }
 .search-terminal__command-preview[data-known='false'] {
-  border-left-color: var(--accent-red);
+  border-left-color: var(--terminal-error);
 }
 .search-terminal__command-preview[data-known='false'] > span {
-  color: var(--accent-red);
+  color: var(--terminal-error);
 }
 .search-terminal__command-menu {
   width: 100%;
@@ -1468,7 +1482,7 @@ details[open] > .nav-summary .chevron {
   color: var(--muted-foreground);
 }
 .search-terminal__empty span {
-  color: var(--accent-red);
+  color: var(--terminal-error);
 }
 .search-terminal__prompt-line {
   display: flex;
@@ -1482,13 +1496,13 @@ details[open] > .nav-summary .chevron {
   color: var(--muted-foreground);
 }
 .search-terminal__user {
-  color: var(--accent-cyan);
+  color: var(--terminal-user);
 }
 .search-terminal__cwd {
-  color: var(--accent-blue);
+  color: var(--terminal-path);
 }
 .search-terminal__prompt {
-  color: var(--accent-green);
+  color: var(--terminal-prompt);
   font-weight: 600;
 }
 .search-terminal__prompt-line input {
@@ -1496,7 +1510,7 @@ details[open] > .nav-summary .chevron {
   flex: 1;
   background: transparent;
   color: var(--foreground);
-  caret-color: var(--accent-green);
+  caret-color: var(--terminal-prompt);
   outline: none;
 }
 .search-terminal__prompt-line input::placeholder {

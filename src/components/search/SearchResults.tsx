@@ -23,6 +23,14 @@ interface TerminalMessage {
   tone?: 'default' | 'error' | 'success';
 }
 
+interface QuizQuestion {
+  topic: string;
+  question: string;
+  choices: readonly string[];
+  answer: number;
+  explanation: string;
+}
+
 interface TerminalSearchProps {
   variant?: 'page' | 'dialog';
   onRequestClose?: () => void;
@@ -51,6 +59,7 @@ const TERMINAL_THEMES = [
   'ice',
   'mono',
   'retro',
+  'angel',
 ] as const;
 type TerminalTheme = (typeof TERMINAL_THEMES)[number];
 type TerminalEffect = 'none' | 'rainbow';
@@ -65,6 +74,14 @@ const PUBLIC_COMMANDS = [
   'tree',
   'history',
   'search',
+  'diccionario',
+  'google',
+  'mdn',
+  'npm',
+  'caniuse',
+  'quiz',
+  'respuesta',
+  'tip',
   'tags',
   'open',
   'cd',
@@ -98,7 +115,17 @@ const SECRET_COMMANDS = [
   'banner',
   'joke',
 ] as const;
-const ALL_COMMANDS = [...PUBLIC_COMMANDS, ...SECRET_COMMANDS, 'cls', 'bg', 'categories', 'url'];
+const ALL_COMMANDS = [
+  ...PUBLIC_COMMANDS,
+  ...SECRET_COMMANDS,
+  'cls',
+  'bg',
+  'categories',
+  'url',
+  'define',
+  'dict',
+  'answer',
+];
 const COMMAND_SET = new Set<string>(ALL_COMMANDS);
 const COMMANDS_WITH_ARGS = new Set([
   'search',
@@ -109,6 +136,14 @@ const COMMANDS_WITH_ARGS = new Set([
   'scanlines',
   'echo',
   'history',
+  'diccionario',
+  'google',
+  'mdn',
+  'npm',
+  'caniuse',
+  'quiz',
+  'respuesta',
+  'tip',
 ]);
 
 const COMMAND_DESCRIPTIONS: Record<(typeof PUBLIC_COMMANDS)[number], string> = {
@@ -120,6 +155,14 @@ const COMMAND_DESCRIPTIONS: Record<(typeof PUBLIC_COMMANDS)[number], string> = {
   tree: 'dibujar el árbol de categorías',
   history: 'ver o limpiar comandos anteriores',
   search: 'buscar documentación indexada',
+  diccionario: 'buscar la definición de un término en Google',
+  google: 'abrir una consulta en Google',
+  mdn: 'buscar una tecnología web en MDN',
+  npm: 'buscar un paquete en npm',
+  caniuse: 'consultar compatibilidad entre navegadores',
+  quiz: 'iniciar una pregunta técnica interactiva',
+  respuesta: 'responder la pregunta activa',
+  tip: 'mostrar un consejo técnico por tema',
   tags: 'entrar al modo de búsqueda por tags',
   open: 'abrir un resultado anterior o una ruta',
   cd: 'navegar a una categoría o sección',
@@ -139,6 +182,10 @@ const COMMAND_DESCRIPTIONS: Record<(typeof PUBLIC_COMMANDS)[number], string> = {
 
 const HELP_LINES = [
   '/search <texto>   pasar a una búsqueda de documentación',
+  '/diccionario <término>  buscar una definición en Google',
+  '/google <consulta> · /mdn <tema> · /npm <paquete>',
+  '/caniuse <función>      revisar soporte entre navegadores',
+  '/quiz [tema] · /respuesta <n|ver> · /tip [tema]',
   '/tags [texto]     listar o filtrar tags; #texto es el atajo directo',
   '/open <n|ruta>    abrir un resultado anterior o una ruta interna',
   '/ls               listar las categorías disponibles',
@@ -210,6 +257,76 @@ const JOKES = [
   'Un SQL entra a un bar, se acerca a dos mesas y pregunta: ¿puedo hacer un JOIN?',
 ];
 
+const QUIZ_QUESTIONS: readonly QuizQuestion[] = [
+  {
+    topic: 'javascript',
+    question: '¿Qué operador conserva valores válidos como 0, false y una cadena vacía?',
+    choices: ['||', '??', '&&', '!='],
+    answer: 1,
+    explanation: '?? solo usa el valor derecho cuando el izquierdo es null o undefined; || también reemplaza otros valores falsy.',
+  },
+  {
+    topic: 'javascript',
+    question: '¿En qué cola se procesan las reacciones de una Promise resuelta?',
+    choices: ['render queue', 'task queue', 'microtask queue', 'call stack persistente'],
+    answer: 2,
+    explanation: 'Los callbacks de Promise se programan como microtareas y se atienden antes de la siguiente tarea del event loop.',
+  },
+  {
+    topic: 'html',
+    question: '¿Qué elemento nativo crea un bloque desplegable accesible?',
+    choices: ['<dialog>', '<details>', '<template>', '<fieldset>'],
+    answer: 1,
+    explanation: '<details> administra el estado abierto y se combina con <summary> para ofrecer una etiqueta interactiva.',
+  },
+  {
+    topic: 'css',
+    question: '¿Qué consulta permite adaptar un componente al ancho de su contenedor?',
+    choices: ['@media', '@supports', '@container', '@layer'],
+    answer: 2,
+    explanation: '@container responde al espacio disponible del contenedor y no únicamente al tamaño del viewport.',
+  },
+  {
+    topic: 'accesibilidad',
+    question: '¿Cuándo suele ser apropiado usar aria-label en un botón?',
+    choices: ['Siempre', 'Cuando solo tiene un icono sin nombre visible', 'Para reemplazar cualquier texto', 'Solo en formularios'],
+    answer: 1,
+    explanation: 'aria-label aporta un nombre accesible cuando no existe texto visible; si ya hay una etiqueta clara, normalmente no hace falta.',
+  },
+  {
+    topic: 'http',
+    question: '¿Qué estado HTTP representa la creación exitosa de un recurso?',
+    choices: ['200', '201', '204', '304'],
+    answer: 1,
+    explanation: '201 Created indica que el servidor creó el recurso; normalmente se acompaña con una cabecera Location.',
+  },
+  {
+    topic: 'seguridad',
+    question: '¿Qué defensa evita que una entrada SQL se interprete como parte de la consulta?',
+    choices: ['CORS', 'Consultas parametrizadas', 'Minificación', 'localStorage'],
+    answer: 1,
+    explanation: 'Las consultas parametrizadas separan los datos de la instrucción SQL y reducen el riesgo de inyección.',
+  },
+  {
+    topic: 'performance',
+    question: '¿Qué atributo permite diferir una imagen que está fuera del viewport?',
+    choices: ['decoding="sync"', 'fetchpriority="high"', 'loading="lazy"', 'rel="preload"'],
+    answer: 2,
+    explanation: 'loading="lazy" pospone la descarga de imágenes lejanas; no conviene aplicarlo a la imagen principal que participa en el LCP.',
+  },
+];
+
+const LEARNING_TIPS = [
+  { topic: 'javascript', text: 'Prefiere comparar explícitamente con null cuando 0, false o "" sean valores válidos del dominio.' },
+  { topic: 'css', text: 'Usa @supports para aplicar mejoras progresivas sin romper navegadores que todavía no entienden una propiedad.' },
+  { topic: 'html', text: 'Antes de crear un componente interactivo desde cero, comprueba si <dialog>, <details> o popover ya resuelven la semántica.' },
+  { topic: 'accesibilidad', text: 'Prueba cada flujo solo con Tab, Shift+Tab, Enter, Espacio y Escape; el foco debe ser visible y predecible.' },
+  { topic: 'seguridad', text: 'Valida en el servidor incluso cuando el frontend ya validó: el cliente nunca constituye una frontera de confianza.' },
+  { topic: 'performance', text: 'Mide antes y después. Una optimización sin una métrica y un escenario reproducible es solo una suposición.' },
+  { topic: 'git', text: 'Haz commits pequeños que expresen una sola intención; serán más fáciles de revisar, revertir y reutilizar.' },
+  { topic: 'backend', text: 'Diseña timeouts, reintentos e idempotencia juntos para evitar duplicar operaciones cuando una red falla.' },
+] as const;
+
 function documentPath(doc: SearchDoc): string {
   const name = doc.url.split('/').filter(Boolean).at(-1) ?? 'document';
   return `${doc.categoryId}/${name}`;
@@ -243,6 +360,20 @@ function isTerminalTheme(value: string | null): value is TerminalTheme {
   return TERMINAL_THEMES.includes(value as TerminalTheme);
 }
 
+function normalizeKeyword(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLocaleLowerCase('es');
+}
+
+function openExternal(url: string) {
+  const destination = new URL(url);
+  if (destination.protocol !== 'https:') return;
+  window.open(destination.toString(), '_blank', 'noopener,noreferrer');
+}
+
 /**
  * Consola común para `/search` y para la terminal global de Ctrl/Cmd + K.
  * La salida tiene un viewport propio: navegar por resultados nunca desplaza
@@ -273,6 +404,7 @@ export default function SearchResults({
   const [terminalTheme, setTerminalTheme] = useState<TerminalTheme>('default');
   const [scanlines, setScanlines] = useState(true);
   const [terminalEffect, setTerminalEffect] = useState<TerminalEffect>('none');
+  const [activeQuiz, setActiveQuiz] = useState<QuizQuestion | null>(null);
 
   useEffect(() => {
     if (variant === 'page') {
@@ -530,6 +662,153 @@ export default function SearchResults({
       } else {
         setInput(args);
       }
+      return;
+    }
+
+    if (name === 'diccionario' || name === 'define' || name === 'dict') {
+      if (!args) {
+        addMessage(command, ['uso: /diccionario <palabra o concepto>', 'ejemplo: /diccionario closure'], 'error');
+      } else {
+        openExternal(`https://www.google.com/search?hl=es&q=${encodeURIComponent(`define:${args}`)}`);
+        addMessage(command, [`abriendo en Google la definición de “${args}”…`], 'success');
+      }
+      setInput('');
+      return;
+    }
+
+    if (name === 'google') {
+      if (!args) {
+        addMessage(command, ['uso: /google <consulta>'], 'error');
+      } else {
+        openExternal(`https://www.google.com/search?hl=es&q=${encodeURIComponent(args)}`);
+        addMessage(command, [`buscando “${args}” en Google…`], 'success');
+      }
+      setInput('');
+      return;
+    }
+
+    if (name === 'mdn') {
+      if (!args) {
+        addMessage(command, ['uso: /mdn <API, elemento o propiedad>', 'ejemplo: /mdn AbortController'], 'error');
+      } else {
+        openExternal(`https://developer.mozilla.org/es/search?q=${encodeURIComponent(args)}`);
+        addMessage(command, [`buscando “${args}” en MDN Web Docs…`], 'success');
+      }
+      setInput('');
+      return;
+    }
+
+    if (name === 'npm') {
+      if (!args) {
+        addMessage(command, ['uso: /npm <paquete o término>'], 'error');
+      } else {
+        openExternal(`https://www.npmjs.com/search?q=${encodeURIComponent(args)}`);
+        addMessage(command, [`buscando “${args}” en npm…`], 'success');
+      }
+      setInput('');
+      return;
+    }
+
+    if (name === 'caniuse') {
+      if (!args) {
+        addMessage(command, ['uso: /caniuse <funcionalidad web>', 'ejemplo: /caniuse container queries'], 'error');
+      } else {
+        openExternal(`https://caniuse.com/?search=${encodeURIComponent(args)}`);
+        addMessage(command, [`consultando la compatibilidad de “${args}”…`], 'success');
+      }
+      setInput('');
+      return;
+    }
+
+    if (name === 'quiz') {
+      const requestedTopic = normalizeKeyword(args);
+      const topics = [...new Set(QUIZ_QUESTIONS.map(({ topic }) => topic))];
+      if (requestedTopic === 'temas' || requestedTopic === 'topics') {
+        addMessage(command, [`temas disponibles: ${topics.join(', ')}`]);
+        setInput('');
+        return;
+      }
+
+      const candidates = requestedTopic
+        ? QUIZ_QUESTIONS.filter(({ topic }) => normalizeKeyword(topic) === requestedTopic)
+        : QUIZ_QUESTIONS;
+      if (candidates.length === 0) {
+        addMessage(command, [
+          `tema desconocido: ${args}`,
+          `disponibles: ${topics.join(', ')}`,
+        ], 'error');
+        setInput('');
+        return;
+      }
+
+      const alternatives = activeQuiz && candidates.length > 1
+        ? candidates.filter((question) => question !== activeQuiz)
+        : candidates;
+      const question = alternatives[Math.floor(Math.random() * alternatives.length)];
+      setActiveQuiz(question);
+      addMessage(command, [
+        `quiz · ${question.topic}`,
+        question.question,
+        ...question.choices.map((choice, index) => `${index + 1}. ${choice}`),
+        'responde con /respuesta <número> · /respuesta ver revela la solución',
+      ]);
+      setInput('');
+      return;
+    }
+
+    if (name === 'respuesta' || name === 'answer') {
+      if (!activeQuiz) {
+        addMessage(command, ['no hay una pregunta activa; ejecuta /quiz o /quiz temas'], 'error');
+        setInput('');
+        return;
+      }
+
+      const normalizedAnswer = normalizeKeyword(args);
+      const correctChoice = activeQuiz.choices[activeQuiz.answer];
+      if (['ver', 'rendirse', 'skip'].includes(normalizedAnswer)) {
+        addMessage(command, [
+          `respuesta: ${activeQuiz.answer + 1}. ${correctChoice}`,
+          activeQuiz.explanation,
+        ]);
+        setActiveQuiz(null);
+        setInput('');
+        return;
+      }
+
+      const selectedAnswer = Number.parseInt(args, 10) - 1;
+      if (!/^\d+$/.test(args) || selectedAnswer < 0 || selectedAnswer >= activeQuiz.choices.length) {
+        addMessage(command, ['uso: /respuesta <número> o /respuesta ver'], 'error');
+      } else if (selectedAnswer === activeQuiz.answer) {
+        addMessage(command, ['✓ respuesta correcta', activeQuiz.explanation], 'success');
+        setActiveQuiz(null);
+      } else {
+        addMessage(command, [
+          `✗ “${activeQuiz.choices[selectedAnswer]}” no es la respuesta`,
+          'inténtalo otra vez o usa /respuesta ver para estudiar la explicación',
+        ], 'error');
+      }
+      setInput('');
+      return;
+    }
+
+    if (name === 'tip') {
+      const requestedTopic = normalizeKeyword(args);
+      const topics = [...new Set(LEARNING_TIPS.map(({ topic }) => topic))];
+      if (requestedTopic === 'temas' || requestedTopic === 'topics') {
+        addMessage(command, [`temas disponibles: ${topics.join(', ')}`]);
+        setInput('');
+        return;
+      }
+      const candidates = requestedTopic
+        ? LEARNING_TIPS.filter(({ topic }) => normalizeKeyword(topic) === requestedTopic)
+        : LEARNING_TIPS;
+      if (candidates.length === 0) {
+        addMessage(command, [`tema desconocido: ${args}`, `disponibles: ${topics.join(', ')}`], 'error');
+      } else {
+        const tip = candidates[Math.floor(Math.random() * candidates.length)];
+        addMessage(command, [`tip · ${tip.topic}`, tip.text], 'success');
+      }
+      setInput('');
       return;
     }
 
