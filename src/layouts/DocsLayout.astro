@@ -39,10 +39,15 @@ const navData = buildNavData(allEntries)
 
     <footer class="border-t border-border">
       <div
-        class="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-2 px-4 py-6 font-mono text-[0.68rem] text-muted-foreground/70"
+        class="developer-footer mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-3 px-4 py-6 font-mono text-[0.68rem] text-muted-foreground/70"
       >
-        <span>angel.library</span>
-        <span>contenido propio · estático · astro</span>
+        <span class="flex items-center gap-2"><i></i> angel.library</span>
+        <span class="flex flex-wrap items-center gap-2">
+          <span>[contenido: propio]</span>
+          <span>[env: local]</span>
+          <span>[build: static]</span>
+          <span>[runtime: astro]</span>
+        </span>
       </div>
     </footer>
   </div>

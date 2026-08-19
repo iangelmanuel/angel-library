@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import TagExplorer from '@/components/content/TagExplorer';
 import { getAllEntries, getAllTags } from '@/lib/content';
 
 const tags = getAllTags(await getAllEntries());
@@ -11,7 +12,7 @@ const tags = getAllTags(await getAllEntries());
   description="Todos los tags de la biblioteca: conectan contenido de cualquier tipo y categoría."
 >
   <div class="mx-auto w-full max-w-4xl">
-    <Breadcrumbs items={[{ label: 'inicio', href: '/' }, { label: 'tags' }]} />
+    <Breadcrumbs items={[{ label: 'inicio', href: '/' }, { label: 'tags', segment: 'tags' }]} />
 
     <header class="mb-8 border-b border-border pb-8">
       <div class="mb-4 flex items-center gap-2 text-muted-foreground">
@@ -26,21 +27,6 @@ const tags = getAllTags(await getAllEntries());
       </p>
     </header>
 
-    <div class="flex flex-wrap gap-2">
-      {
-        tags.map(({ tag, count }) => (
-          <a
-            href={`/tags/${encodeURIComponent(tag)}`}
-            class="badge"
-            style="color: var(--accent-purple); border-color: color-mix(in srgb, var(--accent-purple) 35%, var(--border))"
-          >
-            <span class="font-mono text-[0.7rem] normal-case tracking-normal">
-              #{tag}
-            </span>
-            <span class="font-mono text-[0.6rem] opacity-70">{count}</span>
-          </a>
-        ))
-      }
-    </div>
+    <TagExplorer client:load tags={tags} />
   </div>
 </DocsLayout>

@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { Search, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { DynamicIcon } from '@/components/shared/DynamicIcon';
 import type { NavData } from '@/lib/nav';
 
@@ -31,7 +31,7 @@ export default function MobileNav({ data }: { data: NavData }) {
         >
           <DialogPrimitive.Title className="sr-only">Navegación</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">
-            Menú con categorías, tipos de contenido y acceso a la búsqueda.
+            Menú con categorías, documentación y acceso a la búsqueda.
           </DialogPrimitive.Description>
 
           <div className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4">
@@ -55,8 +55,8 @@ export default function MobileNav({ data }: { data: NavData }) {
               }}
               className="mb-4 flex w-full items-center gap-2 border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
             >
-              <Search className="size-3.5 text-[var(--accent-purple)]" aria-hidden="true" />
-              <span className="flex-1 text-left">Buscar…</span>
+              <span className="font-mono font-semibold text-[var(--accent-green)]" aria-hidden="true">$</span>
+              <span className="flex-1 text-left">grep docs</span>
               <kbd className="kbd">/</kbd>
             </button>
 
@@ -108,21 +108,6 @@ export default function MobileNav({ data }: { data: NavData }) {
                 )}
               </div>
             ))}
-
-            <div className="pb-4">
-              <p className="section-label px-2 pb-1.5">Por tipo</p>
-              <div className="flex flex-col gap-0.5">
-                {data.types.map((type) => (
-                  <a key={type.id} href={type.url} className="nav-link" onClick={close}>
-                    <DynamicIcon name={type.icon} className={`size-3.5 type-${type.id}`} />
-                    {type.label}
-                    <span className="ml-auto font-mono text-[0.65rem] text-muted-foreground/70">
-                      {type.count}
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </div>
           </nav>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>

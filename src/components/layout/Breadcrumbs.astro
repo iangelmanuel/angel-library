@@ -2,6 +2,8 @@
 interface Crumb {
   label: string;
   href?: string;
+  /** Nombre técnico que se muestra como directorio. */
+  segment?: string;
 }
 
 interface Props {
@@ -9,30 +11,56 @@ interface Props {
 }
 
 const { items } = Astro.props;
+
+function toDirectoryName(item: Crumb): string {
+  if (item.segment) return item.segment;
+
+  if (item.href && item.href !== '/') {
+    const parts = item.href.split('/').filter(Boolean);
+    const lastPart = parts.at(-1);
+    if (lastPart) return decodeURIComponent(lastPart);
+  }
+
+  return item.label
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+const directories = items
+  .filter((item) => item.href !== '/' && item.label.toLowerCase() !== 'inicio')
+  .map((item) => ({ ...item, directory: toDirectoryName(item) }));
 ---
 
 <nav
-  aria-label="Miga de pan"
-  class="mb-6 flex flex-wrap items-center gap-1.5 font-mono text-[0.7rem] text-muted-foreground"
+  aria-label="Ruta actual"
+  class="terminal-breadcrumb mb-6"
 >
-  {
-    items.map((item, index) => (
-      <>
-        {index > 0 && (
-          <span class="select-none opacity-40" aria-hidden="true">
-            /
-          </span>
-        )}
-        {item.href ? (
-          <a href={item.href} class="transition-colors hover:text-foreground">
-            {item.label}
-          </a>
-        ) : (
-          <span aria-current="page" class="text-foreground">
-            {item.label}
-          </span>
-        )}
-      </>
-    ))
-  }
+  <span class="terminal-breadcrumb__user" aria-hidden="true">dev@workspace</span>
+  <span class="terminal-breadcrumb__cwd" aria-hidden="true">angel.library</span>
+  <span class="terminal-breadcrumb__prompt" aria-hidden="true">$</span>
+  <span class="terminal-breadcrumb__command" aria-hidden="true">cd</span>
+  <span class="terminal-breadcrumb__path">
+    <a href="/" class="terminal-breadcrumb__root" aria-label="Ir al inicio">~/</a>
+    {
+      directories.map((item, index) => (
+        <>
+          {index > 0 && (
+            <span class="terminal-breadcrumb__separator" aria-hidden="true">/</span>
+          )}
+          {item.href ? (
+            <a href={item.href} aria-label={`Abrir ${item.label}`}>
+              {item.directory}
+            </a>
+          ) : (
+            <span aria-current="page" aria-label={item.label}>
+              {item.directory}
+            </span>
+          )}
+        </>
+      ))
+    }
+  </span>
 </nav>

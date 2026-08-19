@@ -13,7 +13,6 @@ import RelationSection from '@/components/content/RelationSection.astro';
 import Icon from '@/components/shared/Icon.astro';
 import {
   CATEGORIES,
-  CONTENT_TYPES,
   type CategoryId,
   type ContentTypeId,
 } from '@/config/site';
@@ -48,7 +47,6 @@ const all = await getAllEntries();
 const entryMap = buildEntryMap(all);
 const related = getRelated(entry, all, entryMap);
 
-const typeMeta = CONTENT_TYPES[entry.collection as ContentTypeId];
 const categoryMeta = CATEGORIES[entry.data.category as CategoryId];
 
 const currentStack = (entry.data as { stack?: string }).stack;
@@ -78,14 +76,14 @@ const hasNamedCodeBlocks = /```[^\n]*\btitle=["']/.test(entry.body ?? '');
     <Breadcrumbs
       items={[
         { label: 'inicio', href: '/' },
-        { label: typeMeta.label.toLowerCase(), href: `/${typeMeta.id}` },
-        { label: entry.data.title },
+        { label: categoryMeta.label.toLowerCase(), href: `/categories/${categoryMeta.id}`, segment: categoryMeta.id },
+        { label: entry.data.title, segment: entry.id },
       ]}
     />
 
     <header class="mb-8 border-b border-border pb-8">
       <div class="mb-4 flex flex-wrap items-center gap-2">
-        <TypeBadge type={entry.collection as ContentTypeId} linked />
+        <TypeBadge type={entry.collection as ContentTypeId} />
         <a
           href={`/categories/${categoryMeta.id}`}
           class="badge"

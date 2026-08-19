@@ -21,7 +21,10 @@ export const GET: APIRoute = async () => {
       typeLabel: typeMeta.label,
       typeSingular: typeMeta.singular,
       typeIcon: typeMeta.icon,
+      categoryId: categoryMeta.id,
       categoryLabel: categoryMeta.label,
+      categoryIcon: categoryMeta.icon,
+      categoryColor: categoryMeta.color,
       tags: entry.data.tags ?? [],
       content: stripMarkdown(entry.body ?? "").slice(0, 1200)
     }

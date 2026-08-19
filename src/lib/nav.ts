@@ -10,7 +10,7 @@ import {
   type ResourceCategoryId,
   type StackId,
 } from '@/config/site';
-import { LEARNING_TYPE_ORDER, getEntryUrl, sortByLearningPath, type AnyEntry } from './content';
+import { getEntryUrl, sortByLearningPath, type AnyEntry } from './content';
 
 /**
  * Datos de navegación para la sidebar (Astro) y el menú móvil (isla React).
@@ -70,17 +70,8 @@ export interface NavGroup {
   items: NavItem[];
 }
 
-export interface NavType {
-  id: ContentTypeId;
-  label: string;
-  icon: string;
-  url: string;
-  count: number;
-}
-
 export interface NavData {
   categories: NavCategory[];
-  types: NavType[];
 }
 
 function toNavItems(entries: AnyEntry[]): NavItem[] {
@@ -92,14 +83,6 @@ function toNavItems(entries: AnyEntry[]): NavItem[] {
 }
 
 export function buildNavData(all: AnyEntry[]): NavData {
-  const types: NavType[] = LEARNING_TYPE_ORDER.map((id) => ({
-    id,
-    label: CONTENT_TYPES[id].label,
-    icon: CONTENT_TYPES[id].icon,
-    url: `/${id}`,
-    count: all.filter((entry) => entry.collection === id).length,
-  }));
-
   const categories: NavCategory[] = CATEGORY_LIST.map((meta) => {
     const entries = all.filter((entry) => entry.data.category === meta.id);
     const isResources = meta.id === 'resources';
@@ -142,5 +125,5 @@ export function buildNavData(all: AnyEntry[]): NavData {
       (category.stackGroups?.length ?? 0) > 0,
   );
 
-  return { categories, types };
+  return { categories };
 }

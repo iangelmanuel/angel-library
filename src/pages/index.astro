@@ -2,15 +2,10 @@
 import DocsLayout from "@/layouts/DocsLayout.astro"
 import ContentCard from "@/components/content/ContentCard.astro"
 import Icon from "@/components/shared/Icon.astro"
-import { CATEGORY_LIST, CONTENT_TYPE_LIST, SITE } from "@/config/site"
+import { CATEGORY_LIST, SITE } from "@/config/site"
 import { getAllEntries, getAllTags } from "@/lib/content"
 
 const all = await getAllEntries()
-
-const typeCards = CONTENT_TYPE_LIST.map((meta) => ({
-  ...meta,
-  count: all.filter((entry) => entry.collection === meta.id).length
-}))
 
 const categories = CATEGORY_LIST.map((meta) => ({
   ...meta,
@@ -22,68 +17,47 @@ const recent = [...all]
   .sort((a, b) => b.data.updatedAt!.getTime() - a.data.updatedAt!.getTime())
   .slice(0, 6)
 
-const topTags = getAllTags(all).slice(0, 14)
+const tags = getAllTags(all)
+const topTags = tags.slice(0, 16)
 ---
 
 <DocsLayout>
-  <div class="mx-auto w-full max-w-4xl">
-    <section class="border-b border-border pb-10 pt-2">
-      <p class="badge mb-5">
-        <Icon
-          name="terminal"
-          class="size-3"
-        />
-        segundo cerebro técnico
-      </p>
-      <h1 class="font-pixel text-3xl leading-tight md:text-4xl">{SITE.name}</h1>
-      <p class="mt-4 max-w-xl leading-relaxed text-muted-foreground">
-        {SITE.description}
-      </p>
+  <div class="mx-auto w-full max-w-5xl">
+    <section class="terminal-window home-terminal" aria-labelledby="home-title">
+      <div class="terminal-window__bar" aria-hidden="true">
+        <span class="terminal-window__lights"><i></i><i></i><i></i></span>
+        <span>angel.library — terminal</span>
+        <span class="terminal-window__state"><i></i> online</span>
+      </div>
+      <div class="terminal-window__body">
+        <p class="badge mb-5">
+          <Icon name="terminal" class="size-3 text-[var(--accent-green)]" />
+          segundo cerebro técnico
+        </p>
+        <h1 id="home-title" class="font-pixel text-3xl leading-tight md:text-4xl">
+          {SITE.name}<span class="terminal-cursor" aria-hidden="true">_</span>
+        </h1>
+        <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+          {SITE.description} Consulta conceptos, recupera código y continúa aprendiendo desde un solo lugar.
+        </p>
 
-      <button
-        type="button"
-        data-open-search
-        class="mt-7 flex w-full max-w-md items-center gap-2 border border-border bg-card px-3 py-2.5 text-left text-sm text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
-        aria-label="Abrir búsqueda (Control K)"
-      >
-        <Icon
-          name="search"
-          class="size-4"
-        />
-        <span class="flex-1">Buscar en la biblioteca…</span>
-        <kbd class="kbd">ctrl</kbd>
-        <kbd class="kbd">K</kbd>
-      </button>
-      <p class="mt-3 font-mono text-[0.68rem] text-muted-foreground/80">
-        tip: pulsa <kbd class="kbd">/</kbd> en cualquier página para buscar
-      </p>
-    </section>
+        <button
+          type="button"
+          data-open-search
+          class="terminal-search mt-7 w-full max-w-xl"
+          aria-label="Abrir búsqueda (Control K)"
+        >
+          <span class="terminal-search__prompt" aria-hidden="true">$</span>
+          <span class="flex-1">grep -R "tema" ~/angel.library</span>
+          <kbd class="kbd">ctrl K</kbd>
+        </button>
 
-    <section
-      class="mt-10"
-      aria-label="Tipos de contenido"
-    >
-      <h2 class="section-label mb-4">Explorar por tipo</h2>
-      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-        {
-          typeCards.map((type) => (
-            <a
-              href={`/${type.id}`}
-              class="card gap-2 p-3"
-            >
-              <span class="flex items-center gap-2 text-muted-foreground">
-                <Icon
-                  name={type.icon}
-                  class="size-3.5"
-                />
-                <span class="font-mono text-[0.65rem]">{type.count}</span>
-              </span>
-              <span class="font-pixel text-[0.66rem] uppercase tracking-wider text-foreground">
-                {type.label}
-              </span>
-            </a>
-          ))
-        }
+        <dl class="library-stats">
+          <div><dt>docs</dt><dd>{all.length}</dd></div>
+          <div><dt>categorías</dt><dd>{categories.length}</dd></div>
+          <div><dt>tags</dt><dd>{tags.length}</dd></div>
+          <div><dt>build</dt><dd class="text-[var(--accent-green)]">static</dd></div>
+        </dl>
       </div>
     </section>
 
@@ -91,21 +65,30 @@ const topTags = getAllTags(all).slice(0, 14)
       class="mt-10"
       aria-label="Categorías"
     >
-      <h2 class="section-label mb-4">Categorías</h2>
-      <div class="flex flex-wrap gap-2">
+      <div class="mb-4 flex items-end justify-between gap-4">
+        <div>
+          <h2 class="section-label">Explorar categorías</h2>
+          <p class="mt-2 text-sm text-muted-foreground">Rutas de lectura organizadas por área de conocimiento.</p>
+        </div>
+        <span class="hidden font-mono text-[0.65rem] text-muted-foreground sm:block">ls ./knowledge</span>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {
           categories.map((category) => (
             <a
               href={`/categories/${category.id}`}
-              class="badge"
+              class="card category-card"
+              style={`--card-accent: var(${category.color})`}
             >
-              <Icon
-                name={category.icon}
-                class="size-3"
-              />
-              {category.label}
-              <span class="font-mono text-[0.6rem] opacity-70">
-                {category.count}
+              <span class="category-card__command" aria-hidden="true"><b>$</b> cd ./{category.id}</span>
+              <span class="category-card__heading">
+                <Icon name={category.icon} class="size-4" />
+                <strong>{category.label}</strong>
+              </span>
+              <span class="category-card__description">{category.description}</span>
+              <span class="category-card__footer">
+                <span>{category.count} doc{category.count === 1 ? "" : "s"}</span>
+                <span aria-hidden="true">open ↗</span>
               </span>
             </a>
           ))
@@ -119,7 +102,10 @@ const topTags = getAllTags(all).slice(0, 14)
           class="mt-10"
           aria-label="Contenido reciente"
         >
-          <h2 class="section-label mb-4">Actualizado recientemente</h2>
+          <div class="mb-4 flex items-center justify-between gap-4">
+            <h2 class="section-label">Actualizado recientemente</h2>
+            <span class="font-mono text-[0.65rem] text-muted-foreground">git log --latest</span>
+          </div>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {recent.map((entry) => (
               <ContentCard entry={entry} />
@@ -133,19 +119,22 @@ const topTags = getAllTags(all).slice(0, 14)
       class="mt-10"
       aria-label="Tags"
     >
-      <h2 class="section-label mb-4">Tags</h2>
-      <div class="flex flex-wrap gap-x-4 gap-y-2">
-        {
-          topTags.map(({ tag, count }) => (
-            <a
-              href={`/tags/${encodeURIComponent(tag)}`}
-              class="tag"
-            >
-              {tag}
-              <span class="ml-1 text-muted-foreground/60">{count}</span>
-            </a>
-          ))
-        }
+      <div class="tags-console">
+        <div class="tags-console__header">
+          <h2 class="section-label">Tags frecuentes</h2>
+          <a href="/tags" class="tags-console__all">ver los {tags.length} tags <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="tags-console__command" aria-hidden="true"><span>$</span> tags --sort frequency --limit 16</p>
+        <div class="flex flex-wrap gap-2">
+          {
+            topTags.map(({ tag, count }) => (
+              <a href={`/tags/${encodeURIComponent(tag)}`} class="tag">
+                <span class="tag__name">{tag}</span>
+                <span class="tag__count" aria-label={`${count} entradas`}>{count}</span>
+              </a>
+            ))
+          }
+        </div>
       </div>
     </section>
   </div>

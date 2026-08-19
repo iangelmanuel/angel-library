@@ -14,7 +14,10 @@ export interface SearchDoc {
   /** Etiqueta singular del tipo: "Librería" */
   typeSingular: string;
   typeIcon: string;
+  categoryId: string;
   categoryLabel: string;
+  categoryIcon: string;
+  categoryColor: string;
   tags: string[];
   content: string;
 }

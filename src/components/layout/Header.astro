@@ -26,8 +26,8 @@ import Icon from '@/components/shared/Icon.astro';
       class="hidden w-full max-w-xs items-center gap-2 border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground sm:flex"
       aria-label="Abrir búsqueda (Control K)"
     >
-      <Icon name="search" class="size-3.5" />
-      <span class="flex-1 text-left">Buscar…</span>
+      <span class="font-mono font-semibold text-[var(--accent-green)]" aria-hidden="true">$</span>
+      <span class="flex-1 text-left">grep docs</span>
       <kbd class="kbd">ctrl K</kbd>
     </button>
 
@@ -37,7 +37,7 @@ import Icon from '@/components/shared/Icon.astro';
       class="nav-link sm:hidden"
       aria-label="Abrir búsqueda"
     >
-      <Icon name="search" class="size-4" />
+      <span class="font-mono font-semibold text-[var(--accent-green)]" aria-hidden="true">$</span>
     </button>
   </div>
 </header>

@@ -10,7 +10,7 @@ import {
   getStacksForCategory,
   type CategoryMeta,
 } from '@/config/site';
-import { getAllEntries, groupByType, sortByLearningPath } from '@/lib/content';
+import { getAllEntries, sortByLearningPath } from '@/lib/content';
 
 export function getStaticPaths() {
   return CATEGORY_LIST.map((meta) => ({
@@ -25,7 +25,7 @@ interface Props {
 
 const { meta } = Astro.props;
 const entries = (await getAllEntries()).filter((entry) => entry.data.category === meta.id);
-const groups = groupByType(entries);
+const orderedEntries = sortByLearningPath(entries);
 const resourceGroups = meta.id === 'resources'
   ? Object.entries(RESOURCE_CATEGORIES)
       .map(([id, label]) => ({
@@ -37,8 +37,8 @@ const resourceGroups = meta.id === 'resources'
       }))
       .filter((group) => group.entries.length > 0)
   : [];
-const resourceIntroGroups = meta.id === 'resources'
-  ? groupByType(entries.filter((entry) => entry.collection !== 'resources'))
+const resourceIntroEntries = meta.id === 'resources'
+  ? sortByLearningPath(entries.filter((entry) => entry.collection !== 'resources'))
   : [];
 const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
 const stackGroups = usesStackGroups
@@ -48,13 +48,15 @@ const stackGroups = usesStackGroups
       entries: sortByLearningPath(entries.filter((entry) => entry.data.stack === stack.id)),
     })).filter((group) => group.entries.length > 0)
   : [];
-const ungroupedStack = usesStackGroups ? entries.filter((entry) => !entry.data.stack) : [];
+const ungroupedStack = usesStackGroups
+  ? sortByLearningPath(entries.filter((entry) => !entry.data.stack))
+  : [];
 ---
 
 <DocsLayout title={meta.label} description={meta.description}>
   <div class:list={['mx-auto w-full max-w-4xl', `category-${meta.id}`]}>
     <Breadcrumbs
-      items={[{ label: 'inicio', href: '/' }, { label: meta.label.toLowerCase() }]}
+      items={[{ label: 'inicio', href: '/' }, { label: meta.label.toLowerCase(), segment: meta.id }]}
     />
 
     <header class="mb-8 border-b border-border pb-8">
@@ -72,17 +74,17 @@ const ungroupedStack = usesStackGroups ? entries.filter((entry) => !entry.data.s
       entries.length > 0 ? (
         meta.id === 'resources' ? (
           <>
-            {resourceIntroGroups.map((group) => (
+            {resourceIntroEntries.length > 0 && (
               <section class="mb-10">
                 <h2 class="section-label mb-4 flex items-center gap-2">
-                  <Icon name={group.meta.icon} class="size-3.5" />
-                  {group.meta.label}
+                  <Icon name="book-open" class="size-3.5" />
+                  Guías y fundamentos
                 </h2>
                 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.entries.map((entry) => <ContentCard entry={entry} />)}
+                  {resourceIntroEntries.map((entry) => <ContentCard entry={entry} />)}
                 </div>
               </section>
-            ))}
+            )}
             {resourceGroups.map((group) => (
               <section class="mb-10">
                 <h2 class="section-label mb-4 flex items-center gap-2">
@@ -106,32 +108,25 @@ const ungroupedStack = usesStackGroups ? entries.filter((entry) => !entry.data.s
                 </div>
               </section>
             ))}
-            {groupByType(ungroupedStack).map((group) => (
+            {ungroupedStack.length > 0 && (
               <section class="mb-10">
                 <h2 class="section-label mb-4 flex items-center gap-2">
-                  <Icon name={group.meta.icon} class="size-3.5" />
-                  {group.meta.label}
+                  <Icon name="book-open" class="size-3.5" />
+                  Fundamentos y referencias
                 </h2>
                 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.entries.map((entry) => <ContentCard entry={entry} />)}
+                  {ungroupedStack.map((entry) => <ContentCard entry={entry} />)}
                 </div>
               </section>
-            ))}
+            )}
           </>
         ) : (
-          groups.map((group) => (
-            <section class="mb-10">
-              <h2 class="section-label mb-4 flex items-center gap-2">
-                <Icon name={group.meta.icon} class="size-3.5" />
-                {group.meta.label}
-              </h2>
-              <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {group.entries.map((entry) => (
-                  <ContentCard entry={entry} />
-                ))}
-              </div>
-            </section>
-          ))
+          <section class="mb-10" aria-label={`Documentación de ${meta.label}`}>
+            <h2 class="section-label mb-4">Ruta de aprendizaje</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {orderedEntries.map((entry) => <ContentCard entry={entry} />)}
+            </div>
+          </section>
         )
       ) : (
         <p class="border border-dashed border-border px-4 py-10 text-center font-mono text-xs text-muted-foreground">

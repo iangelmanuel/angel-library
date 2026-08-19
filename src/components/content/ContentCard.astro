@@ -1,6 +1,6 @@
 ---
 import Icon from '@/components/shared/Icon.astro';
-import { CONTENT_TYPES, type ContentTypeId } from '@/config/site';
+import { CATEGORIES, CONTENT_TYPES, type CategoryId, type ContentTypeId } from '@/config/site';
 import { getEntryUrl, type AnyEntry } from '@/lib/content';
 
 interface Props {
@@ -9,27 +9,44 @@ interface Props {
 
 const { entry } = Astro.props;
 const meta = CONTENT_TYPES[entry.collection as ContentTypeId];
+const category = CATEGORIES[entry.data.category as CategoryId];
 const tags = entry.data.tags ?? [];
 ---
 
-<a href={getEntryUrl(entry)} class:list={['card', `type-${entry.collection}`]}>
-  <div class="flex items-center gap-1.5 text-muted-foreground">
-    <Icon name={meta.icon} class="size-3" />
-    <span class="font-pixel text-[0.6rem] uppercase tracking-wider">{meta.singular}</span>
+<a
+  href={getEntryUrl(entry)}
+  class="card terminal-card"
+  style={`--card-accent: var(${category.color})`}
+>
+  <div class="terminal-card__bar" aria-hidden="true">
+    <span class="terminal-card__path"><span>~/</span>{category.id}/{entry.id}</span>
+    <span class="terminal-card__status">
+      <i></i><i></i><i></i>
+    </span>
   </div>
-  <h3 class="text-[0.95rem] font-medium leading-snug text-foreground">
-    {entry.data.title}
-  </h3>
-  <p class="line-clamp-2 text-[0.8rem] leading-relaxed text-muted-foreground">
-    {entry.data.description}
-  </p>
-  {
-    tags.length > 0 && (
-      <div class="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-1">
-        {tags.slice(0, 3).map((tag) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    )
-  }
+  <div class="terminal-card__body">
+    <div class="terminal-card__meta">
+      <span class:list={['flex items-center gap-1.5', `type-${entry.collection}`]}>
+        <Icon name={meta.icon} class="size-3" />
+        <span>{meta.singular}</span>
+      </span>
+      <span aria-hidden="true">.md</span>
+    </div>
+    <h3>
+      <span class="terminal-card__prompt" aria-hidden="true">❯</span>
+      {entry.data.title}
+    </h3>
+    <p class="line-clamp-3">{entry.data.description}</p>
+    {
+      tags.length > 0 && (
+        <div class="terminal-card__tags">
+          {tags.slice(0, 3).map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+          {tags.length > 3 && <span class="terminal-card__more">+{tags.length - 3}</span>}
+        </div>
+      )
+    }
+  </div>
+  <span class="terminal-card__open" aria-hidden="true">↗</span>
 </a>

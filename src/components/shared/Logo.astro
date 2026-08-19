@@ -6,7 +6,9 @@ import logo from "@/assets/logo/angel-library-logo.webp"
 
 <a
   href="/"
-  class="group flex items-center gap-2.5"
+  class="logo-cycle group flex items-center gap-2.5"
+  data-logo-cycle
+  data-logo-color-index="-1"
   aria-label={`${SITE.name} — ir al inicio`}
 >
   <Image
@@ -16,5 +18,5 @@ import logo from "@/assets/logo/angel-library-logo.webp"
     height={30}
     class="shrink-0 transition-transform group-hover:scale-105"
   />
-  <span class="font-pixel text-sm tracking-wide">{SITE.name}</span>
+  <span class="logo-cycle__text font-pixel text-sm tracking-wide">{SITE.name}</span>
 </a>

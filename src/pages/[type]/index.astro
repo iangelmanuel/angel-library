@@ -24,7 +24,7 @@ const entries = sortByTitle(getEntriesByType(await getAllEntries(), meta.id));
 <DocsLayout title={meta.label} description={meta.description}>
   <div class:list={['mx-auto w-full max-w-5xl', `type-${meta.id}`]}>
     <Breadcrumbs
-      items={[{ label: 'inicio', href: '/' }, { label: meta.label.toLowerCase() }]}
+      items={[{ label: 'inicio', href: '/' }, { label: meta.label.toLowerCase(), segment: meta.id }]}
     />
 
     <header class="mb-8 border-b border-border pb-8">

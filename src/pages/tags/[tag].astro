@@ -3,11 +3,12 @@ import DocsLayout from "@/layouts/DocsLayout.astro"
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
 import ContentCard from "@/components/content/ContentCard.astro"
 import Icon from "@/components/shared/Icon.astro"
+import { CATEGORY_LIST } from "@/config/site"
 import {
   getAllEntries,
   getAllTags,
   getEntriesByTag,
-  groupByType
+  sortByLearningPath
 } from "@/lib/content"
 
 export async function getStaticPaths() {
@@ -19,7 +20,11 @@ export async function getStaticPaths() {
 }
 
 const { tag, count } = Astro.props
-const groups = groupByType(getEntriesByTag(await getAllEntries(), tag))
+const taggedEntries = getEntriesByTag(await getAllEntries(), tag)
+const groups = CATEGORY_LIST.map((meta) => ({
+  meta,
+  entries: sortByLearningPath(taggedEntries.filter((entry) => entry.data.category === meta.id))
+})).filter((group) => group.entries.length > 0)
 ---
 
 <DocsLayout
@@ -31,7 +36,7 @@ const groups = groupByType(getEntriesByTag(await getAllEntries(), tag))
       items={[
         { label: "inicio", href: "/" },
         { label: "tags", href: "/tags" },
-        { label: tag }
+        { label: tag, segment: tag }
       ]}
     />
 
@@ -49,7 +54,10 @@ const groups = groupByType(getEntriesByTag(await getAllEntries(), tag))
     {
       groups.map((group) => (
         <section class="mb-10">
-          <h2 class="section-label mb-4 flex items-center gap-2">
+          <h2
+            class="section-label mb-4 flex items-center gap-2"
+            style={`--cat-accent: var(${group.meta.color}); color: var(--cat-accent)`}
+          >
             <Icon
               name={group.meta.icon}
               class="size-3.5"
