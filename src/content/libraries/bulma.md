@@ -2,7 +2,7 @@
 title: Bulma
 description: Framework CSS basado en Flexbox, solo clases (sin JS), para maquetar componentes en HTML puro.
 category: ui-ux
-stack: html
+stack: ui-css
 order: 7
 tags: [html, css]
 website: https://bulma.io

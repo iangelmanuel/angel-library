@@ -57,5 +57,5 @@ mi-plugin/
 
 ## Consideraciones
 
-- El marketplace tiene gobernanza a nivel Team/Enterprise: políticas Default Off / Default On / Required, y refresco automático desde repos de GitHub — relevante si administrás Cursor para un equipo.
+- El marketplace tiene gobernanza a nivel Team/Enterprise: políticas Default Off, Default On o Required y actualización automática desde repositorios de GitHub — relevante si administras Cursor para un equipo.
 - Cursor también soporta extensiones generales de VS Code (vía Open VSX) — eso es un mecanismo aparte, no relacionado a IA.

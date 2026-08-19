@@ -61,6 +61,6 @@ const { title, href = '#', featured = false } = Astro.props;
 - Usa componentes Astro para estructura, contenido y UI sin estado.
 - Usa `<script>` o Web Components para interacción pequeña.
 - Usa una isla de React/Vue/Svelte cuando la interacción realmente necesita estado y ciclo de vida del framework.
-- Los atributos desconocidos no se reenvían solos: recogé `...rest` desde `Astro.props` cuando diseñes un componente wrapper.
+- Los atributos desconocidos no se reenvían solos: recoge `...rest` desde `Astro.props` cuando diseñes un componente contenedor.
 
 Referencia oficial: [Astro Components](https://docs.astro.build/en/basics/astro-components/).

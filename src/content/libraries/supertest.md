@@ -1,9 +1,9 @@
 ---
 title: Supertest
 description: Tests de integración HTTP contra tu app Express — sin levantar un servidor real, request/response completos incluyendo middlewares.
-category: backend
-stack: express
-order: 23
+category: testing
+stack: testing-integracion
+order: 2
 tags: [express, testing, supertest, http]
 website: https://github.com/ladjs/supertest
 install: |

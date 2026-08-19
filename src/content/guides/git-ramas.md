@@ -46,14 +46,14 @@ Si la rama ya se publicó (existe en el remoto), renombrarla local no alcanza �
 
 ```bash
 git branch -d feature/login    # solo si ya está mergeada (Git protege de perder trabajo)
-git branch -D feature/login    # forzar, incluso sin mergear (perdés los commits que no estén en otra rama)
+git branch -D feature/login    # forzar, incluso sin fusionar (pierdes los commits que no estén en otra rama)
 ```
 
 `-D` no es "más peligroso" que `-d` en el sentido de romper el repo — pero sí puede tirar commits que no existen en ningún otro lado, así que antes de forzar conviene confirmar con `git log feature/login` que no hay nada valioso ahí.
 
 ## Publicar una rama nueva
 
-La primera vez que empujás una rama que no existe en el remoto, hace falta decirle a qué rama remota debe quedar asociada:
+La primera vez que publicas una rama que no existe en el remoto, hace falta indicar a qué rama remota debe quedar asociada:
 
 ```bash
 git push -u origin feature/login

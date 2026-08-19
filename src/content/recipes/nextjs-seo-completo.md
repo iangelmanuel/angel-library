@@ -1,8 +1,8 @@
 ---
 title: "SEO completo en Next.js — Metadata API, JSON-LD, sitemap y manifest"
 description: "Paso a paso real: SITE.seo como única fuente de verdad, buildMetadata() sobre la Metadata API nativa, schemas de schema.org, robots.ts y sitemap.ts."
-category: frontend
-stack: seo
+category: seo
+stack: nextjs
 order: 2
 tags: [nextjs, seo, json-ld, structured-data, metadata, opengraph]
 problem: "Tener el SEO técnico completo de un sitio Next.js (App Router) centralizado en SITE.seo, sin datos sueltos hardcodeados en cada función o página."
@@ -19,7 +19,7 @@ La diferencia con Astro no es de fondo, es de API: Next.js tiene una [Metadata A
 
 Mismos datos de ejemplo que la versión de Astro — la empresa simulada **Acme**, firma boutique en Bogotá — para que ambas recetas describan la misma empresa de punta a punta.
 
-Requisitos: proyecto Next.js 15+ con App Router y TypeScript, alias `@/*` configurado (ver [Alias de imports en TypeScript](/guides/typescript-path-aliases)), y un `SITE` global ya existente con al menos `info`, `location`, `contact`, `social` y `businessHours` — ver [SITE: variable global de configuración](/patterns/site-config-global) para esa parte. Acá se documenta a fondo solo el bloque `seo`.
+Requisitos: proyecto Next.js 15+ con App Router y TypeScript, alias `@/*` configurado —consulta [Alias de imports en TypeScript](/guides/typescript-path-aliases)— y un `SITE` global existente con al menos `info`, `location`, `contact`, `social` y `businessHours`. Consulta [SITE: variable global de configuración](/patterns/site-config-global) para esa parte. Aquí se documenta a fondo solo el bloque `seo`.
 
 ## Paso 1 — `SITE.seo`: la fuente de verdad
 
@@ -156,7 +156,7 @@ const toIso = (value?: string | Date): string | undefined => (value ? new Date(v
  * @example
  * export const metadata = buildMetadata({
  *   title: "Servicios",
- *   description: "Conocé nuestro rango de servicios digitales.",
+ *   description: "Conoce nuestro rango de servicios digitales.",
  *   path: "/servicios",
  * })
  */

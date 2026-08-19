@@ -46,6 +46,6 @@ Puedes pasar un mapa de componentes al renderizar o configurar componentes reuti
 
 ## Seguridad
 
-MDX ejecuta imports y expresiones durante el build/render. Tratá archivos MDX como código confiable; no compiles contenido arbitrario enviado por usuarios.
+MDX ejecuta importaciones y expresiones durante el build o renderizado. Trata los archivos MDX como código confiable; no compiles contenido arbitrario enviado por usuarios.
 
 Referencia oficial: [MDX integration](https://docs.astro.build/en/guides/integrations-guide/mdx/).

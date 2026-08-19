@@ -58,7 +58,7 @@ function ChatRoom({ roomId }: { roomId: string }) {
 }
 ```
 
-Arreglo: mové el objeto **adentro** del efecto (así ni siquiera es una dependencia externa) y dependé solo de los valores primitivos que realmente cambian.
+Solución: mueve el objeto **dentro** del efecto —así deja de ser una dependencia externa— y depende solo de los valores primitivos que realmente cambian.
 
 ```tsx
   useEffect(() => {

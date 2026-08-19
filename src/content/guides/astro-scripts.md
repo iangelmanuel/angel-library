@@ -54,6 +54,6 @@ const { message } = Astro.props;
 </script>
 ```
 
-Con `<ClientRouter />`, los módulos no se vuelven a ejecutar en cada navegación. Inicializá comportamiento por página en `astro:page-load` o diseña custom elements cuyo `connectedCallback()` responda al nuevo DOM.
+Con `<ClientRouter />`, los módulos no se vuelven a ejecutar en cada navegación. Inicializa el comportamiento de la página en `astro:page-load` o diseña custom elements cuyo `connectedCallback()` responda al nuevo DOM.
 
 Referencia oficial: [Scripts and event handling](https://docs.astro.build/en/guides/client-side-scripts/).

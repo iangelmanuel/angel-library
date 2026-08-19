@@ -2,6 +2,8 @@
 title: "Alias de imports en TypeScript (tsconfig paths)"
 description: "baseUrl + paths en tsconfig.json para imports tipo @/components en vez de ../../../../components — y por qué eso solo no alcanza en todos los setups."
 category: general
+stack: typescript
+order: 2
 tags: [typescript, tsconfig, imports, alias]
 scope: alias de imports con tsconfig paths
 related: [guides/node-commonjs-vs-esm]

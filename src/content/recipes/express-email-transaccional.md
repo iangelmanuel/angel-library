@@ -45,7 +45,7 @@ authRouter.post('/registro', async (req, res, next) => {
     await resend.emails.send({
       from: 'App <noreply@midominio.com>',
       to: usuario.email,
-      subject: 'Confirmá tu cuenta',
+      subject: 'Confirma tu cuenta',
       html: `<p>Haz click <a href="${urlConfirmacion}">aquí</a> para confirmar tu cuenta. Expira en 24 horas.</p>`,
     });
 

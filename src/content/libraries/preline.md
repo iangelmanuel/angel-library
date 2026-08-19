@@ -2,7 +2,7 @@
 title: Preline UI
 description: Componentes HTML sobre Tailwind CSS con un plugin de JavaScript propio (sin jQuery ni Alpine) para la interactividad.
 category: ui-ux
-stack: html
+stack: ui-css
 order: 4
 tags: [html, tailwindcss, components]
 website: https://preline.co

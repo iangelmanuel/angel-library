@@ -55,7 +55,7 @@ export function Formulario() {
 
 ## Pasar datos adicionales
 
-Prefiere un `<input type="hidden">` cuando el valor también deba existir en HTML sin JS. Usa `action.bind(null, id)` para argumentos de contexto que no quieres exponer como campo editable, pero recordá que el cliente igualmente puede invocar la action: valida autorización y ownership dentro de ella.
+Prefiere un `<input type="hidden">` cuando el valor también deba existir en HTML sin JavaScript. Usa `action.bind(null, id)` para argumentos de contexto que no deben exponerse como campo editable, pero recuerda que el cliente también puede invocar la acción: valida autorización y pertenencia dentro de ella.
 
 ## Checklist
 

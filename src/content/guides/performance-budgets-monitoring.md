@@ -2,6 +2,7 @@
 title: Presupuestos y monitoreo de rendimiento
 description: Convertir performance en un requisito verificable con budgets, CI, RUM, alertas y comparación por versiones.
 category: performance
+stack: performance-operacion
 order: 5
 tags: [performance, monitoring, ci, web-vitals]
 scope: gobierno de rendimiento
@@ -16,7 +17,7 @@ updatedAt: 2026-08-18
 
 Define límites por tipo de ruta y dispositivo: JavaScript inicial, CSS, peso total de imágenes, número de terceros y objetivos de LCP/INP/CLS. Un ecommerce y una landing no necesitan el mismo presupuesto.
 
-Los budgets deben bloquear regresiones relevantes, no fallar por ruido. Compara contra una baseline y registrá excepciones con responsable y fecha de revisión.
+Los presupuestos deben bloquear regresiones relevantes, no fallar por ruido. Compara contra una línea base y registra excepciones con responsable y fecha de revisión.
 
 ## Laboratorio, campo y backend
 

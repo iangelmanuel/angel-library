@@ -2,6 +2,7 @@
 title: Storage Utils — Referencia rápida
 description: Wrapper tipado sobre localStorage/sessionStorage con parseo JSON seguro y detección de disponibilidad.
 category: general
+stack: utils
 runtime: browser
 language: typescript
 related: []
@@ -16,7 +17,7 @@ Utilidades mínimas sobre `localStorage`/`sessionStorage`. Importa siempre desde
 
 ### `isStorageAvailable()` — Detectar si se puede usar
 
-Comprueba si el storage indicado está disponible escribiendo y borrando una clave de prueba. `localStorage` puede lanzar en Safari con navegación privada (cuota 0) o no existir en un contexto sin `window` (como código que corre en el servidor). Llamala antes de depender de storage para algo crítico.
+Comprueba si el almacenamiento indicado está disponible escribiendo y borrando una clave de prueba. `localStorage` puede lanzar un error en Safari con navegación privada (cuota 0) o no existir en un contexto sin `window`, como el código del servidor. Llama a esta función antes de depender del almacenamiento para algo crítico.
 
 ```ts title="lib/storage.ts"
 export function isStorageAvailable(storage: Storage): boolean {

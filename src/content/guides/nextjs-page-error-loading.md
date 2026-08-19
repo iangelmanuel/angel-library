@@ -83,5 +83,5 @@ De afuera hacia adentro: `layout.tsx` → `error.tsx` → `loading.tsx` (Suspens
 ## Consideraciones
 
 - `error.tsx` no captura errores en el propio `layout.tsx` del mismo segmento — para eso hace falta `global-error.tsx` en la raíz, o un `error.tsx` en el layout padre.
-- Si el layout directamente ruta lee datos sin cachear (`cookies()`, un fetch dinámico), `loading.tsx` no muestra su fallback para esa parte — la navegación espera a que el layout termine. Mové ese fetch a `page.tsx` si el layout debería sentirse instantáneo.
+- Si el layout de la ruta lee datos sin caché —`cookies()` o un `fetch` dinámico—, `loading.tsx` no muestra su alternativa para esa parte: la navegación espera a que el layout termine. Mueve ese `fetch` a `page.tsx` si el layout debe responder de inmediato.
 - `reset()` en `error.tsx` no recarga la página — vuelve a intentar renderizar el segmento. Si el error viene de datos que siguen rotos, va a volver a fallar, y eso es esperado.

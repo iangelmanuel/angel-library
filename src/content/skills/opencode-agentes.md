@@ -9,7 +9,7 @@ tool: OpenCode
 updatedAt: 2026-08-17
 ---
 
-OpenCode distingue dos categorías: **primary agents** (los que manejás con Tab, conducen la sesión — `Build` acceso completo, `Plan` de solo lectura) y **subagents** (se invocan con `@mención` o se delegan solo — `General`, `Explore`, `Scout`).
+OpenCode distingue dos categorías: **primary agents** (los que manejas con Tab y conducen la sesión —`Build` con acceso completo, `Plan` de solo lectura—) y **subagents** (se invocan con `@mención` o mediante delegación —`General`, `Explore`, `Scout`—).
 
 ## Dónde va
 
@@ -30,7 +30,7 @@ permission:
   bash: ask
 ---
 
-Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas de legibilidad. Nunca edites archivos directamente, solo reportá.
+Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas de legibilidad. Nunca edites archivos directamente, solo reporta.
 ```
 
 ## Campos que más se usan

@@ -37,7 +37,7 @@ export const onRequestError: Instrumentation.onRequestError = async (error, requ
 };
 ```
 
-En producción, enviá el error a Sentry, OpenTelemetry u otro backend y sanitizá URLs, headers y payloads. No registres cookies, tokens, contraseñas ni cuerpos completos por defecto.
+En producción, envía el error a Sentry, OpenTelemetry u otro backend y sanitiza URLs, headers y payloads. No registres cookies, tokens, contraseñas ni cuerpos completos por defecto.
 
 ## Qué inicializar aquí
 

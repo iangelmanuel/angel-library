@@ -1,6 +1,6 @@
 ---
 title: Middlewares en Express — la cadena req → res → next
-description: La firma (req, res, next), el orden de ejecución, y la diferencia entre middleware propio y de terceros. Acá es donde next() existe de verdad.
+description: La firma (req, res, next), el orden de ejecución y la diferencia entre middleware propio y de terceros. Aquí se explica el propósito real de next().
 category: backend
 stack: express
 order: 2
@@ -62,7 +62,7 @@ function verificarAdmin(req, res, next) {
 }
 ```
 
-Si un middleware manda una respuesta (`res.json()`, `res.send()`, etc.) y **también** llama a `next()`, Express sigue ejecutando la cadena sobre una respuesta ya enviada — típicamente un bug (`Cannot set headers after they are sent`). La regla es: **o respondés, o llamás a `next()`, nunca ambas**.
+Si un middleware envía una respuesta (`res.json()`, `res.send()`, etc.) y **también** llama a `next()`, Express sigue ejecutando la cadena sobre una respuesta ya enviada — normalmente un error (`Cannot set headers after they are sent`). La regla es: **o respondes o llamas a `next()`, nunca ambas acciones**.
 
 ## Middleware propio vs de terceros
 

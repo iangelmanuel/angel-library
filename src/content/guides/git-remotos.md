@@ -75,5 +75,5 @@ git branch -vv
 ## Consideraciones
 
 - `git push` falla ("rejected") si el remoto tiene commits que tú no tienes local — significa que alguien más pusheó primero. La solución normal es `git pull` (integrar lo del remoto) y recién ahí volver a pushear, no forzar.
-- `git push --force` reescribe el historial remoto — puede borrar commits de otras personas si no coordinás. `git push --force-with-lease` es la versión más segura: falla si el remoto tiene commits que tú no viste, en vez de pisarlos a ciegas.
+- `git push --force` reescribe el historial remoto — puede borrar commits de otras personas si no coordinas. `git push --force-with-lease` es la versión más segura: falla si el remoto tiene commits que tú no viste, en vez de sobrescribirlos a ciegas.
 - HTTPS pide usuario/contraseña (o un token) en cada operación salvo que uses un credential helper; SSH usa una clave configurada una vez. Para uso diario, SSH evita reautenticarse todo el tiempo.

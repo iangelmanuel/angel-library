@@ -67,4 +67,4 @@ PermissionRequest                  ← propio de Codex
 
 - Solo el tipo de handler `"command"` está implementado hoy — `"prompt"` y `"agent"` se parsean pero todavía no ejecutan nada (reservados a futuro).
 - `/hooks` dentro de Codex inspecciona los hooks activos. Un admin puede forzar `allow_managed_hooks_only = true` en `requirements.toml` para ignorar hooks de usuario/proyecto y permitir solo los gestionados centralmente.
-- Si ya conocés los hooks de Claude Code, este es el área donde menos hay que reaprender — los nombres de evento base son literalmente los mismos.
+- Si ya se conocen los hooks de Claude Code, esta es el área que requiere menos aprendizaje: los nombres de los eventos base son los mismos.

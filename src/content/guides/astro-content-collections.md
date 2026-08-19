@@ -111,4 +111,4 @@ const relacionados = await getEntries(post.data.relacionados);
 
 - El schema es la única fuente de verdad del frontmatter — si un campo no está declarado ahí, TypeScript no lo conoce aunque exista en el `.md`.
 - `reference()` valida que el id exista, pero recién en build — una referencia rota no rompe el editor, rompe el `astro build`. Ver cómo este sitio lo aprovecha en [Referencias entre contenidos](/guides/content-references).
-- Cambiar el `schema` no actualiza los tipos generados automáticamente en el editor: corré `astro sync` (o `pnpm sync` en este proyecto) después de tocar `content.config.ts`.
+- Cambiar el esquema no actualiza los tipos generados automáticamente en el editor: ejecuta `astro sync` —o `pnpm sync` en este proyecto— después de modificar `content.config.ts`.

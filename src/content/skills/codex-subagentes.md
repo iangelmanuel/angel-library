@@ -34,7 +34,7 @@ name = "code-reviewer"
 description = "Revisa cambios buscando bugs y riesgos de seguridad"
 developer_instructions = """
 Eres un revisor de código senior. Busca bugs, riesgos de seguridad
-y problemas de legibilidad. No edites nada, solo reportá.
+y problemas de legibilidad. No edites nada, solo reporta.
 """
 model = "gpt-5.1-codex"
 sandbox_mode = "read-only"

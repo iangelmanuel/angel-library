@@ -32,7 +32,7 @@ brew install gh
 gh auth login
 ```
 
-Un flujo interactivo pregunta: GitHub.com o GitHub Enterprise, HTTPS o SSH, y cómo autenticar (navegador, o pegando un token generado a mano). La opción de navegador es la más simple para empezar — abre GitHub, confirmás, y listo.
+Un flujo interactivo pregunta: GitHub.com o GitHub Enterprise, HTTPS o SSH y cómo autenticar (navegador o un token generado manualmente). La opción de navegador es la más simple para empezar — abre GitHub, confirmas y termina el proceso.
 
 ## Ver el estado de la sesión
 
@@ -40,7 +40,7 @@ Un flujo interactivo pregunta: GitHub.com o GitHub Enterprise, HTTPS o SSH, y c�
 gh auth status
 ```
 
-Muestra qué cuenta está activa y con qué protocolo (HTTPS/SSH) — útil para confirmar que quedó todo bien configurado, o para detectar que estás logueado con una cuenta distinta a la esperada (común si manejás una cuenta personal y una de trabajo).
+Muestra qué cuenta está activa y con qué protocolo (HTTPS/SSH) — útil para confirmar la configuración o detectar que iniciaste sesión con una cuenta distinta a la esperada (común si manejas una cuenta personal y otra de trabajo).
 
 ## Cerrar sesión / cambiar de cuenta
 

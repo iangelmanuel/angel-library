@@ -58,4 +58,4 @@ const buscarUsuarioCacheado = memoize(buscarUsuarioEnDB);
 
 ## Cuándo NO usarlo
 
-`Proxy` tiene costo de performance en hot paths (cada acceso pasa por el trap) y hace el debugging menos directo: el objeto que ves no es el real, sino la trampa. Para casos simples — envolver una función conocida para cachearla o loguearla — una función wrapper explícita (`function withCache(fn) { ... }`, sin `Proxy`) suele ser más legible. Reservá `Proxy` para cuando necesitas interceptar acceso a propiedades dinámicas que no conocés de antemano.
+`Proxy` tiene un costo de rendimiento en rutas críticas —cada acceso pasa por la trampa— y hace la depuración menos directa: el objeto observado no es el original, sino el intermediario. Para casos simples, como envolver una función conocida para aplicar caché o registros, una función envolvente explícita (`function withCache(fn) { ... }`, sin `Proxy`) suele ser más legible. Reserva `Proxy` para interceptar acceso a propiedades dinámicas que no se conocen de antemano.

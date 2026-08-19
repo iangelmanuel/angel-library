@@ -2,6 +2,7 @@
 title: Mocks, fakes y tests de contrato
 description: Elegir dobles de prueba sin acoplarse a la implementación y comprobar que APIs, adapters y consumidores siguen de acuerdo.
 category: testing
+stack: testing-integracion
 order: 2
 tags: [testing, mocks, contracts, integration]
 scope: diseño de pruebas
@@ -28,7 +29,7 @@ Reloj, random, email, pagos y APIs lentas/no deterministas son buenos límites. 
 
 Un contrato comprueba que productor y consumidor coinciden en método, ruta, esquema, errores y compatibilidad. Puede validarse contra OpenAPI/JSON Schema y complementarse con una prueba real del adapter.
 
-Incluí casos de timeout, `429`, errores parciales y campos adicionales. Los contratos deben permitir evolución compatible y fallar cuando desaparece algo que el consumidor usa.
+Incluye casos de tiempo de espera agotado, `429`, errores parciales y campos adicionales. Los contratos deben permitir evolución compatible y fallar cuando desaparece algo que el consumidor usa.
 
 ## Datos
 

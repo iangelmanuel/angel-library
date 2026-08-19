@@ -33,9 +33,8 @@ Una migración destructiva y un deploy de código en el mismo paso hacen que el 
 
 ## Criterios de éxito
 
-Automatizá health checks y smoke tests, pero decide con señales de negocio y sistema: errores, latencia, saturación, login, checkout o creación de recursos. Define umbral y ventana antes de desplegar.
+Automatiza health checks y smoke tests, pero decide con señales de negocio y sistema: errores, latencia, saturación, login, checkout o creación de recursos. Define umbral y ventana antes de desplegar.
 
 ## Rollback y roll-forward
 
-Rollback sirve cuando el artefacto anterior sigue siendo compatible. Si datos o eventos ya cambiaron, puede ser más seguro corregir hacia adelante o apagar la feature con un flag. Practicá ambos caminos y mide tiempo real de recuperación.
-
+El rollback sirve cuando el artefacto anterior sigue siendo compatible. Si los datos o eventos ya cambiaron, puede ser más seguro corregir hacia adelante o apagar la funcionalidad con un flag. Practica ambos caminos y mide el tiempo real de recuperación.

@@ -2,6 +2,7 @@
 title: Secretos, dependencias y cadena de suministro
 description: Evitar filtraciones y paquetes comprometidos desde el equipo local hasta CI, imágenes y producción.
 category: security
+stack: security-infra
 order: 6
 tags: [security, secrets, dependencies, supply-chain]
 scope: seguridad del ciclo de desarrollo
@@ -23,9 +24,9 @@ Todo valor público inyectado al frontend debe considerarse visible. Un prefijo 
 
 ## Dependencias
 
-Bloquea versiones con lockfile, revisa cambios de resolución y mantén el registry explícito. Automatizá advisories, pero evalúa alcanzabilidad e impacto antes de aplicar upgrades mayores a ciegas.
+Bloquea versiones con lockfile, revisa cambios de resolución y mantén el registry explícito. Automatiza advisories, pero evalúa alcanzabilidad e impacto antes de aplicar upgrades mayores a ciegas.
 
-Reducí paquetes triviales y scripts de instalación innecesarios. En CI, instalá de forma reproducible, con permisos mínimos y sin entregar secretos a builds de contribuciones no confiables.
+Reduce paquetes triviales y scripts de instalación innecesarios. En integración continua, instala de forma reproducible, con permisos mínimos y sin entregar secretos a builds de contribuciones no confiables.
 
 ## CI/CD
 

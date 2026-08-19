@@ -254,7 +254,7 @@ Ver [process y señales](/guides/node-process) para el patrón completo de shutd
 
 ## Consideraciones
 
-- El client se genera a partir del schema (`prisma generate`) — si editás el schema y no regenerás, TypeScript sigue viendo los tipos viejos. `migrate dev` lo hace automático; en CI/producción hace falta correrlo a mano después de instalar dependencias.
+- El cliente se genera a partir del schema (`prisma generate`) — si editas el schema y no regeneras, TypeScript sigue viendo los tipos anteriores. `migrate dev` lo hace automáticamente; en CI o producción hace falta ejecutarlo después de instalar dependencias.
 - `npx prisma migrate dev` **no** es el comando de producción — en un deploy real se usa `npx prisma migrate deploy`, que aplica migraciones existentes sin generar nuevas interactivamente.
 - Una sola instancia de `PrismaClient` por proceso — crear una nueva en cada request agota las conexiones a la base.
 - Dentro de un callback de `$transaction` interactiva, usar siempre `tx`, nunca `prisma` — es el error más común al escribir una transacción de este tipo.

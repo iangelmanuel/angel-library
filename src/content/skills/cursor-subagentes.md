@@ -30,7 +30,7 @@ model: inherit
 readonly: true
 ---
 
-Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas de legibilidad. No edites nada, solo reportá.
+Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas de legibilidad. No edites nada, solo reporta.
 ```
 
 ## Campos que más se usan

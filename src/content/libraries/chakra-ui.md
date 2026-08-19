@@ -2,7 +2,7 @@
 title: Chakra UI
 description: Componentes React accesibles con sistema de estilos por props y theming, sin depender de Tailwind.
 category: ui-ux
-stack: react
+stack: ui-react
 order: 4
 tags: [react, components, accessibility]
 website: https://www.chakra-ui.com

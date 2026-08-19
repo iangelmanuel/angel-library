@@ -2,6 +2,7 @@
 title: Rendimiento de JavaScript e interacción
 description: Reducir tareas largas, hidratación, renders innecesarios y trabajo que empeora INP en dispositivos reales.
 category: performance
+stack: performance-runtime
 order: 4
 tags: [performance, javascript, inp, rendering]
 scope: runtime e interacción
@@ -19,12 +20,12 @@ JavaScript debe descargarse, descomprimirse, parsearse, compilarse y ejecutarse.
 
 ## Reducir trabajo
 
-- Renderizá HTML en servidor o build cuando no necesita estado cliente.
-- Hidratá solo componentes interactivos y lo más tarde que permita la UX.
-- Divide tareas superiores a unos 50 ms y actualizá la interfaz entre lotes.
+- Renderiza HTML en el servidor o durante el build cuando no necesite estado del cliente.
+- Hidrata solo componentes interactivos y lo más tarde que permita la UX.
+- Divide tareas superiores a unos 50 ms y actualiza la interfaz entre lotes.
 - Guarda en caché cálculos caros solo cuando la medición demuestra beneficio.
-- Virtualizá listas grandes; para listas pequeñas, la complejidad extra no compensa.
-- Evita listeners globales duplicados y limpiá timers, observers y subscriptions.
+- Virtualiza listas grandes; para listas pequeñas, la complejidad adicional no compensa.
+- Evita listeners globales duplicados y limpia timers, observers y suscripciones.
 
 ## Respuesta a una interacción
 
@@ -32,8 +33,8 @@ El usuario necesita feedback inmediato. Cambia el estado visual primero, pospone
 
 ## Diagnóstico
 
-1. Reproducí con CPU throttling y dispositivo real.
-2. Encontrá la interacción lenta en Performance panel.
+1. Reproduce con limitación de CPU y un dispositivo real.
+2. Encuentra la interacción lenta en el panel Performance.
 3. Identifica script, tarea y función responsables.
 4. Elimina trabajo antes de optimizarlo.
 5. Compara percentiles de campo después del despliegue.

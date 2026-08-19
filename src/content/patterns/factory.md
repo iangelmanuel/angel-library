@@ -81,4 +81,4 @@ En Java o C# el patrón Factory suele implementarse con una clase `Factory` y un
 ## Cuándo NO usarlo
 
 - Si solo existe una forma de construir el objeto, un `new` directo o una función constructora simple alcanza — envolver eso en un "factory" es indirección sin beneficio.
-- No agregues una factory "por si mañana necesito otro tipo": esperá a tener el segundo caso real antes de abstraer (YAGNI).
+- No agregues una fábrica “por si mañana necesito otro tipo”: espera a tener el segundo caso real antes de abstraer. **YAGNI** significa *You Aren't Gonna Need It*: no implementes una capacidad antes de que exista una necesidad real.

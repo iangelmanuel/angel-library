@@ -61,7 +61,7 @@ process.on('SIGTERM', () => {
 ```
 
 - **`SIGINT`**: se dispara con `Ctrl+C` en la terminal.
-- **`SIGTERM`**: la señal "por favor terminá" que mandan orquestadores (Docker, Kubernetes, PM2) antes de matar un proceso — a diferencia de `SIGKILL`, que no se puede interceptar ni manejar, `SIGTERM` sí le da al proceso la chance de limpiar antes de salir.
+- **`SIGTERM`**: la señal "por favor termina" que envían los orquestadores (Docker, Kubernetes, PM2) antes de finalizar un proceso — a diferencia de `SIGKILL`, que no se puede interceptar ni manejar, `SIGTERM` permite limpiar recursos antes de salir.
 
 ## Shutdown limpio (graceful shutdown)
 

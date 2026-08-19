@@ -8,11 +8,11 @@ tags: [css, fonts, performance]
 updatedAt: 2026-08-16
 ---
 
-Cargar fuentes propias (self-hosted) en vez de tirar de Google Fonts: más rápido (sin conexión externa extra), y no dependés de que un servicio de terceros esté arriba.
+Cargar fuentes propias (*self-hosted*) en vez de depender de Google Fonts evita una conexión externa adicional y no depende de la disponibilidad de un tercero.
 
 ## `@font-face` básico
 
-Declará la fuente con `@font-face` antes de usarla en `font-family`. `font-display: swap` evita texto invisible mientras carga (FOIT): muestra la fuente del sistema primero y cambia cuando la tuya esté lista.
+Declara la fuente con `@font-face` antes de usarla en `font-family`. `font-display: swap` evita texto invisible mientras carga (FOIT): muestra la fuente del sistema primero y cambia cuando la tuya esté lista.
 
 ```css title="styles/fonts.css"
 @font-face {

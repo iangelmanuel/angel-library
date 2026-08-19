@@ -2,10 +2,12 @@
 title: Formularios accesibles y validación comprensible
 description: Etiquetas, ayudas, errores, autocomplete y estados para formularios utilizables con teclado y lectores de pantalla.
 category: accessibility
-order: 2
+stack: a11y-interaccion
+order: 3
 tags: [accessibility, forms, validation, ux]
 scope: formularios
 related:
+  - guides/accessibility-aria-attributes
   - practices/accessibility-checklist
   - guides/ui-ux-forms-feedback
 updatedAt: 2026-08-18
@@ -32,9 +34,9 @@ El placeholder no reemplaza al label: desaparece al escribir, suele tener bajo c
 ## Validación
 
 - Valida en cliente para feedback rápido y siempre de nuevo en servidor.
-- Explicá qué ocurrió y cómo corregirlo; “valor inválido” no ayuda.
+- Explica qué ocurrió y cómo corregirlo; “valor inválido” no ayuda.
 - No comuniques el error solo con rojo: añade texto e icono cuando aporte.
-- Al enviar, enfocá un resumen de errores o el primer campo inválido según la longitud del formulario.
+- Al enviar, enfoca un resumen de errores o el primer campo inválido según la longitud del formulario.
 - Conserva los valores válidos después de un error.
 
 ## Agrupación y datos personales

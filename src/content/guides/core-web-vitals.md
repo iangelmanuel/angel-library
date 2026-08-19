@@ -2,9 +2,10 @@
 title: Core Web Vitals — medir antes de optimizar
 description: Interpretar LCP, INP y CLS, encontrar la causa real y validar mejoras con datos de campo y laboratorio.
 category: performance
+stack: performance-fundamentos
 tags: [performance, web-vitals, frontend, ux]
 scope: rendimiento web
-order: 1
+order: 2
 related:
   - guides/astro-image-picture
   - guides/nextjs-image

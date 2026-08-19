@@ -96,6 +96,6 @@ ol[role='list'] {
 ## Consideraciones
 
 - Este reset no toca tipografía (`font-family`, tamaños) ni colores — eso va en tus propios tokens, no en el reset.
-- `ul[role='list']` requiere que agregues `role="list"` al HTML: `<ul role="list">`. Si no lo haces, `list-style: none` se aplica igual pero perdés la ventaja de accesibilidad.
-- Si usas Next.js reemplazá `#__next` según corresponda; en Astro sin root wrapper, esa regla no aplica y puedes quitarla.
+- `ul[role='list']` requiere que agregues `role="list"` al HTML: `<ul role="list">`. Si no lo haces, `list-style: none` se aplica igual pero pierdes la ventaja de accesibilidad.
+- Si usas Next.js, reemplaza `#__next` según corresponda; en Astro sin un contenedor raíz, esa regla no aplica y puedes quitarla.
 - El bloque de `prefers-reduced-motion` es el mismo patrón que ya usa este sitio — ver `global.css`.

@@ -2,7 +2,7 @@
 title: Tailwind Plus (Tailwind UI)
 description: Catálogo oficial de Tailwind Labs con cientos de componentes HTML (también React) listos para copiar y pegar, curados por el equipo que hace Tailwind CSS.
 category: ui-ux
-stack: html
+stack: ui-css
 order: 1
 tags: [html, tailwindcss, components, official]
 website: https://tailwindcss.com/plus/ui-blocks

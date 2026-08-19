@@ -46,7 +46,7 @@ jobs:
 
 ## Endurecer el workflow
 
-- Pinneá actions a SHA para repositorios de alto riesgo y revisa actualizaciones.
+- Fija las actions a un SHA para repositorios de alto riesgo y revisa actualizaciones.
 - No ejecutes código de PRs no confiables con secretos de producción.
 - Limita `permissions` por job; evita `write-all`.
 - Define `timeout-minutes` y concurrency para controlar consumo.
@@ -58,4 +58,3 @@ jobs:
 Guarda en caché el store del package manager, no `node_modules` a ciegas. La clave debe cambiar con sistema, versión del runtime y lockfile. El cache acelera; nunca debe ser requisito para que el build funcione.
 
 Separa E2E si necesita servicios o navegador, pero mantén un check obligatorio del flujo crítico antes de publicar.
-

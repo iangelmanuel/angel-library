@@ -2,7 +2,7 @@
 title: Mantine
 description: Más de 100 componentes y hooks React, con theming y modo oscuro incorporados de fábrica.
 category: ui-ux
-stack: react
+stack: ui-react
 order: 5
 tags: [react, components, hooks]
 website: https://mantine.dev

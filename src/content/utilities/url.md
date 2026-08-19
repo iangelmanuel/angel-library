@@ -2,6 +2,7 @@
 title: URL Utils — rutas y query params
 description: Construir URLs, agregar parámetros, normalizar paths y evitar concatenaciones frágiles con strings.
 category: general
+stack: utils
 order: 10
 tags: [typescript, url, browser, backend]
 runtime: universal
@@ -50,4 +51,4 @@ No uses `path.join()` de Node para URLs: en Windows puede producir backslashes. 
 
 ## Seguridad
 
-Antes de redirigir a un valor recibido por query param, permití solo rutas internas conocidas o una allowlist de hosts. Un `returnUrl` arbitrario crea un open redirect.
+Antes de redirigir a un valor recibido por un parámetro de consulta, permite solo rutas internas conocidas o una lista de hosts permitidos. Un `returnUrl` arbitrario crea una redirección abierta.

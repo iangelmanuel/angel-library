@@ -6,7 +6,7 @@ tags: [ai, skills, cli]
 url: https://www.autoskills.sh
 resourceCategory: ia
 official: false
-personalNote: Detecta 50+ tecnologías y combos entre ellas — más rápido que buscar skill por skill a mano en skills.sh cuando arrancás un proyecto nuevo.
+personalNote: Detecta más de 50 tecnologías y combinaciones; es más rápido que buscar cada skill manualmente al iniciar un proyecto.
 related: [resources/ia/skills-sh]
 updatedAt: 2026-08-17
 ---

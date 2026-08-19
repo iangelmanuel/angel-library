@@ -118,7 +118,7 @@ Si mañana aparece un segundo tipo de email con lógica distinta, ese es el mome
 
 ## Cuándo estos principios se vuelven dogma (y eso es el problema)
 
-- **DRY dogmático**: unificar dos piezas de código porque "se ven iguales" sin preguntar si representan el mismo conocimiento de negocio. La regla práctica común es "duplicá dos veces, abstraé a la tercera" (rule of three) — con dos casos todavía no hay suficiente información para saber cuál es la abstracción correcta.
+- **DRY dogmático**: unificar dos piezas de código porque "se ven iguales" sin preguntar si representan el mismo conocimiento de negocio. La regla práctica común es "duplica dos veces, abstrae a la tercera" (*rule of three*) — con dos casos todavía no hay suficiente información para saber cuál es la abstracción correcta.
 - **KISS dogmático**: usarlo como excusa para no usar ningún patrón, ninguna capa, ningún tipo — "simple" no es sinónimo de "todo en un archivo de 500 líneas". Simple significa fácil de entender y cambiar, no ausencia de estructura.
 - **YAGNI dogmático**: usarlo para justificar no pensar nunca en el diseño a futuro. Hay una diferencia entre "no construir el sistema de plugins que nadie pidió" y "no darle un nombre de módulo que después sea imposible de extender sin reescribir todo". YAGNI es sobre no construir *funcionalidad* prematura, no sobre ignorar decisiones de arquitectura baratas de tomar ahora.
 

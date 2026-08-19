@@ -2,7 +2,7 @@
 title: Bootstrap
 description: Framework CSS clásico con componentes HTML, JS propio y sistema de grid, sin depender de Tailwind.
 category: ui-ux
-stack: html
+stack: ui-css
 order: 6
 tags: [html, css, components]
 website: https://getbootstrap.com

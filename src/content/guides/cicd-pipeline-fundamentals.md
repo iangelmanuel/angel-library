@@ -27,13 +27,12 @@ updatedAt: 2026-08-18
 6. Desplegar el mismo artefacto por ambientes.
 7. Ejecutar smoke tests y observar métricas.
 
-No recompiles para producción con dependencias distintas: promocioná el artefacto ya validado e inyectá configuración en runtime cuando la plataforma lo permita.
+No recompiles para producción con dependencias distintas: promociona el artefacto ya validado e inyecta configuración en runtime cuando la plataforma lo permita.
 
 ## Feedback y seguridad
 
-La ruta feliz debe ser rápida. Guarda en caché dependencias con clave basada en lockfile y cancela runs obsoletos de la misma rama. Protege secretos de forks, otorgá permisos mínimos al token del workflow y separa quien modifica el pipeline de quien aprueba producción.
+La ruta feliz debe ser rápida. Guarda en caché dependencias con clave basada en lockfile y cancela ejecuciones obsoletas de la misma rama. Protege secretos de forks, otorga permisos mínimos al token del workflow y separa quien modifica el pipeline de quien aprueba producción.
 
 ## Fallos
 
 Un pipeline rojo debe decir qué falló y conservar logs/artefactos útiles. No ocultes tests flaky con reintentos ilimitados. Si una etapa no es confiable, asignale dueño, mide su tasa de fallo y corregila o retirala temporalmente de forma explícita.
-

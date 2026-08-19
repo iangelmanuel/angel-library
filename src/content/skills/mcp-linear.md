@@ -32,7 +32,7 @@ Pide autenticación OAuth con la cuenta de Linear la primera vez.
 
 ## Cuándo usarlo
 
-- "Arreglá el bug del issue ENG-123" — el agente trae la descripción completa del issue sin que nadie la copie a mano.
+- "Arregla el bug del issue ENG-123" — el agente trae la descripción completa del issue sin que nadie la copie a mano.
 - Cerrar el loop completo: implementar el fix, y que el propio agente actualice el estado del issue a "Done" al terminar.
 
 ## Consideraciones

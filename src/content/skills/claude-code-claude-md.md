@@ -56,4 +56,4 @@ Ver también @docs/api-conventions.md para las convenciones de la API.
 ## Consideraciones
 
 - Cuanto más corto y accionable, mejor — no es documentación para humanos, es contexto que se manda en cada mensaje. Evitar prosa larga.
-- `CLAUDE.local.md` es el lugar para preferencias tuyas que no quieres imponerle al resto del equipo (por ejemplo, "siempre corré los tests con `--watch`").
+- `CLAUDE.local.md` es el lugar para preferencias personales que no deben imponerse al resto del equipo, por ejemplo: “ejecutar siempre las pruebas con `--watch`”.

@@ -10,7 +10,7 @@ related: [guides/terminal-navegacion, guides/terminal-archivos-carpetas]
 updatedAt: 2026-08-17
 ---
 
-Leer un archivo sin abrir un editor, o buscar en qué archivo está una función, son de las tareas más frecuentes en una terminal. Acá es donde más se nota la diferencia entre el mundo Unix (con `grep`, `head`, `tail` como herramientas separadas y componibles) y PowerShell (que resuelve casi todo con parámetros de `Get-Content`).
+Leer un archivo sin abrir un editor o buscar en qué archivo está una función son tareas frecuentes en una terminal. Aquí se nota especialmente la diferencia entre el mundo Unix —con `grep`, `head` y `tail` como herramientas separadas y componibles— y PowerShell, que resuelve casi todo con parámetros de `Get-Content`.
 
 ## Mostrar contenido completo
 

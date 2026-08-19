@@ -2,7 +2,7 @@
 title: Flowbite
 description: Componentes UI en HTML listos sobre Tailwind CSS, con plugin oficial y versiones para React, Vue, Svelte y Angular.
 category: ui-ux
-stack: html
+stack: ui-css
 order: 2
 tags: [html, tailwindcss, components]
 website: https://flowbite.com

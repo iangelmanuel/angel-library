@@ -11,7 +11,7 @@ source: https://ui.shadcn.com/docs/components
 updatedAt: 2026-08-16
 ---
 
-shadcn/ui **no se instala como dependencia** (`npm install shadcn` no existe para usar los componentes en sí) — es una CLI que copia el código fuente de cada componente directo a tu proyecto (`src/components/ui/`). Una vez copiado, es código tuyo: lo editás, le saquís lo que no usas, no depende de actualizar un paquete externo. Por debajo usa Radix UI (accesibilidad) + Tailwind (estilos). El paquete se llama `shadcn` — `shadcn-ui` es el nombre viejo, ya no se usa.
+shadcn/ui **no se instala como dependencia** (`npm install shadcn` no existe para usar los componentes en sí) — es una CLI que copia el código fuente de cada componente directamente a tu proyecto (`src/components/ui/`). Una vez copiado, es código tuyo: lo editas, quitas lo que no usas y no dependes de actualizar un paquete externo. Por debajo usa Radix UI (accesibilidad) + Tailwind (estilos). El paquete se llama `shadcn` — `shadcn-ui` es el nombre anterior.
 
 ## Inicializar en un proyecto
 

@@ -41,10 +41,10 @@ const [posts, authors] = await Promise.all([
 
 ## Endpoints propios
 
-Desdirectamente ruta on-demand puedes construir una URL absoluta con `new URL('/api/data', Astro.url)`. En build estático, llamar a tu propio endpoint suele ser innecesario: importá la función que obtiene los datos y reutilizala directamente.
+Desde una ruta bajo demanda puedes construir una URL absoluta con `new URL('/api/data', Astro.url)`. En un build estático, llamar a tu propio endpoint suele ser innecesario: importa la función que obtiene los datos y reutilízala directamente.
 
 ## Errores y tipos
 
-`response.json()` no valida runtime. Comprobá `response.ok` y valida datos externos con Zod cuando una forma incorrecta pueda romper el render. Define un fallback explícito para APIs opcionales; no ocultes silenciosamente un fallo de datos esenciales.
+`response.json()` no valida en tiempo de ejecución. Comprueba `response.ok` y valida datos externos con Zod cuando una forma incorrecta pueda romper el renderizado. Define una alternativa explícita para APIs opcionales; no ocultes silenciosamente un fallo de datos esenciales.
 
 Referencia oficial: [Data fetching](https://docs.astro.build/en/guides/data-fetching/).

@@ -30,7 +30,7 @@ name: revisar-pr
 description: Revisa el PR actual y deja comentarios sobre bugs y seguridad
 ---
 
-Revisa el PR actual con `gh pr diff` y señalá bugs, riesgos de seguridad y problemas de legibilidad.
+Revisa el PR actual con `gh pr diff` y señala bugs, riesgos de seguridad y problemas de legibilidad.
 ```
 
 ## Frontmatter: más chico que el de Claude Code

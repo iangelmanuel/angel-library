@@ -60,7 +60,7 @@ export async function crearProducto(formData: FormData) {
 }
 ```
 
-`updateTag()` expira y obtiene el dato fresco dentro del flujo de la mutación — útil para “read your own writes”. `revalidateTag(tag, 'max')` sirve cuando tolerás stale-while-revalidate.
+`updateTag()` expira y obtiene el dato actualizado dentro del flujo de la mutación — útil para leer las escrituras propias (*read your own writes*). `revalidateTag(tag, 'max')` sirve cuando toleras *stale-while-revalidate*.
 
 ## Datos de request
 

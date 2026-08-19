@@ -1,7 +1,9 @@
 ---
 title: Referencias entre contenidos
 description: Convención para enlazar entradas sin depender de ids globales ambiguos.
-category: architecture
+category: tools
+stack: tools-documentacion
+order: 3
 technologies: []
 libraries: []
 related:

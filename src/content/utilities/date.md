@@ -2,6 +2,7 @@
 title: Date Utils — Referencia rápida
 description: Utilidades tipadas para formatear fechas y tiempo relativo con Intl, sin librerías.
 category: general
+stack: utils
 runtime: universal
 language: typescript
 related: []
@@ -283,4 +284,4 @@ const diasDeAgosto = eachDayOfMonth(new Date('2026-08-01'));
 - `daysBetween()` normaliza a UTC antes de restar: comparar `Date` directamente con horas incluidas puede dar resultados fuera por un día cuando cruza un cambio de horario.
 - `dateRange()` incluye ambos extremos y no valida que `start` sea anterior a `end` — si `start` es posterior, devuelve un array vacío en vez de contar hacia atrás.
 - `eachDayOfMonth()` y `dateRange()` pueden devolver arrays grandes con rangos largos (años) — no pensadas para generar miles de fechas directamente sola vez.
-- Para fechas que vienen directamente API como string, convertí primero con `new Date(valor)` antes de pasarlas a estas funciones.
+- Para fechas que llegan directamente de una API como texto, convierte primero con `new Date(valor)` antes de pasarlas a estas funciones.

@@ -49,10 +49,10 @@ openai images generate --model <modelo> --prompt "Un cubo verde" --output imagen
 openai audio:transcriptions create --model <modelo> --file ./audio.mp3
 ```
 
-Sustituí `<modelo>` por el modelo vigente en cada momento — cambia seguido, y no vale la pena fijarlo aquí.
+Sustituye `<modelo>` por el modelo vigente en cada momento — cambia con frecuencia y no vale la pena fijarlo aquí.
 
 ## Consideraciones
 
 - Este CLI es para **requests sueltos y scripts de terminal**, no para construir una aplicación — para eso, OpenAI recomienda el SDK oficial (Python o Node) directamente contra la API.
-- El CLI legado que instalaba el paquete de Python (`openai api ...`) es distinto de este y está obsoleto — si conviven los dos en el `PATH`, confirmá cuál se está ejecutando con `which openai` / `where openai`.
+- El CLI legado que instalaba el paquete de Python (`openai api ...`) es distinto de este y está obsoleto — si conviven los dos en el `PATH`, confirma cuál se está ejecutando con `which openai` / `where openai`.
 - No hay flujo de login interactivo: toda la autenticación pasa por `OPENAI_API_KEY` (o `OPENAI_ADMIN_KEY`) como variable de entorno.

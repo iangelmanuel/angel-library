@@ -10,7 +10,7 @@ related: [commands/git-undo-commit-keep-changes]
 updatedAt: 2026-08-16
 ---
 
-Git casi nunca borra un commit de verdad apenas dejás de referenciarlo — lo mantiene un tiempo (por defecto 90 días) aunque ninguna rama apunte a él, esperando que se le haga "garbage collection". El **reflog** es el registro de cada lugar donde estuvo `HEAD` — cada commit, cada `reset`, cada `checkout`, cada `rebase` — y es la puerta para recuperar casi cualquier cosa que "se perdió".
+Git casi nunca borra un commit inmediatamente después de dejar de referenciarlo — lo mantiene un tiempo (por defecto 90 días) aunque ninguna rama apunte a él, esperando que se ejecute la recolección de basura (*garbage collection*). El **reflog** es el registro de cada lugar donde estuvo `HEAD` — cada commit, cada `reset`, cada `checkout`, cada `rebase` — y es la puerta para recuperar casi cualquier cosa que "se perdió".
 
 ## Ver el reflog
 

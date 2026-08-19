@@ -13,7 +13,7 @@ Git piensa en tres zonas. Entender esto es entender el 80% de Git:
 
 ```text
 working tree  →  staging (index)  →  historial (commits)
-  (editás)        (git add)          (git commit)
+  (editas)        (git add)          (git commit)
 ```
 
 El **working tree** son los archivos tal cual los ves en el editor. El **staging** (o "index") es una zona intermedia: ahí pones exactamente lo que va a entrar en el próximo commit, ni más ni menos. El **historial** son los commits ya hechos, permanentes (hasta que alguien reescriba el historial a propósito).
@@ -43,7 +43,7 @@ git add .                 # todo lo que cambió desde el directorio actual
 git add -p                # elegir interactivamente qué partes de cada archivo (por "hunk")
 ```
 
-`git add -p` es el más útil cuando cambiaste varias cosas no relacionadas en el mismo archivo y quieres separarlas en commits distintos — te muestra cada bloque de cambios y preguntá sí/no uno por uno.
+`git add -p` es muy útil cuando cambiaste varias cosas no relacionadas en el mismo archivo y quieres separarlas en commits distintos — muestra cada bloque de cambios y pregunta sí o no uno por uno.
 
 ## Commitear
 

@@ -86,5 +86,5 @@ export function Header() {
 ## Consideraciones
 
 - Todo componente que lee el contexto se re-renderiza cuando `value` cambia — si el Provider agrupa cosas que cambian con frecuencias muy distintas (ej. tema + datos de usuario que se actualizan cada segundo), separalos en dos contextos.
-- `value={{ usuario, login, logout }}` crea un objeto nuevo en cada render del Provider — si eso causa re-renders innecesarios en consumidores costosos, envolvé el objeto en `useMemo`.
+- `value={{ usuario, login, logout }}` crea un objeto nuevo en cada render del proveedor. Si eso causa renders innecesarios en consumidores costosos, envuelve el objeto en `useMemo`.
 - Context no es un reemplazo de Zustand/Redux para estado que cambia mucho y en muchos lugares — para eso, ver [Zustand](/libraries/zustand): evita el re-render de todo el árbol que Context fuerza.

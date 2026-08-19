@@ -2,6 +2,7 @@
 title: Autenticación, sesiones y control de acceso
 description: Proteger identidad y recursos evitando sesiones robadas, enumeración, escalada de privilegios e IDOR.
 category: security
+stack: security-aplicacion
 order: 3
 tags: [security, authentication, authorization, sessions]
 scope: identidad y permisos

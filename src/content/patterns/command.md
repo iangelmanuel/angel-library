@@ -82,7 +82,7 @@ async function procesarJob(job: Job) {
 }
 ```
 
-Acá el "comando" ni siquiera tiene un método `execute()` — es un objeto de datos serializable que un worker sabe interpretar. Es la misma idea: la acción y sus datos viajan juntos, separados de la ejecución.
+Aquí el “comando” ni siquiera tiene un método `execute()`: es un objeto de datos serializable que un worker sabe interpretar. La idea es la misma: la acción y sus datos viajan juntos, separados de la ejecución.
 
 ## Cuándo NO usarlo
 

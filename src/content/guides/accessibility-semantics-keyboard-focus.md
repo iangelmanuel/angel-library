@@ -2,10 +2,12 @@
 title: Semántica, teclado y gestión del foco
 description: Construir interacciones operables con HTML nativo, orden lógico, foco visible y comportamiento predecible.
 category: accessibility
+stack: a11y-interaccion
 order: 1
 tags: [accessibility, html, keyboard, focus]
 scope: fundamentos de interacción accesible
 related:
+  - guides/accessibility-aria-attributes
   - practices/accessibility-checklist
   - guides/accessibility-dialogs-live-regions
 updatedAt: 2026-08-18
@@ -36,7 +38,7 @@ Muévelo solo cuando cambia el contexto: abrir un diálogo, navegar en una SPA, 
 
 ## Nombres accesibles
 
-Los icon buttons necesitan nombre (`aria-label` o texto visualmente oculto). El nombre debe describir la acción —“Cerrar diálogo”— y no la apariencia —“Icono X”—. Prueba el árbol de accesibilidad del navegador: si nombre, rol o estado son confusos, el componente también lo será para tecnologías asistivas.
+Los botones que solo muestran un icono necesitan un nombre (`aria-label` o texto visualmente oculto). El nombre debe describir la acción —“Cerrar diálogo”— y no la apariencia —“Icono X”—. La guía de [atributos ARIA](/guides/accessibility-aria-attributes) explica cómo elegir entre `aria-label`, `aria-labelledby`, `aria-describedby` y los estados más frecuentes. Prueba el árbol de accesibilidad del navegador: si nombre, rol o estado son confusos, el componente también lo será para tecnologías asistivas.
 
 ## Patrones frecuentes
 

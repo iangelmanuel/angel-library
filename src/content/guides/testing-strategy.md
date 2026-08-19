@@ -2,9 +2,10 @@
 title: Estrategia de testing — qué probar en cada nivel
 description: Diseñar una pirámide útil de tests unitarios, integración, contratos y E2E sin duplicar las mismas comprobaciones.
 category: testing
+stack: testing-fundamentos
 tags: [testing, architecture, quality, e2e]
 scope: estrategia de pruebas
-order: 1
+order: 2
 related:
   - guides/nextjs-testing
   - guides/astro-testing
@@ -40,7 +41,7 @@ La unidad correcta no siempre es una función. Elige el nivel más bajo que repr
 
 ## Mocks
 
-Mockeá límites lentos o no deterministas —email, pagos, APIs externas—, pero mantén tests de integración para el adapter real. Si todo está mockeado, la suite solo demuestra que los mocks coinciden entre sí.
+Sustituye límites lentos o no deterministas —correo, pagos o APIs externas—, pero mantén pruebas de integración para el adaptador real. Si todo está simulado, la suite solo demuestra que los dobles coinciden entre sí.
 
 ## CI mínima
 

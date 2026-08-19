@@ -2,6 +2,7 @@
 title: Estrategia de carga de CSS, fuentes y scripts
 description: Priorizar recursos críticos, reducir bloqueo y evitar que terceros compitan con el contenido principal.
 category: performance
+stack: performance-carga
 order: 3
 tags: [performance, css, fonts, javascript, loading]
 scope: carga de recursos
@@ -20,19 +21,19 @@ El navegador tiene ancho de banda y conexiones limitadas. Prioriza documento, CS
 
 - Elimina reglas realmente no usadas y divide CSS por ruta cuando el bundle crece.
 - Evita `@import` en hojas porque crea cadenas de descubrimiento.
-- Inlineá solo CSS crítico pequeño; demasiado CSS inline impide reutilizar caché.
-- Animá `transform` y `opacity` cuando sea posible, sin convertir todo en una capa.
+- Inserta en línea solo CSS crítico pequeño; demasiado CSS inline impide reutilizar caché.
+- Anima `transform` y `opacity` cuando sea posible, sin convertir todo en una capa.
 
 ## Fuentes
 
-- Serví WOFF2 y subconjuntos necesarios.
+- Sirve WOFF2 y los subconjuntos necesarios.
 - Usa `font-display` según el costo aceptable de swap.
-- Precargá únicamente la fuente crítica exacta; cada preload incorrecto compite con LCP.
-- Reducí familias, pesos y variantes antes de microoptimizar.
+- Precarga únicamente la fuente crítica exacta; cada preload incorrecto compite con LCP.
+- Reduce familias, pesos y variantes antes de microoptimizar.
 
 ## JavaScript
 
-`defer` ejecuta scripts clásicos después del parseo y conserva orden. Los módulos ya se difieren. `async` sirve para scripts independientes donde el orden no importa. Divide por ruta o interacción y auditá terceros: un script pequeño puede disparar muchas requests y tareas largas.
+`defer` ejecuta scripts clásicos después del parseo y conserva el orden. Los módulos ya se difieren. `async` sirve para scripts independientes donde el orden no importa. Divide por ruta o interacción y audita terceros: un script pequeño puede disparar muchas solicitudes y tareas largas.
 
 ## Hints de red
 

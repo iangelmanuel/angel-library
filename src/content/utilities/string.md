@@ -2,6 +2,7 @@
 title: String Utils — Referencia rápida
 description: Utilidades tipadas para slugs, truncado, capitalización y escape de HTML sin librerías.
 category: general
+stack: utils
 runtime: universal
 language: typescript
 related: []

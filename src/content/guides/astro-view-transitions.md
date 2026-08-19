@@ -50,7 +50,7 @@ Por defecto Astro usa un fade cruzado (`morph`). Se puede pedir una de las anima
 <header transition:animate="slide">
 ```
 
-Las animaciones incluidas aceptan opciones si las importás:
+Las animaciones incluidas aceptan opciones si las importas:
 
 ```astro
 ---

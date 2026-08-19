@@ -2,6 +2,7 @@
 title: Headers de seguridad y Content Security Policy
 description: Configurar CSP, HSTS, framing, MIME y referrer policy como defensa en profundidad sin romper la aplicación.
 category: security
+stack: security-aplicacion
 order: 4
 tags: [security, headers, csp, xss]
 scope: navegador y HTTP
@@ -22,7 +23,7 @@ Referrer-Policy: strict-origin-when-cross-origin
 Permissions-Policy: camera=(), microphone=(), geolocation=()
 ```
 
-Adaptá fuentes de imágenes, APIs, fonts y scripts al proyecto. No copies una CSP con `'unsafe-inline'` y docenas de dominios sin entenderla: puede dar sensación de seguridad sin bloquear el vector real.
+Adapta las fuentes de imágenes, APIs, tipografías y scripts al proyecto. No copies una CSP con `'unsafe-inline'` y docenas de dominios sin entenderla: puede dar sensación de seguridad sin bloquear el vector real.
 
 ## Desplegar CSP
 

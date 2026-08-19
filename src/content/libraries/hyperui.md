@@ -2,7 +2,7 @@
 title: HyperUI
 description: Componentes HTML gratuitos con clases de Tailwind CSS, sin instalación ni JS — se copian y pegan directamente.
 category: ui-ux
-stack: html
+stack: ui-css
 order: 5
 tags: [html, tailwindcss, components]
 website: https://www.hyperui.dev

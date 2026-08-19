@@ -44,7 +44,7 @@ El `await` debe vivir dentro del componente suspendido. Si la página hace `awai
 
 ## Evitar waterfalls
 
-Si dos operaciones son independientes, iniciá ambas antes de esperarlas o separalas en componentes hermanos suspendidos.
+Si dos operaciones son independientes, inicia ambas antes de esperarlas o sepáralas en componentes hermanos suspendidos.
 
 ```ts
 const usuarioPromise = getUsuario();

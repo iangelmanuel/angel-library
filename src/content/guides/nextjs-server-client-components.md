@@ -60,7 +60,7 @@ Un Client Component no puede importar directamente un Server Component, pero pue
 
 - Agregar `'use client'` para resolver cualquier error de tipos y terminar enviando consultas y dependencias pesadas al navegador.
 - Importar un módulo con secretos desde el grafo cliente. Usa `server-only` en módulos que nunca deben cruzar esa frontera.
-- Duplicar la misma consulta en varios componentes. React deduplica `fetch` compatible durante un render; para consultas de ORM, envolvé el acceso compartido con `cache()` de React cuando corresponda.
+- Duplicar la misma consulta en varios componentes. React elimina solicitudes `fetch` compatibles duplicadas durante un render; para consultas de ORM, envuelve el acceso compartido con `cache()` de React cuando corresponda.
 - Pensar que Client Component significa “solo navegador”: también se prerenderiza para producir el HTML inicial y luego se hidrata.
 
 Referencia oficial: [Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components).

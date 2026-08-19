@@ -2,6 +2,7 @@
 title: Form Utils — Referencia rápida
 description: Utilidades tipadas para leer, poblar y escuchar formularios HTML con FormData, sin librerías.
 category: general
+stack: utils
 runtime: browser
 language: typescript
 related:

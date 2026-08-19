@@ -98,7 +98,7 @@ crearComentario: defineAction({
   input: z.object({ texto: z.string().min(1), postId: z.string() }),
   handler: async (input, context) => {
     if (!context.locals.user) {
-      throw new ActionError({ code: 'UNAUTHORIZED', message: 'Iniciá sesión' });
+      throw new ActionError({ code: 'UNAUTHORIZED', message: 'Inicia sesión' });
     }
     return { id: crypto.randomUUID() };
   },

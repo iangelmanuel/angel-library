@@ -2,6 +2,7 @@
 title: E2E confiable en CI
 description: Diseñar pruebas end-to-end deterministas, con selectores estables, aislamiento de datos, trazas y manejo real de flakiness.
 category: testing
+stack: testing-e2e
 order: 3
 tags: [testing, e2e, ci, playwright]
 scope: pruebas de flujos completos
@@ -13,11 +14,11 @@ updatedAt: 2026-08-18
 
 ## Qué cubrir
 
-Reservá E2E para flujos donde la integración completa importa: autenticación, compra, permisos, creación crítica y regresiones de navegación. Combinaciones de reglas pertenecen a tests más bajos y rápidos.
+Reserva las pruebas E2E para flujos donde la integración completa importa: autenticación, compra, permisos, creación crítica y regresiones de navegación. Las combinaciones de reglas pertenecen a pruebas más pequeñas y rápidas.
 
 ## Estabilidad
 
-- Esperá estados observables, nunca sleeps fijos.
+- Espera estados observables, nunca pausas de duración fija.
 - Selecciona por rol/nombre accesible; `data-testid` para elementos sin semántica estable.
 - Cada test crea sus datos y no depende del orden.
 - Controla reloj, zona horaria, random y proveedores externos.

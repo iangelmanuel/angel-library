@@ -28,7 +28,7 @@ Antes de mandar emails en producción, el dominio de envío necesita verificarse
 await resend.emails.send({
   from: 'App <noreply@midominio.com>',
   to: usuario.email,
-  subject: 'Confirmá tu cuenta',
+  subject: 'Confirma tu cuenta',
   html: `<p>Haz click <a href="${urlConfirmacion}">aquí</a> para confirmar tu cuenta.</p>',
 });
 ```
@@ -48,7 +48,7 @@ export function BienvenidaEmail({ nombre, urlConfirmacion }: { nombre: string; u
   return (
     <Html>
       <Body>
-        <Text>Hola {nombre}, confirmá tu cuenta:</Text>
+        <Text>Hola {nombre}, confirma tu cuenta:</Text>
         <Link href={urlConfirmacion}>Confirmar cuenta</Link>
       </Body>
     </Html>

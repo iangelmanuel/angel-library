@@ -28,7 +28,7 @@ argument-hint: [número-de-pr]
 allowed-tools: Bash(gh pr diff:*), Read
 ---
 
-Revisa el PR $ARGUMENTS con `gh pr diff $ARGUMENTS` y señalá:
+Revisa el PR $ARGUMENTS con `gh pr diff $ARGUMENTS` y señala:
 1. Bugs potenciales
 2. Problemas de legibilidad
 3. Riesgos de seguridad

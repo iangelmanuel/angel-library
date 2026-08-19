@@ -65,5 +65,5 @@ git cherry-pick -n <hash>    # aplica los cambios al working tree/staging, sin c
 
 ## Consideraciones
 
-- El commit resultante tiene un **hash distinto** al original — es un commit nuevo, aunque el contenido sea el mismo. Git no los relaciona automáticamente; si más adelante mergeás las dos ramas completas, puede aparecer como un cambio "duplicado" que hay que revisar con cuidado.
+- El commit resultante tiene un **hash distinto** al original — es un commit nuevo, aunque el contenido sea el mismo. Git no los relaciona automáticamente; si más adelante fusionas las dos ramas completas, puede aparecer como un cambio "duplicado" que hay que revisar con cuidado.
 - Para un solo fix puntual que necesita estar en dos ramas, cherry-pick es más simple que un merge parcial. Para traer varios commits relacionados, evaluar si conviene directamente mergear o rebasear la rama entera en su lugar.

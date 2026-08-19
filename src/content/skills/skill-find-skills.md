@@ -9,7 +9,7 @@ tool: Cross-tool
 updatedAt: 2026-08-17
 ---
 
-Un skill que busca **otros** skills — le describís qué necesitas y sugiere cuáles instalar del catálogo de skills.sh, en vez de tener que navegar la web a mano cada vez.
+Un skill que busca **otros** skills — le describes qué necesitas y sugiere cuáles instalar del catálogo de skills.sh, en vez de navegar la web manualmente cada vez.
 
 ## Instalar
 

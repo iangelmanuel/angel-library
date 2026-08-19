@@ -12,7 +12,7 @@ updatedAt: 2026-08-17
 
 ## Qué es un registry
 
-Un **registry** es donde viven las imágenes publicadas — un servidor de almacenamiento para imágenes, indexadas por nombre y tag. **Docker Hub** (`hub.docker.com`) es el registry público por defecto: cuando corrés `docker run postgres`, la imagen `postgres` se descarga de ahí.
+Un **registry** es donde viven las imágenes publicadas — un servidor de almacenamiento para imágenes indexadas por nombre y etiqueta. **Docker Hub** (`hub.docker.com`) es el registry público predeterminado: cuando ejecutas `docker run postgres`, la imagen `postgres` se descarga desde allí.
 
 ## Pull: descargar una imagen
 

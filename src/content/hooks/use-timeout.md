@@ -46,4 +46,4 @@ return <button onClick={cancel}>Mantener visible</button>;
 
 `null` significa pausado. El callback vive en un ref para que cambiar una función inline no reinicie el reloj; cambiar `delayMs` sí lo reinicia deliberadamente.
 
-No uses timers para esperar a que exista un elemento o para sincronizar efectos: modelá esa condición como estado. Los timers sirven cuando el tiempo es parte real del comportamiento.
+No uses temporizadores para esperar a que exista un elemento o para sincronizar efectos: modela esa condición como estado. Los temporizadores sirven cuando el tiempo es parte real del comportamiento.

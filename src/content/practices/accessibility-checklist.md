@@ -2,6 +2,8 @@
 title: Checklist de accesibilidad web
 description: Revisión práctica de semántica, teclado, foco, formularios, contraste y movimiento antes de publicar una interfaz.
 category: accessibility
+stack: a11y-testing
+order: 2
 tags: [accessibility, html, forms, ui]
 practice: Probar primero con teclado y HTML semántico; ARIA complementa, no reemplaza.
 why: Una interfaz operable y comprensible beneficia a personas con discapacidades y también mejora robustez, SEO y usabilidad general.

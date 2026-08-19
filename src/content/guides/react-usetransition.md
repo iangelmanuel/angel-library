@@ -67,4 +67,4 @@ startTransition(() => {
 
 - Solo actualizaciones de **estado** van dentro de `startTransition` — no un `fetch`, ni nada con efectos secundarios. Es para decirle a React cómo priorizar un re-render, no para retrasar código arbitrario.
 - Si la actualización "no urgente" tarda mucho y no hay ningún indicador (`isPending`), la UI puede sentirse rota (el usuario no sabe si su acción tuvo efecto) — casi siempre conviene mostrar algo con `isPending`.
-- No reemplaza a `useDeferredValue` en todos los casos: `useTransition` marca una actualización que **tú** disparás (dentro de un handler); `useDeferredValue` posterga un valor que ya cambió (típicamente una prop), sin que haya un handler para envolver.
+- No reemplaza a `useDeferredValue` en todos los casos: `useTransition` marca una actualización que **tú** disparas dentro de un handler; `useDeferredValue` posterga un valor que ya cambió, normalmente una prop, sin que exista un handler para envolver.

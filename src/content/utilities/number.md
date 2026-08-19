@@ -2,6 +2,7 @@
 title: Number Utils — Referencia rápida
 description: Utilidades tipadas para formatear moneda, porcentajes, números compactos y tamaños de archivo con Intl.
 category: general
+stack: utils
 runtime: universal
 language: typescript
 related: []

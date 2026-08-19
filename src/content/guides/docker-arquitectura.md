@@ -57,5 +57,5 @@ Ese comando solo, sin nada más, dispara los 4 pasos de arriba — es el "hola m
 
 ## Consideraciones
 
-- Verificar que el daemon esté corriendo: `docker info` (si el daemon no responde, la CLI tira error de conexión — en Windows/Mac, asegurate de que Docker Desktop esté abierto).
+- Verifica que el daemon esté en ejecución con `docker info`. Si no responde, la CLI devuelve un error de conexión; en Windows y macOS, asegúrate de que Docker Desktop esté abierto.
 - Existen alternativas al daemon monolítico clásico (Docker en modo "rootless", containerd standalone) — para uso diario en desarrollo, el setup por defecto de Docker Desktop es suficiente y es el que cubren estas guías.

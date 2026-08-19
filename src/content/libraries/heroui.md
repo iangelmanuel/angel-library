@@ -2,7 +2,7 @@
 title: HeroUI (antes NextUI)
 description: Componentes React sobre Tailwind CSS y React Aria, con animaciones de Framer Motion y foco en accesibilidad.
 category: ui-ux
-stack: react
+stack: ui-react
 order: 2
 tags: [react, tailwindcss, components, accessibility]
 website: https://www.heroui.com

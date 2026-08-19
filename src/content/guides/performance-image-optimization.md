@@ -2,6 +2,7 @@
 title: Optimización de imágenes para la web
 description: Elegir dimensiones, formato, compresión, imágenes responsive, prioridad y herramientas sin degradar la experiencia.
 category: performance
+stack: performance-carga
 order: 2
 tags: [performance, images, webp, avif, responsive]
 scope: imágenes web
@@ -48,7 +49,7 @@ updatedAt: 2026-08-18
 
 ## Herramientas
 
-Squoosh permite comparar codecs y calidad localmente. Para producción repetible, automatizá con el componente de imágenes del framework, Sharp o un image CDN. `img.xyz` se conserva como referencia solicitada, pero a agosto de 2026 el dominio aparece estacionado y sin HTTPS operativo: no subas archivos ni datos sensibles hasta verificar propietario, conexión y política de privacidad.
+Squoosh permite comparar codecs y calidad localmente. Para producción repetible, automatiza con el componente de imágenes del framework, Sharp o un image CDN. `img.xyz` se conserva como referencia solicitada, pero a agosto de 2026 el dominio aparece estacionado y sin HTTPS operativo: no subas archivos ni datos sensibles hasta verificar propietario, conexión y política de privacidad.
 
 ## Checklist
 

@@ -51,7 +51,7 @@ export default function NuevoPost() {
 
 ## Un solo roundtrip para datos y UI
 
-Cuando la action llama `revalidatePath`, `revalidateTag`/`updateTag`, muta cookies, o hace `redirect()`, Next.js re-renderiza la ruta actual en el servidor **dentro de la misma respuesta HTTP** — no hace falta un segundo fetch para ver la UI actualizada después del submit. Esto es distinto (y más eficiente) que un endpoint REST tradicional donde tú disparás el refetch a mano.
+Cuando la acción llama a `revalidatePath`, `revalidateTag` o `updateTag`, cambia cookies o ejecuta `redirect()`, Next.js vuelve a renderizar la ruta actual en el servidor **dentro de la misma respuesta HTTP** — no hace falta un segundo `fetch` para ver la UI actualizada después del envío. Esto es distinto a un endpoint REST tradicional donde tú inicias la nueva consulta manualmente.
 
 ## Las actions se despachan de a una
 

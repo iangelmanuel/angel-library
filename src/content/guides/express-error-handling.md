@@ -57,7 +57,7 @@ app.get('/usuarios/:id', async (req, res, next) => {
 });
 ```
 
-Llamar a `next(err)` con **cualquier** argumento (en vez de sin argumentos) es la señal para Express de "esto es un error, saltate el resto de los middlewares normales y andá directo al de error".
+Llamar a `next(err)` con **cualquier** argumento (en vez de hacerlo sin argumentos) es la señal para Express de "esto es un error, omite el resto de los middlewares normales y ve directamente al de error".
 
 ## Una clase de error propia, con status
 

@@ -53,7 +53,7 @@ function requireRole(...rolesPermitidos: string[]) {
 
 ## Nivel 3: RBAC con permisos granulares
 
-Cuando "admin puede hacer todo, user puede hacer poco" ya no alcanza — por ejemplo, un rol "moderador" que puede editar posts pero no borrar usuarios. Acá se separan **roles** (un nombre) de **permisos** (acciones concretas), y un rol es simplemente un conjunto de permisos.
+Cuando “el administrador puede hacer todo y el usuario puede hacer poco” ya no es suficiente —por ejemplo, un rol de moderación que puede editar publicaciones, pero no eliminar usuarios—, se separan **roles** —un nombre— y **permisos** —acciones concretas—. Un rol es un conjunto de permisos.
 
 ```ts title="lib/permisos.ts"
 const PERMISOS_POR_ROL: Record<string, string[]> = {

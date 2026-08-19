@@ -20,7 +20,7 @@ git config --global user.name "Tu Nombre"
 git config --global user.email "tu@email.com"
 ```
 
-Si un repo puntual necesita otro email (por ejemplo, uno de trabajo separado del personal), corré el mismo comando sin `--global` dentro de ese repo — pisa el valor global solo ahí.
+Si un repositorio concreto necesita otro correo —por ejemplo, uno de trabajo separado del personal—, ejecuta el mismo comando sin `--global` dentro de ese repositorio. El valor local reemplaza al global solo allí.
 
 ## Rama por defecto
 
@@ -32,7 +32,7 @@ git config --global init.defaultBranch main
 
 ## Editor por defecto
 
-El editor que abre Git para mensajes de commit largos, rebases interactivos, etc. Sin configurar, suele caer en Vim — si no lo conocés, quedás atrapado sin saber cómo salir (`Esc` y después `:wq`).
+Este es el editor que Git abre para mensajes de commit largos, rebases interactivos y otras operaciones. Sin configuración, suele abrir Vim; si no se conoce su interfaz, puede ser difícil salir (`Esc` y después `:wq`).
 
 ```bash
 git config --global core.editor "code --wait"    # VS Code

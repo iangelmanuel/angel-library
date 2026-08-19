@@ -14,7 +14,7 @@ Custom properties (`--variable`) nativas de CSS. Reemplazan lo que antes hacía 
 
 ## Declarar tokens
 
-Declará los tokens en `:root` para que estén disponibles en toda la página. Agrupalos por lo que representan (color, espaciado, radios), no por dónde se usan.
+Declara los tokens en `:root` para que estén disponibles en toda la página. Agrúpalos por lo que representan (color, espaciado, radios), no por dónde se usan.
 
 ```css title="styles/tokens.css"
 :root {

@@ -37,6 +37,9 @@ const resourceGroups = meta.id === 'resources'
       }))
       .filter((group) => group.entries.length > 0)
   : [];
+const resourceIntroGroups = meta.id === 'resources'
+  ? groupByType(entries.filter((entry) => entry.collection !== 'resources'))
+  : [];
 const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
 const stackGroups = usesStackGroups
   ? getStacksForCategory(meta.id).map((stack) => ({
@@ -68,17 +71,30 @@ const ungroupedStack = usesStackGroups ? entries.filter((entry) => !entry.data.s
     {
       entries.length > 0 ? (
         meta.id === 'resources' ? (
-          resourceGroups.map((group) => (
-            <section class="mb-10">
-              <h2 class="section-label mb-4 flex items-center gap-2">
-                <Icon name="bookmark" class="size-3.5" />
-                {group.label}
-              </h2>
-              <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {group.entries.map((entry) => <ContentCard entry={entry} />)}
-              </div>
-            </section>
-          ))
+          <>
+            {resourceIntroGroups.map((group) => (
+              <section class="mb-10">
+                <h2 class="section-label mb-4 flex items-center gap-2">
+                  <Icon name={group.meta.icon} class="size-3.5" />
+                  {group.meta.label}
+                </h2>
+                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {group.entries.map((entry) => <ContentCard entry={entry} />)}
+                </div>
+              </section>
+            ))}
+            {resourceGroups.map((group) => (
+              <section class="mb-10">
+                <h2 class="section-label mb-4 flex items-center gap-2">
+                  <Icon name="bookmark" class="size-3.5" />
+                  {group.label}
+                </h2>
+                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {group.entries.map((entry) => <ContentCard entry={entry} />)}
+                </div>
+              </section>
+            ))}
+          </>
         ) : usesStackGroups ? (
           <>
             {stackGroups.map((group) => (

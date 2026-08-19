@@ -45,7 +45,7 @@ export const env = z.object({
 }).parse(process.env);
 ```
 
-Importá este módulo desde el código de servidor para fallar temprano con un mensaje claro. No uses una validación que lea `process.env` completo desde un Client Component.
+Importa este módulo desde el código de servidor para fallar temprano con un mensaje claro. No uses una validación que lea `process.env` completo desde un Client Component.
 
 ## Seguridad
 

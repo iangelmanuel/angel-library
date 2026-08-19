@@ -73,7 +73,7 @@ El `.refine()` sobre el objeto completo (comparar `password` con `confirmPasswor
 
 ## Tipos end-to-end, sin interface duplicado
 
-`z.infer<typeof signupSchema>` es el único lugar donde se define la forma de los datos. `useForm<SignupValues>` la usa para tipar `register`, `errors` y el argumento de `onSubmit` — si el schema cambia (agregas un campo, saquís otro), el componente deja de compilar hasta que lo actualizás. Escribir un `interface SignupValues` a mano al lado del schema es exactamente el error que este combo evita: los dos se desincronizan con el tiempo y termina habiendo un campo que el formulario valida pero el tipo no conoce (o viceversa).
+`z.infer<typeof signupSchema>` es el único lugar donde se define la forma de los datos. `useForm<SignupValues>` la usa para tipar `register`, `errors` y el argumento de `onSubmit` — si el schema cambia (agregas o quitas un campo), el componente deja de compilar hasta que lo actualizas. Escribir un `interface SignupValues` a mano al lado del schema es exactamente el error que esta combinación evita: los dos se desincronizan con el tiempo y termina habiendo un campo que el formulario valida pero el tipo no conoce (o viceversa).
 
 ## Arrays dinámicos con `useFieldArray`
 

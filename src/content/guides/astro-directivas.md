@@ -66,6 +66,6 @@ const mensaje = 'Hola';
 
 ## Consideraciones
 
-- `set:html` es la puerta de entrada más común a XSS en un proyecto Astro — solo úsala con contenido que tú generás o que ya sanitizaste (Markdown ya renderizado, JSON-LD armado por tú).
+- `set:html` es una puerta de entrada común a XSS en un proyecto Astro — úsala solo con contenido que tú generes o que ya hayas sanitizado (Markdown renderizado o JSON-LD creado por la aplicación).
 - `set:html`/`set:text` reemplazan **todo** el contenido del elemento: no funcionan junto con hijos declarados entre las etiquetas.
 - `define:vars` serializa con `JSON.stringify` por debajo — no le pases funciones ni referencias circulares.

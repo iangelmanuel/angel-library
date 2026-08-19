@@ -27,7 +27,7 @@ export default function Perfil() {
 
 ## `fill` — Llenar el contenedor padre
 
-Cuando no conocés las dimensiones exactas de antemano (una imagen que debe ocupar 100% directamente card de tamaño variable), `fill` hace que la imagen ocupe todo el elemento padre — que necesita `position: relative` (o similar) para que funcione.
+Cuando no se conocen las dimensiones exactas de antemano —por ejemplo, una imagen que debe ocupar el 100 % de una tarjeta de tamaño variable—, `fill` hace que la imagen ocupe todo el elemento padre, que necesita `position: relative` o una posición equivalente.
 
 ```tsx
 <div style={{ position: 'relative', width: '100%', height: '300px' }}>

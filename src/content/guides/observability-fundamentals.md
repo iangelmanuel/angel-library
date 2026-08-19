@@ -19,7 +19,7 @@ updatedAt: 2026-08-18
 - **Métricas:** series agregadas para tendencias, dashboards y alertas.
 - **Trazas:** recorrido directamente operación entre servicios y dependencias.
 
-Compartí `requestId`/`traceId`, versión, ambiente y ruta normalizada. No uses URLs con ids como label de métrica: la alta cardinalidad eleva costo y degrada consultas.
+Comparte `requestId` o `traceId`, versión, ambiente y ruta normalizada. No uses URLs con identificadores como etiqueta de métrica: la alta cardinalidad eleva el costo y degrada consultas.
 
 ## Golden signals
 
@@ -44,4 +44,3 @@ No registres contraseñas, tokens, cookies, bodies completos ni PII innecesaria.
 ## Alertas
 
 Alerta por impacto accionable, no porque “la CPU pasó 70% una vez”. Cada alerta debe tener severidad, dueño, dashboard y runbook. Correlaciona con deploys y mantén una señal externa que confirme si el sitio es alcanzable.
-

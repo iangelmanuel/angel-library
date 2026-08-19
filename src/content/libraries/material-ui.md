@@ -2,7 +2,7 @@
 title: Material UI (MUI)
 description: Implementación en React de Material Design, con amplio ecosistema (Joy UI, Base UI, X) y theming.
 category: ui-ux
-stack: react
+stack: ui-react
 order: 6
 tags: [react, components, material-design]
 website: https://mui.com

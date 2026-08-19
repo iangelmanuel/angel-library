@@ -24,7 +24,7 @@ description: Revisa el diff actual
 agent: build
 ---
 template: |
-  Revisa los cambios actuales con `git diff` y señalá:
+  Revisa los cambios actuales con `git diff` y señala:
   1. Bugs potenciales
   2. Problemas de legibilidad
 

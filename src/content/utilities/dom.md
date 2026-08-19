@@ -2,6 +2,7 @@
 title: DOM Utils — Referencia rápida
 description: Utilidades mínimas y declarativas para seleccionar y manipular el DOM desde scripts de navegador.
 category: general
+stack: utils
 runtime: browser
 language: typescript
 related:

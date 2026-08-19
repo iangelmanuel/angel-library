@@ -77,7 +77,7 @@ app/
 
 ## Lo que un layout NO puede hacer
 
-Como no se re-renderiza en cada navegación, un layout no tiene acceso confiable a `searchParams` ni al pathname actual (quedarían obsoletos apenas el usuario navegara). Para eso, extraé esa parte a un Client Component con [`usePathname`](/guides/nextjs-usepathname)/[`useSearchParams`](/guides/nextjs-usesearchparams) e importalo en el layout.
+Como no se vuelve a renderizar en cada navegación, un layout no tiene acceso confiable a `searchParams` ni a la ruta actual, pues quedarían obsoletos al navegar. Para ello, extrae esa parte a un Client Component con [`usePathname`](/guides/nextjs-usepathname) o [`useSearchParams`](/guides/nextjs-usesearchparams) e impórtalo en el layout.
 
 ```tsx title="app/dashboard/layout.tsx"
 import { Breadcrumbs } from '@/app/ui/breadcrumbs'; // Client Component con usePathname

@@ -1,8 +1,8 @@
 ---
 title: "SEO completo en Astro — meta tags, JSON-LD, sitemap y manifest"
 description: "Paso a paso real: SITE.seo como única fuente de verdad, componente JsonLd, helpers de schema.org, BaseHead reordenado y manifest/robots/sitemap desde cero."
-category: frontend
-stack: seo
+category: seo
+stack: astro
 order: 1
 tags: [astro, seo, json-ld, structured-data, meta-tags, opengraph]
 problem: "Tener el SEO técnico completo de un sitio Astro centralizado en un solo lugar (SITE.seo), sin datos sueltos hardcodeados por el código."
@@ -16,7 +16,7 @@ Todo lo que cambia de proyecto a proyecto (título, descripción, keywords, imag
 
 Los datos de esta receta son directamente empresa simulada — **Acme**, una firma boutique de software en Bogotá — para reemplazar por los reales al copiar. La forma y profundidad de los campos sí está pensada para ser real, no un placeholder vacío.
 
-Requisitos: proyecto Astro con TypeScript, alias `@/*` configurado (ver [Alias de imports en TypeScript](/guides/typescript-path-aliases)), y un `SITE` global ya existente en el proyecto con al menos `info`, `location`, `contact` y `social` — ver [SITE: variable global de configuración](/patterns/site-config-global) para esa parte. Acá se documenta a fondo solo el bloque `seo`.
+Requisitos: proyecto Astro con TypeScript, alias `@/*` configurado —consulta [Alias de imports en TypeScript](/guides/typescript-path-aliases)— y un `SITE` global existente con al menos `info`, `location`, `contact` y `social`. Consulta [SITE: variable global de configuración](/patterns/site-config-global) para esa parte. Aquí se documenta a fondo solo el bloque `seo`.
 
 ## Paso 1 — `SITE.seo`: la fuente de verdad
 
@@ -444,7 +444,7 @@ export const GET: APIRoute = () => {
 };
 ```
 
-Un archivo `.ts` dentro de `src/pages/` con un `export const GET` es una API route de Astro — ver [Endpoints (API routes)](/guides/astro-endpoints) para el mecanismo general. Acá sirve para generar el manifest dinámicamente en vez de un JSON estático en `public/`, así también lee de `SITE`.
+Un archivo `.ts` dentro de `src/pages/` con un `export const GET` es una ruta de API de Astro. Consulta [Endpoints (rutas de API)](/guides/astro-endpoints) para el mecanismo general. Aquí sirve para generar el manifiesto dinámicamente en vez de un JSON estático en `public/`, por lo que también puede leer `SITE`.
 
 ## Paso 7 — `robots.txt`
 

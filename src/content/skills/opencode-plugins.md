@@ -1,6 +1,6 @@
 ---
 title: Plugins — código, no manifest
-description: Módulos JS/TS con hooks imperativos — sin marketplace, se distribuyen por npm o copiando archivos. Acá también viven los "hooks".
+description: Módulos JavaScript o TypeScript con hooks imperativos; sin marketplace, se distribuyen por npm o copiando archivos. Aquí también viven los hooks.
 category: skills
 stack: opencode
 order: 5

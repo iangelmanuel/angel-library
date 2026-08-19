@@ -22,7 +22,7 @@ app.post(
   '/usuarios',
   body('email').isEmail().withMessage('Email no válido'),
   body('password').isLength({ min: 8 }).withMessage('Mínimo 8 caracteres'),
-  body('edad').isInt({ min: 18 }).withMessage('Debés ser mayor de edad'),
+  body('edad').isInt({ min: 18 }).withMessage('Debes ser mayor de edad'),
   (req, res) => {
     const errores = validationResult(req);
     if (!errores.isEmpty()) {

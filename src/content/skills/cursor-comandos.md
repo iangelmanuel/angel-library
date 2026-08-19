@@ -20,7 +20,7 @@ También hay una "librería global" de comandos a nivel usuario, configurable de
 ## Plantilla base
 
 ```md title=".cursor/commands/review.md"
-Revisa los cambios actuales con `git diff` y señalá:
+Revisa los cambios actuales con `git diff` y señala:
 1. Bugs potenciales
 2. Problemas de legibilidad
 3. Riesgos de seguridad

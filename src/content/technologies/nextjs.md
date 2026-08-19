@@ -45,4 +45,4 @@ El modelo de render y caché tiene más conceptos que una SPA tradicional. Una d
 
 ## Regla práctica
 
-Mantén los límites cliente pequeños y los accesos a datos cerca del servidor. No dupliques una API interna solo para que un Server Component haga `fetch` contra su propio backend: llamá directamente a la capa de datos.
+Mantén los límites de cliente pequeños y los accesos a datos cerca del servidor. No dupliques una API interna solo para que un Server Component haga `fetch` contra su propio backend: llama directamente a la capa de datos.

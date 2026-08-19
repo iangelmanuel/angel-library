@@ -30,7 +30,7 @@ updatedAt: 2026-08-16
 
 - **`dependencies`**: lo que el código necesita para *correr* en producción (Express, un ORM, una librería de utilidades).
 - **`devDependencies`**: lo que solo hace falta durante *desarrollo* (test runner, linter, tipos de TypeScript) — `npm install --production` (o el equivalente en CI) no las instala.
-- **`peerDependencies`**: para paquetes que **publicás** tú — declara qué versión de otra librería espera tu paquete que el proyecto que lo instala ya tenga (típico en librerías de componentes React, que esperan que el consumidor ya tenga React instalado, no lo traen como dependencia propia).
+- **`peerDependencies`**: para paquetes que tú **publicas** — declara qué versión de otra librería espera tu paquete que el proyecto consumidor ya tenga (típico en librerías de componentes React, que esperan que React ya esté instalado y no lo incluyen como dependencia propia).
 
 ## Versionado semver y los prefijos
 
@@ -87,7 +87,7 @@ npm corre automáticamente cualquier script `pre<nombre>` antes del script `<nom
 }
 ```
 
-- **`main`**: el archivo de entrada cuando alguien hace `import algo from 'tu-paquete'` (relevante solo si publicás el paquete a npm).
+- **`main`**: el archivo de entrada cuando alguien hace `import algo from 'tu-paquete'` (relevante solo si publicas el paquete en npm).
 - **`exports`**: versión más moderna y más estricta que `main` — declara explícitamente qué subrutas del paquete son públicas (`tu-paquete/utils`); cualquier archivo interno no listado ahí queda inaccesible desde afuera, a diferencia de lo que pasaba antes con `main` solo.
 - **`type`**: `"module"` hace que Node trate los `.js` del proyecto como ES Modules por defecto (`import`/`export`) en vez de CommonJS — ver [CommonJS vs ES Modules](/guides/node-commonjs-vs-esm).
 

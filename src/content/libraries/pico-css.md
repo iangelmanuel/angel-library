@@ -2,7 +2,7 @@
 title: Pico CSS
 description: Framework CSS "classless" que estiliza HTML semántico directamente, sin agregar clases a cada elemento.
 category: ui-ux
-stack: html
+stack: ui-css
 order: 8
 tags: [html, css, minimal]
 website: https://picocss.com

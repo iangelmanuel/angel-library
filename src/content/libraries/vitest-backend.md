@@ -1,9 +1,9 @@
 ---
 title: Vitest (backend)
 description: Configurar Vitest para tests de Node/Express — setup de base de datos de test, mocks, y qué se testea sin Supertest.
-category: backend
-stack: express
-order: 22
+category: testing
+stack: testing-unitario
+order: 2
 tags: [express, testing, vitest]
 website: https://vitest.dev
 install: npm install --save-dev vitest

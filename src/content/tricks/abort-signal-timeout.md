@@ -35,4 +35,4 @@ try {
 controller.abort();
 ```
 
-`AbortSignal.any()` pierde la distinción automática entre las causas si solo mirás `AbortError`; guarda el contexto o inspeccioná `signal.reason` cuando el mensaje al usuario deba diferenciar timeout de cancelación manual.
+`AbortSignal.any()` pierde la distinción automática entre las causas si solo se revisa `AbortError`; guarda el contexto o inspecciona `signal.reason` cuando el mensaje al usuario deba diferenciar el tiempo de espera de la cancelación manual.

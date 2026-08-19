@@ -126,7 +126,9 @@ export function buildNavData(all: AnyEntry[]): NavData {
 
     // Lo que ya quedó agrupado (por recurso o por stack) no se repite en el listado plano.
     const ungrouped = entries.filter((entry) => {
-      if (isResources) return false;
+      // Los enlaces externos se agrupan por tipo de recurso. Las guías
+      // editoriales de la categoría permanecen visibles antes de esos grupos.
+      if (isResources) return entry.collection !== 'resources';
       if (usesStackGroups) return !(entry.data as { stack?: StackId }).stack;
       return true;
     });

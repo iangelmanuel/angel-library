@@ -36,6 +36,6 @@ useInterval(() => setSeconds((value) => value + 1), paused ? null : 1000);
 
 ## Polling async
 
-`setInterval` no espera una promesa. Si la operación tarda más que el intervalo, las llamadas se superponen. Para polling de red, encadená un `setTimeout` al terminar cada request o usa una librería de server state con `refetchInterval`.
+`setInterval` no espera una promesa. Si la operación tarda más que el intervalo, las llamadas se superponen. Para consultas periódicas de red, encadena un `setTimeout` al terminar cada solicitud o usa una librería de estado remoto con `refetchInterval`.
 
-Pausá polling cuando la pestaña está oculta si el dato no necesita refrescarse en background, y evita intervalos para sincronización exacta: el navegador puede retrasarlos por ahorro de energía.
+Pausa las consultas periódicas cuando la pestaña está oculta si el dato no necesita actualizarse en segundo plano, y evita intervalos para sincronización exacta: el navegador puede retrasarlos por ahorro de energía.

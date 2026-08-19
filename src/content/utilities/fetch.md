@@ -2,6 +2,7 @@
 title: Fetch Utils — Referencia rápida
 description: Wrapper tipado sobre fetch con manejo de errores HTTP, timeout y reintentos, sin librerías.
 category: general
+stack: utils
 runtime: universal
 language: typescript
 related:
@@ -137,6 +138,6 @@ const datos = await withRetry(() => fetchJson('/api/datos'));
 
 ## Consideraciones
 
-- Combiná `fetchJson()` con [Zod](/libraries/zod) para validar la forma real de la respuesta, no solo tiparla — el genérico `T` no valida nada en runtime.
+- Combina `fetchJson()` con [Zod](/libraries/zod) para validar la forma real de la respuesta, no solo tiparla — el genérico `T` no valida nada en runtime.
 - `withRetry()` reintenta cualquier error, incluidos los que nunca se van a resolver reintentando (ej. 400 por payload inválido). Filtra tú el error dentro de `fn` si solo quieres reintentar fallos de red o 5xx.
 - El `delayMs` crece linealmente con el intento (`delayMs * attempt`), no exponencialmente — para casos con mucho tráfico considera un backoff exponencial en su lugar.

@@ -2,6 +2,8 @@
 title: Zod
 description: Validación de schemas con inferencia de tipos TypeScript — crear schemas, tipos de datos, refinamientos, parseo y manejo de errores.
 category: general
+stack: typescript
+order: 3
 tags: [typescript, validation, schema, forms]
 website: https://zod.dev
 github: https://github.com/colinhacks/zod
@@ -43,7 +45,7 @@ const userWithAddressSchema = z.object({
 
 ## Inferir el tipo
 
-`z.infer<typeof schema>` deriva el tipo TypeScript directamente del schema. Nunca escribas el `interface`/`type` a mano al lado de un schema — se desincronizan con el tiempo y dejás de confiar en cuál es la verdad.
+`z.infer<typeof schema>` deriva el tipo TypeScript directamente del schema. Nunca escribas el `interface`/`type` a mano al lado de un schema — se desincronizan con el tiempo y dejas de confiar en cuál es la verdad.
 
 ```ts
 export type User = z.infer<typeof userSchema>;
@@ -287,4 +289,4 @@ const user = apiUserSchema.parse(raw); // lanza si la API cambió su forma sin a
 - `.optional()` no es lo mismo que `.nullable()`: `undefined` (campo ausente) vs `null` (campo presente con valor nulo). Si la fuente de datos puede mandar cualquiera de los dos, usa `.nullish()`.
 - `safeParse()` no lanza — si usas `.parse()` en un boundary que no controlas (input de usuario, API externa), necesitas `try/catch` alrededor.
 - `.refine()` a nivel de objeto (para comparar dos campos) necesita `path` en el segundo argumento, si no el error no queda asociado a ningún campo del formulario.
-- El schema es la única fuente de verdad: si escribes un `interface` a mano al lado de un schema "porque es más rápido", con el tiempo se desincronizan y perdés la garantía que Zod te da.
+- El schema es la única fuente de verdad: si escribes un `interface` a mano al lado de un schema "porque es más rápido", con el tiempo se desincronizan y pierdes la garantía que Zod proporciona.

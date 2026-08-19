@@ -48,7 +48,7 @@ cd ../otro-proyecto
 
 ## Listar contenido
 
-Acá sí hay comandos nativos distintos: `ls` en macOS/Linux es un binario real; en PowerShell es un alias de `Get-ChildItem`, y en `cmd.exe` clásico sería `dir`.
+Aquí sí existen comandos nativos distintos: `ls` en macOS y Linux es un binario real; en PowerShell es un alias de `Get-ChildItem`, y en `cmd.exe` clásico se usa `dir`.
 
 | Acción | Windows (PowerShell) | macOS / Linux |
 | --- | --- | --- |

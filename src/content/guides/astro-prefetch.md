@@ -39,6 +39,6 @@ export default defineConfig({
 
 Con `<ClientRouter />`, el prefetch de enlaces queda habilitado de forma amplia por defecto. Revisa páginas grandes, endpoints con efectos laterales y navegación que casi nadie usa; descargar todo por adelantado puede empeorar el rendimiento total.
 
-El prefetch debe ser seguro e idempotente: una petición GET nunca debería mutar datos. Respetá señales de ahorro de datos y mide antes de usar `prefetchAll` en una biblioteca con cientos de enlaces.
+El prefetch debe ser seguro e idempotente: una petición GET nunca debería mutar datos. Respeta señales de ahorro de datos y mide antes de usar `prefetchAll` en una biblioteca con cientos de enlaces.
 
 Referencia oficial: [Prefetch](https://docs.astro.build/en/guides/prefetch/).

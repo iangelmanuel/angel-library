@@ -53,6 +53,6 @@ Node, Cloudflare y Netlify pueden aportar defaults; otros adapters requieren con
 
 ## Seguridad
 
-La sesión facilita persistencia, pero no reemplaza autorización. Comprobá permisos en cada Action/endpoint sensible, configura expiración y no almacenes objetos enormes ni datos que deban consultarse frescos desde la base.
+La sesión facilita persistencia, pero no reemplaza la autorización. Comprueba permisos en cada Action o endpoint sensible, configura la expiración y no almacenes objetos enormes ni datos que deban consultarse actualizados desde la base.
 
 Referencia oficial: [Sessions](https://docs.astro.build/en/guides/sessions/).

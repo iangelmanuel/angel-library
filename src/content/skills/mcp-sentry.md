@@ -32,7 +32,7 @@ Pide login OAuth con la cuenta de Sentry la primera vez.
 
 ## Cuándo usarlo
 
-- "Este error apareció en producción, andá a buscarlo" — el agente trae el stack trace real en vez de que alguien lo copie del dashboard.
+- "Este error apareció en producción, ve a buscarlo" — el agente trae el stack trace real en vez de que alguien lo copie del dashboard.
 - Triage de issues nuevos: pedirle que agrupe, priorice, y sugiera cuáles investigar primero según frecuencia/impacto.
 
 ## Consideraciones

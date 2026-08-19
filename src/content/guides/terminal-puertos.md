@@ -12,7 +12,7 @@ updatedAt: 2026-08-17
 
 ## El caso típico
 
-Arrancás un dev server (`npm run dev`, puerto 3000) y falla con `EADDRINUSE` o "address already in use" — el puerto ya está ocupado por otro proceso, casi siempre una instancia anterior que no se cerró bien. El flujo es siempre el mismo: **encontrar el PID que usa el puerto, matarlo**.
+Se inicia un servidor de desarrollo —por ejemplo, `npm run dev` en el puerto 3000— y falla con `EADDRINUSE` o “address already in use”: el puerto ya está ocupado por otro proceso, casi siempre una instancia anterior que no se cerró bien. El flujo es siempre el mismo: **encontrar el PID que usa el puerto y terminar ese proceso**.
 
 ## macOS / Linux
 

@@ -2,11 +2,13 @@
 title: Diálogos, menús y regiones en vivo
 description: Gestionar widgets complejos sin perder foco, contexto ni anuncios importantes para tecnologías asistivas.
 category: accessibility
-order: 3
+stack: a11y-interaccion
+order: 4
 tags: [accessibility, dialogs, aria, focus]
 scope: componentes interactivos
 related:
   - guides/accessibility-semantics-keyboard-focus
+  - guides/accessibility-aria-attributes
   - practices/accessibility-checklist
 updatedAt: 2026-08-18
 ---
@@ -19,8 +21,8 @@ Prefiere `<dialog>` o una librería accesible probada. Al abrir:
 2. marca el diálogo con nombre visible;
 3. lleva el foco a un control razonable;
 4. mantén Tab dentro mientras sea modal;
-5. permití cerrar con Escape cuando no destruya trabajo crítico;
-6. devolvé el foco al disparador al cerrar.
+5. permite cerrar con Escape cuando no destruya trabajo crítico;
+6. devuelve el foco al disparador al cerrar.
 
 No todos los popovers son modales. Un menú contextual debe usar el patrón de menú solo si realmente ofrece comandos; una lista de enlaces normal suele necesitar menos comportamiento especial.
 
@@ -28,8 +30,8 @@ No todos los popovers son modales. Un menú contextual debe usar el patrón de m
 
 - `role="status"` o `aria-live="polite"`: resultados, guardado, mensajes no urgentes.
 - `role="alert"`: fallos que requieren atención inmediata; no abusar.
-- Insertá el mensaje dentro directamente región que ya existe en el DOM.
-- Anunciá resultado, no cada cambio intermedio de un proceso ruidoso.
+- Inserta el mensaje dentro de una región que ya exista en el DOM.
+- Anuncia el resultado, no cada cambio intermedio de un proceso ruidoso.
 
 ## Estados
 

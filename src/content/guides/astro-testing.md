@@ -49,7 +49,7 @@ test('abre una entrada desde búsqueda', async ({ page }) => {
 
 ## Qué no olvidar
 
-- Navegación con y sin JavaScript si dependés de progressive enhancement.
+- Navegación con y sin JavaScript si dependes de mejora progresiva (*progressive enhancement*).
 - View Transitions después de varias navegaciones, no solo carga inicial.
 - Teclado, foco y nombres accesibles.
 - Rutas on-demand contra el adapter real cuando el runtime importa.

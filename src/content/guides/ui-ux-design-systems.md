@@ -2,7 +2,7 @@
 title: Design systems y tokens
 description: Convertir decisiones visuales en tokens, componentes, estados y reglas que escalan sin perder coherencia.
 category: ui-ux
-stack: html
+stack: ui-ux-design-systems
 order: 1
 tags: [design-system, tokens, components, ui]
 scope: fundamentos de sistemas visuales
@@ -30,5 +30,4 @@ Evita un boolean por decisión visual (`compact`, `blue`, `rounded`, `shadow`). 
 
 ## Gobierno
 
-Define quién aprueba cambios, cómo se depreca una variante y cómo se mide adopción. Versioná cambios incompatibles y ofrece migración. Un catálogo sin reglas termina duplicando componentes con nombres distintos.
-
+Define quién aprueba cambios, cómo se vuelve obsoleta una variante y cómo se mide la adopción. Versiona los cambios incompatibles y ofrece una migración. Un catálogo sin reglas termina duplicando componentes con nombres distintos.

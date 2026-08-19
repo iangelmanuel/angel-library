@@ -10,7 +10,7 @@ related: [libraries/vitest-backend, libraries/supertest]
 updatedAt: 2026-08-17
 ---
 
-Referencia rápida de Vitest — aserciones comunes, testing de código asíncrono, mocks básicos, y patrones para evitar falsos positivos (tests que pasan pero no prueban lo que creés que prueban).
+Referencia rápida de Vitest — aserciones comunes, testing de código asíncrono, mocks básicos y patrones para evitar falsos positivos (pruebas que pasan pero no comprueban lo que crees).
 
 ## Instalar
 
