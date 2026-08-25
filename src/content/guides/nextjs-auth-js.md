@@ -223,7 +223,7 @@ export async function POST(request: Request) {
 }
 ```
 
-## Resumen
+## Piezas de Auth.js en Next.js
 
 | Pieza | Rol |
 | --- | --- |
@@ -234,7 +234,7 @@ export async function POST(request: Request) {
 | `declare module 'next-auth'` / `'next-auth/jwt'` | Tipar los campos custom |
 | `auth()` | Leer sesión en Server Components, Route Handlers, proxy |
 
-## Consideraciones
+## Callbacks, sesión y protección
 
 - Este es el paquete más maduro de los tres frameworks documentados — más terreno probado para necesidades de auth avanzadas o de producción crítica.
 - Olvidar el callback `jwt` (y solo agregar `session`) es el error más común: `session` solo puede leer lo que `jwt` ya haya copiado al `token`, no accede a `user` directamente.

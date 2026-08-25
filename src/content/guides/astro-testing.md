@@ -60,10 +60,33 @@ Referencia oficial: [Testing](https://docs.astro.build/en/guides/testing/).
 
 Las funciones que transforman contenido o datos no necesitan Astro ni un navegador: pruébalas con Vitest y casos de borde. Para endpoints, construye requests con headers, cookies y body reales, y comprueba autorización, status y formato de error. Para islas, prueba la interacción con navegador real porque el problema puede estar en la hidratación y no en el HTML generado.
 
+```ts
+import { describe, expect, it } from 'vitest';
+import { POST } from '../src/pages/api/subscriptions';
+
+it('rechaza un cuerpo inválido', async () => {
+  const request = new Request('http://example.test/api/subscriptions', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email: 'no-es-correo' }),
+  });
+
+  const response = await POST({ request } as never);
+  expect(response.status).toBe(400);
+  await expect(response.json()).resolves.toMatchObject({ code: 'INVALID_EMAIL' });
+});
+```
+
+Extrae la lógica que no depende del contexto de Astro y pruébala sin casts. Conserva una prueba de integración para comprobar el adapter, cookies y runtime que usa producción.
+
 ## Contenido y rutas
 
 Incluye `pnpm check` y `pnpm build` en CI para que el schema de la colección, enlaces internos y rutas dinámicas se validen como parte del producto. Un test de navegación debe visitar tanto una ruta generada estáticamente como una ruta servida por adapter cuando el proyecto se despliega con SSR.
 
 ## View Transitions y progressive enhancement
 
-Prueba una carga directa, una navegación interna, volver atrás y desactivar JavaScript si la funcionalidad debe degradar de forma útil. Después directamente transición verifica foco, estado de búsqueda, listeners e islas que se montan una sola vez. Los bugs de navegación no siempre aparecen en la primera carga.
+Prueba una carga directa, una navegación interna, volver atrás y desactivar JavaScript si la funcionalidad debe degradar de forma útil. Después de cada transición verifica foco, estado de búsqueda, listeners e islas que se montan una sola vez. Los bugs de navegación no siempre aparecen en la primera carga.
+
+## Islas y estrategias de hidratación
+
+Comprueba que el HTML útil exista antes de hidratar y que `client:idle`, `client:visible` o `client:media` activen la interacción en la condición esperada. Un componente puede funcionar al cargar directamente y duplicar listeners después de navegar; repite el recorrido y verifica que cada acción produce un solo efecto.

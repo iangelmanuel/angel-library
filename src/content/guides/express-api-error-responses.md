@@ -3,7 +3,7 @@ title: Diseño de respuestas de error
 description: Un formato de error consistente en toda la API, códigos de error propios (no solo status HTTP), y qué exponer vs qué ocultar.
 category: backend
 stack: express
-order: 17
+order: 11
 tags: [express, api, errors]
 related: [guides/express-error-handling]
 updatedAt: 2026-08-16
@@ -93,9 +93,9 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 };
 ```
 
-Un error de base de datos, un stack trace, o el mensaje real directamente excepción interna puede filtrar detalles de la implementación (nombres de tablas, versión directamente librería, hasta paths del sistema de archivos) — útiles para un atacante, sin valor para un usuario legítimo. Solo los errores explícitamente lanzados como `AppError` (los que el código de la app decidió a propósito) exponen su mensaje tal cual.
+Un error de base de datos, un stack trace o el mensaje real de una excepción interna puede filtrar detalles de implementación: nombres de tablas, versiones de librerías o rutas del sistema. Solo los errores operativos creados explícitamente por la aplicación deben exponer un mensaje controlado.
 
-## Resumen
+## Contrato de referencia
 
 | Elemento | Para qué |
 | --- | --- |
@@ -104,7 +104,7 @@ Un error de base de datos, un stack trace, o el mensaje real directamente excepc
 | `fields` en errores de validación | El cliente sabe qué campo mostrar en rojo |
 | Errores esperados vs inesperados | Solo los esperados exponen su mensaje real |
 
-## Consideraciones
+## Exposición segura de errores
 
 - Mensajes en el idioma de la API (o traducidos del lado del cliente usando `code`) — mezclar textos hardcodeados en un idioma con `code`s en inglés es común y está bien, siempre que el cliente pueda decidir qué mostrar.
 - Este formato es una convención propia, no un estándar universal — existen estándares más formales (`application/problem+json`, RFC 7807) si el proyecto necesita interoperar con clientes que esperan ese formato específico.

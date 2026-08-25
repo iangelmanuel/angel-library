@@ -3,7 +3,7 @@ title: Subidas de archivos y object storage
 description: Recibir archivos sin agotar el servidor mediante URLs firmadas, validación, cuarentena, metadatos y autorización en descargas.
 category: backend
 stack: backend-fundamentos
-order: 6
+order: 7
 tags: [backend, uploads, object-storage, files, security]
 related:
   - guides/security-common-web-attacks

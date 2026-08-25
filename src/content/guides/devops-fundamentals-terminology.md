@@ -5,10 +5,27 @@ category: devops
 stack: devops-fundamentos
 tags: [devops, ci-cd, despliegue, infraestructura, observabilidad, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 **DevOps** une prácticas de desarrollo y operación para entregar cambios pequeños, confiables y observables. No es únicamente Docker ni el nombre de un cargo: implica responsabilidad compartida desde el código hasta su comportamiento en producción.
+
+## Aprende o consulta
+
+Si empiezas, sigue el flujo real del cambio: Git → CI → artefacto → contenedor → entorno → despliegue → health checks → logs/métricas/trazas → incidente y recuperación. Docker es una pieza del recorrido, no su objetivo.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| etapas y gates de una pipeline | [Fundamentos de CI/CD](/guides/cicd-pipeline-fundamentals) |
+| workflow de GitHub Actions | [Pipeline Node.js](/guides/cicd-github-actions-node) |
+| rolling, canary, blue/green y rollback | [Estrategias de despliegue](/guides/cicd-deployment-strategies) |
+| separar config y promociones | [Entornos y releases](/guides/devops-environments-releases) |
+| imagen, contenedor, red y volumen | [Qué es Docker](/guides/docker-que-es) |
+| servicios locales reproducibles | [Docker Compose](/guides/docker-compose-basico) |
+| logs, métricas y trazas | [Observabilidad](/guides/observability-fundamentals) |
+| responder y aprender de fallos | [Incidentes](/guides/observability-incident-response) |
+
+Una guía de comandos enseña a operar una herramienta; una ruta DevOps debe explicar qué garantía obtiene el producto y cómo se revierte cuando esa garantía falla.
 
 ## Del cambio a producción
 

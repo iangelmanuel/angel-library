@@ -3,7 +3,7 @@ title: "nvm: manejar versiones de Node"
 description: Instalar y cambiar entre versiones de Node.js con nvm — y por qué en Windows es un proyecto distinto (nvm-windows).
 category: terminal
 stack: terminal
-order: 12
+order: 15
 tags: [terminal, nvm, node, herramientas]
 scope: nvm
 related: [guides/terminal-npm, guides/terminal-pnpm, guides/terminal-bun]
@@ -12,7 +12,7 @@ updatedAt: 2026-08-17
 
 ## Por qué nvm
 
-Distintos proyectos pueden necesitar distintas versiones de Node — uno viejo que solo corre bien en Node 18, otro que ya usa features de Node 22. Instalar Node "a mano" deja una sola versión global; nvm (Node Version Manager) permite tener varias instaladas en paralelo y cambiar directamente a otra por proyecto, sin desinstalar/reinstalar nada.
+Distintos proyectos pueden necesitar versiones diferentes de Node: uno antiguo que solo funciona bien en Node 18 y otro que ya usa características de Node 22. Instalar Node manualmente deja una sola versión global; nvm (Node Version Manager) permite mantener varias en paralelo y cambiar de una a otra por proyecto sin reinstalar nada.
 
 ## Dos proyectos distintos con el mismo nombre
 

@@ -5,10 +5,28 @@ category: security
 stack: security-fundamentos
 tags: [seguridad, amenazas, riesgo, autenticacion, autorizacion, owasp]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 La **seguridad** consiste en reducir riesgos a un nivel aceptable, no en prometer que un sistema es imposible de atacar. Una aplicación segura identifica qué protege, quién podría atacarla, cómo lo intentaría y qué controles disminuyen la probabilidad o el impacto.
+
+## Aprende o consulta
+
+Para aprender, sigue: activos y confianza → modelo de amenazas → entradas/ataques web → identidad y permisos → APIs y SSRF → headers/CSP → secretos/dependencias → disponibilidad → pruebas e incidentes. Practica siempre en sistemas propios o laboratorios autorizados.
+
+| Riesgo | Documento |
+| --- | --- |
+| no sé qué proteger primero | [Modelo de amenazas](/guides/security-threat-modeling) |
+| XSS, CSRF, SQLi o subida maliciosa | [Ataques web comunes](/guides/security-common-web-attacks) |
+| BOLA, abuso de consumo o SSRF | [Seguridad de APIs](/guides/security-api-protection) |
+| sesiones, roles y ownership | [Control de acceso](/guides/security-auth-access-control) |
+| scripts, iframes y MIME | [Headers y CSP](/guides/security-headers-csp) |
+| DDoS y caída de dependencias | [Disponibilidad](/guides/security-ddos-resilience) |
+| paquetes o credenciales filtradas | [Cadena de suministro](/guides/security-secrets-supply-chain) |
+| integrar seguridad al desarrollo | [SDLC seguro](/guides/security-sdlc-testing) |
+| ya ocurrió un incidente | [Respuesta](/guides/security-response-incidents) |
+
+Una lista sirve para recordar controles; aprender seguridad exige seguir el flujo de datos y demostrar dónde cambia la confianza. “Validado en frontend” nunca es una frontera de seguridad.
 
 ## Activo, amenaza, vulnerabilidad y riesgo
 

@@ -3,7 +3,7 @@ title: Resolver conflictos de merge
 description: Cómo se ven los marcadores de conflicto, el proceso paso a paso para resolverlos, y cómo abortar si algo sale mal.
 category: git
 stack: git
-order: 9
+order: 12
 tags: [git, merge, conflicts]
 scope: conflictos de merge/rebase
 related: [guides/git-merge-vs-rebase]
@@ -73,5 +73,5 @@ git show :3:archivo.ts  # versión "de ellos" completa del archivo
 ## Consideraciones
 
 - Un conflicto no significa que algo esté roto en el repo — es un estado esperado y temporal, se resuelve y se sigue.
-- En un rebase con varios commits, un mismo archivo puede entrar en conflicto más directamente vez (uno por cada commit que lo toque) — es normal repetir el ciclo resolver → `git add` → `git rebase --continue` varias veces seguidas.
-- Antes de resolver "a lo rápido" eligiendo una versión entera sin leer la otra, vale la pena entender qué cambió cada lado — un conflicto mal resuelto no rompe Git, pero puede introducir un bug silencioso que Git no puede detectar por tú.
+- En un rebase con varios commits, un mismo archivo puede entrar en conflicto más de una vez (una por cada commit que lo modifique). Es normal repetir el ciclo resolver → `git add` → `git rebase --continue` varias veces.
+- Antes de resolver rápidamente eligiendo una versión completa sin leer la otra, entiende qué cambió cada lado. Un conflicto mal resuelto no rompe Git, pero puede introducir un error silencioso que Git no puede detectar por ti.

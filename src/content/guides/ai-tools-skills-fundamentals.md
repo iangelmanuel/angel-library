@@ -5,12 +5,28 @@ category: skills
 stack: skills-fundamentos
 tags: [ia, agentes, skills, plugins, mcp, herramientas, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Las herramientas de programación con **inteligencia artificial (IA)** combinan un modelo de lenguaje con acceso al proyecto, instrucciones y, en algunos casos, herramientas para leer, editar, ejecutar o consultar servicios externos.
 
 La diferencia importante no es solo qué modelo usan, sino qué contexto reciben, qué acciones pueden ejecutar, cómo solicitan permisos y cómo se comprueba su trabajo.
+
+## Aprende o consulta
+
+Para aprender, domina primero instrucciones de proyecto y contexto; después comandos, skills, subagentes, hooks, MCP y plugins. Cada capa aumenta capacidad y también superficie de confianza.
+
+| Necesidad | Empieza por |
+| --- | --- |
+| reglas persistentes del repositorio | `AGENTS.md`, `CLAUDE.md` o Rules del agente |
+| procedimiento repetible | skill |
+| atajo con prompt conocido | comando personalizado |
+| integración con servicio externo | MCP o plugin, tras revisar permisos |
+| trabajo independiente en paralelo | subagente con alcance y criterio de salida |
+| automatización por evento | hook determinista y auditable |
+| flujo completo con revisión | [Workflow seguro](/guides/ai-tools-safe-workflow) |
+
+Las fichas de cada herramienta sirven para recordar ubicación y sintaxis. Esta página explica el modelo compartido para que los nombres comerciales no oculten las mismas decisiones: autoridad, contexto, permisos, efectos y validación.
 
 ## Modelo, prompt y contexto
 

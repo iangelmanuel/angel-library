@@ -3,7 +3,7 @@ title: Alta cohesión, bajo acoplamiento
 description: Qué tan relacionadas están las responsabilidades dentro de un módulo, y qué tan dependiente es un módulo de los detalles internos de otro.
 category: architecture
 stack: principios
-order: 3
+order: 5
 practice: Agrupar lo que cambia junto, y comunicar módulos distintos a través de contratos chicos en vez de conocimiento compartido.
 why: Predice mejor qué tan doloroso va a ser cambiar el código después que cualquier métrica de líneas o complejidad ciclomática.
 related:
@@ -114,7 +114,7 @@ Cambiar de proveedor de email ahora es un cambio contenido dentro de `email/welc
 
 Un archivo de 400 líneas con alta cohesión (todo relacionado a una sola responsabilidad) es más fácil de mantener que uno de 100 líneas con baja cohesión (tres responsabilidades sin relación mezcladas). La complejidad ciclomática mide ramas de un algoritmo, no si esas ramas *pertenecen* juntas. Las líneas de código no distinguen entre "código denso pero enfocado" y "código disperso y mezclado".
 
-Lo que sí predice el dolor: cuántos módulos hay que tocar para hacer un cambio de negocio, y cuántos módulos *no relacionados* se rompen cuando cambia uno. Eso es directamente cohesión (¿lo relacionado vive junto?) y acoplamiento (¿lo no relacionado depende entre sí?).
+Lo que sí predice el dolor es cuántos módulos hay que tocar para hacer un cambio de negocio y cuántos módulos *no relacionados* se rompen cuando cambia uno. Eso revela la cohesión (¿lo relacionado vive junto?) y el acoplamiento (¿lo no relacionado depende entre sí?).
 
 ## Cuándo el bajo acoplamiento se lleva al extremo
 

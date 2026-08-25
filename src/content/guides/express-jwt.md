@@ -3,14 +3,14 @@ title: JWT — qué es y cómo firmarlo/verificarlo
 description: Estructura de un JSON Web Token, firmar y verificar con jsonwebtoken, expiración y qué NO guardar dentro del payload.
 category: backend
 stack: express
-order: 7
+order: 12
 tags: [express, jwt, auth]
 scope: jsonwebtoken
 related: [guides/express-cookies-sesiones]
 updatedAt: 2026-08-16
 ---
 
-Un JWT (JSON Web Token) es una forma de codificar información (típicamente "quién es el usuario") en un string que el propio servidor puede **verificar sin consultar una base de datos** — la confianza viene directamente firma criptográfica, no directamente tabla de sesiones.
+Un JWT (*JSON Web Token*) codifica claims en un string que el servidor puede verificar sin consultar una tabla de sesiones. La confianza proviene de una firma criptográfica, no de que el contenido esté oculto.
 
 ## Estructura
 
@@ -80,7 +80,7 @@ const accessToken = firmarToken({ sub: usuario.id, rol: usuario.rol });         
 const refreshToken = jwt.sign({ sub: usuario.id }, JWT_REFRESH_SECRET, { expiresIn: '7d' });
 ```
 
-## Resumen
+## Anatomía y operaciones
 
 | API | Qué hace |
 | --- | --- |
@@ -89,8 +89,8 @@ const refreshToken = jwt.sign({ sub: usuario.id }, JWT_REFRESH_SECRET, { expires
 | Payload | Legible por cualquiera (Base64, no encriptado) — no falsificable sin el secreto |
 | Access + refresh token | Access de vida corta, refresh de vida larga para renovarlo |
 
-## Consideraciones
+## Expiración y revocación
 
 - **Nunca** poner datos sensibles en el payload (contraseñas, tarjetas, tokens de terceros) — cualquiera que tenga el JWT puede leerlo, aunque no pueda modificarlo.
 - `JWT_SECRET` tiene que ser largo y random (no una palabra), y vivir en una variable de entorno — ver [Variables de entorno en Node](/guides/node-env-vars). Si se filtra, cualquiera puede firmar tokens válidos como cualquier usuario.
-- Un JWT no se puede "invalidar" del lado del servidor antes de que expire (a diferencia directamente sesión en base de datos) — si hace falta poder cerrar sesión de verdad en el momento (no solo esperar a que expire), o bien la expiración es corta y se usa refresh tokens con una lista de revocación, o directamente conviene una librería de sesión server-side como [better-auth](/guides/express-better-auth).
+- Un JWT autocontenido no se invalida automáticamente antes de expirar, a diferencia de una sesión consultada en servidor. Si se necesita revocación inmediata, usa expiración corta con refresh tokens revocables o una solución de sesión server-side como [Better Auth](/guides/express-better-auth).

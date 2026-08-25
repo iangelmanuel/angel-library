@@ -38,7 +38,7 @@ Reduce paquetes triviales y scripts de instalación innecesarios. En integració
 
 ## Respuesta
 
-Ante una dependencia comprometida: congela deploys, identifica versiones y entornos afectados, rota credenciales accesibles, reconstruye desdirectamente base limpia y busca indicadores en logs. La recuperación debe asumir que el atacante pudo leer todos los secretos disponibles al proceso.
+Ante una dependencia comprometida: congela despliegues, identifica versiones y entornos afectados, rota credenciales accesibles, reconstruye desde una base limpia y busca indicadores en los registros. La recuperación debe asumir que el atacante pudo leer todos los secretos disponibles para el proceso.
 
 ## Errores habituales
 

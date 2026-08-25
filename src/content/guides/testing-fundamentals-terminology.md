@@ -5,12 +5,28 @@ category: testing
 stack: testing-fundamentos
 tags: [testing, pruebas, unitarias, integracion, e2e, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Una **prueba automatizada** ejecuta un comportamiento y comprueba un resultado esperado. Su valor principal no es demostrar que el sistema nunca fallará, sino detectar regresiones con rapidez y hacer explícitas las expectativas importantes.
 
 **Testing** es la actividad completa de evaluar calidad. Un archivo con muchas aserciones puede tener poco valor si verifica detalles internos y no protege el comportamiento que importa.
+
+## Aprende o consulta
+
+La ruta recomendada es: comportamiento y aserción → prueba unitaria → integración → dobles → componentes → E2E → contratos → estrategia en CI. Escribe primero casos pequeños y deterministas; añade niveles más costosos donde exista una frontera real.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| qué nivel usar | [Estrategia de testing](/guides/testing-strategy) |
+| sintaxis, async, mocks y cobertura | [Vitest práctico](/guides/testing-vitest-practico) |
+| mock, stub, fake o contrato | [Dobles y contratos](/guides/testing-doubles-contracts) |
+| API + base de datos real | [Integración backend](/guides/testing-backend-database) |
+| UI React por comportamiento | [React Testing Library](/guides/testing-react-testing-library) |
+| navegador confiable en CI | [E2E](/guides/testing-e2e-reliable-ci) |
+| particularidades del framework | [Astro](/guides/astro-testing) o [Next.js](/guides/nextjs-testing) |
+
+Quien aprende debe poder explicar por qué falla la prueba. Quien recuerda necesita una plantilla rápida, pero debe comprobar que la aserción observa conducta pública y no una implementación accidental.
 
 ## Vocabulario básico
 

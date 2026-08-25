@@ -5,12 +5,28 @@ category: ui-ux
 stack: ui-ux-fundamentos
 tags: [ui, ux, diseño, usabilidad, sistemas-de-diseno, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 **UI** significa *User Interface* o interfaz de usuario: los elementos visibles y operables de un producto. **UX** significa *User Experience* o experiencia de usuario: la percepción completa antes, durante y después de usarlo.
 
 Una interfaz visualmente atractiva puede tener mala UX si oculta acciones, pierde datos o responde tarde. Del mismo modo, un flujo lógico puede necesitar una UI más clara para que la persona descubra cómo usarlo.
+
+## Aprende o consulta
+
+La progresión recomendada es: objetivo y flujo → jerarquía → layout responsive → estados → formularios/feedback → accesibilidad → tokens/componentes → sistema de diseño → evaluación con usuarios. Una librería acelera implementación, pero no decide el flujo ni corrige una jerarquía débil.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| tipografía, espacio y énfasis | [Jerarquía visual](/guides/ui-ux-jerarquia-visual) |
+| adaptar por contenido, no dispositivo concreto | [Layout responsive](/guides/ui-ux-responsive-layout) |
+| loading, vacío, error y éxito | [Estados de interfaz](/guides/ui-ux-estados-interfaz) |
+| labels, validación y confirmación | [Formularios y feedback](/guides/ui-ux-forms-feedback) |
+| tokens y componentes compartidos | [Design systems](/guides/ui-ux-design-systems) |
+| elegir una biblioteca UI | [Guía de selección](/guides/ui-library-selection) |
+| revisar un componente completo | [Anatomía de componentes](/guides/ui-ux-component-anatomy) |
+
+Quien aprende debe diseñar también errores, espera, permisos y contenido extremo. Quien recuerda puede usar las tablas y checklists, pero debe validar el flujo completo con teclado, zoom y datos reales.
 
 ## Usuario, objetivo y contexto
 

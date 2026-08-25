@@ -9,7 +9,6 @@ export type AnyEntry =
   | CollectionEntry<'recipes'>
   | CollectionEntry<'snippets'>
   | CollectionEntry<'hooks'>
-  | CollectionEntry<'components'>
   | CollectionEntry<'utilities'>
   | CollectionEntry<'resources'>
   | CollectionEntry<'skills'>
@@ -61,7 +60,6 @@ export const LEARNING_TYPE_ORDER: ContentTypeId[] = [
   'patterns',
   'libraries',
   'integrations',
-  'components',
   'hooks',
   'utilities',
   'snippets',

@@ -3,7 +3,7 @@ title: Cookies vs sesiones — JWT en cookie o session store
 description: httpOnly, secure, sameSite; y la diferencia real entre guardar el JWT en una cookie vs una sesión tradicional en base de datos.
 category: backend
 stack: express
-order: 8
+order: 13
 tags: [express, cookies, sessions, auth]
 scope: cookies / express-session
 updatedAt: 2026-08-16
@@ -91,7 +91,7 @@ app.get('/perfil', (req, res) => {
 
 No hay una respuesta universalmente "mejor" — JWT gana en no depender de un store centralizado; sesión server-side gana en poder revocar acceso inmediatamente (crítico para "cerrar sesión en todos los dispositivos", o banear una cuenta al instante).
 
-## Resumen
+## Comparación de modelos
 
 | Cookie option | Qué hace |
 | --- | --- |
@@ -100,7 +100,7 @@ No hay una respuesta universalmente "mejor" — JWT gana en no depender de un st
 | `sameSite: 'lax' \| 'strict'` | Limita cuándo se manda en requests cross-site (protege contra CSRF) |
 | `maxAge` | Cuánto dura antes de expirar, en ms |
 
-## Consideraciones
+## Elegir transporte y revocación
 
 - `sameSite: 'strict'` bloquea incluso navegación normal desde un link externo (el usuario llega "deslogueado" la primera vez); `'lax'` (el default recomendado) permite eso pero sigue bloqueando requests cross-site iniciadas por scripts o forms — el balance correcto para la mayoría de los casos.
-- Para apps full-stack de mismo origen (Astro, Next.js), este trade-off manual casi no aplica — [better-auth](/guides/express-better-auth) y [Auth.js](/guides/express-auth-js) ya deciden esto por tú con defaults sensatos.
+- En aplicaciones full-stack del mismo origen, [Better Auth](/guides/express-better-auth) y [Auth.js](/guides/express-auth-js) pueden implementar estas decisiones con opciones seguras configurables. Aun así, conviene comprender el modelo para revisar sus cookies y expiración.

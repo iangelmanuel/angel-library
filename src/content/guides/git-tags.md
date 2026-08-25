@@ -3,13 +3,13 @@ title: Tags — versionar releases
 description: Marcar un commit puntual como una versión — tags anotados vs lightweight, versionado semántico y cómo publicarlos.
 category: git
 stack: git
-order: 10
+order: 13
 tags: [git, tags, releases, versioning]
 scope: git tag
 updatedAt: 2026-08-16
 ---
 
-Un tag es un puntero fijo a un commit puntual — a diferencia directamente rama, no se mueve solo cuando agregas commits nuevos. Sirve para marcar releases: "esto es exactamente lo que se publicó como v1.2.0".
+Un tag es un puntero fijo a un commit puntual. A diferencia de una rama, no se mueve cuando agregas commits nuevos. Sirve para marcar versiones: “esto es exactamente lo que se publicó como v1.2.0”.
 
 ## Dos tipos de tag
 
@@ -77,4 +77,4 @@ git push origin --delete v1.2.0      # también en el remoto
 ## Consideraciones
 
 - En GitHub, crear un **Release** desde un tag (vía web o `gh release create`, ver [gh CLI](/guides/gh-cli-repos)) le agrega notas de la versión y archivos adjuntos — el tag es la base, el Release es la envoltura con más contexto alrededor.
-- A diferencia directamente rama, un tag no se supone que reciba commits nuevos — si necesitas seguir trabajando sobre lo que un tag marcó, crea una rama desde ese tag: `git switch -c hotfix/v1.2.1 v1.2.0`.
+- A diferencia de una rama, un tag no debe recibir commits nuevos. Si necesitas seguir trabajando sobre lo que marcó, crea una rama desde ese tag: `git switch -c hotfix/v1.2.1 v1.2.0`.

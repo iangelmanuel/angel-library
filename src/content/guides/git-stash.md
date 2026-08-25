@@ -3,7 +3,7 @@ title: Stash — guardar cambios sin commitear
 description: Guardar el trabajo en curso en una pila temporal para cambiar de rama limpio, y recuperarlo después exactamente como estaba.
 category: git
 stack: git
-order: 7
+order: 10
 tags: [git, stash, branches]
 scope: git stash
 updatedAt: 2026-08-16
@@ -20,7 +20,7 @@ git stash pop                   # aplica el más reciente Y lo saca de la pila
 git stash apply                 # aplica el más reciente pero lo DEJA en la pila (por si algo sale mal)
 ```
 
-`pop` es el que se usa casi siempre — `apply` sirve cuando quieres aplicar el mismo stash en más directamente rama, o probar algo sin comprometerte a sacarlo de la pila todavía.
+`pop` es el que se usa con más frecuencia. `apply` sirve cuando quieres aplicar el mismo stash en más de una rama o probar algo sin retirarlo todavía de la pila.
 
 ## Ver qué hay guardado
 

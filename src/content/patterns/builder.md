@@ -1,6 +1,6 @@
 ---
 title: Builder
-description: Construir un objeto complejo paso a paso, encadenando llamadas, en vez directamente función con diez parámetros.
+description: Construir un objeto complejo paso a paso, encadenando llamadas, en vez de usar una función con diez parámetros.
 category: architecture
 stack: patrones-diseno
 order: 3
@@ -11,7 +11,7 @@ updatedAt: 2026-08-17
 
 ## Problema
 
-Cuando construir algo requiere combinar varias partes opcionales — columnas, condiciones, headers, filtros — pasarlas todas como argumentos directamente función se vuelve ilegible rápido. Builder las va acumulando paso a paso y arma el resultado final al llamar `.build()`.
+Cuando construir algo requiere combinar varias partes opcionales —columnas, condiciones, encabezados o filtros—, pasarlas todas como argumentos de una función se vuelve ilegible rápidamente. Builder las acumula paso a paso y arma el resultado final al llamar `.build()`.
 
 ## Ejemplo: query builder encadenable
 
@@ -82,4 +82,4 @@ crearUsuario({ nombre: 'Ana', email: 'ana@mail.com', rol: 'admin' });
 
 ## Cuándo Builder vale la pena
 
-Cuando hay pasos de construcción condicionales o secuenciales — agregar una condición `WHERE` solo si el filtro está activo, encadenar `.paginate()` después de `.where()` — no solo "muchos parámetros". Si un objeto de opciones cubre el caso, usalo: es más simple y más fácil de tipar.
+Úsalo cuando haya pasos de construcción condicionales o secuenciales —agregar una condición `WHERE` solo si el filtro está activo, o encadenar `.paginate()` después de `.where()`—, no solo porque existan “muchos parámetros”. Si un objeto de opciones cubre el caso, úsalo: es más simple y más fácil de tipar.

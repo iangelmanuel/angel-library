@@ -25,7 +25,7 @@ const LANGUAGE_ICONS: Partial<Record<string, string>> = {
 
 /**
  * Icono por entrada: casos especiales primero (Zod), después el tipo de
- * contenido (libraries → caja verde, components → icono amarillo,
+ * contenido (libraries → caja verde,
  * hooks → glifo TS, para distinguirlos del átomo de React del stack),
  * después el stack de frontend (Astro/React/Next.js) si está declarado,
  * después el lenguaje (CSS/TypeScript), y por defecto el icono genérico
@@ -36,7 +36,6 @@ function iconFor(entry: AnyEntry): string {
   if (entry.collection === 'guides' && entry.id === 'typescript-path-aliases') return 'brand-typescript';
   if (entry.collection === 'patterns' && entry.id === 'site-config-global') return 'brand-typescript';
   if (entry.collection === 'libraries') return 'stack-dependency';
-  if (entry.collection === 'components') return 'stack-component';
   if (entry.collection === 'hooks') return 'brand-typescript';
 
   const stack = (entry.data as { stack?: StackId }).stack;

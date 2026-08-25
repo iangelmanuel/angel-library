@@ -3,7 +3,7 @@ title: Deuda técnica
 description: Tomar un atajo hoy para ir más rápido implica pagar interés después. Cómo distinguir deuda deliberada de accidental, y cómo priorizar qué pagar primero.
 category: architecture
 stack: principios
-order: 5
+order: 10
 practice: Tratar los atajos de diseño como una deuda financiera — tomarla a propósito, con un plan de repago, y priorizar pagar la que más duele.
 why: No toda deuda técnica vale la pena pagar; priorizar mal desperdicia tiempo en código que nadie va a volver a tocar.
 related:

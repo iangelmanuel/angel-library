@@ -9,7 +9,7 @@ related:
   - guides/accessibility-contenido-multimedia
   - guides/ui-ux-responsive-layout
   - guides/accessibility-testing-manual-automatico
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Una interfaz visual accesible conserva contenido y operación cuando cambian visión, pantalla o preferencias. Probar solo en un monitor amplio oculta desbordes, texto recortado y objetivos demasiado pequeños.
@@ -55,6 +55,38 @@ No elimines feedback esencial: reemplaza desplazamientos intensos por cambios di
 ## Modos forzados
 
 En alto contraste o `forced-colors`, sombras y fondos pueden desaparecer. Usa bordes reales, texto y controles nativos. Prueba que foco, selección y estados sigan distinguiéndose.
+
+## Objetivos y espaciado
+
+Un icono pequeño puede estar dentro de un área interactiva mayor. Separa acciones vecinas para reducir activaciones accidentales y no coloques controles críticos únicamente al aparecer con hover, porque hover no existe igual en táctil o teclado.
+
+```css
+.icon-button {
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  display: inline-grid;
+  place-items: center;
+}
+```
+
+## Contenido ampliado
+
+No deshabilites zoom con `user-scalable=no`. Prueba texto al 200 % y zoom/reflow sin perder labels, botones o mensajes. Un modal con altura fija debe permitir desplazamiento interno sin ocultar el botón de cierre ni atrapar el foco fuera de vista.
+
+## Movimiento con propósito
+
+Clasifica animaciones:
+
+- feedback breve que confirma una acción;
+- transición espacial que explica relación;
+- decoración no esencial;
+- movimiento continuo que requiere pausa.
+
+Con `prefers-reduced-motion`, conserva la información y reduce distancia, parallax, zoom o repetición. “Reducido” no siempre significa cero.
+
+## Checklist visual
+
+Contraste final, foco visible, información sin depender de color, zoom, reflow, texto largo, forced colors y preferencia de movimiento. Repite en estados de error, disabled y loading.
 
 ## Referencias
 

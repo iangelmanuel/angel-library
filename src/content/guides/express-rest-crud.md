@@ -3,7 +3,7 @@ title: REST y CRUD — convenciones de rutas y verbos
 description: Qué verbo HTTP y qué forma de ruta corresponde a cada operación CRUD, códigos de status correctos, y errores típicos de diseño.
 category: backend
 stack: express
-order: 15
+order: 9
 tags: [express, rest, api, crud]
 scope: diseño de rutas REST
 updatedAt: 2026-08-16
@@ -82,7 +82,7 @@ app.delete('/posts/:id', async (req, res) => {
 });
 ```
 
-## Resumen
+## Mapa CRUD
 
 | Verbo | Uso |
 | --- | --- |

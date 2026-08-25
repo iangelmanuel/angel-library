@@ -46,10 +46,10 @@ Usa el elemento que ya expresa la intención. Un enlace debe cambiar de ubicaci�
 
 Un `tabindex="-1"` es útil para llevar el foco a un encabezado después de cambiar una vista, pero no debe convertirse en una forma de hacer enfocable cada elemento decorativo. Si el foco se mueve por código, anuncia el nuevo contexto con un encabezado claro y evita que el usuario pierda la referencia de dónde estaba.
 
-## Caso: navegación directamente SPA
+## Caso: navegación en una SPA
 
 Después de cambiar de ruta, enfoca el encabezado principal o el contenedor de contenido, no el botón del menú que dejó de existir. Mantén un enlace para saltar al contenido y actualiza el título del documento. En una interfaz con transiciones, espera a que el nuevo contenido esté montado antes de enfocar; moverlo demasiado pronto produce un foco perdido o invisible.
 
 ## Matriz de prueba
 
-Prueba cada componente con teclado solamente: Tab, Shift+Tab, Enter, Space, Escape y flechas cuando el patrón las requiera. Repite con zoom del navegador y con un lector de pantalla. Verifica también el estado inicial, el estado vacío, el error y el contenido que aparece después directamente petición, porque el foco suele fallar en esas transiciones y no en el caso feliz.
+Prueba cada componente solo con teclado: Tab, Shift+Tab, Enter, Space, Escape y flechas cuando el patrón las requiera. Repite con zoom del navegador y con un lector de pantalla. Verifica también el estado inicial, el estado vacío, el error y el contenido que aparece después de una petición, porque el foco suele fallar en esas transiciones y no en el caso ideal.

@@ -16,7 +16,7 @@ updatedAt: 2026-08-17
 npm create astro@latest
 ```
 
-Un asistente interactivo pregunta el nombre de la carpeta, si empezar desdirectamente plantilla y si instalar dependencias. No requiere instalar nada global de antemano.
+Un asistente interactivo pregunta el nombre de la carpeta, si quieres empezar desde una plantilla y si debe instalar las dependencias. No requiere instalar nada global de antemano.
 
 ## Comandos dentro de un proyecto existente
 
@@ -61,7 +61,7 @@ Instala la dependencia de la integración y la configura automáticamente en `as
 astro sync
 ```
 
-Regenera los tipos TypeScript de `astro:content` (en `.astro/types.d.ts`) a partir de `src/content.config.ts`. Hace falta correrlo después de cambiar el schema directamente colección para que los tipos dejen de estar desactualizados.
+Regenera los tipos TypeScript de `astro:content` (en `.astro/types.d.ts`) a partir de `src/content.config.ts`. Ejecútalo después de cambiar el esquema de una colección para evitar tipos desactualizados.
 
 ## Resumen
 

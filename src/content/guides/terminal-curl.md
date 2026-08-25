@@ -3,7 +3,7 @@ title: "curl: requests HTTP desde la terminal"
 description: Los flags de curl que se usan todos los días — GET, POST con JSON, headers, guardar en archivo, seguir redirects.
 category: terminal
 stack: terminal
-order: 17
+order: 20
 tags: [terminal, curl, http, herramientas]
 scope: curl
 related: [guides/terminal-ssh]

@@ -31,7 +31,7 @@ La unidad correcta no siempre es una función. Elige el nivel más bajo que repr
 - Formularios y flujos de recuperación.
 - Bugs que ya ocurrieron: cada regresión debería dejar una prueba.
 
-## Propiedades directamente buena suite
+## Propiedades de una buena suite
 
 - Determinista: controla reloj, random y datos.
 - Aislada: no depende de orden ni ambiente personal.
@@ -49,7 +49,7 @@ Ejecutar formato/lint, tipos, unitarios, build y un conjunto E2E crítico. Separ
 
 ## Elegir el nivel por riesgo
 
-Si una regla puede expresarse como una función pura, pruébala con muchos casos pequeños. Si depende de SQL, serialización, cookies o headers, usa integración con la dependencia real en un entorno controlado. Si el riesgo está en la navegación, el streaming o la composición de varias piezas, usa E2E. La cantidad de tests debe seguir el costo directamente regresión, no una proporción rígida.
+Si una regla puede expresarse como una función pura, pruébala con muchos casos pequeños. Si depende de SQL, serialización, cookies o encabezados, usa integración con la dependencia real en un entorno controlado. Si el riesgo está en la navegación, el streaming o la composición de varias piezas, usa pruebas de extremo a extremo (E2E). La cantidad de pruebas debe seguir el costo de una regresión, no una proporción rígida.
 
 | Riesgo | Prueba recomendada | Señal de éxito |
 | --- | --- | --- |

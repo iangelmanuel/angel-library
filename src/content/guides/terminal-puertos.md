@@ -3,7 +3,7 @@ title: "Liberar un puerto ocupado"
 description: Encontrar qué proceso está usando un puerto (típicamente un dev server que quedó colgado) y cerrarlo, en Windows, macOS y Linux.
 category: terminal
 stack: terminal
-order: 7
+order: 9
 tags: [terminal, puertos, red, procesos]
 scope: puertos
 related: [guides/terminal-procesos, guides/terminal-red-basica]

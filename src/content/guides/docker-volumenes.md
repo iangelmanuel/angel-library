@@ -34,7 +34,7 @@ Volumen nombrado          Bind mount                tmpfs
 |---|---|---|---|
 | Dónde vive | Área gestionada por Docker (`/var/lib/docker/volumes/...`) | Carpeta específica del host, la que elijas | RAM |
 | Persiste tras `docker rm` | Sí | Sí (es una carpeta real del host) | No |
-| Uso típico | Datos directamente app (base de datos) | Código fuente en desarrollo (hot reload) | Datos temporales sensibles, cache |
+| Uso típico | Datos de la aplicación (base de datos) | Código fuente en desarrollo (recarga en caliente) | Datos temporales sensibles o caché |
 | Sintaxis | `-v mis-datos:/data` | `-v /ruta/host:/data` | `--tmpfs /data` |
 
 ## Volumen nombrado: el default para datos de app
@@ -75,4 +75,4 @@ Los datos viven solo en RAM, nunca tocan disco, y se pierden al detener el conte
 ## Consideraciones
 
 - Con un volumen nombrado, si el contenedor se borra pero el volumen no, un contenedor **nuevo** montado sobre ese mismo volumen ve los mismos datos — ver [Persistencia de datos](/guides/docker-persistencia-datos) para el detalle completo de este flujo.
-- Bind mounts son cómodos en desarrollo pero no se recomiendan igual en producción (dependen directamente carpeta específica del host, que puede no existir de la misma forma en el servidor).
+- Los bind mounts son cómodos en desarrollo, pero suelen evitarse en producción porque dependen de una carpeta específica del host que puede no existir de la misma forma en otro servidor.

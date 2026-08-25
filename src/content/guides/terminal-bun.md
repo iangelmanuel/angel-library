@@ -3,7 +3,7 @@ title: "Bun: runtime, gestor de paquetes y bundler en uno"
 description: Instalar Bun y sus comandos básicos — install, add, run, correr TypeScript directo, bunx.
 category: terminal
 stack: terminal
-order: 15
+order: 18
 tags: [terminal, bun, node, gestor-de-paquetes, runtime]
 scope: bun
 related: [guides/terminal-npm, guides/terminal-pnpm, guides/terminal-nvm]

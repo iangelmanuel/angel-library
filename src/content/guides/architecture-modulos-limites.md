@@ -3,7 +3,7 @@ title: Módulos, límites y dirección de dependencias
 description: Dividir un sistema por capacidades y contratos para contener cambios, evitar ciclos y mantener infraestructura fuera del dominio.
 category: architecture
 stack: principios
-order: 3
+order: 4
 tags: [architecture, modules, boundaries, dependencies, coupling]
 related:
   - guides/architecture-fundamentals-terminology

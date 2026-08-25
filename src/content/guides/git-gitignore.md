@@ -3,7 +3,7 @@ title: .gitignore — qué no versionar
 description: Patrones para ignorar archivos, un .gitignore global para tu editor/SO, y qué hacer si algo que debía ignorarse ya quedó trackeado.
 category: git
 stack: git
-order: 5
+order: 6
 tags: [git, gitignore, config]
 scope: .gitignore
 updatedAt: 2026-08-16

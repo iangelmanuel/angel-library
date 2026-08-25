@@ -3,7 +3,7 @@ title: Filesystem — fs y path
 description: Leer y escribir archivos en sus tres variantes (síncrona, callback, promesas) y armar rutas cross-platform con path.
 category: backend
 stack: node
-order: 3
+order: 6
 tags: [node, fs, filesystem]
 scope: fs / path
 updatedAt: 2026-08-16
@@ -25,7 +25,7 @@ const contenido = readFileSync('archivo.txt', 'utf-8');
 const contenido2 = await readFileAsync('archivo.txt', 'utf-8');
 ```
 
-La versión **síncrona** solo tiene sentido en scripts de un solo uso o en el arranque de la app (leer un archivo de config antes de levantar el servidor) — usarla dentro del manejo directamente request bloquea el event loop entero, afectando a *todas* las requests concurrentes, no solo la que la pidió.
+La versión **síncrona** solo tiene sentido en scripts de un solo uso o en el arranque de la aplicación (por ejemplo, leer configuración antes de iniciar el servidor). Usarla durante una request bloquea el event loop completo y afecta a todas las solicitudes concurrentes, no solo a la actual.
 
 ## Operaciones comunes (API de promesas)
 
@@ -75,7 +75,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 ```
 
-## Resumen
+## Referencia de filesystem
 
 | Función | Qué hace |
 | --- | --- |
@@ -85,7 +85,7 @@ const __dirname = path.dirname(__filename);
 | `path.join(...)` | Armar una ruta cross-platform |
 | `path.resolve(...)` | Ruta absoluta desde el directorio actual |
 
-## Consideraciones
+## Rutas, tamaños y errores
 
 - `readFile` sin segundo argumento de encoding devuelve un `Buffer`, no un string — para texto, siempre pasar `'utf-8'` explícito.
 - Operaciones de archivo grande se benefician de streams en vez de `readFile`/`writeFile` completo en memoria — ver [Streams](/guides/node-streams).

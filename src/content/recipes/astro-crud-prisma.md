@@ -90,4 +90,4 @@ import { actions } from 'astro:actions';
 ## Consideraciones
 
 - `ActionError` es el mecanismo de Server Actions para errores tipados que el cliente puede inspeccionar (`action.error.code`) — distinto del `Response` con status manual que usa un endpoint tradicional.
-- Si **todos** los consumidores de este CRUD son la propia app (sin necesidad directamente API pública), las Server Actions solas alcanzan para las 5 operaciones — el endpoint `GET` de este ejemplo es solo para ilustrar el caso mixto.
+- Si todos los consumidores de este CRUD pertenecen a la propia aplicación y no necesitan una API pública, las Server Actions pueden cubrir las cinco operaciones. El endpoint `GET` del ejemplo ilustra un caso mixto.

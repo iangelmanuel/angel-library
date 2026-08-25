@@ -5,12 +5,27 @@ category: architecture
 stack: principios
 tags: [arquitectura, diseno, modulos, dependencias, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 La **arquitectura de software** reúne decisiones estructurales que condicionan cómo se desarrolla, despliega, cambia y opera un sistema. No es un diagrama decorativo ni una lista de patrones: debe explicar límites, responsabilidades, dependencias y razones.
 
 Una buena arquitectura no elimina el cambio. Hace que los cambios previsibles sean localizables y que los riesgos importantes sean visibles.
+
+## Aprende o consulta
+
+Para aprender, comienza por módulos, dependencias, cohesión y acoplamiento. Después estudia principios y patrones; al final compara arquitecturas completas. Un patrón sin problema concreto es vocabulario, no una decisión.
+
+| Pregunta | Documento |
+| --- | --- |
+| ¿cómo delimito módulos? | [Módulos y límites](/guides/architecture-modulos-limites) |
+| ¿qué fuerzas debo comparar? | [Guía de decisión](/guides/architecture-decision-guide) |
+| ¿cómo documento el porqué? | [ADR](/practices/adr) |
+| ¿cómo priorizo disponibilidad, seguridad o rendimiento? | [Atributos de calidad](/guides/architecture-quality-attributes) |
+| ¿cuándo usar capas o puertos? | [Arquitectura en capas](/patterns/layered-architecture) y [hexagonal](/patterns/hexagonal-architecture) |
+| ¿monolito o microservicios? | [Comparación](/patterns/monolith-vs-microservices) |
+
+Quien viene a recordar puede entrar por la fuerza que intenta resolver. Quien aprende debe implementar primero una versión simple y observar qué cambio se vuelve costoso antes de añadir abstracciones.
 
 ## Módulo, componente, capa y servicio
 

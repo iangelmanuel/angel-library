@@ -1,14 +1,17 @@
 ---
-title: Cómo mantener un segundo cerebro técnico
-description: Convertir notas, snippets y referencias en conocimiento encontrable, verificable y reutilizable sin acumular páginas obsoletas.
-category: resources
+title: Arquitectura y mantenimiento del segundo cerebro técnico
+description: Cómo organizar y mantener esta biblioteca de conocimiento; no es un enlace de Recursos, sino documentación editorial del proyecto.
+category: tools
+stack: tools-documentacion
 tags: [knowledge-base, documentation, snippets, learning, maintenance]
-order: 1
+order: 2
 related:
   - guides/tools-documentacion-tecnica
   - guides/content-references
 updatedAt: 2026-08-19
 ---
+
+Este documento explica cómo se organiza y mantiene **angel.library**. No describe una página externa, por eso vive en Herramientas → Documentación técnica y no en Recursos.
 
 Un segundo cerebro técnico no intenta copiar toda la documentación oficial. Conserva lo que ayuda a **recordar, decidir y aplicar**: modelos mentales, ejemplos propios, errores frecuentes y enlaces a la fuente vigente.
 

@@ -3,7 +3,7 @@ title: "Chocolatey: gestor de paquetes para Windows"
 description: Instalar y manejar software en Windows desde la terminal con Chocolatey — install, upgrade, uninstall, search.
 category: terminal
 stack: terminal
-order: 11
+order: 14
 tags: [terminal, chocolatey, windows, gestor-de-paquetes]
 scope: choco
 related: [guides/terminal-scoop, guides/terminal-nvm]

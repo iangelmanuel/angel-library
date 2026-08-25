@@ -3,7 +3,7 @@ title: Composición sobre herencia
 description: Combinar comportamiento con funciones y objetos pequeños en vez de construir jerarquías de clases profundas.
 category: architecture
 stack: principios
-order: 4
+order: 7
 practice: Preferir componer comportamiento a partir de piezas chicas antes que extender clases base en cadenas de herencia.
 why: Las jerarquías profundas son rígidas — cambiar la clase base rompe todo lo que hereda de ella, aunque no debería.
 related:

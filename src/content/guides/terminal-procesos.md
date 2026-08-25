@@ -3,7 +3,7 @@ title: "Ver y matar procesos"
 description: Listar procesos corriendo y matarlos por PID o por nombre, en Windows, macOS y Linux.
 category: terminal
 stack: terminal
-order: 6
+order: 8
 tags: [terminal, procesos, kill]
 scope: procesos
 related: [guides/terminal-puertos, guides/terminal-historial-atajos]
@@ -68,4 +68,4 @@ pkill node
 
 - `kill` (sin `-9`) le da al proceso la chance de limpiar recursos (cerrar archivos, conexiones de base de datos) antes de morir. `-9`/`-Force` lo corta en seco — último recurso, no el default.
 - `pkill`/`Stop-Process -Name` matchean por substring o patrón según el sistema — un nombre muy genérico puede matar más procesos de los que se esperaba. Conviene verificar con `ps aux | grep <nombre>` o `Get-Process <nombre>` antes de tirar el kill.
-- En Windows, muchos procesos de servidores de desarrollo (Node, Vite, etc.) quedan "colgados" tras un `Ctrl+C` mal cortado — `Stop-Process -Name node -Force` es la forma rápida de limpiar todos directamente.
+- En Windows, algunos procesos de servidores de desarrollo (Node, Vite, etc.) pueden quedar activos tras una interrupción incompleta. `Stop-Process -Name node -Force` detiene todos los procesos de Node, así que úsalo solo después de confirmar que no necesitas conservar ninguno.

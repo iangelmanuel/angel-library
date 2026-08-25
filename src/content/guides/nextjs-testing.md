@@ -58,6 +58,29 @@ Referencia oficial: [Testing](https://nextjs.org/docs/app/guides/testing).
 - Route Handler: integración con `Request`/`Response`, cookies, headers y status reales.
 - `loading`, `error` y `not-found`: navega a estados lentos, excepcionales y recursos inexistentes.
 
+## Route Handlers
+
+Si el handler no depende de estado global de Next.js, invócalo con un `Request` real y afirma la respuesta completa.
+
+```ts
+import { GET } from '@/app/api/products/route';
+
+it('valida el límite de resultados', async () => {
+  const response = await GET(new Request('http://example.test/api/products?limit=0'));
+
+  expect(response.status).toBe(400);
+  await expect(response.json()).resolves.toMatchObject({ code: 'INVALID_LIMIT' });
+});
+```
+
+Añade integración o E2E cuando intervengan `cookies()`, middleware, caché, región o runtime Edge, porque una llamada directa no reproduce toda la tubería.
+
+## Server Actions
+
+Separa la regla de negocio de la función marcada con `'use server'`. Prueba validación, autorización y persistencia en el servicio; después usa E2E para confirmar el envío del formulario, el estado pendiente, el error visible, `redirect` y `revalidatePath`/`revalidateTag`.
+
+Una acción es una frontera pública aunque solo la invoque tu interfaz. No confíes en que el formulario ocultó un campo: repite validación y autorización en servidor y agrega un caso de recurso ajeno.
+
 ## Aislar el entorno
 
 Usa una base de datos de prueba y variables explícitas. No compartas una sesión entre tests paralelos. Prueba una vez contra `next start` con build de producción y conserva una suite rápida para desarrollo, porque el dev server puede ocultar problemas de caché, prerender o variables ausentes.

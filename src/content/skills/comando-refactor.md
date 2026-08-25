@@ -40,4 +40,4 @@ If a "refactor" would actually change behavior (fixing a bug along the way), sto
 ## Consideraciones
 
 - El paso 1 (listar problemas antes de tocar código) es el que más evita refactors que se van de tema — sin eso, es fácil terminar reescribiendo más de lo pedido.
-- Sirve tanto a nivel de un archivo puntual como directamente carpeta/módulo entero — pasar `$ARGUMENTS` más específico da resultados más controlados que apuntarlo a todo el repo.
+- Sirve tanto para un archivo puntual como para una carpeta o módulo completo. Pasar un `$ARGUMENTS` específico produce resultados más controlados que apuntar a todo el repositorio.

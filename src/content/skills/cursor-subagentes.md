@@ -18,7 +18,7 @@ updatedAt: 2026-08-17
 .codex/agents/nombre.md        → ídem
 ```
 
-Si hay un archivo con el mismo nombre en más directamente de estas carpetas, gana el de `.cursor/agents/` (proyecto).
+Si hay un archivo con el mismo nombre en más de una de estas carpetas, tiene prioridad el de `.cursor/agents/` (proyecto).
 
 ## Plantilla base
 

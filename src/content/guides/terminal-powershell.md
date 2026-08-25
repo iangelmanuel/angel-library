@@ -3,7 +3,7 @@ title: "PowerShell como terminal día a día"
 description: Perfil de usuario, política de ejecución, alias y la diferencia entre PowerShell 5.1 y 7+ para el uso interactivo diario.
 category: terminal
 stack: terminal
-order: 18
+order: 21
 tags: [terminal, powershell, windows]
 scope: PowerShell
 related: [guides/terminal-wsl, guides/terminal-linux-cli]
@@ -50,7 +50,7 @@ Get-ExecutionPolicy
 
 Valores comunes: `Restricted` (bloquea todo), `RemoteSigned` (permite scripts locales, exige firma para los descargados), `Unrestricted`.
 
-Para permitir scripts locales sin firmar (el ajuste típico directamente máquina de desarrollo):
+Para permitir scripts locales sin firmar —un ajuste habitual en una máquina de desarrollo—:
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser

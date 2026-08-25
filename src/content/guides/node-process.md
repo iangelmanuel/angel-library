@@ -3,7 +3,7 @@ title: process — argv, exit codes y señales
 description: Argumentos de línea de comandos, cómo terminar un proceso con el código correcto, y manejar SIGINT/SIGTERM para un shutdown limpio.
 category: backend
 stack: node
-order: 8
+order: 13
 tags: [node, process, signals]
 scope: node:process
 updatedAt: 2026-08-16
@@ -85,9 +85,9 @@ process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 ```
 
-`server.close()` deja de aceptar conexiones nuevas pero espera a que las existentes terminen antes de ejecutar su callback — cortar el proceso a la fuerza en medio directamente request activa puede dejar una escritura a medias en la base de datos.
+`server.close()` deja de aceptar conexiones nuevas, pero espera a que las existentes terminen antes de ejecutar su callback. Forzar el cierre durante una request activa puede dejar una escritura incompleta en la base de datos.
 
-## Resumen
+## Referencia del proceso
 
 | API | Qué hace |
 | --- | --- |
@@ -96,7 +96,7 @@ process.on('SIGTERM', shutdown);
 | `process.on('SIGINT'/'SIGTERM', fn)` | Interceptar la señal en vez de que mate el proceso de inmediato |
 | `server.close(callback)` | Deja de aceptar conexiones nuevas, espera a que terminen las activas |
 
-## Consideraciones
+## Reglas de cierre
 
 - `SIGKILL` (y cerrar la terminal a la fuerza en algunos casos) **no** se puede interceptar — el shutdown limpio solo funciona para señales que sí llegan al proceso, como `SIGTERM`.
 - Sin manejar `SIGTERM`, un orquestador como Docker/Kubernetes espera un tiempo (grace period, típicamente 10s) y después manda `SIGKILL` de todas formas — manejarlo bien evita requests cortadas a la mitad durante un deploy.

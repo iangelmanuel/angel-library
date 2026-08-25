@@ -1,9 +1,9 @@
 ---
 title: Servidor HTTP nativo
-description: http.createServer(req, res) sin ningún framework — qué resuelve por tú Node y por qué frameworks como Express existen encima de esto.
+description: http.createServer(req, res) sin frameworks, qué resuelve Node y qué abstracciones añade Express sobre esta base.
 category: backend
 stack: node
-order: 4
+order: 8
 tags: [node, http, server]
 scope: node:http
 related: [recipes/node-rest-api-minima]
@@ -41,7 +41,7 @@ const server = createServer((req, res) => {
 });
 ```
 
-`req.url` viene como string crudo — Node no lo parsea en partes (ruta vs query string) por tú:
+`req.url` llega como un string crudo: Node no separa automáticamente la ruta del query string.
 
 ```ts
 import { createServer } from 'node:http';
@@ -78,7 +78,7 @@ const server = createServer(async (req, res) => {
 });
 ```
 
-Esto — parsear el body automáticamente, dar `req.body` ya listo — es exactamente una de las cosas que un framework como Express resuelve por tú con un middleware, en vez de escribir esta función en cada proyecto.
+Parsear el body y exponer `req.body` es una de las tareas que Express resuelve mediante middleware, en lugar de repetir esta función en cada proyecto.
 
 ## `res`: mandar la respuesta
 
@@ -113,9 +113,9 @@ const server = createServer((req, res) => {
 });
 ```
 
-Esto escala mal rápido (imaginate 30 rutas como una cadena de `if`) — es exactamente el problema que un router de framework resuelve. Ver la receta [API REST mínima con Node puro](/recipes/node-rest-api-minima) para una versión un poco más organizada, todavía sin framework.
+Esto deja de escalar rápidamente: treinta rutas formarían una cadena difícil de mantener. Un router de framework resuelve ese problema. Consulta [API REST mínima con Node puro](/recipes/node-rest-api-minima) para una versión más organizada, todavía sin framework.
 
-## Resumen
+## Referencia de HTTP nativo
 
 | API | Qué es |
 | --- | --- |
@@ -125,7 +125,7 @@ Esto escala mal rápido (imaginate 30 rutas como una cadena de `if`) — es exac
 | `req.on('data'/'end')` | El body llega como stream, hay que juntarlo a mano |
 | `res.writeHead(status, headers)` / `res.end(body)` | Mandar la respuesta |
 
-## Consideraciones
+## Qué añade un framework
 
 - Esto **no tiene** `next()` — ese concepto (una cadena de funciones middleware que se pasan el control entre sí) no existe en el `http` nativo, lo agregan frameworks como Express. Ver [Middlewares en Express](/guides/express-middlewares).
 - Node nativo no parsea query strings, no parsea el body, no tiene router, no tiene manejo de errores centralizado — todo eso es exactamente el trabajo que hace un framework. Entender esto ayuda a entender qué gana realmente un proyecto al agregar Express (o cualquier otro) en vez de "es una capa random encima".

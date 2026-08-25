@@ -5,12 +5,28 @@ category: database
 stack: database-fundamentos
 tags: [bases-de-datos, sql, persistencia, fundamentos, glosario]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Una **base de datos** es un sistema organizado para conservar información y consultarla después. Guardar datos no consiste únicamente en escribir un archivo: una aplicación suele necesitar búsquedas, relaciones, validación, acceso simultáneo, copias de seguridad y reglas que eviten estados imposibles.
 
 El **DBMS** (*Database Management System* o sistema gestor de bases de datos) es el software que administra esos datos. PostgreSQL, MySQL, SQLite y MongoDB son ejemplos de gestores; la base de datos es la información organizada que vive dentro de ellos.
+
+## Aprende o consulta
+
+La ruta recomendada es: datos y restricciones → modelado relacional → SQL → joins y agregaciones → índices/EXPLAIN → transacciones → pool y operación → migraciones y recuperación. No empieces optimizando índices sin conocer las consultas ni adoptes NoSQL solo para evitar diseñar relaciones.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| claves, cardinalidad y constraints | [Modelado relacional](/guides/database-modelado-relacional) |
+| SELECT, JOIN, GROUP BY y CTE | [SQL práctico](/guides/database-sql-consultas) |
+| índices y planes | [Índices y EXPLAIN](/guides/database-indices-explain) |
+| atomicidad, aislamiento y bloqueos | [Transacciones en PostgreSQL](/guides/postgresql-transacciones-concurrencia) |
+| tipos, JSONB y consultas seguras | [PostgreSQL práctico](/guides/postgresql-practico) |
+| conexiones, pool y fallos | [Operación confiable](/guides/database-pooling-reliability) |
+| cambios y recuperación | [Migraciones y backups](/guides/database-migraciones-backups) |
+
+Aprender exige ejecutar consultas y observar resultados. Recordar exige conocer la forma correcta y comprobar el plan, las restricciones y la concurrencia del caso real.
 
 ## El modelo mental mínimo
 

@@ -3,13 +3,13 @@ title: Auditoría SEO, Search Console y migraciones
 description: Revisar cobertura técnica, contenido y rendimiento, y mover dominios o rutas sin perder señales ni dejar errores invisibles.
 category: seo
 stack: seo-tecnico
-order: 3
+order: 4
 tags: [seo, audit, search-console, migrations, redirects]
 related:
   - guides/seo-rastreo-indexacion
   - guides/seo-metadata-datos-estructurados
   - guides/core-web-vitals
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Una auditoría útil conecta un síntoma con impacto y una acción. La cantidad de avisos de una herramienta no equivale a prioridad.
@@ -31,6 +31,16 @@ Search Console muestra información del buscador: consultas, páginas, cobertura
 
 Al investigar compara fecha de despliegues, segmentos de página, dispositivo, país y tipo de búsqueda. No concluyas por una variación diaria aislada.
 
+## Evidencia por URL
+
+Para una muestra representativa registra URL, status, canonical declarado/seleccionado, indexabilidad, enlaces entrantes, HTML renderizado y última modificación. Segmenta por plantilla: un fallo en producto puede no afectar documentación.
+
+```text
+síntoma → segmento → cambio temporal → causa probable → prueba → acción
+```
+
+No corrijas todos los avisos con igual prioridad. Estima páginas e intención afectadas y verifica si el buscador realmente interpreta la señal como esperas.
+
 ## Migración de rutas o dominio
 
 Antes de publicar:
@@ -47,6 +57,16 @@ Después:
 - observa logs del servidor y páginas indexadas;
 - actualiza enlaces internos y campañas;
 - conserva redirecciones por un periodo prolongado.
+
+## Matriz de redirecciones
+
+Cada URL valiosa debe apuntar al equivalente más cercano con una redirección permanente. Evita cadenas `antigua → intermedia → nueva`, loops y reglas que transformen parámetros importantes incorrectamente.
+
+Prueba status y destino automáticamente antes del corte. Mantén propiedad de ambos dominios, certificados y monitoreo durante la transición.
+
+## Criterio de cierre
+
+La migración no termina el día del deploy. Continúa hasta que rastreo, indexación, tráfico y conversiones se estabilicen, los errores inesperados tengan explicación y las URLs antiguas sigan resolviendo correctamente.
 
 ## Referencias
 

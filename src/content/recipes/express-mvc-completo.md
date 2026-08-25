@@ -12,7 +12,7 @@ updatedAt: 2026-08-16
 
 ## El concepto ya está documentado
 
-Esta receta es la versión "con código real" de [Estructura MVC para APIs Express](/patterns/backend-mvc-structure) — mismo árbol de carpetas, mismo flujo directamente request, aquí con un recurso completo (`posts`) implementado en cada capa.
+Esta receta lleva a código la [Estructura MVC para APIs Express](/patterns/backend-mvc-structure): conserva el árbol y el flujo de una request, con un recurso `posts` implementado en cada capa.
 
 ## Árbol completo
 

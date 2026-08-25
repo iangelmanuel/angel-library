@@ -9,7 +9,7 @@ related:
   - guides/accessibility-fundamentals-terminology
   - guides/accessibility-visual-reflow-motion
   - practices/accessibility-checklist
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 El contenido accesible comunica la misma intención aunque cambie el canal. No consiste en describir cada píxel, sino en conservar información, estructura y acción.
@@ -66,6 +66,32 @@ No uses tablas para layout. En tablas complejas, simplifica la estructura o divi
 - Audiodescripción cuando la imagen aporta información que la narración no comunica.
 - Controles operables con teclado y nombre accesible.
 - Nada de reproducción automática con sonido.
+
+## Enlaces, abreviaturas y lectura
+
+El texto de un enlace debe conservar significado fuera del párrafo. Evita listas donde todos dicen “ver más”. Si descarga un archivo, comunica formato y tamaño cuando ayude a decidir.
+
+```html
+<a href="/reportes/2026.pdf">Descargar reporte anual 2026 (PDF, 2,4 MB)</a>
+```
+
+Explica una abreviatura en su primera aparición. Para fechas, precios e instrucciones, usa lenguaje directo y conserva el mismo término para la misma acción.
+
+## Caso de uso: gráfico
+
+Un `alt` corto identifica la conclusión; una tabla o descripción cercana expone valores y tendencia. No intentes comprimir veinte puntos de datos dentro del atributo.
+
+```html
+<img src="ventas.webp" alt="Las ventas crecieron 18 % entre enero y junio" />
+<details>
+  <summary>Consultar datos del gráfico</summary>
+  <!-- tabla con meses y valores -->
+</details>
+```
+
+## Comprobación
+
+Recorre la página sin imágenes, sin audio y con estilos desactivados. La estructura, las acciones y la información esencial deben seguir disponibles. Después prueba zoom, lector de pantalla y subtítulos con el contenido real, no con texto de muestra.
 
 ## Referencias
 

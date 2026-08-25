@@ -164,7 +164,7 @@ export const POST: APIRoute = async ({ request }) => {
 <button id="logout">Cerrar sesión</button>
 ```
 
-## Resumen
+## Piezas de Auth.js en Astro
 
 | Pieza | Rol |
 | --- | --- |
@@ -175,7 +175,7 @@ export const POST: APIRoute = async ({ request }) => {
 | `auth-astro/server` (`getSession`) | Leer sesión en páginas/endpoints |
 | `auth-astro/client` (`signIn`/`signOut`) | Login/logout desde un script de cliente |
 
-## Consideraciones
+## Callbacks, sesión y rutas
 
 - `auth-astro` es un paquete más nuevo que la integración de Next.js — con menos superficie de uso en producción a gran escala.
 - Olvidar el callback `jwt` (y solo agregar `session`) es un error común: `session` solo puede leer lo que `jwt` ya haya copiado al `token`.

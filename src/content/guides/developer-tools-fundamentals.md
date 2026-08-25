@@ -5,10 +5,25 @@ category: tools
 stack: tools-fundamentos
 tags: [herramientas, toolchain, build, cli, fundamentos, glosario]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Una **cadena de herramientas**, o *toolchain*, es el conjunto de programas que transforma código fuente en una aplicación que se puede probar, ejecutar y distribuir. Conocer el papel de cada herramienta evita configuraciones duplicadas y ayuda a ubicar la causa de un error.
+
+## Aprende o consulta
+
+Para aprender, sigue el archivo desde el editor hasta producción: gestor de paquetes → scripts → formatter/linter/typecheck → test → bundler → artefacto → depuración. No añadas otra herramienta antes de identificar qué responsabilidad falta.
+
+| Pregunta | Documento |
+| --- | --- |
+| ¿qué hace Vite en desarrollo y build? | [Vite y build](/guides/tools-vite-build) |
+| ¿ESLint, Prettier o TypeScript? | [Calidad de código](/guides/tools-calidad-codigo) |
+| ¿cómo diagnostico una página? | [Chrome DevTools](/guides/tools-chrome-devtools) |
+| ¿cómo depuro sin cambiar cosas al azar? | [Flujo de debugging](/guides/tools-debugging-workflow) |
+| ¿cómo comparto tareas del editor? | [VS Code workspace](/guides/tools-vscode-workspace) |
+| ¿qué documentación sí se mantiene? | [Documentación técnica](/guides/tools-documentacion-tecnica) |
+
+Para recordar, entra por el síntoma y consulta la herramienta responsable. Para aprender, ejecuta cada etapa por separado y observa su entrada, salida y código de error.
 
 ## Mapa general
 

@@ -3,7 +3,7 @@ title: Middlewares en Express — la cadena req → res → next
 description: La firma (req, res, next), el orden de ejecución y la diferencia entre middleware propio y de terceros. Aquí se explica el propósito real de next().
 category: backend
 stack: express
-order: 2
+order: 3
 tags: [express, middleware, node]
 scope: express middleware
 related: [guides/node-http-server]
@@ -41,7 +41,7 @@ app.use(middlewareB);   // corre segundo, solo si A llamó a next()
 app.get('/ruta', handler); // corre último
 ```
 
-## Middleware directamente ruta específica vs global
+## Middleware global y middleware de ruta
 
 ```ts
 app.use(loggerGlobal);                          // corre en TODAS las rutas
@@ -80,17 +80,17 @@ app.use(logger);            // propio
 
 `express.json()` es el reemplazo directo del parseo manual de body que se hacía a mano en [Node puro](/guides/node-http-server) — ya viene con Express, no hace falta instalarlo aparte.
 
-## Resumen
+## Cadena de consulta
 
 | Concepto | Qué es |
 | --- | --- |
 | `(req, res, next) => {...}` | La firma de cualquier middleware |
 | `next()` | Pasa el control al siguiente eslabón de la cadena |
 | `app.use(fn)` | Middleware global, corre en toda request |
-| `app.get(ruta, mw1, mw2, handler)` | Middlewares específicos directamente ruta, en orden |
+| `app.get(ruta, mw1, mw2, handler)` | Middlewares específicos de una ruta, en orden |
 | `express.json()` | Parseo de body JSON, incluido con Express |
 
-## Consideraciones
+## Reglas de orden y terminación
 
 - Olvidar `next()` en un middleware que no responde nada deja la request colgada indefinidamente hasta el timeout del cliente — el bug más común al escribir un middleware nuevo.
 - El orden de `app.use()` importa de verdad: un middleware de auth registrado *después* de las rutas que debería proteger, no las protege — corre después de que el handler ya respondió.

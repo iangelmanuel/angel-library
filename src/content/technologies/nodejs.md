@@ -1,102 +1,120 @@
 ---
 title: Node.js
-description: Runtime de JavaScript para servidor, CLIs y automatización, basado en event loop e I/O no bloqueante.
+description: Ruta de Node.js para aprender el runtime desde cero o consultar rápidamente módulos, I/O, red, streams, procesos y concurrencia.
 category: backend
 stack: node
 tags: [node, javascript, backend, runtime]
 website: https://nodejs.org
 github: https://github.com/nodejs/node
 related:
-  - guides/node-events
+  - guides/node-primeros-pasos
+  - guides/node-runtime-event-loop
+  - guides/node-errores-asincronia
+  - guides/node-http-server
   - guides/node-streams
   - guides/node-process
-  - guides/node-commonjs-vs-esm
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
-## Modelo mental
+## Qué estás estudiando
 
-Node ejecuta JavaScript en un proceso con un event loop. I/O de red y filesystem se coordina de forma asíncrona; el código JavaScript pesado sigue ocupando el hilo principal si no se mueve a workers o procesos separados.
+Node.js es un runtime para ejecutar JavaScript fuera del navegador. Combina el motor V8 con APIs de sistema operativo para archivos, procesos, red, criptografía y streams. No es un framework backend ni incluye DOM.
 
-Un **runtime** o entorno de ejecución reúne el motor de JavaScript y APIs para interactuar con el sistema operativo. Node.js usa el motor V8 y ofrece módulos para procesos, archivos, red, criptografía y streams. No incluye el DOM del navegador.
+```text
+código JavaScript
+  → V8 ejecuta el lenguaje
+  → Node expone APIs y coordina I/O
+  → sistema operativo, red y filesystem
+```
 
-## Para qué lo uso
+El modelo favorece servicios orientados a **I/O** (*Input/Output* o entrada/salida): mientras una consulta de red espera, el proceso puede atender otros callbacks. El trabajo intensivo de CPU sigue bloqueando el hilo de JavaScript si no se distribuye a workers o procesos.
 
-- APIs, workers y backends orientados a I/O.
-- Herramientas CLI y scripts de automatización.
-- Build tooling del ecosistema frontend.
-- Servicios que comparten tipos y lenguaje con el cliente.
+## Elige tu modo de entrada
 
-## APIs fundamentales
+### Quiero aprender desde cero
 
-| Área | Módulos/APIs |
+Empieza en [Primeros pasos](/guides/node-primeros-pasos). Después estudia `package.json` y módulos antes del event loop: primero necesitas saber cómo se crea y conecta un programa; luego, cómo se comporta al ejecutarse.
+
+Para cada documento:
+
+1. ejecuta el ejemplo sin framework;
+2. identifica si el trabajo es síncrono, I/O asíncrono o CPU;
+3. provoca un error y observa cómo se propaga;
+4. añade timeout, límite y cierre donde aplique;
+5. explica qué mantiene vivo al proceso.
+
+### Ya uso Node y quiero recordar
+
+| Necesito | Documento |
 | --- | --- |
-| Proceso | `process`, señales, variables de entorno |
-| Archivos | `node:fs/promises`, streams |
-| Red | `node:http`, `fetch`, `URL` |
-| Concurrencia | promesas, `worker_threads`, `child_process` |
-| Módulos | ESM, `package.json`, exports |
+| instalación, scripts y primer proceso | [Primeros pasos](/guides/node-primeros-pasos) |
+| scripts, dependencias, exports y semver | [`package.json`](/guides/node-package-json) |
+| `import`, `export`, `require` y resolución | [CommonJS vs ESM](/guides/node-commonjs-vs-esm) |
+| microtareas, timers, bloqueo y concurrencia | [Runtime y event loop](/guides/node-runtime-event-loop) |
+| promesas, cancelación y causas | [Errores asíncronos](/guides/node-errores-asincronia) |
+| leer/escribir y construir rutas | [Filesystem](/guides/node-filesystem) |
+| bytes, UTF-8, base64 y memoria | [Buffer](/guides/node-buffer-binario) |
+| `createServer`, request y response | [HTTP nativo](/guides/node-http-server) |
+| `fetch`, `URL`, headers y AbortSignal | [Web APIs](/guides/node-fetch-web-apis) |
+| configuración y secretos | [Variables de entorno](/guides/node-env-vars) |
+| datos por partes y backpressure | [Streams](/guides/node-streams) |
+| EventEmitter y ciclo de listeners | [Eventos](/guides/node-events) |
+| señales, argumentos y cierre ordenado | [Process](/guides/node-process) |
+| CPU paralela | [Worker threads](/guides/node-worker-threads) |
+| ejecutar programas y aislar procesos | [Child process](/guides/node-child-process) |
 
-**ESM** significa *ECMAScript Modules* y usa `import`/`export`. **CommonJS (CJS)** usa `require()` y `module.exports`. Ambos existen en el ecosistema, pero tienen reglas distintas de resolución y carga.
+## Curva de aprendizaje
 
-```js
-// ESM
-import { readFile } from 'node:fs/promises';
+### Etapa 1: programa y módulos
 
-const text = await readFile(new URL('./data.txt', import.meta.url), 'utf8');
-```
+1. Instalar Node, ejecutar archivos y usar scripts.
+2. Entender `package.json`, lockfile y dependencias.
+3. Elegir ES Modules o CommonJS y resolver imports.
+4. Reconocer globals, módulos `node:` y rutas de archivos.
 
-`node:` indica un módulo incorporado. `import.meta.url` representa la URL del módulo actual y evita asumir que el directorio de trabajo coincide con el directorio del archivo.
+Al terminar puedes crear una CLI pequeña y explicar cómo Node encuentra y ejecuta su entrada.
 
-## Event loop, I/O y CPU
+### Etapa 2: asincronía y fallos
 
-**I/O** significa entrada y salida: red, archivos o comunicación con otros procesos. Node puede esperar muchas operaciones de I/O sin dedicar un hilo de JavaScript a cada una.
+5. Event loop, promesas, timers y microtareas.
+6. I/O frente a CPU y diferencia entre concurrencia y paralelismo.
+7. Propagación de errores, cancelación y timeouts.
+8. Límites de entrada y concurrencia.
 
-Una tarea intensiva de **CPU** —por ejemplo, transformar una imagen o recorrer un JSON enorme— sigue bloqueando la ejecución de JavaScript en ese proceso. Para ese trabajo se usan `worker_threads`, procesos separados o un servicio especializado.
+### Etapa 3: datos y red
 
-## Buffer y stream
+9. Filesystem y `path`.
+10. Buffer, encodings y datos binarios.
+11. Servidor HTTP nativo y Web APIs de cliente.
+12. Streams, pipeline y backpressure.
+13. EventEmitter y comunicación por eventos.
 
-Un `Buffer` representa bytes en memoria. Un **stream** procesa datos por partes sin necesitar cargar todo el contenido antes.
+### Etapa 4: proceso y operación
 
-```js
-import { createReadStream } from 'node:fs';
-import { createServer } from 'node:http';
+14. Variables de entorno y configuración validada.
+15. Señales, estado del proceso y graceful shutdown.
+16. Worker threads para CPU y child processes para programas externos.
+17. Logging, observabilidad, seguridad y pruebas del servicio.
+18. Frameworks como Express después de reconocer qué abstracciones añaden.
 
-createServer((request, response) => {
-  createReadStream('./large-video.mp4').pipe(response);
-}).listen(3000);
-```
+## Glosario mínimo
 
-La tubería limita memoria, pero debe manejar cancelación y errores. En código moderno, `stream.pipeline()` ayuda a propagar fallos y cerrar recursos.
+| Término | Significado |
+| --- | --- |
+| runtime | entorno que ejecuta JavaScript y ofrece APIs adicionales |
+| event loop | coordinador que entrega callbacks listos al hilo de JavaScript |
+| I/O | entrada/salida: red, archivos o comunicación externa |
+| CPU-bound | trabajo cuyo límite principal es el cálculo del procesador |
+| Buffer | región de bytes en memoria |
+| stream | interfaz para procesar datos por partes |
+| backpressure | señal para frenar al productor cuando el consumidor no alcanza |
+| worker | hilo o proceso que ejecuta trabajo separado del flujo principal |
+| graceful shutdown | cierre que deja de aceptar trabajo y libera recursos de forma ordenada |
 
-## Variables de entorno y argumentos
+## Qué Node incluye y qué no
 
-`process.env` contiene cadenas o valores ausentes; no interpreta números ni valida configuración.
+Node ofrece `fetch`, `URL`, `AbortController`, `process`, filesystem y red. No ofrece routing de aplicación, validación de contratos, autenticación, ORM ni arquitectura. Express agrega una cadena de routing/middleware; Astro y Next.js integran servidor con un framework web. Aprender Node evita tratar esas capas como magia.
 
-```ts
-const rawPort = process.env.PORT ?? '3000';
-const port = Number(rawPort);
+## Regla operativa
 
-if (!Number.isInteger(port) || port <= 0) {
-  throw new Error('PORT debe ser un entero positivo');
-}
-```
-
-`process.argv` contiene argumentos de la CLI. Para una herramienta pública conviene usar un parser que documente opciones, ayude con `--help` y reporte entradas inválidas.
-
-## Cancelación y límites
-
-Una promesa no se cancela automáticamente al desconectarse el cliente. `AbortController` comunica cancelación a APIs compatibles. Toda llamada remota necesita tiempo máximo, y toda entrada necesita límites de tamaño.
-
-Los límites protegen memoria y disponibilidad: tamaño de body, concurrencia, duración de tarea y cantidad de resultados no deben quedar infinitos por defecto.
-
-## Errores comunes
-
-- Bloquear el event loop con CPU, JSON enorme o APIs síncronas en requests.
-- Ignorar errores de promesas o eventos `error` en streams.
-- Mantener conexiones y timers abiertos durante shutdown.
-- Confiar en tipos TypeScript sin validar datos externos.
-
-## Regla práctica
-
-Diseña primero el ciclo de vida: inicio, request/job, cancelación y cierre. Un servicio sano no solo responde bien; también deja de aceptar trabajo, termina lo pendiente y cierra conexiones cuando recibe una señal de apagado.
+Todo recurso debe tener ciclo de vida: creación, uso, error, cancelación y cierre. Todo input necesita límite y validación. Toda dependencia remota necesita timeout. Esta regla conecta los módulos nativos con un backend mantenible.

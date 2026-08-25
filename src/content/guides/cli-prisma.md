@@ -49,7 +49,7 @@ npx prisma db push           # prototipado: sincroniza el schema sin crear histo
 npx prisma studio
 ```
 
-Abre una UI visual en el navegador para ver y editar filas de la base directamente — sin escribir SQL a mano.
+Abre una interfaz visual en el navegador para ver y editar filas de la base de datos sin escribir SQL manualmente.
 
 ## Sincronizar sin migraciones
 

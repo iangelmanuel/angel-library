@@ -28,7 +28,7 @@ Define recursos, métodos, estados, autenticación, límites y forma de error an
 }
 ```
 
-## Fronteras y orden directamente request
+## Fronteras y orden de una request
 
 Una ruta debería autenticar, autorizar, validar, ejecutar el caso de uso y mapear la respuesta. No mezcles SQL, reglas de negocio y serialización en el mismo bloque. Valida body, params, query y headers en el límite; después trabaja con un tipo confiable.
 

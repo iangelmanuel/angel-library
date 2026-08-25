@@ -8,7 +8,7 @@ tags: [database, migrations, backups, restore, operations]
 related:
   - guides/postgresql-practico
   - guides/cicd-pipeline-fundamentals
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Una **migración** es un cambio versionado del esquema o de los datos. Un **backup** es una copia recuperable. Ninguno es confiable hasta comprobar que puede aplicarse o restaurarse en el tiempo esperado.
@@ -34,12 +34,30 @@ WHERE id > $1 AND id <= $2 AND display_name IS NULL;
 
 En tablas grandes, revisa si una operación toma locks prolongados o reescribe todas las filas. Define timeout y un plan de cancelación.
 
+## Migraciones de datos
+
+Un backfill debe poder reanudarse y ejecutarse varias veces. Procesa lotes con checkpoint, limita carga y mide filas pendientes/errores. No mantengas una transacción gigante durante horas.
+
+```text
+seleccionar lote pendiente → actualizar idempotentemente → guardar progreso
+                    ↑                                ↓
+                    └──────── siguiente lote ───────┘
+```
+
+Antes de retirar el campo anterior, confirma que ninguna versión, job, script o consumidor todavía lo escribe.
+
 ## RPO y RTO
 
 - **RPO** (*Recovery Point Objective*): cuántos datos se acepta perder, medido en tiempo.
 - **RTO** (*Recovery Time Objective*): cuánto puede tardar la recuperación del servicio.
 
 Una copia nocturna implica potencialmente un RPO cercano a 24 horas. Para exigencias menores se necesitan respaldos continuos, registros de transacciones o replicación; la replicación por sí sola no protege contra un borrado lógico que también se replica.
+
+## Restaurar es la prueba
+
+Un simulacro crea una base aislada, restaura, aplica claves necesarias y ejecuta consultas de integridad. Mide tiempo real y documenta dependencias: DNS, secretos, object storage, colas y archivos pueden requerir coordinación con la base.
+
+Prueba también recuperación puntual cuando existe. La restauración técnica termina cuando el producto vuelve a una operación coherente, no cuando el comando deja de imprimir salida.
 
 ## Checklist operativo
 

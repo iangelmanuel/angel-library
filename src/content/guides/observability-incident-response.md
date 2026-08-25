@@ -10,7 +10,7 @@ related:
   - guides/observability-fundamentals
   - guides/security-ddos-resilience
   - guides/cicd-deployment-strategies
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
 ## Durante el incidente
@@ -24,6 +24,10 @@ updatedAt: 2026-08-18
 
 Mitigar tiene prioridad sobre encontrar la causa perfecta. Evita varios cambios simultáneos sin registro: después no sabrás cuál funcionó.
 
+## Roles y comunicación
+
+Separa coordinación, investigación y comunicación cuando el tamaño lo permita. Mantén un timeline con UTC, evidencia, hipótesis y acción. Una actualización útil indica impacto observado, mitigación en curso y próxima hora de comunicación; evita prometer recuperación sin evidencia.
+
 ## Backups
 
 Un backup existe solo si se puede restaurar. Define RPO —cuánto dato puedes perder— y RTO —cuánto puedes tardar—. Prueba restauración aislada, claves de cifrado, permisos y consistencia entre base, archivos y eventos.
@@ -31,6 +35,13 @@ Un backup existe solo si se puede restaurar. Define RPO —cuánto dato puedes p
 ## Postmortem
 
 Reconstruye timeline, condiciones contribuyentes, detección, decisiones y por qué los controles no limitaron impacto. Las acciones deben tener dueño, prioridad y fecha. Evita “tener más cuidado”; prefiere cambios verificables en automatización, límites, arquitectura y runbooks.
+
+```text
+acción débil: revisar mejor los deploys
+acción verificable: bloquear promoción si el smoke test de checkout falla
+```
+
+Revisa si detección, contención y recuperación cumplieron objetivos. Un postmortem sin seguimiento solo documenta la repetición futura.
 
 ## Kit mínimo
 
@@ -40,4 +51,6 @@ Reconstruye timeline, condiciones contribuyentes, detección, decisiones y por q
 - página de estado y plantillas de comunicación;
 - inventario de datos/proveedores;
 - procedimiento de restauración probado.
+
+Realiza ejercicios de mesa y game days controlados. El objetivo no es sorprender al equipo, sino comprobar accesos, alertas, decisiones y rollback antes de una emergencia real.
 

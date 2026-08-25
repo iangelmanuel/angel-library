@@ -3,7 +3,7 @@ title: "bash y zsh: shells tipo Linux"
 description: Diferencia entre bash y zsh, sus archivos de configuración, y los gestores de paquetes del sistema por distro.
 category: terminal
 stack: terminal
-order: 19
+order: 22
 tags: [terminal, bash, zsh, linux, gestor-de-paquetes]
 scope: bash / zsh
 related: [guides/terminal-wsl, guides/terminal-powershell, guides/terminal-nvm]

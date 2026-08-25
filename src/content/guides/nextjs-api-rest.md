@@ -83,7 +83,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
 Igual que en Astro, Next.js no tiene una cadena de middlewares específica por Route Handler — la protección amplia va en `proxy.ts` (ver [Backend en Next.js](/guides/nextjs-backend-arquitectura)), y chequeos específicos de la ruta (como `auth()` en el ejemplo de `POST` arriba) van al principio del handler mismo.
 
-## Resumen
+## Equivalencias HTTP en Next.js
 
 | Concepto | Dónde ya está documentado |
 | --- | --- |
@@ -91,7 +91,7 @@ Igual que en Astro, Next.js no tiene una cadena de middlewares específica por R
 | Paginación/filtrado | [Paginación, filtrado y búsqueda](/guides/express-api-paginacion) |
 | Sintaxis de Route Handlers, `params`/`searchParams` | [Endpoints](/guides/nextjs-endpoints), [Leer params y searchParams](/guides/nextjs-params-searchparams) |
 
-## Consideraciones
+## Runtime, protección y caché
 
 - `NextResponse.json(body, { status })` es el helper equivalente a `res.status(status).json(body)` de Express — misma idea, forma distinta de escribirlo.
 - Un Route Handler puede declarar `export const runtime = 'edge'` para correr en el Edge Runtime (más rápido para arrancar, con limitaciones — por ejemplo, Prisma necesita un driver adapter especial ahí, ver [Prisma en Next.js](/guides/nextjs-prisma)) — el default (`'nodejs'`) alcanza para la gran mayoría de los casos.

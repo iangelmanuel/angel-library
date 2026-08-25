@@ -3,7 +3,7 @@ title: El flujo básico — init, add, status, commit, log
 description: El ciclo que se repite todo el tiempo — tres zonas (working tree, staging, historial) y los comandos que mueven cambios entre ellas.
 category: git
 stack: git
-order: 2
+order: 3
 tags: [git, basics, commits]
 scope: git add / commit / status / log
 updatedAt: 2026-08-16
@@ -38,7 +38,7 @@ El comando que más se corre en Git. Dice qué archivos cambiaron, cuáles está
 
 ```bash
 git add archivo.ts        # un archivo puntual
-git add carpeta/          # todo dentro directamente carpeta
+git add carpeta/          # todo lo que está dentro de la carpeta
 git add .                 # todo lo que cambió desde el directorio actual
 git add -p                # elegir interactivamente qué partes de cada archivo (por "hunk")
 ```

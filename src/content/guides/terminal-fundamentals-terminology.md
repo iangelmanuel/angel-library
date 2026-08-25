@@ -5,10 +5,27 @@ category: terminal
 stack: terminal
 tags: [terminal, shell, cli, procesos, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 La terminal permite interactuar con programas mediante texto, automatizar pasos y combinar herramientas pequeñas. Para usarla con seguridad conviene separar conceptos que suelen llamarse “terminal” como si fueran lo mismo.
+
+## Aprende o consulta
+
+Si comienzas, aprende navegación → archivos → contenido/búsqueda → pipes → procesos → variables → red → permisos → SSH → scripts. Practica en una carpeta temporal y revisa rutas absolutas antes de copiar comandos destructivos.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| moverme y reconocer la ruta actual | [Navegación](/guides/terminal-navegacion) |
+| crear, copiar, mover o eliminar | [Archivos y carpetas](/guides/terminal-archivos-carpetas) |
+| buscar texto y leer archivos | [Ver contenido](/guides/terminal-ver-contenido) |
+| encadenar comandos y leer exit codes | [Pipes y procesos](/guides/terminal-pipes-redirection-processes) |
+| diagnosticar procesos o puertos | [Procesos](/guides/terminal-procesos) y [puertos](/guides/terminal-puertos) |
+| hacer requests HTTP | [`curl`](/guides/terminal-curl) |
+| automatizar con seguridad | [Shell scripting](/guides/terminal-shell-scripting) |
+| comparar sintaxis | [PowerShell](/guides/terminal-powershell) y [Bash/Zsh](/guides/terminal-linux-cli) |
+
+Para recordar, busca el objetivo, no un comando aislado. La misma acción cambia entre PowerShell y shells POSIX; confirma quoting, variables y rutas en la shell activa.
 
 ## Terminal, shell y CLI
 

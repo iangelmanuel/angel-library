@@ -3,7 +3,7 @@ title: 'DRY, KISS y YAGNI'
 description: Tres principios que se malinterpretan seguido — evitar duplicar conocimiento (no código parecido), preferir lo simple, y no construir para un futuro hipotético.
 category: architecture
 stack: principios
-order: 2
+order: 8
 practice: No repetir conocimiento de negocio, elegir la solución más simple que funciona, y no construir flexibilidad que nadie pidió.
 why: Aplicados de forma dogmática, estos tres principios crean más acoplamiento y complejidad de la que evitan.
 related:
@@ -114,7 +114,7 @@ function sendWelcomeEmail(email: string) {
 }
 ```
 
-Si mañana aparece un segundo tipo de email con lógica distinta, ese es el momento de extraer una abstracción — con dos casos reales delante en vez directamente imaginada.
+Si mañana aparece un segundo tipo de email con lógica distinta, ese es el momento de extraer una abstracción: ya tendrás dos casos reales, en vez de diseñar a partir de una necesidad imaginada.
 
 ## Cuándo estos principios se vuelven dogma (y eso es el problema)
 

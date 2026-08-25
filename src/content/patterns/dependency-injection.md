@@ -5,7 +5,7 @@ category: architecture
 stack: patrones-arquitectonicos
 order: 5
 tags: [arquitectura, patrones-arquitectonicos, dependency-injection, testing]
-problem: Un módulo que construye sus propias dependencias (`new PrismaClient()` adentro directamente función) no se puede reemplazar por un mock en tests ni por otra implementación en otro contexto.
+problem: Un módulo que construye sus propias dependencias (`new PrismaClient()` dentro de una función) no se puede reemplazar por un doble en las pruebas ni por otra implementación en otro contexto.
 related: [patterns/hexagonal-architecture, patterns/repository-pattern]
 updatedAt: 2026-08-17
 ---

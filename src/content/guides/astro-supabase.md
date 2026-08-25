@@ -125,7 +125,7 @@ const { data, error } = await supabaseAdmin.storage.from('avatars').upload('user
 const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png');
 ```
 
-## Resumen
+## Capacidades de Supabase en Astro
 
 | API | Qué hace |
 | --- | --- |
@@ -135,7 +135,7 @@ const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png'
 | RLS | Controla qué fila puede tocar cada usuario — no aplica con service role |
 | `supabase.auth.*` | Alternativa a better-auth/Auth.js si el proyecto ya usa Supabase para todo |
 
-## Consideraciones
+## Claves, RLS y contexto de usuario
 
 - Para la mayoría de los proyectos Astro con `output: 'server'`, [better-auth](/guides/astro-better-auth) o [Auth.js](/guides/astro-auth-js) son la elección recomendada para auth — Supabase Auth tiene sentido cuando el proyecto ya está fuertemente integrado con el resto del ecosistema Supabase.
 - Con la service role key, la autorización queda en manos del código del endpoint — RLS no protege nada aquí.

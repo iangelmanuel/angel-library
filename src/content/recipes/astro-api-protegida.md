@@ -95,5 +95,5 @@ export async function checarRateLimit(
 
 ## Consideraciones
 
-- El rate limiter en memoria de este ejemplo, igual que su equivalente en Express, no se comparte entre múltiples instancias del servidor ni sobrevive un reinicio — para producción con más directamente instancia, un store compartido (Redis, o un servicio como Upstash) es lo que hace el límite real.
+- El rate limiter en memoria del ejemplo no se comparte entre instancias ni sobrevive un reinicio. En producción con más de una instancia, usa un store compartido como Redis o un servicio compatible.
 - El razonamiento de "por qué ese orden" (barato primero, validación al final) es el mismo que en [API protegida (Express)](/recipes/express-api-protegida) — no cambia por el framework, solo la sintaxis de dónde se escribe cada chequeo.

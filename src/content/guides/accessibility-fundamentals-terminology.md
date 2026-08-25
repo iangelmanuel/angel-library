@@ -5,12 +5,28 @@ category: accessibility
 stack: a11y-fundamentos
 tags: [accesibilidad, a11y, wcag, aria, semantica, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 La **accesibilidad web** busca que una interfaz pueda ser percibida, comprendida y operada por personas con distintas capacidades, dispositivos y contextos. No es una función opcional para “algunos usuarios”: una estructura clara, un teclado funcional, mensajes comprensibles y buen contraste también ayudan ante lesiones temporales, luz intensa, conexiones lentas o dispositivos sin precisión táctil.
 
 La abreviatura **a11y** representa la palabra inglesa *accessibility*: hay once letras entre la `a` y la `y`. Se utiliza en nombres de equipos, pruebas y herramientas.
+
+## Aprende o consulta
+
+Si comienzas desde cero, avanza así: semántica HTML → teclado y foco → ARIA → formularios → componentes complejos → contenido visual → pruebas. No empieces memorizando atributos ARIA; primero comprende qué comportamiento entrega un elemento nativo.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| nombres, roles, estados y relaciones | [Atributos ARIA](/guides/accessibility-aria-attributes) |
+| foco visible y navegación por teclado | [Semántica, teclado y foco](/guides/accessibility-semantics-keyboard-focus) |
+| labels, instrucciones y errores | [Formularios accesibles](/guides/accessibility-forms-validation) |
+| diálogos, menús y anuncios | [Patrones interactivos](/guides/accessibility-dialogs-live-regions) |
+| imágenes, tablas, audio y video | [Contenido accesible](/guides/accessibility-contenido-multimedia) |
+| contraste, zoom y movimiento | [Accesibilidad visual](/guides/accessibility-visual-reflow-motion) |
+| auditoría manual y automática | [Pruebas](/guides/accessibility-testing-manual-automatico) |
+
+Para aprender, ejecuta cada ejemplo con teclado y lector de pantalla. Para recordar, usa la tabla y termina verificando comportamiento; una regla correcta en el código puede fallar cuando se combina con CSS, JavaScript o contenido real.
 
 ## WCAG, W3C y WAI
 
@@ -153,3 +169,10 @@ Un recorrido mínimo incluye:
 6. incluir personas con discapacidad en pruebas de usabilidad cuando sea posible.
 
 La accesibilidad se diseña desde el componente y se verifica en el flujo completo. Un botón aislado puede ser correcto y aun así quedar atrapado dentro de un modal mal implementado.
+
+## Fuentes y vigencia
+
+- [WCAG 2.2 — estándar normativo del W3C](https://www.w3.org/TR/WCAG22/)
+- [Understanding WCAG 2.2 — explicación y ejemplos](https://www.w3.org/WAI/WCAG22/understanding/)
+
+WCAG define criterios verificables; las técnicas son formas informativas de cumplirlos y pueden actualizarse. Por eso esta guía separa el objetivo accesible de una implementación concreta.

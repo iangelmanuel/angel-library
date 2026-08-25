@@ -1,13 +1,31 @@
 ---
-title: Cómo evaluar y conservar recursos técnicos
-description: Criterios para elegir documentación, herramientas, APIs, licencias y referencias que sigan siendo útiles y confiables.
-category: resources
+title: Curación del catálogo de recursos técnicos
+description: Proceso editorial para decidir qué enlaces externos entran al catálogo, qué información registrar y cuándo retirar una referencia.
+category: tools
+stack: tools-documentacion
 tags: [recursos, documentacion, herramientas, licencias, evaluacion]
-order: 1
-updatedAt: 2026-08-19
+order: 4
+updatedAt: 2026-08-25
 ---
 
+Esta guía no es un recurso externo: documenta el **proceso de mantenimiento de la biblioteca**. Por eso vive en Herramientas → Documentación técnica. La categoría Recursos queda reservada para fichas de sitios externos útiles.
+
 Una colección de enlaces se vuelve útil cuando explica **por qué existe cada recurso, cuándo usarlo y qué riesgo tiene**. Guardar cientos de páginas sin contexto crea un cementerio de marcadores: el enlace permanece, pero la decisión que lo hizo valioso se pierde.
+
+## Aprende o consulta
+
+Si estás formando tu biblioteca, primero define una necesidad, evalúa dos o tres fuentes, prueba una y registra la decisión. Si vienes a consultar, entra por tipo de recurso y revisa de inmediato licencia, privacidad, vigencia y formato de salida.
+
+```text
+problema concreto
+  → fuente oficial para límites y API
+  → ejemplo secundario para aprender
+  → prueba con un caso conocido
+  → nota propia: cuándo usar, riesgo y alternativa
+  → fecha de revisión
+```
+
+Las fichas breves de la categoría Recursos son índices, no tutoriales. Deben responder rápidamente qué ofrece el sitio y enlazarlo; esta guía y [Segundo cerebro técnico](/guides/resources-segundo-cerebro) explican cómo decidir, conservar y depurar el catálogo desde el área editorial.
 
 ## Fuente primaria y fuente secundaria
 

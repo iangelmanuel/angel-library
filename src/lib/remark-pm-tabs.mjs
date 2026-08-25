@@ -5,7 +5,7 @@ const PM_LANGS = new Set(['bash', 'sh', 'shell']);
 
 /**
  * Plugin remark: busca bloques de código bash/sh/shell cuyo contenido es
- * enteramente comandos npm install/i/npx, y los expande a 3 bloques
+ * enteramente instalaciones o ejecutores de npm, pnpm o Bun, y los expande a 3 bloques
  * (pnpm, bun, npm) con meta `pm="..." pmGroup="..." pmDefault` — el mismo
  * mecanismo de meta que ya lee `transformerCodeFilename` para `title=`.
  *

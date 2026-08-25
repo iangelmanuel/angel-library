@@ -1,88 +1,129 @@
 ---
-title: Backend en Next.js — Route Handlers + Server Actions
-description: Las dos superficies de backend del App Router, cómo organizarlas, sin repetir su mecánica ya documentada en Frontend.
+title: Backend en Next.js — mapa y arquitectura
+description: Ruta backend del App Router para elegir Route Handlers, Server Actions, Proxy, cookies y capas de dominio al aprender o consultar.
 category: backend
 stack: nextjs
 order: 1
-tags: [nextjs, architecture, server]
+tags: [nextjs, architecture, server, backend]
 scope: arquitectura backend en Next.js
 related:
+  - guides/nextjs-api-rest
+  - guides/nextjs-cookies-headers
+  - guides/nextjs-instrumentation
   - guides/nextjs-endpoints
   - guides/nextjs-server-actions
   - guides/nextjs-proxy
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
-El App Router de Next.js tiene dos superficies para lógica de servidor — Route Handlers y Server Actions — cuya sintaxis ya está documentada a fondo en Frontend/Next.js: [Endpoints (Route Handlers)](/guides/nextjs-endpoints), [Server Actions](/guides/nextjs-server-actions), [Proxy](/guides/nextjs-proxy). Esta guía es sobre cómo se **organizan** cuando el proyecto las usa con intención de backend real, no sobre su sintaxis.
+El App Router puede renderizar UI y ejecutar lógica de servidor. Sus dos fronteras de mutación principales son los **Route Handlers**, que exponen HTTP, y las **Server Actions**, que conectan formularios o componentes de la propia aplicación con funciones de servidor.
 
-## Dónde vive cada cosa
+```text
+consumidor externo / webhook → Route Handler
+UI del mismo proyecto        → Server Action
+lectura durante render       → Server Component o capa de datos directa
+filtro previo de rutas       → Proxy
+inicio y telemetría          → instrumentation.ts
+```
+
+## Dos formas de recorrer la documentación
+
+### Quiero aprender desde cero
+
+Primero domina Server Components, routing, fetching y caché en la ruta Frontend de Next.js. Después sigue:
+
+1. este mapa y sus fronteras;
+2. [API REST con Route Handlers](/guides/nextjs-api-rest);
+3. [cookies, headers y request](/guides/nextjs-cookies-headers);
+4. [instrumentación](/guides/nextjs-instrumentation);
+5. autenticación y acceso a datos;
+6. recetas completas al final.
+
+Para cada ejemplo pregunta: ¿quién consume esta operación?, ¿qué dato es externo?, ¿qué permiso se comprueba?, ¿qué runtime la ejecuta? y ¿qué parte puede cachearse?
+
+### Ya uso Next.js y quiero recordar
+
+| Necesito | Documento |
+| --- | --- |
+| endpoint, webhook o API pública | [API REST](/guides/nextjs-api-rest) |
+| sintaxis y métodos de `route.ts` | [Route Handlers](/guides/nextjs-endpoints) |
+| formulario o mutación de la propia UI | [Server Actions](/guides/nextjs-server-actions) |
+| leer/escribir cookies o inspeccionar headers | [Request APIs](/guides/nextjs-cookies-headers) |
+| redirects o filtro temprano por ruta | [Proxy](/guides/nextjs-proxy) |
+| inicializar SDK y capturar errores globales | [Instrumentation](/guides/nextjs-instrumentation) |
+| autenticación | [Auth.js](/guides/nextjs-auth-js) o [Better Auth](/guides/nextjs-better-auth) |
+| persistencia | [Prisma](/guides/nextjs-prisma) o [Supabase](/guides/nextjs-supabase) |
+
+## Route Handler, Action o lectura directa
+
+```text
+¿la operación solo obtiene datos para un Server Component?
+  → llama a la capa de datos; no hagas fetch a tu propia API
+
+¿la UI propia envía una mutación?
+  → Server Action
+
+¿un cliente externo necesita HTTP?
+  → Route Handler
+```
+
+Hacer `fetch('/api/...')` desde un Server Component hacia el mismo proyecto agrega serialización y otra frontera HTTP sin necesidad. Extrae una función server-only y compártela entre el componente y el Route Handler cuando ambos necesiten el mismo caso de uso.
+
+## Estructura por capacidad
 
 ```text
 src/
-├── proxy.ts                    # auth, redirects — corre antes de cada request (antes "middleware.ts")
-├── app/
-│   └── api/
-│       └── posts/
-│           ├── route.ts        # GET/POST /api/posts
-│           └── [id]/route.ts   # GET/PATCH/DELETE /api/posts/:id
-├── actions/
-│   └── posts.ts                # Server Actions ('use server'), para mutaciones desde la UI
-├── lib/
-│   ├── prisma.ts               # o supabase.ts
-│   └── auth.ts                 # config de Auth.js / better-auth
-└── repositories/
-    └── posts.repository.ts     # capa de acceso a datos, mismo patrón que en Express
+├── proxy.ts
+├── instrumentation.ts
+├── app/api/posts/
+│   ├── route.ts
+│   └── [id]/route.ts
+├── actions/posts.ts
+├── modules/posts/
+│   ├── posts.schema.ts
+│   ├── posts.service.ts
+│   └── posts.repository.ts
+└── lib/
+    ├── auth.ts
+    └── db.ts
 ```
 
-## Route Handlers vs Server Actions: cuándo cada uno
+Route Handlers y Actions adaptan entradas. Los casos de uso reciben valores validados e identidad explícita. El repository encapsula persistencia. No toda función merece tres capas, pero el dominio no debería depender de `NextRequest`, `FormData` o `NextResponse`.
 
-```text
-Route Handlers (app/api/*/route.ts)  →  API pública, webhooks, un cliente que no es la propia app
-Server Actions ('use server')          →  mutaciones desde la propia UI (formularios, componentes de esta app)
-```
-
-Mismo criterio que en Astro — si el único consumidor es la propia app Next.js, una Server Action evita escribir un endpoint + `fetch` manual. Si algo externo necesita pegarle, un Route Handler es lo que corresponde.
-
-## El repository sigue teniendo sentido
-
-```ts title="app/api/posts/route.ts"
+```ts title="src/app/api/posts/route.ts"
 import { NextResponse } from 'next/server';
-import { postsRepository } from '@/repositories/posts.repository';
+import { listPosts } from '@/modules/posts/posts.service';
+import { requireUser } from '@/lib/auth';
 
-export async function GET() {
-  const posts = await postsRepository.findAll();
-  return NextResponse.json(posts);
+export async function GET(request: Request) {
+  const actor = await requireUser();
+  const cursor = new URL(request.url).searchParams.get('cursor');
+  const result = await listPosts({ actor, cursor });
+  return NextResponse.json(result);
 }
 ```
 
-Mismo patrón de capas que en [Express](/patterns/backend-mvc-structure): el Route Handler cumple el rol de "controller" (adapta HTTP), la lógica de negocio va en un service si la operación lo justifica, y el acceso a datos queda aislado en `repositories/`.
+## Autenticación y autorización
 
-## Auth: el `proxy.ts`
+Proxy puede redirigir o descartar tráfico temprano, pero no sustituye la autorización en la operación. Una Action y un Route Handler deben volver a obtener la sesión y comprobar ownership, tenant o permiso del recurso.
 
-```ts title="proxy.ts"
-import { auth } from '@/lib/auth'; // Auth.js o better-auth
+No confíes en que una función marcada `'use server'` sea privada. El cliente puede invocar su endpoint generado; trátala como una frontera pública autenticable.
 
-export default auth((req) => {
-  // req.auth tiene la sesión si existe
-});
+## Runtime, caché y streaming
 
-export const config = {
-  matcher: ['/dashboard/:path*', '/api/protegida/:path*'],
-};
-```
+El runtime predeterminado de servidor es Node.js. Edge tiene un conjunto distinto de APIs y compatibilidad de dependencias; úsalo cuando la latencia y la plataforma lo justifiquen, no como optimización automática.
 
-`proxy.ts` (el archivo que reemplazó a `middleware.ts` desde Next 16, ver [Proxy](/guides/nextjs-proxy)) es donde vive la protección de rutas a nivel amplio — redirigir a `/login` si no hay sesión, antes de que la request llegue a la página o al Route Handler.
+Los Route Handlers `GET` son dinámicos por defecto en el modelo actual. Aplica caché de manera explícita según el contrato. Cookies y headers dependen de la request; no deben leerse dentro de un scope de caché compartido. Además, una cookie no puede escribirse después de iniciar streaming.
 
-## Resumen
+## Operación segura
 
-| Pieza de Next.js | Rol en el backend |
-| --- | --- |
-| `proxy.ts` | Auth a nivel de ruta, corre antes de cada request que matchea |
-| `app/api/*/route.ts` | Route Handlers, para consumidores externos |
-| Server Actions (`'use server'`) | Mutaciones desde la propia UI |
-| `repositories/` | Mismo patrón de capas que en Express, adaptado |
+- valida body, params, query y headers en la frontera;
+- limita tamaño y duración de operaciones;
+- usa idempotencia para pagos o creaciones reintentables;
+- evita filtrar variables server-only al bundle cliente;
+- registra request id, latencia y error sanitizado;
+- diseña conexiones y SDKs para entornos con varias instancias.
 
-## Consideraciones
+## Señal de una buena separación
 
-- **No hace falta CORS** en la mayoría de los casos — mismo motivo que Astro: frontend y backend son la misma app Next.js, mismo origen.
-- El App Router soporta **Cache Components** (`use cache`) como modelo opcional para cachear el resultado de funciones de servidor — relevante para Route Handlers de solo lectura con datos que no cambian en cada request, fuera del alcance de esta guía introductoria (ver [Fetching con revalidate](/guides/nextjs-fetching-revalidate)).
+El mismo caso de uso puede ser llamado por Action, Route Handler o job sin simular objetos de Next.js. El framework organiza entrega y render; las reglas de negocio conservan entradas pequeñas y explícitas.

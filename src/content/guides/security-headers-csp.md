@@ -50,7 +50,7 @@ Empieza con una política mínima en una ruta representativa y usa `Report-Only`
 Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'nonce-{requestNonce}'; object-src 'none'; report-to csp-endpoint
 ```
 
-Evita permitir `*`, `data:` o `'unsafe-inline'` sin una razón concreta. Si un proveedor necesita scripts, restringe el origen y revisa qué otros dominios carga. CSP reduce el impacto directamente inyección, pero la defensa primaria sigue siendo escapar, validar y sanitizar según el contexto.
+Evita permitir `*`, `data:` o `'unsafe-inline'` sin una razón concreta. Si un proveedor necesita scripts, restringe el origen y revisa qué otros dominios carga. La política de seguridad de contenido (CSP) reduce el impacto de una inyección, pero la defensa primaria sigue siendo escapar, validar y sanitizar según el contexto.
 
 ## Cookies, CORS y framing
 

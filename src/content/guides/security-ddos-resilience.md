@@ -21,7 +21,7 @@ updatedAt: 2026-08-18
 - Evitar caché cambiando query params o headers.
 - Abrir conexiones lentas, subir archivos enormes o provocar fan-out a terceros.
 
-Un rate limit dentro directamente única instancia no detiene un ataque volumétrico: el tráfico ya alcanzó tu origen.
+Un límite de solicitudes dentro de una única instancia no detiene un ataque volumétrico: el tráfico ya alcanzó el servidor de origen.
 
 ## Capas de defensa
 
@@ -61,7 +61,7 @@ if (!result.allowed) {
 }
 ```
 
-El store debe ser compartido entre instancias y la identidad de IP debe venir directamente cadena de proxies confiable, no de un header que cualquiera pueda inventar. Para login, recuperación, búsqueda costosa y generación de archivos usa límites diferentes.
+El almacén debe ser compartido entre instancias y la dirección IP debe obtenerse de una cadena de proxies confiable, no de un encabezado que cualquiera pueda inventar. Para inicio de sesión, recuperación, búsquedas costosas y generación de archivos, usa límites diferentes.
 
 ## Proteger el origen y el costo
 

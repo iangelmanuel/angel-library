@@ -3,7 +3,7 @@ title: Prisma en Express
 description: Instalación, schema, client, CRUD completo, transacciones y el patrón de repository — todo lo necesario para usar Prisma en un backend Express.
 category: backend
 stack: express
-order: 13
+order: 18
 tags: [express, prisma, database, orm]
 website: https://www.prisma.io
 related: [patterns/backend-mvc-structure]
@@ -239,7 +239,7 @@ process.on('SIGTERM', async () => {
 
 Ver [process y señales](/guides/node-process) para el patrón completo de shutdown limpio.
 
-## Resumen
+## Flujo de Prisma
 
 | API | Qué hace |
 | --- | --- |
@@ -252,7 +252,7 @@ Ver [process y señales](/guides/node-process) para el patrón completo de shutd
 | `$transaction([...])` | Varias operaciones independientes, atómicas, secuenciales |
 | `$transaction(async (tx) => {...})` | Operaciones que dependen del resultado de la anterior, atómicas |
 
-## Consideraciones
+## Conexiones, transacciones y capas
 
 - El cliente se genera a partir del schema (`prisma generate`) — si editas el schema y no regeneras, TypeScript sigue viendo los tipos anteriores. `migrate dev` lo hace automáticamente; en CI o producción hace falta ejecutarlo después de instalar dependencias.
 - `npx prisma migrate dev` **no** es el comando de producción — en un deploy real se usa `npx prisma migrate deploy`, que aplica migraciones existentes sin generar nuevas interactivamente.

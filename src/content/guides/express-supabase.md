@@ -3,7 +3,7 @@ title: Supabase en Express
 description: Instalación, client con service role, RLS, auth incluida y storage — todo lo necesario para usar Supabase en un backend Express.
 category: backend
 stack: express
-order: 14
+order: 19
 tags: [express, supabase, database]
 website: https://supabase.com
 updatedAt: 2026-08-17
@@ -138,7 +138,7 @@ const { data, error } = await supabaseAdmin.storage.from('avatars').upload('user
 const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png');
 ```
 
-## Resumen
+## Capacidades de Supabase
 
 | API | Qué hace |
 | --- | --- |
@@ -149,7 +149,7 @@ const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png'
 | `supabase.auth.*` | Registro, login, verificar sesión |
 | `supabase.storage.*` | Archivos |
 
-## Consideraciones
+## Service role, RLS y ownership
 
 - Con la service role key, el servidor es responsable de **toda** la lógica de autorización que RLS normalmente haría — un bug aquí expone datos de cualquier usuario, no solo el propio.
 - `SUPABASE_SERVICE_ROLE_KEY` es tan sensible como cualquier secreto de base de datos — ver [Variables de entorno en Node](/guides/node-env-vars).

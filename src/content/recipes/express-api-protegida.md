@@ -103,7 +103,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 (`express-rate-limit` responde `429` por sí solo antes de que la request llegue al error handler — no necesita manejo especial ahí.)
 
-## Resumen — checklist directamente ruta bien protegida
+## Checklist de una ruta bien protegida
 
 | Capa | Protege contra |
 | --- | --- |

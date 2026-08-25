@@ -3,7 +3,7 @@ title: CommonJS vs ES Modules
 description: require/module.exports vs import/export, el campo "type" en package.json, interop entre ambos, y cómo Node resuelve un import.
 category: backend
 stack: node
-order: 2
+order: 3
 tags: [node, modules, commonjs, esm]
 scope: sistema de módulos
 updatedAt: 2026-08-16
@@ -65,7 +65,7 @@ Tres formas, en este orden de precedencia:
 
 ```js
 // Desde ESM, importar un paquete CommonJS: funciona directo
-import express from 'express'; // express se publica como CommonJS, esto anda igual
+import express from 'express'; // ESM puede importar este paquete CommonJS
 
 // Desde CommonJS, importar un módulo ESM: NO funciona con require()
 // require('paquete-esm-only'); // TypeError: no soporta require de ESM síncronamente
@@ -86,7 +86,7 @@ import 'node:fs';              // módulo nativo de Node, el prefijo "node:" es 
 
 Para paquetes (no rutas relativas), Node busca `node_modules/` en la carpeta actual, y si no está, sube un nivel y repite, hasta la raíz del sistema de archivos — así funciona que un paquete instalado en la raíz del proyecto sea visible desde cualquier archivo más adentro.
 
-## Resumen
+## Comparación rápida
 
 | | CommonJS | ES Modules |
 | --- | --- | --- |

@@ -3,7 +3,7 @@ title: child_process — correr otros programas
 description: spawn vs exec para ejecutar comandos externos desde Node, y cuándo conviene cada uno.
 category: backend
 stack: node
-order: 9
+order: 15
 tags: [node, child_process]
 scope: node:child_process
 updatedAt: 2026-08-16
@@ -25,7 +25,7 @@ exec('git status', (error, stdout, stderr) => {
 });
 ```
 
-`exec` junta toda la salida en memoria y la entrega directamente sola vez al terminar — simple, pero mala idea si el comando puede producir mucha salida (puede consumir memoria de más) o corre por mucho tiempo (no hay forma de ver progreso parcial).
+`exec` acumula toda la salida en memoria y la entrega una sola vez al terminar. Es simple, pero inadecuado si el comando produce mucha salida o necesita mostrar progreso parcial.
 
 ## `spawn`: para procesos largos o con salida grande
 
@@ -58,7 +58,7 @@ spawn('ls', ['-la']);                             // spawn NO usa shell por defe
 spawn('ls', ['-la'], { shell: true });            // forzar shell si hace falta esa sintaxis
 ```
 
-`exec` ejecuta el comando completo a través directamente shell (`/bin/sh` o `cmd.exe`), lo que permite pipes (`|`), redirecciones (`>`) y wildcards (`*`) — pero también es la razón por la que **nunca** hay que construir el string de `exec` concatenando input de usuario directo (riesgo de command injection). `spawn` sin shell ejecuta el binario directo con un array de argumentos, más seguro para eso justamente porque no interpreta ningún carácter especial.
+`exec` ejecuta el comando completo a través de una shell (`/bin/sh` o `cmd.exe`), lo que permite pipes (`|`), redirecciones (`>`) y comodines (`*`). Esa interpretación también permite **command injection** si se concatena entrada del usuario. `spawn` sin shell ejecuta el binario con un arreglo de argumentos y no interpreta esos caracteres especiales.
 
 ## `execFile`: como `exec` pero sin shell
 
@@ -72,7 +72,7 @@ execFile('node', ['--version'], (error, stdout) => {
 
 Combina lo mejor de ambos para el caso común: API simple de callback (como `exec`) pero sin pasar por una shell (como `spawn`) — la opción más segura cuando no hace falta pipes/wildcards.
 
-## Resumen
+## Elegir entre `exec`, `spawn` y `fork`
 
 | Función | Cuándo usarla |
 | --- | --- |

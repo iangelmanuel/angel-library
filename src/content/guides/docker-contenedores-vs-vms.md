@@ -45,7 +45,7 @@ Proceso nativo        Máquina virtual         Contenedor
 ## Por qué esto importa en la práctica
 
 - Puedes correr 5-10 contenedores (app, base de datos, cache, etc.) en una laptop sin que se note, algo impensable con 5-10 máquinas virtuales.
-- El aislamiento de un contenedor **no es tan fuerte** como el directamente VM — comparte kernel con el host. Para casos de aislamiento de seguridad extremo (multi-tenant hostil) se usan capas extra (gVisor, Kata Containers) o directamente VMs.
+- El aislamiento de un contenedor **no es tan fuerte** como el de una máquina virtual (VM): comparte el kernel con el host. Para escenarios de aislamiento extremo, como un entorno multiusuario hostil, se usan capas adicionales (gVisor o Kata Containers) o máquinas virtuales.
 - En Windows/Mac, Docker igual necesita una VM liviana por debajo (Docker Desktop usa una VM con Linux, vía WSL2 en Windows) porque los contenedores Linux necesitan un kernel Linux — ver [Instalación](/guides/docker-instalacion).
 
 ## Consideraciones

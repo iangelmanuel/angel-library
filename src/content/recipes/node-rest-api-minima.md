@@ -3,7 +3,7 @@ title: API REST mínima con Node puro
 description: Un CRUD completo de "tareas" con http.createServer — routing manual, parseo de JSON, sin ningún framework de por medio.
 category: backend
 stack: node
-order: 10
+order: 16
 tags: [node, http, rest, crud]
 problem: Entender qué hace exactamente un framework como Express, armando lo mismo con las piezas nativas de Node primero.
 related: [guides/node-http-server]

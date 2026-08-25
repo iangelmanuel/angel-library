@@ -29,7 +29,7 @@ src/
 └── types/                 # tipos y DTOs compartidos
 ```
 
-## Flujo directamente request
+## Flujo de una request
 
 ```text
 Request

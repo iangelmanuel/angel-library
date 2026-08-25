@@ -3,7 +3,7 @@ title: "pnpm: gestor de paquetes rápido y estricto"
 description: Qué diferencia a pnpm de npm — store compartido, node_modules estricto — y sus comandos básicos.
 category: terminal
 stack: terminal
-order: 13
+order: 16
 tags: [terminal, pnpm, node, gestor-de-paquetes]
 scope: pnpm
 related: [guides/terminal-npm, guides/terminal-nvm, guides/terminal-bun]

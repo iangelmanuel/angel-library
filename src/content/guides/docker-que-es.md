@@ -24,7 +24,7 @@ Docker resuelve esto empaquetando la app **junto con todo lo que necesita para c
 
 Un **contenedor** es un proceso aislado que corre en tu sistema operativo, pero con su propio filesystem, sus propias variables de entorno y su propia vista de la red — como si fuera una máquina separada, aunque comparte el kernel del sistema operativo host (más detalle en [Contenedores vs máquinas virtuales](/guides/docker-contenedores-vs-vms)).
 
-Ese contenedor se crea a partir directamente **imagen**: una plantilla de solo lectura que define qué hay adentro (sistema base, dependencias, código, comando de arranque). Una imagen es a un contenedor lo que una clase es a una instancia — la imagen es el molde, el contenedor es el proceso corriendo a partir de ese molde.
+Ese contenedor se crea a partir de una **imagen**: una plantilla de solo lectura que define qué contiene (sistema base, dependencias, código y comando de arranque). Una imagen es a un contenedor lo que una clase es a una instancia: la imagen es el molde y el contenedor es el proceso que se ejecuta a partir de ese molde.
 
 ```text
 imagen (plantilla, inmutable)  →  docker run  →  contenedor (proceso corriendo)

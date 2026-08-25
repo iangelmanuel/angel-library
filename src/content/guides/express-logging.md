@@ -3,7 +3,7 @@ title: Logging de requests
 description: morgan para logs automáticos de cada request, y un logger propio cuando hace falta más control o structured logging.
 category: backend
 stack: express
-order: 5
+order: 6
 tags: [express, logging, morgan]
 scope: logging middleware
 updatedAt: 2026-08-16
@@ -94,7 +94,7 @@ async function eliminarUsuario(id: string) {
 }
 ```
 
-## Resumen
+## Herramientas por entorno
 
 | Herramienta | Para qué |
 | --- | --- |
@@ -103,7 +103,7 @@ async function eliminarUsuario(id: string) {
 | `pino` + `pino-http` | JSON estructurado, alto rendimiento, para observabilidad real |
 | Logs propios en la lógica de negocio | Eventos que importan más allá de "llegó una request" |
 
-## Consideraciones
+## Datos que no deben registrarse
 
 - Loguear el body completo de cada request (incluyendo passwords, tokens, datos de tarjetas) es un riesgo de seguridad — cualquier logging automático debería excluir explícitamente campos sensibles.
 - `console.log` a secas funciona para desarrollo local, pero no estructura nada ni tiene niveles (info/warn/error) — no reemplaza un logger real en producción.

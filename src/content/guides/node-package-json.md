@@ -3,7 +3,7 @@ title: package.json
 description: dependencies vs devDependencies, scripts, main/exports y versionado semver — los campos que se tocan todo el tiempo.
 category: backend
 stack: node
-order: 1
+order: 2
 tags: [node, npm, package.json]
 scope: package.json
 updatedAt: 2026-08-16
@@ -103,7 +103,7 @@ npm corre automáticamente cualquier script `pre<nombre>` antes del script `<nom
 
 Documenta (no fuerza, salvo que algo como Corepack lo chequee) qué versión de Node espera el proyecto — útil para que alguien que clona el repo sepa qué runtime necesita antes de que algo falle de forma confusa.
 
-## Resumen
+## Campos de consulta
 
 | Campo | Para qué |
 | --- | --- |
@@ -114,7 +114,7 @@ Documenta (no fuerza, salvo que algo como Corepack lo chequee) qué versión de 
 | `type: "module"` | CommonJS vs ES Modules por defecto |
 | `engines.node` | Versión de Node esperada (documental) |
 
-## Consideraciones
+## Lockfile y consistencia
 
 - El `package-lock.json` (o `pnpm-lock.yaml`) fija las versiones **exactas** instaladas, incluyendo subdependencias — siempre se versiona junto al `package.json`, nunca se ignora en `.gitignore`.
 - Cambiar `dependencies` a mano en el archivo sin correr `npm install` después deja el `package.json` y el lockfile desincronizados — mejor usar `npm install <paquete>` que edite ambos.

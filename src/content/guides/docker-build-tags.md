@@ -77,5 +77,5 @@ docker image prune            # borrar imágenes "dangling" (sin tag, huérfanas
 
 ## Consideraciones
 
-- Cambiar el tag directamente imagen (`docker tag mi-app:1.0 mi-app:latest`) no vuelve a construir nada — solo crea una referencia extra apuntando a la misma imagen ya construida.
+- Cambiar la etiqueta de una imagen (`docker tag mi-app:1.0 mi-app:latest`) no vuelve a construir nada: solo crea una referencia adicional que apunta a la misma imagen.
 - Para publicar la imagen a un registry, el nombre necesita el prefijo del registry — ver [Docker Hub y registries](/guides/docker-registry-hub).

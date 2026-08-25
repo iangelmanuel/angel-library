@@ -3,7 +3,7 @@ title: Auth.js en Express
 description: Instalación, ruta catch-all, providers (social y Credentials), los callbacks jwt/session para meter datos propios en la sesión, y cómo tiparlos.
 category: backend
 stack: express
-order: 12
+order: 17
 tags: [express, auth-js, nextauth, auth]
 website: https://authjs.dev
 related: [libraries/bcrypt, guides/express-auth-middleware]
@@ -168,7 +168,7 @@ app.get('/perfil', requireAuth, (req, res) => {
 });
 ```
 
-## Resumen
+## Piezas de Auth.js
 
 | Pieza | Rol |
 | --- | --- |
@@ -179,7 +179,7 @@ app.get('/perfil', requireAuth, (req, res) => {
 | `declare module '@auth/core/types'` | Tipar los campos custom de `Session`/`User` |
 | `declare module '@auth/core/jwt'` | Tipar los campos custom del `JWT` |
 
-## Consideraciones
+## Sesión, callbacks y adaptación
 
 - El paquete `@auth/express` es más nuevo que la integración de Next.js (`next-auth`) — menos superficie probada en producción a gran escala.
 - Olvidar el callback `jwt` (y solo agregar `session`) es un error común: `session` solo puede leer lo que ya esté en `token` — si `jwt` no lo copió ahí primero, `session` no tiene de dónde sacarlo.

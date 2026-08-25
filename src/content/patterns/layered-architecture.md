@@ -10,7 +10,7 @@ related: [patterns/mvc-overview, patterns/repository-pattern]
 updatedAt: 2026-08-17
 ---
 
-## Las capas típicas directamente app web
+## Las capas típicas de una aplicación web
 
 ```text
 ┌─────────────────────────────┐

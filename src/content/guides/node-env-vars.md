@@ -3,7 +3,7 @@ title: Variables de entorno y .env
 description: process.env, cargar un archivo .env con dotenv, y validar el resultado con Zod en vez de confiar en strings sueltos.
 category: backend
 stack: node
-order: 5
+order: 10
 tags: [node, env, config, dotenv]
 scope: process.env / dotenv
 related: [libraries/zod, practices/validate-at-boundaries]
@@ -96,7 +96,7 @@ export const env = envSchema.parse(process.env);
 
 Con esto, el resto de la app importa `env` (tipado, ya validado) en vez de tocar `process.env` directo en cualquier archivo — ver [Zod](/libraries/zod) para el resto de la API de validación.
 
-## Resumen
+## Mapa de configuración
 
 | Cosa | Detalle |
 | --- | --- |
@@ -106,7 +106,7 @@ Con esto, el resto de la app importa `env` (tipado, ya validado) en vez de tocar
 | `.env.example` | Sí se versiona, documenta qué variables hacen falta |
 | `envSchema.parse(process.env)` | Falla rápido y claro si falta algo, en vez de un `undefined` silencioso más adelante |
 
-## Consideraciones
+## Reglas de despliegue
 
 - `z.coerce.number()` es necesario para cualquier variable numérica — `process.env.PORT` es el string `"3000"`, no el número, y `z.number()` a secas lo rechazaría.
 - Validar `process.env` al arrancar (no en cada request) es lo que permite fallar rápido: si `DATABASE_URL` falta, mejor que el proceso ni levante, a que levante y falle recién en el primer request que la necesite.

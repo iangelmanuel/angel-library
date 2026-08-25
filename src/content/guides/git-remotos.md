@@ -3,7 +3,7 @@ title: Remotos — push, pull, fetch y tracking
 description: Cómo tu repo local se conecta con GitHub — origin, la diferencia real entre fetch y pull, y qué es una rama "tracking".
 category: git
 stack: git
-order: 4
+order: 5
 tags: [git, remote, push, pull]
 scope: git remote / push / pull / fetch
 updatedAt: 2026-08-16

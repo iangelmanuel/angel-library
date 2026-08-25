@@ -3,7 +3,7 @@ title: Streams
 description: Readable, Writable y .pipe() — por qué importan para archivos grandes y respuestas HTTP, en vez de cargar todo en memoria.
 category: backend
 stack: node
-order: 6
+order: 11
 tags: [node, streams, performance]
 scope: node:stream
 updatedAt: 2026-08-16
@@ -54,7 +54,7 @@ createReadStream('origen.txt').pipe(createWriteStream('copia.txt'));
 
 ## Streams en un servidor HTTP
 
-`req` y `res` en un servidor Node son streams (`req` es Readable, `res` es Writable) — por eso en [el servidor HTTP nativo](/guides/node-http-server) leer el body directamente request implica escuchar eventos `data`/`end`, en vez de tener el body ya armado.
+`req` y `res` en un servidor Node son streams (`req` es `Readable` y `res` es `Writable`). Por eso, en [el servidor HTTP nativo](/guides/node-http-server), leer el body de una request implica escuchar `data` y `end` en vez de recibirlo ya construido.
 
 ```ts
 import { createServer } from 'node:http';
@@ -69,7 +69,7 @@ const server = createServer((req, res) => {
 });
 ```
 
-## Resumen
+## Referencia de streams
 
 | Concepto | Qué es |
 | --- | --- |
@@ -78,7 +78,7 @@ const server = createServer((req, res) => {
 | `.pipe(destino)` | Conecta ambos, maneja backpressure automáticamente |
 | Backpressure | El mecanismo que evita que un productor rápido sature a un consumidor lento |
 
-## Consideraciones
+## Cuándo usar streams
 
 - Para la mayoría del código de aplicación (leer un archivo de config chico, un JSON pequeño), `readFile`/`writeFile` normal es más simple y perfectamente adecuado — streams importan específicamente cuando el tamaño de los datos es grande o desconocido de antemano (archivos, uploads, respuestas HTTP grandes).
-- `req.on('data', ...)` manual (como en el servidor HTTP nativo) es exactamente consumir un stream Readable a mano — frameworks como Express hacen esto por tú con un middleware de parseo de body.
+- `req.on('data', ...)` consume manualmente un stream `Readable`; frameworks como Express encapsulan ese trabajo con middleware de parsing.

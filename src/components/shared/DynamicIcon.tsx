@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import {
   Activity,
+  AppWindow,
   Blocks,
   Accessibility,
   BadgeCheck,
@@ -230,6 +231,11 @@ const BrandJavascript: IconComponent = (props) => <Braces color="#facc15" {...pr
 /** Iconos recoloreados para las subcategorías de Terminal & CLI. */
 const BrandTerminal: IconComponent = (props) => <SquareTerminal color="#34d399" {...props} />;
 const BrandCli: IconComponent = (props) => <Command color="#818cf8" {...props} />;
+const BrandRepositoryManagement: IconComponent = (props) => <GitBranch color="#fbbf24" {...props} />;
+const BrandTestingAi: IconComponent = (props) => <Sparkles color="#f472b6" {...props} />;
+const BrandAppsEditors: IconComponent = (props) => <Monitor color="#38bdf8" {...props} />;
+const BrandAppsTerminal: IconComponent = (props) => <SquareTerminal color="#c084fc" {...props} />;
+const BrandAppsApi: IconComponent = (props) => <Braces color="#fb923c" {...props} />;
 
 /** Icono recoloreado para la subcategoría SEO dentro de Frontend. */
 const BrandSeo: IconComponent = (props) => <SearchCheck color="#2dd4bf" {...props} />;
@@ -278,6 +284,11 @@ const ICONS: Record<string, IconComponent> = {
   'brand-javascript': BrandJavascript,
   'brand-terminal': BrandTerminal,
   'brand-cli': BrandCli,
+  'brand-repository-management': BrandRepositoryManagement,
+  'brand-testing-ai': BrandTestingAi,
+  'brand-apps-editors': BrandAppsEditors,
+  'brand-apps-terminal': BrandAppsTerminal,
+  'brand-apps-api': BrandAppsApi,
   'brand-seo': BrandSeo,
   'brand-principios': BrandPrincipios,
   'brand-patrones-diseno': BrandPatronesDiseno,
@@ -286,6 +297,7 @@ const ICONS: Record<string, IconComponent> = {
   'stack-component': StackComponent,
   blocks: Blocks,
   accessibility: Accessibility,
+  'app-window': AppWindow,
   'badge-check': BadgeCheck,
   'book-open': BookOpen,
   bookmark: Bookmark,

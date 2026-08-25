@@ -6,7 +6,7 @@ stack: patrones-diseno
 order: 7
 tags: [arquitectura, patrones-diseno, proxy]
 related: [patterns/decorator]
-problem: Necesitas loguear qué propiedades se leen de un objeto, o cachear el resultado directamente función costosa, sin cambiar cómo se la llama.
+problem: Necesitas registrar qué propiedades se leen de un objeto, o almacenar en caché el resultado de una función costosa, sin cambiar cómo se invoca.
 updatedAt: 2026-08-17
 ---
 

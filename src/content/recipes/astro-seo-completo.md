@@ -500,7 +500,7 @@ ${urls}
 };
 ```
 
-`ROUTES` queda a mano a propósito — para un sitio con pocas páginas estáticas es más simple y explícito que generarlo automáticamente a partir del filesystem. Si el sitio crece a decenas de páginas dinámicas (blog, catálogo), ahí sí conviene generar este array desdirectamente content collection en vez de escribirlo a mano.
+`ROUTES` se mantiene manual a propósito: para un sitio con pocas páginas estáticas es más simple y explícito que generarlo automáticamente a partir del sistema de archivos. Si el sitio crece a decenas de páginas dinámicas —blog o catálogo—, conviene generar este arreglo desde una colección de contenido en vez de escribirlo a mano.
 
 ## Paso 9 — Caso de uso: una página real
 

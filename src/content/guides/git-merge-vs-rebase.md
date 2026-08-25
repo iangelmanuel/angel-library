@@ -1,9 +1,9 @@
 ---
 title: Merge vs Rebase
-description: Dos formas de integrar los cambios directamente rama en otra — qué hace cada una con el historial, y cuándo conviene una sobre la otra.
+description: Dos formas de integrar los cambios de una rama en otra — qué hace cada una con el historial y cuándo conviene elegirla.
 category: git
 stack: git
-order: 8
+order: 11
 tags: [git, merge, rebase, branches]
 scope: git merge / git rebase
 related: [guides/git-rebase-interactivo, guides/git-resolver-conflictos]
@@ -19,7 +19,7 @@ git switch main
 git merge feature/login
 ```
 
-Crea un **commit de merge** nuevo, con dos padres: el último commit de `main` y el último de `feature/login`. El historial queda con la forma real de lo que pasó — se ve claramente dóndirectamente rama se separó y dónde se volvió a unir.
+Crea un **commit de merge** nuevo, con dos padres: el último commit de `main` y el último de `feature/login`. El historial conserva la forma real de lo ocurrido: se ve claramente dónde se separó la rama y dónde volvió a unirse.
 
 ```text
 main:     A---B-------M

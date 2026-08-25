@@ -9,7 +9,7 @@ scope: diseño responsive
 related:
   - guides/ui-ux-design-systems
   - snippets/css-layout-tricks
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
 ## Del contenido hacia afuera
@@ -32,6 +32,24 @@ Empieza por viewport estrecho y contenido real: títulos largos, traducciones, c
 - Conserva orden lógico del DOM; no uses CSS para invertir lectura y foco.
 - Targets táctiles necesitan espacio y separación, incluso si el icono es pequeño.
 
+## Container query
+
+```css
+.card-list { container-type: inline-size; }
+
+@container (min-width: 36rem) {
+  .card { grid-template-columns: 10rem 1fr; }
+}
+```
+
+El componente responde al espacio que recibe, por lo que funciona en main, sidebar o modal sin conocer el viewport completo. Define breakpoints donde el contenido deja de ser legible, no por nombres de dispositivos.
+
+## Densidad y prioridad
+
+Responsive no significa ocultar funciones sin alternativa. Reordena por importancia, agrupa acciones secundarias y conserva una ruta clara hacia ellas. Si una tabla necesita desplazamiento horizontal, mantén encabezados y acción principal comprensibles.
+
 ## Probar extremos
 
 320 px, zoom 200%, landscape bajo, texto ampliado, idioma largo y reducción de movimiento. Una UI responsive no solo “cabe”: mantiene prioridad, controles alcanzables y contexto sin ocultar acciones críticas.
+
+Comprueba también teclado con barras sticky, áreas seguras móviles, contenido vacío y datos extremos. Usa DevTools para explorar, pero termina en dispositivos y navegadores reales cuando el flujo sea crítico.

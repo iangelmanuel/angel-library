@@ -5,10 +5,27 @@ category: git
 stack: git
 tags: [git, control-de-versiones, commits, ramas, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 Git es un sistema de **control de versiones distribuido**. Registra instantáneas del proyecto, permite comparar cambios y coordinar historias de trabajo. Distribuido significa que cada clon normal conserva el historial y puede crear commits sin depender continuamente de un servidor central.
+
+## Aprende o consulta
+
+Para aprender: zonas de trabajo → commit → rama → remoto → merge → conflictos → colaboración → recuperación. Antes de ejecutar un comando para “deshacer”, identifica qué zona quieres modificar y si el commit ya se compartió.
+
+| Situación | Documento |
+| --- | --- |
+| preparar y confirmar cambios | [Flujo básico](/guides/git-flujo-basico) |
+| crear o mover ramas | [Ramas](/guides/git-ramas) |
+| sincronizar sin confundir fetch/pull | [Remotos](/guides/git-remotos) |
+| elegir merge o rebase | [Merge vs rebase](/guides/git-merge-vs-rebase) |
+| resolver marcadores de conflicto | [Conflictos](/guides/git-resolver-conflictos) |
+| recuperar un commit “perdido” | [Reflog](/guides/git-reflog) |
+| organizar trabajo en equipo | [Workflow colaborativo](/guides/git-workflow-colaborativo) |
+| usar PR e issues desde terminal | [GitHub CLI](/guides/gh-cli-workflow-completo) |
+
+Quien viene a recordar debe poder anticipar qué referencias y archivos cambiará el comando. Quien aprende debe usar `status`, `log --graph` y `diff` después de cada paso para observar el modelo.
 
 ## Las tres zonas de trabajo
 

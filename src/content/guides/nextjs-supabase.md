@@ -136,7 +136,7 @@ export default async function proxy(req: Request) {
 }
 ```
 
-## Resumen
+## Capacidades de Supabase en Next.js
 
 | Client | Para qué |
 | --- | --- |
@@ -144,7 +144,7 @@ export default async function proxy(req: Request) {
 | `createBrowserClient` (`@supabase/ssr`) | Client Components |
 | `createClient` con service role (`@supabase/supabase-js`) | Operaciones admin, sin RLS, solo servidor |
 
-## Consideraciones
+## Claves, RLS y Server Components
 
 - `@supabase/ssr` reemplazó al viejo `@supabase/auth-helpers-nextjs` (deprecado) — si aparece código con ese paquete viejo, `@supabase/ssr` es la versión actual.
 - La anon key necesita el prefijo `NEXT_PUBLIC_`; la service role key nunca.

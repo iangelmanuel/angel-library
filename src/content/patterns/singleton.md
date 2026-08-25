@@ -16,7 +16,7 @@ Algunos recursos (una conexión a base de datos, un cliente de Redis, un pool de
 
 ## El módulo de JS/TS ya es un singleton
 
-Node y ESM cachean el módulo la primera vez que se importa: se ejecuta una sola vez y todos los `import` posteriores reciben el mismo objeto exportado. No hace falta la ceremonia directamente clase con `getInstance()` estático que se ve en lenguajes sin este cacheo.
+Node y los módulos ECMAScript (ESM) almacenan el módulo en caché la primera vez que se importa: se ejecuta una sola vez y todos los `import` posteriores reciben el mismo objeto exportado. No hace falta la ceremonia de una clase con `getInstance()` estático que se ve en lenguajes sin este comportamiento.
 
 ```ts title="lib/db.ts"
 import { PrismaClient } from '@prisma/client';
@@ -38,7 +38,7 @@ Cualquier archivo que haga `import { db } from '@/lib/db'` recibe la misma insta
 ## Cómo se ve en lenguajes sin este cacheo
 
 ```ts
-// Así se emula el patrón cuando el lenguaje no cachea módulos por tú.
+// Así se emula el patrón cuando el lenguaje no almacena módulos en caché.
 // En JS/TS casi nunca hace falta escribir esto:
 class Database {
   private static instance: Database;

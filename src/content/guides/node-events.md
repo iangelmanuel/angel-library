@@ -3,7 +3,7 @@ title: EventEmitter
 description: El patrón pub/sub nativo de Node — emitir eventos custom, suscribirse, y por qué medio ecosistema de Node está construido sobre esto.
 category: backend
 stack: node
-order: 7
+order: 12
 tags: [node, events, eventemitter]
 scope: node:events
 updatedAt: 2026-08-16
@@ -88,7 +88,7 @@ emitter.emit('error', new Error('falló algo'));
 
 Si se emite `'error'` y **no hay ningún listener** suscrito a ese evento puntual, Node **lanza la excepción y tira el proceso** — a diferencia de cualquier otro nombre de evento, que simplemente no hace nada si nadie escucha. Cualquier `EventEmitter` que pueda emitir errores necesita un listener de `'error'`, siempre.
 
-## Resumen
+## Mapa de EventEmitter
 
 | API | Qué hace |
 | --- | --- |
@@ -98,7 +98,7 @@ Si se emite `'error'` y **no hay ningún listener** suscrito a ese evento puntua
 | `emitter.emit(evento, ...args)` | Dispara el evento, síncrono, en orden de registro |
 | Evento `'error'` sin listener | Tira el proceso — caso especial, siempre necesita manejo |
 
-## Consideraciones
+## Ciclo de vida de los listeners
 
 - `EventEmitter` es para comunicación **dentro del mismo proceso** — no es un sistema de mensajería entre procesos o servidores (para eso hace falta algo como Redis pub/sub, una cola real, etc.).
 - Node emite un warning (`MaxListenersExceededWarning`) si un mismo evento acumula más de 10 listeners — casi siempre señal de un listener que se agrega repetidas veces sin sacarse (un leak), no un límite real a subir sin pensar.

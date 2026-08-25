@@ -3,7 +3,7 @@ title: Git Hooks — automatizar acciones en el flujo
 description: Scripts que Git corre solo en momentos puntuales (antes de commitear, antes de pushear) — hooks nativos y por qué la mayoría de los equipos usa Husky en su lugar.
 category: git
 stack: git
-order: 15
+order: 18
 tags: [git, hooks, automation, advanced]
 scope: .git/hooks
 updatedAt: 2026-08-16

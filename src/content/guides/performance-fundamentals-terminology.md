@@ -5,12 +5,28 @@ category: performance
 stack: performance-fundamentos
 tags: [performance, rendimiento, web-vitals, rum, red, renderizado]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 El **rendimiento web** es la rapidez con la que una persona puede recibir contenido, comprenderlo e interactuar con él. No equivale solo al tiempo total de carga: una página puede mostrar contenido pronto y bloquearse al pulsar un botón, o terminar de descargar rápido y cambiar de posición mientras se lee.
 
 Optimizar significa identificar el cuello de botella que afecta al usuario, modificarlo y volver a medir. Minificar un archivo pequeño no compensa una imagen enorme, un servidor lento o cinco segundos de JavaScript en el hilo principal.
+
+## Aprende o consulta
+
+La ruta de aprendizaje es: experiencia y métricas → red y recursos → imágenes/fuentes → render y JavaScript → caché/CDN → backend/base de datos → presupuestos y RUM. Optimiza una hipótesis a la vez y conserva una medición antes/después.
+
+| Síntoma | Documento |
+| --- | --- |
+| LCP, INP o CLS deficientes | [Core Web Vitals](/guides/core-web-vitals) |
+| imágenes pesadas o dimensiones incorrectas | [Optimización de imágenes](/guides/performance-image-optimization) |
+| CSS, fuentes o scripts bloquean | [Carga de recursos](/guides/performance-resource-loading) |
+| interacción lenta o long tasks | [Runtime JavaScript](/guides/performance-javascript-runtime) |
+| red repetida o servidor lejano | [Caché y CDN](/guides/performance-cache-cdn) |
+| consultas o endpoint lentos | [Backend y base de datos](/guides/performance-backend-database) |
+| regresiones después del deploy | [Presupuestos y monitoreo](/guides/performance-budgets-monitoring) |
+
+Una puntuación de laboratorio ayuda a diagnosticar; no representa por sí sola a todos los usuarios. Cruza laboratorio, datos de campo y trazas del servidor antes de atribuir la causa.
 
 ## Latencia, ancho de banda y peso
 

@@ -3,7 +3,7 @@ title: Middleware de autenticación y autorización
 description: Proteger rutas verificando el token, poblar req.user, y un middleware de roles reutilizable para autorización.
 category: backend
 stack: express
-order: 9
+order: 14
 tags: [express, auth, middleware, authorization]
 scope: middleware de auth
 related: [guides/express-middlewares, guides/express-jwt]
@@ -50,7 +50,7 @@ app.get('/perfil', requireAuth, (req, res) => {
 });
 ```
 
-Aceptar el token tanto directamente cookie (`req.cookies.token`) como de un header `Authorization: Bearer <token>` cubre los dos casos típicos: cliente web (cookie) y cliente API/mobile (header) — ver [Cookies vs sesiones](/guides/express-cookies-sesiones) para cuál conviene según el caso.
+Aceptar el token desde una cookie (`req.cookies.token`) o un header `Authorization: Bearer <token>` cubre dos clientes habituales: navegador del mismo producto y cliente API. Consulta [Cookies vs sesiones](/guides/express-cookies-sesiones) para evaluar seguridad y transporte.
 
 ## Middleware de autorización: chequeo de rol
 
@@ -89,7 +89,7 @@ app.delete(
 
 Confundirlos no rompe nada técnicamente, pero da información engañosa al cliente sobre qué está fallando — `requireAuth` siempre debería devolver `401`, `requireRole` siempre `403`.
 
-## Resumen
+## Flujo de protección
 
 | Middleware | Responde |
 | --- | --- |
@@ -97,7 +97,7 @@ Confundirlos no rompe nada técnicamente, pero da información engañosa al clie
 | `requireRole(...roles)` | ¿El `req.user` actual tiene uno de estos roles? |
 | Orden en la ruta | Siempre `requireAuth` antes que `requireRole` — no se puede chequear rol sin saber antes quién es |
 
-## Consideraciones
+## Autenticación no es autorización
 
 - `requireRole` depende de que `req.user` ya exista — usarlo sin `requireAuth` antes en la misma cadena es un bug (siempre entra al `if (!req.user ...)` y responde 403 a todo el mundo).
 - Este patrón (rol único por usuario, `req.user.rol === 'admin'`) alcanza para la mayoría de los casos; sistemas con permisos más finos (varios roles por usuario, permisos por recurso específico) necesitan un modelo más elaborado — ver [Roles y permisos](/guides/express-roles-permisos).

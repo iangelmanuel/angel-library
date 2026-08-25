@@ -5,7 +5,7 @@ category: backend
 stack: nextjs
 order: 8
 tags: [nextjs, crud, prisma]
-problem: Un CRUD real mostrando Route Handler vs Server Action, y cómo se refresca la UI después directamente mutación sin recargar la página.
+problem: Un CRUD real que compara Route Handler y Server Action y refresca la UI después de una mutación sin recargar la página.
 technologies: [guides/nextjs-prisma, guides/nextjs-api-rest]
 updatedAt: 2026-08-16
 ---

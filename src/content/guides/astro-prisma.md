@@ -183,7 +183,7 @@ export const posts = {
 
 Ver [Server Actions](/guides/astro-server-actions) para el resto del mecanismo (`input` con Zod integrado, cómo se llaman desde un formulario).
 
-## Resumen
+## Flujo de Prisma en Astro
 
 | API | Qué hace |
 | --- | --- |
@@ -193,7 +193,7 @@ Ver [Server Actions](/guides/astro-server-actions) para el resto del mecanismo (
 | `$transaction([...])` | Operaciones independientes, atómicas |
 | `$transaction(async (tx) => {...})` | Operaciones que dependen de un paso anterior, atómicas |
 
-## Consideraciones
+## Conexiones y runtime del adapter
 
 - Si el hosting elegido para el deploy es un adapter **serverless/edge** (Vercel Edge, Cloudflare) en vez de un adapter Node tradicional, el patrón de singleton de Prisma necesita ajustes específicos de esa plataforma.
 - `npx prisma migrate deploy` (no `migrate dev`) es el comando de producción — se corre como paso de build/deploy.

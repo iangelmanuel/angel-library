@@ -3,7 +3,7 @@ title: "WSL: Linux dentro de Windows"
 description: Instalar y manejar WSL — distros, comandos de gestión, acceso a filesystem cruzado y por qué el rendimiento importa según dónde vive el proyecto.
 category: terminal
 stack: terminal
-order: 21
+order: 24
 tags: [terminal, wsl, windows, linux]
 scope: wsl
 related: [guides/terminal-linux-cli, guides/terminal-powershell]
@@ -40,7 +40,7 @@ Muestra las distros que se pueden instalar (Ubuntu, Debian, openSUSE, Kali, etc.
 wsl --install -d Ubuntu
 ```
 
-Se puede tener más directamente distro instalada al mismo tiempo, cada una con su propio filesystem y paquetes independientes.
+Se puede tener más de una distribución instalada al mismo tiempo, cada una con su propio sistema de archivos y paquetes independientes.
 
 ## Comandos de gestión
 

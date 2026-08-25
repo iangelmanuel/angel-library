@@ -82,7 +82,7 @@ export const DELETE: APIRoute = async ({ params }) => {
 
 Express permite `app.get(ruta, mw1, mw2, handler)` — una cadena de middlewares específica de esa ruta. Astro no tiene ese mecanismo por archivo; la protección (auth, rate limiting) se resuelve en el [middleware global](/guides/astro-backend-arquitectura) (que corre para toda request y decide qué hacer según la ruta) o a mano, al principio de cada handler, como en el ejemplo de `POST` arriba (`if (!locals.user) return 401`).
 
-## Resumen
+## Equivalencias HTTP en Astro
 
 | Concepto | Dónde ya está documentado |
 | --- | --- |
@@ -91,7 +91,7 @@ Express permite `app.get(ruta, mw1, mw2, handler)` — una cadena de middlewares
 | Formato de respuesta de error | [Diseño de respuestas de error](/guides/express-api-error-responses) |
 | Sintaxis de rutas/params de Astro | [Endpoints (API routes)](/guides/astro-endpoints) |
 
-## Consideraciones
+## Protección y consistencia del contrato
 
 - Sin middleware encadenable por ruta, proteger varios endpoints con la misma lógica (auth, un rol específico) suele resolverse chequeando `locals` al principio de cada handler, o centralizando esa decisión en el middleware global según el `pathname` de la request.
 - El resto de las decisiones de diseño de API (formato de paginación, de errores) son intencionalmente las mismas que en Express — no hay razón para que una API se vea distinta solo porque el framework que la sirve cambió.

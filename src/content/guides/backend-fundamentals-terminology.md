@@ -5,12 +5,40 @@ category: backend
 stack: backend-fundamentos
 tags: [backend, servidor, api, http, concurrencia, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 El **backend** procesa reglas de negocio, identidad, permisos, persistencia e integración con otros sistemas. Puede ejecutarse como un servidor HTTP, una función, un proceso en segundo plano o varios servicios coordinados.
 
 Una **API** (*Application Programming Interface* o interfaz de programación de aplicaciones) define cómo otro software solicita capacidades. Una API web suele usar HTTP, pero también puede usar colas, RPC u otros protocolos.
+
+## Cómo usar esta subcategoría
+
+### Si estás aprendiendo desde cero
+
+Lee esta página completa para construir vocabulario. Después sigue el orden del sidebar:
+
+1. [Diseño de APIs](/guides/backend-api-design): contratos y fronteras.
+2. [Idempotencia y caché](/guides/backend-idempotencia-cache): repetición segura y frescura.
+3. [Resiliencia](/guides/backend-resiliencia-dependencias): dependencias lentas o caídas.
+4. [Colas y jobs](/guides/backend-colas-jobs): trabajo fuera de la request.
+5. [Webhooks y tiempo real](/guides/backend-webhooks-tiempo-real): comunicación entre sistemas.
+6. [Archivos y object storage](/guides/backend-archivos-object-storage): datos grandes y no estructurados.
+
+Luego aprende Node.js y un framework. Estos fundamentos no dependen de la sintaxis de Express, Astro o Next.js.
+
+### Si vienes a recordar
+
+| Pregunta | Documento |
+| --- | --- |
+| ¿cómo estructuro contrato, status y validación? | [Diseño de APIs](/guides/backend-api-design) |
+| ¿cómo evito pagos u órdenes duplicadas? | [Idempotencia](/guides/backend-idempotencia-cache) |
+| ¿cómo manejo timeouts y retries? | [Resiliencia](/guides/backend-resiliencia-dependencias) |
+| ¿cuándo saco trabajo de HTTP? | [Colas y jobs](/guides/backend-colas-jobs) |
+| ¿webhook, SSE o WebSocket? | [Tiempo real](/guides/backend-webhooks-tiempo-real) |
+| ¿cómo subo archivos sin agotar memoria? | [Object storage](/guides/backend-archivos-object-storage) |
+
+La ruta guiada enseña conceptos en orden; la tabla sirve como índice operativo. Ambas llegan al mismo contenido.
 
 ## Ciclo de una solicitud
 

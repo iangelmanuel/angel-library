@@ -3,7 +3,7 @@ title: "SSH: llaves, conexión y configuración"
 description: Generar un par de llaves SSH, copiarlas a un servidor, conectarse y guardar hosts en ~/.ssh/config.
 category: terminal
 stack: terminal
-order: 20
+order: 23
 tags: [terminal, ssh, herramientas, seguridad]
 scope: ssh
 related: [guides/terminal-linux-cli, guides/terminal-wsl]
@@ -16,7 +16,7 @@ updatedAt: 2026-08-17
 ssh-keygen -t ed25519 -C "email@ejemplo.com"
 ```
 
-`-t ed25519` elige el algoritmo (ed25519 es el recomendado hoy, más rápido y seguro que RSA); `-C` es un comentario, normalmente el email, para identificar la llave después. El comando pidirectamente ruta (Enter para la default) y opcionalmente una passphrase.
+`-t ed25519` elige el algoritmo; `-C` añade un comentario, normalmente el correo, para identificar la llave después. El comando pide una ruta —puedes presionar Enter para aceptar la predeterminada— y, opcionalmente, una frase de contraseña.
 
 Por default, las llaves quedan en `~/.ssh/`:
 

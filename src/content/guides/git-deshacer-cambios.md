@@ -3,7 +3,7 @@ title: Deshacer cambios — reset, revert, checkout y restore
 description: Cuatro formas de "deshacer" en Git, cada una para un escenario distinto — cuál no reescribe historial y cuál sí, y por qué eso importa.
 category: git
 stack: git
-order: 6
+order: 9
 tags: [git, reset, revert, undo]
 scope: git reset / revert / restore
 related: [commands/git-undo-commit-keep-changes]

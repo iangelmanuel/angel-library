@@ -5,10 +5,25 @@ category: seo
 stack: seo
 tags: [seo, metadata, indexacion, rastreo, datos-estructurados, fundamentos]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 **SEO** significa *Search Engine Optimization* u optimización para motores de búsqueda. Su objetivo es facilitar que un buscador descubra, comprenda e indexe contenido útil. No consiste en repetir palabras clave ni garantiza una posición concreta: combina contenido, arquitectura, accesibilidad técnica, rendimiento y reputación.
+
+## Aprende o consulta
+
+Si aprendes desde cero, sigue el recorrido del buscador: intención y arquitectura → descubrimiento/rastreo → render → canonical/indexación → metadata/datos estructurados → medición → migraciones. Después aplica la receta del framework.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| intención, páginas y enlaces internos | [Contenido y arquitectura](/guides/seo-contenido-arquitectura) |
+| robots, sitemap, canonical e indexación | [Rastreo e indexación](/guides/seo-rastreo-indexacion) |
+| title, description, Open Graph y JSON-LD | [Metadata y datos estructurados](/guides/seo-metadata-datos-estructurados) |
+| JavaScript, idiomas y duplicados regionales | [Render e internacionalización](/guides/seo-rendering-international) |
+| cambios de URL o caída de tráfico | [Auditoría y migraciones](/guides/seo-auditoria-migraciones) |
+| implementación completa | [Astro](/recipes/astro-seo-completo) o [Next.js](/recipes/nextjs-seo-completo) |
+
+Quien consulta necesita etiquetas exactas; quien aprende debe comprender qué señal resuelve cada etiqueta. Añadir metadata no compensa contenido duplicado, enlaces rotos o una respuesta que el crawler no puede obtener.
 
 ## Descubrimiento, rastreo, renderizado e indexación
 

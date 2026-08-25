@@ -10,7 +10,7 @@ related: [guides/astro-backend-arquitectura]
 updatedAt: 2026-08-17
 ---
 
-better-auth es un framework de autenticación TypeScript-first y agnóstico de framework: hashea contraseñas, emite y valida sesiones, y maneja providers OAuth por tú, con integración oficial para Astro (además de Express y Next.js).
+Better Auth es un framework de autenticación orientado a TypeScript y agnóstico del framework: aplica hash a contraseñas, emite y valida sesiones y maneja proveedores OAuth, con integración para Astro, Express y Next.js.
 
 ## Instalación
 
@@ -145,7 +145,7 @@ export const auth = betterAuth({
 
 Tras regenerar el schema (`npx @better-auth/cli generate`), `locals.user.rol` queda disponible en cualquier página/endpoint que lea la sesión del middleware.
 
-## Resumen
+## Piezas de Better Auth en Astro
 
 | Pieza | Rol |
 | --- | --- |
@@ -154,7 +154,7 @@ Tras regenerar el schema (`npx @better-auth/cli generate`), `locals.user.rol` qu
 | `context.locals.user` | Poblado en el middleware, disponible en páginas y endpoints |
 | `createAuthClient()` | Client para login/registro desde el navegador, sin `fetch` manual |
 
-## Consideraciones
+## Sesión, adapter y runtime
 
 - **Sin CORS**: al ser una sola app Astro sirviendo tanto la UI como estos endpoints, no hay origen cruzado que autorizar.
 - Requiere `output: 'server'` — en modo estático puro no hay servidor corriendo para atender el catch-all en runtime.

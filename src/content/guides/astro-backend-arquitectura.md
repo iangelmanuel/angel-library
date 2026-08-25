@@ -1,88 +1,138 @@
 ---
-title: Backend en Astro — endpoints + middleware
-description: Con output "server", los endpoints y el middleware de Astro son tu backend. Cómo organizarlos, sin repetir su mecánica ya documentada en Frontend.
+title: Backend en Astro — mapa y arquitectura
+description: Ruta backend de Astro para aprender cuándo usar endpoints, Actions, middleware, sesiones y render on-demand o consultar cada pieza rápidamente.
 category: backend
 stack: astro
 order: 1
-tags: [astro, architecture, server]
+tags: [astro, architecture, server, backend]
 scope: arquitectura backend en Astro
 related:
+  - guides/astro-api-rest
+  - guides/astro-ssr-adapters
+  - guides/astro-sessions
   - guides/astro-endpoints
   - guides/astro-middleware
   - guides/astro-server-actions
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
-Con `output: 'server'`, Astro deja de ser solo un generador de sitios estáticos — sus endpoints y su middleware pueden correr en cada request. También puedes mantener `output: 'static'` y marcar únicamente las rutas dinámicas con `export const prerender = false`; ese es el reemplazo actual del antiguo modo `hybrid`. La mecánica de cada pieza (`export function GET`, `defineMiddleware`, Actions) ya está documentada a fondo en Frontend/Astro: [Endpoints](/guides/astro-endpoints), [Middleware](/guides/astro-middleware), [Server Actions](/guides/astro-server-actions). Esta guía es sobre cómo se **organizan** esas piezas cuando el proyecto las usa con intención de backend, no sobre su sintaxis.
+Astro puede actuar como frontend y como capa backend del mismo producto. La pregunta principal no es “¿Astro soporta servidor?”, sino qué rutas necesitan ejecución durante una request y qué superficie comunica mejor la intención.
 
-## Dónde vive cada cosa
+```text
+contenido público estable → prerender durante build
+request HTTP pública      → endpoint con Request/Response
+mutación desde la UI      → Action tipada
+contexto transversal      → middleware + locals
+estado entre requests     → session/cookie + almacenamiento
+```
+
+## Dos formas de usar esta ruta
+
+### Quiero aprender desde cero
+
+Antes debes reconocer routing, componentes y render estático en la ruta Frontend de Astro. Después sigue este orden:
+
+1. esta arquitectura y la frontera frontend/backend;
+2. [API REST con endpoints](/guides/astro-api-rest);
+3. [render on-demand y adapters](/guides/astro-ssr-adapters);
+4. [sessions](/guides/astro-sessions);
+5. autenticación y base de datos;
+6. recetas completas cuando puedas explicar cada pieza.
+
+En cada ejemplo identifica qué ocurre en build, qué ocurre por request y qué código podría llegar al navegador. Un secreto solo puede usarse en contexto server-side.
+
+### Ya uso Astro y quiero recordar
+
+| Necesito | Documento |
+| --- | --- |
+| endpoint público, webhook o cliente móvil | [API REST](/guides/astro-api-rest) |
+| sintaxis de `APIRoute`, params y Response | [Endpoints](/guides/astro-endpoints) |
+| formulario o mutación interna tipada | [Actions](/guides/astro-server-actions) |
+| auth, redirects o datos por request | [Middleware](/guides/astro-middleware) |
+| escoger SSG, SSR y adapter | [On-demand y adapters](/guides/astro-ssr-adapters) |
+| conservar carrito, flash o sesión | [Sessions](/guides/astro-sessions) |
+| autenticación administrada | [Better Auth](/guides/astro-better-auth) o [Auth.js](/guides/astro-auth-js) |
+| acceso a datos | [Prisma](/guides/astro-prisma) o [Supabase](/guides/astro-supabase) |
+
+## Elegir Endpoint o Action
+
+Un endpoint es un contrato HTTP visible. Úsalo para webhooks, API pública, aplicación móvil, otro servicio o descargas. Recibe `Request` y devuelve `Response`.
+
+Una Action es una función de servidor tipada para la UI Astro. Reduce el código repetido de endpoint + `fetch`, integra validación y devuelve un resultado seguro. No es el contrato apropiado para un consumidor externo.
+
+```text
+¿el consumidor controla tu UI Astro?
+  sí → Action, salvo que necesites un contrato HTTP explícito
+  no → endpoint
+```
+
+Ambos son fronteras no confiables: autentica, autoriza, valida y limita en el servidor.
+
+## Estructura por capacidades
 
 ```text
 src/
-├── middleware.ts              # auth, CORS (rara vez necesario), logging — corre en TODA request
-├── pages/
-│   └── api/
-│       ├── posts.ts           # GET/POST /api/posts
-│       └── posts/[id].ts      # GET/PATCH/DELETE /api/posts/:id
+├── middleware.ts
 ├── actions/
-│   └── posts.ts               # Server Actions, para mutaciones desde formularios/componentes
-├── lib/
-│   ├── prisma.ts               # o supabase.ts
-│   └── auth.ts                 # config de better-auth / auth-astro
-└── repositories/
-    └── posts.repository.ts     # capa de acceso a datos, mismo patrón que en Express
+│   └── posts.ts
+├── pages/api/
+│   └── posts/[id].ts
+├── modules/posts/
+│   ├── posts.schema.ts
+│   ├── posts.service.ts
+│   └── posts.repository.ts
+└── lib/
+    ├── auth.ts
+    └── db.ts
 ```
 
-## Endpoints vs Server Actions: cuándo cada uno
+El endpoint o Action adapta el transporte. El service expresa el caso de uso. El repository encapsula persistencia. En una operación simple no hace falta crear todas las capas; extráelas cuando una regla se reutiliza, necesita tests aislados o coordina varias dependencias.
 
-```text
-Endpoints (pages/api/*.ts)  →  API pública/consumida por fetch externo, webhooks, un cliente que no es la propia app
-Server Actions (actions/*)  →  mutaciones desde la propia UI (formularios, componentes) de esta misma app Astro
-```
-
-Si el único consumidor directamente operación es la propia app Astro (un formulario que crea un post), una Server Action evita escribir un endpoint + el `fetch` manual del lado del cliente. Si algo externo necesita pegarle (un webhook de Stripe, un cliente mobile, otro servicio), un endpoint REST tradicional en `pages/api/` es lo que corresponde.
-
-## El repository sigue teniendo sentido
-
-El mismo patrón de capas de [la arquitectura MVC de Express](/patterns/backend-mvc-structure) aplica aquí, simplificado — Astro no tiene "controllers" separados (el endpoint mismo cumple ese rol), pero separar el acceso a datos en un `repository` sigue evitando que la lógica de Prisma/Supabase quede desparramada en cada archivo de `pages/api/`.
-
-```ts title="pages/api/posts.ts"
+```ts title="src/pages/api/posts.ts"
 import type { APIRoute } from 'astro';
-import { postsRepository } from '../../repositories/posts.repository';
+import { listPosts } from '../../modules/posts/posts.service';
 
-export const GET: APIRoute = async () => {
-  const posts = await postsRepository.findAll();
-  return new Response(JSON.stringify(posts), {
-    headers: { 'Content-Type': 'application/json' },
+export const GET: APIRoute = async ({ url, locals }) => {
+  const result = await listPosts({
+    actor: locals.user,
+    cursor: url.searchParams.get('cursor'),
   });
+
+  return Response.json(result);
 };
 ```
 
-## Middleware: dónde va la autenticación
+No pases todo el contexto Astro al dominio. Entrega valores concretos para que el caso de uso también pueda ejecutarse desde una prueba o un job.
 
-```ts title="middleware.ts"
+## Middleware y `locals`
+
+El middleware corre antes y después de la siguiente capa. Es apropiado para correlación, sesión, redirects y contexto transversal. `locals` transporta datos de esa request, no un store global.
+
+```ts title="src/middleware.ts"
 import { defineMiddleware } from 'astro:middleware';
-import { auth } from './lib/auth';
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const session = await auth.api.getSession({ headers: context.request.headers });
-  context.locals.user = session?.user ?? null;
+  context.locals.requestId = crypto.randomUUID();
+  context.locals.user = await readSession(context.request.headers);
   return next();
 });
 ```
 
-`context.locals` es cómo el middleware le pasa datos (el usuario actual) a cualquier endpoint o página que corra después en la misma request — ver [Middleware](/guides/astro-middleware) para el detalle completo del mecanismo.
+No asumas que poblar `locals.user` autoriza toda operación. Cada endpoint o Action sensible debe comprobar permiso sobre el recurso específico.
 
-## Resumen
+## Render y despliegue
 
-| Pieza de Astro | Rol en el backend |
-| --- | --- |
-| `middleware.ts` | Auth, poblar `context.locals`, corre en toda request |
-| `pages/api/*.ts` | Endpoints REST tradicionales, para consumidores externos |
-| `actions/*.ts` | Mutaciones desde la propia UI, sin armar un endpoint + fetch manual |
-| `repositories/` | Mismo patrón de capas que en Express, adaptado |
+Astro prerenderiza por defecto. Una ruta que depende de cookies, sesión o datos por request necesita render on-demand y un adapter. Puedes conservar `output: 'static'` y marcar rutas con `prerender = false`, o usar `output: 'server'` y prerenderizar excepciones.
 
-## Consideraciones
+El adapter define el runtime real. Node, serverless y edge difieren en filesystem, duración, conexiones y APIs disponibles. Diseña contra las capacidades del destino, no solo contra el servidor local.
 
-- **No hace falta CORS** en la mayoría de los casos: si el frontend y el backend son la misma app Astro (mismo origen), CORS simplemente no aplica — a diferencia directamente API Express separada del frontend.
-- `output: 'server'` cambia el modelo de deploy (necesita un adapter — Node, Vercel, etc. — y ya no es solo archivos estáticos) — confirmar que el hosting elegido soporta SSR antes de depender de endpoints/actions en producción.
+## Seguridad mínima
+
+- Los valores de `PUBLIC_*` pueden llegar al cliente; los secretos no usan ese prefijo.
+- Un sitio del mismo origen normalmente no necesita CORS, pero sí autenticación, autorización y protección CSRF cuando usa cookies.
+- Limita JSON y archivos, valida firmas de webhooks sobre el cuerpo requerido y usa timeouts para proveedores.
+- No confíes en datos del cliente para precio, rol, tenant o propietario.
+
+## Señal de que la arquitectura funciona
+
+Puedes cambiar un endpoint por una Action, o invocar el mismo caso de uso desde un job, sin reescribir reglas de negocio. La capa HTTP conoce Astro; el núcleo conoce datos validados y dependencias explícitas.

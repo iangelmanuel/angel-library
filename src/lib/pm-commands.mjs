@@ -1,5 +1,5 @@
 /**
- * Traduce comandos `npm install`/`npm i`/`npx` a sus equivalentes en pnpm y bun.
+ * Traduce instalaciones y ejecutores de npm, pnpm o Bun a sus equivalentes.
  * Puro (sin dependencias de Astro/Node más allá de string parsing) para poder
  * importarse tanto desde un plugin remark (.mjs, corre en build) como desde
  * un componente Astro/TS (EntryMeta.astro).
@@ -9,8 +9,10 @@
  * sin tocar.
  */
 
-const INSTALL_RE = /^(npm)\s+(?:install|i)\b(.*)$/;
+const INSTALL_RE = /^(npm|pnpm|bun)\s+(install|i|add)\b(.*)$/;
+const RUNNER_RE = /^(npx|pnpm\s+dlx|bunx)\s+(.+)$/;
 const COMMENT_RE = /^#/;
+const KNOWN_FLAGS = new Set(['-D', '-d', '--save-dev', '-g', '--global']);
 
 /** Separa flags (empiezan con "-") de paquetes en el resto de la línea. */
 function splitArgs(rest) {
@@ -25,8 +27,8 @@ function hasFlag(flags, ...names) {
 }
 
 /**
- * Traduce una sola línea. Devuelve { pnpm, bun, npm } o null si no matchea
- * ninguno de los patrones reconocidos (npm install/i, npx).
+ * Traduce una sola línea. Devuelve { pnpm, bun, npm } o null si no coincide
+ * con una instalación o ejecutor reconocido.
  */
 export function translateLine(line) {
   const trimmed = line.trim();
@@ -36,9 +38,11 @@ export function translateLine(line) {
 
   const installMatch = INSTALL_RE.exec(trimmed);
   if (installMatch) {
-    const rest = installMatch[2];
+    const rest = installMatch[3];
     const { flags, packages } = splitArgs(rest);
-    const dev = hasFlag(flags, '-D', '--save-dev');
+    if (flags.some((flag) => !KNOWN_FLAGS.has(flag))) return null;
+
+    const dev = hasFlag(flags, '-D', '-d', '--save-dev');
     const global_ = hasFlag(flags, '-g', '--global');
     const hasPackages = packages.length > 0;
 
@@ -47,20 +51,22 @@ export function translateLine(line) {
 
     const pnpmFlags = [dev && '-D', global_ && '-g'].filter(Boolean);
     const bunFlags = [dev && '-d', global_ && '-g'].filter(Boolean);
+    const npmFlags = [dev && '-D', global_ && '-g'].filter(Boolean);
 
     const pnpm = ['pnpm', pnpmVerb, ...pnpmFlags, ...packages].join(' ');
     const bun = ['bun', bunVerb, ...bunFlags, ...packages].join(' ');
+    const npm = ['npm', 'install', ...npmFlags, ...packages].join(' ');
 
-    return { pnpm, bun, npm: trimmed };
+    return { pnpm, bun, npm };
   }
 
-  const npxMatch = /^npx\s+(.*)$/.exec(trimmed);
-  if (npxMatch) {
-    const rest = npxMatch[1];
+  const runnerMatch = RUNNER_RE.exec(trimmed);
+  if (runnerMatch) {
+    const rest = runnerMatch[2];
     return {
       pnpm: `pnpm dlx ${rest}`,
       bun: `bunx ${rest}`,
-      npm: trimmed,
+      npm: `npx ${rest}`,
     };
   }
 
@@ -69,7 +75,7 @@ export function translateLine(line) {
 
 /**
  * Traduce un bloque multilínea. Si alguna línea no vacía/no-comentario no
- * matchea, devuelve null (no se transforma el bloque completo).
+ * coincide, devuelve null para no transformar el bloque de forma parcial.
  */
 export function translateBlock(text) {
   const lines = text.split('\n');

@@ -1,6 +1,6 @@
 ---
 title: Facade
-description: Esconder varios pasos o servicios que siempre se usan juntos detrás directamente única función simple.
+description: Esconder varios pasos o servicios que siempre se usan juntos detrás de una única función simple.
 category: architecture
 stack: patrones-diseno
 order: 5

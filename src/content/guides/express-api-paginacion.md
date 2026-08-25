@@ -3,7 +3,7 @@ title: Paginación, filtrado y búsqueda
 description: Paginación offset-based vs cursor-based, filtros por query params, y búsqueda de texto — con ejemplos usando Prisma.
 category: backend
 stack: express
-order: 16
+order: 10
 tags: [express, api, pagination, filtering]
 technologies: [guides/express-prisma]
 updatedAt: 2026-08-16
@@ -124,7 +124,7 @@ app.get('/posts', async (req, res) => {
 
 `where` se calcula una vez y se reusa tanto en `findMany` como en `count` — sin esto, el total contaría todos los registros en vez de solo los que matchean los filtros.
 
-## Resumen
+## Comparación de paginación
 
 | Patrón | Cuándo usarlo |
 | --- | --- |
@@ -133,7 +133,7 @@ app.get('/posts', async (req, res) => {
 | Filtros vía query params | Cada filtro opcional, se combina con `where` condicional |
 | Búsqueda con `contains` | Búsqueda simple; para algo serio, un motor de búsqueda dedicado |
 
-## Consideraciones
+## Límites, índices y orden estable
 
 - `req.query.page` siempre llega como string (o array de strings) — `Number(...)` sin validar puede dar `NaN` con un input raro; en producción vale la pena validar con Zod (`z.coerce.number().min(1)`) en vez de confiar directo.
 - Un `limit` sin tope máximo (`?limit=999999`) permite que un cliente pida la tabla entera directamente — poner un máximo razonable (`Math.min(limit, 100)`) evita ese abuso.

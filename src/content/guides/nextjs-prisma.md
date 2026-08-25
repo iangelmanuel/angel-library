@@ -68,7 +68,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-`globalThis` sobrevive al hot-reload de módulos (a diferencia directamente variable module-level normal) — así que en desarrollo, el mismo client se reutiliza en vez de crear uno nuevo en cada recarga. Sin este patrón, el síntoma típico en desarrollo es un error de "too many connections" después de varios hot-reloads seguidos. En producción, sin hot-reload, esta complejidad no cambia nada pero tampoco molesta.
+`globalThis` sobrevive al hot reload de módulos, a diferencia de una variable normal del módulo. En desarrollo permite reutilizar el mismo cliente en vez de crear uno en cada recarga. Sin este patrón puede aparecer `too many connections` después de varios ciclos. En producción no hay hot reload, pero conservar el patrón no cambia el comportamiento esperado.
 
 **5. Un Route Handler real:**
 
@@ -160,7 +160,7 @@ export async function crearPostConLimite(formData: FormData) {
 
 Dentro del callback se usa `tx`, nunca `prisma` directo — usarlo por error ejecutaría esa operación fuera de la transacción, sin las garantías de atomicidad.
 
-## Resumen
+## Flujo de Prisma en Next.js
 
 | API | Qué hace |
 | --- | --- |
@@ -170,7 +170,7 @@ Dentro del callback se usa `tx`, nunca `prisma` directo — usarlo por error eje
 | `$transaction([...])` | Operaciones independientes, atómicas |
 | `$transaction(async (tx) => {...})` | Operaciones que dependen de un paso anterior, atómicas |
 
-## Consideraciones
+## Hot reload, conexiones y runtime
 
 - Con el **Edge Runtime** (`export const runtime = 'edge'` en un Route Handler), Prisma necesita un driver adapter específico (`@prisma/adapter-*`) — el `PrismaClient` estándar no corre en Edge sin esa configuración adicional.
 - `npx prisma migrate deploy` (no `migrate dev`) es el comando de producción.

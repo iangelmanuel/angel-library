@@ -3,7 +3,7 @@ title: "Scoop: gestor de paquetes para Windows sin admin"
 description: Instalar y manejar herramientas de línea de comandos en Windows con Scoop — sin permisos de administrador, en el perfil de usuario.
 category: terminal
 stack: terminal
-order: 22
+order: 25
 tags: [terminal, scoop, windows, gestor-de-paquetes]
 scope: scoop
 related: [guides/terminal-chocolatey]

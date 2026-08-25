@@ -3,7 +3,7 @@ title: Checklist de seguridad para aplicaciones web
 description: Controles esenciales en autenticación, autorización, validación, sesiones, headers, dependencias y manejo de secretos.
 category: security
 stack: security-testing
-order: 2
+order: 3
 tags: [security, backend, auth, validation]
 practice: Tratar todo input y toda identidad como no confiables hasta validarlos en el servidor.
 why: La mayoría de fallos graves aparecen en límites repetidos — permisos, datos externos, secretos y configuración—, no en algoritmos sofisticados.

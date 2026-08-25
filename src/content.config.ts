@@ -88,18 +88,6 @@ const hooks = defineCollection({
   }),
 });
 
-const components = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/components' }),
-  schema: z.object({
-    ...baseFields,
-    framework: z.string().optional(),
-    library: z.string().regex(/^[a-z-]+\/[a-z0-9-]+$/).optional(),
-    install: z.string().optional(),
-    source: z.url().optional(),
-    dependencies: refs,
-  }),
-});
-
 const utilities = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/utilities' }),
   schema: z.object({
@@ -193,7 +181,6 @@ export const collections = {
   recipes,
   snippets,
   hooks,
-  components,
   utilities,
   resources,
   skills,

@@ -3,7 +3,7 @@ title: Reflog — recuperar lo que parecía perdido
 description: El historial de dónde estuvo HEAD, incluso para commits que ya no aparecen en ninguna rama — el salvavidas para casi cualquier "borré algo por error".
 category: git
 stack: git
-order: 13
+order: 16
 tags: [git, reflog, recovery, advanced]
 scope: git reflog
 related: [commands/git-undo-commit-keep-changes]

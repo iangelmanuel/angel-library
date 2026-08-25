@@ -3,7 +3,7 @@ title: Roles y permisos
 description: Del rol único por usuario a un modelo RBAC con permisos granulares — cuándo cada nivel de complejidad se justifica.
 category: backend
 stack: express
-order: 10
+order: 15
 tags: [express, rbac, authorization, permissions]
 scope: modelado de autorización
 related: [guides/express-auth-middleware]
@@ -101,7 +101,7 @@ app.put('/posts/:id', requireAuth, async (req, res) => {
 
 Este chequeo no puede ser un middleware genérico reusable de la misma forma que los anteriores — necesita cargar el recurso primero para saber quién es el dueño, así que típicamente vive dentro del handler o en un middleware que sabe específicamente qué recurso está protegiendo.
 
-## Resumen
+## Mapa de autorización
 
 | Nivel | Cuándo alcanza |
 | --- | --- |
@@ -110,7 +110,7 @@ Este chequeo no puede ser un middleware genérico reusable de la misma forma que
 | RBAC con permisos (`'recurso:accion'`) | Muchos roles, o roles que cambian seguido — agregar uno no toca las rutas |
 | Ownership (dueño del recurso) | "Tus propios datos" — no es un permiso de rol, depende del dato puntual |
 
-## Consideraciones
+## Permisos por recurso y tenant
 
 - Empezar por el nivel más simple que resuelve el problema real — RBAC con tabla de permisos para una app con dos roles fijos es complejidad sin beneficio.
 - Los niveles no son excluyentes: un sistema real típicamente combina RBAC (¿este rol puede editar posts en general?) con ownership (¿es *su* post?) en la misma ruta.

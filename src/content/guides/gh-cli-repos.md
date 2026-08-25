@@ -3,7 +3,7 @@ title: GitHub CLI — repositorios
 description: Crear, clonar, forkear y ver repos desde la terminal — sin abrir el navegador para lo que se hace todos los días.
 category: git
 stack: github
-order: 17
+order: 20
 tags: [git, github, gh, cli]
 scope: gh repo
 related: [guides/git-remotos]

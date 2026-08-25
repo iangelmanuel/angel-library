@@ -3,7 +3,7 @@ title: better-auth en Express
 description: Instalación, configuración con adapter, providers y sesión, Route Handler catch-all, y cómo leer el usuario en un middleware.
 category: backend
 stack: express
-order: 11
+order: 16
 tags: [express, better-auth, auth]
 website: https://www.better-auth.com
 related: [guides/express-jwt]
@@ -140,7 +140,7 @@ export const auth = betterAuth({
 
 Después de correr `npx @better-auth/cli generate` de nuevo (para que la migración incluya el campo nuevo), `session.user.rol` queda disponible donde sea que se lea la sesión.
 
-## Resumen
+## Piezas de la integración
 
 | Pieza | Rol |
 | --- | --- |
@@ -150,7 +150,7 @@ Después de correr `npx @better-auth/cli generate` de nuevo (para que la migraci
 | `auth.api.getSession({ headers })` | Leer la sesión actual dentro de un middleware/ruta propia |
 | `user.additionalFields` | Agregar campos custom (como `rol`) al usuario |
 
-## Consideraciones
+## Cuándo adoptar Better Auth
 
 - Requiere una base de datos configurada desde el inicio (vía el adapter que corresponda) — el trade-off frente a JWT manual es menos control fino a cambio de no reinventar hashing, expiración, refresh y providers OAuth.
 - Sesión server-side significa una consulta a la base (o cache) por request autenticado, a diferencia de un JWT que se valida sin tocar la base.

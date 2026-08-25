@@ -3,7 +3,7 @@ title: GitHub CLI — Pull Requests
 description: Crear, revisar, mergear y navegar Pull Requests sin salir de la terminal — el flujo que más tiempo ahorra de toda la CLI.
 category: git
 stack: github
-order: 18
+order: 21
 tags: [git, github, gh, cli, pull-requests]
 scope: gh pr
 related: [guides/git-ramas, guides/gh-cli-workflow-completo]
@@ -26,7 +26,7 @@ gh pr create --fill    # usa el mensaje del último commit como título/descripc
 gh pr create --draft   # como borrador, sin pedir review todavía
 ```
 
-Requiere haber hecho `git push` de la rama antes (o `gh pr create` lo detecta y ofrece hacerlo por tú si falta).
+Requiere haber ejecutado `git push` para la rama antes; si falta, `gh pr create` lo detecta y ofrece publicarla por ti.
 
 ## Listar y ver PRs
 

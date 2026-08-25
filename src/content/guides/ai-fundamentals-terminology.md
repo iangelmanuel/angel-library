@@ -5,12 +5,27 @@ category: ai
 stack: ai-fundamentos
 tags: [ia, llm, prompts, rag, agentes, fundamentos, glosario]
 order: 1
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
 
 La **inteligencia artificial (IA)** agrupa sistemas capaces de realizar tareas que asociamos con percepción, lenguaje, predicción o decisión. El **aprendizaje automático**, conocido como **ML** por *Machine Learning*, es una rama en la que un sistema aprende patrones a partir de datos en lugar de recibir todas las reglas de forma manual.
 
 En aplicaciones web actuales es frecuente usar **IA generativa**, que produce texto, imágenes, audio, video o código. Esta guía se concentra en los modelos de lenguaje y en cómo integrarlos sin confundir una respuesta convincente con una respuesta garantizada.
+
+## Aprende o consulta
+
+Si estás aprendiendo, sigue esta progresión: modelo y tokens → prompt y contexto → salida estructurada → herramientas → embeddings/RAG → agentes → evaluaciones → SDK e infraestructura. No saltes a un agente con diez herramientas antes de poder evaluar una llamada simple.
+
+| Necesito recordar | Documento |
+| --- | --- |
+| instrucciones, contexto y JSON estable | [Prompts y salidas](/guides/ai-prompts-contexto-salidas) |
+| embeddings, chunks y recuperación | [RAG](/guides/ai-rag-embeddings) |
+| tools, guardrails y agentes | [Agentes y herramientas](/guides/ai-agentes-herramientas-evaluacion) |
+| archivos, imágenes, audio y privacidad | [IA multimodal](/guides/ai-multimodal-privacidad) |
+| arquitectura común de proveedores | [SDK para IA](/guides/ai-sdk-fundamentos) |
+| calidad, regresiones, latencia y costo | [Evaluaciones de IA](/guides/ai-evaluaciones-observabilidad) |
+
+Una demo responde “¿puede producir algo?”. Una integración confiable también responde “¿con qué frecuencia cumple?”, “¿qué datos recibió?”, “¿cuánto tarda y cuesta?” y “¿qué ocurre cuando falla?”.
 
 ## Modelo, entrenamiento e inferencia
 

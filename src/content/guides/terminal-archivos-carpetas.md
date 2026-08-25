@@ -3,7 +3,7 @@ title: Gestión de archivos y carpetas
 description: Crear, copiar, mover y borrar archivos y carpetas desde la terminal — con sus equivalentes en Windows, macOS y Linux.
 category: terminal
 stack: terminal
-order: 2
+order: 3
 tags: [terminal, archivos, carpetas, cli]
 scope: mkdir / cp / mv / rm
 related: [guides/terminal-navegacion, guides/terminal-permisos]

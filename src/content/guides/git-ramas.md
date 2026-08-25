@@ -3,7 +3,7 @@ title: Ramas — crear, cambiar, eliminar y renombrar
 description: Una rama es solo un puntero a un commit. Crear, moverse entre ramas, publicarlas y limpiarlas cuando ya no hacen falta.
 category: git
 stack: git
-order: 3
+order: 4
 tags: [git, branches, basics]
 scope: git branch / switch / checkout
 updatedAt: 2026-08-16
