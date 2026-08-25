@@ -3,7 +3,30 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "Biblioteca personal de conocimiento técnico y código reutilizable",
+  "description": "Segundo cerebro técnico para aprender, recordar y reutilizar conocimiento de desarrollo web",
+  "keywords": [
+    "astro",
+    "javascript",
+    "react",
+    "nextjs",
+    "web-development",
+    "developer-notes",
+    "knowledge-base"
+  ],
+  "author": "iangelmanuel",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iangelmanuel/angel-library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iangelmanuel/angel-library/issues"
+  },
+  "homepage": "https://github.com/iangelmanuel/angel-library",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
