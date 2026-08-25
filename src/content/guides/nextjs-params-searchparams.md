@@ -3,10 +3,10 @@ title: Leer params y searchParams en una página
 description: Ambos son promesas desde Next 15 — cómo leerlos en Server y Client Components, y el helper PageProps tipado.
 category: frontend
 stack: nextjs
-order: 6
+order: 9
 tags: [nextjs, routing, typescript]
 scope: next.js app router (page props)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 `page.tsx` recibe dos props especiales: `params` (los segmentos dinámicos de la URL, `[slug]`) y `searchParams` (la query string, `?orden=precio`). Desde Next.js 15, **ambos son promesas** — hay que `await`earlos, ya no se leen directo como en versiones anteriores.
@@ -76,7 +76,7 @@ export default function Page({
 }
 ```
 
-## Resumen
+## Acceso a parámetros en una mirada
 
 | Prop | Qué contiene | Estático u opta dinámico |
 | --- | --- | --- |
@@ -85,7 +85,7 @@ export default function Page({
 | `PageProps<'/ruta'>` | Tipa ambos automáticamente según la ruta literal | — |
 | `use(promesa)` | Leer cualquiera de los dos en un Client Component | — |
 
-## Consideraciones
+## Validación, identidad y caché
 
 - Antes de Next 15, `params`/`searchParams` eran síncronos — código viejo que hace `params.slug` directo (sin `await`) todavía funciona por compatibilidad, pero está deprecado y hay un codemod oficial para migrarlo.
 - `searchParams` es un objeto plano, no una instancia de `URLSearchParams` — no tiene métodos como `.get()`, se accede directo por clave.

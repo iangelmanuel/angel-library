@@ -3,11 +3,11 @@ title: useOnClickOutside
 description: Detectar un click o tap fuera de un elemento — la base de dropdowns, modales y menús que se cierran solos.
 category: frontend
 stack: react
-order: 24
+order: 4
 tags: [react, hooks, dom, typescript]
 framework: React
 language: typescript
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 ## Cuándo usarlo
@@ -64,7 +64,7 @@ function Dropdown() {
 }
 ```
 
-## Consideraciones
+## Portales, teclado y propagación
 
 - **`mousedown`/`touchstart`, no `click`**: escuchar en la fase de "presionar" (no de "soltar") evita el caso raro donde un click empieza dentro del elemento (por ejemplo, seleccionando texto) y termina afuera — con `click` eso dispararía el cierre de forma inesperada.
 - **`el.contains(event.target)`** es la comprobación real de "adentro o afuera" — compara contra el nodo del DOM, no contra coordenadas, así que funciona igual con scroll o con el elemento en cualquier posición.

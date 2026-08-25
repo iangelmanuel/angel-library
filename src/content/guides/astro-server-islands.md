@@ -3,12 +3,12 @@ title: Islas dinámicas (Server Islands)
 description: Renderizar un fragmento personalizado o dinámico bajo demanda con server:defer, sin sacrificar el prerender del resto de la página.
 category: frontend
 stack: astro
-order: 13
+order: 16
 tags: [astro, performance, ssr]
 scope: astro (directiva server:defer)
 related:
   - guides/astro-islas
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Las [islas de UI](/guides/astro-islas) (`client:*`) resuelven interactividad: JS que corre en el navegador. Las **server islands** resuelven el problema espejado — un fragmento que necesita correr en el *servidor* (leer una sesión, pegarle a una base de datos) en una página que por lo demás es puramente estática. Sin esto, ese único fragmento dinámico forzaría a que toda la página sea on-demand, perdiendo el cacheo y la velocidad de servir HTML pregenerado.
@@ -41,7 +41,7 @@ Mientras la isla resuelve, se puede mostrar algo inmediato en su lugar.
 </Avatar>
 ```
 
-## Resumen
+## Directivas y props en una mirada
 
 | Concepto | Qué es |
 | --- | --- |
@@ -49,7 +49,7 @@ Mientras la isla resuelve, se puede mostrar algo inmediato en su lugar.
 | `slot="fallback"` | Contenido que se muestra mientras la isla resuelve |
 | Diferencia con `client:*` | `client:*` hidrata JS en el navegador; `server:defer` renderiza HTML en el servidor, después del prerender inicial |
 
-## Consideraciones
+## Personalización, caché y fallos
 
 - Los props que le pasas al componente deferido se serializan (van encriptados en la URL de su endpoint) — no le pases funciones ni referencias circulares.
 - Si los props superan ~2048 bytes cifrados, Astro cambia automáticamente a `POST` en vez de `GET` para pedir la isla — eso la saca de cualquier cache de CDN basada en URL.

@@ -398,6 +398,7 @@ export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
  */
 export const STACK_IDS = [
   'frontend-fundamentos',
+  'libs',
   'backend-fundamentos',
   'devops-fundamentos',
   'ui-ux-fundamentos',
@@ -494,6 +495,7 @@ export const STACKS: Record<StackId, StackMeta> = {
     label: 'Fundamentos de frontend',
     icon: 'brand-frontend-fundamentos',
   },
+  libs: { id: 'libs', label: 'Libs', icon: 'brand-libs' },
   'backend-fundamentos': {
     id: 'backend-fundamentos',
     label: 'Fundamentos de backend',
@@ -609,7 +611,7 @@ export const STACK_LIST = STACK_IDS.map((id) => STACKS[id]);
  */
 export const CATEGORY_STACK_ORDER: Partial<Record<CategoryId, readonly StackId[]>> = {
   general: ['html', 'css', 'javascript', 'typescript', 'utils'],
-  frontend: ['frontend-fundamentos', 'astro', 'react', 'nextjs'],
+  frontend: ['frontend-fundamentos', 'libs', 'astro', 'react', 'nextjs'],
   backend: ['backend-fundamentos', 'node', 'express', 'astro', 'nextjs'],
   database: ['database-fundamentos', 'database-modelado', 'database-sql', 'database-postgresql', 'database-nosql', 'database-operacion'],
   ai: ['ai-fundamentos', 'ai-prompts', 'ai-rag', 'ai-agentes', 'ai-sdk'],

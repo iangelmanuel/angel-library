@@ -9,7 +9,7 @@ Resumen para retomar sin releer todo el historial. Reemplaza el handoff anterior
 - Nutrir **IA Tools & Skills → Comandos**: traducir los 5 comandos existentes de voseo argentino a inglés (son prompts para IA, no prosa del sitio) + 5 comandos nuevos (`/code-audit`, `/refactor`, `/explain`, `/add-tests`, `/pr-description`).
 - Agregar `canirun.ai` a Recursos/IA.
 - Guía de alias de imports en TypeScript (`tsconfig` `paths`).
-- Crear **Frontend → SEO**: dos recetas completas paso a paso ("SEO completo en Astro" / "SEO completo en Next.js"), dos skills reales de Claude Code (carpeta `SKILL.md` + `references/`, no un resumen), y un patrón `SITE` (variable global de configuración) en la raíz de Frontend.
+- Crear **Frontend → SEO**: dos recetas completas paso a paso ("SEO completo en Astro" / "SEO completo en Next.js"), dos skills reales de Claude Code (carpeta `SKILL.md` + `references/`, no un resumen), y un patrón `SITE` (variable global de configuración) en la subcategoría `libs`.
 - Crear **Arquitectura**: 3 subcategorías nuevas — Principios (SOLID, DRY/KISS/YAGNI, etc.), Patrones de diseño (GoF relevantes a JS/TS), Patrones arquitectónicos (MVC, hexagonal, repository, DI, event-driven, monolito vs microservicios).
 - Refinamiento de plataforma (no contenido): barra de progreso de lectura, tabs pnpm/bun/npm automáticos en **todo** comando `npm install`/`npx` del sitio, deduplicar instalación repetida en `libraries`, scroll-spy en el TOC.
 
@@ -34,7 +34,7 @@ Resumen para retomar sin releer todo el historial. Reemplaza el handoff anterior
 
 - `recipes/astro-seo-completo.md` y `recipes/nextjs-seo-completo.md`: paso a paso completo (SITE.seo → JsonLd → helpers de schema.org → meta tags/Metadata API → manifest/robots/sitemap → caso de uso), datos de una empresa simulada (**Acme**) consistentes entre las dos.
 - `skills/skill-seo-astro.md` y `skills/skill-seo-nextjs.md`: skill real de Claude Code (`SKILL.md` liviano + carpeta `references/` con el código completo, no un resumen) — detecta solo si migrar o generar de cero.
-- `patterns/site-config-global.md`: el objeto `SITE` completo (identidad, ubicación, contacto, redes, navegación, horarios, legal, stats, y el bloque `seo`) — vive en la raíz de Frontend porque aplica más allá del SEO. **La estructura la reescribió el usuario a mitad de sesión** (agregó wrapper `info`, `teams`, `navigation`, `site` técnico) — se resincronizaron los 4 archivos de arriba para que usen `SITE.info.*` en vez de los paths viejos (`SITE.name`, `SITE.company.*`).
+- `patterns/site-config-global.md`: el objeto `SITE` completo (identidad, ubicación, contacto, redes, navegación, horarios, legal, stats, y el bloque `seo`) — ahora vive en `Frontend → Libs` porque aplica más allá del SEO. La implementación usa `src/config/site.ts` y `@/config/site` en Astro, Next.js y los demás frameworks documentados. **La estructura la reescribió el usuario a mitad de sesión** (agregó wrapper `info`, `teams`, `navigation`, `site` técnico) — se resincronizaron los 4 archivos de arriba para que usen `SITE.info.*` en vez de los paths viejos (`SITE.name`, `SITE.company.*`).
 
 ### Arquitectura (`category: architecture`) — 23 archivos + 1 integrado
 
@@ -54,8 +54,8 @@ Resumen para retomar sin releer todo el historial. Reemplaza el handoff anterior
 ## 3. Arquitectura — qué se extendió
 
 - **`src/config/site.ts`**: `STACK_IDS` sumó `docker-*` (6), `terminal`/`cli`, `seo`, `principios`/`patrones-diseno`/`patrones-arquitectonicos`. `STACK_GROUPED_CATEGORIES` sumó `devops`, `terminal`, `architecture` (además de `general`, que el usuario agregó en paralelo con stacks `css`/`utils` propios — no tocado, solo respetado). Nueva categoría `terminal` completa (`CATEGORY_IDS`/`CATEGORIES`).
-- **Íconos**: por cada stack nuevo, una entrada en `RECOLORED_ICONS` (`icons.ts`) + su espejo en `DynamicIcon.tsx` (los "dos sistemas" que exige `CLAUDE.md` — varias veces se rompió el build por desincronizarlos, ver lecciones). Cambios visuales pedidos por el usuario: CSS pasó del glifo `{}` al escudo real de CSS3 (hermano del de HTML5 ya existente); Utils, la guía de alias de TS, y el patrón `SITE` ahora comparten el glifo "TS" de TypeScript (agrandado de `font-size 10.5` a `13` en los dos sistemas, a pedido explícito).
-- **`iconFor()` en `nav.ts`**: mecanismo de casos especiales (ya existía para Zod) usado para forzar el ícono de una entrada puntual sin stack propio — se usó para la guía de alias de TS y el patrón `SITE`.
+- **Íconos**: por cada stack nuevo, una entrada en `RECOLORED_ICONS` (`icons.ts`) + su espejo en `DynamicIcon.tsx` (los "dos sistemas" que exige `CLAUDE.md` — varias veces se rompió el build por desincronizarlos, ver lecciones). Cambios visuales pedidos por el usuario: CSS pasó del glifo `{}` al escudo real de CSS3 (hermano del de HTML5 ya existente); Utils y la guía de alias de TS comparten el glifo "TS" de TypeScript; `libs` usa el icono verde de paquete.
+- **`iconFor()` en `nav.ts`**: mecanismo de casos especiales (ya existía para Zod) usado para forzar el ícono de una entrada puntual sin stack propio — se usa para la guía de alias de TS; el patrón `SITE` ahora recibe el icono de `libs` por su stack.
 - **Pipeline de Markdown** (`astro.config.mjs`): antes solo tenía `rehypePlugins`. Ahora también `remarkPlugins: [remarkPmTabs]` — mismo patrón que ya usaba `transformerCodeFilename()` para `title="..."` (meta del fence → atributo `data-*` en el `<pre>` de Shiki → un plugin rehype arma la estructura final), aplicado ahora a la detección de comandos npm.
 
 ## 4. Intentos fallidos / bugs propios / lecciones de esta sesión

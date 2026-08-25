@@ -3,13 +3,13 @@ title: usePathname
 description: Leer la ruta actual desde un Client Component — para resaltar un link activo o reaccionar a la navegación.
 category: frontend
 stack: nextjs
-order: 8
+order: 11
 tags: [nextjs, routing, hooks]
 scope: next.js (next/navigation)
 related:
   - guides/nextjs-usesearchparams
   - guides/nextjs-userouter
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Un Server Component no puede leer la URL actual (es intencional: mantiene el layout estable entre navegaciones). `usePathname` es la forma de acceder a ella, y por eso es un hook de Client Component — necesita `'use client'`.
@@ -62,7 +62,7 @@ function Analytics() {
 }
 ```
 
-## Resumen
+## API de pathname en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -70,7 +70,7 @@ function Analytics() {
 | Requiere `'use client'` | Sí, siempre |
 | Combinado con `useEffect` | Para reaccionar a cambios de ruta (analytics, cerrar un modal, etc.) |
 
-## Consideraciones
+## Hidratación y alcance cliente
 
 - No existe versión de esto para Server Components — es una decisión de diseño de Next, no una limitación temporal: leer la URL en un Server Component rompería el modelo de layouts persistentes entre navegaciones.
 - Si el proyecto usa `rewrites` (en `next.config`) o [Proxy](/guides/nextjs-proxy), `usePathname()` puede devolver la ruta reescrita (destino), no la que el usuario ve en la barra de direcciones — puede causar un mismatch de hidratación si el componente depende de eso en el primer render.

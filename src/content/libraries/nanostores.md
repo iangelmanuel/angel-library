@@ -3,14 +3,14 @@ title: Nanostores
 description: Estado compartido entre islas de Astro (o entre componentes de cualquier framework) sin Context ni prop drilling.
 category: frontend
 stack: astro
-order: 16
+order: 1
 tags: [astro, react, state]
 website: https://github.com/nanostores/nanostores
 github: https://github.com/nanostores/nanostores
 install: npm install nanostores
 related:
   - guides/astro-islas
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Las islas de Astro hidratan de forma aislada: dos componentes de React en la misma página no comparten estado por defecto, ni aunque estén uno al lado del otro. Nanostores resuelve justo eso — un store minúsculo (bajo 1kb) que cualquier framework puede leer, fuera del árbol de componentes de ninguno.
@@ -70,7 +70,7 @@ export function ToggleTema() {
 
 Dos islas React separadas (`client:load` en distintos componentes `.astro`) que importan el mismo `$tema` leen y escriben el mismo store — sin Context API, sin que ninguna sea "padre" de la otra. El store vive fuera del árbol de React, así que también lo puede leer/escribir un componente Vue o Svelte en la misma página.
 
-## Resumen
+## Stores y helpers en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -81,7 +81,7 @@ Dos islas React separadas (`client:load` en distintos componentes `.astro`) que 
 | `useStore(store)` (`@nanostores/react`) | Suscribir un componente React al store |
 | `store.listen(cb)` / `store.subscribe(cb)` | Suscribirse manualmente (fuera de un framework) |
 
-## Consideraciones
+## Estado compartido e hidratación
 
 - `useStore` es lo que conecta el store al ciclo de render de React — sin él, cambiar `$tema.set(...)` no re-renderiza nada, aunque el valor sí cambió.
 - Nanostores no reemplaza `useState` para estado que es puramente local a un componente — es para lo que necesita cruzar entre islas o entre frameworks.

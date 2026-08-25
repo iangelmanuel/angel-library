@@ -3,14 +3,14 @@ title: Zustand
 description: Estado global sin Provider ni boilerplate — create(), selectors para evitar re-renders y el middleware persist.
 category: frontend
 stack: react
-order: 12
+order: 4
 tags: [react, state, typescript]
 website: https://zustand.docs.pmnd.rs
 github: https://github.com/pmndrs/zustand
 install: npm install zustand
 related:
   - guides/react-context-api
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 A diferencia de Context, un store de Zustand vive fuera del árbol de React: no hace falta envolver nada en un `<Provider>`, y un componente que lee una sola propiedad del store solo se re-renderiza cuando esa propiedad cambia — no cuando cambia cualquier otra parte del store, como sí pasa con Context.
@@ -77,7 +77,7 @@ export const usePreferenciasStore = create<PreferenciasStore>()(
 );
 ```
 
-## Resumen
+## API del store en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -86,7 +86,7 @@ export const usePreferenciasStore = create<PreferenciasStore>()(
 | `useStore((state) => state.campo)` | Selector: suscribe solo a ese campo, evita re-renders de más |
 | `persist(config, { name })` | Middleware para sincronizar el store con `localStorage` |
 
-## Consideraciones
+## Selectores, persistencia y alcance
 
 - Sin selector, `useStore()` suscribe a todo el store — en componentes chicos no importa, pero en uno que renderiza seguido (una lista, un contador) vale la pena acotar la suscripción.
 - Las acciones (`agregar`, `vaciar`) también se leen con selector — evita re-crear funciones nuevas innecesariamente y deja claro qué usa cada componente.

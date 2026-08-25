@@ -3,12 +3,12 @@ title: "redirect() y notFound()"
 description: Funciones que cortan el render y navegan o muestran el 404 — de dónde se pueden llamar y cómo difieren.
 category: frontend
 stack: nextjs
-order: 11
+order: 14
 tags: [nextjs, routing]
 scope: next.js (next/navigation)
 related:
   - guides/nextjs-page-error-loading
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Ambas funcionan igual por dentro: lanzan un error especial que Next.js intercepta para cortar el render en ese punto y mostrar otra cosa — no son un `return` normal.
@@ -72,7 +72,7 @@ export async function crearPost(formData: FormData) {
 
 En un Server Action, `redirect()` usa `push` por defecto (agrega una entrada al historial) en vez de `replace` — se puede forzar con el segundo argumento si hace falta lo contrario.
 
-## Resumen
+## Respuestas de navegación en una mirada
 
 | Función | Efecto | Dónde se puede llamar |
 | --- | --- | --- |
@@ -80,7 +80,7 @@ En un Server Action, `redirect()` usa `push` por defecto (agrega una entrada al 
 | `notFound()` | Muestra el `not-found.tsx` más cercano | Server Components, Route Handlers, Server Actions |
 | `permanentRedirect(ruta)` | Como `redirect`, pero devuelve 308 en vez de 307 | Igual que `redirect` |
 
-## Consideraciones
+## Control de flujo y códigos HTTP
 
 - Con `try/catch`, `redirect()` y `notFound()` tienen que llamarse **fuera** del `try` — ambas lanzan internamente, y un `catch` demasiado amplio las atraparía como si fueran un error real.
 - `redirect()` en un Client Component solo funciona durante el render, no dentro de un event handler (`onClick`) — para navegar desde un handler, usar `useRouter().push()` en su lugar.

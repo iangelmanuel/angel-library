@@ -3,14 +3,14 @@ title: React Dropzone
 description: Zonas de drag & drop para subir archivos — useDropzone, validación de tipo/tamaño y manejo de archivos rechazados.
 category: frontend
 stack: react
-order: 16
+order: 8
 tags: [react, forms, files]
 website: https://react-dropzone.js.org
 github: https://github.com/react-dropzone/react-dropzone
 install: npm install react-dropzone
 related:
   - libraries/react-hook-form
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Es un hook, no un componente con estilos propios: `useDropzone` maneja toda la lógica de drag & drop, validación y accesibilidad (teclado, focus), y tú pones el markup completo. Nada de CSS impuesto ni de un `<Dropzone>` con apariencia fija que después hay que sobreescribir.
@@ -66,7 +66,7 @@ Un archivo que no cumple `accept`/`maxSize`/`maxFiles` no llega a `onDrop` — a
 )}
 ```
 
-## Resumen
+## API de Dropzone en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -78,7 +78,7 @@ Un archivo que no cumple `accept`/`maxSize`/`maxFiles` no llega a `onDrop` — a
 | `maxSize` / `maxFiles` | Límites de tamaño (bytes) y cantidad |
 | `fileRejections` | Archivos rechazados, con el motivo de cada rechazo |
 
-## Consideraciones
+## Archivos, accesibilidad y seguridad
 
 - `onDrop` recibe los archivos que **pasaron** la validación — los rechazados nunca llegan ahí, solo a `fileRejections`.
 - El input real queda oculto por CSS que la librería inyecta vía `getInputProps()` — no hace falta (ni conviene) esconderlo a mano con `display: none`, ya lo maneja la librería para mantenerlo accesible por teclado.

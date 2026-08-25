@@ -3,10 +3,10 @@ title: TanStack Query + Zod
 description: Validar la respuesta directamente API dentro de queryFn — datos tipados sin genéricos manuales, y un error de forma se ve igual que un error de red.
 category: frontend
 stack: react
-order: 21
+order: 2
 tags: [react, api, validation, zod, typescript]
 technologies: [libraries/tanstack-query, libraries/zod]
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 ## Por qué combinarlos
@@ -58,7 +58,7 @@ function ListaUsuarios() {
 
 Para el componente, un 500 del servidor y una respuesta con forma inesperada se ven exactamente igual: ambos son `isError`. Eso es a propósito — los dos son "no puedo confiar en este dato", y el componente no necesita distinguirlos.
 
-## Validar antes directamente mutación
+## Validar antes de una mutación
 
 El mismo patrón, del otro lado: parsear el payload antes de mandarlo evita una petición condenada a fallar en el servidor por datos con forma incorrecta armados en el cliente (un bug local, no input de usuario ya validado por un formulario).
 
@@ -82,7 +82,7 @@ const mutacion = useMutation({
 - **`staleTime`/reintentos no cubren esto**: reintentar una petición no arregla una respuesta con forma inválida — si la API realmente cambió, todos los reintentos van a fallar igual. Es un error real, no algo transitorio de red.
 - **Con [React Hook Form](/libraries/react-hook-form)**: si el formulario que dispara la mutación ya valida con `zodResolver` (ver [React Hook Form + Zod](/integrations/react-hook-form-zod)), el `.parse()` del lado de la mutación es una segunda capa, no trabajo repetido — protege contra bugs en el código que arma el payload, no contra input de usuario mal escrito (eso ya lo filtró el formulario).
 
-## Resumen
+## Flujo validado en una mirada
 
 | Patrón | Dónde |
 | --- | --- |

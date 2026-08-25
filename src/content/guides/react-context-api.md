@@ -3,10 +3,10 @@ title: Context API con un hook propio
 description: Compartir estado entre componentes sin prop drilling — createContext, Provider y un hook custom que valida el uso correcto.
 category: frontend
 stack: react
-order: 2
+order: 7
 tags: [react, state, hooks]
 scope: react (createContext / useContext)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Pasar una prop a través de cinco componentes que no la usan, solo para que llegue al sexto, es "prop drilling". Context evita eso: un valor disponible para cualquier descendiente del Provider, sin pasarlo manualmente por cada nivel. No reemplaza a Zustand/Redux para estado global complejo — es ideal para lo que es genuinamente "de todo el árbol" (tema, usuario autenticado, idioma).
@@ -74,7 +74,7 @@ export function Header() {
 }
 ```
 
-## Resumen
+## API de Context en una mirada
 
 | Pieza | Qué hace |
 | --- | --- |
@@ -83,8 +83,8 @@ export function Header() {
 | `useContext(Context)` | Lee el valor — el hook custom lo envuelve y valida |
 | Hook custom (`useAuth`, etc.) | Un solo punto de import, con error claro si falta el Provider |
 
-## Consideraciones
+## Fronteras de render y diseño del contexto
 
-- Todo componente que lee el contexto se re-renderiza cuando `value` cambia — si el Provider agrupa cosas que cambian con frecuencias muy distintas (ej. tema + datos de usuario que se actualizan cada segundo), separalos en dos contextos.
+- Todo componente que lee el contexto se vuelve a renderizar cuando `value` cambia. Si el Provider agrupa datos con frecuencias muy distintas —por ejemplo, tema y actividad de usuario— sepáralos en dos contextos.
 - `value={{ usuario, login, logout }}` crea un objeto nuevo en cada render del proveedor. Si eso causa renders innecesarios en consumidores costosos, envuelve el objeto en `useMemo`.
 - Context no es un reemplazo de Zustand/Redux para estado que cambia mucho y en muchos lugares — para eso, ver [Zustand](/libraries/zustand): evita el re-render de todo el árbol que Context fuerza.

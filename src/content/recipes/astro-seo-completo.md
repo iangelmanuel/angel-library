@@ -22,7 +22,7 @@ Requisitos: proyecto Astro con TypeScript, alias `@/*` configurado —consulta [
 
 Este es el bloque que se toca en el día a día. Cada campo existe porque algo más adelante en esta receta lo consume — no hay nada "por si acaso".
 
-```ts title="src/lib/site-info.ts"
+```ts title="src/config/site.ts"
 export const SITE = {
   // ...el resto de SITE ya existe en tu proyecto — info, location, contact, social.
   // No se repite aquí porque no es SEO, es identidad de marca (ver el patrón
@@ -129,7 +129,7 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 Cada función arma un tipo de [schema.org](https://schema.org) distinto. Antes tenían datos sueltos escritos a mano en el archivo (`"Colombia"`, `"Spanish"`, `"$$$"` literales) — aquí todo sale de `SITE`.
 
 ```ts title="src/lib/seo.ts"
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 // Ejemplo — en tu proyecto real estos vienen de tus propios módulos de contenido,
 // no de SITE (el listado de servicios y preguntas frecuentes no es "identidad de marca").
 import { FAQ_ITEMS } from "@/content/faq";
@@ -269,7 +269,7 @@ Reordenado respecto al original: `<title>` y la descripción van antes que cualq
 
 ```astro title="src/components/seo/BaseHead.astro"
 ---
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 interface Props {
   title?: string;
@@ -374,7 +374,7 @@ Tres bugs reales que tenía la versión original, arreglados aquí:
 ---
 import BaseHead from "@/components/seo/BaseHead.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/lib/seo";
 import "@/styles/globals.css";
 
@@ -416,13 +416,13 @@ const { title, description, image, canonical, keywords, ogType, noindex } = Astr
 </html>
 ```
 
-El `Layout` no define ningún dato — recibe las mismas props opcionales que `BaseHead` (mismo `interface Props`, a propósito, para que TypeScript avise si se desalinean) y se las reenvía. Cada página elige qué pisar; lo que no pase, cae al default de `SITE.seo`. Bug arreglado aquí: la versión original usaba `SITE.seo.locale` en `<html lang>` sin importar `SITE` — faltaba el `import { SITE } from "@/lib/site-info"`.
+El `Layout` no define ningún dato — recibe las mismas props opcionales que `BaseHead` (mismo `interface Props`, a propósito, para que TypeScript avise si se desalinean) y se las reenvía. Cada página elige qué pisar; lo que no pase, cae al default de `SITE.seo`. Bug arreglado aquí: la versión original usaba `SITE.seo.locale` en `<html lang>` sin importar `SITE` — faltaba el `import { SITE } from "@/config/site"`.
 
 ## Paso 6 — `manifest.webmanifest`
 
 ```ts title="src/pages/manifest.webmanifest.ts"
 import type { APIRoute } from "astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 export const GET: APIRoute = () => {
   const manifest = {
@@ -450,7 +450,7 @@ Un archivo `.ts` dentro de `src/pages/` con un `export const GET` es una ruta de
 
 ```ts title="src/pages/robots.txt.ts"
 import type { APIRoute } from "astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 export const GET: APIRoute = () => {
   const body = [
@@ -473,7 +473,7 @@ export const GET: APIRoute = () => {
 
 ```ts title="src/pages/sitemap.xml.ts"
 import type { APIRoute } from "astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 /** Una página, una entrada. Agregar rutas aquí conforme crezca el sitio. */
 const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }];
@@ -507,7 +507,7 @@ ${urls}
 ```astro title="src/pages/servicios.astro"
 ---
 import Layout from "@/layouts/Layout.astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 ---
 
 <Layout
@@ -534,7 +534,7 @@ Para una página que no debería indexarse (una de "gracias" después de un form
 
 ## Consideraciones
 
-- Todo dato que cambia de empresa a empresa vive en `SITE.seo` — si al copiar este setup a un proyecto nuevo hace falta tocar un archivo que no sea `site-info.ts`, es señal de que algo quedó hardcodeado y conviene subirlo a `SITE.seo`.
+- Todo dato que cambia de empresa a empresa vive en `SITE.seo` — si al copiar este setup a un proyecto nuevo hace falta tocar un archivo que no sea `src/config/site.ts`, es señal de que algo quedó hardcodeado y conviene subirlo a `SITE.seo`.
 - `servicesLd()` y `faqLd()` dependen de `SERVICES`/`FAQ_ITEMS`, que no son parte de `SITE` — son contenido de página (qué servicios ofrece, qué preguntas responde), no identidad de marca. Cada proyecto los define donde le haga sentido (una content collection, un archivo de constantes).
 - Validar el resultado con el [Rich Results Test](https://search.google.com/test/rich-results) de Google y con el [debugger de Open Graph de Meta](https://developers.facebook.com/tools/debug/) antes de dar por buena la implementación — un JSON-LD con un typo en el `"@type"` no rompe la build, solo deja de generar el rich result esperado, y eso no se nota sin probarlo.
 - `SITE.seo.locales` con un solo idioma ya genera el `hreflang` correcto para un sitio de un idioma — el campo está pensado para escalar, no es sobre-ingeniería para el caso simple.

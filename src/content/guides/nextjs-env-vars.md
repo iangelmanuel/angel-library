@@ -3,13 +3,13 @@ title: Variables de entorno en Next.js
 description: Carga desde .env, variables privadas y NEXT_PUBLIC_, validación temprana y diferencias entre build y runtime.
 category: frontend
 stack: nextjs
-order: 24
+order: 28
 tags: [nextjs, config, environment, security]
 scope: next.js environment variables
 related:
   - guides/nextjs-server-client-components
   - practices/validate-at-boundaries
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
 Next.js carga archivos `.env*` y expone sus valores en `process.env`. Sin prefijo son server-only; con `NEXT_PUBLIC_` se reemplazan dentro del bundle del navegador durante el build.

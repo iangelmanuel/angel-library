@@ -1,12 +1,12 @@
 ---
 title: Layouts (.astro) y &lt;slot /&gt;
-description: Componentes que envuelven el contenido directamente página con <slot />, layouts anidados y el layout de frontmatter en Markdown.
+description: Componentes que envuelven el contenido de una página con <slot />, layouts anidados y layouts declarados desde Markdown.
 category: frontend
 stack: astro
-order: 3
+order: 5
 tags: [astro, layouts, templating]
 scope: astro (componentes de layout)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Un layout en Astro no es un archivo especial con nombre reservado (como `layout.tsx` en Next) — es un componente `.astro` normal, convencionalmente en `src/layouts/`, que usa `<slot />` para marcar dónde va el contenido de quien lo use. Este mismo sitio tiene dos, anidados: `BaseLayout.astro` (el `<html>`, fuentes, command palette) envuelve a `DocsLayout.astro` (header, sidebar, footer).
@@ -97,7 +97,7 @@ const { frontmatter } = Astro.props;
 <slot />
 ```
 
-## Resumen
+## Formas de composición
 
 | Concepto | Qué es |
 | --- | --- |
@@ -106,7 +106,7 @@ const { frontmatter } = Astro.props;
 | Layouts anidados | Un layout importa y envuelve a otro, pasando su propio `<slot />` hacia arriba |
 | `layout:` en frontmatter Markdown | Layout automático para un `.md`, recibe `frontmatter` como prop |
 
-## Consideraciones
+## Límites de un layout
 
 - A diferencia de Next, un layout de Astro **sí se re-ejecuta** en cada navegación completa (no hay concepto de "layout persistente" salvo que uses `transition:persist` con View Transitions activas) — es un componente más, no un límite especial del router.
 - El patrón de este sitio (`BaseLayout` con el `<html>` + `DocsLayout` con el chrome de la UI) separa "documento HTML" de "estructura visual" — vale la pena copiarlo cuando un proyecto tiene páginas que necesitan el `<html>` pero no el header/sidebar (una landing, por ejemplo).

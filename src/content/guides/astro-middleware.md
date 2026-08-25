@@ -3,10 +3,10 @@ title: Middleware
 description: Interceptar cada request antes de que llegue a la página — context.locals, encadenar middlewares con sequence() y rewrite.
 category: frontend
 stack: astro
-order: 17
+order: 20
 tags: [astro, middleware, auth]
 scope: astro:middleware
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Repetir la misma comprobación (¿hay sesión?, ¿qué idioma pide el usuario?) al principio de cada página no escala. El middleware es una única función que Astro corre antes de cualquier página o endpoint, sin importar cuál — el lugar central para auth, logging, o para calcular una vez algo que varias páginas van a necesitar y dejarlo listo en `locals`.
@@ -87,7 +87,7 @@ export const onRequest = defineMiddleware((context, next) => {
 });
 ```
 
-## Resumen
+## Contexto y helpers en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -98,7 +98,7 @@ export const onRequest = defineMiddleware((context, next) => {
 | `next()` | Pasar el control al siguiente middleware / renderizar la página |
 | `context.rewrite(destino)` | Servir otra ruta sin cambiar la URL, re-corriendo el middleware |
 
-## Consideraciones
+## Orden, alcance y seguridad
 
 - `locals` no se puede reasignar completo (`context.locals = {...}` tira error) — solo se le agregan propiedades.
 - El middleware corre en build para páginas prerenderizadas y en cada request para las on-demand — si depende de algo que solo existe en runtime (headers reales, cookies del usuario), esa página necesita `prerender = false`.

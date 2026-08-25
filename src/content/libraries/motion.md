@@ -3,13 +3,13 @@ title: "Motion (ex Framer Motion)"
 description: Animaciones declarativas en React — el componente motion, initial/animate/exit y AnimatePresence para animar la salida.
 category: frontend
 stack: react
-order: 14
+order: 6
 tags: [react, animation]
 website: https://motion.dev
 install: npm install motion
 related:
   - snippets/css-animations
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Esta librería se llamaba **Framer Motion** — se renombró a **Motion**. El paquete de npm cambió de `framer-motion` a `motion`, y el import pasó a `motion/react` (antes `framer-motion`). Si ves `framer-motion` en un tutorial o proyecto viejo, es la misma librería, la sintaxis del componente `motion.*` no cambió.
@@ -68,7 +68,7 @@ function Modal({ abierto }: { abierto: boolean }) {
 }
 ```
 
-## Resumen
+## API de Motion en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -79,7 +79,7 @@ function Modal({ abierto }: { abierto: boolean }) {
 | `exit` + `<AnimatePresence>` | Animación de salida, retiene el nodo hasta que termina |
 | `transition={{ duration, ease, delay }}` | Configurar cómo se anima el cambio |
 
-## Consideraciones
+## Presencia, layout y movimiento reducido
 
 - `exit` no anima nada sin `<AnimatePresence>` envolviendo al elemento condicional — es fácil olvidarlo y asumir que "no funciona la animación de salida" cuando en realidad falta el wrapper.
 - Para animaciones puramente de entrada/hover sin gestos complejos ni salida animada, `animation-timeline: view()` en CSS cubre el caso sin dependencia — ver [Animaciones CSS](/snippets/css-animations). Motion vale la pena cuando necesitas layout animations, gestos (`drag`), o coordinar salida/entrada.

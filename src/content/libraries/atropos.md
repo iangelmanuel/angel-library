@@ -3,13 +3,13 @@ title: Atropos
 description: Efecto parallax 3D al pasar el mouse — capas con profundidad, táctil desde el mismo código.
 category: frontend
 stack: react
-order: 15
+order: 7
 tags: [react, animation, 3d]
 website: https://atroposjs.com
 install: npm i atropos
 related:
   - libraries/motion
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Atropos inclina un elemento en 3D siguiendo el mouse (o el dedo, en touch — usa Pointer Events, así que ambos casos son el mismo código) y da profundidad a sus capas internas moviéndolas a distinta velocidad. Es liviano (~2kb) y no depende de nada más.
@@ -64,7 +64,7 @@ Atropos no define el tamaño del contenedor — hay que darle dimensiones explí
 }
 ```
 
-## Resumen
+## Props y elementos en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -74,7 +74,7 @@ Atropos no define el tamaño del contenedor — hay que darle dimensiones explí
 | `rotateXMax` / `rotateYMax` | Límite de rotación en grados |
 | `activeOffset` | Intensidad del efecto general al activarse |
 
-## Consideraciones
+## Movimiento, rendimiento y accesibilidad
 
 - Sin `width`/`height` explícitos en el contenedor, el efecto no se ve — Atropos no infiere el tamaño del contenido.
 - Es puramente visual/decorativo: para algo que además necesita gestos complejos (drag, swipe con física), esto no alcanza — ahí entra [Motion](/libraries/motion).

@@ -3,10 +3,10 @@ title: useEffect — y cómo evitar loops infinitos
 description: Sincronizar con algo externo al render, el array de dependencias explicado bien, y las 4 causas reales de un loop infinito.
 category: frontend
 stack: react
-order: 5
+order: 9
 tags: [react, hooks, effects]
 scope: react (useEffect)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 `useEffect` no es "código que corre después del render" en general — es específicamente para **sincronizar el componente con algo que vive fuera de React**: una conexión, una suscripción, el `document.title`, un timer. Si el efecto no sincroniza con nada externo, probablemente no debería ser un efecto (ver Consideraciones). Esa distinción es la que evita la mayoría de los usos incorrectos, loops incluidos.
@@ -109,7 +109,7 @@ function Sala({ roomId, isMuted }: { roomId: string; isMuted: boolean }) {
 }
 ```
 
-## Resumen
+## API de efectos en una mirada
 
 | Causa del loop | Arreglo |
 | --- | --- |
@@ -118,8 +118,8 @@ function Sala({ roomId, isMuted }: { roomId: string; isMuted: boolean }) {
 | Leer un state para actualizar ese mismo state | `setEstado(prev => ...)` en vez de leer la variable externa |
 | Necesitas el valor último sin reaccionar a sus cambios | `useEffectEvent` para esa lectura específica |
 
-## Consideraciones
+## Dependencias, limpieza y sincronización
 
 - Nunca silencies el linter con `// eslint-disable-next-line react-hooks/exhaustive-deps` para "que pare de molestar" — cuando las dependencias declaradas no coinciden con lo que el efecto realmente usa, el riesgo real es un bug (un valor stale, o el loop que este doc describe), no una falsa alarma.
-- Si un cálculo no sincroniza con nada externo (derivar un valor a partir de props/state, formatear algo para mostrar), no necesita `useEffect` — calculalo directo durante el render. Un efecto que solo hace `setAlgo(f(props))` suele ser innecesario y agrega un render extra.
+- Si un cálculo no sincroniza con nada externo —derivar un valor desde props/estado o formatearlo para mostrar— no necesita `useEffect`: calcúlalo durante el render. Un efecto que solo ejecuta `setAlgo(f(props))` suele ser innecesario y agrega un render adicional.
 - El cleanup (`return () => {...}`) corre antes de cada re-ejecución del efecto, no solo al desmontar — es lo que evita, por ejemplo, acumular conexiones abiertas cuando `roomId` cambia varias veces seguidas.

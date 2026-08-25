@@ -3,14 +3,14 @@ title: Server Actions
 description: Mutar datos con 'use server' — un solo roundtrip que devuelve el resultado Y la UI actualizada, más las protecciones de seguridad que trae el framework.
 category: frontend
 stack: nextjs
-order: 15
+order: 21
 tags: [nextjs, forms, backend]
 scope: next.js (use server)
 related:
   - guides/nextjs-directivas
   - guides/react-useactionstate
   - libraries/zod
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Una Server Action es una función marcada con `'use server'`, invocada desde un `<form action>`, un event handler, o una transición del cliente. Next.js la trata como un POST hacia la ruta que la usa.
@@ -83,7 +83,7 @@ export async function borrarPost(postId: string) {
 }
 ```
 
-## Resumen
+## Contrato de una Action en una mirada
 
 | Concepto | Qué significa |
 | --- | --- |
@@ -93,8 +93,8 @@ export async function borrarPost(postId: string) {
 | Despacho secuencial | Varias actions del mismo cliente no corren en paralelo entre sí |
 | Autorización dentro de la action | Obligatoria — el framework no la reemplaza |
 
-## Consideraciones
+## Seguridad, errores y consistencia
 
 - Validar `formData` con [Zod](/libraries/zod) antes de tocar la base de datos — nada de lo que llega a una action es confiable solo porque vino de tu propio formulario.
 - Mandar solo el ID desde el cliente y volver a buscar el resto de los datos del lado del servidor (con el usuario de la sesión) evita que alguien mande un objeto completo con un `ownerId` falso.
-- `redirect()` dentro directamente action corta la ejecución (lanza) — cualquier `revalidatePath`/`revalidateTag` tiene que ir **antes** del `redirect`, si no nunca se ejecuta.
+- `redirect()` dentro de una Action interrumpe el flujo. Ejecuta `revalidatePath()` o `revalidateTag()` antes del redirect para que la invalidación ocurra.

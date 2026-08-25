@@ -3,10 +3,10 @@ title: useState
 description: El hook más básico de estado — cuándo pasar un valor directo vs una función, y el error más común con objetos/arrays.
 category: frontend
 stack: react
-order: 1
+order: 5
 tags: [react, hooks, state]
 scope: react (useState)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Cada vez que un componente necesita "recordar" algo entre renders y que la UI reaccione cuando cambia, es `useState`. Es la base sobre la que se explican todos los demás hooks de estado (`useReducer`, `useContext` para compartirlo, `useRef` para lo que *no* necesita re-renderizar).
@@ -67,7 +67,7 @@ Si el valor inicial requiere un cálculo costoso, pasarlo como función evita qu
 const [datos, setDatos] = useState(() => calcularAlgoCostoso());
 ```
 
-## Resumen
+## API de estado en una mirada
 
 | Uso | Ejemplo |
 | --- | --- |
@@ -77,7 +77,7 @@ const [datos, setDatos] = useState(() => calcularAlgoCostoso());
 | Inicialización perezosa | `useState(() => calculoInicialCostoso())` |
 | Objeto/array nuevo, no mutado | `{ ...obj, campo: nuevo }`, `[...arr, item]` |
 
-## Consideraciones
+## Identidad, closures y estado derivado
 
 - `setValor(mismoValor)` con el mismo valor primitivo no dispara re-render — React lo compara con `Object.is` antes de programar la actualización.
 - Varias llamadas a `setValor` en el mismo handler se agrupan (batching): React re-renderiza una sola vez al final, no una vez por cada `setValor`.

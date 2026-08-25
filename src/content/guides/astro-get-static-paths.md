@@ -3,12 +3,12 @@ title: getStaticPaths()
 description: Cómo Astro sabe qué páginas generar en build para una ruta dinámica — params, props y paginación.
 category: frontend
 stack: astro
-order: 11
+order: 14
 tags: [astro, routing]
 scope: astro:pages
 related:
   - guides/astro-content-collections
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Astro genera sitios estáticos por defecto: cada ruta tiene que existir como archivo HTML ya armado en build, no se resuelve en cada visita. Para una ruta fija (`about.astro`) eso es automático. Para una ruta dinámica (`[slug].astro`) Astro no tiene forma de adivinar solo cuántas páginas hacen falta ni con qué valores — por eso el archivo tiene que exportar `getStaticPaths()`, una función que corre en build y devuelve la lista exacta de páginas a generar. Este mismo sitio lo usa en `src/pages/[type]/[...slug].astro` para generar la página de cada entrada de contenido.
@@ -69,7 +69,7 @@ const { page } = Astro.props;
 {page.url.next && <a href={page.url.next}>Siguiente</a>}
 ```
 
-## Resumen
+## API en una mirada
 
 | Campo | Qué es |
 | --- | --- |
@@ -78,7 +78,7 @@ const { page } = Astro.props;
 | `paginate(items, { pageSize })` | Divide un array en páginas, requiere `[...page].astro` |
 | `page.data` / `page.currentPage` / `page.url.prev` / `page.url.next` | Lo que devuelve `paginate()`, disponible en `Astro.props.page` |
 
-## Consideraciones
+## Escala, cobertura y errores
 
 - `getStaticPaths()` corre en build, no en el navegador — no tiene acceso a `Astro.request` ni a nada que dependa de la petición real.
 - Los valores de `params` deben ser strings (o `undefined` para un segmento opcional en `[[slug]]`) — un número hay que convertirlo con `String()`.

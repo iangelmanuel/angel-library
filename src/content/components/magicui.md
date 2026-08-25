@@ -3,14 +3,14 @@ title: Magic UI — Componentes disponibles
 description: Animaciones y efectos vistosos (text, backgrounds, buttons) sobre el mismo esquema de instalación que shadcn/ui.
 category: frontend
 stack: react
-order: 19
+order: 2
 tags: [react, components, animation, ui]
 framework: React
 install: pnpm dlx shadcn@latest init
 source: https://magicui.design/docs/components
 related:
   - components/shadcn-ui
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Magic UI es a los efectos vistosos lo que shadcn/ui es a los componentes base: mismo modelo (CLI que copia código fuente a tu proyecto, no una dependencia instalada), pero enfocado en animaciones — texto que se escribe solo, fondos animados, botones con efectos, no inputs/selects/tablas. Se instala literalmente con el mismo CLI de shadcn, apuntando al registro de Magic UI.
@@ -35,15 +35,15 @@ El prefijo `@magicui/` en el nombre es lo que le dice al CLI de shadcn de qué r
 
 Lista completa, siempre actualizada, en la [documentación oficial](https://magicui.design/docs/components).
 
-## Resumen
+## Componentes y utilidades en una mirada
 
 | Comando | Qué hace |
 | --- | --- |
 | `pnpm dlx shadcn@latest init` | Configura el proyecto, si todavía no tiene shadcn (una sola vez) |
 | `pnpm dlx shadcn@latest add @magicui/<componente>` | Copia ese componente a `src/components/` |
 
-## Consideraciones
+## Copia local, animación y mantenimiento
 
 - No hace falta instalar nada de Magic UI aparte — si el proyecto ya corrió `shadcn init` (por ejemplo, para los componentes base), agregar uno de Magic UI es directamente el comando `add @magicui/...`.
 - Son efectos pensados para landing pages y secciones puntuales de marketing — la mayoría no tiene sentido usarlos en una UI de aplicación/dashboard, son decorativos.
-- Igual que shadcn, el código queda copiado en el proyecto: personalizarlo es editar el archivo directo, no hay props ocultas directamente librería externa.
+- Igual que shadcn/ui, el código queda copiado en el proyecto: personalizarlo consiste en editar el archivo, sin props ocultas en una librería externa.

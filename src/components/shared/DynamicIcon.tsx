@@ -197,6 +197,8 @@ const BrandCodex: IconComponent = (props) => (
 
 /** Icono lucide "package" recoloreado a verde: entradas tipo `libraries` (dependencia npm). */
 const StackDependency: IconComponent = (props) => <Package color="#4ade80" {...props} />;
+/** Icono de la subcategoría `libs`: configuración y dependencias reutilizables. */
+const BrandLibs: IconComponent = (props) => <Package color="#4ade80" {...props} />;
 
 /** Icono lucide "component" recoloreado a amarillo: entradas tipo `components`. */
 const StackComponent: IconComponent = (props) => (
@@ -270,6 +272,7 @@ const ICONS: Record<string, IconComponent> = {
   'brand-docker-redes-volumenes': BrandDockerRedesVolumenes,
   'brand-docker-compose': BrandDockerCompose,
   'brand-docker-bases-datos': BrandDockerBasesDatos,
+  'brand-libs': BrandLibs,
   'brand-ci-cd': BrandCiCd,
   'brand-observabilidad': BrandObservabilidad,
   'brand-javascript': BrandJavascript,

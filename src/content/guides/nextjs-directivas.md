@@ -3,13 +3,13 @@ title: Directivas — 'use client', 'use server', 'use cache'
 description: Las tres directivas que definen dónde corre cada parte de tu app — la base de todo lo demás en el App Router.
 category: frontend
 stack: nextjs
-order: 2
+order: 5
 tags: [nextjs, rendering]
 scope: next.js app router (directivas)
 related:
   - guides/nextjs-server-client-components
   - guides/nextjs-cache-components
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 En el App Router, todo componente es Server Component **por defecto** — corre solo en el servidor, nunca viaja al navegador. Las directivas son las que cambian ese comportamiento por defecto. Entender esto primero hace que todo lo demás (Server Actions, Route Handlers, caché) tenga sentido.
@@ -43,11 +43,11 @@ export async function crearPost(formData: FormData) {
 }
 ```
 
-Puede ir al principio de un archivo (aplica a todos los exports, todos deben ser `async`) o al principio directamente función específica dentro de un Server Component.
+Puede aparecer al principio de un archivo —aplica a todos sus exports, que deben ser `async`— o al inicio de una función específica dentro de un Server Component.
 
 ## `'use cache'` — Cachear el resultado
 
-Directiva de Next.js (no de React) que cachea el resultado directamente función o componente async según sus argumentos. Se puede poner a nivel directamente función de datos puntual, o directamente página/componente entero.
+Es una directiva de Next.js —no de React— que almacena el resultado de una función o componente asíncrono según sus entradas. Puede marcar una función de datos puntual o una página/componente completo.
 
 ```ts title="app/lib/data.ts"
 export async function getUsuarios() {
@@ -58,15 +58,15 @@ export async function getUsuarios() {
 
 Esta directiva es parte de Cache Components, habilitado con `cacheComponents: true` en `next.config`. Puede aplicarse a una función, componente o archivo async. La duración y la invalidación se describen con `cacheLife()` y `cacheTag()`; ver [Cache Components](/guides/nextjs-cache-components). Para proyectos que todavía usan la configuración clásica, ver [Fetching con revalidate](/guides/nextjs-fetching-revalidate).
 
-## Resumen
+## Directivas en una mirada
 
 | Directiva | Definida por | Efecto |
 | --- | --- | --- |
 | `'use client'` | React | Crea un límite hacia el bundle de cliente |
 | `'use server'` | React | Expone funciones como Server Functions callables desde el cliente |
-| `'use cache'` | Next.js | Cachea el resultado directamente función/componente según sus inputs |
+| `'use cache'` | Next.js | Cachea el resultado de una función o componente según sus entradas |
 
-## Consideraciones
+## Fronteras y errores de alcance
 
 - `'use client'` no significa "esto corre solo en el cliente" — el componente igual se renderiza una vez en el servidor para el HTML inicial, y después se hidrata en el navegador.
 - Los props que cruzan de un Server Component a un Client Component tienen que ser serializables (nada de funciones, clases, `Date` sin convertir) — excepto las propias Server Functions, que sí pueden pasar como referencia.

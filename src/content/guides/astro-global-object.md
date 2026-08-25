@@ -3,12 +3,12 @@ title: El objeto Astro
 description: Astro.props, Astro.params, Astro.url, Astro.redirect(), Astro.cookies y Astro.locals — la API disponible en cualquier archivo .astro.
 category: frontend
 stack: astro
-order: 5
+order: 7
 tags: [astro, api]
 scope: astro (global Astro)
 related:
   - guides/astro-middleware
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Dentro del frontmatter de cualquier `.astro`, `Astro` es un objeto global con todo el contexto de esa página/componente en ese render — sin importar nada.
@@ -85,7 +85,7 @@ if (!usuario) return Astro.redirect('/login');
 <p>Hola, {usuario.nombre}</p>
 ```
 
-## Resumen
+## Propiedades de `Astro` en una mirada
 
 | Propiedad | Qué da |
 | --- | --- |
@@ -97,7 +97,7 @@ if (!usuario) return Astro.redirect('/login');
 | `Astro.cookies` | Leer/escribir cookies (solo en rutas on-demand) |
 | `Astro.locals` | Datos dejados por el middleware para esta request |
 
-## Consideraciones
+## Disponibilidad y límites de seguridad
 
 - `Astro.redirect()` y `Astro.cookies.set()` no funcionan en páginas prerenderizadas (estáticas) — necesitan `export const prerender = false` en ese archivo, o el proyecto entero con `output: 'server'`.
 - `Astro.params` solo tiene valor en rutas dinámicas (`[algo].astro`) — en una ruta fija, es un objeto vacío.

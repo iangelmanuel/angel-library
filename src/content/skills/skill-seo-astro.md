@@ -39,7 +39,7 @@ You're implementing SEO for an Astro project following a specific, opinionated p
 
 ## 1. Detect current state
 
-Search the project for an existing site-wide config object (commonly `SITE`, `siteInfo`, or similar, in `src/lib/` or `src/config/`), an existing head/meta component, and existing `robots.txt`/`sitemap.xml` routes.
+Search the project for an existing site-wide config object (commonly `SITE`, `siteInfo`, or similar, in `src/config/`), an existing head/meta component, and existing `robots.txt`/`sitemap.xml` routes.
 
 - Nothing found, or clearly incomplete → follow the **Generate** flow.
 - Something exists, scattered or inconsistent → follow the **Migrate** flow.
@@ -88,7 +88,7 @@ Search the project for an existing site-wide config object (commonly `SITE`, `si
 
 The single source of truth for every SEO-related value in the project. Nothing SEO-related should be written directly in a component or function — it all reads from here.
 
-​```ts title="src/lib/site-info.ts"
+​```ts title="src/config/site.ts"
 export const SITE = {
   // ...the rest of SITE already exists in the project — name, legalName, slogan,
   // founded, location, contact, social, founders. Not repeated here because it's
@@ -200,7 +200,7 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 Five functions, one per schema.org type. Every value comes from `SITE` — nothing written inline.
 
 ​```ts title="src/lib/seo.ts"
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 // Example — in the real project these come from the project's own content modules,
 // not from SITE (the services list and FAQ are page content, not brand identity).
 import { FAQ_ITEMS } from "@/content/faq";
@@ -342,7 +342,7 @@ Tag order matters: charset → viewport → title → description → canonical 
 
 ​```astro title="src/components/seo/BaseHead.astro"
 ---
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 interface Props {
   title?: string;
@@ -453,7 +453,7 @@ const googlebot = noindex
 ---
 import BaseHead from "@/components/seo/BaseHead.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/lib/seo";
 import "@/styles/globals.css";
 
@@ -501,7 +501,7 @@ const { title, description, image, canonical, keywords, ogType, noindex } = Astr
 
 ​```ts title="src/pages/manifest.webmanifest.ts"
 import type { APIRoute } from "astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 export const GET: APIRoute = () => {
   const manifest = {
@@ -527,7 +527,7 @@ export const GET: APIRoute = () => {
 
 ​```ts title="src/pages/robots.txt.ts"
 import type { APIRoute } from "astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 export const GET: APIRoute = () => {
   const body = [
@@ -548,7 +548,7 @@ export const GET: APIRoute = () => {
 
 ​```ts title="src/pages/sitemap.xml.ts"
 import type { APIRoute } from "astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 
 /** One page, one entry. Add routes here as the site grows. */
 const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }];
@@ -582,7 +582,7 @@ ${urls}
 ​```astro title="src/pages/servicios.astro"
 ---
 import Layout from "@/layouts/Layout.astro";
-import { SITE } from "@/lib/site-info";
+import { SITE } from "@/config/site";
 ---
 
 <Layout

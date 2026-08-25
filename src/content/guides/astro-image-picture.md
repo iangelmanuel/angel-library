@@ -3,10 +3,10 @@ title: "<Image /> y <Picture />"
 description: Componentes de imagen optimizada de Astro — locales, remotas, responsive y con múltiples formatos.
 category: frontend
 stack: astro
-order: 8
+order: 10
 tags: [astro, images, performance]
 scope: astro:assets
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 `astro:assets` optimiza imágenes en build: convierte formato, genera tamaños y evita layout shift infiriendo `width`/`height`. Son dos **componentes de Astro** (`<Image />`, `<Picture />` — con mayúscula, hay que importarlos), no etiquetas HTML nativas. El compilador los reemplaza en build por HTML real optimizado: `<Image />` se convierte en un `<img>`, y `<Picture />` en un `<picture>` con sus `<source>` adentro — esas sí son las etiquetas nativas, en minúscula, y nunca se escriben a mano.
@@ -87,7 +87,7 @@ export default defineConfig({
 });
 ```
 
-## Resumen
+## Props y formatos en una mirada
 
 | Prop / config | Qué hace |
 | --- | --- |
@@ -97,8 +97,8 @@ export default defineConfig({
 | `layout="constrained"` | `srcset`/`sizes` automáticos (Astro ≥ 5.10) |
 | `image.domains` / `image.remotePatterns` | Autorizar optimización de imágenes remotas |
 
-## Consideraciones
+## Rendimiento, dimensiones y accesibilidad
 
 - Sin autorizar el dominio, `<Image />` con una URL remota no lanza error, pero no optimiza el archivo (solo evita el layout shift).
-- Las imágenes de `public/` nunca se procesan en build — se sirven tal cual. Si necesitas optimización real, movela a `src/assets/` e importala.
+- Las imágenes de `public/` no se procesan durante build; se sirven tal como están. Si necesitas optimización, muévelas a `src/assets/` e impórtalas.
 - `alt` es obligatorio a propósito: Astro tira error de build si falta, no solo un warning.

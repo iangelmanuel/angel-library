@@ -23,7 +23,7 @@ Requisitos: proyecto Next.js 15+ con App Router y TypeScript, alias `@/*` config
 
 ## Paso 1 — `SITE.seo`: la fuente de verdad
 
-```ts title="src/config/info.ts"
+```ts title="src/config/site.ts"
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
 export const SITE = {
@@ -118,7 +118,7 @@ Una función central (`buildMetadata`) que arma el objeto `Metadata` de Next com
 
 ```ts title="src/lib/seo.ts"
 import type { Metadata } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 export interface SeoOptions {
   /** Título corto de la página — Next le aplica el template del layout raíz automáticamente. */
@@ -383,7 +383,7 @@ Acepta un solo schema o un array — así el layout raíz (Paso 7) puede mandar 
 
 ```ts title="app/manifest.ts"
 import type { MetadataRoute } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -407,7 +407,7 @@ Convención de archivo de Next: `app/manifest.ts` con `export default` genera `/
 
 ```ts title="app/robots.ts"
 import type { MetadataRoute } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 /** Genera /robots.txt. Con SITE.seo.noindex activo (staging/preview), bloquea todo el sitio. */
 export default function robots(): MetadataRoute.Robots {
@@ -429,7 +429,7 @@ export default function robots(): MetadataRoute.Robots {
 
 ```ts title="app/sitemap.ts"
 import type { MetadataRoute } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 /** Rutas estáticas. Agregar aquí conforme crezca el sitio. */
 const STATIC_ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
@@ -467,7 +467,7 @@ Igual que en la versión de Astro: para un sitio con pocas páginas estáticas, 
 
 ```tsx title="app/layout.tsx"
 import type { Metadata } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 import { buildBusinessSchema, buildWebsiteSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 

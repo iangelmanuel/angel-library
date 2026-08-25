@@ -39,7 +39,7 @@ You're implementing SEO for a Next.js (App Router) project following a specific,
 
 ## 1. Detect current state
 
-Search the project for an existing site-wide config object (commonly `SITE`, in `src/config/` or `src/lib/`), an existing `buildMetadata`-style helper or ad-hoc `metadata` exports scattered across pages, and existing `app/robots.ts`/`app/sitemap.ts`.
+Search the project for an existing site-wide config object (commonly `SITE`, in `src/config/`), an existing `buildMetadata`-style helper or ad-hoc `metadata` exports scattered across pages, and existing `app/robots.ts`/`app/sitemap.ts`.
 
 - Nothing found, or clearly incomplete → follow the **Generate** flow.
 - Something exists, scattered or inconsistent → follow the **Migrate** flow.
@@ -86,7 +86,7 @@ Search the project for an existing site-wide config object (commonly `SITE`, in 
 ```md title=".claude/skills/nextjs-seo/references/config.md"
 # SITE.seo — target shape
 
-​```ts title="src/config/info.ts"
+​```ts title="src/config/site.ts"
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
 export const SITE = {
@@ -182,7 +182,7 @@ Two decisions worth keeping when generating or migrating:
 
 ​```ts title="src/lib/seo.ts"
 import type { Metadata } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 export interface SeoOptions {
   /** Short page title — Next applies the root layout's template automatically. */
@@ -506,7 +506,7 @@ Accepts a single schema or an array — the root layout sends `Organization` + `
 
 ​```ts title="app/manifest.ts"
 import type { MetadataRoute } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -530,7 +530,7 @@ File convention: `app/manifest.ts` with `export default` generates `/manifest.we
 
 ​```ts title="app/robots.ts"
 import type { MetadataRoute } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 /** Generates /robots.txt. With SITE.seo.noindex on (staging/preview), blocks the entire site. */
 export default function robots(): MetadataRoute.Robots {
@@ -550,7 +550,7 @@ export default function robots(): MetadataRoute.Robots {
 
 ​```ts title="app/sitemap.ts"
 import type { MetadataRoute } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 
 /** Static routes. Add here as the site grows. */
 const STATIC_ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
@@ -586,7 +586,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 ​```tsx title="app/layout.tsx"
 import type { Metadata } from "next";
-import { SITE } from "@/config/info";
+import { SITE } from "@/config/site";
 import { buildBusinessSchema, buildWebsiteSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 

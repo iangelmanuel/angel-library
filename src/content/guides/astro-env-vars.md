@@ -3,10 +3,10 @@ title: Variables de entorno
 description: import.meta.env, el prefijo PUBLIC_, y astro:env para variables tipadas y validadas en build.
 category: frontend
 stack: astro
-order: 14
+order: 17
 tags: [astro, config, security]
 scope: astro (import.meta.env / astro:env)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Astro usa el sistema de variables de entorno de Vite por debajo — `.env` en la raíz del proyecto, accedidas con `import.meta.env` en vez del `process.env` de Node.
@@ -60,7 +60,7 @@ import { API_URL } from 'astro:env/client';
 import { API_SECRET } from 'astro:env/server';
 ```
 
-## Resumen
+## Mapa de acceso por entorno
 
 | API | Uso |
 | --- | --- |
@@ -69,7 +69,7 @@ import { API_SECRET } from 'astro:env/server';
 | `import.meta.env.DEV`/`PROD`/`MODE` | Variables incluidas, sin configurar nada |
 | `astro:env` + `envField` | Schema tipado, valida en build que las variables requeridas existan |
 
-## Consideraciones
+## Secretos, tipos y despliegues
 
 - Una variable sin `PUBLIC_` que se usa por error dentro de código que termina en el bundle de cliente se reemplaza por un string vacío, no explota — fácil de no notar. `astro:env` con `access: 'secret'` sí previene esto en build.
 - `astro:env` no funciona en `astro.config.mjs` ni en scripts fuera del contexto de Astro (componentes, endpoints, middleware) — solo dentro de esos.

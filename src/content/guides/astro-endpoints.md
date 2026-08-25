@@ -3,10 +3,10 @@ title: Endpoints (API routes)
 description: Archivos en src/pages que responden JSON u otro contenido en vez de HTML — GET/POST, rutas dinámicas y modo on-demand.
 category: frontend
 stack: astro
-order: 15
+order: 18
 tags: [astro, api, backend]
 scope: astro:pages
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Un endpoint es un archivo `.ts`/`.js` dentro de `src/pages` que, en vez de exportar un componente `.astro` que renderiza HTML, exporta funciones con nombre de método HTTP (`GET`, `POST`...) que devuelven una `Response`. Astro lo trata como una ruta más: convive con páginas normales en la misma carpeta, solo que responde JSON, XML, una imagen o cualquier otro contenido en vez de HTML. Este mismo sitio usa uno para `/search-index.json` (ver `src/pages/search-index.json.ts`), que arma el índice de búsqueda que consume el Command Palette.
@@ -75,7 +75,7 @@ export const POST: APIRoute = async ({ request }) => {
 };
 ```
 
-## Resumen
+## Métodos y respuestas en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -86,7 +86,7 @@ export const POST: APIRoute = async ({ request }) => {
 | `getStaticPaths()` | Requerido en rutas dinámicas prerenderizadas |
 | `export const prerender = false` | Forzar ese endpoint a on-demand |
 
-## Consideraciones
+## Contrato HTTP y despliegue
 
 - En modo estático (sin `prerender = false`), `request.body` no está disponible de forma confiable — un endpoint que necesita leer el body de un POST necesita on-demand rendering.
 - Astro no valida nada del body automáticamente: sigue el mismo patrón que en cualquier boundary, `request.json()` + Zod antes de confiar en los datos.

@@ -3,10 +3,10 @@ title: React Hook Form + Zod
 description: Cómo se conectan de verdad — zodResolver, tipos end-to-end, arrays dinámicos, errores del servidor y coerción de inputs nativos.
 category: frontend
 stack: react
-order: 20
+order: 1
 tags: [react, forms, validation, zod, typescript]
 technologies: [libraries/react-hook-form, libraries/zod]
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 ## Instalación
@@ -160,7 +160,7 @@ async function onSubmit(values: SignupValues) {
 - **`errors.campo.message` ya viene en español** (o el idioma que uses) porque el mensaje sale directo del segundo argumento de cada regla de Zod — el resolver no traduce nada, solo reubica el error.
 - **Reusa el mismo schema en el servidor** (API route o Server Action): si el cliente valida con `signupSchema` pero el servidor no, cualquiera que le pegue directo a la API se salta la validación por completo.
 
-## Resumen
+## Flujo de formulario en una mirada
 
 | Pieza | Rol |
 | --- | --- |
@@ -175,4 +175,4 @@ async function onSubmit(values: SignupValues) {
 - Olvidar `path` en un `.refine()` a nivel de objeto: el error existe pero no se asocia a ningún campo, así que no se muestra donde el usuario lo espera.
 - No usar `z.coerce.number()` en inputs numéricos: el schema rechaza el string que manda el DOM aunque "parezca" un número.
 - `defaultValues` incompleto con un resolver tipado: TypeScript se queja, no es un bug de RHF.
-- Pisar un error de servidor (`setError`) sin limpiarlo: si el usuario corrige el campo, RHF lo limpia solo en el siguiente submit, pero no mientras tipea salvo que cambies el `mode`.
+- Sobrescribir un error de servidor (`setError`) sin limpiarlo: si la persona corrige el campo, RHF puede conservarlo hasta el siguiente envío, según el `mode` configurado.

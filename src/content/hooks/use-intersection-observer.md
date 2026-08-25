@@ -3,11 +3,11 @@ title: useIntersectionObserver
 description: Saber si un elemento está visible en el viewport — lazy loading, infinite scroll y animaciones al hacer scroll, sin listeners de scroll a mano.
 category: frontend
 stack: react
-order: 26
+order: 6
 tags: [react, hooks, dom, performance, typescript]
 framework: React
 language: typescript
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 ## Cuándo usarlo
@@ -81,9 +81,9 @@ function ListaConScroll({ onLoadMore }: { onLoadMore: () => void }) {
 }
 ```
 
-## Consideraciones
+## Umbrales, desconexión y accesibilidad
 
 - **`rootMargin` es el ajuste más útil para lazy loading**: un valor positivo (`'200px'`) hace que `isIntersecting` se vuelva `true` *antes* de que el elemento sea literalmente visible, dando tiempo a que la imagen o los datos carguen mientras el usuario todavía está scrolleando hacia ahí.
-- **`once: true`** desconecta el observer apenas se cumple la condición una vez — para lazy loading no tiene sentido seguir observando algo que ya cargó; para animaciones "on scroll" que deben repetirse cada vez que el elemento entra y sale, dejalo en `false` (el default).
+- **`once: true`** desconecta el observer cuando la condición se cumple por primera vez. Para carga diferida no tiene sentido seguir observando un recurso ya cargado; para animaciones que deben repetirse al entrar y salir, déjalo en `false`.
 - **Las dependencias del efecto son deliberadamente explícitas** (`threshold`, `root`, `rootMargin`, no el objeto `observerOptions` completo): un objeto literal pasado inline (`{ threshold: 0.5 }`) es una referencia nueva en cada render, así que depender del objeto entero re-crearía el observer todo el tiempo. Comparar sus campos primitivos evita ese loop.
 - Si necesitas varios thresholds o lógica más fina (por ejemplo, un porcentaje exacto de visibilidad), `entry.intersectionRatio` da ese dato — el hook solo expone el booleano porque cubre el caso de uso más común, pero es fácil de extender devolviendo `entry` completo en vez de solo `isVisible`.

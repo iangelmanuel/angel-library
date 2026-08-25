@@ -3,10 +3,10 @@ title: useReducer
 description: Estado complejo con lógica centralizada — patrón básico y acciones tipadas con payload usando discriminated unions.
 category: frontend
 stack: react
-order: 3
+order: 6
 tags: [react, hooks, state, typescript]
 scope: react (useReducer)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Cuando el estado de un componente tiene varios campos que cambian juntos, o la lógica de "cómo cambia" es más compleja que un `setState`, tener 5 `useState` sueltos empieza a sentirse desordenado — es fácil actualizar uno y olvidarse de otro relacionado. `useReducer` centraliza esa lógica en una sola función pura: dado el estado actual y una acción, devuelve el estado siguiente. El componente ya no decide *cómo* cambia el estado, solo *qué pasó* (`dispatch({ type: '...' })`).
@@ -89,7 +89,7 @@ function crearEstadoInicial(nombreUsuario: string): State {
 const [state, dispatch] = useReducer(reducer, nombreUsuario, crearEstadoInicial);
 ```
 
-## Resumen
+## Contrato del reducer en una mirada
 
 | Pieza | Qué es |
 | --- | --- |
@@ -98,8 +98,8 @@ const [state, dispatch] = useReducer(reducer, nombreUsuario, crearEstadoInicial)
 | `type Action = {...} \| {...}` | Discriminated union: cada acción con su propio `type` y payload tipado |
 | Tercer argumento de `useReducer` | Función de inicialización perezosa, para estado inicial costoso |
 
-## Consideraciones
+## Modelado de acciones y estado
 
 - El reducer tiene que ser una función pura: nada de `fetch`, `Math.random()` ni mutar `state` directo — siempre devolver un objeto nuevo.
-- Sin un `case` para alguna acción y sin `default`, TypeScript avisa si el switch no cubre todos los casos — dejalo así, es la red de seguridad que justifica escribir la discriminated union.
+- Sin un `case` para alguna acción y sin `default`, TypeScript puede avisar si el `switch` no cubre todos los casos. Déjalo así: es la red de seguridad que justifica escribir la unión discriminada.
 - `useReducer` no es "mejor" que `useState` por definición — para 1-2 campos independientes, `useState` sigue siendo más simple. Vale la pena cuando varios campos cambian juntos con lógica compartida.

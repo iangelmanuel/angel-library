@@ -3,13 +3,13 @@ title: Server Actions
 description: Funciones backend con validación Zod integrada — defineAction, llamarlas desde el cliente, formularios con progressive enhancement y manejo de errores.
 category: frontend
 stack: astro
-order: 16
+order: 19
 tags: [astro, forms, backend]
 scope: astro:actions
 related:
   - libraries/zod
   - utilities/form
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Para un formulario, un [endpoint](/guides/astro-endpoints) a mano implica repetir siempre lo mismo: parsear el body, validarlo, tipar la respuesta, manejar el error de red en el cliente. Las Actions empaquetan las tres cosas en una sola función: defines el schema de entrada una vez con Zod, y tanto el cliente como el servidor comparten ese tipo automáticamente — sin escribir el `fetch` a mano ni duplicar la validación en el frontend.
@@ -115,7 +115,7 @@ if (isInputError(error)) {
 }
 ```
 
-## Resumen
+## API de Actions en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -126,7 +126,7 @@ if (isInputError(error)) {
 | `ActionError` | Lanzar un error controlado con `code` y `message` |
 | `isInputError(error)` | Detectar errores de validación y leer `error.fields` |
 
-## Consideraciones
+## Validación, autorización e idempotencia
 
 - La autorización va **dentro** del handler (`context.locals`), no antes — las actions no pasan por las rutas de página, así que un middleware de auth genérico no las cubre automáticamente a menos que uses `getActionContext()` ahí.
 - `input` con Zod valida antes de que el handler corra: un input inválido nunca llega al handler, sale como `isInputError`.

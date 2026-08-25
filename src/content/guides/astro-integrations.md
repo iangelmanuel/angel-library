@@ -3,10 +3,10 @@ title: Integrations — astro add
 description: Cómo se agrega una librería/framework al proyecto — el CLI astro add y la config manual en astro.config.mjs.
 category: frontend
 stack: astro
-order: 18
+order: 21
 tags: [astro, config]
 scope: astro (astro add / astro.config.mjs)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Todo lo que extiende Astro más allá de lo nativo (React, Tailwind, sitemap, un CMS) es una integration — se declaran en un solo lugar, `astro.config.mjs`.
@@ -46,7 +46,7 @@ export default defineConfig({
 });
 ```
 
-## Resumen
+## Integraciones habituales
 
 | Comando / config | Uso |
 | --- | --- |
@@ -55,8 +55,8 @@ export default defineConfig({
 | `integrations: [...]` en `astro.config.mjs` | Dónde quedan declaradas, siempre |
 | Instalación manual | Para integrations locales o sin soporte de `astro add` |
 
-## Consideraciones
+## Compatibilidad y mantenimiento
 
-- `astro add` modifica `astro.config.mjs` automáticamente — si el archivo tiene una estructura muy custom, vale la pena revisar el diff que deja antes de commitear, no asumir que quedó perfecto.
+- `astro add` modifica `astro.config.mjs` automáticamente. Si el archivo tiene una estructura muy personalizada, revisa el diff antes de confirmar los cambios.
 - No todo lo que se instala es una integration: un plugin de Vite (como el propio `@tailwindcss/vite` de este proyecto) va en `vite.plugins`, no en `integrations` — son dos sistemas de extensión distintos que conviven en el mismo archivo de config.
 - Las integrations oficiales (`@astrojs/react`, `@astrojs/mdx`, etc.) son las mantenidas por el equipo de Astro — hay muchas de la comunidad también, mismo mecanismo, mismo array.

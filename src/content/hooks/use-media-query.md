@@ -3,11 +3,11 @@ title: useMediaQuery
 description: Suscribirse a un media query de CSS desde JS — breakpoints reactivos sin re-renderizar de más ni perder el valor inicial correcto.
 category: frontend
 stack: react
-order: 23
+order: 2
 tags: [react, hooks, responsive, typescript]
 framework: React
 language: typescript
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 ## Cuándo usarlo
@@ -58,7 +58,7 @@ return isDesktop ? <SidebarCompleto /> : <MenuHamburguesa />;
 
 Breakpoints comunes que conviene mantener consistentes con los de Tailwind (`sm`, `md`, `lg`) si el proyecto ya los usa, para no tener dos fuentes de verdad sobre dónde "empieza" desktop.
 
-## Consideraciones
+## SSR, accesibilidad y fuente de verdad
 
 - **`typeof window === 'undefined'`** en el estado inicial: en SSR, el primer render del servidor no puede saber el tamaño real del viewport del cliente — el valor por defecto es una suposición (`false`), y el efecto corrige apenas monta en el navegador. Esto puede causar un flash de un layout al otro en el primer render; si eso importa, combinalo con `useEffect` + un estado `mounted` para no renderizar nada dependiente del breakpoint hasta estar montado.
 - **`addEventListener('change', ...)`** es la API moderna de `MediaQueryList`; el método viejo (`addListener`/`removeListener`) está deprecado — no hace falta soportarlo salvo que el proyecto todavía deba correr en Safari muy viejo.

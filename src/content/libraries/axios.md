@@ -3,14 +3,14 @@ title: Axios
 description: Cliente HTTP con interceptores, instancias configuradas y manejo de errores más cómodo que fetch nativo.
 category: frontend
 stack: react
-order: 10
+order: 2
 tags: [react, http, api]
 website: https://axios-http.com
 github: https://github.com/axios/axios
 install: npm install axios
 related:
   - libraries/tanstack-query
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 `fetch` es nativo y alcanza para lo simple, pero `axios` ahorra código repetitivo: parsea JSON solo (no hace falta `await res.json()`), trata cualquier respuesta 4xx/5xx como error (con `fetch` hay que chequear `res.ok` a mano), y permite configurar una instancia una vez (base URL, headers, timeout) en vez de repetirlo en cada llamada.
@@ -82,7 +82,7 @@ try {
 }
 ```
 
-## Resumen
+## API cotidiana de Axios
 
 | API | Uso |
 | --- | --- |
@@ -92,7 +92,7 @@ try {
 | `instancia.interceptors.response.use(onOk, onError)` | Manejar cada response, incluidos los errores, en un solo lugar |
 | `axios.isAxiosError(error)` | Type guard para acceder a `error.response` con seguridad de tipos |
 
-## Consideraciones
+## Errores, cancelación y elección de cliente
 
 - A diferencia de `fetch`, una respuesta 404/500 **lanza** en vez de resolver con `ok: false` — el `try/catch` es obligatorio si te importa distinguir error de servidor de error de red.
 - Para proyectos que ya usan [TanStack Query](/libraries/tanstack-query) para cachear datos, axios sigue siendo útil como el "fetcher" de adentro — Query maneja el cache/estado, axios hace la llamada en sí.

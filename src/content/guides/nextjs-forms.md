@@ -3,7 +3,7 @@ title: Formularios con Server Actions
 description: Validación, errores por campo, estados pending, actualizaciones optimistas y progressive enhancement en formularios del App Router.
 category: frontend
 stack: nextjs
-order: 14
+order: 20
 tags: [nextjs, forms, server-actions, validation, react]
 scope: next.js app router (forms)
 related:
@@ -11,7 +11,7 @@ related:
   - guides/react-useactionstate
   - guides/react-useoptimistic
   - libraries/zod
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
 Un `<form action={serverAction}>` envía `FormData` a una Server Action. Funciona antes de que cargue JavaScript cuando el formulario se renderiza desde un Server Component; con JavaScript agrega estados pendientes y navegación sin recarga completa.

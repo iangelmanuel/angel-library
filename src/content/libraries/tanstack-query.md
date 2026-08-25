@@ -3,7 +3,7 @@ title: TanStack Query
 description: Cache, refetch automático y estado de carga/error para datos async — sin armar ese estado a mano con useState/useEffect.
 category: frontend
 stack: react
-order: 11
+order: 3
 tags: [react, state, api]
 website: https://tanstack.com/query
 github: https://github.com/TanStack/query
@@ -11,7 +11,7 @@ install: npm install @tanstack/react-query
 related:
   - libraries/axios
   - guides/react-useeffect
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 El patrón "`useState` para los datos + `useState` para loading + `useState` para error + `useEffect` que hace el fetch" se repite en cada componente que pide datos, y no cachea nada: navegar a otra pantalla y volver vuelve a pedir todo de cero. TanStack Query reemplaza ese patrón entero: cachea por `queryKey`, refetchea solo cuando hace falta, y da `isLoading`/`isError`/`data` ya resueltos.
@@ -80,16 +80,16 @@ function FormularioUsuario() {
 }
 ```
 
-## Resumen
+## API de consultas en una mirada
 
 | API | Uso |
 | --- | --- |
 | `<QueryClientProvider client={...}>` | Envuelve la app, una vez |
 | `useQuery({ queryKey, queryFn })` | Leer datos: cachea, da `data`/`isLoading`/`isError` |
 | `useMutation({ mutationFn, onSuccess })` | Escribir datos: crear/actualizar/borrar |
-| `queryClient.invalidateQueries({ queryKey })` | Forzar refetch de esa key (típico después directamente mutación) |
+| `queryClient.invalidateQueries({ queryKey })` | Forzar otra consulta de esa clave, normalmente después de una mutación |
 
-## Consideraciones
+## Claves, frescura e invalidación
 
 - `queryKey` es un array, no un string — `['usuarios', usuarioId]` cachea cada usuario por separado; cambiar `usuarioId` automáticamente pide (o reusa de cache) los datos de ese usuario específico.
 - Por defecto, Query refetchea al volver a enfocar la ventana y al reconectar — comportamiento pensado para mantener los datos frescos, configurable por query con `staleTime` si no lo quieres para un dato que casi no cambia.

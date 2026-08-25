@@ -3,12 +3,12 @@ title: View Transitions
 description: Transiciones animadas entre páginas con el ClientRouter — transition:name, eventos de navegación, animaciones custom y redirección.
 category: frontend
 stack: astro
-order: 21
+order: 24
 tags: [astro, animation, routing]
 scope: astro:transitions
 related:
   - snippets/css-animations
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Sin esto, cada click en un link hace que el navegador descarte la página entera y cargue la siguiente desde cero — parpadeo blanco incluido. El `<ClientRouter />` intercepta esa navegación: pide la página nueva por `fetch`, la compara con la actual usando la View Transitions API nativa del navegador, y anima el cambio entre ambas. El sitio sigue siendo estático (cada URL es HTML real, funciona sin JS), pero se *siente* como una SPA — sin escribir un router a mano. Este mismo sitio lo usa; por eso navegar entre entradas no recarga toda la página.
@@ -97,7 +97,7 @@ navigate('/gracias', { history: 'push' }); // o "replace" / "auto"
 <a href="/logout" data-astro-reload>Cerrar sesión</a>
 ```
 
-## Resumen
+## Directivas y eventos en una mirada
 
 | Directiva / API | Qué hace |
 | --- | --- |
@@ -110,7 +110,7 @@ navigate('/gracias', { history: 'push' }); // o "replace" / "auto"
 | `navigate()` | Navegar por código sin perder la transición |
 | `data-astro-reload` | Excluir un link de las transiciones (recarga completa) |
 
-## Consideraciones
+## Navegación, estado y accesibilidad
 
 - Un script `<script>` normal (no `type="module"` con listener global) se re-ejecuta en cada navegación por defecto — si necesitas que corra una sola vez por sesión, hay que engancharlo a `document` fuera del ciclo de swap, como hace este sitio en `BaseLayout.astro`.
 - `transition:name` con el mismo valor en dos elementos de la misma página rompe la animación — tiene que ser único por página.

@@ -3,14 +3,14 @@ title: React Router
 description: Routing para SPAs de React — un solo paquete (ya no react-router-dom), rutas, navegación y parámetros de URL.
 category: frontend
 stack: react
-order: 9
+order: 1
 tags: [react, routing]
 website: https://reactrouter.com
 github: https://github.com/remix-run/react-router
 install: npm i react-router
 related:
   - libraries/tanstack-query
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Desde la versión 7, React Router es **un solo paquete**: `react-router` — `react-router-dom` ya no existe como paquete separado, todo se importa de `react-router` directo. Si ves `react-router-dom` en un tutorial o proyecto viejo, es la sintaxis anterior; los componentes/hooks son básicamente los mismos, cambia el import.
@@ -93,7 +93,7 @@ function DetalleProducto() {
 }
 ```
 
-## Resumen
+## APIs del router en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -105,7 +105,7 @@ function DetalleProducto() {
 | `useParams()` | Leer segmentos dinámicos (`:id`) |
 | `useSearchParams()` | Leer/escribir la query string |
 
-## Consideraciones
+## Datos, navegación y arquitectura
 
 - `<Link>`, no `<a href>`: un `<a>` normal recarga la página completa, perdiendo todo el estado de la SPA.
 - El import es `from 'react-router'` en cualquier versión reciente — `react-router-dom` sigue instalándose en proyectos viejos, pero es el paquete legacy.

@@ -1,17 +1,17 @@
 ---
 title: "<Image /> — optimización"
-description: Extiende <img> con optimización automática — width/height o fill, sizes para responsive, priority y remotePatterns.
+description: Extiende <img> con dimensiones, srcset, carga diferida, preload, placeholders y orígenes remotos controlados.
 category: frontend
 stack: nextjs
-order: 22
+order: 25
 tags: [nextjs, images, performance]
 scope: next.js (next/image)
 related:
   - guides/astro-image-picture
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
-Mismo problema que resuelve [`<Image />` en Astro](/guides/astro-image-picture): formato óptimo, tamaño correcto por dispositivo, sin layout shift — aquí con la sintaxis de Next.
+Mismo problema que resuelve [`<Image />` en Astro](/guides/astro-image-picture): servir una imagen adecuada para el dispositivo, reservar espacio y evitar trabajo innecesario. Next genera `srcset`, puede transformar formatos y aplica carga diferida de forma predeterminada.
 
 ## Uso básico
 
@@ -48,13 +48,15 @@ Sin `sizes`, Next asume que la imagen podría mostrarse a ancho completo en cual
 />
 ```
 
-## `priority` — Imágenes above the fold
+## `preload` — imagen LCP excepcional
 
-Por defecto, las imágenes cargan con lazy loading (no bloquean el render inicial). La imagen más importante de la pantalla inicial (el hero, el LCP) debería cargar antes — `priority` la excluye del lazy loading y la precarga.
+Por defecto, las imágenes usan lazy loading. Si una imagen es claramente el **Largest Contentful Paint (LCP)** de la página, `preload` puede indicarle al navegador que la descubra antes. En Next.js 16, `priority` quedó deprecado a favor de este nombre más explícito.
 
 ```tsx
-<Image src="/hero.jpg" alt="Hero" width={1200} height={600} priority />
+<Image src="/hero.jpg" alt="Equipo trabajando" width={1200} height={600} preload />
 ```
+
+No combines `preload` con `loading` o `fetchPriority`. Si la imagen se descubre temprano en el HTML y solo necesita prioridad de red, `loading="eager"` o `fetchPriority="high"` puede expresar mejor el caso. Mide el LCP real antes de elegir.
 
 ## `placeholder="blur"` — Difuminado mientras carga
 
@@ -79,7 +81,7 @@ const nextConfig = {
 };
 ```
 
-## Resumen
+## API en una mirada
 
 | Prop | Uso |
 | --- | --- |
@@ -87,12 +89,14 @@ const nextConfig = {
 | `width` / `height` | Obligatorios salvo `fill` |
 | `fill` | Ocupar el contenedor padre (que necesita `position: relative`) |
 | `sizes` | Cuánto espacio real ocupa por breakpoint, para no sobre-descargar |
-| `priority` | Saltar el lazy loading para la imagen más importante de la pantalla inicial |
+| `preload` | precargar la imagen LCP cuando existe un caso claro |
 | `placeholder="blur"` | Difuminado automático mientras carga (solo imágenes locales importadas) |
 | `images.remotePatterns` (next.config) | Autorizar dominios externos para optimización |
 
-## Consideraciones
+## Carga, seguridad y errores
 
 - `fill` sin `position: relative` (o `absolute`/`fixed`) en el contenedor padre no funciona — la imagen colapsa a tamaño 0 porque no tiene de qué "llenar".
-- `priority` solo debería usarse en la imagen más importante de la pantalla — abusar de ella en varias imágenes anula el propósito (todas compitiendo por prioridad no es prioridad).
+- `preload` debe reservarse para una imagen crítica claramente identificada; precargar varias hace que compitan por ancho de banda.
 - Sin `sizes` en una imagen con `fill`, Next asume 100vw por defecto — casi siempre termina sirviendo más resolución de la que hace falta en pantallas chicas.
+- El optimizador no reenvía headers al origen remoto. Si una imagen necesita autenticación, usa una estrategia controlada y revisa si debe marcarse `unoptimized`.
+- Prefiere `remotePatterns` con protocolo, host y path específicos; abrir comodines amplios permite usar tu optimizador como proxy para recursos no previstos.

@@ -3,16 +3,16 @@ title: React Hook Form
 description: Formularios performantes en React con mínimos re-renders. Instalación, uso básico y patrones que uso.
 category: frontend
 stack: react
-order: 13
+order: 5
 tags: [react, forms, typescript]
 website: https://react-hook-form.com
 github: https://github.com/react-hook-form/react-hook-form
 install: npm install react-hook-form
 related: [libraries/zod]
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
-React Hook Form evita el problema clásico de un formulario controlado con `useState` por campo: cada tecla re-renderiza el componente entero. RHF registra los inputs de forma no controlada (con refs) y solo re-renderiza lo necesario, cuando hace falta — el formulario entero puede tener decenas de campos sin que tipear en uno cueste un re-render de los demás.
+React Hook Form evita el problema clásico de un formulario controlado con `useState` por campo: cada tecla vuelve a renderizar el componente completo. RHF registra los inputs de forma no controlada —mediante refs— y actualiza únicamente lo necesario. Un formulario puede tener decenas de campos sin que escribir en uno obligue a renderizar los demás.
 
 ## Uso básico
 

@@ -3,14 +3,14 @@ title: useRouter
 description: Navegar por código desde un Client Component — push, replace, refresh, back/forward. El tercero de los hooks de navegación.
 category: frontend
 stack: nextjs
-order: 10
+order: 13
 tags: [nextjs, routing, hooks]
 scope: next.js (next/navigation)
 related:
   - guides/nextjs-usepathname
   - guides/nextjs-usesearchparams
   - guides/nextjs-link
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 [`<Link>`](/guides/nextjs-link) cubre la navegación normal (el usuario hace click en algo). `useRouter` es para cuando el código mismo decide navegar — después de un submit exitoso, un timeout, una condición que no depende de un click directo. Next recomienda `<Link>` como default y `useRouter` solo cuando hace falta control programático real.
@@ -63,7 +63,7 @@ function BotonActualizar() {
 router.replace('/dashboard'); // el usuario NO vuelve al login con el botón atrás
 ```
 
-## Resumen
+## Métodos del router en una mirada
 
 | Método | Uso |
 | --- | --- |
@@ -73,7 +73,7 @@ router.replace('/dashboard'); // el usuario NO vuelve al login con el botón atr
 | `router.back()` / `router.forward()` | Como los botones del navegador |
 | `router.prefetch(href)` | Precargar una ruta fuera de un `<Link>` |
 
-## Consideraciones
+## Semántica, seguridad e historial
 
 - Es de `next/navigation`, no de `next/router` — ese es el hook viejo del Pages Router; en el App Router, importar de `next/router` es el error más común al migrar código copiado de un tutorial viejo.
 - Nunca le pases a `router.push`/`router.replace` una URL que venga de input de usuario sin sanitizar — una URL tipo `javascript:...` se ejecuta en el contexto de tu página.

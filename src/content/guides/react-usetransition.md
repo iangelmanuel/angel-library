@@ -3,13 +3,15 @@ title: useTransition
 description: Marcar una actualización de estado como "no urgente" para que la UI no se congele — isPending y startTransition.
 category: frontend
 stack: react
-order: 6
+order: 13
 tags: [react, hooks, performance]
 scope: react (useTransition)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
-No todas las actualizaciones de estado son igual de urgentes. Tipear en un input tiene que sentirse instantáneo; filtrar una lista de 10.000 items a partir de ese texto puede tardar un poco sin que se note, si React sabe que puede interrumpirla. `useTransition` es esa señal: le dice a React "esta actualización puede esperar, prioriza lo demás".
+No todas las actualizaciones de estado son igual de urgentes. Escribir en un input debe sentirse instantáneo; actualizar una visualización grande puede esperar si React sabe que puede interrumpir ese render. `useTransition` marca una actualización como no urgente para que la interacción inmediata conserve prioridad.
+
+Una transición no agrega un retraso fijo ni vuelve más rápido un algoritmo lento. Permite que React interrumpa y reemplace trabajo de renderizado. Un bucle JavaScript costoso que ocurre antes de actualizar el estado seguirá bloqueando el hilo principal.
 
 ## La forma básica
 
@@ -20,14 +22,16 @@ import { useState, useTransition } from 'react';
 
 function BuscadorLista({ items }: { items: string[] }) {
   const [texto, setTexto] = useState('');
-  const [filtrados, setFiltrados] = useState(items);
+  const [consulta, setConsulta] = useState('');
   const [isPending, startTransition] = useTransition();
+
+  const filtrados = items.filter((item) => item.includes(consulta));
 
   function manejarCambio(nuevoTexto: string) {
     setTexto(nuevoTexto); // urgente: el input responde ya
 
     startTransition(() => {
-      setFiltrados(items.filter((i) => i.includes(nuevoTexto))); // puede esperar
+      setConsulta(nuevoTexto); // el render de la lista puede esperar
     });
   }
 
@@ -41,11 +45,11 @@ function BuscadorLista({ items }: { items: string[] }) {
 }
 ```
 
-El input (`setTexto`) se actualiza al instante en cada tecla. El filtrado (`setFiltrados`), al estar dentro de `startTransition`, no bloquea esa respuesta — si el usuario tipea de nuevo antes de que termine, React descarta el filtrado viejo y arranca uno nuevo.
+El input (`setTexto`) se actualiza al instante en cada tecla. El cambio que vuelve a renderizar la lista se marca como transición; si la persona escribe de nuevo antes de que termine, React puede abandonar el render anterior y comenzar con el valor más reciente.
 
 ## Hook vs función standalone
 
-`useTransition` es un hook: solo se puede usar dentro de un componente o de otro hook, y da acceso a `isPending`. Si no necesitas mostrar un indicador de carga y solo quieres marcar algo como transición (por ejemplo, desdirectamente librería o un event handler fuera de un componente), `startTransition` existe también como función suelta, importable directo de `react`.
+`useTransition` es un hook: solo se puede usar dentro de un componente o de otro hook, y da acceso a `isPending`. Si no necesitas mostrar un indicador y solo quieres marcar una actualización desde una función externa, `startTransition` también se puede importar directamente desde `react`.
 
 ```ts
 import { startTransition } from 'react';
@@ -55,7 +59,7 @@ startTransition(() => {
 });
 ```
 
-## Resumen
+## Referencia rápida
 
 | API | Uso |
 | --- | --- |
@@ -63,8 +67,10 @@ startTransition(() => {
 | `startTransition(fn)` (standalone, de `react`) | Igual, pero sin `isPending`, usable fuera de componentes |
 | `isPending` | `true` mientras la actualización marcada como transición todavía no terminó |
 
-## Consideraciones
+## Límites y decisiones
 
 - Solo actualizaciones de **estado** van dentro de `startTransition` — no un `fetch`, ni nada con efectos secundarios. Es para decirle a React cómo priorizar un re-render, no para retrasar código arbitrario.
 - Si la actualización "no urgente" tarda mucho y no hay ningún indicador (`isPending`), la UI puede sentirse rota (el usuario no sabe si su acción tuvo efecto) — casi siempre conviene mostrar algo con `isPending`.
 - No reemplaza a `useDeferredValue` en todos los casos: `useTransition` marca una actualización que **tú** disparas dentro de un handler; `useDeferredValue` posterga un valor que ya cambió, normalmente una prop, sin que exista un handler para envolver.
+- Una transición no controla inputs de texto: conserva el valor del campo en una actualización urgente y posterga el trabajo derivado.
+- Después de un `await`, algunas actualizaciones pueden necesitar otro `startTransition` para conservar la prioridad de transición. Revisa este límite al coordinar acciones asíncronas.

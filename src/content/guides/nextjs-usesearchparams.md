@@ -3,13 +3,13 @@ title: useSearchParams
 description: Leer la query string desde un Client Component — con URLSearchParams real, y por qué casi siempre necesita Suspense.
 category: frontend
 stack: nextjs
-order: 9
+order: 12
 tags: [nextjs, routing, hooks]
 scope: next.js (next/navigation)
 related:
   - guides/nextjs-usepathname
   - guides/nextjs-userouter
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Como `usePathname`, pero para la query string (`?a=1&b=2`) — con la diferencia de que devuelve una instancia real de `URLSearchParams`, no un objeto plano como el `searchParams` de `page.tsx`.
@@ -89,7 +89,7 @@ export default function Resultados() {
 }
 ```
 
-## Resumen
+## API de consulta en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -97,7 +97,7 @@ export default function Resultados() {
 | `useRouter().push(url)` | Navegar con una query string nueva |
 | `<Suspense>` alrededor | Necesario para que el resto de la página se pre-renderice sin bloquear por esto |
 
-## Consideraciones
+## Suspense, escritura y validación
 
 - `useSearchParams()` es de solo lectura: mutar el objeto que devuelve no cambia la URL — siempre hay que pasar por `router.push`/`router.replace`.
 - Es distinto del `searchParams` que recibe `page.tsx` como prop (ese es un objeto plano, no `URLSearchParams`, y no necesita `'use client'` ni Suspense porque ya es async por naturaleza).

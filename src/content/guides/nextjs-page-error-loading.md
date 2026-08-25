@@ -3,10 +3,10 @@ title: "page.tsx, error.tsx, loading.tsx"
 description: Los archivos especiales directamente ruta — qué hace cada uno y cómo se envuelven entre sí (Suspense + error boundary automáticos).
 category: frontend
 stack: nextjs
-order: 4
+order: 7
 tags: [nextjs, routing]
 scope: next.js app router (file conventions)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Cada carpeta dentro de `app/` es un segmento de ruta, y unos pocos nombres de archivo reservados definen su comportamiento — sin registrar rutas en ningún lado, la estructura de carpetas **es** el router.
@@ -70,7 +70,7 @@ export default function NotFound() {
 
 De afuera hacia adentro: `layout.tsx` → `error.tsx` → `loading.tsx` (Suspense) → `not-found.tsx` → `page.tsx`. `error.tsx` queda **fuera** del `<Suspense>` de `loading.tsx` a propósito — así un error mientras carga la página también lo captura.
 
-## Resumen
+## Convenciones de archivo en una mirada
 
 | Archivo | Qué hace | Client Component obligatorio |
 | --- | --- | --- |
@@ -80,7 +80,7 @@ De afuera hacia adentro: `layout.tsx` → `error.tsx` → `loading.tsx` (Suspens
 | `error.tsx` | Error boundary automático | Sí |
 | `not-found.tsx` | UI cuando se llama `notFound()` o no matchea ninguna ruta | No |
 
-## Consideraciones
+## Recuperación, estado y límites de error
 
 - `error.tsx` no captura errores en el propio `layout.tsx` del mismo segmento — para eso hace falta `global-error.tsx` en la raíz, o un `error.tsx` en el layout padre.
 - Si el layout de la ruta lee datos sin caché —`cookies()` o un `fetch` dinámico—, `loading.tsx` no muestra su alternativa para esa parte: la navegación espera a que el layout termine. Mueve ese `fetch` a `page.tsx` si el layout debe responder de inmediato.

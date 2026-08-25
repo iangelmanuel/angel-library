@@ -3,12 +3,12 @@ title: useEventListener
 description: addEventListener declarativo y tipado — sobre window, document o un ref, con cleanup automático y sin handlers obsoletos.
 category: frontend
 stack: react
-order: 25
+order: 3
 tags: [react, hooks, dom, typescript]
 framework: React
 language: typescript
 related: [guides/react-useeffect]
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 ## Cuándo usarlo
@@ -71,7 +71,7 @@ useEventListener('mouseenter', () => setHovered(true), buttonRef);
 
 El overload tipado (`K extends keyof WindowEventMap`) hace que `event` en el callback tenga el tipo correcto según el nombre del evento — `'keydown'` te da `KeyboardEvent`, `'mouseenter'` te da `MouseEvent`, sin castear nada a mano.
 
-## Consideraciones
+## Targets, limpieza y closures
 
 - **El `handler` en un `ref`** (en vez de directo en las dependencias del segundo `useEffect`) es lo que evita quitar y volver a poner el listener en cada render cuando el componente pasa una función inline — el listener real (`eventListener`) se registra una sola vez por `eventName`/`target`, y siempre llama a la versión más reciente del handler a través del ref.
 - **`target` es opcional**: sin él, escucha en `window` — el caso más común (scroll, resize, teclas globales). Con un `ref`, escucha en ese elemento puntual.

@@ -1,103 +1,137 @@
 ---
 title: React
-description: Biblioteca de UI por componentes. Referencia rápida de los conceptos y APIs que uso a diario.
+description: Ruta completa de React organizada para aprender componentes y estado desde cero o consultar Hooks, Suspense, Actions y rendimiento rápidamente.
 category: frontend
 stack: react
 tags: [react, ui, javascript]
 website: https://react.dev
 github: https://github.com/facebook/react
-related: [libraries/react-hook-form]
-updatedAt: 2026-08-19
+related:
+  - guides/react-getting-started
+  - guides/react-fundamentos-componentes
+  - guides/frontend-rendering-state-data-flow
+  - guides/react-state-snapshots-immutability
+  - guides/react-hooks-reference
+  - guides/react-custom-hooks
+  - guides/react-suspense-lazy-use
+  - guides/react-performance-compiler
+updatedAt: 2026-08-25
 ---
 
-## Modelo mental
+## Qué estás estudiando
 
-- La UI es una función del estado: `ui = f(state)`.
-- Un re-render no es malo; un re-render innecesario de un árbol grande, sí.
-- Los efectos sirven para sincronizar con sistemas externos, no para derivar estado.
+React es una biblioteca para describir interfaces mediante componentes. Un componente recibe entradas y devuelve una descripción de UI. Cuando cambian props, estado o contexto, React puede volver a ejecutarlo, reconciliar el árbol anterior con el siguiente y aplicar al DOM únicamente el commit necesario.
 
-React es una biblioteca para describir interfaces mediante componentes. **JSX** es una extensión de sintaxis que permite escribir una estructura parecida a HTML dentro de JavaScript o TypeScript; durante el build se transforma en llamadas que crean elementos de React.
-
-Un componente debe tratar sus props y estado como entradas inmutables del render. Renderizar tiene que permanecer puro: la misma entrada produce la misma descripción y no inicia efectos externos.
-
-## Props, estado y datos derivados
-
-```tsx
-function CartSummary({ items }: { items: Item[] }) {
-  const total = items.reduce(
-    (sum, item) => sum + item.priceCents * item.quantity,
-    0,
-  );
-
-  return <output>Total: {total / 100}</output>;
-}
+```text
+props + state + context
+  → render puro
+  → árbol de React
+  → reconciliación
+  → commit en el DOM
+  → efectos que sincronizan sistemas externos
 ```
 
-`items` llega como propiedad. `total` se calcula durante el render y no necesita `useState` ni `useEffect`. Guardarlo por separado obligaría a mantener dos valores sincronizados.
+**JSX** es sintaxis transformada durante el build. Un **Hook** compone capacidades de React respetando un orden estable de llamadas. Ninguno reemplaza el conocimiento de JavaScript, eventos o APIs del navegador.
 
-## APIs que uso a diario
+## Elige tu modo de entrada
 
-| API | Para qué |
-|-----|----------|
-| `useState` | Estado local del componente |
-| `useEffect` | Sincronizar con algo externo (fetch, DOM, suscripciones) |
-| `useRef` | Valor mutable que no dispara render / referencias DOM |
-| `useMemo` / `useCallback` | Memoización cuando hay medición que lo justifica |
-| `useId` | Ids accesibles estables |
+### Quiero aprender desde cero
 
-Un **Hook** es una función cuyo nombre empieza por `use` y que permite reutilizar lógica basada en capacidades de React. Los Hooks se llaman en el nivel superior del componente o de otro Hook para que React conserve su orden entre renders.
+Empieza en [Primeros pasos](/guides/react-getting-started). Después avanza por componentes, flujo de datos y estado antes de estudiar efectos o rendimiento.
 
-## Actualizaciones de estado
+Para cada ejemplo:
 
-El estado se considera inmutable. Se crea una nueva referencia en vez de modificar el objeto anterior:
+1. identifica props, estado y valores derivados;
+2. predice qué evento solicita la actualización;
+3. explica qué snapshot ve el handler;
+4. separa render, commit y efecto;
+5. verifica el comportamiento con React DevTools y una prueba visible.
 
-```tsx
-setProfile((current) => ({
-  ...current,
-  displayName: 'Andrea',
-}));
-```
+No memorices Hooks como recetas aisladas. Cada uno responde a una necesidad del modelo: recordar estado, distribuir contexto, sincronizar un sistema, conservar una referencia o priorizar una actualización.
 
-La forma funcional recibe el estado más reciente y es apropiada cuando la actualización depende del valor anterior. React puede agrupar actualizaciones para reducir trabajo.
+### Ya programo y quiero recordar
 
-## Keys y reconciliación
+| Necesito | Documento |
+| --- | --- |
+| JSX, componentes, props, listas y formularios | [Fundamentos](/guides/react-fundamentos-componentes) |
+| render, commit, fuente de verdad y flujo de datos | [Renderizado y flujo](/guides/frontend-rendering-state-data-flow) |
+| snapshot, batching, inmutabilidad y reset con keys | [Modelo de estado](/guides/react-state-snapshots-immutability) |
+| estado local | [`useState`](/guides/react-usestate) |
+| transiciones complejas | [`useReducer`](/guides/react-usereducer) |
+| compartir un valor lejano | [Context](/guides/react-context-api) |
+| DOM o valores mutables no visuales | [`useRef`](/guides/react-useref) |
+| suscripciones, timers y sistemas externos | [`useEffect`](/guides/react-useeffect) |
+| firma y propósito de cualquier Hook | [Mapa de Hooks](/guides/react-hooks-reference) |
+| extraer comportamiento reutilizable | [Hooks personalizados](/guides/react-custom-hooks) |
+| código diferido y límites de espera | [Suspense, lazy y use](/guides/react-suspense-lazy-use) |
+| prioridad de actualizaciones | [`useTransition`](/guides/react-usetransition) |
+| UI optimista | [`useOptimistic`](/guides/react-useoptimistic) |
+| estado de formularios y Actions | [`useActionState`](/guides/react-useactionstate) |
+| memoización, Profiler y compiler | [Rendimiento](/guides/react-performance-compiler) |
 
-La **reconciliación** es el proceso con el que React relaciona elementos de un render con los del siguiente. La `key` identifica cada elemento entre hermanos.
+## Curva de aprendizaje
 
-```tsx
-{tasks.map((task) => (
-  <TaskRow key={task.id} task={task} />
-))}
-```
+### Etapa 1: describir la interfaz
 
-Una clave estable conserva el estado con la entidad correcta. El índice es problemático cuando se insertan, eliminan o reordenan elementos.
+1. Crear un proyecto y reconocer `createRoot`, `StrictMode` y JSX.
+2. Componentes, props, composición, condicionales, listas y keys.
+3. Eventos y formularios controlados o no controlados.
+4. Render, reconciliación y commit.
 
-## Efectos y limpieza
+Al terminar debes construir una interfaz desde props sin mutar entradas ni iniciar efectos durante el render.
 
-```tsx
-useEffect(() => {
-  const controller = new AbortController();
+### Etapa 2: modelar estado
 
-  loadProfile(userId, { signal: controller.signal });
+5. Estado como snapshot, batching e inmutabilidad.
+6. `useState` y funciones actualizadoras.
+7. Subir estado y conservar una sola fuente de verdad.
+8. `useReducer` para transiciones relacionadas.
+9. Context para distribuir valores realmente transversales.
+10. Preservar o reiniciar estado mediante posición y keys.
 
-  return () => controller.abort();
-}, [userId]);
-```
+### Etapa 3: escape hatches
 
-El efecto sincroniza con una solicitud externa y su limpieza cancela trabajo obsoleto. La lista de dependencias describe valores usados por el efecto; omitirlos puede capturar una versión antigua.
+11. `useRef` y referencias DOM.
+12. `useEffect` como sincronización externa y su cleanup.
+13. `useLayoutEffect`, `useEffectEvent` y fuentes externas cuando corresponda.
+14. Hooks personalizados con contratos claros.
 
-## Componente controlado y no controlado
+Un **escape hatch** permite salir del flujo declarativo para integrarse con algo externo. Debe ser una frontera visible, no el centro de la arquitectura.
 
-Un control **controlado** recibe su valor desde el estado de React y notifica cambios. Un control **no controlado** deja el valor actual en el DOM y lo lee cuando se necesita.
+### Etapa 4: asincronía y prioridad
 
-Los controlados facilitan reglas dinámicas; los no controlados pueden simplificar formularios que se envían mediante `FormData`. No se cambia entre ambos durante la misma vida del componente.
+15. Suspense, `lazy` y recursos compatibles con `use`.
+16. Transitions y valores diferidos.
+17. Actions, estado pendiente y actualizaciones optimistas.
+18. Error Boundaries y estrategias de recuperación ofrecidas por el framework.
 
-## Mis reglas
+### Etapa 5: rendimiento y ecosistema
 
-- El estado derivado se calcula en el render, no en un `useEffect`.
-- Keys estables y únicas; nunca el índice si la lista se reordena.
-- Componentes pequeños; extraer cuando un bloque crece o se repite.
+19. Medición con Profiler antes de memoizar.
+20. `memo`, `useMemo`, `useCallback` y React Compiler.
+21. Routing, datos de servidor, formularios y store global según la necesidad.
+22. Componentes y hooks reutilizables después de dominar las APIs nativas.
 
-## Recursos oficiales
+## Glosario mínimo
 
-- Documentación: <https://react.dev>
+| Término | Significado |
+| --- | --- |
+| render | ejecución que calcula la descripción siguiente de la UI |
+| commit | fase que aplica cambios necesarios al DOM |
+| reconciliación | relación entre elementos anteriores y siguientes por tipo, posición y key |
+| snapshot | props y estado fijos disponibles para un render |
+| Hook | función que compone capacidades de React |
+| efecto | sincronización posterior con un sistema externo |
+| hidratación | conexión de React a HTML producido por servidor |
+| transición | actualización no urgente e interrumpible |
+
+## Reglas que conectan toda la ruta
+
+- Renderiza de forma pura; efectos y handlers contienen trabajo externo.
+- El estado mínimo vive cerca de quien lo usa y se trata como inmutable.
+- Un valor derivado se calcula; no se sincroniza con otro estado.
+- Context distribuye datos, pero no reemplaza automáticamente una arquitectura de estado.
+- Los refs no participan del render.
+- La lista de dependencias describe el código; no es un interruptor elegido a conveniencia.
+- Memoiza después de medir y optimizar la estructura.
+- Las librerías se eligen por un problema concreto, no para evitar aprender las capacidades nativas.

@@ -3,13 +3,13 @@ title: "<Link />"
 description: La forma primaria de navegar entre rutas — extiende <a> con prefetch automático y navegación de cliente.
 category: frontend
 stack: nextjs
-order: 7
+order: 10
 tags: [nextjs, routing]
 scope: next.js (next/link)
 related:
   - guides/nextjs-usepathname
   - guides/nextjs-userouter
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Un `<a href>` normal recarga la página entera. `<Link>` extiende ese mismo elemento (compila a un `<a>` real, no a otra cosa) con dos ventajas: navega del lado del cliente sin recargar, y precarga la ruta de destino en segundo plano antes de que el usuario haga click.
@@ -69,7 +69,7 @@ export function NavLinks() {
 <Link href="/seccion#id" scroll={false}>Ir</Link>   {/* no hace scroll automático */}
 ```
 
-## Resumen
+## Props de navegación en una mirada
 
 | Prop | Uso |
 | --- | --- |
@@ -79,7 +79,7 @@ export function NavLinks() {
 | `scroll` | Por defecto hace scroll al top si la página destino no está visible; `false` lo desactiva |
 | `onNavigate` | Handler que corre solo en navegación de cliente (no en clicks con Ctrl/Cmd, ni en links externos) |
 
-## Consideraciones
+## Semántica, prefetch e historial
 
 - `<Link>` **siempre** es la opción por defecto para navegar — [`useRouter`](/guides/nextjs-userouter) queda para navegación programática real (después de un submit, un timeout), no como reemplazo de un link normal.
 - El prefetch no ocurre en desarrollo — si estás probando performance de navegación, hazlo contra un build de producción, no `next dev`.

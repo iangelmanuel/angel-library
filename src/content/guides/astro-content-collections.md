@@ -3,13 +3,13 @@ title: Content Collections
 description: Colecciones de contenido tipadas con Zod — defineCollection, loaders, getCollection, render y referencias entre colecciones.
 category: frontend
 stack: astro
-order: 10
+order: 13
 tags: [astro, content, zod]
 scope: astro:content
 related:
   - libraries/zod
   - guides/content-references
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Content Collections tipa y valida Markdown/MDX/JSON con Zod en build — este mismo sitio está construido enteramente sobre esto (ver `src/content.config.ts`, la config real detrás de cada colección que ves en la sidebar).
@@ -95,7 +95,7 @@ const autor = await getEntry(post.data.autor);
 const relacionados = await getEntries(post.data.relacionados);
 ```
 
-## Resumen
+## APIs de colección en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -107,7 +107,7 @@ const relacionados = await getEntries(post.data.relacionados);
 | `reference(coleccion)` | Tipar un campo como referencia a otra colección |
 | `getEntries(refs)` | Resolver varias referencias directamente |
 
-## Consideraciones
+## Diseño del esquema y del contenido
 
 - El schema es la única fuente de verdad del frontmatter — si un campo no está declarado ahí, TypeScript no lo conoce aunque exista en el `.md`.
 - `reference()` valida que el id exista, pero recién en build — una referencia rota no rompe el editor, rompe el `astro build`. Ver cómo este sitio lo aprovecha en [Referencias entre contenidos](/guides/content-references).

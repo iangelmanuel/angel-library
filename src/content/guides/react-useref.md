@@ -3,10 +3,10 @@ title: useRef
 description: Acceder a un elemento del DOM y guardar un valor mutable que no dispara re-render.
 category: frontend
 stack: react
-order: 4
+order: 8
 tags: [react, hooks, dom]
 scope: react (useRef)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 `useRef` sirve para dos cosas que no tienen nada que ver entre sí, y por eso confunde: acceder a un nodo del DOM real, y guardar un valor que persiste entre renders **sin** causar un re-render al cambiar (a diferencia de `useState`). Lo que comparten es la forma: un objeto `{ current: valor }` estable a lo largo de la vida del componente.
@@ -65,7 +65,7 @@ function Cronometro() {
 }
 ```
 
-## Resumen
+## API de refs en una mirada
 
 | Uso | Ejemplo |
 | --- | --- |
@@ -73,7 +73,7 @@ function Cronometro() {
 | Guardar un valor mutable sin re-render | Id de un timer, un flag "ya corrió", el valor anterior de algo |
 | `useRef(valorInicial)` | Devuelve `{ current: valorInicial }`, estable entre renders |
 
-## Consideraciones
+## DOM, mutabilidad y renderizado
 
 - Leer o escribir `ref.current` durante el render (no en un handler o efecto) rompe el modelo de React — los refs son para código que corre *después* del render, en respuesta a un evento o efecto.
 - Cambiar `ref.current` no dispara re-render — si el componente necesita mostrar ese valor en pantalla, es `useState`, no `useRef`.

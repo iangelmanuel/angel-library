@@ -1,15 +1,15 @@
 ---
 title: Revalidación de paths — revalidatePath()
-description: Invalidar la caché directamente ruta específica bajo demanda, después directamente mutación — y cuándo usar revalidateTag en vez de esto.
+description: Invalidar bajo demanda la caché de una ruta después de una mutación y elegir entre revalidatePath, revalidateTag y updateTag.
 category: frontend
 stack: nextjs
-order: 19
+order: 18
 tags: [nextjs, caching]
 scope: next.js (next/cache)
 related:
   - guides/nextjs-fetching-revalidate
   - guides/nextjs-server-actions
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 `revalidate` (el de [fetching con revalidate](/guides/nextjs-fetching-revalidate)) refresca por tiempo. `revalidatePath` refresca **al instante, bajo demanda** — el caso típico es "acabo de guardar algo, quiero que la página que lo lista se actualice ya, no en N segundos".
@@ -73,7 +73,7 @@ export async function actualizarPost(id: string) {
 }
 ```
 
-## Resumen
+## Estrategias de invalidación en una mirada
 
 | Función | Invalida por | Alcance |
 | --- | --- | --- |
@@ -81,7 +81,7 @@ export async function actualizarPost(id: string) {
 | `revalidatePath(patron, 'page')` | Patrón de ruta dinámica | Todas las páginas que matchean ese `page.tsx` |
 | `revalidateTag(tag)` | Etiqueta de datos | Cualquier página que use un fetch con esa tag, sin importar la ruta |
 
-## Consideraciones
+## Consistencia, alcance y errores
 
 - Con `rewrites` configurados en `next.config`, `revalidatePath` necesita el path de **destino** (la ubicación real del archivo de ruta), no el que el usuario ve en la URL — son distintos cuando hay un rewrite de por medio.
 - Llamado desde un Server Action, actualiza la UI en la misma respuesta si estás viendo esa ruta ahora mismo. Llamado desde un Route Handler, solo marca la ruta para revalidar en la próxima visita — no dispara nada de inmediato.

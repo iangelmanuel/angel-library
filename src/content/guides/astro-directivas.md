@@ -3,10 +3,10 @@ title: Directivas de plantilla — set:html, class:list y más
 description: Atributos especiales de Astro para inyectar HTML crudo, armar clases condicionales y pasar variables al cliente.
 category: frontend
 stack: astro
-order: 4
+order: 6
 tags: [astro, templating]
 scope: sintaxis de archivos .astro
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Las directivas son atributos especiales que Astro reconoce en el compilador — no llegan al HTML final tal cual, cambian *cómo* se genera el elemento antes de renderizarlo. Se distinguen de un atributo normal por el `:` en el nombre (`class:list`, `set:html`...). Estas cuatro son las que más se usan día a día escribiendo componentes `.astro`.
@@ -55,7 +55,7 @@ const mensaje = 'Hola';
 </script>
 ```
 
-## Resumen
+## Mapa de directivas
 
 | Directiva | Qué hace |
 | --- | --- |
@@ -64,7 +64,7 @@ const mensaje = 'Hola';
 | `set:text` | Inyecta texto escapado, reemplazando hijos |
 | `define:vars` | Pasa variables del frontmatter a `<style>`/`<script>` |
 
-## Consideraciones
+## Seguridad y límites de plantilla
 
 - `set:html` es una puerta de entrada común a XSS en un proyecto Astro — úsala solo con contenido que tú generes o que ya hayas sanitizado (Markdown renderizado o JSON-LD creado por la aplicación).
 - `set:html`/`set:text` reemplazan **todo** el contenido del elemento: no funcionan junto con hijos declarados entre las etiquetas.

@@ -3,12 +3,12 @@ title: useLocalStorage
 description: Estado de React sincronizado con localStorage — persiste solo, se inicializa en el primer render y se mantiene en sync entre pestañas.
 category: frontend
 stack: react
-order: 22
+order: 1
 tags: [react, hooks, storage, typescript]
 framework: React
 language: typescript
 related: [utilities/storage]
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 ## Cuándo usarlo
@@ -85,7 +85,7 @@ const [tema, setTema] = useLocalStorage<'claro' | 'oscuro'>('tema', 'oscuro');
 
 La API es igual a `useState`: acepta un valor directo o una función que recibe el valor actual, y el segundo elemento del tuple actualiza tanto el estado en memoria como `localStorage` en el mismo paso.
 
-## Consideraciones
+## Hidratación, sincronización y privacidad
 
 - **El `useState` con función inicializadora** (`() => ...`) evita leer `localStorage` en cada render — solo corre una vez, al montar.
 - **`typeof window === 'undefined'`** cubre el caso de un framework con SSR (Next.js, Astro con islas): en el servidor no existe `window`, y sin este chequeo el componente rompe el build o el render inicial.

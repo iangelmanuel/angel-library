@@ -3,13 +3,13 @@ title: Fetching con revalidate — las constantes de caché
 description: cache en fetch, next.revalidate/next.tags, y los exports dynamic/revalidate/fetchCache explicados uno por uno.
 category: frontend
 stack: nextjs
-order: 18
+order: 16
 tags: [nextjs, caching, performance]
 scope: next.js (route segment config)
 related:
   - guides/nextjs-revalidate-path
   - guides/nextjs-cache-components
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Esto describe el modelo de caché "clásico" de Next (el que tiene la mayoría de los proyectos hoy). Next 16 introdujo un modelo nuevo opt-in ("Cache Components", con la directiva `use cache` — ver [Directivas](/guides/nextjs-directivas)) que reemplaza esto a futuro, pero mientras no actives `cacheComponents: true` en `next.config`, es este modelo el que aplica.
@@ -72,7 +72,7 @@ Si una ruta tiene varios segmentos (layout + page) con distinto `revalidate`, ga
 
 Opción avanzada: cambia el comportamiento por defecto de **todos** los fetches del segmento, incluso los que no pusieron ningún `cache` explícito. Rara vez hace falta tocarla — `'auto'` (el default) ya hace lo razonable en la mayoría de los casos.
 
-## Resumen
+## Mapa del modelo clásico
 
 | Constante / opción | Nivel | Qué controla |
 | --- | --- | --- |
@@ -83,7 +83,7 @@ Opción avanzada: cambia el comportamiento por defecto de **todos** los fetches 
 | `export const revalidate` | Segmento | Tiempo de revalidación por defecto del segmento entero |
 | `export const fetchCache` | Segmento | Override avanzado del comportamiento default de todos los fetches |
 
-## Consideraciones
+## Pruebas, frescura y migración
 
 - En desarrollo (`next dev`), las páginas **siempre** se renderizan on-demand, nunca cacheadas — para ver el comportamiento real de caché hay que probar con `next build && next start`.
 - El valor de `revalidate` tiene que ser estáticamente analizable: `revalidate = 3600` funciona, `revalidate = 60 * 60` no (Next no evalúa expresiones ahí, necesita leer el literal en build).

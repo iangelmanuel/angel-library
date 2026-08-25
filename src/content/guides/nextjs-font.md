@@ -3,12 +3,12 @@ title: "API de fonts (next/font)"
 description: Fuentes de Google o locales, self-hosted automáticamente en build — sin requests externos ni layout shift.
 category: frontend
 stack: nextjs
-order: 21
+order: 26
 tags: [nextjs, fonts, performance]
 scope: next.js (next/font)
 related:
   - snippets/css-fonts
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Igual espíritu que [Fontsource en Astro](/snippets/css-fonts): nada de un `<link>` a Google Fonts que dispara una request externa. `next/font` descarga el archivo en build y lo self-hostea junto al resto de los assets estáticos — cero requests a Google desde el navegador del usuario, y sin el parpadeo de layout shift que causa cargar una fuente de forma tardía.
@@ -69,7 +69,7 @@ html { font-family: var(--font-inter); }
 code, pre { font-family: var(--font-mono); }
 ```
 
-## Resumen
+## API de fuentes en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -80,7 +80,7 @@ code, pre { font-family: var(--font-mono); }
 | `.className` | Aplicar directo a un elemento |
 | `variable` + CSS | Para usar varias fuentes selectivamente, en vez directamente global |
 
-## Consideraciones
+## Métricas, subsets y carga
 
 - Un nombre de fuente con espacios se importa con guion bajo: `Roboto Mono` → `import { Roboto_Mono } from 'next/font/google'`.
 - El scope de precarga depende de dónde se llama la función: en `page.tsx` precarga solo esa ruta; en un `layout.tsx`, todas las rutas que envuelve; en el layout raíz, todo el sitio.

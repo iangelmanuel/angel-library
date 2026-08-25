@@ -3,12 +3,12 @@ title: Endpoints (Route Handlers)
 description: Archivos route.ts dentro de app/ que responden con las Web APIs Request/Response en vez de renderizar UI.
 category: frontend
 stack: nextjs
-order: 16
+order: 22
 tags: [nextjs, api, backend]
 scope: next.js (route.ts)
 related:
   - guides/nextjs-server-actions
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Un archivo `route.ts` dentro de `app/` (nunca conviviendo con un `page.tsx` en la misma carpeta) exporta funciones con nombre de método HTTP, usando las Web APIs `Request`/`Response` estándar — no un formato propio de Next.
@@ -87,7 +87,7 @@ export async function GET() {
 
 Un Route Handler tiene sentido cuando el consumidor no es tu propia UI de React (un webhook de un tercero, un cliente externo, un `GET` de solo lectura que quieres cachear como página) — para mutaciones desde tu propia UI, [Server Actions](/guides/nextjs-server-actions) suele ser menos código.
 
-## Resumen
+## Métodos y APIs en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -97,7 +97,7 @@ Un Route Handler tiene sentido cuando el consumidor no es tu propia UI de React 
 | `request.json()` / `request.formData()` | Leer el body |
 | `cookies()` / `headers()` (de `next/headers`) | Leer/escribir cookies y headers de la request actual |
 
-## Consideraciones
+## Contrato HTTP, runtime y caché
 
 - Un `route.ts` y un `page.tsx` no pueden convivir en la misma carpeta — un segmento es una página o un endpoint, no ambas cosas.
 - Desde Next 15, un `GET` sin configuración explícita se trata como **dinámico** por defecto (antes era estático) — si necesitas cachearlo, `export const revalidate = N` (ver [Fetching con revalidate](/guides/nextjs-fetching-revalidate)).

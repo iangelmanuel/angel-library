@@ -3,12 +3,12 @@ title: shadcn/ui — Componentes disponibles
 description: No es una librería instalable, es CLI + código propio — qué componentes tiene y cómo agregarlos.
 category: frontend
 stack: react
-order: 18
+order: 1
 tags: [react, components, ui]
 framework: React
 install: pnpm dlx shadcn@latest init
 source: https://ui.shadcn.com/docs/components
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 shadcn/ui **no se instala como dependencia** (`npm install shadcn` no existe para usar los componentes en sí) — es una CLI que copia el código fuente de cada componente directamente a tu proyecto (`src/components/ui/`). Una vez copiado, es código tuyo: lo editas, quitas lo que no usas y no dependes de actualizar un paquete externo. Por debajo usa Radix UI (accesibilidad) + Tailwind (estilos). El paquete se llama `shadcn` — `shadcn-ui` es el nombre anterior.
@@ -40,7 +40,7 @@ Cada comando copia el componente (y sus dependencias de Radix si hacen falta) a 
 
 Lista completa, siempre actualizada, en la [documentación oficial](https://ui.shadcn.com/docs/components).
 
-## Resumen
+## Flujo de uso en una mirada
 
 | Comando | Qué hace |
 | --- | --- |
@@ -48,7 +48,7 @@ Lista completa, siempre actualizada, en la [documentación oficial](https://ui.s
 | `pnpm dlx shadcn@latest add <componente>` | Copia ese componente a `src/components/ui/` |
 | `pnpm dlx shadcn@latest add <c1> <c2>` | Varios directamente |
 
-## Consideraciones
+## Propiedad del código y actualizaciones
 
 - Al ser código copiado y no una dependencia, actualizar un componente a una versión nueva de shadcn es manual: volver a correr `add` sobre ese componente pisa tus cambios, así que si lo personalizaste, hay que mergear a mano.
 - Requiere Tailwind ya configurado en el proyecto — el `init` lo detecta pero no lo instala si falta.

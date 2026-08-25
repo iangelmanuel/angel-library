@@ -64,6 +64,7 @@ const RECOLORED_ICONS: Record<string, { base: string; color: string }> = {
   'stack-component': { base: 'component', color: '#facc15' },
   'stack-dependency': { base: 'package', color: '#4ade80' },
   'brand-frontend-fundamentos': { base: 'monitor-cog', color: '#38bdf8' },
+  'brand-libs': { base: 'package', color: '#4ade80' },
   'brand-backend-fundamentos': { base: 'server-cog', color: '#4ade80' },
   'brand-ai-sdk': { base: 'bot', color: '#22d3ee' },
   'brand-database-fundamentos': { base: 'database', color: '#c084fc' },

@@ -3,10 +3,10 @@ title: Islas de UI (client:*)
 description: Cuándo y cómo hidratar un componente de React/Vue/Svelte dentro de Astro — load, idle, visible, media y only.
 category: frontend
 stack: astro
-order: 12
+order: 15
 tags: [astro, islands, performance]
 scope: astro (directivas client:)
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Esta es la idea central de Astro, la que explica todo lo demás: por defecto, un componente de framework (`.tsx`, `.vue`, `.svelte`) dentro de un `.astro` se renderiza a HTML estático en build — cero JS enviado al navegador, aunque el componente esté escrito en React. Una directiva `client:*` es la única forma de decir "esto sí necesita JavaScript en el cliente", y además decide *cuándo* se hidrata, no solo *si*. Sin ninguna directiva, el componente es puro HTML; con una, se convierte en una "isla": un fragmento interactivo que hidrata de forma aislada, sin arrastrar al resto de la página.
@@ -55,7 +55,7 @@ Salta el renderizado server-side por completo; el componente solo existe en el c
 
 Este mismo sitio usa `client:only="react"` para el `CommandPalette`, justamente porque depende de eventos globales del navegador desde el arranque.
 
-## Resumen
+## Directivas `client:*` en una mirada
 
 | Directiva | Cuándo hidrata |
 | --- | --- |
@@ -66,7 +66,7 @@ Este mismo sitio usa `client:only="react"` para el `CommandPalette`, justamente 
 | `client:only="framework"` | Nunca en servidor, solo en cliente |
 | (sin directiva) | Nunca — HTML estático, cero JS |
 
-## Consideraciones
+## Presupuesto de JavaScript e hidratación
 
 - Sin directiva, el componente renderiza su HTML pero **cero** JS viaja al cliente — ideal para el 90% de un sitio de contenido.
 - `client:only` necesita el nombre exacto del framework (`"react"`, `"vue"`, `"svelte"`, `"preact"`, `"solid-js"`) tal como está configurado en `astro.config.mjs`.

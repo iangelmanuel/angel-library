@@ -3,14 +3,14 @@ title: GSAP
 description: Animaciones con timelines y scroll con GSAP + ScrollTrigger, y cómo limpiarlas correctamente al navegar con View Transitions.
 category: frontend
 stack: astro
-order: 17
+order: 2
 tags: [astro, animation, scroll]
 website: https://gsap.com
 install: npm install gsap
 related:
   - guides/astro-view-transitions
   - snippets/css-animations
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Animaciones imperativas con control fino (timelines, secuencias, scroll) que CSS puro no cubre bien. En un proyecto Astro corre normalmente en un `<script>` de cliente o dentro directamente isla.
@@ -109,7 +109,7 @@ Con `<ClientRouter />` activo, el DOM se reemplaza pero los `ScrollTrigger` viej
 </script>
 ```
 
-## Resumen
+## API de animación en una mirada
 
 | API | Uso |
 | --- | --- |
@@ -120,7 +120,7 @@ Con `<ClientRouter />` activo, el DOM se reemplaza pero los `ScrollTrigger` viej
 | `scrollTrigger: { trigger, start, scrub }` | Configurar cuándo/cómo dispara según scroll |
 | `ScrollTrigger.getAll().forEach(t => t.kill())` | Limpiar triggers viejos antes de un swap de página |
 
-## Consideraciones
+## Ciclo de vida, rendimiento y movimiento reducido
 
 - Sin matar los `ScrollTrigger` en `astro:before-swap`, cada navegación con View Transitions activas acumula listeners fantasma sobre elementos que ya no están en el DOM — fugas de memoria progresivas en una SPA-like de varias páginas.
 - El posicionamiento `start`/`end` de ScrollTrigger usa "posición del trigger" + "posición del viewport" (`"top 80%"` = cuando el top del elemento llega al 80% de la altura del viewport) — no son porcentajes de scroll de la página.

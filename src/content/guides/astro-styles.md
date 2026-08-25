@@ -3,12 +3,12 @@ title: "Estilos con &lt;style&gt; — scoped por defecto"
 description: Cómo Astro aísla el CSS de cada componente automáticamente, is:global para salirse del scope, y define:vars para pasar valores del frontmatter.
 category: frontend
 stack: astro
-order: 6
+order: 8
 tags: [astro, css, styling]
 scope: astro (&lt;style&gt;)
 related:
   - snippets/css-variables
-updatedAt: 2026-08-16
+updatedAt: 2026-08-25
 ---
 
 Un `<style>` dentro de un `.astro` está **scoped al componente por defecto** — Astro le agrega un atributo de datos único a cada selector en build, así que un `h1 { color: red }` en un componente no se filtra a los `h1` de otros. Nada de nombrar clases con cuidado para evitar choques, como sí hace falta con un CSS global.
@@ -75,7 +75,7 @@ import '../styles/utilidades.css';
 ---
 ```
 
-## Resumen
+## Opciones de estilos en una mirada
 
 | Técnica | Alcance |
 | --- | --- |
@@ -85,7 +85,7 @@ import '../styles/utilidades.css';
 | `define:vars={{...}}` | Custom properties CSS calculadas en el frontmatter |
 | `import '...css'` | Global, como un `<link>` — nunca se scopea |
 
-## Consideraciones
+## Cascada, alcance y mantenimiento
 
 - El scoping es a nivel de build (atributos de datos en cada selector), no runtime — no hay costo de JS por esto, es CSS plano con selectores más específicos.
 - Orden de prioridad si hay conflicto: `<link>` en el head < CSS importado < `<style>` scoped del propio componente gana, a igual especificidad.

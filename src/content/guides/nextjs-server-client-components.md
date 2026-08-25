@@ -3,13 +3,13 @@ title: Server Components y Client Components
 description: Cómo decidir dónde corre cada componente, qué cruza la frontera servidor-cliente y cómo evitar enviar JavaScript innecesario.
 category: frontend
 stack: nextjs
-order: 1
+order: 4
 tags: [nextjs, react, rendering, performance]
 scope: next.js app router
 related:
   - guides/nextjs-directivas
   - guides/nextjs-streaming-suspense
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
 En el App Router, `page.tsx`, `layout.tsx` y los componentes que importan son **Server Components por defecto**. Pueden consultar una base de datos, leer secretos y hacer `await` durante el render sin enviar ese código al navegador.
