@@ -3,15 +3,19 @@ title: Strings y procesamiento de texto
 description: Creación, búsqueda, extracción, reemplazo, Unicode y formato de strings con tablas, resultados y casos de uso.
 category: general
 stack: javascript
-order: 6
+order: 8
 tags: [javascript, strings, text, unicode, regexp]
 scope: tipos y métodos
 related:
   - guides/javascript-built-ins
   - guides/javascript-date-regexp-intl
   - guides/javascript-url-web-apis
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Los strings son inmutables: cada método devuelve otro valor. `length` cuenta unidades UTF-16, no necesariamente caracteres visibles. Para búsquedas simples usa `includes`; para patrones, RegExp; para comparación humana, `Intl.Collator`; para grafemas, `Intl.Segmenter`.
 
 ## Modelo mental
 
@@ -112,6 +116,15 @@ composed === decomposed                      // false
 composed.normalize() === decomposed.normalize() // true
 ```
 
+Las variantes locales reciben reglas del idioma cuando el caso depende de la región:
+
+```js
+'istanbul'.toLocaleUpperCase('tr') // 'İSTANBUL'
+'I'.toLocaleLowerCase('tr')        // 'ı'
+```
+
+No uses minúsculas como sustituto universal de una comparación lingüística; `Intl.Collator` permite declarar sensibilidad, puntuación y orden.
+
 ## Reemplazar y trabajar con patrones
 
 | Método | Devuelve | Muta | Diferencia |
@@ -174,9 +187,9 @@ El resultado exacto de una comparación es negativo, cero o positivo; no asumas 
 
 ```js
 '😀'.length          // 2
-[...'😀'].length     // 1
+;[...'😀'].length    // 1
 '👨‍👩‍👧‍👦'.length     // 11
-[...'👨‍👩‍👧‍👦'].length // 7: es un único grafema visual
+;[...'👨‍👩‍👧‍👦'].length // 7: es un único grafema visual
 ```
 
 Para límites de palabras, frases o grafemas usa `Intl.Segmenter` cuando esté disponible en los runtimes objetivo.
@@ -187,6 +200,37 @@ const graphemes = [...segmenter.segment('A👨‍👩‍👧‍👦B')].map(item
 
 graphemes // ['A', '👨‍👩‍👧‍👦', 'B']
 ```
+
+### Puntos de código y construcción de texto
+
+| API | Devuelve | Uso |
+| --- | --- | --- |
+| `codePointAt(index)` | punto de código o `undefined` | inspeccionar Unicode completo |
+| `charCodeAt(index)` | unidad UTF-16 o `NaN` | trabajar con formatos UTF-16 |
+| `String.fromCodePoint(...codes)` | string | crear texto desde puntos de código |
+| `String.fromCharCode(...units)` | string | crear desde unidades UTF-16 |
+| `String.raw` | string sin procesar escapes del template | rutas, patrones o debugging |
+
+```js
+'😀'.codePointAt(0)            // 128512
+'😀'.charCodeAt(0)             // 55357: solo la primera unidad
+String.fromCodePoint(128512)   // '😀'
+String.raw`linea\n siguiente` // 'linea\\n siguiente'
+```
+
+### Strings Unicode bien formados
+
+Un string puede contener un surrogate aislado que no representa un punto de código Unicode válido. APIs modernas permiten detectarlo o reemplazarlo por `U+FFFD`.
+
+```js
+const malformed = '\uD800'
+
+malformed.isWellFormed()   // false
+malformed.toWellFormed()   // '�'
+'Hola 😀'.isWellFormed()   // true
+```
+
+Esto importa antes de codificar texto para URLs, archivos o sistemas que exigen Unicode bien formado. Comprueba compatibilidad si los runtimes soportados son antiguos.
 
 ## Caso de uso: crear un slug
 

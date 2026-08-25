@@ -1,17 +1,21 @@
 ---
-title: Date, RegExp e Intl
-description: Fechas, patrones y formato internacional con métodos, resultados visibles, límites y casos de uso.
+title: Date, Temporal, RegExp e Intl
+description: Fechas, tiempo moderno, patrones y formato internacional con métodos, resultados visibles, límites y casos de uso.
 category: general
 stack: javascript
-order: 11
-tags: [javascript, date, regexp, intl, localization]
+order: 13
+tags: [javascript, date, temporal, regexp, intl, localization]
 scope: APIs nativas del lenguaje
 related:
   - guides/javascript-strings
   - guides/javascript-numbers-math
   - guides/javascript-built-ins
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+`Date` representa un instante, no una zona horaria permanente. `Temporal` modela por separado fechas, instantes, duraciones y zonas, pero está previsto para ECMAScript 2027. `RegExp` describe patrones de texto y puede conservar estado con `g` o `y`. `Intl` presenta valores según idioma, región y zona; conserva el dato original separado de su formato.
 
 ## `Date`: un instante en el tiempo
 
@@ -63,6 +67,40 @@ isValidDate(new Date('2026-08-18')) // true
 isValidDate(new Date('invalid'))    // false
 ```
 
+## Temporal: modelo moderno de fechas y tiempo
+
+`Temporal` separa conceptos que `Date` mezcla: una fecha de calendario, una hora sin zona, un instante exacto, una duración y una fecha-hora ligada a una zona identificada por la Internet Assigned Numbers Authority (IANA). La propuesta alcanzó Stage 4, pero está prevista para ECMAScript 2027 y no forma parte de la edición 2026; revisa soporte o usa el polyfill oficial antes de adoptarla.
+
+| Tipo | Representa | Ejemplo de uso |
+| --- | --- | --- |
+| `Temporal.PlainDate` | fecha sin hora ni zona | cumpleaños o fecha de entrega |
+| `Temporal.PlainTime` | hora sin fecha ni zona | horario habitual |
+| `Temporal.PlainDateTime` | fecha y hora sin zona | valor de calendario todavía no localizado |
+| `Temporal.Instant` | punto exacto de la línea de tiempo | timestamp de un evento |
+| `Temporal.ZonedDateTime` | instante, zona y calendario | reunión en una ciudad |
+| `Temporal.Duration` | cantidad de tiempo | sumar una semana o medir diferencia |
+
+```js
+const release = Temporal.PlainDate.from('2026-08-25')
+const nextReview = release.add({ days: 7 })
+
+release.toString()    // '2026-08-25'
+nextReview.toString() // '2026-09-01'
+
+const meeting = Temporal.ZonedDateTime.from({
+  year: 2026,
+  month: 8,
+  day: 25,
+  hour: 9,
+  timeZone: 'America/Bogota',
+})
+
+meeting.toString()
+// '2026-08-25T09:00:00-05:00[America/Bogota]'
+```
+
+Los objetos Temporal son inmutables: `add`, `subtract` y `with` devuelven otro valor. Elige el tipo por el significado del dato; no añadas una zona a un cumpleaños ni elimines la zona de un evento global sin una decisión explícita.
+
 ## `RegExp`: buscar patrones
 
 Una expresión regular describe un patrón de texto. Es útil para búsqueda, extracción y reemplazo; una validación de negocio compleja suele necesitar además reglas normales de JavaScript.
@@ -76,6 +114,7 @@ Una expresión regular describe un patrón de texto. Es útil para búsqueda, ex
 | `u` | semántica Unicode |
 | `y` | búsqueda desde `lastIndex` de forma estricta |
 | `d` | añade índices de las coincidencias |
+| `v` | conjuntos Unicode avanzados y propiedades de strings |
 
 | API | Devuelve | Muta estado | Caso de uso |
 | --- | --- | --- | --- |
@@ -114,6 +153,35 @@ matches
 ```
 
 Evita expresiones con retroceso catastrófico sobre texto no confiable. Limita el tamaño de entrada, simplifica cuantificadores ambiguos y prueba casos adversos cuando una regex se ejecute en servidor.
+
+### Construir patrones con texto dinámico
+
+Texto recibido no debe interpolarse como regex sin escapar: símbolos como `.`, `*`, `[` o `(` cambiarían el patrón. `RegExp.escape` devuelve texto seguro para tratarlo de forma literal.
+
+```js
+const query = 'docs.v2'
+const pattern = new RegExp(`^${RegExp.escape(query)}$`, 'i')
+
+pattern.test('docs.v2') // true
+pattern.test('docs-v2') // false
+```
+
+No reimplementes el escape añadiendo `\\` a unos pocos símbolos: existen casos de contexto, guiones, escapes y Unicode fáciles de omitir. `RegExp.escape` forma parte de ECMAScript 2025; comprueba compatibilidad o usa una solución mantenida cuando el runtime todavía no lo incluya.
+
+### Unicode sets y modificadores locales
+
+La bandera `v` amplía patrones Unicode y permite operaciones de conjuntos. Los modificadores inline aplican `i`, `m` o `s` solo a una parte del patrón.
+
+```js
+const greekLetter = /[\p{Script=Greek}&&\p{Letter}]/v
+greekLetter.test('Ω') // true
+greekLetter.test('A') // false
+
+const command = /^(?i:help|ayuda): (.+)$/
+command.test('AYUDA: arrays') // true
+```
+
+Estas capacidades son recientes. Un patrón con `v` o modificadores inline produce `SyntaxError` al parsear en un runtime incompatible; revisa el objetivo antes de enviarlo al cliente.
 
 ## `Intl`: presentar según idioma y región
 

@@ -3,14 +3,19 @@ title: Runtime de JavaScript y event loop
 description: Entender call stack, microtasks, tasks, renderizado y por qué una operación asíncrona puede bloquear la interfaz.
 category: general
 stack: javascript
-order: 25
+order: 20
 tags: [javascript, event-loop, async, browser]
 scope: fundamentos del runtime
 related:
   - technologies/javascript
+  - guides/javascript-async-promises
   - utilities/promise
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+JavaScript ejecuta cada agente mediante una pila. Cuando una operación del runtime termina, programa trabajo futuro. Al vaciarse la pila se procesan todas las microtasks pendientes; después el runtime puede renderizar y tomar otra task. Una función `async` también bloquea mientras ejecuta trabajo síncrono.
 
 ## Piezas del runtime
 
@@ -27,7 +32,7 @@ updatedAt: 2026-08-18
 | tasks | cola de tasks | timers, eventos, mensajes | una nueva vuelta del event loop |
 | render del navegador | oportunidad de render | layout, paint, `requestAnimationFrame` | entre tareas cuando es posible |
 
-```ts
+```js
 console.log('A')
 setTimeout(() => console.log('task'), 0)
 Promise.resolve().then(() => console.log('microtask'))
@@ -58,7 +63,7 @@ Una función síncrona de 300 ms bloquea la entrada del usuario y la pintura aun
 
 ## Concurrencia y secuencia
 
-```ts
+```js
 // Independientes: inician juntas
 const [user, posts] = await Promise.all([getUser(), getPosts()])
 
@@ -68,6 +73,26 @@ const posts = await getPosts(user.id)
 ```
 
 Usa `AbortController` para cancelar trabajo que dejó de ser relevante. Cancelar la espera en UI no garantiza que el servidor detenga la operación: ambos lados necesitan límites y timeouts.
+
+### Qué hace realmente `await`
+
+La expresión anterior a `await` se evalúa de inmediato. La continuación de la función se programa como microtask cuando la Promise termina.
+
+```js
+async function example() {
+  console.log('B')
+  await null
+  console.log('D')
+}
+
+console.log('A')
+example()
+console.log('C')
+
+// A, B, C, D
+```
+
+`await null` normaliza el valor a una Promise ya cumplida, pero la continuación `D` no ocurre dentro de la pila actual. Esta frontera explica por qué un `try/catch` debe envolver el `await` y por qué una actualización posterior puede observar estado diferente.
 
 ## `queueMicrotask`, timers y animación
 

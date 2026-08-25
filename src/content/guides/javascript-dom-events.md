@@ -3,7 +3,7 @@ title: DOM y manipulación de documentos
 description: Árbol DOM, selección, recorrido, creación, atributos, contenido, formularios, foco y rendimiento con resultados visibles.
 category: general
 stack: javascript
-order: 14
+order: 22
 tags: [javascript, dom, document, elements, forms]
 scope: navegador
 website: https://developer.mozilla.org/es/docs/Web/API/Document_Object_Model
@@ -12,8 +12,12 @@ related:
   - guides/javascript-web-components
   - guides/accessibility-semantics-keyboard-focus
   - utilities/dom
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+El DOM es una API del navegador que representa el documento como nodos. `querySelector` devuelve un elemento o `null`; `querySelectorAll` devuelve una NodeList estática. Prefiere `textContent` para texto no confiable, propiedades para estado actual y `DocumentFragment` o `<template>` para construir estructuras antes de insertarlas.
 
 ## Modelo mental del DOM
 
@@ -79,7 +83,7 @@ const cards = document.querySelectorAll('[data-card]')
 main      // HTMLElement o null
 firstCard // Element o null
 cards     // NodeList; cards.length puede ser 0
-[...cards] // Array de elementos
+;[...cards] // Array de elementos
 ```
 
 Prefiere seleccionar desde el contenedor más cercano para reducir alcance y acoplamiento:

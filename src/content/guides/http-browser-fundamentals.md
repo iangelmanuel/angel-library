@@ -3,7 +3,7 @@ title: HTTP y ciclo completo de carga del navegador
 description: "Desde una URL hasta una página interactiva: DNS, conexiones, TLS, HTTP, caché, servidor, parsing, renderizado y métricas."
 category: general
 stack: javascript
-order: 26
+order: 33
 tags: [http, browser, dns, cache, rendering]
 scope: plataforma web
 website: https://developer.mozilla.org/es/docs/Web/HTTP
@@ -12,7 +12,7 @@ related:
   - guides/javascript-events
   - guides/core-web-vitals
   - guides/performance-resource-loading
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
 ## Mapa completo

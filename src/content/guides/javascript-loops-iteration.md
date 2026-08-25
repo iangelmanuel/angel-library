@@ -3,7 +3,7 @@ title: Ciclos e iteración en JavaScript
 description: for, while, do while, for of, for in, for await, break y continue con resultados, decisiones y errores frecuentes.
 category: general
 stack: javascript
-order: 4
+order: 6
 tags: [javascript, loops, iteration, for, while]
 scope: fundamentos del lenguaje
 website: https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Loops_and_iteration
@@ -11,8 +11,12 @@ related:
   - guides/javascript-control-functions
   - guides/javascript-arrays-objects
   - guides/javascript-async-promises
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Usa `for...of` para valores iterables y `for...in` para claves enumerables de un objeto. `break` termina, `continue` salta una iteración. Los métodos de Array expresan transformaciones; un ciclo manual ofrece más control. `forEach` no espera Promises.
 
 ## Qué es un ciclo
 

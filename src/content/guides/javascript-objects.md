@@ -3,15 +3,20 @@ title: Objetos, propiedades y copias
 description: Crear, consultar, transformar, copiar y proteger objetos con métodos, resultados visibles y casos de uso.
 category: general
 stack: javascript
-order: 9
+order: 11
 tags: [javascript, objects, properties, immutability, prototype]
 scope: tipos y métodos
 related:
   - guides/javascript-arrays-objects
   - guides/javascript-built-ins
+  - guides/javascript-prototypes-classes
   - guides/javascript-advanced-language
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Un objeto agrupa propiedades y se comparte por referencia. Usa punto para una clave conocida y corchetes para una clave calculada. `Object.keys`, `values` y `entries` solo incluyen propiedades propias enumerables con clave string; `Reflect.ownKeys` también incluye symbols y propiedades no enumerables.
 
 ## Modelo mental
 
@@ -99,6 +104,27 @@ publicData // { name: 'Mouse', price: 30 }
 product    // { name: 'Mouse', price: 30, stock: 4 }
 ```
 
+### Qué propiedades devuelve cada operación
+
+| API | String | Symbol | No enumerable | Heredada |
+| --- | --- | --- | --- | --- |
+| `Object.keys` / `values` / `entries` | sí | no | no | no |
+| `Object.getOwnPropertyNames` | sí | no | sí | no |
+| `Object.getOwnPropertySymbols` | no | sí | sí | no |
+| `Reflect.ownKeys` | sí | sí | sí | no |
+| `for...in` | sí | no | no | **sí** |
+
+```js
+const internal = Symbol('internal')
+const model = { visible: true, [internal]: 42 }
+Object.defineProperty(model, 'id', { value: 7, enumerable: false })
+
+Object.keys(model)                  // ['visible']
+Object.getOwnPropertyNames(model)  // ['visible', 'id']
+Object.getOwnPropertySymbols(model) // [Symbol(internal)]
+Reflect.ownKeys(model)             // ['visible', 'id', Symbol(internal)]
+```
+
 ### Invertir o transformar pares
 
 ```js
@@ -110,6 +136,30 @@ const doubled = Object.fromEntries(
 doubled // { ana: 16, leo: 12 }
 scores  // { ana: 8, leo: 6 }
 ```
+
+### Agrupar con `Object.groupBy` y `Map.groupBy`
+
+Ambos recorren un iterable y llaman un callback. `Object.groupBy` crea un objeto sin prototype con claves string o symbol; `Map.groupBy` conserva claves de cualquier tipo.
+
+```js
+const products = [
+  { name: 'Mouse', category: 'hardware' },
+  { name: 'Editor', category: 'software' },
+  { name: 'Monitor', category: 'hardware' },
+]
+
+const byCategory = Object.groupBy(products, product => product.category)
+
+byCategory.hardware
+// [
+//   { name: 'Mouse', category: 'hardware' },
+//   { name: 'Monitor', category: 'hardware' }
+// ]
+```
+
+Los arrays dentro del resultado contienen las mismas referencias que la entrada; agrupar no clona los elementos. Verifica compatibilidad en runtimes antiguos.
+
+Como el resultado de `Object.groupBy` tiene prototype `null`, no llames `byCategory.hasOwnProperty(...)`; usa `Object.hasOwn(byCategory, key)`.
 
 ## Desestructuración y nombres dinámicos
 
@@ -197,7 +247,7 @@ En módulos ES y modo estricto, intentar cambiar una propiedad congelada puede l
 `===` compara referencias entre objetos. `Object.is` se parece a `===`, pero distingue `0` de `-0` y considera que `NaN` es igual a sí mismo.
 
 ```js
-{} === {}             // false
+({}) === ({})         // false
 const item = {}
 item === item         // true
 

@@ -3,15 +3,21 @@ title: Fundamentos de JavaScript
 description: Valores, tipos, variables, conversión y operadores explicados con resultados visibles y casos de uso.
 category: general
 stack: javascript
-order: 2
+order: 3
 tags: [javascript, basics, variables, types, operators]
 scope: fundamentos del lenguaje
 related:
   - technologies/javascript
+  - guides/javascript-getting-started
+  - guides/javascript-expressions-operators
   - guides/javascript-control-functions
   - guides/javascript-built-ins
-updatedAt: 2026-08-19
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+JavaScript tiene siete tipos primitivos y objetos. Los primitivos se copian y comparan por valor; los objetos se comparten y comparan por identidad. Usa `const` por defecto, `let` cuando reasignas, conversión explícita en fronteras y `??` cuando `0`, `false` o `''` son válidos.
 
 ## Modelo mental
 

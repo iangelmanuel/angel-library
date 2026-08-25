@@ -3,15 +3,19 @@ title: Storage, Cache API y coordinación entre pestañas
 description: Elegir cookies, Web Storage, IndexedDB, Cache Storage y mecanismos de coordinación según tamaño, vida útil y sensibilidad.
 category: general
 stack: javascript
-order: 27
+order: 25
 tags: [javascript, browser, storage, indexeddb, cache]
 scope: plataforma web
 related:
   - guides/javascript-json-storage
   - guides/http-browser-fundamentals
   - utilities/storage
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+El navegador puede borrar almacenamiento, aplicar cuotas o bloquearlo. Web Storage es síncrono y solo guarda strings; IndexedDB almacena datos estructurados; Cache Storage conserva Request/Response; OPFS maneja archivos. La fuente de verdad de negocio suele permanecer en el servidor.
 
 ## Elegir dónde guardar un dato
 

@@ -1,19 +1,24 @@
 ---
-title: URL, requests, archivos y datos binarios
-description: URL, URLSearchParams, Headers, Request, Response, FormData, Blob, codificación y cancelación con resultados visibles.
+title: URL, requests, formularios y archivos
+description: URL, URLSearchParams, Headers, Request, Response, FormData, Blob, codificación, observación y cancelación.
 category: general
 stack: javascript
-order: 12
+order: 26
 tags: [javascript, url, web-api, formdata, blob, abortcontroller]
 scope: APIs del runtime web
 related:
   - guides/javascript-built-ins
+  - guides/javascript-binary-data
   - guides/javascript-browser-constructors
   - guides/javascript-dom-events
   - guides/javascript-fetch-apis
   - guides/browser-storage-and-web-apis
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Estas son APIs del runtime, no sintaxis de ECMAScript. `URL` analiza direcciones; `URLSearchParams` administra la query; `Headers`, `Request` y `Response` modelan Fetch; `FormData` transporta campos y archivos; `Blob` agrupa bytes; `AbortSignal` comunica cancelación.
 
 ## Lenguaje y runtime no son lo mismo
 
@@ -145,7 +150,7 @@ const headers = new Headers({ Accept: 'application/json' })
 headers.get('accept')          // 'application/json': no distingue mayúsculas
 headers.has('authorization')   // false
 headers.set('x-client', 'docs') // undefined
-[...headers.entries()]
+;[...headers.entries()]
 // [['accept', 'application/json'], ['x-client', 'docs']]
 ```
 
@@ -194,6 +199,8 @@ Object.fromEntries(data)
 Al enviar `FormData` con Fetch, no escribas manualmente el header `Content-Type`; el runtime añade también el límite (*boundary*) correcto.
 
 ## `Blob`, `File`, `ArrayBuffer` y typed arrays
+
+Esta sección conecta archivos del navegador con memoria binaria. Para vistas, endianness, transferencias, `SharedArrayBuffer` y `Atomics`, consulta [Datos binarios y typed arrays](/guides/javascript-binary-data).
 
 | Tipo | Representa | Caso de uso |
 | --- | --- | --- |

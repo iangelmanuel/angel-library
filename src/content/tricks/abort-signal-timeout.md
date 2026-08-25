@@ -6,33 +6,42 @@ stack: javascript
 tags: [javascript, fetch, abort-controller, timeout]
 problem: Una petición debe cancelarse por timeout, navegación o acción explícita sin dejar trabajo colgado.
 related:
+  - guides/javascript-async-promises
+  - guides/javascript-fetch-apis
   - utilities/fetch
   - utilities/promise
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
-Los runtimes modernos incluyen `AbortSignal.timeout()` y `AbortSignal.any()`.
+Los runtimes modernos incluyen `AbortSignal.timeout()` y `AbortSignal.any()`. La primera señal que se aborta determina el estado y el `reason` de la señal combinada.
 
-```ts
-const controller = new AbortController();
+```js
+const controller = new AbortController()
+const timeoutSignal = AbortSignal.timeout(8_000)
 const signal = AbortSignal.any([
   controller.signal,
-  AbortSignal.timeout(8000),
-]);
+  timeoutSignal,
+])
 
 try {
-  const response = await fetch('/api/reporte', { signal });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const response = await fetch('/api/reporte', { signal })
+  if (!response.ok) throw new Error(`HTTP ${response.status}`)
 } catch (error) {
-  if (error instanceof DOMException && error.name === 'AbortError') {
-    console.log('Petición cancelada');
+  if (!signal.aborted) throw error
+
+  if (signal.reason?.name === 'TimeoutError') {
+    console.log('La petición superó el tiempo máximo')
+  } else if (signal.reason?.name === 'AbortError') {
+    console.log('La persona canceló la petición')
   } else {
-    throw error;
+    console.log('Petición detenida', signal.reason)
   }
 }
 
 // Cancelación explícita, por ejemplo al cerrar un modal:
-controller.abort();
+controller.abort(new DOMException('Modal cerrado', 'AbortError'))
 ```
 
-`AbortSignal.any()` pierde la distinción automática entre las causas si solo se revisa `AbortError`; guarda el contexto o inspecciona `signal.reason` cuando el mensaje al usuario deba diferenciar el tiempo de espera de la cancelación manual.
+No compruebes únicamente el error capturado: inspecciona `signal.aborted` y `signal.reason` para diferenciar timeout, navegación y acción manual. La operación también puede fallar por red o HTTP sin que la señal se haya abortado.
+
+Si el runtime no soporta estas funciones, crea un `AbortController`, programa un timer y límpialo en `finally`. La señal comunica cancelación; no garantiza que un servidor remoto detenga trabajo que ya comenzó.

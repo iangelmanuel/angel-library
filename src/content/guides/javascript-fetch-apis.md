@@ -3,15 +3,20 @@ title: Fetch, HTTP y consumo de APIs
 description: Construir requests, validar respuestas, enviar JSON, manejar headers, errores, paginación, cache y seguridad desde JavaScript.
 category: general
 stack: javascript
-order: 22
+order: 27
 tags: [javascript, fetch, http, api, json]
 scope: consumo de APIs
 related:
   - guides/http-browser-fundamentals
   - guides/javascript-async-promises
+  - guides/javascript-url-web-apis
   - guides/security-common-web-attacks
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+`fetch` rechaza por fallos de red, CORS o cancelación, pero normalmente no por un status HTTP de error. El body es un stream consumible una vez. Define timeout, valida status y `Content-Type`, interpreta el body según el contrato y cancela requests que dejaron de ser relevantes.
 
 ## Request mínima
 
@@ -53,6 +58,8 @@ El body de `Response` normalmente se consume una vez. `json()`, `text()`, `blob(
 
 ```js
 async function readResponse(response) {
+  if (response.status === 204 || response.status === 205) return null
+
   const type = response.headers.get('content-type') ?? ''
   const body = type.includes('application/json')
     ? await response.json()
@@ -71,6 +78,21 @@ async function readResponse(response) {
 const data = await readResponse(await fetch('/api/projects'))
 // objeto/array si fue JSON; string para otro contenido
 ```
+
+Un status `204 No Content` o `205 Reset Content` no tiene representación que parsear. Para contratos estrictos, también puedes rechazar si esperabas JSON y el `Content-Type` no coincide.
+
+## Métodos, seguridad e idempotencia
+
+| Método | Intención habitual | Seguro | Idempotente |
+| --- | --- | --- | --- |
+| `GET` | leer | sí | sí |
+| `HEAD` | leer metadatos | sí | sí |
+| `POST` | crear o ejecutar una acción | no | no por defecto |
+| `PUT` | reemplazar un recurso | no | sí |
+| `PATCH` | modificar parcialmente | no | depende del contrato |
+| `DELETE` | eliminar | no | debería producir el mismo estado final |
+
+**Seguro** significa que no pretende cambiar estado. **Idempotente** significa que repetir la misma request produce el mismo estado final, no que la respuesta deba ser idéntica. Reintentar automáticamente un `POST` puede duplicar cobros o registros; usa una idempotency key cuando el servidor ofrezca ese contrato.
 
 ## Enviar datos
 
@@ -156,6 +178,27 @@ await fetchJSON('/api/projects', { timeout: 3_000 })
 ```
 
 Si también recibes una señal del componente, combina ambas con `AbortSignal.any([externalSignal, AbortSignal.timeout(timeout)])` en runtimes compatibles. Distingue cancelación esperada de fallos que sí deben mostrarse o registrarse.
+
+## Procesar un body como stream
+
+`response.text()` o `response.json()` acumulan el body completo. Para respuestas grandes o progresivas, lee `response.body`, un `ReadableStream` de bytes.
+
+```js
+const response = await fetch('/api/logs')
+if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`)
+
+const decoder = new TextDecoder()
+let text = ''
+
+for await (const chunk of response.body) {
+  text += decoder.decode(chunk, { stream: true })
+  renderProgress(text.length)
+}
+
+text += decoder.decode()
+```
+
+Los chunks no coinciden necesariamente con líneas, objetos JSON ni caracteres completos. Mantén un buffer y define un protocolo como NDJSON o Server-Sent Events cuando necesites mensajes delimitados.
 
 ## Caso de uso: paginación por cursor
 

@@ -3,7 +3,7 @@ title: Web Components y etiquetas personalizadas
 description: Crear componentes con script, custom elements, lifecycle, Shadow DOM, templates, slots, atributos y eventos personalizados.
 category: general
 stack: javascript
-order: 16
+order: 29
 tags: [javascript, web-components, custom-elements, shadow-dom, components]
 scope: plataforma web
 website: https://developer.mozilla.org/es/docs/Web/API/Web_components
@@ -11,8 +11,12 @@ related:
   - guides/javascript-dom-events
   - guides/javascript-events
   - guides/html-web-components-metadata
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Un Web Component combina un custom element, ciclo de vida y, opcionalmente, Shadow DOM. El nombre debe contener un guion. El constructor prepara estado interno; el trabajo dependiente del documento suele comenzar en `connectedCallback`; `disconnectedCallback` libera listeners y recursos.
 
 ## Qué resuelve un Web Component
 

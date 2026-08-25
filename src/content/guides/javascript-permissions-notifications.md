@@ -3,7 +3,7 @@ title: Permisos, notificaciones y capacidades sensibles
 description: Consultar permisos, solicitar notificaciones, usar service workers, geolocalización, portapapeles y otras capacidades con una UX responsable.
 category: general
 stack: javascript
-order: 19
+order: 32
 tags: [javascript, permissions, notifications, geolocation, clipboard]
 scope: Web APIs con permisos
 website: https://developer.mozilla.org/es/docs/Web/API/Permissions_API
@@ -11,8 +11,12 @@ related:
   - guides/javascript-media-devices
   - guides/javascript-browser-constructors
   - guides/security-common-web-attacks
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Un permiso es una decisión de confianza, no un trámite técnico. Solicítalo después de explicar el beneficio y en respuesta a una acción. Detecta soporte, maneja `granted`, `denied` y `prompt`, ofrece alternativa y evita repetir solicitudes después de una negativa.
 
 ## Modelo de permisos
 

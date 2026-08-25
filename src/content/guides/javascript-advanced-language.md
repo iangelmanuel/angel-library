@@ -1,217 +1,290 @@
 ---
-title: "JavaScript avanzado: prototypes, clases e iteradores"
-description: Entender this, prototypes, class, errores, iteradores, generators, symbols, Proxy y Reflect para completar el modelo del lenguaje.
+title: "JavaScript avanzado: this, Symbols y metaprogramación"
+description: Reglas de this, call/apply/bind, Symbols, conversión personalizada, Proxy y Reflect sin ocultar el flujo del programa.
 category: general
 stack: javascript
-order: 23
-tags: [javascript, prototypes, classes, iterators, generators, proxy]
+order: 18
+tags: [javascript, this, symbols, proxy, reflect, metaprogramming]
 scope: lenguaje avanzado
+website: https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Meta_programming
 related:
-  - guides/javascript-built-ins
-  - guides/javascript-modules
+  - guides/javascript-prototypes-classes
+  - guides/javascript-iterators-generators
+  - guides/javascript-objects
   - patterns/proxy
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
 
-## `this` y funciones
+## Cuándo estudiar esta página
 
-`this` depende de cómo se invoca una función, no de dónde se declara. En `obj.method()`, suele ser `obj`; en una función normal separada puede ser `undefined` en strict mode; en una arrow function se hereda del scope exterior. `call`, `apply` y `bind` permiten fijar o pasar un receiver.
+Aprende primero funciones, objetos, prototypes y clases. Este documento explica mecanismos que permiten cambiar cómo se enlaza una llamada o cómo responde un objeto a operaciones del lenguaje. Son herramientas potentes para infraestructura, pero innecesarias en la mayoría de la lógica de negocio.
 
-| Método | Ejecuta de inmediato | Argumentos | Devuelve |
-| --- | --- | --- | --- |
-| `fn.call(thisArg, ...args)` | sí | separados | resultado de la función |
-| `fn.apply(thisArg, args)` | sí | array o array-like | resultado de la función |
-| `fn.bind(thisArg, ...args)` | no | permite argumentos parciales | función nueva |
+Para recordar rápidamente:
 
-```js
-function greet(prefix) {
-  return `${prefix}, ${this.name}`
-}
+- `this` lo determina la forma de llamada; una arrow lo hereda.
+- un `Symbol` es una identidad única, no una string secreta;
+- `Proxy` intercepta operaciones y `Reflect` ejecuta su comportamiento base;
+- metaprogramación significa que el código observa o modifica el comportamiento de otras operaciones del programa.
 
-greet.call({ name: 'Ana' }, 'Hola')
-// 'Hola, Ana'
+## Las reglas de `this`
 
-greet.apply({ name: 'Leo' }, ['Buen día'])
-// 'Buen día, Leo'
+El mismo cuerpo de función puede recibir valores distintos de `this`.
 
-const greetAna = greet.bind({ name: 'Ana' })
-greetAna('Hola') // 'Hola, Ana'
-```
-
-En componentes y callbacks, una arrow suele evitar perder el contexto, pero no convierte automáticamente una función en método. Entiende primero quién debe ser el dueño de la operación.
-
-## Prototypes y clases
-
-Los objetos pueden delegar propiedades a un prototype. `class` es una sintaxis más legible sobre ese modelo; no crea un sistema de clases completamente separado.
-
-```js
-class Money {
-  constructor(cents) { this.cents = cents }
-  add(other) { return new Money(this.cents + other.cents) }
-}
-
-const total = new Money(500).add(new Money(250))
-
-total               // Money { cents: 750 }
-total.cents         // 750
-total instanceof Money // true
-```
-
-`extends` y `super` sirven para herencia, pero composición suele permitir cambiar comportamiento con menos acoplamiento. Los métodos de una clase viven en su prototype y las propiedades privadas `#value` no pueden leerse desde fuera.
-
-```js
-Object.hasOwn(total, 'add')                    // false
-Money.prototype.hasOwnProperty('add')          // true
-Object.getPrototypeOf(total) === Money.prototype // true
-```
-
-### Campos privados
-
-```js
-class Counter {
-  #value = 0
-
-  increment() {
-    this.#value += 1
-    return this.#value
-  }
-}
-
-const counter = new Counter()
-counter.increment() // 1
-counter.increment() // 2
-// counter.#value   // SyntaxError: campo privado
-```
-
-## Errores
-
-Usa `Error` y subclases para distinguir causas sin devolver strings ambiguos. `cause` conserva el error original:
-
-| Clase | Señala normalmente |
+| Forma de llamada | Valor habitual de `this` |
 | --- | --- |
-| `Error` | fallo general de la aplicación |
-| `TypeError` | valor de tipo o forma incorrecta |
-| `RangeError` | valor fuera del rango permitido |
-| `SyntaxError` | texto o código con sintaxis inválida |
-| `AggregateError` | varios errores reunidos, por ejemplo en `Promise.any` |
+| `object.method()` | `object`, el receptor |
+| `fn()` | `undefined` en strict mode |
+| `new Constructor()` | la instancia nueva |
+| `fn.call(value)` | `value` indicado |
+| `boundFn()` | valor fijado mediante `bind` |
+| arrow function | heredado del scope exterior |
 
 ```js
-try {
-  await readConfig()
-} catch (error) {
-  throw new Error('No se pudo cargar la configuración', { cause: error })
+function describe(prefix) {
+  return `${prefix}: ${this.name}`
 }
+
+const user = { name: 'Ana', describe }
+
+user.describe('Usuario') // 'Usuario: Ana'
+
+const detached = user.describe
+// detached('Usuario')   // TypeError en strict mode
 ```
 
-Una clase propia puede exponer datos operativos sin obligar a comparar mensajes:
+El punto no “pertenece” permanentemente a la función. En `user.describe()`, el receptor situado antes del punto establece `this` para esa llamada.
+
+## `call`, `apply` y `bind`
+
+| Método | Ejecuta ahora | Argumentos | Devuelve |
+| --- | --- | --- | --- |
+| `fn.call(thisArg, ...args)` | sí | separados | resultado de `fn` |
+| `fn.apply(thisArg, args)` | sí | array o array-like | resultado de `fn` |
+| `fn.bind(thisArg, ...args)` | no | permite aplicación parcial | función nueva |
 
 ```js
-class HTTPError extends Error {
-  constructor(status, message, options) {
-    super(message, options)
-    this.name = 'HTTPError'
-    this.status = status
+function greet(greeting, punctuation = '!') {
+  return `${greeting}, ${this.name}${punctuation}`
+}
+
+greet.call({ name: 'Ana' }, 'Hola', '.')
+// 'Hola, Ana.'
+
+greet.apply({ name: 'Leo' }, ['Buen día', '!'])
+// 'Buen día, Leo!'
+
+const greetAna = greet.bind({ name: 'Ana' }, 'Hola')
+greetAna('?')
+// 'Hola, Ana?'
+```
+
+`bind` no cambia la función original. Crea otra función y también puede fijar argumentos iniciales.
+
+## Arrow functions y callbacks
+
+Una arrow no crea `this`, `arguments`, `super` ni `new.target` propios. Tampoco puede llamarse con `new`.
+
+```js
+class Timer {
+  seconds = 0
+
+  start() {
+    this.id = setInterval(() => {
+      this.seconds += 1 // hereda this de start()
+    }, 1_000)
+  }
+
+  stop() {
+    clearInterval(this.id)
   }
 }
-
-const error = new HTTPError(404, 'Proyecto no encontrado')
-
-error.name       // 'HTTPError'
-error.status     // 404
-error instanceof Error // true
 ```
 
-No captures un error para ignorarlo. Agrega contexto, clasifica si es recuperable y deja que una frontera superior decida respuesta, logging o reintento. `finally` sirve para liberar recursos aunque haya retorno o excepción.
+No conviertas todo método en un campo arrow para “arreglar this” sin evaluar el costo: cada instancia obtiene otra función. Usa `bind`, un callback arrow local o una API que preserve receptor según el caso.
 
-## Iterables e iteradores
+## Symbols como claves únicas
 
-Un iterable implementa `Symbol.iterator` y puede usarse con `for...of`, spread y desestructuración. Arrays, strings, Map y Set son iterables. Un iterador devuelve objetos `{ value, done }`.
+Cada llamada a `Symbol()` crea una identidad diferente aunque use la misma descripción.
 
 ```js
-const range = {
-  *[Symbol.iterator]() {
-    yield 1
-    yield 2
-    yield 3
+const first = Symbol('id')
+const second = Symbol('id')
+
+first === second // false
+
+const record = {
+  [first]: 42,
+  name: 'demo',
+}
+
+record[first]                        // 42
+Object.keys(record)                  // ['name']
+Object.getOwnPropertySymbols(record) // [Symbol(id)]
+Reflect.ownKeys(record)              // ['name', Symbol(id)]
+```
+
+Un Symbol evita colisiones accidentales, pero no protege información. Cualquier código con la referencia al objeto puede obtener sus symbols mediante reflexión.
+
+`Symbol.for(key)` consulta un registro global por realm y puede devolver la misma identidad:
+
+```js
+Symbol.for('app.trace') === Symbol.for('app.trace') // true
+Symbol.keyFor(Symbol.for('app.trace'))              // 'app.trace'
+Symbol.keyFor(Symbol('local'))                      // undefined
+```
+
+## Well-known symbols
+
+ECMAScript usa symbols conocidos como puntos de extensión:
+
+| Symbol | Personaliza |
+| --- | --- |
+| `Symbol.iterator` | recorrido síncrono |
+| `Symbol.asyncIterator` | recorrido asíncrono |
+| `Symbol.toPrimitive` | conversión a primitivo |
+| `Symbol.toStringTag` | etiqueta de `Object.prototype.toString` |
+| `Symbol.hasInstance` | comportamiento de `instanceof` |
+| `Symbol.dispose` | limpieza síncrona con `using` |
+| `Symbol.asyncDispose` | limpieza asíncrona con `await using` |
+
+`Symbol.dispose`, `Symbol.asyncDispose`, `using` y `await using` están previstos para ECMAScript 2027. Comprueba soporte de sintaxis y runtime; no pertenecen a la edición ECMAScript 2026.
+
+### Conversión personalizada
+
+```js
+const money = {
+  cents: 2_500,
+
+  [Symbol.toPrimitive](hint) {
+    if (hint === 'number') return this.cents
+    return `$${(this.cents / 100).toFixed(2)}`
   },
 }
 
-for (const value of range) console.log(value)
-// 1
-// 2
-// 3
-
-[...range] // [1, 2, 3]
+Number(money) // 2500
+String(money) // '$25.00'
 ```
 
-Los generators (`function*`) pausan en `yield` y sirven para producir datos bajo demanda. Son útiles para streams, paginación o recorridos grandes cuando no quieres construir todo el array en memoria.
+La conversión implícita personalizada puede sorprender. Úsala en tipos de infraestructura con semántica inequívoca; un método explícito como `toCents()` suele ser más fácil de descubrir.
 
-```js
-function* ids() {
-  let current = 1
-  while (true) yield current++
-}
+## `Proxy`: interceptar operaciones
 
-const iterator = ids()
-iterator.next() // { value: 1, done: false }
-iterator.next() // { value: 2, done: false }
-iterator.next() // { value: 3, done: false }
-```
-
-## Symbols
-
-`Symbol()` crea claves únicas que no colisionan con strings. `Symbol.iterator`, `Symbol.toPrimitive`, `Symbol.toStringTag` y otros well-known symbols permiten integrar objetos con el lenguaje.
-
-```js
-const internalId = Symbol('internalId')
-const record = { [internalId]: 42, name: 'demo' }
-Object.keys(record) // ['name']
-Object.getOwnPropertySymbols(record) // [Symbol(internalId)]
-record[internalId] // 42
-```
-
-Una symbol no es una forma de seguridad: si una referencia al objeto existe, el código puede inspeccionar sus symbols con `Object.getOwnPropertySymbols`.
-
-## Proxy y Reflect
-
-`Proxy` intercepta operaciones como lectura, escritura, `in` o enumeración. `Reflect` ofrece operaciones base para delegar el comportamiento original:
+Un Proxy envuelve un target y define **traps** para operaciones como leer, escribir, comprobar, enumerar, llamar o construir.
 
 ```js
 const state = new Proxy({ count: 0 }, {
+  get(target, key, receiver) {
+    console.log(`read:${String(key)}`)
+    return Reflect.get(target, key, receiver)
+  },
+
   set(target, key, value, receiver) {
-    if (key === 'count' && !Number.isInteger(value)) return false
+    if (key === 'count' && !Number.isInteger(value)) {
+      throw new TypeError('count debe ser entero')
+    }
     return Reflect.set(target, key, value, receiver)
   },
 })
 
-state.count = 2
-state.count // 2
-
-Reflect.set(state, 'count', 2.5) // false
-state.count                      // 2
+state.count       // registra 'read:count' y devuelve 0
+state.count = 2   // true
+// state.count = 2.5 // TypeError
 ```
 
-Úsalo para infraestructura —reactividad, validación dinámica, adapters— y no para ocultar el flujo normal de una aplicación. Cada acceso pasa por un trap y puede complicar debugging y performance.
+| Trap | Intercepta |
+| --- | --- |
+| `get`, `set` | lectura y escritura |
+| `has` | operador `in` |
+| `deleteProperty` | `delete` |
+| `ownKeys` | enumeración y reflexión |
+| `getOwnPropertyDescriptor` | descriptor de propiedad |
+| `apply` | llamada a función |
+| `construct` | llamada con `new` |
 
-## Caso de uso: iterable de páginas
+El Proxy debe respetar **invariants** del lenguaje. Por ejemplo, no puede ocultar una propiedad propia no configurable. El runtime lanza `TypeError` cuando un trap contradice esas reglas.
 
-Un async generator permite consumir páginas bajo demanda sin cargar toda la colección al inicio.
+## `Reflect`: operaciones como funciones
+
+`Reflect` agrupa operaciones que reflejan sintaxis del lenguaje y devuelve resultados útiles para delegar desde traps.
 
 ```js
-async function* paginate(firstURL) {
-  let nextURL = firstURL
+const target = { name: 'Ana' }
 
-  while (nextURL) {
-    const response = await fetch(nextURL)
-    if (!response.ok) throw new HTTPError(response.status, 'Falló la página')
-
-    const page = await response.json()
-    yield page.items
-    nextURL = page.next ?? null
-  }
-}
-
-for await (const items of paginate('/api/projects')) {
-  renderProjects(items) // se ejecuta una vez por página
-}
+Reflect.get(target, 'name')            // 'Ana'
+Reflect.set(target, 'role', 'editor')  // true
+Reflect.has(target, 'role')            // true
+Reflect.deleteProperty(target, 'role') // true
+Reflect.ownKeys(target)                 // ['name']
 ```
+
+`Reflect.set` devuelve booleano; una asignación normal devuelve el valor asignado. `Reflect.deleteProperty` evita necesitar sintaxis dinámica alrededor de `delete`. `Reflect.construct` y `Reflect.apply` permiten invocar constructores y funciones con argumentos programáticos.
+
+```js
+Math.max.apply(null, [4, 8, 2])
+Reflect.apply(Math.max, null, [4, 8, 2])
+// ambas devuelven 8
+```
+
+## Proxy revocable
+
+`Proxy.revocable` permite invalidar acceso a una capacidad entregada temporalmente.
+
+```js
+const { proxy, revoke } = Proxy.revocable(
+  { token: 'temporary' },
+  {},
+)
+
+proxy.token // 'temporary'
+revoke()
+// proxy.token // TypeError: proxy revocado
+```
+
+No convierte el contenido en secreto si fue copiado antes de revocar. Sirve para cortar futuras operaciones a través de esa referencia.
+
+## Cuándo no usar metaprogramación
+
+Evita un Proxy cuando una función, getter, clase o validación en la frontera expresa el contrato directamente. Los traps afectan cada operación, complican stack traces, identidad, serialización y rendimiento.
+
+Buenos candidatos:
+
+- sistemas de reactividad;
+- membranes entre contextos;
+- mocks y herramientas de diagnóstico;
+- adapters dinámicos;
+- validación de una API genérica.
+
+Malos candidatos:
+
+- ocultar requests de red detrás de una lectura de propiedad;
+- corregir silenciosamente datos inválidos;
+- reemplazar un modelo de dominio explícito;
+- interceptar todo “por si acaso”.
+
+## Caso de uso: configuración de solo lectura
+
+```js
+function readonly(value, path = 'config') {
+  return new Proxy(value, {
+    get(target, key, receiver) {
+      const result = Reflect.get(target, key, receiver)
+      return result && typeof result === 'object'
+        ? readonly(result, `${path}.${String(key)}`)
+        : result
+    },
+    set(_target, key) {
+      throw new TypeError(`No se puede modificar ${path}.${String(key)}`)
+    },
+    deleteProperty(_target, key) {
+      throw new TypeError(`No se puede eliminar ${path}.${String(key)}`)
+    },
+  })
+}
+
+const config = readonly({ api: { timeout: 5_000 } })
+
+config.api.timeout // 5000
+// config.api.timeout = 1000 // TypeError con ruta
+```
+
+Este wrapper crea proxies anidados cada vez que se lee un objeto. En producción convendría cachearlos con `WeakMap` para conservar identidad y evitar trabajo repetido.

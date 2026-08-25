@@ -3,15 +3,19 @@ title: JSON, serialización y almacenamiento local
 description: Convertir datos con seguridad, entender límites de JSON y elegir localStorage, sessionStorage, cookies o IndexedDB.
 category: general
 stack: javascript
-order: 20
+order: 24
 tags: [javascript, json, storage, serialization, browser]
 scope: datos locales
 related:
   - guides/browser-storage-and-web-apis
   - tricks/safe-json-parse
   - utilities/storage
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+JSON es un formato de texto, no un clon completo de JavaScript. Web Storage guarda strings de forma síncrona; cookies pueden viajar al servidor; IndexedDB almacena más datos y trabaja de forma asíncrona. Ninguno debe contener secretos accesibles a scripts sin un análisis de riesgo.
 
 ## `JSON.stringify` y `JSON.parse`
 
@@ -20,7 +24,7 @@ JSON solo representa null, booleanos, números finitos, strings, arrays y objeto
 | API | Devuelve | ¿Muta? | Puede fallar |
 | --- | --- | --- | --- |
 | `JSON.stringify(value, replacer?, space?)` | string o `undefined` | no | ciclos y BigInt sin personalizar |
-| `JSON.parse(text, reviver?)` | valor reconstruido | no | JSON inválido |
+| `JSON.parse(text, reviver?)` | valor reconstruido | no | JSON inválido o un reviver que lance |
 
 ```js
 const payload = JSON.stringify({ name: 'Ana', tags: ['web'] })
@@ -77,6 +81,38 @@ restored.createdAt.getUTCFullYear() // 2026
 ```
 
 No uses un `reviver` genérico que convierta cualquier texto parecido a fecha: podría cambiar campos que debían seguir siendo strings.
+
+### Texto original del valor con `context.source`
+
+Desde ECMAScript 2026, el `reviver` recibe un tercer argumento `context` al procesar valores primitivos no modificados. `context.source` contiene exactamente el fragmento del JSON que originó el valor. Es importante cuando `Number` ya habría perdido precisión antes de que el reviver pudiera convertirlo.
+
+```js
+const record = JSON.parse(
+  '{"id":900719925474099312345}',
+  (key, value, context) => {
+    if (key === 'id') return BigInt(context.source)
+    return value
+  },
+)
+
+record.id // 900719925474099312345n
+```
+
+El objeto `context` solo incluye `source` para primitivos; al revivir objetos o arrays puede estar vacío. El consumidor debe conocer qué campos acepta como `BigInt`: convertir todos los números cambiaría el contrato y esos valores tampoco se serializan de nuevo con JSON tradicional sin una estrategia.
+
+### Emitir un primitivo sin perder su representación
+
+`JSON.rawJSON(text)` crea un marcador para que `JSON.stringify` inserte un texto JSON primitivo ya validado. `JSON.isRawJSON(value)` permite reconocer ese marcador. Esto complementa `context.source` al transportar enteros que JavaScript no puede representar como `Number`.
+
+```js
+const exactId = JSON.rawJSON('900719925474099312345')
+const payload = JSON.stringify({ id: exactId })
+
+JSON.isRawJSON(exactId) // true
+payload // '{"id":900719925474099312345}'
+```
+
+`rawJSON` solo admite la representación válida de un string, número, booleano o `null`; no acepta objetos ni arrays completos. No lo uses para insertar texto arbitrario ni para omitir validación. Estas APIs son de ECMAScript 2026 y requieren un runtime compatible.
 
 No hagas `JSON.parse` de una respuesta HTTP sin comprobar que el status y el `Content-Type` corresponden a lo esperado. Un error HTML de proxy no es JSON válido.
 

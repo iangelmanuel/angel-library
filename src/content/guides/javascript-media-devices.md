@@ -3,7 +3,7 @@ title: Cámara, micrófono y dispositivos multimedia
 description: Detectar dispositivos, solicitar cámara o micrófono, cambiar fuentes, compartir pantalla, capturar una imagen y liberar recursos.
 category: general
 stack: javascript
-order: 17
+order: 30
 tags: [javascript, media-devices, camera, microphone, getusermedia]
 scope: Web APIs con permisos
 website: https://developer.mozilla.org/es/docs/Web/API/MediaDevices
@@ -11,8 +11,12 @@ related:
   - guides/javascript-audio-recording
   - guides/javascript-permissions-notifications
   - guides/javascript-browser-constructors
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+`getUserMedia` requiere contexto seguro, permiso y una acción comprensible para la persona. Devuelve un `MediaStream`; cada track debe detenerse al terminar. Pide solo audio o video necesario, maneja rechazos por nombre y no solicites permisos durante la carga inicial.
 
 ## Antes de solicitar acceso
 

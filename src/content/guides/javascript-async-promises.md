@@ -3,15 +3,23 @@ title: Código asíncrono, Promises y cancelación
 description: Entender callbacks, Promises, async/await, concurrencia, reintentos, errores y AbortController sin crear carreras.
 category: general
 stack: javascript
-order: 21
+order: 19
 tags: [javascript, async, promises, await, abort-controller]
 scope: asincronía
 related:
   - guides/javascript-runtime-event-loop
   - utilities/promise
   - tricks/abort-signal-timeout
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+- `async` garantiza que una función devuelva una Promise.
+- `await` pausa esa función hasta que la Promise termina; no bloquea todo el runtime.
+- **Secuencia** espera antes de iniciar lo siguiente; **concurrencia** mantiene varias tareas en progreso; **paralelismo** ejecuta trabajo simultáneamente en más de un agente o núcleo.
+- Una Promise no incluye cancelación: la operación debe aceptar un mecanismo como `AbortSignal`.
+- `fetch` puede cumplir con estado 404 o 500; debes comprobar `response.ok`.
 
 ## Qué representa una Promise
 
@@ -109,6 +117,65 @@ await Promise.any([
 Usa `all` cuando el resultado completo sea necesario, `allSettled` para tareas independientes donde quieres reportar éxitos y fallos, `race` para timeout con cancelación y `any` para varios proveedores equivalentes.
 
 `Promise.resolve(value)` normaliza un valor o Promise a una Promise; `Promise.reject(error)` crea una rechazada. Son útiles al construir adapters que deben devolver siempre la misma forma asíncrona. `Promise.withResolvers()` —cuando está disponible en el runtime objetivo— separa la creación de `promise`, `resolve` y `reject`; úsalo con cuidado porque permite resolver desde fuera y puede hacer más difícil seguir el flujo.
+
+## `Promise.withResolvers` y `Promise.try`
+
+`Promise.withResolvers()` devuelve las tres piezas de una Promise pendiente. Es útil al adaptar una API basada en eventos; no debe convertirse en estado global resoluble desde cualquier lugar.
+
+```js
+function once(target, eventName, signal) {
+  const { promise, resolve, reject } = Promise.withResolvers()
+
+  function cleanup() {
+    target.removeEventListener(eventName, handleEvent)
+    signal?.removeEventListener('abort', handleAbort)
+  }
+
+  function handleEvent(event) {
+    cleanup()
+    resolve(event)
+  }
+
+  function handleAbort() {
+    cleanup()
+    reject(signal.reason)
+  }
+
+  if (signal?.aborted) {
+    reject(signal.reason)
+    return promise
+  }
+
+  target.addEventListener(eventName, handleEvent, { once: true })
+  signal?.addEventListener('abort', handleAbort, { once: true })
+
+  return promise
+}
+
+const event = await once(button, 'click', controller.signal)
+event.type // 'click'
+```
+
+`Promise.try(callback, ...args)` normaliza una función que podría devolver un valor, una Promise o lanzar de forma síncrona.
+
+```js
+function loadMaybeAsync(loader) {
+  return Promise.try(loader)
+}
+
+await loadMaybeAsync(() => 42)
+// 42
+
+await loadMaybeAsync(async () => fetch('/api/config'))
+// Response
+
+await loadMaybeAsync(() => {
+  throw new Error('Configuración inválida')
+})
+// Promise rechazada con ese Error
+```
+
+Sin `Promise.try`, una alternativa compatible es iniciar la llamada dentro de un callback de `Promise.resolve().then(() => loader())`. `Promise.try` pertenece a ECMAScript 2025; verifica el runtime objetivo.
 
 ## Iterar tareas asíncronas
 

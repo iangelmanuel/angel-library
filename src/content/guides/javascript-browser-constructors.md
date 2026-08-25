@@ -3,16 +3,22 @@ title: Constructores nativos y patrón new
 description: Cuándo usar new, qué constructores existen en el lenguaje y el navegador, qué devuelven y cuáles no deben instanciarse.
 category: general
 stack: javascript
-order: 13
+order: 28
 tags: [javascript, constructors, new, web-api, reference]
 scope: mapa de referencia
 related:
   - guides/javascript-built-ins
+  - guides/javascript-prototypes-classes
+  - guides/javascript-binary-data
   - guides/javascript-url-web-apis
   - guides/javascript-dom-events
   - guides/javascript-media-devices
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+`new` crea una instancia y conecta su prototype. No toda función es construible: `Symbol`, `BigInt`, `Math` y `JSON` no admiten `new`. Antes de usar un constructor del navegador, comprueba soporte, contexto seguro, permisos y método de limpieza.
 
 ## Qué hace `new`
 
@@ -81,7 +87,7 @@ const expression = new RegExp(term, 'i')
 expression.test('JavaScript moderno') // true
 ```
 
-Escapa texto externo antes de convertirlo en parte de una expresión regular si debe tratarse literalmente.
+Escapa texto externo con `RegExp.escape` antes de convertirlo en parte de una expresión regular si debe tratarse literalmente. Comprueba compatibilidad en runtimes anteriores a ECMAScript 2025.
 
 ### `new Map(entries?)` y `new Set(values?)`
 
@@ -90,7 +96,7 @@ const map = new Map([['theme', 'dark']])
 const set = new Set(['js', 'js', 'css'])
 
 map.get('theme') // 'dark'
-[...set]         // ['js', 'css']
+;[...set]        // ['js', 'css']
 ```
 
 ### `new WeakMap()` y `new WeakSet()`
@@ -233,7 +239,7 @@ const buffer = new ArrayBuffer(4)
 const bytes = new Uint8Array(buffer)
 bytes.set([10, 20, 30, 40])
 
-[...bytes]       // [10, 20, 30, 40]
+;[...bytes]      // [10, 20, 30, 40]
 buffer.byteLength // 4
 ```
 

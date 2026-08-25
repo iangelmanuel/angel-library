@@ -3,15 +3,19 @@ title: Arrays y métodos de Array
 description: Referencia visual de Array con retorno, mutación, ejemplos y casos de uso para transformar colecciones.
 category: general
 stack: javascript
-order: 8
+order: 10
 tags: [javascript, arrays, methods, mutation, data]
 scope: arrays
 related:
   - guides/javascript-strings
   - guides/javascript-objects
   - utilities/array
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Un array es ordenado, usa índices desde cero y es mutable. Métodos como `push`, `splice`, `sort` y `reverse` cambian el original; `map`, `filter`, `slice` y los métodos modernos `to...` crean otro array. Las copias son superficiales.
 
 ## Qué es un array
 
@@ -55,6 +59,7 @@ await Array.fromAsync([Promise.resolve(1), Promise.resolve(2)])
 | Intención | Métodos habituales | Retorno |
 | --- | --- | --- |
 | agregar o quitar | `push`, `pop`, `unshift`, `shift`, `splice`, `toSpliced` | longitud, elemento, eliminados o copia |
+| leer por posición | `at`, corchetes | elemento o `undefined` |
 | transformar | `map`, `flat`, `flatMap` | array nuevo |
 | seleccionar | `filter` | array nuevo |
 | buscar | `find`, `findLast`, `findIndex`, `includes`, `indexOf` | elemento, índice o booleano |
@@ -65,6 +70,19 @@ await Array.fromAsync([Promise.resolve(1), Promise.resolve(2)])
 | recorrer | `forEach`, `keys`, `values`, `entries` | `undefined` o iterador |
 
 El mapa indica por dónde empezar. Las tablas siguientes muestran exactamente qué devuelve cada método y si cambia el array original.
+
+### Leer con `at` o corchetes
+
+```js
+const steps = ['install', 'configure', 'run']
+
+steps[0]     // 'install'
+steps.at(0)  // 'install'
+steps.at(-1) // 'run'
+steps[-1]    // undefined: -1 es una propiedad, no un índice desde el final
+```
+
+Ambas formas devuelven `undefined` fuera de rango. `at` comunica mejor índices negativos calculados.
 
 ## Agregar y eliminar
 
@@ -144,6 +162,16 @@ numbers.filter((number) => number % 2 === 0)
 ```
 
 `map` mantiene la cantidad de elementos. `filter` puede reducirla. `flatMap` transforma cada elemento y aplana un nivel.
+
+Los callbacks reciben `(value, index, array)`. Verifica la firma antes de pasar una función existente:
+
+```js
+['10', '11', '12'].map(Number.parseInt)
+// [10, NaN, 1]: el índice se usó accidentalmente como radix
+
+['10', '11', '12'].map(value => Number.parseInt(value, 10))
+// [10, 11, 12]
+```
 
 ## Buscar y comprobar
 
@@ -287,6 +315,7 @@ Estas APIs son útiles al actualizar estado: producen otra referencia sin cambia
 | `copyWithin(target, start, end?)` | el mismo array | **sí** | copiar un rango dentro del array |
 | `join(separator?)` | string | no | presentar o serializar una lista simple |
 | `toString()` | string separado por comas | no | conversión básica; poco configurable |
+| `toLocaleString(locales?, options?)` | string localizado | no | presentar números o fechas del array |
 
 ```js
 const slots = Array(4).fill(null)
@@ -298,6 +327,11 @@ values // [1, 3, 4, 4]
 
 ['HTML', 'CSS', 'JS'].join(' · ')
 // 'HTML · CSS · JS'
+
+[1_000, new Date('2026-01-02T00:00:00Z')].toLocaleString('es-CO', {
+  timeZone: 'UTC',
+})
+// representación localizada; los detalles dependen del runtime
 ```
 
 `fill` reutiliza la misma referencia cuando recibe un objeto:
@@ -326,9 +360,9 @@ const independentRows = Array.from(
 ```js
 const values = ['a', 'b']
 
-[...values.keys()]    // [0, 1]
-[...values.values()]  // ['a', 'b']
-[...values.entries()] // [[0, 'a'], [1, 'b']]
+;[...values.keys()]    // [0, 1]
+;[...values.values()]  // ['a', 'b']
+;[...values.entries()] // [[0, 'a'], [1, 'b']]
 
 values.forEach((value, index) => console.log(index, value))
 // 0 'a'

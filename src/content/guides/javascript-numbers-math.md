@@ -3,15 +3,19 @@ title: Number, BigInt y Math
 description: Conversión, validación, precisión, formato y operaciones matemáticas con resultados visibles y casos de uso seguros.
 category: general
 stack: javascript
-order: 7
+order: 9
 tags: [javascript, number, bigint, math, precision]
 scope: tipos y métodos
 related:
   - guides/javascript-built-ins
   - guides/javascript-date-regexp-intl
   - guides/javascript-collections
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+`Number` representa enteros y decimales con punto flotante de 64 bits; no todos los decimales ni todos los enteros se representan exactamente. `BigInt` solo representa enteros. `Math` reúne funciones estáticas y no se instancia. Los métodos de formato devuelven strings.
 
 ## Modelo mental de `Number`
 
@@ -25,6 +29,32 @@ Number.isSafeInteger(9007199254740992) // false
 ```
 
 Para dinero, trabaja en unidades mínimas enteras —centavos— o usa una librería decimal cuando el dominio exija precisión contable.
+
+### Constantes útiles
+
+| Constante | Significado |
+| --- | --- |
+| `Number.MAX_VALUE` | mayor número finito representable |
+| `Number.MIN_VALUE` | menor número positivo mayor que cero |
+| `Number.MAX_SAFE_INTEGER` | mayor entero exacto seguro |
+| `Number.MIN_SAFE_INTEGER` | menor entero exacto seguro |
+| `Number.POSITIVE_INFINITY` | infinito positivo |
+| `Number.NEGATIVE_INFINITY` | infinito negativo |
+| `Number.NaN` | valor numérico inválido |
+| `Number.EPSILON` | distancia entre 1 y el siguiente Number representable |
+
+```js
+Number.MAX_SAFE_INTEGER // 9007199254740991
+Number.EPSILON          // aproximadamente 2.220446049250313e-16
+
+function nearlyEqual(a, b, tolerance = Number.EPSILON) {
+  return Math.abs(a - b) <= tolerance * Math.max(1, Math.abs(a), Math.abs(b))
+}
+
+nearlyEqual(0.1 + 0.2, 0.3) // true
+```
+
+La tolerancia debe ajustarse a la escala y al dominio; `Number.EPSILON` no es un margen universal para cualquier cálculo.
 
 ## Separadores numéricos con `_`
 
@@ -145,6 +175,7 @@ value.toPrecision(4)              // '1235'
 | `Math.sign(x)` | `-1`, `0`, `-0`, `1` o `NaN` | conocer dirección |
 | `Math.min(...values)` | menor valor | límites y estadísticas |
 | `Math.max(...values)` | mayor valor | límites y estadísticas |
+| `Math.sumPrecise(iterable)` | suma con menor pérdida de precisión | acumulaciones numéricas sensibles al orden |
 | `Math.floor(x)` | entero hacia abajo | páginas completas o índice aleatorio |
 | `Math.ceil(x)` | entero hacia arriba | cantidad de páginas |
 | `Math.round(x)` | entero más cercano | redondeo general |
@@ -160,6 +191,7 @@ Math.abs(-8)          // 8
 Math.sign(-8)         // -1
 Math.min(4, 1, 9)     // 1
 Math.max(4, 1, 9)     // 9
+Math.sumPrecise([1e20, 1, -1e20]) // 1
 Math.floor(4.9)       // 4
 Math.ceil(4.1)        // 5
 Math.round(4.5)       // 5
@@ -184,6 +216,57 @@ Math.cos(0)       // 1
 Math.log2(8)      // 3
 Math.log10(1000)  // 3
 ```
+
+### Referencia de métodos restantes
+
+| Familia | Métodos | Qué resuelven |
+| --- | --- | --- |
+| redondeo binario | `fround`, `f16round` | aproximar a float de 32 o 16 bits |
+| enteros de 32 bits | `imul`, `clz32` | multiplicación y ceros iniciales bitwise |
+| exponenciales | `exp`, `expm1` | `eˣ` y `eˣ - 1` con mejor precisión cerca de cero |
+| logaritmos | `log`, `log1p`, `log2`, `log10` | log natural y variantes |
+| trigonometría | `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `atan2` | ángulos en radianes |
+| hiperbólicas | `sinh`, `cosh`, `tanh`, `asinh`, `acosh`, `atanh` | funciones hiperbólicas |
+
+```js
+Math.fround(1.337)      // aproximación Float32: 1.3370000123977661
+Math.imul(2, 4)        // 8
+Math.clz32(1)          // 31
+Math.exp(1)            // 2.718281828459045
+Math.expm1(0)          // 0
+Math.log1p(0)          // 0
+Math.atan2(1, 1)       // aproximadamente 0.785: 45 grados
+Math.sinh(0)           // 0
+Math.asinh(0)          // 0
+```
+
+`Math.f16round` pertenece a ECMAScript 2025 y puede no existir en runtimes antiguos. Está relacionado con `Float16Array`, explicado en datos binarios.
+
+### Sumar con `Math.sumPrecise`
+
+Una reducción normal suma de izquierda a derecha y redondea después de cada operación. Cuando las magnitudes son muy distintas, ese orden puede borrar componentes pequeños. `Math.sumPrecise`, incorporado en ECMAScript 2026, recibe un iterable de valores `Number` y calcula una suma final con menor error acumulado.
+
+```js
+const values = [1e20, 1, -1e20]
+
+values.reduce((total, value) => total + value, 0) // 0
+Math.sumPrecise(values)                           // 1
+
+Math.sumPrecise(new Set([0.1, 0.2, 0.3])) // 0.6
+```
+
+No convierte strings ni acepta `BigInt`: un elemento que no sea `Number` provoca `TypeError`. Tampoco convierte JavaScript en aritmética decimal exacta; para dinero o reglas contables siguen siendo preferibles unidades enteras o una solución decimal. Úsalo en estadísticas, mediciones o agregaciones donde el error por orden de suma sea relevante y comprueba compatibilidad del runtime.
+
+### Constantes de `Math`
+
+| Constante | Valor aproximado | Uso |
+| --- | ---: | --- |
+| `Math.PI` | 3.14159 | círculos y ángulos |
+| `Math.E` | 2.71828 | crecimiento exponencial |
+| `Math.LN2`, `Math.LN10` | 0.693, 2.303 | logaritmos naturales |
+| `Math.LOG2E`, `Math.LOG10E` | 1.443, 0.434 | conversión de bases |
+| `Math.SQRT2` | 1.414 | raíz de 2 |
+| `Math.SQRT1_2` | 0.707 | raíz de 1/2 |
 
 ## Patrones matemáticos frecuentes
 

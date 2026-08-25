@@ -3,7 +3,7 @@ title: Control de flujo, funciones y alcance
 description: Condiciones, bucles, funciones, parámetros, scope, closures y recursión con resultados visibles y casos de uso.
 category: general
 stack: javascript
-order: 3
+order: 5
 tags: [javascript, control-flow, functions, scope, closures]
 scope: fundamentos del lenguaje
 related:
@@ -11,8 +11,16 @@ related:
   - guides/javascript-loops-iteration
   - guides/javascript-arrays-objects
   - guides/javascript-advanced-language
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+- `if` y `switch` controlan sentencias; el ternario elige un valor.
+- Una función recibe argumentos, puede producir efectos y devuelve un valor; sin `return` explícito devuelve `undefined`.
+- `let` y `const` tienen scope de bloque; una closure conserva acceso al scope donde fue creada.
+- Una declaración `function` puede invocarse antes de su línea; una variable con función no puede usarse antes de inicializarse.
+- Prefiere retornos tempranos para separar validaciones del camino principal.
 
 ## Tomar decisiones
 
@@ -56,6 +64,59 @@ nickname ?? 'Anónimo' // ''
 ```
 
 Usa `??` para configuraciones, cantidades y respuestas en las que cero, una cadena vacía o `false` tienen significado.
+
+### `switch`, coincidencia estricta y fallthrough
+
+`switch` compara cada `case` con `===`. Sin `break`, `return` o `throw`, la ejecución continúa en el siguiente caso; este comportamiento se llama **fallthrough**.
+
+```js
+function permissionFor(role) {
+  switch (role) {
+    case 'admin':
+      return 'write:any'
+    case 'editor':
+      return 'write:own'
+    case 'reader':
+      return 'read'
+    default:
+      return 'none'
+  }
+}
+
+permissionFor('editor') // 'write:own'
+permissionFor('guest')  // 'none'
+```
+
+Agrupa casos deliberadamente cuando comparten el mismo resultado:
+
+```js
+switch (status) {
+  case 200:
+  case 201:
+    message = 'Operación correcta'
+    break
+  default:
+    message = 'Revisar respuesta'
+}
+```
+
+Para una relación simple clave → valor, un objeto o `Map` puede evitar control de flujo innecesario.
+
+### Guard clauses o retornos tempranos
+
+Una **guard clause** termina pronto ante una condición inválida o excepcional.
+
+```js
+function getCheckoutLabel(cart) {
+  if (!cart) return 'Carrito no disponible'
+  if (cart.items.length === 0) return 'Carrito vacío'
+  if (!cart.canCheckout) return 'Completa los datos pendientes'
+
+  return `Pagar ${cart.total}`
+}
+```
+
+Esto mantiene el camino exitoso sin varios niveles de `else`. No conviertas cada línea en un retorno si las condiciones forman una sola decisión fácil de leer.
 
 ## Repetir trabajo
 
@@ -177,6 +238,33 @@ buildMessage() // '[app] info'
 // prefix // ReferenceError
 // level  // ReferenceError
 ```
+
+### Hoisting y temporal dead zone
+
+Durante la creación de un scope, JavaScript registra declaraciones antes de ejecutar sus líneas. Ese comportamiento se conoce como **hoisting**, pero no significa que todas puedan usarse de la misma forma.
+
+```js
+declaredFunction() // 'lista'
+
+function declaredFunction() {
+  return 'lista'
+}
+
+// readValue() // ReferenceError: aún no se inicializó
+const readValue = () => 'valor'
+```
+
+`let`, `const` y `class` existen desde el comienzo del bloque, pero permanecen inaccesibles hasta su declaración: esa región es la **temporal dead zone** (TDZ). `var` se inicializa como `undefined`, lo que puede esconder errores.
+
+```js
+console.log(legacy) // undefined
+var legacy = 'ready'
+
+// console.log(modern) // ReferenceError
+const modern = 'ready'
+```
+
+Declara cerca del uso y no organices un archivo alrededor de trucos de hoisting.
 
 ## Closures
 

@@ -3,7 +3,7 @@ title: Eventos del DOM y EventTarget
 description: Tipos de eventos, propagación, delegación, teclado, pointer, formularios, eventos personalizados y limpieza de listeners.
 category: general
 stack: javascript
-order: 15
+order: 23
 tags: [javascript, events, eventtarget, bubbling, delegation]
 scope: navegador
 website: https://developer.mozilla.org/es/docs/Web/API/EventTarget
@@ -11,8 +11,12 @@ related:
   - guides/javascript-dom-events
   - guides/javascript-runtime-event-loop
   - guides/accessibility-semantics-keyboard-focus
-updatedAt: 2026-08-18
+updatedAt: 2026-08-25
 ---
+
+## Para recordar
+
+Un evento viaja por captura, target y burbujeo. `preventDefault()` cancela la acción nativa si el evento lo permite; `stopPropagation()` detiene el recorrido y no son equivalentes. La delegación escucha en un ancestro y resuelve el objetivo con `closest`. Usa `AbortSignal` para retirar listeners como parte del ciclo de vida.
 
 ## Modelo mental
 
