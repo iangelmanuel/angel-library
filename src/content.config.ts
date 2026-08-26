@@ -33,6 +33,8 @@ const baseFields = {
   /** Orden manual dentro de la misma etapa de aprendizaje y grupo. Menor = primero; nunca adelanta recetas a fundamentos. */
   order: z.number().optional(),
   draft: z.boolean().default(false),
+  /** Entrada accesible por ruta directa, pero fuera de la navegación pública. */
+  private: z.boolean().default(false),
   updatedAt: z.coerce.date().optional(),
 };
 

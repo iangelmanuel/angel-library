@@ -99,6 +99,7 @@ const PUBLIC_COMMANDS = [
   'exit',
 ] as const;
 const SECRET_COMMANDS = [
+  'myjson',
   'cat',
   'coffee',
   'fortune',
@@ -986,6 +987,11 @@ export default function SearchResults({
 
     if (name === 'home') {
       go('/');
+      return;
+    }
+
+    if (name === 'myjson') {
+      go('/commands/myjson');
       return;
     }
 

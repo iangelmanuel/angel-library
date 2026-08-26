@@ -30,7 +30,7 @@ import { getRelated, validateContentRelations } from '@/lib/relations';
  * automáticamente, sin tocar rutas ni componentes.
  */
 export async function getStaticPaths() {
-  const all = await getAllEntries();
+  const all = await getAllEntries(true);
   // Integridad referencial: el build falla aquí si hay ids duplicados
   // o referencias a entradas inexistentes.
   validateContentRelations(all);
@@ -43,7 +43,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
 const { Content, headings } = await render(entry);
 
-const all = await getAllEntries();
+const all = await getAllEntries(true);
 const entryMap = buildEntryMap(all);
 const related = getRelated(entry, all, entryMap);
 

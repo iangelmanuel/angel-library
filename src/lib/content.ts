@@ -22,12 +22,15 @@ export type AnyEntry =
  * Devuelve todas las entradas de todas las colecciones.
  * Los borradores solo aparecen en desarrollo.
  */
-export async function getAllEntries(): Promise<AnyEntry[]> {
+export async function getAllEntries(includePrivate = false): Promise<AnyEntry[]> {
   const results = await Promise.all(
     CONTENT_TYPE_IDS.map((id) => getCollection(id as 'libraries')),
   );
   const all = results.flat() as AnyEntry[];
-  return import.meta.env.DEV ? all : all.filter((entry) => !entry.data.draft);
+  return all.filter((entry) => {
+    if (!includePrivate && entry.data.private) return false;
+    return import.meta.env.DEV || !entry.data.draft;
+  });
 }
 
 /** URL pública de una entrada: /<coleccion>/<id> */

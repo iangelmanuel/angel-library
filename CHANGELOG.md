@@ -4,6 +4,37 @@ Todos los cambios relevantes de `angel.library` se documentan en este archivo.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones siguen [Semantic Versioning](https://semver.org/lang/es/).
 
+## [Unreleased]
+
+- Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
+
+## [0.2.0] — 2026-08-25
+
+Nueva funcionalidad para guardar configuraciones personales como comandos
+privados dentro de la biblioteca, conservando el layout y el flujo de contenido
+existentes.
+
+### Añadido
+
+- Comando secreto `/myjson` en la terminal interna, con redirección a su entrada
+  de configuración personal de VS Code.
+- Entrada `commands/myjson` con la configuración completa de VS Code y explicación
+  detallada por secciones.
+- Campo `private` en el schema compartido para mantener entradas personales fuera
+  de la navegación, listados, tags e índice de búsqueda públicos.
+- Soporte para que las entradas privadas conserven sus rutas dinámicas y el mismo
+  layout, metadata, navegación anterior/siguiente y bloques de código que las
+  entradas públicas.
+- Instrucciones en `AGENTS.md` y `CLAUDE.md` para añadir futuras configuraciones
+  personales sin crear páginas aisladas.
+
+### Verificado
+
+- `pnpm sync` ejecutado tras actualizar el schema de contenido.
+- `pnpm check` sin errores.
+- Build estático de producción generado correctamente, incluida la ruta
+  `/commands/myjson`.
+
 ## [0.1.0] — 2026-08-25
 
 Primera versión organizada para publicar el proyecto en GitHub. `angel.library` funciona como un segundo cerebro técnico: sirve para aprender desde cero, recordar rápidamente y reutilizar ejemplos en proyectos reales.
@@ -43,9 +74,6 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-## [Unreleased]
-
-- Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
-
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.2.0
 [0.1.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.1.0

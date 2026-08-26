@@ -89,7 +89,7 @@ shadcn/ui is configured (`components.json`, new-york, zinc); new primitives land
 
 ## Content authoring
 
-Each collection has its own schema on top of a shared base (`title`, `description`, `category`, `tags`, `related`, `draft`, `updatedAt`). Read `src/content.config.ts` before adding frontmatter — e.g. `commands` require `command`, `resources` require `url` + `resourceCategory`, `integrations` require ≥2 `technologies`.
+Each collection has its own schema on top of a shared base (`title`, `description`, `category`, `tags`, `related`, `draft`, `private`, `updatedAt`). Read `src/content.config.ts` before adding frontmatter — e.g. `commands` require `command`, `resources` require `url` + `resourceCategory`, `integrations` require ≥2 `technologies`. Use `private: true` for personal command/configuration entries: they retain their generated detail route but stay out of public navigation, listings, tags, and search.
 
 `draft: true` entries render in dev and are excluded from production builds (`getAllEntries()`).
 
