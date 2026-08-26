@@ -10,7 +10,9 @@
  */
 
 const INSTALL_RE = /^(npm|pnpm|bun)\s+(install|i|add)\b(.*)$/;
+const ASTRO_ADD_RE = /^(?:npx\s+astro|pnpm\s+astro|bunx\s+astro)\s+add\s+(.+)$/;
 const RUNNER_RE = /^(npx|pnpm\s+dlx|bunx)\s+(.+)$/;
+const CREATE_RE = /^(npm|pnpm|bun)\s+(create|init)\b(.*)$/;
 const COMMENT_RE = /^#/;
 const KNOWN_FLAGS = new Set(['-D', '-d', '--save-dev', '-g', '--global']);
 
@@ -60,6 +62,16 @@ export function translateLine(line) {
     return { pnpm, bun, npm };
   }
 
+  const astroAddMatch = ASTRO_ADD_RE.exec(trimmed);
+  if (astroAddMatch) {
+    const integrations = astroAddMatch[1];
+    return {
+      pnpm: `pnpm astro add ${integrations}`,
+      bun: `bunx astro add ${integrations}`,
+      npm: `npx astro add ${integrations}`,
+    };
+  }
+
   const runnerMatch = RUNNER_RE.exec(trimmed);
   if (runnerMatch) {
     const rest = runnerMatch[2];
@@ -67,6 +79,23 @@ export function translateLine(line) {
       pnpm: `pnpm dlx ${rest}`,
       bun: `bunx ${rest}`,
       npm: `npx ${rest}`,
+    };
+  }
+
+  const createMatch = CREATE_RE.exec(trimmed);
+  if (createMatch) {
+    const [, , verb, rawRest] = createMatch;
+    const rest = rawRest.trim();
+
+    // `npm init -y` crea un package.json y no equivale a ejecutar un
+    // initializer. Solo convertimos `init` cuando recibe el nombre de uno,
+    // como `npm init playwright@latest`.
+    if (!rest || (verb === 'init' && rest.startsWith('-'))) return null;
+
+    return {
+      pnpm: `pnpm create ${rest}`,
+      bun: `bun create ${rest}`,
+      npm: `npm create ${rest}`,
     };
   }
 

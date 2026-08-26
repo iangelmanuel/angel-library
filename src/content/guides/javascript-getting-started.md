@@ -1,7 +1,7 @@
 ---
 title: Primeros pasos con JavaScript
 description: Qué son JavaScript, ECMAScript y el runtime; cómo ejecutar código, leer su sintaxis y entender errores antes de estudiar el lenguaje.
-category: general
+category: languages
 stack: javascript
 order: 2
 tags: [javascript, ecmascript, basics, runtime, syntax]

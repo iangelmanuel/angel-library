@@ -1,7 +1,7 @@
 ---
 title: Strings y procesamiento de texto
 description: Creación, búsqueda, extracción, reemplazo, Unicode y formato de strings con tablas, resultados y casos de uso.
-category: general
+category: languages
 stack: javascript
 order: 8
 tags: [javascript, strings, text, unicode, regexp]

@@ -1,7 +1,7 @@
 ---
 title: Permisos, notificaciones y capacidades sensibles
 description: Consultar permisos, solicitar notificaciones, usar service workers, geolocalización, portapapeles y otras capacidades con una UX responsable.
-category: general
+category: languages
 stack: javascript
 order: 32
 tags: [javascript, permissions, notifications, geolocation, clipboard]

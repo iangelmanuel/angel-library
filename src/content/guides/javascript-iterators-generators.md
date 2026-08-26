@@ -1,7 +1,7 @@
 ---
 title: Iterables, iteradores y generators
 description: Protocolos de iteración, generators síncronos y asíncronos, for await, Iterator helpers y procesamiento bajo demanda.
-category: general
+category: languages
 stack: javascript
 order: 16
 tags: [javascript, iterables, iterators, generators, lazy]

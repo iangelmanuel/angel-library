@@ -7,6 +7,14 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 ## [Unreleased]
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
+- Reorganización de la taxonomía: HTML, CSS y JavaScript pasan a la nueva categoría `Lenguajes`; TypeScript queda en `General` junto a las librerías y utilidades.
+- La categoría `General` concentra TypeScript, librerías, utilidades, snippets y patrones reutilizables; `Libs` pasa de Frontend a General.
+- Nuevo comando privado `/myastro` con la receta de configuración inicial de Astro: Tailwind, alias de TypeScript, Prettier, `SITE`, archivos de repositorio y SEO.
+- Reordenamiento de `/myastro` como flujo ejecutable de principio a fin y corrección global de las pestañas npm, pnpm y Bun para evitar bloques de instalación repetidos.
+- La receta `/myastro` ahora parte de la plantilla oficial `basics` y documenta de forma opcional el adaptador de Vercel para renderizado bajo demanda.
+- `/myastro` adopta la misma estructura ejecutable de `/mynext`: comandos actuales de integraciones, imports ordenados con Prettier, dominio único desde `import.meta.env.SITE`, renderizado por ruta, archivos de repositorio al final y árbol final del proyecto.
+- Nuevo comando privado `/mynext` con una receta ordenada para crear proyectos Next.js con Tailwind CSS, configuración del framework, Prettier, imports, `SITE`, SEO y archivos de repositorio.
+- Las pestañas de gestores de paquetes también reconocen comandos `create` e `init`, por lo que los scaffolds e instalaciones equivalentes ya no necesitan bloques Bash repetidos.
 
 ## [0.2.0] — 2026-08-25
 

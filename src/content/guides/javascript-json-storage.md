@@ -1,7 +1,7 @@
 ---
 title: JSON, serialización y almacenamiento local
 description: Convertir datos con seguridad, entender límites de JSON y elegir localStorage, sessionStorage, cookies o IndexedDB.
-category: general
+category: languages
 stack: javascript
 order: 24
 tags: [javascript, json, storage, serialization, browser]

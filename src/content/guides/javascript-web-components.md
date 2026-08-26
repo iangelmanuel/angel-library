@@ -1,7 +1,7 @@
 ---
 title: Web Components y etiquetas personalizadas
 description: Crear componentes con script, custom elements, lifecycle, Shadow DOM, templates, slots, atributos y eventos personalizados.
-category: general
+category: languages
 stack: javascript
 order: 29
 tags: [javascript, web-components, custom-elements, shadow-dom, components]

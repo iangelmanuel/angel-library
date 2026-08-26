@@ -1,7 +1,7 @@
 ---
 title: Errores, depuración y limpieza de recursos
 description: Excepciones, Error, try/catch/finally, errores personalizados, causas, debugging y liberación segura de recursos.
-category: general
+category: languages
 stack: javascript
 order: 14
 tags: [javascript, errors, debugging, exceptions, resource-management]

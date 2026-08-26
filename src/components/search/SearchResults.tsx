@@ -100,6 +100,8 @@ const PUBLIC_COMMANDS = [
 ] as const;
 const SECRET_COMMANDS = [
   'myjson',
+  'myastro',
+  'mynext',
   'cat',
   'coffee',
   'fortune',
@@ -992,6 +994,16 @@ export default function SearchResults({
 
     if (name === 'myjson') {
       go('/commands/myjson');
+      return;
+    }
+
+    if (name === 'myastro') {
+      go('/commands/myastro');
+      return;
+    }
+
+    if (name === 'mynext') {
+      go('/commands/mynext');
       return;
     }
 

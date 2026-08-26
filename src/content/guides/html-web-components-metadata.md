@@ -1,7 +1,7 @@
 ---
 title: Template, slot y Web Components
 description: Crear componentes nativos encapsulados con template, custom elements y slots, entendiendo cuándo aportan valor.
-category: general
+category: languages
 stack: html
 order: 4
 tags: [html, web-components, shadow-dom, components]

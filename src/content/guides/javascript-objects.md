@@ -1,7 +1,7 @@
 ---
 title: Objetos, propiedades y copias
 description: Crear, consultar, transformar, copiar y proteger objetos con métodos, resultados visibles y casos de uso.
-category: general
+category: languages
 stack: javascript
 order: 11
 tags: [javascript, objects, properties, immutability, prototype]

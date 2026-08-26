@@ -1,7 +1,7 @@
 ---
 title: Elementos HTML poco comunes que conviene conocer
 description: Details, dialog, output, progress, meter, time, data y otros elementos nativos para expresar estados y relaciones.
-category: general
+category: languages
 stack: html
 order: 2
 tags: [html, semantics, accessibility, native]

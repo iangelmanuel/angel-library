@@ -1,7 +1,7 @@
 ---
 title: Scroll en CSS — Referencia rápida
 description: Scrollbar personalizado, scroll-snap para carruseles y scroll suave, sin JavaScript.
-category: general
+category: languages
 stack: css
 language: css
 tags: [css, scroll, scrollbar]

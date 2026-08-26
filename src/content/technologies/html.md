@@ -1,7 +1,7 @@
 ---
 title: HTML moderno
 description: Elementos y atributos nativos que resuelven accesibilidad, formularios, multimedia, rendimiento y componentes sin JavaScript innecesario.
-category: general
+category: languages
 stack: html
 order: 1
 tags: [html, web, semantics, browser, accessibility]

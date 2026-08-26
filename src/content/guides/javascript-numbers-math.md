@@ -1,7 +1,7 @@
 ---
 title: Number, BigInt y Math
 description: Conversión, validación, precisión, formato y operaciones matemáticas con resultados visibles y casos de uso seguros.
-category: general
+category: languages
 stack: javascript
 order: 9
 tags: [javascript, number, bigint, math, precision]

@@ -1,7 +1,7 @@
 ---
 title: "SITE — variable global de configuración"
 description: Un solo objeto con todo lo que cambia de empresa a empresa — identidad, ubicación, contacto, redes, navegación y SEO — para no tener datos de la empresa repartidos ni duplicados por el código.
-category: frontend
+category: general
 stack: libs
 order: 2
 tags: [frontend, site-config, seo, architecture]

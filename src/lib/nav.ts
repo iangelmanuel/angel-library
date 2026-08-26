@@ -27,7 +27,7 @@ const LANGUAGE_ICONS: Partial<Record<string, string>> = {
  * Icono por entrada: casos especiales primero (Zod), después el tipo de
  * contenido (libraries → caja verde,
  * hooks → glifo TS, para distinguirlos del átomo de React del stack),
- * después el stack de frontend (Astro/React/Next.js) si está declarado,
+ * después el stack de conocimiento (lenguaje, framework o herramienta) si está declarado,
  * después el lenguaje (CSS/TypeScript), y por defecto el icono genérico
  * del tipo.
  */
@@ -62,7 +62,7 @@ export interface NavCategory {
   stackGroups?: NavGroup[];
 }
 
-/** Subgrupo dentro de una categoría: por categoría de recurso o por stack de frontend. */
+/** Subgrupo dentro de una categoría: por categoría de recurso o por stack de conocimiento. */
 export interface NavGroup {
   id: ResourceCategoryId | StackId;
   label: string;

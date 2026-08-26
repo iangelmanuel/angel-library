@@ -1,7 +1,7 @@
 ---
 title: Datos binarios, typed arrays y memoria compartida
 description: ArrayBuffer, TypedArray, DataView, codificación de texto, transferencia, SharedArrayBuffer y Atomics con casos de uso.
-category: general
+category: languages
 stack: javascript
 order: 17
 tags: [javascript, arraybuffer, typed-array, dataview, binary, atomics]

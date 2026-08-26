@@ -1,7 +1,7 @@
 ---
 title: CSS avanzado para rendering y performance
 description: Containment, content-visibility, compositing, animaciones y estilos críticos sin convertir cada elemento en una capa.
-category: general
+category: languages
 stack: css
 order: 3
 tags: [css, performance, rendering, animations, containment]

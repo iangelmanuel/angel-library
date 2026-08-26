@@ -320,6 +320,7 @@ const ICONS: Record<string, IconComponent> = {
   sparkles: Sparkles,
   tags: Tags,
   terminal: Terminal,
+  workflow: Workflow,
   wrench: Wrench,
   zap: Zap,
   'git-branch': GitBranch,

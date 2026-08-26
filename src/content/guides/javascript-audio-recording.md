@@ -1,7 +1,7 @@
 ---
 title: Audio, análisis de sonido y grabación
 description: Reproducir audio, usar AudioContext, detectar nivel del micrófono, grabar con MediaRecorder y trabajar con síntesis de voz.
-category: general
+category: languages
 stack: javascript
 order: 31
 tags: [javascript, audio, web-audio, media-recorder, speech]

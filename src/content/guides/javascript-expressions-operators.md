@@ -1,7 +1,7 @@
 ---
 title: Expresiones, operadores y coerción
 description: Referencia completa de operadores de JavaScript, acceso dinámico, igualdad, spread, rest, precedencia y conversiones implícitas.
-category: general
+category: languages
 stack: javascript
 order: 4
 tags: [javascript, expressions, operators, coercion, equality]

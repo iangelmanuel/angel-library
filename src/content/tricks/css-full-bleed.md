@@ -1,7 +1,7 @@
 ---
 title: Sección full-bleed dentro de un container
 description: Hacer que una sección ocupe todo el viewport aunque viva dentro de un contenedor centrado, sin wrappers extra.
-category: general
+category: languages
 stack: css
 tags: [css, layout, responsive]
 problem: Un banner o imagen debe escapar del max-width del contenido y tocar ambos bordes del viewport.

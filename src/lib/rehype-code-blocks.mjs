@@ -153,6 +153,13 @@ function groupConsecutivePmBlocks(children) {
       let j = i + 1;
       while (j < children.length) {
         const next = children[j];
+        // Markdown inserta nodos de texto con saltos de línea entre bloques
+        // consecutivos. No forman parte del comando y no deben impedir que
+        // pnpm, Bun y npm se agrupen en una sola interfaz con pestañas.
+        if (next?.type === 'text' && String(next.value ?? '').trim() === '') {
+          j++;
+          continue;
+        }
         const nextGroup =
           next?.type === 'element' && next.tagName === 'pre' ? getData(next, 'dataPmGroup', 'data-pm-group') : undefined;
         if (nextGroup === group) {

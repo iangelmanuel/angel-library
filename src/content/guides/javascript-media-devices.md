@@ -1,7 +1,7 @@
 ---
 title: Cámara, micrófono y dispositivos multimedia
 description: Detectar dispositivos, solicitar cámara o micrófono, cambiar fuentes, compartir pantalla, capturar una imagen y liberar recursos.
-category: general
+category: languages
 stack: javascript
 order: 30
 tags: [javascript, media-devices, camera, microphone, getusermedia]

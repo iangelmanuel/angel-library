@@ -1,7 +1,7 @@
 ---
 title: Módulos de JavaScript
 description: Import y export, módulos por defecto y nombrados, dependencias circulares, carga dinámica y límites entre cliente y servidor.
-category: general
+category: languages
 stack: javascript
 order: 21
 tags: [javascript, modules, esm, imports, architecture]

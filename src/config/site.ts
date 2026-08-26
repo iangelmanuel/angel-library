@@ -168,6 +168,7 @@ export const CONTENT_TYPE_LIST = CONTENT_TYPE_IDS.map((id) => CONTENT_TYPES[id])
 
 export const CATEGORY_IDS = [
   'general',
+  'languages',
   'frontend',
   'backend',
   'database',
@@ -181,6 +182,7 @@ export const CATEGORY_IDS = [
   'ai',
   'devops',
   'git',
+  'github-actions',
   'terminal',
   'tools',
   'applications',
@@ -205,8 +207,15 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
     id: 'general',
     label: 'General',
     icon: 'globe',
-    description: 'Desarrollo web transversal: HTML, CSS, JavaScript, navegador y más.',
+    description: 'Librerías, TypeScript, utilidades, snippets y patrones reutilizables para el desarrollo diario.',
     color: '--accent-blue',
+  },
+  languages: {
+    id: 'languages',
+    label: 'Lenguajes',
+    icon: 'code',
+    description: 'HTML, CSS y JavaScript: fundamentos, APIs del navegador y prácticas del lenguaje.',
+    color: '--accent-yellow',
   },
   frontend: {
     id: 'frontend',
@@ -247,8 +256,15 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
     id: 'git',
     label: 'Git & GitHub',
     icon: 'git-branch',
-    description: 'Control de versiones: comandos y situaciones prácticas.',
+    description: 'Git, repositorios en GitHub y colaboración con ramas, remotos y Pull Requests.',
     color: '--accent-yellow',
+  },
+  'github-actions': {
+    id: 'github-actions',
+    label: 'GitHub Actions',
+    icon: 'workflow',
+    description: 'Automatización con workflows: integración continua, artefactos, seguridad y despliegues.',
+    color: '--accent-purple',
   },
   terminal: {
     id: 'terminal',
@@ -411,6 +427,8 @@ export const STACK_IDS = [
   'nextjs',
   'git',
   'github',
+  'github-platform',
+  'github-actions',
   'repository-management',
   'claude-code',
   'opencode',
@@ -529,6 +547,8 @@ export const STACKS: Record<StackId, StackMeta> = {
   nextjs: { id: 'nextjs', label: 'Next.js', icon: 'brand-nextjs' },
   git: { id: 'git', label: 'Git', icon: 'brand-git' },
   github: { id: 'github', label: 'GitHub CLI', icon: 'brand-github' },
+  'github-platform': { id: 'github-platform', label: 'GitHub', icon: 'brand-github' },
+  'github-actions': { id: 'github-actions', label: 'GitHub Actions', icon: 'workflow' },
   'repository-management': {
     id: 'repository-management',
     label: 'Gestión de repositorios',
@@ -624,7 +644,8 @@ export const STACK_LIST = STACK_IDS.map((id) => STACKS[id]);
  * como fallback para que una nueva subcategoría nunca desaparezca.
  */
 export const CATEGORY_STACK_ORDER: Partial<Record<CategoryId, readonly StackId[]>> = {
-  general: ['html', 'css', 'javascript', 'typescript', 'utils'],
+  general: ['libs', 'typescript', 'utils'],
+  languages: ['html', 'css', 'javascript'],
   frontend: ['frontend-fundamentos', 'libs', 'astro', 'react', 'nextjs'],
   backend: ['backend-fundamentos', 'node', 'express', 'astro', 'nextjs'],
   database: ['database-fundamentos', 'database-modelado', 'database-sql', 'database-postgresql', 'database-nosql', 'database-operacion'],
@@ -642,7 +663,8 @@ export const CATEGORY_STACK_ORDER: Partial<Record<CategoryId, readonly StackId[]
     'ci-cd',
     'observabilidad',
   ],
-  git: ['repository-management', 'git', 'github'],
+  git: ['git', 'github-platform', 'repository-management', 'github'],
+  'github-actions': ['github-actions'],
   terminal: ['terminal', 'cli'],
   tools: ['tools-fundamentos', 'tools-editor', 'tools-calidad', 'tools-build', 'tools-debugging', 'tools-documentacion'],
   seo: ['seo', 'seo-tecnico', 'seo-contenido', 'astro', 'nextjs'],
@@ -665,6 +687,7 @@ export function getStacksForCategory(category: CategoryId): StackMeta[] {
 /** Categorías que agrupan sus entradas por stack en vez de listarlas planas. */
 export const STACK_GROUPED_CATEGORIES: CategoryId[] = [
   'general',
+  'languages',
   'frontend',
   'backend',
   'database',
@@ -678,6 +701,7 @@ export const STACK_GROUPED_CATEGORIES: CategoryId[] = [
   'ai',
   'devops',
   'git',
+  'github-actions',
   'terminal',
   'tools',
   'applications',

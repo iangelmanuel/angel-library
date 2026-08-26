@@ -1,7 +1,7 @@
 ---
 title: HTTP y ciclo completo de carga del navegador
 description: "Desde una URL hasta una página interactiva: DNS, conexiones, TLS, HTTP, caché, servidor, parsing, renderizado y métricas."
-category: general
+category: languages
 stack: javascript
 order: 33
 tags: [http, browser, dns, cache, rendering]

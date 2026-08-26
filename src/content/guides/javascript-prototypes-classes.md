@@ -1,7 +1,7 @@
 ---
 title: Prototypes, clases y construcción de objetos
 description: Cadena de prototypes, new, funciones constructoras, class, campos privados, herencia, composición y métodos estáticos.
-category: general
+category: languages
 stack: javascript
 order: 15
 tags: [javascript, prototypes, classes, inheritance, new]

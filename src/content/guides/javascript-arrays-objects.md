@@ -1,7 +1,7 @@
 ---
 title: Arrays y métodos de Array
 description: Referencia visual de Array con retorno, mutación, ejemplos y casos de uso para transformar colecciones.
-category: general
+category: languages
 stack: javascript
 order: 10
 tags: [javascript, arrays, methods, mutation, data]

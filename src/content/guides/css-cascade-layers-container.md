@@ -1,7 +1,7 @@
 ---
 title: Cascada moderna, capas y container queries
 description: Controlar la cascada con @layer, @scope, custom properties, nesting y consultas al contenedor para CSS escalable.
-category: general
+category: languages
 stack: css
 order: 1
 tags: [css, cascade, layers, container-queries, architecture]

@@ -1,7 +1,7 @@
 ---
 title: DOM y manipulación de documentos
 description: Árbol DOM, selección, recorrido, creación, atributos, contenido, formularios, foco y rendimiento con resultados visibles.
-category: general
+category: languages
 stack: javascript
 order: 22
 tags: [javascript, dom, document, elements, forms]

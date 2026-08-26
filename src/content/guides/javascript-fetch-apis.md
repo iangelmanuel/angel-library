@@ -1,7 +1,7 @@
 ---
 title: Fetch, HTTP y consumo de APIs
 description: Construir requests, validar respuestas, enviar JSON, manejar headers, errores, paginación, cache y seguridad desde JavaScript.
-category: general
+category: languages
 stack: javascript
 order: 27
 tags: [javascript, fetch, http, api, json]

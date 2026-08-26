@@ -1,7 +1,7 @@
 ---
 title: JavaScript
 description: Ruta completa de ECMAScript y la plataforma web, organizada para aprender desde cero o consultar sintaxis, métodos y APIs rápidamente.
-category: general
+category: languages
 stack: javascript
 order: 1
 tags: [javascript, ecmascript, web, browser, runtime]

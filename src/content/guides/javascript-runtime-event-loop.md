@@ -1,7 +1,7 @@
 ---
 title: Runtime de JavaScript y event loop
 description: Entender call stack, microtasks, tasks, renderizado y por qué una operación asíncrona puede bloquear la interfaz.
-category: general
+category: languages
 stack: javascript
 order: 20
 tags: [javascript, event-loop, async, browser]
