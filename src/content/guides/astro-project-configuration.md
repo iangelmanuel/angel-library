@@ -65,7 +65,7 @@ src/
 ├── components/    # UI reutilizable
 ├── content/       # contenido administrado por colecciones
 ├── layouts/       # shells de documentos
-├── lib/           # lógica y adaptadores sin UI
+├── libs/           # lógica y adaptadores sin UI
 ├── pages/         # rutas y endpoints
 ├── styles/        # estilos globales y tokens
 └── env.d.ts       # tipos globales de Astro
@@ -105,7 +105,7 @@ import { Image } from 'astro:assets';
 ```
 
 ```ts
-import { getPosts } from '@/lib/posts';
+import { getPosts } from '@/libs/posts';
 ```
 
 El alias debe ser entendido por TypeScript y por el bundler. Astro integra Vite y suele resolver `paths`, pero una herramienta externa de pruebas o scripts puede necesitar su propia configuración.

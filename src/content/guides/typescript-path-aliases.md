@@ -74,7 +74,7 @@ Además del alias general `@/*`, es común declarar uno específico por carpeta 
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
-      "@lib/*": ["./src/lib/*"],
+      "@libs/*": ["./src/libs/*"],
       "@utils/*": ["./src/utils/*"],
       "@hooks/*": ["./src/hooks/*"]
     }

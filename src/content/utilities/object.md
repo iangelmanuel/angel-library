@@ -10,7 +10,7 @@ language: typescript
 updatedAt: 2026-08-18
 ---
 
-Utilidades mínimas para transformar objetos sin mutar el original. Importa siempre desde `@/lib/object`.
+Utilidades mínimas para transformar objetos sin mutar el original. Importa siempre desde `@/libs/object`.
 
 ## Seleccionar propiedades
 

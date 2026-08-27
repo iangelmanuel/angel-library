@@ -43,6 +43,12 @@ export interface FaqItem {
   a: string
 }
 
+/** Sale de la opción `site` de astro.config.mjs — un solo lugar define el dominio. */
+const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
+  /\/$/,
+  ""
+)
+
 export const SITE = {
   // ...el resto de SITE ya existe en tu proyecto — info, location, contact, social.
   // No se repite aquí porque no es SEO, es identidad de marca (ver el patrón
@@ -66,18 +72,31 @@ export const SITE = {
       "Colombia",
       "software boutique"
     ],
-    /** Idiomas en los que la empresa atiende — alimenta `availableLanguage` en el schema de Organization. */
-    languages: ["Spanish", "English"],
+
+    /** Autoría del sitio — alimenta meta author/creator/publisher. Antes se derivaba de
+     *  `info.founders`; ahora es un dato de SEO explícito, que no siempre coincide con
+     *  la lista de fundadores de la empresa. */
+    author: "Jane Doe",
+    creator: "Jane Doe",
+    publisher: "Acme Studio",
 
     /** URL canónica del sitio, sin slash final. */
-    url: "https://acme.studio",
+    url: SITE_URL,
     /** BCP-47 con guion (es-CO) — sirve para hreflang, <html lang>, y schema.org inLanguage tal cual. */
     locale: "es-CO",
+    lang: "es",
+    currency: "COP",
+    /** Región amplia para el ContactPoint de JSON-LD — separada de `geo.region`, que es el código del departamento/estado. */
+    contactRegion: "LATAM",
+    /** Idiomas en los que la empresa atiende — alimenta `availableLanguage` en el schema de Organization. */
+    languages: ["Spanish", "English"],
     /**
      * Idiomas publicados del sitio, para generar los <link hreflang> sin repetir código.
      * Hoy hay uno solo; agregar un segundo objeto aquí alcanza para un sitio multi-idioma real.
      */
     locales: [{ hreflang: "es-CO", default: true }] as const,
+    /** Código ISO 3166-2 de la región/departamento (Bogotá D.C. → "DC") y coordenadas a nivel ciudad. */
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
 
     image: "/opengraph-image.png",
     imageAlt: "Logo de Acme sobre fondo blanco",
@@ -87,29 +106,28 @@ export const SITE = {
     logo: "/brand/logo.png",
 
     ogType: "website" as "website" | "article",
-    twitterHandle: "@acmestudio",
+    /** Cuenta del autor del contenido (twitter:creator), separada de la cuenta del sitio (twitter:site). */
+    twitterAuthor: "@acmestudio" as string | null,
+    twitterHandle: "@acmestudio" as string | null,
+    twitterCard: "summary_large_image" as
+      | "summary"
+      | "summary_large_image"
+      | "app"
+      | "player",
     noindex: false,
 
     /** meta name="category" / "classification" — clasificación de industria, no cambia seguido. */
     category: "technology",
     classification: "Business",
     /** priceRange del schema ProfessionalService: $, $$, $$$ o $$$$. */
-    priceRange: "$$$",
-
-    contactRegion: "LATAM",
-    geo: {
-      /** Código ISO 3166-2 de la región/departamento (Bogotá D.C. → "DC"). */
-      region: "DC",
-      latitude: 4.60971,
-      longitude: -74.08175
-    },
+    priceRange: "$$",
 
     /** Mismos colores que theme-color y que el manifest — un solo lugar para los dos. */
-    themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
+    themeColor: { light: "#FFFFFF", dark: "#000000" },
     /** Categorías del manifest.webmanifest (taxonomía fija de PWA: business, design, productivity, etc.). */
     manifestCategories: ["business", "design", "productivity"],
 
-    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/lib/seo.ts. */
+    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/libs/seo.ts. */
     areaServed: [
       { type: "Country", name: "Colombia" },
       { type: "Place", name: "Latin America" }
@@ -166,11 +184,11 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 - **`is:inline`** le dice a Astro que no procese ni empaquete este `<script>` — tiene que quedar literal en el HTML final, porque un JSON-LD que termina en un `.js` externo bundleado no lo leen los crawlers de la misma forma confiable.
 - **`id`** único por bloque (`ld-organization`, `ld-faq`, etc.) evita colisiones si se renderiza más de uno en la misma página, y sirve como referencia si hay que debuggear cuál JSON-LD está fallando en una herramienta de validación como el [Rich Results Test](https://search.google.com/test/rich-results) de Google.
 
-## Paso 3 — `src/lib/seo.ts`: los helpers de schema.org
+## Paso 3 — `src/libs/seo.ts`: los helpers de schema.org
 
 Cada función arma un tipo de [schema.org](https://schema.org) distinto. Antes tenían datos sueltos escritos a mano en el archivo (`"Colombia"`, `"Spanish"`, `"$$$"` literales) — aquí todo sale de `SITE`.
 
-```ts title="src/lib/seo.ts"
+```ts title="src/libs/seo.ts"
 import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site"
 
 const SITE_URL = SITE.seo.url
@@ -210,7 +228,7 @@ export function organizationLd() {
         "@type": "ContactPoint",
         contactType: "customer support",
         email: SITE.contact.email,
-        telephone: SITE.contact.whatsapp,
+        telephone: SITE.contact.whatsapp(),
         availableLanguage: SITE.seo.languages,
         areaServed: [SITE.location.countryCode, SITE.seo.contactRegion]
       }
@@ -243,9 +261,10 @@ export function professionalServiceLd() {
     name: SITE.info.name,
     image: LOGO_URL,
     url: SITE_URL,
-    telephone: SITE.contact.whatsapp,
+    telephone: SITE.contact.whatsapp(),
     email: SITE.contact.email,
     priceRange: SITE.seo.priceRange,
+    currenciesAccepted: SITE.seo.currency,
     address: {
       "@type": "PostalAddress",
       addressLocality: SITE.location.city,
@@ -336,7 +355,6 @@ const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title;
 
 const ogImage = new URL(image, SITE.seo.url).href;
 const ogLocale = SITE.seo.locale.replace("-", "_");
-const authors = SITE.info.founders.map((f) => f.name).join(", ");
 const robots = noindex ? "noindex, nofollow" : "index, follow";
 const googlebot = noindex
   ? robots
@@ -368,17 +386,17 @@ const googlebot = noindex
 <meta property="og:image:height" content={String(SITE.seo.imageHeight)} />
 <meta property="og:image:alt" content={SITE.seo.imageAlt} />
 
-<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content={SITE.seo.twitterCard} />
 <meta name="twitter:site" content={SITE.seo.twitterHandle} />
-<meta name="twitter:creator" content={SITE.seo.twitterHandle} />
+<meta name="twitter:creator" content={SITE.seo.twitterAuthor} />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
 <meta name="keywords" content={keywords.join(", ")} />
-<meta name="author" content={authors} />
-<meta name="creator" content={SITE.info.legalName} />
-<meta name="publisher" content={SITE.info.legalName} />
+<meta name="author" content={SITE.seo.author} />
+<meta name="creator" content={SITE.seo.creator} />
+<meta name="publisher" content={SITE.seo.publisher} />
 <meta name="application-name" content={SITE.info.name} />
 <meta name="category" content={SITE.seo.category} />
 <meta name="classification" content={SITE.seo.classification} />
@@ -416,7 +434,7 @@ Tres bugs reales que tenía la versión original, arreglados aquí:
 import BaseHead from "@/components/seo/BaseHead.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import { SITE } from "@/config/site";
-import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/lib/seo";
+import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/libs/seo";
 import "@/styles/globals.css";
 
 interface Props {
@@ -554,7 +572,7 @@ ${urls}
 ```astro title="src/pages/servicios.astro"
 ---
 import Layout from "@/layouts/Layout.astro";
-import { SITE } from "@/config/site";
+import { SERVICES, SITE } from "@/config/site";
 ---
 
 <Layout
@@ -565,7 +583,7 @@ import { SITE } from "@/config/site";
   <main>
     <h1>Servicios</h1>
     <ul>
-      {SITE.services.map((service) => <li>{service}</li>)}
+      {SERVICES.map((service) => <li>{service.h3}</li>)}
     </ul>
   </main>
 </Layout>

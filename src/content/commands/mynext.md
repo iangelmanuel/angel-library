@@ -1,14 +1,14 @@
 ---
 title: Configuración inicial de Next.js
-description: Paso a paso privado para iniciar un proyecto Next.js con Tailwind CSS, configuración base, Prettier, imports ordenados, SITE, SEO y archivos de repositorio.
+description: Paso a paso privado para iniciar un proyecto Next.js con Tailwind CSS, configuración base, GitHub Actions, Prettier, ESLint, SITE, SEO y archivos de repositorio.
 category: applications
 stack: apps-editors
-tags: [nextjs, react, configuración, setup, tailwind, typescript, prettier, seo, privado]
+tags: [nextjs, react, configuración, setup, tailwind, typescript, prettier, eslint, github-actions, seo, privado]
 command: /mynext
 whenToUse: Ejecuta /mynext en la terminal interna cuando quieras iniciar un proyecto Next.js con esta configuración.
 warnings:
   - "Esta entrada es privada y solo se abre mediante el comando /mynext en la terminal de búsqueda."
-  - "Reemplaza los nombres, dominios, datos de Acme y servicios de ejemplo antes de publicar."
+  - "Reemplaza los nombres, dominios y datos de Acme antes de publicar."
 private: true
 related:
   - guides/nextjs-getting-started
@@ -17,7 +17,7 @@ related:
   - guides/typescript-path-aliases
   - patterns/site-config-global
   - recipes/nextjs-seo-completo
-updatedAt: 2026-08-26
+updatedAt: 2026-08-27
 ---
 
 ## Antes de comenzar
@@ -108,12 +108,14 @@ campos de identidad y los scripts del siguiente ejemplo.
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "preview": "next start",
     "start": "next start",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "next": "next",
+    "check": "tsc --noEmit",
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier . --check"
   }
 }
 ~~~
@@ -127,7 +129,164 @@ versiones que instaló el CLI.
 `private: true` evita publicar accidentalmente la aplicación como paquete de
 npm; no impide subir el repositorio a GitHub ni desplegarlo.
 
-## 3. Revisar Tailwind y el alias generado
+## 3. Configurar GitHub Actions
+
+### Objetivo
+
+Dejar la verificación automática lista antes de escribir código: cada push y
+cada pull request corren los mismos comandos que se ejecutan en local. El
+workflow solo llama a los scripts declarados en el paso 2, así que el archivo
+no cambia aunque después se agreguen Prettier, ESLint o el SEO.
+
+~~~yaml title=".github/workflows/ci.yml"
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    env:
+      NEXT_PUBLIC_SITE_URL: https://example.com
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm check
+
+      - run: pnpm eslint
+
+      - run: pnpm prettier:check
+
+      - run: pnpm build
+~~~
+
+| Paso | Qué verifica |
+| --- | --- |
+| `pnpm install --frozen-lockfile` | El lockfile está sincronizado con `package.json` |
+| `pnpm check` | Errores de TypeScript (`tsc --noEmit`) |
+| `pnpm eslint` | Reglas de calidad y de Next.js |
+| `pnpm prettier:check` | Formato consistente, sin reescribir archivos |
+| `pnpm build` | La aplicación compila realmente |
+
+`--frozen-lockfile` hace fallar el job si el lockfile no coincide con
+`package.json`, en vez de resolver versiones nuevas silenciosamente en CI.
+
+`NEXT_PUBLIC_SITE_URL` se declara en el job porque `SITE` lo lee durante el
+build (paso 9); sin esa variable el build usaría el fallback de localhost y
+generaría URLs canónicas incorrectas. Nunca pongas secretos ahí: para eso
+usa `secrets` del repositorio, y solo variables `NEXT_PUBLIC_` en texto
+plano.
+
+Los pasos de `eslint` y `prettier:check` fallarán hasta completar los pasos 6
+y 7, que crean sus configuraciones. Es esperado: el workflow se agrega al
+principio para que ningún commit posterior quede sin verificar.
+
+### Variante: verificaciones en paralelo
+
+Los `steps` de un job corren **en secuencia** y el job se detiene en el primero
+que falle: si `check` falla, nunca llegas a ver si además tenías errores de
+ESLint o de formato. Los **jobs**, en cambio, sí corren en paralelo.
+
+El orden que tiene sentido no es "todo a la vez", sino en dos etapas: primero
+las tres verificaciones rápidas —independientes entre sí—, y solo si todas
+pasan, el build, que es el paso más lento y el que no vale la pena pagar sobre
+código que ya se sabe roto.
+
+~~~yaml title=".github/workflows/ci.yml"
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [check, eslint, "prettier:check"]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm ${{ matrix.task }}
+
+  build:
+    needs: quality
+    runs-on: ubuntu-latest
+
+    env:
+      NEXT_PUBLIC_SITE_URL: https://example.com
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+~~~
+
+| Clave | Qué hace |
+| --- | --- |
+| `strategy.matrix.task` | Crea un job por verificación; los tres arrancan a la vez |
+| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos y vuelves al mismo problema del workflow secuencial |
+| `needs: quality` | `build` espera a que los tres terminen en verde; si uno falla, se salta |
+| `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista |
+
+`"prettier:check"` va entre comillas porque los dos puntos sin comillas son
+sintaxis de mapa en YAML.
+
+`NEXT_PUBLIC_SITE_URL` baja al job de `build`, que es el único que la necesita:
+`check`, `eslint` y `prettier:check` no leen `SITE`. Declararla a nivel de
+workflow también funciona, pero deja de ser evidente qué paso depende de ella.
+
+Cada job es una máquina distinta, así que cada uno reinstala dependencias: son
+cuatro instalaciones en vez de una. La caché de `setup-node` con `cache: pnpm`
+lo abarata bastante y, a cambio, el PR muestra los cuatro resultados por
+separado en vez de uno solo que se corta en el primer error.
+
+## 4. Revisar Tailwind y el alias generado
 
 ### Objetivo
 
@@ -186,7 +345,7 @@ Revisa también el alias en `tsconfig.json`:
 Con ese alias, `@/config/site` resuelve `src/config/site.ts`. No agregues
 `baseUrl` si el archivo generado no lo necesita.
 
-## 4. Configurar next.config.ts
+## 5. Configurar next.config.ts
 
 ### Objetivo
 
@@ -239,7 +398,7 @@ No agregues `output: "standalone"` para un despliegue normal en Vercel. Esa
 salida se usa principalmente cuando la aplicación se empaqueta en un contenedor
 o en una infraestructura que necesita un servidor autocontenido.
 
-## 5. Instalar y configurar Prettier
+## 6. Instalar y configurar Prettier
 
 ### Objetivo
 
@@ -297,7 +456,7 @@ Crea `.prettierrc` en la raíz:
 El orden resultante es React, Next.js, paquetes externos, alias internos,
 imports relativos y estilos. `prettier-plugin-tailwindcss` debe permanecer al
 final del arreglo de plugins. Reemplaza `tailwindStylesheet: "..."` por la
-ruta real del CSS creado en el paso 3 (`./src/app/globals.css`).
+ruta real del CSS creado en el paso 4 (`./src/app/globals.css`).
 
 Crea el archivo de exclusiones:
 
@@ -322,16 +481,65 @@ Confirma que `package.json` ya tiene los scripts para ejecutar Prettier (paso 2)
 ~~~json title="package.json (scripts)"
 {
   "scripts": {
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier . --check"
   }
 }
 ~~~
 
-`format` reescribe los archivos; `format:check` solo falla si algo no está
+`prettier` reescribe los archivos; `prettier:check` solo falla si algo no está
 formateado, útil para CI.
 
-## 6. Preparar variables de entorno
+## 7. Configurar ESLint
+
+### Objetivo
+
+`create-next-app` ya instaló ESLint con la configuración de Next.js, así que
+aquí no se instala nada nuevo: se revisa lo generado, se agregan las reglas de
+TypeScript y se excluyen las carpetas de build.
+
+Revisa el archivo que creó el CLI y déjalo así:
+
+~~~js title="eslint.config.mjs"
+import { dirname } from "node:path"
+import { fileURLToPath } from "node:url"
+import { FlatCompat } from "@eslint/eslintrc"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname
+})
+
+export default [
+  {
+    ignores: [".next/", "out/", "build/", "node_modules/"]
+  },
+  ...compat.extends("next/core-web-vitals", "next/typescript")
+]
+~~~
+
+| Configuración | Qué aporta |
+| --- | --- |
+| `next/core-web-vitals` | Reglas de Next.js más las que afectan Core Web Vitals |
+| `next/typescript` | Reglas de `typescript-eslint` adaptadas al proyecto |
+
+`FlatCompat` existe porque las configuraciones de Next todavía se publican en
+el formato antiguo (`eslintrc`); es el puente oficial para consumirlas desde
+la configuración plana. El bloque `ignores` debe ir primero y reemplaza al
+antiguo `.eslintignore`, que la configuración plana ya no lee.
+
+Comprueba que corre:
+
+~~~bash
+pnpm eslint
+~~~
+
+`next/core-web-vitals` no incluye reglas de formato, así que ESLint y Prettier
+no compiten y no hace falta `eslint-config-prettier`.
+
+## 8. Preparar variables de entorno
 
 ### Objetivo
 
@@ -354,7 +562,7 @@ ejemplo `https://example.com`, sin una barra final. Tokens, claves privadas y
 URLs internas deben usar variables sin `NEXT_PUBLIC_` y solo consumirse desde
 Server Components, Route Handlers o Server Actions.
 
-## 7. Crear SITE
+## 9. Crear SITE
 
 ### Objetivo
 
@@ -373,7 +581,18 @@ export const SITE = {
     legalName: "Acme Studio",
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
-    founded: 2025
+    slogan: "Construimos lo que tu negocio necesita, no lo que sobra.",
+    founded: 2025,
+    founders: [{ name: "Jane Doe", role: "Cofundadora" }],
+    teams: [] as Array<{ name: string; lead: string }>,
+  },
+
+  site: {
+    url: SITE_URL,
+    locale: "es-CO",
+    lang: "es",
+    timezone: "America/Bogota",
+    currency: "COP",
   },
 
   location: {
@@ -382,12 +601,26 @@ export const SITE = {
     state: "Cundinamarca",
     country: "Colombia",
     countryCode: "CO",
-    postalCode: "110111"
+    postalCode: "110111",
+    timezone: "America/Bogota",
+    display: "Bogotá, Colombia",
   },
 
   contact: {
     email: "hola@acme.studio",
-    whatsapp: "+573001234567"
+    countryCode: "+57",
+    phone: "300 123 4567",
+    phoneDisplay: () => `${SITE.contact.countryCode} ${SITE.contact.phone}`,
+    whatsapp: () =>
+      `${SITE.contact.countryCode}${SITE.contact.phone.replace(/\s/g, "")}`,
+    landline: null as string | null,
+  },
+
+  whatsAppMessage: {
+    general: "Hola, quiero conocer más sobre los servicios.",
+    service: (service: string) =>
+      `Hola, estoy interesado en el servicio de ${service}. ¿Podrías darme más información?`,
+    appointment: "Hola, quiero agendar una reunión.",
   },
 
   social: {
@@ -395,7 +628,8 @@ export const SITE = {
     linkedin: "https://linkedin.com/company/acmestudio",
     x: "https://x.com/acmestudio",
     github: "https://github.com/acmestudio",
-    youtube: null as string | null
+    tiktok: null as string | null,
+    youtube: "https://youtube.com/@acmestudio",
   },
 
   businessHours: [
@@ -405,7 +639,29 @@ export const SITE = {
     { day: "Jueves", open: "09:00", close: "18:00" },
     { day: "Viernes", open: "09:00", close: "18:00" },
     { day: "Sábado", open: "10:00", close: "14:00" },
-    { day: "Domingo", open: null, close: null }
+    { day: "Domingo", open: null, close: null },
+  ],
+
+  legal: [
+    { slug: "privacidad", title: "Política de Privacidad", updatedAt: "2025-02-15" },
+    { slug: "terminos", title: "Términos y Condiciones", updatedAt: "2025-02-15" },
+    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" },
+  ],
+
+  navigation: {
+    main: [
+      { name: "Inicio", href: "/" },
+      { name: "Servicios", href: "/servicios" },
+      { name: "Portafolio", href: "/portafolio" },
+      { name: "Blog", href: "/blog" },
+      { name: "Contacto", href: "/contacto" },
+    ],
+    cta: { label: "Catálogo", href: "/catalogo" },
+  },
+
+  stats: [
+    { value: "+120", label: "Proyectos entregados", sublabel: "Desde 2025" },
+    { value: "98%", label: "Clientes que renuevan", sublabel: "Retención anual" },
   ],
 
   seo: {
@@ -420,40 +676,59 @@ export const SITE = {
       "diseño web Bogotá",
       "identidad de marca",
       "comunicación organizacional",
+      "e-commerce",
+      "landing pages",
       "Bogotá",
-      "Colombia"
+      "Colombia",
+      "software boutique",
     ],
-    languages: ["Spanish", "English"],
+
+    author: "Jane Doe",
+    creator: "Jane Doe",
+    publisher: "Acme Studio",
+
     url: SITE_URL,
     locale: "es-CO",
     lang: "es",
     currency: "COP",
+    contactRegion: "LATAM",
+    languages: ["Spanish", "English"],
+    locales: [{ hreflang: "es-CO", default: true }] as const,
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
+
     image: "/opengraph-image.png",
-    imageAlt: "Logo de Acme sobre fondo oscuro",
+    imageAlt: "Logo de Acme sobre fondo blanco",
     imageWidth: 1200,
     imageHeight: 630,
     logo: "/brand/logo.png",
+
     ogType: "website" as "website" | "article",
+    twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
+    twitterCard: "summary_large_image" as
+      | "summary"
+      | "summary_large_image"
+      | "app"
+      | "player",
     noindex: false,
-    priceRange: "$$$",
-    contactRegion: "LATAM",
-    geo: {
-      region: "DC",
-      latitude: 4.60971,
-      longitude: -74.08175
-    },
-    themeColor: {
-      light: "#fafafa",
-      dark: "#050505"
-    },
+
+    category: "technology",
+    classification: "Business",
+    priceRange: "$$",
+
+    themeColor: { light: "#FFFFFF", dark: "#000000" },
     manifestCategories: ["business", "design", "productivity"],
+
     areaServed: [
       { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" }
-    ]
-  }
+      { type: "Place", name: "Latin America" },
+    ],
+  },
 } as const
+
+export function whatsAppMessage(message: string) {
+  return `https://wa.me/${SITE.contact.whatsapp()}?text=${encodeURIComponent(message)}`
+}
 ~~~
 
 Antes de continuar reemplaza todos los datos de Acme. `SITE.seo.url` se obtiene
@@ -461,7 +736,7 @@ de la variable de entorno, y el fallback local permite ejecutar el proyecto sin
 configuración adicional. `as const` evita mutaciones accidentales, pero no
 convierte datos públicos en secretos.
 
-## 8. Crear los helpers de SEO
+## 10. Crear los helpers de SEO
 
 ### Objetivo
 
@@ -469,7 +744,7 @@ Construir la Metadata API y los datos estructurados desde una sola fuente. La
 función `buildMetadata` sirve para páginas estáticas y para
 `generateMetadata`; los builders de Schema.org alimentan JSON-LD.
 
-~~~ts title="src/lib/seo.ts"
+~~~ts title="src/libs/seo.ts"
 import type { Metadata } from "next"
 
 import { SITE } from "@/config/site"
@@ -529,10 +804,17 @@ export function buildMetadata(options: SeoOptions = {}): Metadata {
     title: fullTitle ? { absolute: fullTitle } : title,
     description,
     keywords: [...SITE.seo.keywords, ...keywords],
+    authors: [{ name: SITE.seo.author }],
+    creator: SITE.seo.creator,
+    publisher: SITE.seo.publisher,
+    category: SITE.seo.category,
+    other: { classification: SITE.seo.classification },
     alternates: {
       canonical: cleanPath,
       languages: {
-        [SITE.seo.locale]: cleanPath,
+        ...Object.fromEntries(
+          SITE.seo.locales.map((l) => [l.hreflang, cleanPath])
+        ),
         "x-default": cleanPath
       }
     },
@@ -575,14 +857,14 @@ export function buildMetadata(options: SeoOptions = {}): Metadata {
         : {})
     },
     twitter: {
-      card: "summary_large_image",
+      card: SITE.seo.twitterCard,
       title: resolvedTitle,
       description,
       images: [{ url: absoluteUrl(image), alt: imageAlt }],
       ...(SITE.seo.twitterHandle
         ? {
             site: SITE.seo.twitterHandle,
-            creator: SITE.seo.twitterHandle
+            creator: SITE.seo.twitterAuthor ?? SITE.seo.twitterHandle
           }
         : {})
     }
@@ -620,12 +902,18 @@ export function buildBusinessSchema(): Record<string, unknown> {
     name: SITE.info.name,
     legalName: SITE.info.legalName,
     description: SITE.info.description,
+    slogan: SITE.info.slogan,
     url: SITE.seo.url,
     logo: absoluteUrl(SITE.seo.logo),
     image: absoluteUrl(SITE.seo.image),
-    telephone: SITE.contact.whatsapp,
+    telephone: SITE.contact.whatsapp(),
     email: SITE.contact.email,
     foundingDate: String(SITE.info.founded),
+    founder: SITE.info.founders.map((f) => ({
+      "@type": "Person",
+      name: f.name,
+      jobTitle: f.role
+    })),
     priceRange: SITE.seo.priceRange,
     currenciesAccepted: SITE.seo.currency,
     address: {
@@ -650,8 +938,9 @@ export function buildBusinessSchema(): Record<string, unknown> {
       "@type": "ContactPoint",
       contactType: "customer support",
       email: SITE.contact.email,
-      telephone: SITE.contact.whatsapp,
-      availableLanguage: SITE.seo.languages
+      telephone: SITE.contact.whatsapp(),
+      availableLanguage: SITE.seo.languages,
+      areaServed: [SITE.location.countryCode, SITE.seo.contactRegion]
     },
     sameAs
   }
@@ -690,7 +979,7 @@ export function buildBreadcrumbSchema(
 Next.js resuelva canonical y otras rutas relativas contra el dominio de
 `SITE.seo.url`.
 
-## 9. Crear el componente JSON-LD
+## 11. Crear el componente JSON-LD
 
 ### Objetivo
 
@@ -723,9 +1012,9 @@ Los valores del schema deben salir de datos controlados o validados. Escapar el
 carácter `<` protege la frontera HTML, pero no convierte contenido falso o
 incorrecto en datos estructurados válidos.
 
-## 10. Crear manifest, robots y sitemap
+## 12. Crear manifest, robots y sitemap
 
-### 10.1 Manifest
+### 12.1 Manifest
 
 `src/app/manifest.ts` genera `/manifest.webmanifest` mediante una convención del
 App Router.
@@ -762,7 +1051,7 @@ export default function manifest(): MetadataRoute.Manifest {
 }
 ~~~
 
-### 10.2 Robots
+### 12.2 Robots
 
 `src/app/robots.ts` genera `/robots.txt`. El flag `noindex` permite bloquear un
 entorno completo de staging sin modificar varias páginas.
@@ -794,7 +1083,7 @@ export default function robots(): MetadataRoute.Robots {
 `robots.txt` expresa preferencias de rastreo; no protege rutas privadas. Una
 ruta sensible sigue necesitando autenticación y autorización en el servidor.
 
-### 10.3 Sitemap
+### 12.3 Sitemap
 
 `src/app/sitemap.ts` genera `/sitemap.xml`. Comienza con rutas reales y agrega
 las dinámicas cuando exista una fuente de contenido.
@@ -829,7 +1118,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 No incluyas rutas inexistentes, páginas con `noindex`, resultados internos de
 búsqueda ni URLs privadas.
 
-## 11. Completar el layout raíz
+## 13. Completar el layout raíz
 
 ### Objetivo
 
@@ -845,7 +1134,7 @@ import {
   buildBusinessSchema,
   buildMetadata,
   buildWebsiteSchema
-} from "@/lib/seo"
+} from "@/libs/seo"
 
 import "./globals.css"
 
@@ -898,14 +1187,14 @@ La metadata está disponible solo en Server Components. No agregues
 `"use client"` al layout raíz para resolver una interacción; mueve esa
 interacción a un componente cliente pequeño.
 
-## 12. Usar metadata por página
+## 14. Usar metadata por página
 
 ### Página estática
 
 Una página estática puede exportar el resultado de `buildMetadata` directamente.
 
 ~~~tsx title="src/app/servicios/page.tsx"
-import { buildMetadata } from "@/lib/seo"
+import { buildMetadata } from "@/libs/seo"
 
 export const metadata = buildMetadata({
   title: "Servicios",
@@ -935,8 +1224,8 @@ Cuando la metadata depende de un registro, usa `generateMetadata`. El mismo
 import { notFound } from "next/navigation"
 
 import { JsonLd } from "@/components/seo/JsonLd"
-import { getPostBySlug } from "@/lib/posts"
-import { buildBreadcrumbSchema, buildMetadata } from "@/lib/seo"
+import { getPostBySlug } from "@/libs/posts"
+import { buildBreadcrumbSchema, buildMetadata } from "@/libs/seo"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -988,7 +1277,7 @@ Este ejemplo se agrega cuando el proyecto ya tenga un blog y una implementación
 real de `getPostBySlug`. No crees datos estructurados de artículos, productos o
 servicios que no existan como contenido visible.
 
-## 13. Añadir recursos públicos
+## 15. Añadir recursos públicos
 
 ### Objetivo
 
@@ -1013,7 +1302,7 @@ La imagen Open Graph debe medir `1200 × 630`, coincidir con la descripción de
 iconos del manifest deben ser cuadrados y no depender de transparencia para
 mantener legibilidad.
 
-## 14. Añadir los archivos del repositorio
+## 16. Añadir los archivos del repositorio
 
 ### Objetivo
 
@@ -1027,6 +1316,7 @@ nadie mantendrá.
 ├── .gitignore
 ├── .prettierignore
 ├── .prettierrc
+├── eslint.config.mjs
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
@@ -1051,16 +1341,21 @@ nadie mantendrá.
 | `.env.example` | Variables requeridas sin secretos |
 | `.gitignore` | `.next`, `node_modules`, `.env*` y artefactos locales |
 | `.editorconfig` | UTF-8, LF, espacios y tamaño de indentación |
-| CI | Instalación congelada, tipos, lint y build |
+| `eslint.config.mjs` | Configuración de ESLint (paso 7) |
 
-`CODEOWNERS`, plantillas y archivos de comunidad se agregan cuando exista una
-persona responsable de mantenerlos. Nunca guardes tokens reales en ejemplos,
+`.github/workflows/ci.yml` ya existe desde el paso 3 — aquí solo aparece para
+que el árbol muestre el repositorio completo. `CODEOWNERS`, plantillas y
+archivos de comunidad se agregan cuando exista una persona responsable de
+mantenerlos. Nunca guardes tokens reales en ejemplos,
 Issues, logs de CI o capturas de pantalla.
 
-## 15. Estructura final recomendada
+## 17. Estructura final recomendada
 
 ~~~text
 mi-proyecto/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── public/
 │   ├── brand/
 │   └── icons/
@@ -1075,12 +1370,13 @@ mi-proyecto/
 │   │   └── seo/JsonLd.tsx
 │   ├── config/
 │   │   └── site.ts
-│   └── lib/
+│   └── libs/
 │       └── seo.ts
 ├── .env.example
 ├── .env.local
 ├── .prettierignore
 ├── .prettierrc
+├── eslint.config.mjs
 ├── next.config.ts
 ├── package.json
 └── tsconfig.json
@@ -1090,15 +1386,15 @@ Coloca componentes compartidos en `src/components`, acceso a datos y helpers en
 `src/lib`, y decisiones de identidad en `src/config`. Las carpetas internas de
 una ruta pueden vivir junto a esa ruta cuando no se reutilizan fuera de ella.
 
-## 16. Verificar el proyecto
+## 18. Verificar el proyecto
 
 Ejecuta las comprobaciones en este orden:
 
 ~~~bash
-pnpm format
-pnpm format:check
-pnpm lint
-pnpm typecheck
+pnpm prettier
+pnpm prettier:check
+pnpm eslint
+pnpm check
 pnpm build
 pnpm start
 ~~~
@@ -1114,13 +1410,15 @@ entorno y código que depende accidentalmente del navegador.
 - `package.json` conserva las dependencias generadas y tiene datos reales.
 - `next.config.ts` contiene únicamente opciones que el proyecto utiliza.
 - Prettier ordena imports y clases de Tailwind.
+- ESLint corre con `next/core-web-vitals` y `next/typescript` sin errores.
+- El workflow de GitHub Actions corre check, eslint, prettier:check y build.
 - `.env.example` no contiene secretos.
 - `SITE` contiene el dominio y los datos reales del proyecto.
 - `metadataBase`, canonical, Open Graph y Twitter usan el dominio correcto.
 - `robots.txt`, `sitemap.xml` y `manifest.webmanifest` responden correctamente.
 - Los schemas JSON-LD describen contenido visible y verificable.
 - Favicon, imagen social, logo e iconos existen en las rutas documentadas.
-- `format:check`, `lint`, `typecheck` y `build` terminan sin errores.
+- `prettier:check`, `eslint`, `check` y `build` terminan sin errores.
 
 Referencias oficiales: [instalación de Next.js](https://nextjs.org/docs/app/getting-started/installation),
 [next.config](https://nextjs.org/docs/app/api-reference/config/next-config-js) y

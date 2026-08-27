@@ -10,7 +10,7 @@ related:
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas y declarativas para manipular el DOM. Importa siempre desde `@/lib/dom`.
+Utilidades mínimas y declarativas para manipular el DOM. Importa siempre desde `@/libs/dom`.
 
 Solo existen aquí las funciones que el sitio realmente usa. Si necesitas algo que no está, primero considera si `element.querySelector` directo es más claro que agregar otro helper.
 
@@ -21,7 +21,7 @@ Solo existen aquí las funciones que el sitio realmente usa. Si necesitas algo q
 Con `HTMLElement` de default, esto ya funciona sin genéricos explícitos:
 
 ```ts
-import { $, on } from '@/lib/dom';
+import { $, on } from '@/libs/dom';
 
 const boton = $('[data-submit]');
 on(boton, 'click', () => {});
@@ -47,7 +47,7 @@ export function $<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $ } from '@/lib/dom';
+import { $ } from '@/libs/dom';
 
 // Selector global
 const boton = $<HTMLButtonElement>('[data-submit]');
@@ -70,7 +70,7 @@ export function $opt<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $opt } from '@/lib/dom';
+import { $opt } from '@/libs/dom';
 
 const modal = $opt<HTMLDivElement>('[data-modal]');
 if (modal) show(modal);
@@ -90,7 +90,7 @@ export function $$<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $$ } from '@/lib/dom';
+import { $$ } from '@/libs/dom';
 
 const items = $$<HTMLLIElement>('[data-item]');
 items.forEach((item) => console.log(item.textContent));
@@ -115,7 +115,7 @@ export function show(el: HTMLElement | HTMLElement[]): void {
 ```
 
 ```ts
-import { show } from '@/lib/dom';
+import { show } from '@/libs/dom';
 
 show(mensajeFinal);
 ```
@@ -134,7 +134,7 @@ export function hide(el: HTMLElement | HTMLElement[]): void {
 ```
 
 ```ts
-import { hide } from '@/lib/dom';
+import { hide } from '@/libs/dom';
 
 hide([cargador1, cargador2]);
 ```
@@ -157,7 +157,7 @@ export function getCssVar(
 ```
 
 ```ts
-import { getCssVar } from '@/lib/dom';
+import { getCssVar } from '@/libs/dom';
 
 const azul = getCssVar(elemento, '--color-verlun-blue', '#2547FF');
 ```
@@ -186,7 +186,7 @@ export function on<K extends keyof HTMLElementEventMap>(
 ```
 
 ```ts
-import { on } from '@/lib/dom';
+import { on } from '@/libs/dom';
 
 const limpiar = on(boton, 'click', () => console.log('Clickeado'));
 
@@ -211,7 +211,7 @@ export function onAll<K extends keyof HTMLElementEventMap>(
 ```
 
 ```ts
-import { onAll } from '@/lib/dom';
+import { onAll } from '@/libs/dom';
 
 const limpiar = onAll(formulario, ['input', 'change'], actualizarContador);
 ```
@@ -241,7 +241,7 @@ export function onVisible(
 ```
 
 ```ts
-import { onVisible } from '@/lib/dom';
+import { onVisible } from '@/libs/dom';
 
 const limpiar = onVisible(seccion, (visible) => {
   if (visible) iniciarAnimacion();
@@ -270,7 +270,7 @@ export function onResize(
 ```
 
 ```ts
-import { $, onResize } from '@/lib/dom';
+import { $, onResize } from '@/libs/dom';
 
 const canvas = $<HTMLCanvasElement>('[data-canvas]');
 
@@ -303,7 +303,7 @@ export function onMutation(
 ```
 
 ```ts
-import { onMutation } from '@/lib/dom';
+import { onMutation } from '@/libs/dom';
 
 const limpiar = onMutation(document.documentElement, actualizarColores, {
   attributes: true,

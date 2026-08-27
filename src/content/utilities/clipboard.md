@@ -10,7 +10,7 @@ related:
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas sobre el portapapeles. Importa siempre desde `@/lib/clipboard`.
+Utilidades mínimas sobre el portapapeles. Importa siempre desde `@/libs/clipboard`.
 
 La Clipboard API async (`navigator.clipboard`) no está disponible en todos los contextos (requiere HTTPS y a veces permiso explícito), así que `copyToClipboard()` cae a un fallback con `<textarea>` + `execCommand` cuando hace falta.
 
@@ -27,7 +27,7 @@ export function isClipboardSupported(): boolean {
 ```
 
 ```ts
-import { isClipboardSupported } from '@/lib/clipboard';
+import { isClipboardSupported } from '@/libs/clipboard';
 
 if (!isClipboardSupported()) {
   console.warn('Clipboard API no disponible, usando fallback');
@@ -63,7 +63,7 @@ export async function copyToClipboard(text: string): Promise<boolean> {
 ```
 
 ```ts
-import { copyToClipboard } from '@/lib/clipboard';
+import { copyToClipboard } from '@/libs/clipboard';
 
 const copiado = await copyToClipboard('npm install zod');
 mostrarToast(copiado ? 'Copiado' : 'No se pudo copiar');
@@ -86,7 +86,7 @@ export async function readFromClipboard(): Promise<string | null> {
 ```
 
 ```ts
-import { readFromClipboard } from '@/lib/clipboard';
+import { readFromClipboard } from '@/libs/clipboard';
 
 const texto = await readFromClipboard();
 if (texto) input.value = texto;

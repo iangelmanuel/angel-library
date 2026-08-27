@@ -20,7 +20,7 @@ Un HOC es el patrón Decorator aplicado a componentes: recibe un componente, dev
 
 ```tsx title="components/with-auth.tsx"
 import type { ComponentType } from 'react';
-import { useSession } from '@/lib/auth';
+import { useSession } from '@/libs/auth';
 
 export function withAuth<P extends object>(Component: ComponentType<P>) {
   return function AuthenticatedComponent(props: P) {

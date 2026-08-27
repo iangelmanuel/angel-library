@@ -20,7 +20,7 @@ Usa un Server Component cuando necesites datos, secretos o HTML sin interacción
 
 ```tsx title="app/posts/[id]/page.tsx"
 import LikeButton from './LikeButton';
-import { db } from '@/lib/db';
+import { db } from '@/libs/db';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

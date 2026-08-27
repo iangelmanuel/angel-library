@@ -27,7 +27,7 @@ import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/libs/prisma';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [

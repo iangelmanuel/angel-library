@@ -70,7 +70,7 @@ Una carpeta `_components` o `_lib` se considera privada y no crea rutas. La colo
 ```text
 app/blog/
 ├── _components/PostCard.tsx
-├── _lib/get-posts.ts
+├── _libs/get-posts.ts
 └── page.tsx
 ```
 

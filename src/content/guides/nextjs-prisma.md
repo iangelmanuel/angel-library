@@ -74,7 +74,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 ```ts title="app/api/posts/route.ts"
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/libs/prisma';
 
 export async function GET() {
   const posts = await prisma.post.findMany();
@@ -136,8 +136,8 @@ Si una operación del array falla, todas se revierten.
 ```ts title="app/actions/posts.ts"
 'use server';
 
-import { prisma } from '@/lib/prisma';
-import { auth } from '@/lib/auth';
+import { prisma } from '@/libs/prisma';
+import { auth } from '@/libs/auth';
 import { revalidatePath } from 'next/cache';
 
 export async function crearPostConLimite(formData: FormData) {

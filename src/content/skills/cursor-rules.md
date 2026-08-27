@@ -29,7 +29,7 @@ alwaysApply: false
 Todos los endpoints devuelven `{ data, error }`, nunca lanzan directo.
 Usar Zod para validar el body antes de tocar la base de datos.
 
-Ver también @src/lib/errors.ts para el formato de error estándar.
+Ver también @src/libs/errors.ts para el formato de error estándar.
 ```
 
 `@archivo` transcluye contenido de otro archivo sin duplicarlo — si ese archivo cambia, la regla no queda desactualizada.

@@ -22,7 +22,7 @@ export const eventos = new EventEmitter();
 ```
 
 ```ts title="services/users.service.ts"
-import { eventos } from '@/lib/events';
+import { eventos } from '@/libs/events';
 
 export async function crearUsuario(datos: DatosUsuario) {
   const usuario = await db.usuario.create({ data: datos });
@@ -32,7 +32,7 @@ export async function crearUsuario(datos: DatosUsuario) {
 ```
 
 ```ts title="listeners/on-user-created.ts"
-import { eventos } from '@/lib/events';
+import { eventos } from '@/libs/events';
 
 eventos.on('user:created', ({ email }) => enviarBienvenida(email));
 eventos.on('user:created', ({ id }) => registrarEnAnalytics(id));

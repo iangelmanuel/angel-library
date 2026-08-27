@@ -21,8 +21,8 @@ Este sitio no tiene descarga en `.zip` — copias cada bloque de código de abaj
 ├── SKILL.md
 └── references/
     ├── config.md        # SITE.seo completo
-    ├── lib.md            # src/lib/seo.ts — buildMetadata + los 3 builders de JSON-LD
-    ├── component.md       # src/components/JsonLd.tsx
+    ├── libs.md            # src/libs/seo.ts — buildMetadata + los 3 builders de JSON-LD
+    ├── components.md       # src/components/JsonLd.tsx
     └── assembly.md          # app/robots.ts, app/sitemap.ts, app/layout.tsx, páginas de ejemplo
 ```
 
@@ -47,15 +47,15 @@ Search the project for an existing site-wide config object (commonly `SITE`, in 
 ## 2. References
 
 - `references/config.md` — the complete `SITE.seo` object, every field explained inline.
-- `references/lib.md` — the full `src/lib/seo.ts`: `buildMetadata()`, `buildBusinessSchema()`, `buildWebsiteSchema()`, `buildBreadcrumbSchema()`, plus optional `buildProductSchema()`/`buildArticleSchema()` for catalogs/blogs.
-- `references/component.md` — `src/components/JsonLd.tsx`.
+- `references/libs.md` — the full `src/libs/seo.ts`: `buildMetadata()`, `buildBusinessSchema()`, `buildWebsiteSchema()`, `buildBreadcrumbSchema()`, plus optional `buildProductSchema()`/`buildArticleSchema()` for catalogs/blogs.
+- `references/components.md` — `src/components/JsonLd.tsx`.
 - `references/assembly.md` — `app/manifest.ts`, `app/robots.ts`, `app/sitemap.ts`, `app/layout.tsx` (root layout, declares the title template once), and working example pages (static + dynamic).
 
 ## 3. Generate flow (no existing SEO setup)
 
 1. Ask the user for their real company data if it's not already evident from the codebase (name, description, canonical URL, city/country, social links, brand colors). Don't block on missing pieces — use clearly-marked placeholders for anything not provided (`"TODO: replace"`), never invent business details silently.
 2. Create `SITE.seo` following `references/config.md` exactly, with the user's real data instead of the example values.
-3. Create `src/lib/seo.ts` and `src/components/JsonLd.tsx` following `references/lib.md` and `references/component.md`.
+3. Create `src/libs/seo.ts` and `src/components/JsonLd.tsx` following `references/libs.md` and `references/components.md`.
 4. Create `app/manifest.ts`, `app/robots.ts`, `app/sitemap.ts` following `references/assembly.md`.
 5. Update `app/layout.tsx` to declare the title template (`title: { default, template }`) and inject the global JSON-LD — do not build the title suffix by hand anywhere else.
 6. Update at least the home page (and one dynamic route if the project has one) to use `buildMetadata`/`generateMetadata`.
@@ -65,7 +65,7 @@ Search the project for an existing site-wide config object (commonly `SITE`, in 
 
 1. Read whatever SEO-related code already exists (config object, per-page `metadata` exports, any JSON-LD already rendered somewhere).
 2. Map every real value found (company name, description, images, socials, coordinates) onto the target `SITE.seo` shape from `references/config.md` — never discard real data in favor of a placeholder.
-3. While migrating, fix these common issues instead of carrying them forward as-is (all of these happened in the original draft this pattern is based on — see `references/lib.md` for the full explanation of each):
+3. While migrating, fix these common issues instead of carrying them forward as-is (all of these happened in the original draft this pattern is based on — see `references/libs.md` for the full explanation of each):
    - Data written directly inside metadata objects/schema builders instead of read from config
    - Duplicate sources of truth for the same value (e.g. coordinates or currency defined in two different sub-objects)
    - `openGraph.images`/`twitter.images` width/height hardcoded instead of reusing the image size already stored somewhere
@@ -95,12 +95,9 @@ export const SITE = {
   // identity and contact data, not SEO — the target of this skill is only what's below.
 
   seo: {
-    /** Default title — used as-is on the home page via the title template's `default`. */
+    /** Default title — used as-is on the home page, and as the " — {name}" suffix elsewhere. */
     title: "Acme — Software, marca y comunicación para empresas",
-    /**
-     * Next's native template for every other page: %s is replaced by whatever
-     * `title` each page passes. Declared here, applied once, in the root layout.
-     */
+    /** Next applies this template to any child page that only sets its own `title`. */
     titleTemplate: "%s | Acme",
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
@@ -117,17 +114,31 @@ export const SITE = {
       "Colombia",
       "software boutique",
     ],
-    /** Languages the business operates in — feeds `availableLanguage` if added to the Organization schema. */
-    languages: ["Spanish", "English"],
 
-    /** From NEXT_PUBLIC_SITE_URL — same code works in local, preview, and production. */
+    /** Site authorship — feeds the author/creator/publisher metas. This used to be derived
+     *  from `info.founders`; it's now an explicit SEO field, since the content author
+     *  doesn't always match the company's founder list. */
+    author: "Jane Doe",
+    creator: "Jane Doe",
+    publisher: "Acme Studio",
+
+    /** Canonical site URL, no trailing slash. */
     url: SITE_URL,
-    /** BCP-47 with hyphen — hreflang, schema.org inLanguage, and the base for `og:locale` (swap "-" for "_"). */
+    /** BCP-47 with hyphen (es-CO) — used for hreflang, <html lang>, and schema.org inLanguage as-is. */
     locale: "es-CO",
-    /** ISO 639-1 — the lang attribute on <html>. */
     lang: "es",
-    /** ISO 4217 — only needed if there's a `Product`/pricing schema. */
     currency: "COP",
+    /** Broad region for JSON-LD's ContactPoint — separate from `geo.region`, which is the department/state code. */
+    contactRegion: "LATAM",
+    /** Languages the business operates in — feeds `availableLanguage` in the Organization schema. */
+    languages: ["Spanish", "English"],
+    /**
+     * Published locales, to generate <link hreflang> without repeating code.
+     * One entry today; adding a second object here is enough for a real multi-language site.
+     */
+    locales: [{ hreflang: "es-CO", default: true }] as const,
+    /** ISO 3166-2 code of the region/department (Bogotá D.C. → "DC") plus city-level coordinates. */
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
 
     image: "/opengraph-image.png",
     imageAlt: "Logo de Acme sobre fondo blanco",
@@ -137,33 +148,28 @@ export const SITE = {
     logo: "/brand/logo.png",
 
     ogType: "website" as "website" | "article",
+    /** Content author's account (twitter:creator), separate from the site account (twitter:site). */
+    twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
-    /** Global flag — blocks indexing of the ENTIRE site (useful for staging/preview). Each page can still override its own. */
+    twitterCard: "summary_large_image" as
+      | "summary"
+      | "summary_large_image"
+      | "app"
+      | "player",
     noindex: false,
 
     /** meta name="category" / "classification" — industry classification, rarely changes. */
     category: "technology",
     classification: "Business",
     /** priceRange for the ProfessionalService schema: $, $$, $$$, or $$$$. */
-    priceRange: "$$$",
-
-    /** Broad region for JSON-LD's ContactPoint — separate from `geo.region`, which is the department/state code. */
-    contactRegion: "LATAM",
-
-    /** The ONLY source of coordinates — meta geo.*, ICBM, and JSON-LD GeoCoordinates all read from here. */
-    geo: {
-      /** ISO 3166-2 code of the region/department (Bogotá D.C. → "DC"). */
-      region: "DC",
-      latitude: 4.60971,
-      longitude: -74.08175,
-    },
+    priceRange: "$$",
 
     /** Same colors as theme-color meta and the web manifest — one place for both. */
-    themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
-    /** Web manifest categories (fixed PWA taxonomy). */
+    themeColor: { light: "#FFFFFF", dark: "#000000" },
+    /** Web manifest categories (fixed PWA taxonomy: business, design, productivity, etc.). */
     manifestCategories: ["business", "design", "productivity"],
 
-    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/lib/seo.ts. */
+    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/libs/seo.ts. */
     areaServed: [
       { type: "Country", name: "Colombia" },
       { type: "Place", name: "Latin America" },
@@ -178,12 +184,12 @@ Two decisions worth keeping when generating or migrating:
 - **One single source of coordinates** — `SITE.seo.geo` is the only place with latitude/longitude. Don't let a second copy exist anywhere else (e.g. under `location`) — that's the exact bug this pattern fixes.
 ```
 
-## `references/lib.md`
+## `references/libs.md`
 
-```md title=".claude/skills/nextjs-seo/references/lib.md"
-# src/lib/seo.ts
+```md title=".claude/skills/nextjs-seo/references/libs.md"
+# src/libs/seo.ts
 
-​```ts title="src/lib/seo.ts"
+​```ts title="src/libs/seo.ts"
 import type { Metadata } from "next";
 import { SITE } from "@/config/site";
 
@@ -252,11 +258,18 @@ export function buildMetadata(options: SeoOptions = {}): Metadata {
     title: fullTitle ? { absolute: fullTitle } : title,
     description,
     keywords: [...SITE.seo.keywords, ...keywords],
+    authors: [{ name: SITE.seo.author }],
+    creator: SITE.seo.creator,
+    publisher: SITE.seo.publisher,
+    category: SITE.seo.category,
+    other: { classification: SITE.seo.classification },
 
     alternates: {
       canonical: cleanPath,
       languages: {
-        [SITE.seo.locale]: cleanPath,
+        ...Object.fromEntries(
+          SITE.seo.locales.map((l) => [l.hreflang, cleanPath]),
+        ),
         "x-default": cleanPath,
       },
     },
@@ -287,11 +300,11 @@ export function buildMetadata(options: SeoOptions = {}): Metadata {
     },
 
     twitter: {
-      card: "summary_large_image",
+      card: SITE.seo.twitterCard,
       title: resolvedTitle,
       description,
       images: [{ url: imageUrl, alt: resolvedAlt }],
-      ...(SITE.seo.twitterHandle ? { site: SITE.seo.twitterHandle, creator: SITE.seo.twitterHandle } : {}),
+      ...(SITE.seo.twitterHandle ? { site: SITE.seo.twitterHandle, creator: SITE.seo.twitterAuthor ?? SITE.seo.twitterHandle } : {}),
     },
 
     other: {
@@ -334,12 +347,18 @@ export function buildBusinessSchema(): Record<string, unknown> {
     name: SITE.info.name,
     legalName: SITE.info.legalName,
     description: SITE.info.description,
+    slogan: SITE.info.slogan,
     url: SITE.seo.url,
     logo: absoluteUrl(SITE.seo.logo),
     image: absoluteUrl(SITE.seo.image),
-    telephone: SITE.contact.whatsapp,
+    telephone: SITE.contact.whatsapp(),
     email: SITE.contact.email,
     foundingDate: String(SITE.info.founded),
+    founder: SITE.info.founders.map((f) => ({
+      "@type": "Person",
+      name: f.name,
+      jobTitle: f.role,
+    })),
     priceRange: SITE.seo.priceRange,
     currenciesAccepted: SITE.seo.currency,
     address: {
@@ -362,7 +381,7 @@ export function buildBusinessSchema(): Record<string, unknown> {
         "@type": "ContactPoint",
         contactType: "customer support",
         email: SITE.contact.email,
-        telephone: SITE.contact.whatsapp,
+        telephone: SITE.contact.whatsapp(),
         availableLanguage: SITE.seo.languages,
         areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
@@ -468,9 +487,9 @@ export function buildArticleSchema(article: {
 - `app/manifest.ts` missing while the root layout already links to `/manifest.webmanifest` — that link 404s until the file exists.
 ```
 
-## `references/component.md`
+## `references/components.md`
 
-```md title=".claude/skills/nextjs-seo/references/component.md"
+```md title=".claude/skills/nextjs-seo/references/components.md"
 # src/components/JsonLd.tsx
 
 ​```tsx title="src/components/JsonLd.tsx"
@@ -590,7 +609,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 ​```tsx title="app/layout.tsx"
 import type { Metadata } from "next";
 import { SITE } from "@/config/site";
-import { buildBusinessSchema, buildWebsiteSchema } from "@/lib/seo";
+import { buildBusinessSchema, buildWebsiteSchema } from "@/libs/seo";
 import { JsonLd } from "@/components/JsonLd";
 
 // The title template is declared ONCE, here — any page that only exports
@@ -621,7 +640,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 Static page, short title Next merges with the root layout's template on its own:
 
 ​```tsx title="app/servicios/page.tsx"
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata } from "@/libs/seo";
 
 export const metadata = buildMetadata({
   title: "Servicios",
@@ -643,9 +662,9 @@ Dynamic page, metadata generated from real data plus its own `BreadcrumbList`:
 
 ​```tsx title="app/blog/[slug]/page.tsx"
 import { notFound } from "next/navigation";
-import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
+import { buildMetadata, buildBreadcrumbSchema } from "@/libs/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { getBlogPostBySlug } from "@/lib/db";
+import { getBlogPostBySlug } from "@/libs/db";
 
 interface Props {
   params: Promise<{ slug: string }>;

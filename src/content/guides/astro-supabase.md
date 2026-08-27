@@ -31,7 +31,7 @@ SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 
 **3. El client:**
 
-```ts title="src/lib/supabase.ts"
+```ts title="src/libs/supabase.ts"
 import { createClient } from '@supabase/supabase-js';
 
 export const supabaseAdmin = createClient(

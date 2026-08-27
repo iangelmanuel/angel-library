@@ -44,7 +44,7 @@ APP_NAME=Atlas Docs
 El identificador del modelo es ilustrativo; se debe verificar en el catálogo. Para resultados reproducibles conviene fijar una versión cuando exista. Un alias que apunta a “latest” puede cambiar comportamiento sin modificar el código.
 
 ```ts
-// src/lib/openrouter.ts
+// src/libs/openrouter.ts
 import { OpenRouter } from '@openrouter/sdk';
 
 export const openrouter = new OpenRouter({

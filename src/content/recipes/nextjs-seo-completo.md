@@ -28,17 +28,14 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").r
 
 export const SITE = {
   // ...el resto de SITE ya existe en tu proyecto — info, location, contact,
-  // whatsappMessages, businessHours, social, legal. No se repite aquí porque no es SEO,
+  // whatsAppMessage, businessHours, social, legal. No se repite aquí porque no es SEO,
   // es identidad de marca y datos de contacto (ver el patrón "SITE: variable global
   // de configuración"); el foco de esta receta es solo lo de abajo.
 
   seo: {
-    /** Título por defecto — se usa tal cual en la home vía el `default` del title template. */
+    /** Título por defecto — se usa tal cual en la home, y como sufijo `Página — Acme` en el resto. */
     title: "Acme — Software, marca y comunicación para empresas",
-    /**
-     * Template nativo de Next para el resto de páginas: %s se reemplaza por el
-     * `title` que pase cada página. Se declara aquí y se aplica una sola vez, en el layout raíz (Paso 6).
-     */
+    /** Next aplica este template a cualquier página hija que solo defina su `title`. */
     titleTemplate: "%s | Acme",
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
@@ -55,17 +52,31 @@ export const SITE = {
       "Colombia",
       "software boutique",
     ],
-    /** Idiomas en los que la empresa atiende — alimenta `availableLanguage` si se agrega a Organization. */
-    languages: ["Spanish", "English"],
 
-    /** Sale de NEXT_PUBLIC_SITE_URL — mismo valor en local, preview y producción sin tocar código. */
+    /** Autoría del sitio — alimenta meta author/creator/publisher. Antes se derivaba de
+     *  `info.founders`; ahora es un dato de SEO explícito, que no siempre coincide con
+     *  la lista de fundadores de la empresa. */
+    author: "Jane Doe",
+    creator: "Jane Doe",
+    publisher: "Acme Studio",
+
+    /** URL canónica del sitio, sin slash final. */
     url: SITE_URL,
-    /** BCP-47 con guion — hreflang, schema.org inLanguage, y base de `og:locale` (con "_" en vez de "-"). */
+    /** BCP-47 con guion (es-CO) — sirve para hreflang, <html lang>, y schema.org inLanguage tal cual. */
     locale: "es-CO",
-    /** ISO 639-1 — atributo lang de <html>. */
     lang: "es",
-    /** ISO 4217 — solo hace falta si hay `Product`/pricing en el schema (Paso 8). */
     currency: "COP",
+    /** Región amplia para el ContactPoint de JSON-LD — separada de `geo.region`, que es el código del departamento/estado. */
+    contactRegion: "LATAM",
+    /** Idiomas en los que la empresa atiende — alimenta `availableLanguage` en el schema de Organization. */
+    languages: ["Spanish", "English"],
+    /**
+     * Idiomas publicados del sitio, para generar los <link hreflang> sin repetir código.
+     * Hoy hay uno solo; agregar un segundo objeto aquí alcanza para un sitio multi-idioma real.
+     */
+    locales: [{ hreflang: "es-CO", default: true }] as const,
+    /** Código ISO 3166-2 de la región/departamento (Bogotá D.C. → "DC") y coordenadas a nivel ciudad. */
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
 
     image: "/opengraph-image.png",
     imageAlt: "Logo de Acme sobre fondo blanco",
@@ -75,33 +86,28 @@ export const SITE = {
     logo: "/brand/logo.png",
 
     ogType: "website" as "website" | "article",
+    /** Cuenta del autor del contenido (twitter:creator), separada de la cuenta del sitio (twitter:site). */
+    twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
-    /** Flag global — bloquea indexación de TODO el sitio (útil en staging/preview). Cada página puede pisarlo. */
+    twitterCard: "summary_large_image" as
+      | "summary"
+      | "summary_large_image"
+      | "app"
+      | "player",
     noindex: false,
 
     /** meta name="category" / "classification" — clasificación de industria, no cambia seguido. */
     category: "technology",
     classification: "Business",
     /** priceRange del schema ProfessionalService: $, $$, $$$ o $$$$. */
-    priceRange: "$$$",
+    priceRange: "$$",
 
-    /** Región amplia para el ContactPoint de JSON-LD — separada de `geo.region`, que es el código del departamento/estado. */
-    contactRegion: "LATAM",
-
-    /** Única fuente de coordenadas — meta geo.*, ICBM y JSON-LD GeoCoordinates leen todos de aquí. */
-    geo: {
-      /** Código ISO 3166-2 de la región/departamento (Bogotá D.C. → "DC"). */
-      region: "DC",
-      latitude: 4.60971,
-      longitude: -74.08175,
-    },
-
-    /** Mismos colores que theme-color y el manifest — un solo lugar para los dos. */
-    themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
-    /** Categorías del manifest.webmanifest (taxonomía fija de PWA). */
+    /** Mismos colores que theme-color y que el manifest — un solo lugar para los dos. */
+    themeColor: { light: "#FFFFFF", dark: "#000000" },
+    /** Categorías del manifest.webmanifest (taxonomía fija de PWA: business, design, productivity, etc.). */
     manifestCategories: ["business", "design", "productivity"],
 
-    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/lib/seo.ts. */
+    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/libs/seo.ts. */
     areaServed: [
       { type: "Country", name: "Colombia" },
       { type: "Place", name: "Latin America" },
@@ -115,11 +121,11 @@ Dos decisiones que vale la pena explicar:
 - **`titleTemplate` en vez de armar el string a mano**: Next tiene soporte nativo para templates de título (`metadata.title = { default, template }`) — declarados una vez en el layout raíz, cualquier página hija que solo ponga `title: "Servicios"` sale como `"Servicios | Acme"` sin que la función de `buildMetadata` tenga que concatenar nada. Ver Paso 2 y Paso 7.
 - **Una sola fuente de coordenadas**: `SITE.seo.geo` es el único lugar con latitud/longitud — evita el bug típico de tener las coordenadas escritas en dos objetos distintos (por ejemplo `location.geo` y `seo.geo`) que con el tiempo se desincronizan.
 
-## Paso 2 — `src/lib/seo.ts`: los helpers
+## Paso 2 — `src/libs/seo.ts`: los helpers
 
 Una función central (`buildMetadata`) que arma el objeto `Metadata` de Next completo, más tres funciones que arman JSON-LD.
 
-```ts title="src/lib/seo.ts"
+```ts title="src/libs/seo.ts"
 import type { Metadata } from "next";
 import { SITE } from "@/config/site";
 
@@ -195,11 +201,18 @@ export function buildMetadata(options: SeoOptions = {}): Metadata {
     title: fullTitle ? { absolute: fullTitle } : title,
     description,
     keywords: [...SITE.seo.keywords, ...keywords],
+    authors: [{ name: SITE.seo.author }],
+    creator: SITE.seo.creator,
+    publisher: SITE.seo.publisher,
+    category: SITE.seo.category,
+    other: { classification: SITE.seo.classification },
 
     alternates: {
       canonical: cleanPath,
       languages: {
-        [SITE.seo.locale]: cleanPath,
+        ...Object.fromEntries(
+          SITE.seo.locales.map((l) => [l.hreflang, cleanPath]),
+        ),
         "x-default": cleanPath,
       },
     },
@@ -230,11 +243,11 @@ export function buildMetadata(options: SeoOptions = {}): Metadata {
     },
 
     twitter: {
-      card: "summary_large_image",
+      card: SITE.seo.twitterCard,
       title: resolvedTitle,
       description,
       images: [{ url: imageUrl, alt: resolvedAlt }],
-      ...(SITE.seo.twitterHandle ? { site: SITE.seo.twitterHandle, creator: SITE.seo.twitterHandle } : {}),
+      ...(SITE.seo.twitterHandle ? { site: SITE.seo.twitterHandle, creator: SITE.seo.twitterAuthor ?? SITE.seo.twitterHandle } : {}),
     },
 
     other: {
@@ -280,12 +293,18 @@ export function buildBusinessSchema(): Record<string, unknown> {
     name: SITE.info.name,
     legalName: SITE.info.legalName,
     description: SITE.info.description,
+    slogan: SITE.info.slogan,
     url: SITE.seo.url,
     logo: absoluteUrl(SITE.seo.logo),
     image: absoluteUrl(SITE.seo.image),
-    telephone: SITE.contact.whatsapp,
+    telephone: SITE.contact.whatsapp(),
     email: SITE.contact.email,
     foundingDate: String(SITE.info.founded),
+    founder: SITE.info.founders.map((f) => ({
+      "@type": "Person",
+      name: f.name,
+      jobTitle: f.role,
+    })),
     priceRange: SITE.seo.priceRange,
     currenciesAccepted: SITE.seo.currency,
     address: {
@@ -308,7 +327,7 @@ export function buildBusinessSchema(): Record<string, unknown> {
         "@type": "ContactPoint",
         contactType: "customer support",
         email: SITE.contact.email,
-        telephone: SITE.contact.whatsapp,
+        telephone: SITE.contact.whatsapp(),
         availableLanguage: SITE.seo.languages,
         areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
@@ -471,7 +490,7 @@ Igual que en la versión de Astro: para un sitio con pocas páginas estáticas, 
 ```tsx title="app/layout.tsx"
 import type { Metadata } from "next";
 import { SITE } from "@/config/site";
-import { buildBusinessSchema, buildWebsiteSchema } from "@/lib/seo";
+import { buildBusinessSchema, buildWebsiteSchema } from "@/libs/seo";
 import { JsonLd } from "@/components/JsonLd";
 
 // El title template se declara UNA sola vez, aquí — cualquier página que solo
@@ -502,7 +521,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 Página estática, título corto que Next combina solo con el template del layout raíz:
 
 ```tsx title="app/servicios/page.tsx"
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata } from "@/libs/seo";
 
 export const metadata = buildMetadata({
   title: "Servicios",
@@ -526,9 +545,9 @@ Página dinámica, con metadata generada a partir de datos y su propio `Breadcru
 
 ```tsx title="app/blog/[slug]/page.tsx"
 import { notFound } from "next/navigation";
-import { buildMetadata, buildBreadcrumbSchema } from "@/lib/seo";
+import { buildMetadata, buildBreadcrumbSchema } from "@/libs/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { getBlogPostBySlug } from "@/lib/db";
+import { getBlogPostBySlug } from "@/libs/db";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -579,9 +598,9 @@ Ver [Metadata para SEO](/guides/nextjs-metadata-seo) para el detalle general de 
 
 ## Paso 9 — Extra: schemas por tipo de contenido
 
-Para un catálogo de productos o un blog, dos builders más en el mismo `src/lib/seo.ts`, siguiendo el mismo patrón (reciben el dato de la página, arman el schema):
+Para un catálogo de productos o un blog, dos builders más en el mismo `src/libs/seo.ts`, siguiendo el mismo patrón (reciben el dato de la página, arman el schema):
 
-```ts title="src/lib/seo.ts (agregar)"
+```ts title="src/libs/seo.ts (agregar)"
 export function buildProductSchema(product: {
   id: string;
   name: string;

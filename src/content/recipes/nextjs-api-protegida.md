@@ -20,9 +20,9 @@ updatedAt: 2026-08-16
 ```ts title="app/api/admin/usuarios/[id]/route.ts"
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { auth } from '@/lib/auth';
-import { checarRateLimit } from '@/lib/rate-limit';
-import { prisma } from '@/lib/prisma';
+import { auth } from '@/libs/auth';
+import { checarRateLimit } from '@/libs/rate-limit';
+import { prisma } from '@/libs/prisma';
 
 const actualizarUsuarioSchema = z.object({
   rol: z.enum(['user', 'moderador', 'admin']).optional(),

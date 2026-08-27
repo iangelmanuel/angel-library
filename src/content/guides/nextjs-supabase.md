@@ -72,7 +72,7 @@ export function createClient() {
 **5. Un Server Component real:**
 
 ```tsx title="app/posts/page.tsx"
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/libs/supabase/server';
 
 export default async function PostsPage() {
   const supabase = await createClient();

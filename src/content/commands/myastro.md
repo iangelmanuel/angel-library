@@ -1,9 +1,9 @@
 ---
 title: Configuración inicial de Astro
-description: Paso a paso privado para iniciar un proyecto Astro con metadatos, configuración base, aliases, Tailwind, Prettier, archivos de repositorio, SITE y SEO.
+description: Paso a paso privado para iniciar un proyecto Astro con metadatos, configuración base, GitHub Actions, aliases, Tailwind, Prettier, ESLint, SITE, SEO y archivos de repositorio.
 category: applications
 stack: apps-editors
-tags: [astro, configuración, setup, tailwind, typescript, prettier, seo, privado]
+tags: [astro, configuración, setup, tailwind, typescript, prettier, eslint, github-actions, seo, privado]
 command: /myastro
 whenToUse: Ejecuta /myastro en la terminal interna cuando quieras iniciar un proyecto Astro con esta configuración.
 warnings:
@@ -16,7 +16,7 @@ related:
   - guides/typescript-path-aliases
   - patterns/site-config-global
   - recipes/astro-seo-completo
-updatedAt: 2026-08-26
+updatedAt: 2026-08-27
 ---
 
 ## Antes de comenzar
@@ -106,11 +106,13 @@ y scripts.
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "astro dev",
     "astro": "astro",
     "check": "astro check",
     "sync": "astro sync",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "eslint": "eslint .",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier . --check"
   }
 }
 ~~~
@@ -121,7 +123,155 @@ en el archivo real. Mantén las dependencias que creó Astro debajo de estos
 campos. private: true evita publicar accidentalmente el proyecto como paquete
 de npm, pero no impide subirlo a GitHub.
 
-## 3. Configurar la base de Astro
+## 3. Configurar GitHub Actions
+
+### Objetivo
+
+Dejar la verificación automática lista antes de escribir código: cada push y
+cada pull request corren los mismos comandos que se ejecutan en local. El
+workflow solo llama a los scripts declarados en el paso 2, así que el archivo
+no cambia aunque después se agreguen ESLint, Prettier o el SEO.
+
+~~~yaml title=".github/workflows/ci.yml"
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm sync
+
+      - run: pnpm check
+
+      - run: pnpm eslint
+
+      - run: pnpm prettier:check
+
+      - run: pnpm build
+~~~
+
+| Paso | Qué verifica |
+| --- | --- |
+| `pnpm install --frozen-lockfile` | El lockfile está sincronizado con `package.json` |
+| `pnpm sync` | Los tipos generados de Astro existen antes del type-check |
+| `pnpm check` | Errores de TypeScript y diagnósticos de Astro |
+| `pnpm eslint` | Reglas de calidad y errores de Astro |
+| `pnpm prettier:check` | Formato consistente, sin reescribir archivos |
+| `pnpm build` | El sitio compila realmente |
+
+`--frozen-lockfile` hace fallar el job si el lockfile no coincide con
+`package.json`, en vez de resolver versiones nuevas silenciosamente en CI.
+`pnpm sync` va antes de `check` porque `astro check` necesita los tipos que
+Astro genera en `.astro/`.
+
+Los pasos de `eslint` y `prettier:check` fallarán hasta completar los pasos 8
+y 9, que crean sus configuraciones. Es esperado: el workflow se agrega al
+principio para que ningún commit posterior quede sin verificar.
+
+### Variante: verificaciones en paralelo
+
+Los `steps` de un job corren **en secuencia** y el job se detiene en el primero
+que falle: si `check` falla, nunca llegas a ver si además tenías errores de
+ESLint o de formato. Los **jobs**, en cambio, sí corren en paralelo.
+
+El orden que tiene sentido no es "todo a la vez", sino en dos etapas: primero
+las tres verificaciones rápidas —independientes entre sí—, y solo si todas
+pasan, el build, que es el paso más lento y el que no vale la pena pagar sobre
+código que ya se sabe roto.
+
+~~~yaml title=".github/workflows/ci.yml"
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [check, eslint, "prettier:check"]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm sync
+
+      - run: pnpm ${{ matrix.task }}
+
+  build:
+    needs: quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+~~~
+
+| Clave | Qué hace |
+| --- | --- |
+| `strategy.matrix.task` | Crea un job por verificación; los tres arrancan a la vez |
+| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos y vuelves al mismo problema del workflow secuencial |
+| `needs: quality` | `build` espera a que los tres terminen en verde; si uno falla, se salta |
+| `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista |
+
+`"prettier:check"` va entre comillas porque los dos puntos sin comillas son
+sintaxis de mapa en YAML.
+
+Cada job es una máquina distinta, así que cada uno reinstala dependencias: son
+cuatro instalaciones en vez de una. La caché de `setup-node` con `cache: pnpm`
+lo abarata bastante y, a cambio, el PR muestra los cuatro resultados por
+separado en vez de uno solo que se corta en el primer error.
+
+## 4. Configurar la base de Astro
 
 ### Objetivo
 
@@ -151,7 +301,7 @@ Reemplaza example.com por el dominio definitivo. Si todavía no existe, usa el
 dominio previsto y corrígelo antes de desplegar. base solo se agrega cuando el
 sitio se publica dentro de una subruta, por ejemplo /docs.
 
-## 4. (Opcional) Preparar Vercel para renderizado bajo demanda
+## 5. (Opcional) Preparar Vercel para renderizado bajo demanda
 
 ### Cuándo usar este paso
 
@@ -204,7 +354,7 @@ ruta; `output: "server"` cambia el valor predeterminado de todo el proyecto. No
 uses cookies como única prueba de autenticación: valida la sesión y los permisos
 en el servidor.
 
-## 5. Configurar el alias de TypeScript
+## 6. Configurar el alias de TypeScript
 
 ### Objetivo
 
@@ -235,7 +385,7 @@ No añadas jsxImportSource ni configuración de React mientras el proyecto no us
 React. Si más adelante agregas un framework de interfaz, su integración puede
 actualizar tsconfig automáticamente.
 
-## 6. Instalar Tailwind CSS
+## 7. Instalar Tailwind CSS
 
 ### Objetivo
 
@@ -249,7 +399,7 @@ pnpm astro add tailwind
 
 El comando instala `tailwindcss` y `@tailwindcss/vite` y modifica
 `astro.config.mjs`. Revisa el resultado conservando la configuración base del
-paso 3:
+paso 4:
 
 ~~~js title="astro.config.mjs"
 import { defineConfig } from "astro/config"
@@ -294,7 +444,7 @@ import "@/styles/global.css"
 No necesitas tailwind.config.js para esta configuración de Tailwind 4. Añádelo
 solo si una capacidad concreta del proyecto lo exige.
 
-## 7. Instalar y configurar Prettier
+## 8. Instalar y configurar Prettier
 
 ### Objetivo
 
@@ -354,7 +504,7 @@ propiedades `importOrder`; sin ese plugin Prettier las ignoraría.
 
 `prettier-plugin-tailwindcss` debe permanecer al final del arreglo de plugins.
 Reemplaza `tailwindStylesheet: "..."` por la ruta real del CSS creado en el
-paso 6 (`./src/styles/global.css`).
+paso 7 (`./src/styles/global.css`).
 
 Crea también el archivo de exclusiones:
 
@@ -381,16 +531,73 @@ Confirma que `package.json` ya tiene los scripts para ejecutar Prettier (paso 2)
 ~~~json title="package.json (scripts)"
 {
   "scripts": {
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier . --check"
   }
 }
 ~~~
 
-`format` reescribe los archivos; `format:check` solo falla si algo no está
+`prettier` reescribe los archivos; `prettier:check` solo falla si algo no está
 formateado, útil para CI.
 
-## 8. Crear SITE
+## 9. Instalar y configurar ESLint
+
+### Objetivo
+
+Detectar errores reales de Astro y TypeScript que el formateador no ve.
+Prettier decide cómo se ve el código; ESLint decide qué código es correcto.
+
+~~~bash
+pnpm add -D eslint eslint-plugin-astro typescript-eslint
+~~~
+
+Crea la configuración plana en la raíz:
+
+~~~js title="eslint.config.mjs"
+import eslintPluginAstro from "eslint-plugin-astro"
+import tseslint from "typescript-eslint"
+
+export default [
+  {
+    ignores: [
+      ".astro/",
+      ".vercel/",
+      "dist/",
+      "node_modules/"
+    ]
+  },
+  ...tseslint.configs.recommended,
+  ...eslintPluginAstro.configs.recommended,
+  {
+    rules: {}
+  }
+]
+~~~
+
+| Paquete | Para qué |
+| --- | --- |
+| `eslint` | El motor de reglas |
+| `typescript-eslint` | Parser y reglas para TypeScript |
+| `eslint-plugin-astro` | Entiende la sintaxis de un `.astro` (frontmatter + template) |
+
+`eslint-plugin-astro` es ESM, por eso la configuración se llama
+`eslint.config.mjs` y no `.js`. El bloque `ignores` debe ir primero y
+reemplaza al antiguo `.eslintignore`, que la configuración plana ya no lee.
+
+`tseslint.configs.recommended` no requiere información de tipos; si más
+adelante quieres reglas que sí la usen, cambia a
+`tseslint.configs.recommendedTypeChecked` y agrega `parserOptions.project`.
+
+Comprueba que corre:
+
+~~~bash
+pnpm eslint
+~~~
+
+ESLint y Prettier no compiten en esta configuración: ninguna regla de las
+recomendadas discute formato, así que no hace falta `eslint-config-prettier`.
+
+## 10. Crear SITE
 
 ### Objetivo
 
@@ -424,14 +631,17 @@ export const SITE = {
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
     slogan: "Construimos lo que tu negocio necesita, no lo que sobra.",
-    tagline: "Menos fricción, más resultados.",
     founded: 2025,
     founders: [{ name: "Jane Doe", role: "Cofundadora" }],
-    teams: [
-      { name: "Desarrollo de Software", lead: "Jane Doe" },
-      { name: "Identidad de Marca", lead: "John Smith" },
-      { name: "Comunicación Organizacional", lead: "Alice Johnson" },
-    ],
+    teams: [] as Array<{ name: string; lead: string }>,
+  },
+
+  site: {
+    url: SITE_URL,
+    locale: "es-CO",
+    lang: "es",
+    timezone: "America/Bogota",
+    currency: "COP",
   },
 
   location: {
@@ -447,14 +657,18 @@ export const SITE = {
 
   contact: {
     email: "hola@acme.studio",
-    whatsapp: "+573001234567",
-    whatsappDisplay: "+57 300 123 4567",
-    landline: "+57 (1) 123 4567",
+    countryCode: "+57",
+    phone: "300 123 4567",
+    phoneDisplay: () => `${SITE.contact.countryCode} ${SITE.contact.phone}`,
+    whatsapp: () =>
+      `${SITE.contact.countryCode}${SITE.contact.phone.replace(/\s/g, "")}`,
+    landline: null as string | null,
   },
 
-  whatsappMessages: {
+  whatsAppMessage: {
     general: "Hola, quiero conocer más sobre los servicios.",
-    service: (service: string) => `Hola, me interesa el servicio de ${service}.`,
+    service: (service: string) =>
+      `Hola, estoy interesado en el servicio de ${service}. ¿Podrías darme más información?`,
     appointment: "Hola, quiero agendar una reunión.",
   },
 
@@ -463,16 +677,9 @@ export const SITE = {
     linkedin: "https://linkedin.com/company/acmestudio",
     x: "https://x.com/acmestudio",
     github: "https://github.com/acmestudio",
-    tiktok: "https://tiktok.com/@acmestudio",
-    youtube: null as string | null,
+    tiktok: null as string | null,
+    youtube: "https://youtube.com/@acmestudio",
   },
-
-  services: [
-    "Desarrollo de Software",
-    "Consultoría Técnica",
-    "Diseño de Producto",
-    "Soporte y Mantenimiento",
-  ],
 
   businessHours: [
     { day: "Lunes", open: "09:00", close: "18:00" },
@@ -506,14 +713,6 @@ export const SITE = {
     { value: "98%", label: "Clientes que renuevan", sublabel: "Retención anual" },
   ],
 
-  site: {
-    url: SITE_URL,
-    locale: "es-CO",
-    lang: "es",
-    timezone: "America/Bogota",
-    currency: "COP",
-  },
-
   seo: {
     title: "Acme — Software, marca y comunicación para empresas",
     description:
@@ -531,14 +730,19 @@ export const SITE = {
       "Colombia",
       "software boutique",
     ],
-    languages: ["Spanish", "English"],
+
+    author: "Jane Doe",
+    creator: "Jane Doe",
+    publisher: "Acme Studio",
 
     url: SITE_URL,
     locale: "es-CO",
     lang: "es",
     currency: "COP",
-
+    contactRegion: "LATAM",
+    languages: ["Spanish", "English"],
     locales: [{ hreflang: "es-CO", default: true }] as const,
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
 
     image: "/opengraph-image.png",
     imageAlt: "Logo de Acme sobre fondo blanco",
@@ -547,15 +751,19 @@ export const SITE = {
     logo: "/brand/logo.png",
 
     ogType: "website" as "website" | "article",
+    twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
+    twitterCard: "summary_large_image" as
+      | "summary"
+      | "summary_large_image"
+      | "app"
+      | "player",
     noindex: false,
 
     category: "technology",
     classification: "Business",
     priceRange: "$$",
 
-    contactRegion: "LATAM",
-    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
     themeColor: { light: "#FFFFFF", dark: "#000000" },
     manifestCategories: ["business", "design", "productivity"],
 
@@ -584,7 +792,7 @@ export const FAQ_ITEMS: FaqItem[] = [
 ];
 
 export function whatsAppMessage(message: string) {
-  return `https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${SITE.contact.whatsapp()}?text=${encodeURIComponent(message)}`;
 }
 ~~~
 
@@ -600,13 +808,13 @@ listas cortas y realmente globales; si el catálogo crece (slug, precio,
 imágenes o SEO por servicio), sácalo de aquí y llévalo a su propia colección
 de contenido.
 
-## 9. Implementar el SEO de Astro
+## 11. Implementar el SEO de Astro
 
 Esta sección sigue la implementación documentada en SEO completo en Astro. El
 orden importa: primero se crean los datos estructurados y sus helpers, después el
 head y el layout, y al final las rutas técnicas.
 
-### 9.1 Crear JsonLd.astro
+### 11.1 Crear JsonLd.astro
 
 El componente serializa cualquier entidad de Schema.org y escapa el carácter <
 para que un valor no pueda cerrar la etiqueta script antes de tiempo.
@@ -629,13 +837,13 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 is:inline mantiene el JSON-LD dentro del HTML y cada bloque debe tener un id
 único, como ld-organization o ld-website.
 
-### 9.2 Crear los helpers de Schema.org
+### 11.2 Crear los helpers de Schema.org
 
 Cada función obtiene los datos desde SITE. SERVICES y FAQ_ITEMS se definieron
-como exports hermanos de SITE en el paso 8 — reemplázalos con contenido real
+como exports hermanos de SITE en el paso 10 — reemplázalos con contenido real
 del proyecto antes de publicar.
 
-~~~ts title="src/lib/seo.ts"
+~~~ts title="src/libs/seo.ts"
 import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site";
 
 const SITE_URL = SITE.seo.url
@@ -673,7 +881,7 @@ export function organizationLd() {
         "@type": "ContactPoint",
         contactType: "customer support",
         email: SITE.contact.email,
-        telephone: SITE.contact.whatsapp,
+        telephone: SITE.contact.whatsapp(),
         availableLanguage: SITE.seo.languages,
         areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
@@ -704,9 +912,10 @@ export function professionalServiceLd() {
     name: SITE.info.name,
     image: LOGO_URL,
     url: SITE_URL,
-    telephone: SITE.contact.whatsapp,
+    telephone: SITE.contact.whatsapp(),
     email: SITE.contact.email,
     priceRange: SITE.seo.priceRange,
+    currenciesAccepted: SITE.seo.currency,
     address: {
       "@type": "PostalAddress",
       addressLocality: SITE.location.city,
@@ -757,7 +966,7 @@ Si el proyecto todavía no tiene servicios o preguntas frecuentes, comienza con
 organizationLd y webSiteLd. Agrega los otros helpers cuando exista contenido
 visible que los respalde.
 
-### 9.3 Crear BaseHead.astro
+### 11.3 Crear BaseHead.astro
 
 BaseHead centraliza título, descripción, canonical, hreflang, robots, Open Graph,
 Twitter, metadatos de marca, icono y manifest.
@@ -790,7 +999,6 @@ const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title;
 
 const ogImage = new URL(image, SITE.seo.url).href;
 const ogLocale = SITE.seo.locale.replace("-", "_");
-const authors = SITE.info.founders.map((f) => f.name).join(", ");
 const robots = noindex ? "noindex, nofollow" : "index, follow";
 const googlebot = noindex
   ? robots
@@ -822,17 +1030,17 @@ const googlebot = noindex
 <meta property="og:image:height" content={String(SITE.seo.imageHeight)} />
 <meta property="og:image:alt" content={SITE.seo.imageAlt} />
 
-<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content={SITE.seo.twitterCard} />
 <meta name="twitter:site" content={SITE.seo.twitterHandle} />
-<meta name="twitter:creator" content={SITE.seo.twitterHandle} />
+<meta name="twitter:creator" content={SITE.seo.twitterAuthor} />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
 <meta name="keywords" content={keywords.join(", ")} />
-<meta name="author" content={authors} />
-<meta name="creator" content={SITE.info.legalName} />
-<meta name="publisher" content={SITE.info.legalName} />
+<meta name="author" content={SITE.seo.author} />
+<meta name="creator" content={SITE.seo.creator} />
+<meta name="publisher" content={SITE.seo.publisher} />
 <meta name="application-name" content={SITE.info.name} />
 <meta name="category" content={SITE.seo.category} />
 <meta name="classification" content={SITE.seo.classification} />
@@ -861,7 +1069,7 @@ La canonical debe ser absoluta y coincidir con enlaces internos, redirecciones y
 sitemap. noindex no protege contenido privado: las rutas privadas requieren
 autenticación y autorización.
 
-### 9.4 Completar el layout raíz
+### 11.4 Completar el layout raíz
 
 Reemplaza el layout provisional del paso de Tailwind por la implementación
 definitiva. El import de global.css sigue funcionando porque el alias se configuró
@@ -872,7 +1080,7 @@ antes.
 import BaseHead from "@/components/seo/BaseHead.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import { SITE } from "@/config/site";
-import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/lib/seo";
+import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/libs/seo";
 import "@/styles/globals.css";
 
 interface Props {
@@ -916,7 +1124,7 @@ const { title, description, image, canonical, keywords, ogType, noindex } = Astr
 Retira del layout los helpers que todavía no tengan datos reales. No publiques
 FAQPage, Service ni ProfessionalService con contenido inventado.
 
-### 9.5 Crear manifest.webmanifest
+### 11.5 Crear manifest.webmanifest
 
 ~~~ts title="src/pages/manifest.webmanifest.ts"
 import type { APIRoute } from "astro";
@@ -944,7 +1152,7 @@ export const GET: APIRoute = () => {
 
 El manifest reutiliza nombre, descripción, colores e iconos de SITE.
 
-### 9.6 Crear robots.txt
+### 11.6 Crear robots.txt
 
 ~~~ts title="src/pages/robots.txt.ts"
 import type { APIRoute } from "astro";
@@ -968,7 +1176,7 @@ export const GET: APIRoute = () => {
 robots.txt controla rastreo, no acceso. No bloquees recursos necesarios para
 renderizar la página y no lo uses para ocultar información sensible.
 
-### 9.7 Crear sitemap.xml
+### 11.7 Crear sitemap.xml
 
 ~~~ts title="src/pages/sitemap.xml.ts"
 import type { APIRoute } from "astro";
@@ -1002,32 +1210,7 @@ Para un sitio pequeño, ROUTES puede mantenerse explícito. En blogs o catálogo
 genera las rutas desde la colección de contenido y utiliza fechas reales de
 modificación.
 
-### 9.8 Crear una página con metadata propia
-
-~~~astro title="src/pages/servicios.astro"
----
-import Layout from "@/layouts/Layout.astro";
-import { SITE } from "@/config/site";
----
-
-<Layout
-  title="Servicios"
-  description="Desarrollo de software, identidad de marca y comunicación organizacional para empresas en Bogotá y toda Latinoamérica."
-  canonical={new URL("/servicios", SITE.seo.url).href}
->
-  <main>
-    <h1>Servicios</h1>
-    <ul>
-      {SITE.services.map((service) => <li>{service}</li>)}
-    </ul>
-  </main>
-</Layout>
-~~~
-
-La página sobrescribe solamente title, description y canonical. El resto cae en
-los valores predeterminados de SITE.seo.
-
-### 9.9 Añadir los recursos públicos
+### 11.8 Añadir los recursos públicos
 
 ### Objetivo
 
@@ -1044,7 +1227,7 @@ public/
 La imagen social debe medir 1200 × 630 si SITE declara esas dimensiones. Verifica
 que todas las rutas usadas por BaseHead, manifest y JSON-LD existan realmente.
 
-## 10. Añadir los archivos del repositorio
+## 12. Añadir los archivos del repositorio
 
 ### Objetivo
 
@@ -1058,6 +1241,7 @@ nadie mantendrá.
 ├── .gitignore
 ├── .prettierignore
 ├── .prettierrc
+├── eslint.config.mjs
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
@@ -1082,19 +1266,24 @@ nadie mantendrá.
 | `.env.example` | Variables requeridas sin secretos |
 | `.gitignore` | `node_modules`, `dist`, `.astro`, `.env` y artefactos locales |
 | `.editorconfig` | UTF-8, LF, espacios y tamaño de indentación |
-| CI | Instalación congelada, `astro check` y `astro build` |
+| `eslint.config.mjs` | Configuración de ESLint (paso 9) |
 
-`CODEOWNERS`, plantillas de Issues y pull requests se agregan cuando exista una
-persona responsable de mantenerlos. Nunca guardes tokens reales en ejemplos,
+`.github/workflows/ci.yml` ya existe desde el paso 3 — aquí solo aparece para
+que el árbol muestre el repositorio completo. `CODEOWNERS`, plantillas de
+Issues y pull requests se agregan cuando exista una persona responsable de
+mantenerlos. Nunca guardes tokens reales en ejemplos,
 logs de CI, Issues o capturas de pantalla.
 
-## 11. Estructura final recomendada
+## 13. Estructura final recomendada
 
 Esta estructura permite comprobar visualmente que cada archivo creado durante
 la receta quedó en el lugar correcto:
 
 ~~~text
 mi-proyecto/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── public/
 │   ├── brand/
 │   │   └── logo.png
@@ -1110,24 +1299,24 @@ mi-proyecto/
 │   │   └── site.ts
 │   ├── layouts/
 │   │   └── Layout.astro
-│   ├── lib/
+│   ├── libs/
 │   │   └── seo.ts
 │   ├── pages/
 │   │   ├── index.astro
 │   │   ├── robots.txt.ts
-│   │   ├── servicios.astro
 │   │   └── sitemap.xml.ts
 │   └── styles/
 │       └── global.css
 ├── .prettierignore
 ├── .prettierrc
 ├── astro.config.mjs
+├── eslint.config.mjs
 ├── package.json
 └── tsconfig.json
 ~~~
 
 `src/pages` define rutas públicas, `src/layouts` construye la estructura HTML,
-`src/components` guarda piezas reutilizables, `src/lib` concentra lógica sin UI
+`src/components` guarda piezas reutilizables, `src/libs` concentra lógica sin UI
 y `src/config` mantiene identidad y decisiones globales. El contenido que no
 debe publicarse directamente no se coloca dentro de `src/pages`.
 
@@ -1135,13 +1324,15 @@ Si instalaste el adaptador de Vercel, también aparecerán su dependencia en
 `package.json` y su registro en `astro.config.mjs`; no necesita una carpeta
 adicional dentro de `src/`.
 
-## 12. Verificar el proyecto
+## 14. Verificar el proyecto
 
 Ejecuta las comprobaciones después de completar todos los archivos:
 
 ~~~bash
 pnpm sync
 pnpm check
+pnpm eslint
+pnpm prettier:check
 pnpm build
 pnpm preview
 ~~~
@@ -1158,11 +1349,13 @@ de una página confirma title, description, canonical, lang, Open Graph y JSON-L
 - [ ] @/* funciona antes de utilizar imports con alias.
 - [ ] Tailwind está instalado, registrado en Vite e importado una sola vez.
 - [ ] Prettier reconoce Astro y ordena imports y clases de Tailwind.
+- [ ] ESLint corre sobre archivos .astro y .ts sin errores.
+- [ ] El workflow de GitHub Actions corre check, eslint, prettier:check y build.
 - [ ] Los archivos del repositorio explican cómo instalar, contribuir y reportar.
 - [ ] SITE obtiene el dominio desde `import.meta.env.SITE` y no incluye secretos.
 - [ ] BaseHead, JSON-LD, manifest, robots y sitemap usan SITE.
 - [ ] La estructura final coincide con las rutas realmente creadas.
-- [ ] pnpm check y pnpm build terminan sin errores.
+- [ ] pnpm check, pnpm eslint, pnpm prettier:check y pnpm build terminan sin errores.
 
 Referencias oficiales: [instalación de Astro](https://docs.astro.build/en/install-and-setup/),
 [Tailwind CSS 4 en Astro](https://docs.astro.build/en/guides/styling/),

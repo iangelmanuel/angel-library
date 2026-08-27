@@ -8,6 +8,85 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.6.0] — 2026-08-27
+
+Directorios en plural en toda la documentación (`lib` → `libs`), `SITE`
+reestructurada con autoría de SEO explícita, y dos pasos nuevos —GitHub
+Actions y ESLint— en las páginas ocultas `/myastro` y `/mynext`.
+
+### Añadido
+
+- Paso de **GitHub Actions** en `/myastro` y `/mynext` (paso 3 en ambos): un
+  workflow que corre `check`, `eslint`, `prettier:check` y `build` con pnpm,
+  más una variante en paralelo documentada (matriz con `fail-fast: false` para
+  las tres verificaciones rápidas, y `needs:` para que el build espere a que
+  pasen).
+- Paso de **ESLint** en `/myastro` (paso 9: `eslint-plugin-astro` +
+  `typescript-eslint` con configuración plana) y en `/mynext` (paso 7: revisar
+  la config que ya genera `create-next-app`, con `FlatCompat`,
+  `next/core-web-vitals` y `next/typescript`).
+- Campos nuevos en `SITE.seo`: `author`, `creator`, `publisher`,
+  `twitterAuthor` y `twitterCard`, todos con consumidor real en las seis
+  implementaciones.
+- Bloque `SITE.site` (URL, locale, lang, timezone, currency) y `SITE.legal`,
+  `SITE.navigation`, `SITE.stats` presentes ahora también en el `SITE` de
+  `/mynext`, que antes era una versión reducida del de Astro.
+- `SITE.contact` con `countryCode`, `phone`, `phoneDisplay()` y `whatsapp()`
+  como funciones derivadas, en vez de un número escrito dos veces.
+
+### Cambiado
+
+- **Directorios en plural en toda la documentación**: `lib` → `libs` en 47
+  archivos de contenido (149 rutas `@/lib/` y `src/lib/`, más diagramas de
+  árbol, prosa, `_lib/` → `_libs/` y el alias `@lib/*` → `@libs/*`). `config`
+  se mantiene en singular a propósito; el resto de directorios ya estaba en
+  plural.
+- Archivos de referencia de la skill de Next renombrados a `libs.md` y
+  `components.md`, para que coincidan con los de la skill de Astro.
+- Scripts de `package.json` en `/myastro`: se agregan `start` y `astro`, y
+  `format`/`format:check` pasan a `prettier`/`prettier:check`. En `/mynext` se
+  adaptan al mismo criterio (`preview`, `next`, `check`, `eslint`,
+  `eslint:fix`, `prettier`, `prettier:check`).
+- `meta author`/`creator`/`publisher` leen `SITE.seo.*` en vez de derivarse de
+  `info.founders` y `info.legalName`; `twitter:card` y `twitter:creator` leen
+  `twitterCard` y `twitterAuthor`.
+- Pasos renumerados en ambas páginas ocultas (`/myastro` 1–14, `/mynext` 1–18)
+  y las referencias cruzadas actualizadas al paso correcto.
+
+### Eliminado
+
+- `SITE.services` y la sección "Crear una página con metadata propia" de
+  `/myastro`. El listado de servicios vive en `SERVICES`, que ya existía como
+  export hermano.
+- Bloques `certificates`, `work` y `featured` de `SITE.info`, junto con
+  `tagline`, que no tenía ningún consumidor.
+
+### Arreglado
+
+- `SITE_URL` se usaba sin declarar en el fragmento de `site.ts` de
+  `astro-seo-completo` y `skill-seo-astro`: copiar ese bloque fallaba con
+  `Cannot find name 'SITE_URL'`.
+- `SITE.contact.whatsapp` pasó a ser función, pero trece consumidores la
+  seguían usando como string, lo que habría serializado la función dentro de
+  la URL de WhatsApp y del JSON-LD.
+- `slogan` y `founders` estaban definidos pero sin consumidor en Next —
+  conectados a `buildBusinessSchema()`, igual que ya hacía Astro.
+- `alternates.languages` de Next tenía el locale fijo, así que un segundo
+  idioma en `SITE.seo.locales` nunca generaba su `hreflang`.
+- `contactRegion`, `category` y `classification` no se consumían en Next, ni
+  `currency` en Astro — todos conectados a su meta o schema correspondiente.
+- El paso "Añadir los archivos del repositorio" volvía a listar el workflow de
+  CI como pendiente, cuando ya se crea en el paso 3.
+
+### Verificado
+
+- `pnpm build` sin errores (1417 páginas) y `pnpm check` con 0 errores y 0
+  warnings.
+- Paridad exacta de campos de `SITE.seo` entre los 7 archivos que la
+  documentan, con `titleTemplate` solo en los tres de Next.
+- Cada campo de `SITE.seo` tiene al menos un consumidor real en las seis
+  implementaciones.
+
 ## [0.5.0] — 2026-08-27
 
 Nueva subcategoría Paquetes en General, endurecimiento del patrón `SITE`/SEO
@@ -239,7 +318,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.6.0
 [0.5.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.5.0
 [0.4.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.4.0
 [0.3.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.3.0

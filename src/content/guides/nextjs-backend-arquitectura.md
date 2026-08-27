@@ -83,7 +83,7 @@ src/
 │   ├── posts.schema.ts
 │   ├── posts.service.ts
 │   └── posts.repository.ts
-└── lib/
+└── libs/
     ├── auth.ts
     └── db.ts
 ```
@@ -93,7 +93,7 @@ Route Handlers y Actions adaptan entradas. Los casos de uso reciben valores vali
 ```ts title="src/app/api/posts/route.ts"
 import { NextResponse } from 'next/server';
 import { listPosts } from '@/modules/posts/posts.service';
-import { requireUser } from '@/lib/auth';
+import { requireUser } from '@/libs/auth';
 
 export async function GET(request: Request) {
   const actor = await requireUser();

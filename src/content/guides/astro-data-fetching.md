@@ -58,7 +58,7 @@ Una **waterfall** o cascada ocurre cuando una solicitud independiente espera a q
 
 Desde una ruta bajo demanda puedes construir una URL absoluta con `new URL('/api/data', Astro.url)`. En un build estático, llamar a tu propio endpoint suele ser innecesario: importa la función que obtiene los datos y reutilízala directamente.
 
-```ts title="src/lib/posts.ts"
+```ts title="src/libs/posts.ts"
 export async function getPosts() {
   const response = await fetch('https://api.example.com/posts');
   if (!response.ok) throw new Error(`No se pudieron cargar posts: ${response.status}`);

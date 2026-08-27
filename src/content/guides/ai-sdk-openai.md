@@ -41,7 +41,7 @@ La clave debe configurarse también en el administrador de secretos del entorno 
 ## Crear un cliente del lado del servidor
 
 ```ts
-// src/lib/openai.ts
+// src/libs/openai.ts
 import OpenAI from 'openai';
 
 export const openai = new OpenAI({

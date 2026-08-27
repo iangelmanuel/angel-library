@@ -9,7 +9,7 @@ related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas sobre `localStorage`/`sessionStorage`. Importa siempre desde `@/lib/storage`.
+Utilidades mínimas sobre `localStorage`/`sessionStorage`. Importa siempre desde `@/libs/storage`.
 
 `Storage` guarda solo strings: estas funciones agregan `JSON.parse`/`JSON.stringify` con manejo de errores, para no repetir el mismo `try/catch` cada vez que lees o escribes algo.
 
@@ -33,7 +33,7 @@ export function isStorageAvailable(storage: Storage): boolean {
 ```
 
 ```ts
-import { isStorageAvailable } from '@/lib/storage';
+import { isStorageAvailable } from '@/libs/storage';
 
 if (isStorageAvailable(localStorage)) {
   // guardar preferencias del usuario
@@ -58,7 +58,7 @@ export function getStorageItem<T>(key: string, fallback: T, storage: Storage = l
 ```
 
 ```ts
-import { getStorageItem } from '@/lib/storage';
+import { getStorageItem } from '@/libs/storage';
 
 interface Preferencias {
   tema: 'claro' | 'oscuro';
@@ -80,14 +80,14 @@ export function setStorageItem<T>(key: string, value: T, storage: Storage = loca
 ```
 
 ```ts
-import { setStorageItem } from '@/lib/storage';
+import { setStorageItem } from '@/libs/storage';
 
 setStorageItem('preferencias', { tema: 'claro' });
 ```
 
 ### `removeStorageItem()` — Eliminar una clave
 
-Elimina una clave del storage indicado. Es un alias directo de `storage.removeItem()`, incluido para no mezclar imports de `@/lib/storage` con llamadas directas a la API nativa.
+Elimina una clave del storage indicado. Es un alias directo de `storage.removeItem()`, incluido para no mezclar imports de `@/libs/storage` con llamadas directas a la API nativa.
 
 ```ts title="lib/storage.ts"
 export function removeStorageItem(key: string, storage: Storage = localStorage): void {
@@ -96,7 +96,7 @@ export function removeStorageItem(key: string, storage: Storage = localStorage):
 ```
 
 ```ts
-import { removeStorageItem } from '@/lib/storage';
+import { removeStorageItem } from '@/libs/storage';
 
 removeStorageItem('preferencias');
 ```

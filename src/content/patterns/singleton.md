@@ -33,7 +33,7 @@ await client.connect();
 export const redis = client;
 ```
 
-Cualquier archivo que haga `import { db } from '@/lib/db'` recibe la misma instancia, ya conectada. Eso es Singleton, gratis, por cómo funciona el sistema de módulos.
+Cualquier archivo que haga `import { db } from '@/libs/db'` recibe la misma instancia, ya conectada. Eso es Singleton, gratis, por cómo funciona el sistema de módulos.
 
 ## Cómo se ve en lenguajes sin este cacheo
 

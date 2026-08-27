@@ -22,7 +22,7 @@ npm install better-auth
 
 **1. Configurar el core:**
 
-```ts title="src/lib/auth.ts"
+```ts title="src/libs/auth.ts"
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { prisma } from './prisma';
@@ -132,7 +132,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
 ## Roles y datos custom del usuario
 
-```ts title="src/lib/auth.ts"
+```ts title="src/libs/auth.ts"
 export const auth = betterAuth({
   // ...
   user: {

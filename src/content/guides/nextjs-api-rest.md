@@ -20,7 +20,7 @@ Las convenciones — verbo HTTP correcto, cómo paginar/filtrar, formato de erro
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { postsRepository } from '@/repositories/posts.repository';
-import { auth } from '@/lib/auth';
+import { auth } from '@/libs/auth';
 
 export async function GET(request: NextRequest) {
   const page = Number(request.nextUrl.searchParams.get('page') ?? 1);

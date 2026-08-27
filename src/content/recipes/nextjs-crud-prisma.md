@@ -13,7 +13,7 @@ updatedAt: 2026-08-16
 ## El repository (compartido)
 
 ```ts title="repositories/posts.repository.ts"
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/libs/prisma';
 
 export const postsRepository = {
   findAll: () => prisma.post.findMany(),
@@ -42,7 +42,7 @@ export async function GET() {
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { auth } from '@/lib/auth';
+import { auth } from '@/libs/auth';
 import { postsRepository } from '@/repositories/posts.repository';
 
 export async function crearPost(formData: FormData) {

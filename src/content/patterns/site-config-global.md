@@ -31,15 +31,18 @@ export const SITE = {
     legalName: "Acme Studio",
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
-    slogan: "Infraestructura digital, simplificada.",
-    tagline: "De invisible a inevitable.",
+    slogan: "Construimos lo que tu negocio necesita, no lo que sobra.",
     founded: 2025,
     founders: [{ name: "Jane Doe", role: "Cofundadora" }],
-    teams: [
-      { name: "Desarrollo de Software", lead: "Jane Doe" },
-      { name: "Identidad de Marca", lead: "John Smith" },
-      { name: "Comunicación Organizacional", lead: "Alice Johnson" }
-    ]
+    teams: [] as Array<{ name: string; lead: string }>,
+  },
+
+  site: {
+    url: "https://acme.studio",
+    locale: "es-CO",
+    lang: "es",
+    timezone: "America/Bogota",
+    currency: "COP",
   },
 
   location: {
@@ -50,21 +53,24 @@ export const SITE = {
     countryCode: "CO",
     postalCode: "110111",
     timezone: "America/Bogota",
-    display: "Bogotá, Colombia"
+    display: "Bogotá, Colombia",
   },
 
   contact: {
     email: "hola@acme.studio",
-    whatsapp: "+573001234567",
-    whatsappDisplay: "+57 300 123 4567",
-    landline: "+57 (1) 123 4567"
+    countryCode: "+57",
+    phone: "300 123 4567",
+    phoneDisplay: () => `${SITE.contact.countryCode} ${SITE.contact.phone}`,
+    whatsapp: () =>
+      `${SITE.contact.countryCode}${SITE.contact.phone.replace(/\s/g, "")}`,
+    landline: null as string | null,
   },
 
-  whatsappMessages: {
+  whatsAppMessage: {
     general: "Hola, quiero conocer más sobre los servicios.",
     service: (service: string) =>
-      `Hola, me interesa el servicio de ${service}.`,
-    appointment: "Hola, quiero agendar una reunión."
+      `Hola, estoy interesado en el servicio de ${service}. ¿Podrías darme más información?`,
+    appointment: "Hola, quiero agendar una reunión.",
   },
 
   social: {
@@ -72,16 +78,9 @@ export const SITE = {
     linkedin: "https://linkedin.com/company/acmestudio",
     x: "https://x.com/acmestudio",
     github: "https://github.com/acmestudio",
-    tiktok: "https://tiktok.com/@acmestudio",
-    youtube: null as string | null
+    tiktok: null as string | null,
+    youtube: "https://youtube.com/@acmestudio",
   },
-
-  services: [
-    "Desarrollo de Software",
-    "Identidad de Marca",
-    "Comunicación Organizacional",
-    "Gestión de Contenido"
-  ],
 
   businessHours: [
     { day: "Lunes", open: "09:00", close: "18:00" },
@@ -90,21 +89,13 @@ export const SITE = {
     { day: "Jueves", open: "09:00", close: "18:00" },
     { day: "Viernes", open: "09:00", close: "18:00" },
     { day: "Sábado", open: "10:00", close: "14:00" },
-    { day: "Domingo", open: null, close: null }
+    { day: "Domingo", open: null, close: null },
   ],
 
   legal: [
-    {
-      slug: "privacidad",
-      title: "Política de Privacidad",
-      updatedAt: "2025-02-15"
-    },
-    {
-      slug: "terminos",
-      title: "Términos y Condiciones",
-      updatedAt: "2025-02-15"
-    },
-    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" }
+    { slug: "privacidad", title: "Política de Privacidad", updatedAt: "2025-02-15" },
+    { slug: "terminos", title: "Términos y Condiciones", updatedAt: "2025-02-15" },
+    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" },
   ],
 
   navigation: {
@@ -113,31 +104,18 @@ export const SITE = {
       { name: "Servicios", href: "/servicios" },
       { name: "Portafolio", href: "/portafolio" },
       { name: "Blog", href: "/blog" },
-      { name: "Contacto", href: "/contacto" }
+      { name: "Contacto", href: "/contacto" },
     ],
-    cta: { label: "Catálogo", href: "/catalogo" }
+    cta: { label: "Catálogo", href: "/catalogo" },
   },
 
   stats: [
-    {
-      value: "+340%",
-      label: "En consultas mensuales",
-      sublabel: "Caso: cliente real"
-    },
-    { value: "×3", label: "Reconocimiento de marca", sublabel: "En 6 meses" }
+    { value: "+120", label: "Proyectos entregados", sublabel: "Desde 2025" },
+    { value: "98%", label: "Clientes que renuevan", sublabel: "Retención anual" },
   ],
-
-  site: {
-    url: "https://acme.studio",
-    locale: "es-CO",
-    lang: "es",
-    timezone: "America/Bogota",
-    currency: "COP"
-  },
 
   seo: {
     title: "Acme — Software, marca y comunicación para empresas",
-    titleTemplate: "%s | Acme",
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
     keywords: [
@@ -151,16 +129,21 @@ export const SITE = {
       "landing pages",
       "Bogotá",
       "Colombia",
-      "software boutique"
+      "software boutique",
     ],
-    languages: ["Spanish", "English"],
+
+    author: "Jane Doe",
+    creator: "Jane Doe",
+    publisher: "Acme Studio",
 
     url: "https://acme.studio",
     locale: "es-CO",
     lang: "es",
     currency: "COP",
-
+    contactRegion: "LATAM",
+    languages: ["Spanish", "English"],
     locales: [{ hreflang: "es-CO", default: true }] as const,
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
 
     image: "/opengraph-image.png",
     imageAlt: "Logo de Acme sobre fondo blanco",
@@ -169,27 +152,31 @@ export const SITE = {
     logo: "/brand/logo.png",
 
     ogType: "website" as "website" | "article",
+    twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
+    twitterCard: "summary_large_image" as
+      | "summary"
+      | "summary_large_image"
+      | "app"
+      | "player",
     noindex: false,
 
     category: "technology",
     classification: "Business",
-    priceRange: "$$$",
+    priceRange: "$$",
+
+    themeColor: { light: "#FFFFFF", dark: "#000000" },
+    manifestCategories: ["business", "design", "productivity"],
 
     areaServed: [
       { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" }
+      { type: "Place", name: "Latin America" },
     ],
-
-    contactRegion: "LATAM",
-    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
-    themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
-    manifestCategories: ["business", "design", "productivity"]
-  }
+  },
 } as const
 
 export function whatsAppMessage(message: string) {
-  return `https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(message)}`
+  return `https://wa.me/${SITE.contact.whatsapp()}?text=${encodeURIComponent(message)}`
 }
 ```
 
@@ -197,11 +184,10 @@ export function whatsAppMessage(message: string) {
 
 | Sección                                                                                          | Para qué                                                                                                                                       | ¿Obligatoria?                                                      |
 | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| `info` (`name`, `legalName`, `description`, `slogan`, `tagline`, `founded`, `founders`, `teams`) | Marca, equipo — títulos, JSON-LD Organization/ProfessionalService (`description` es la de "quiénes somos", distinta de `seo.description`)      | Sí                                                                 |
+| `info` (`name`, `legalName`, `description`, `slogan`, `founded`, `founders`, `teams`) | Marca, equipo — títulos, JSON-LD Organization/ProfessionalService (`description` es la de "quiénes somos", distinta de `seo.description`)      | Sí                                                                 |
 | `location`                                                                                       | Dirección física — JSON-LD PostalAddress, footer, contacto                                                                                     | Sí (aunque el negocio no tenga local físico, al menos ciudad/país) |
-| `contact` / `whatsappMessages` / `whatsAppMessage()`                                             | Canales de contacto y sus CTAs — botones, JSON-LD ContactPoint                                                                                 | Sí                                                                 |
+| `contact` / `whatsAppMessage` / `whatsAppMessage()`                                             | Canales de contacto y sus CTAs — botones, JSON-LD ContactPoint                                                                                 | Sí                                                                 |
 | `social`                                                                                         | Redes — alimenta `sameAs` en JSON-LD, íconos de footer                                                                                         | Sí (puede ir vacío/`null` en las que no se usan)                   |
-| `services`                                                                                       | Lista de servicios — navegación, JSON-LD Service                                                                                               | Sí si el negocio vende servicios (no productos)                    |
 | `businessHours`                                                                                  | Horario de atención — JSON-LD openingHoursSpecification                                                                                        | Opcional                                                           |
 | `legal`                                                                                          | Páginas legales — datos para generar rutas `/legal/[slug]`; agregarlas al sitemap es a mano, las dos recetas dejan `ROUTES` manual a propósito | Opcional                                                           |
 | `navigation`                                                                                     | Links del header/footer y el CTA principal — un solo lugar para el menú                                                                        | Sí                                                                 |
@@ -212,13 +198,13 @@ export function whatsAppMessage(message: string) {
 ## `whatsAppMessage()`
 
 ```ts
-whatsAppMessage(SITE.whatsappMessages.general)
+whatsAppMessage(SITE.whatsAppMessage.general)
 // → "https://wa.me/573001234567?text=Hola%2C%20quiero..."
 
-whatsAppMessage(SITE.whatsappMessages.service("Identidad de Marca"))
+whatsAppMessage(SITE.whatsAppMessage.service("Identidad de Marca"))
 ```
 
-Une `SITE.contact.whatsapp` con un mensaje de `whatsappMessages` (o cualquier string) y arma el link `wa.me` listo para un `href` — el `encodeURIComponent` no se repite en cada botón que abre WhatsApp.
+Une `SITE.contact.whatsapp()` con un mensaje de `SITE.whatsAppMessage` (o cualquier string) y arma el link `wa.me` listo para un `href` — el `encodeURIComponent` no se repite en cada botón que abre WhatsApp.
 
 ## Dónde vive esto por framework
 
@@ -256,7 +242,7 @@ La migración debe ser gradual: primero agrega `SITE`, luego conecta un consumid
 
 ## Separar configuración de contenido
 
-`SITE` describe la identidad y las reglas globales del sitio, no todo el contenido de la aplicación. Una lista de artículos, productos, preguntas frecuentes o servicios con campos propios debe vivir en su colección, base de datos o archivo de contenido correspondiente. `SITE.services` puede servir para navegación, footer o JSON-LD cuando la lista es corta y realmente global; si cada servicio tiene slug, precio, imágenes o SEO propio, ya no es configuración.
+`SITE` describe la identidad y las reglas globales del sitio, no todo el contenido de la aplicación. Una lista de artículos, productos, preguntas frecuentes o servicios con campos propios debe vivir en su colección, base de datos o archivo de contenido correspondiente. El listado de servicios no vive dentro de `SITE`: va en `SERVICES`, un export hermano en el mismo archivo (ver más abajo), y si cada servicio llega a tener slug, precio, imágenes o SEO propio, deja de ser configuración y pasa a su propia colección de contenido.
 
 La misma separación aplica al SEO: `SITE.seo` contiene defaults globales. Una página puede sobrescribir su título, descripción, imagen o canonical mediante props o metadata local, pero debe partir de esos defaults y no repetirlos a mano.
 
@@ -350,10 +336,10 @@ Los consumidores importan la configuración desde la misma ruta:
 import { SITE, whatsAppMessage } from "@/config/site"
 
 const canonical = new URL("/contacto", SITE.seo.url).href
-const whatsappHref = whatsAppMessage(SITE.whatsappMessages.appointment)
+const whatsappHref = whatsAppMessage(SITE.whatsAppMessage.appointment)
 ```
 
-Los helpers pequeños que derivan URLs, títulos o mensajes pueden exportarse junto a `SITE` mientras sean puros y no tengan efectos secundarios. Si la lógica crece o necesita acceso a secretos, muévela a `src/lib/` o a una capa de servidor, manteniendo `SITE` como su fuente de datos.
+Los helpers pequeños que derivan URLs, títulos o mensajes pueden exportarse junto a `SITE` mientras sean puros y no tengan efectos secundarios. Si la lógica crece o necesita acceso a secretos, muévela a `src/libs/` o a una capa de servidor, manteniendo `SITE` como su fuente de datos.
 
 ## Reglas del patrón
 

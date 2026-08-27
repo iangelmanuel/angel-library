@@ -46,14 +46,14 @@ mi-app/
 │   │   └── layout.tsx
 │   ├── components/
 │   ├── features/
-│   ├── lib/
+│   ├── libs/
 │   └── types/
 ├── next.config.ts
 ├── tsconfig.json
 └── package.json
 ```
 
-`src/` es opcional y no modifica las URLs. Sirve para separar el código fuente de archivos de configuración. Dentro de `app/`, coloca cerca de una ruta lo que solo esa ruta utiliza; coloca en `components/`, `features/` o `lib/` lo que comparten distintas áreas.
+`src/` es opcional y no modifica las URLs. Sirve para separar el código fuente de archivos de configuración. Dentro de `app/`, coloca cerca de una ruta lo que solo esa ruta utiliza; coloca en `components/`, `features/` o `libs/` lo que comparten distintas áreas.
 
 ## Archivos con significado para el router
 
@@ -79,7 +79,7 @@ Una carpeta normal dentro de `app/` no es accesible por sí sola. Solo la presen
 ```text
 app/products/
 ├── _components/ProductCard.tsx
-├── _lib/queries.ts
+├── _libs/queries.ts
 └── page.tsx
 ```
 
@@ -124,13 +124,13 @@ No agregues opciones por anticipado. Cada bandera global aumenta el modelo menta
 }
 ```
 
-El alias evita rutas como `../../../../lib/db`, pero no define arquitectura. Usa nombres que indiquen responsabilidad: `@/features/cart`, `@/lib/auth` o `@/components/ui` comunican mejor que una carpeta genérica llena de utilidades.
+El alias evita rutas como `../../../../lib/db`, pero no define arquitectura. Usa nombres que indiquen responsabilidad: `@/features/cart`, `@/libs/auth` o `@/components/ui` comunican mejor que una carpeta genérica llena de utilidades.
 
 ## Separar código por entorno
 
 Los módulos del servidor pueden acceder a base de datos, sistema de archivos y secretos. Para evitar que una importación accidental los lleve al grafo cliente, márcalos:
 
-```ts title="src/lib/db.ts"
+```ts title="src/libs/db.ts"
 import 'server-only';
 import { db } from './client';
 
@@ -146,7 +146,7 @@ De forma equivalente, `client-only` ayuda a identificar módulos que dependen de
 1. Si solo lo usa una ruta, colócalo junto a esa ruta.
 2. Si representa una capacidad de negocio, agrúpalo por dominio en `features/`.
 3. Si es UI reutilizable y no conoce el negocio, usa `components/`.
-4. Si conecta infraestructura o servicios, usa `lib/` con nombres específicos.
+4. Si conecta infraestructura o servicios, usa `libs/` con nombres específicos.
 5. Si contiene secretos, agrega `server-only` y evita reexportarlo desde índices cliente.
 
 La mejor estructura no es la que tiene más carpetas: es aquella en la que una persona puede predecir dónde vive cada responsabilidad.

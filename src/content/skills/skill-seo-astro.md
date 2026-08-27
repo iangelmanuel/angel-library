@@ -21,7 +21,7 @@ Este sitio no tiene descarga en `.zip` — copias cada bloque de código de abaj
 ├── SKILL.md
 └── references/
     ├── config.md        # SITE.seo completo
-    ├── components.md     # JsonLd.astro + src/lib/seo.ts
+    ├── components.md     # JsonLd.astro + src/libs/seo.ts
     ├── head.md            # BaseHead.astro + bugs a evitar
     └── assembly.md         # Layout.astro + rutas API + página de ejemplo
 ```
@@ -47,7 +47,7 @@ Search the project for an existing site-wide config object (commonly `SITE`, `si
 ## 2. References
 
 - `references/config.md` — the complete `SITE.seo` object, every field explained inline.
-- `references/components.md` — `JsonLd.astro` and the full `src/lib/seo.ts` (all 5 schema.org builder functions: `organizationLd`, `webSiteLd`, `professionalServiceLd`, `servicesLd`, `faqLd`).
+- `references/components.md` — `JsonLd.astro` and the full `src/libs/seo.ts` (all 5 schema.org builder functions: `organizationLd`, `webSiteLd`, `professionalServiceLd`, `servicesLd`, `faqLd`).
 - `references/head.md` — the full `BaseHead.astro`, the tag ordering rationale, and 3 real bugs to not reintroduce.
 - `references/assembly.md` — `Layout.astro`, the 3 API routes (`manifest.webmanifest.ts`, `robots.txt.ts`, `sitemap.xml.ts`), and a full working example page.
 
@@ -55,7 +55,7 @@ Search the project for an existing site-wide config object (commonly `SITE`, `si
 
 1. Ask the user for their real company data if it's not already evident from the codebase (name, description, canonical URL, city/country, social links, brand colors). Don't block on missing pieces — use clearly-marked placeholders for anything not provided (`"TODO: replace"`), never invent business details silently.
 2. Create `SITE.seo` following `references/config.md` exactly, with the user's real data instead of the example values.
-3. Create `JsonLd.astro` and `src/lib/seo.ts` following `references/components.md` — drop `servicesLd`/`faqLd` if the project has no services/FAQ content to back them.
+3. Create `JsonLd.astro` and `src/libs/seo.ts` following `references/components.md` — drop `servicesLd`/`faqLd` if the project has no services/FAQ content to back them.
 4. Create `BaseHead.astro` following `references/head.md` — keep the tag order as-is, it's deliberate.
 5. Create `Layout.astro` and the 3 API routes following `references/assembly.md`.
 6. Update at least the home page to use the new layout.
@@ -109,6 +109,12 @@ export interface FaqItem {
   a: string;
 }
 
+/** Comes from the `site` option in astro.config.mjs — one place defines the domain. */
+const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
+  /\/$/,
+  ""
+);
+
 export const SITE = {
   // ...the rest of SITE already exists in the project — name, legalName, slogan,
   // founded, location, contact, social, founders. Not repeated here because it's
@@ -132,18 +138,31 @@ export const SITE = {
       "Colombia",
       "software boutique",
     ],
-    /** Languages the business operates in — feeds `availableLanguage` in the Organization schema. */
-    languages: ["Spanish", "English"],
+
+    /** Site authorship — feeds the author/creator/publisher metas. This used to be derived
+     *  from `info.founders`; it's now an explicit SEO field, since the content author
+     *  doesn't always match the company's founder list. */
+    author: "Jane Doe",
+    creator: "Jane Doe",
+    publisher: "Acme Studio",
 
     /** Canonical site URL, no trailing slash. */
-    url: "https://acme.studio",
+    url: SITE_URL,
     /** BCP-47 with hyphen (es-CO) — used for hreflang, <html lang>, and schema.org inLanguage as-is. */
     locale: "es-CO",
+    lang: "es",
+    currency: "COP",
+    /** Broad region for JSON-LD's ContactPoint — separate from `geo.region`, which is the department/state code. */
+    contactRegion: "LATAM",
+    /** Languages the business operates in — feeds `availableLanguage` in the Organization schema. */
+    languages: ["Spanish", "English"],
     /**
      * Published locales, to generate <link hreflang> without repeating code.
      * One entry today; adding a second object here is enough for a real multi-language site.
      */
     locales: [{ hreflang: "es-CO", default: true }] as const,
+    /** ISO 3166-2 code of the region/department (Bogotá D.C. → "DC") plus city-level coordinates. */
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
 
     image: "/opengraph-image.png",
     imageAlt: "Logo de Acme sobre fondo blanco",
@@ -153,32 +172,28 @@ export const SITE = {
     logo: "/brand/logo.png",
 
     ogType: "website" as "website" | "article",
-    twitterHandle: "@acmestudio",
+    /** Content author's account (twitter:creator), separate from the site account (twitter:site). */
+    twitterAuthor: "@acmestudio" as string | null,
+    twitterHandle: "@acmestudio" as string | null,
+    twitterCard: "summary_large_image" as
+      | "summary"
+      | "summary_large_image"
+      | "app"
+      | "player",
     noindex: false,
 
     /** meta name="category" / "classification" — industry classification, rarely changes. */
     category: "technology",
     classification: "Business",
     /** priceRange for the ProfessionalService schema: $, $$, $$$, or $$$$. */
-    priceRange: "$$$",
-
-    /** Broad region for JSON-LD's ContactPoint — separate from `geo.region`, which is the department/state code. */
-    contactRegion: "LATAM",
-
-    /** Local geo-targeting (meta geo.*/ICBM) — city-level coordinates, not an exact street address. */
-    geo: {
-      /** ISO 3166-2 code of the region/department (Bogotá D.C. → "DC"). */
-      region: "DC",
-      latitude: 4.60971,
-      longitude: -74.08175,
-    },
+    priceRange: "$$",
 
     /** Same colors as theme-color meta and the web manifest — one place for both. */
-    themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
+    themeColor: { light: "#FFFFFF", dark: "#000000" },
     /** Web manifest categories (fixed PWA taxonomy: business, design, productivity, etc.). */
     manifestCategories: ["business", "design", "productivity"],
 
-    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/lib/seo.ts. */
+    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/libs/seo.ts. */
     areaServed: [
       { type: "Country", name: "Colombia" },
       { type: "Place", name: "Latin America" },
@@ -215,7 +230,7 @@ Every field has exactly one consumer somewhere in `references/components.md`, `r
 ## `references/components.md`
 
 ```md title=".claude/skills/astro-seo/references/components.md"
-# JsonLd.astro + src/lib/seo.ts
+# JsonLd.astro + src/libs/seo.ts
 
 ## JsonLd.astro
 
@@ -240,11 +255,11 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 
 `is:inline` tells Astro not to process or bundle this `<script>` — it has to stay literal in the final HTML, because a JSON-LD block that ends up in an external bundled `.js` file isn't read as reliably by crawlers. `id` should be unique per block (`ld-organization`, `ld-faq`, etc.) to avoid collisions and to help debugging in a validator like Google's Rich Results Test.
 
-## src/lib/seo.ts
+## src/libs/seo.ts
 
 Five functions, one per schema.org type. Every value comes from `SITE`, `SERVICES`, or `FAQ_ITEMS` — nothing written inline.
 
-​```ts title="src/lib/seo.ts"
+​```ts title="src/libs/seo.ts"
 import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site";
 
 const SITE_URL = SITE.seo.url
@@ -283,7 +298,7 @@ export function organizationLd() {
         "@type": "ContactPoint",
         contactType: "customer support",
         email: SITE.contact.email,
-        telephone: SITE.contact.whatsapp,
+        telephone: SITE.contact.whatsapp(),
         availableLanguage: SITE.seo.languages,
         areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
@@ -316,9 +331,10 @@ export function professionalServiceLd() {
     name: SITE.info.name,
     image: LOGO_URL,
     url: SITE_URL,
-    telephone: SITE.contact.whatsapp,
+    telephone: SITE.contact.whatsapp(),
     email: SITE.contact.email,
     priceRange: SITE.seo.priceRange,
+    currenciesAccepted: SITE.seo.currency,
     address: {
       "@type": "PostalAddress",
       addressLocality: SITE.location.city,
@@ -411,7 +427,6 @@ const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title;
 
 const ogImage = new URL(image, SITE.seo.url).href;
 const ogLocale = SITE.seo.locale.replace("-", "_");
-const authors = SITE.info.founders.map((f) => f.name).join(", ");
 const robots = noindex ? "noindex, nofollow" : "index, follow";
 const googlebot = noindex
   ? robots
@@ -443,17 +458,17 @@ const googlebot = noindex
 <meta property="og:image:height" content={String(SITE.seo.imageHeight)} />
 <meta property="og:image:alt" content={SITE.seo.imageAlt} />
 
-<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content={SITE.seo.twitterCard} />
 <meta name="twitter:site" content={SITE.seo.twitterHandle} />
-<meta name="twitter:creator" content={SITE.seo.twitterHandle} />
+<meta name="twitter:creator" content={SITE.seo.twitterAuthor} />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
 <meta name="keywords" content={keywords.join(", ")} />
-<meta name="author" content={authors} />
-<meta name="creator" content={SITE.info.legalName} />
-<meta name="publisher" content={SITE.info.legalName} />
+<meta name="author" content={SITE.seo.author} />
+<meta name="creator" content={SITE.seo.creator} />
+<meta name="publisher" content={SITE.seo.publisher} />
 <meta name="application-name" content={SITE.info.name} />
 <meta name="category" content={SITE.seo.category} />
 <meta name="classification" content={SITE.seo.classification} />
@@ -497,7 +512,7 @@ const googlebot = noindex
 import BaseHead from "@/components/seo/BaseHead.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import { SITE } from "@/config/site";
-import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/lib/seo";
+import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/libs/seo";
 import "@/styles/globals.css";
 
 interface Props {
@@ -625,7 +640,7 @@ ${urls}
 ​```astro title="src/pages/servicios.astro"
 ---
 import Layout from "@/layouts/Layout.astro";
-import { SITE } from "@/config/site";
+import { SERVICES, SITE } from "@/config/site";
 ---
 
 <Layout
@@ -636,7 +651,7 @@ import { SITE } from "@/config/site";
   <main>
     <h1>Servicios</h1>
     <ul>
-      {SITE.services.map((service) => <li>{service}</li>)}
+      {SERVICES.map((service) => <li>{service.h3}</li>)}
     </ul>
   </main>
 </Layout>

@@ -71,7 +71,7 @@ Para testear el repository en sí (que la query de Prisma realmente hace lo espe
 
 ```ts title="test/setup.ts"
 import { beforeEach } from 'vitest';
-import { prisma } from '../src/lib/prisma';
+import { prisma } from '../src/libs/prisma';
 
 beforeEach(async () => {
   await prisma.post.deleteMany();

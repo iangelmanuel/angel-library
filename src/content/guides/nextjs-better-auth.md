@@ -51,7 +51,7 @@ npx @better-auth/cli migrate
 **3. Montar el Route Handler catch-all** — sí hace falta crear este archivo, expone todo `/api/auth/*`:
 
 ```ts title="app/api/auth/[...all]/route.ts"
-import { auth } from '@/lib/auth';
+import { auth } from '@/libs/auth';
 import { toNextJsHandler } from 'better-auth/next-js';
 
 export const { GET, POST } = toNextJsHandler(auth);
@@ -62,7 +62,7 @@ export const { GET, POST } = toNextJsHandler(auth);
 ## Leer la sesión en un Server Component
 
 ```tsx title="app/perfil/page.tsx"
-import { auth } from '@/lib/auth';
+import { auth } from '@/libs/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -85,7 +85,7 @@ export const authClient = createAuthClient();
 ```tsx title="app/components/UserMenu.tsx"
 'use client';
 
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/libs/auth-client';
 
 export function UserMenu() {
   const { data: session } = authClient.useSession();
@@ -100,7 +100,7 @@ export function UserMenu() {
 
 ```ts title="proxy.ts"
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { auth } from '@/libs/auth';
 
 export default async function proxy(req: Request) {
   const session = await auth.api.getSession({ headers: req.headers });

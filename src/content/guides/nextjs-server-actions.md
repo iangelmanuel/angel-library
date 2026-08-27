@@ -21,8 +21,8 @@ Una Server Action es una función marcada con `'use server'`, invocada desde un 
 'use server'
 
 import { revalidatePath } from 'next/cache';
-import { auth } from '@/lib/auth';
-import { db } from '@/lib/db';
+import { auth } from '@/libs/auth';
+import { db } from '@/libs/db';
 
 export async function crearPost(formData: FormData) {
   const session = await auth();

@@ -10,7 +10,7 @@ related:
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para trabajar con arrays. Importa siempre desde `@/lib/array`.
+Utilidades mínimas para trabajar con arrays. Importa siempre desde `@/libs/array`.
 
 Nada de esto depende del DOM: funciona igual en el browser, en Node o en un endpoint de Astro.
 
@@ -32,7 +32,7 @@ export function chunk<T>(array: T[], size: number): T[][] {
 ```
 
 ```ts
-import { chunk } from '@/lib/array';
+import { chunk } from '@/libs/array';
 
 const filas = chunk([1, 2, 3, 4, 5], 2);
 // [[1, 2], [3, 4], [5]]
@@ -58,7 +58,7 @@ export function groupBy<T, K extends PropertyKey>(
 ```
 
 ```ts
-import { groupBy } from '@/lib/array';
+import { groupBy } from '@/libs/array';
 
 const porCategoria = groupBy(entradas, (entrada) => entrada.category);
 // { frontend: [...], backend: [...] }
@@ -77,7 +77,7 @@ export function unique<T>(array: T[]): T[] {
 ```
 
 ```ts
-import { unique } from '@/lib/array';
+import { unique } from '@/libs/array';
 
 const tags = unique(['react', 'astro', 'react']);
 // ["react", "astro"]
@@ -100,7 +100,7 @@ export function uniqueBy<T, K>(array: T[], key: (item: T) => K): T[] {
 ```
 
 ```ts
-import { uniqueBy } from '@/lib/array';
+import { uniqueBy } from '@/libs/array';
 
 const usuarios = uniqueBy(resultados, (usuario) => usuario.email);
 ```
@@ -120,7 +120,7 @@ export function range(start: number, end?: number, step = 1): number[] {
 ```
 
 ```ts
-import { range } from '@/lib/array';
+import { range } from '@/libs/array';
 
 range(5);        // [0, 1, 2, 3, 4]
 range(2, 10, 2);  // [2, 4, 6, 8]
@@ -142,7 +142,7 @@ export function shuffle<T>(array: T[]): T[] {
 ```
 
 ```ts
-import { shuffle } from '@/lib/array';
+import { shuffle } from '@/libs/array';
 
 const orden = shuffle(preguntas);
 ```

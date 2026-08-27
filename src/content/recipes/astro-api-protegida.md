@@ -62,7 +62,7 @@ export const PATCH: APIRoute = async ({ params, request, locals, clientAddress }
 
 ## Un rate limiter simple (en memoria, para un solo proceso)
 
-```ts title="src/lib/rate-limit.ts"
+```ts title="src/libs/rate-limit.ts"
 const intentos = new Map<string, { count: number; resetAt: number }>();
 
 export async function checarRateLimit(

@@ -35,14 +35,14 @@ pnpm test     # tests
 ## Arquitectura
 
 - `src/api/` — endpoints REST
-- `src/lib/` — lógica compartida
-- Auth con JWT, ver `src/lib/auth.ts`
+- `src/libs/` — lógica compartida
+- Auth con JWT, ver `src/libs/auth.ts`
 
 ## Convenciones
 
 - Componentes en PascalCase, un archivo por componente
 - Nunca hardcodear secretos, siempre `.env`
-- Tests obligatorios para lógica de negocio en `src/lib/`
+- Tests obligatorios para lógica de negocio en `src/libs/`
 ```
 
 ## Importar otros archivos

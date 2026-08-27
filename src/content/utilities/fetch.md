@@ -10,7 +10,7 @@ related:
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas sobre `fetch`. Importa siempre desde `@/lib/fetch`.
+Utilidades mínimas sobre `fetch`. Importa siempre desde `@/libs/fetch`.
 
 `fetch` no lanza en respuestas 4xx/5xx, no tiene timeout nativo y no reintenta — estas funciones cubren esos tres huecos sin traer axios ni ky.
 
@@ -49,7 +49,7 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
 ```
 
 ```ts
-import { fetchJson, HttpError } from '@/lib/fetch';
+import { fetchJson, HttpError } from '@/libs/fetch';
 
 interface Usuario {
   id: string;
@@ -89,7 +89,7 @@ export async function fetchWithTimeout(
 ```
 
 ```ts
-import { fetchWithTimeout } from '@/lib/fetch';
+import { fetchWithTimeout } from '@/libs/fetch';
 
 const respuesta = await fetchWithTimeout('/api/lento', {}, 5000);
 ```
@@ -122,7 +122,7 @@ export async function withRetry<T>(
 ```
 
 ```ts
-import { fetchJson, withRetry } from '@/lib/fetch';
+import { fetchJson, withRetry } from '@/libs/fetch';
 
 const datos = await withRetry(() => fetchJson('/api/datos'));
 ```

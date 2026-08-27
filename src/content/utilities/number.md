@@ -9,7 +9,7 @@ related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para formatear números. Importa siempre desde `@/lib/number`.
+Utilidades mínimas para formatear números. Importa siempre desde `@/libs/number`.
 
 El formateo usa `Intl.NumberFormat`, nativo del navegador y de Node — no hace falta `numeral` ni similares.
 
@@ -26,7 +26,7 @@ export function formatCurrency(amount: number, currency = 'USD', locale = 'es'):
 ```
 
 ```ts
-import { formatCurrency } from '@/lib/number';
+import { formatCurrency } from '@/libs/number';
 
 formatCurrency(1250.5);
 // "US$ 1,250.50"
@@ -50,7 +50,7 @@ export function formatNumber(
 ```
 
 ```ts
-import { formatNumber } from '@/lib/number';
+import { formatNumber } from '@/libs/number';
 
 formatNumber(1234567.891, { maximumFractionDigits: 2 });
 // "1,234,567.89"
@@ -71,7 +71,7 @@ export function formatPercent(
 ```
 
 ```ts
-import { formatPercent } from '@/lib/number';
+import { formatPercent } from '@/libs/number';
 
 formatPercent(0.4256);
 // "42.6%"
@@ -88,7 +88,7 @@ export function formatCompact(value: number, locale = 'es'): string {
 ```
 
 ```ts
-import { formatCompact } from '@/lib/number';
+import { formatCompact } from '@/libs/number';
 
 formatCompact(1500);
 // "1.5K"
@@ -114,7 +114,7 @@ export function formatFileSize(bytes: number, decimals = 1): string {
 ```
 
 ```ts
-import { formatFileSize } from '@/lib/number';
+import { formatFileSize } from '@/libs/number';
 
 formatFileSize(2_500_000);
 // "2.4 MB"
@@ -133,7 +133,7 @@ export function clamp(value: number, min: number, max: number): number {
 ```
 
 ```ts
-import { clamp } from '@/lib/number';
+import { clamp } from '@/libs/number';
 
 const progreso = clamp(porcentajeCalculado, 0, 100);
 ```

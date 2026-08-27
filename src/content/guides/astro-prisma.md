@@ -57,7 +57,7 @@ npx prisma migrate dev --name init
 
 **4. El client, como singleton:**
 
-```ts title="src/lib/prisma.ts"
+```ts title="src/libs/prisma.ts"
 import { PrismaClient } from '@prisma/client';
 
 export const prisma = new PrismaClient();

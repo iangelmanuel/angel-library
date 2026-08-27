@@ -29,7 +29,7 @@ import GitHub from '@auth/core/providers/github';
 import Credentials from '@auth/core/providers/credentials';
 import { defineConfig } from 'auth-astro';
 import bcrypt from 'bcrypt';
-import { prisma } from './src/lib/prisma';
+import { prisma } from './src/libs/prisma';
 
 export default defineConfig({
   providers: [

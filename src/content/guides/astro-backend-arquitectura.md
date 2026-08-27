@@ -81,7 +81,7 @@ src/
 │   ├── posts.schema.ts
 │   ├── posts.service.ts
 │   └── posts.repository.ts
-└── lib/
+└── libs/
     ├── auth.ts
     └── db.ts
 ```

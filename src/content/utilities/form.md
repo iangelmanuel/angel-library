@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para manejar formularios con Vanilla JS/TS. Importa siempre desde `@/lib/form`.
+Utilidades mínimas para manejar formularios con Vanilla JS/TS. Importa siempre desde `@/libs/form`.
 
 Para un formulario simple sin campos repetidos, el one-liner de siempre alcanza:
 
@@ -52,7 +52,7 @@ export function formToObject<T extends Record<string, FormValue> = Record<string
 ```
 
 ```ts
-import { formToObject } from '@/lib/form';
+import { formToObject } from '@/libs/form';
 
 interface RegistroForm {
   email: string;
@@ -76,7 +76,7 @@ export function getCheckedValues(form: HTMLFormElement, name: string): string[] 
 ```
 
 ```ts
-import { getCheckedValues } from '@/lib/form';
+import { getCheckedValues } from '@/libs/form';
 
 const intereses = getCheckedValues(form, 'intereses');
 // ["frontend", "backend"]
@@ -96,7 +96,7 @@ export function getFormFiles(form: HTMLFormElement, name: string): File[] {
 ```
 
 ```ts
-import { getFormFiles } from '@/lib/form';
+import { getFormFiles } from '@/libs/form';
 
 const archivos = getFormFiles(form, 'adjuntos');
 if (archivos.length > 5 * 1024 * 1024) {
@@ -129,7 +129,7 @@ export function setFormValues(form: HTMLFormElement, values: Record<string, unkn
 ```
 
 ```ts
-import { setFormValues } from '@/lib/form';
+import { setFormValues } from '@/libs/form';
 
 setFormValues(form, {
   email: usuario.email,
@@ -162,7 +162,7 @@ export function onFormSubmit<T extends Record<string, FormValue> = Record<string
 ```
 
 ```ts
-import { onFormSubmit } from '@/lib/form';
+import { onFormSubmit } from '@/libs/form';
 
 interface LoginForm {
   email: string;

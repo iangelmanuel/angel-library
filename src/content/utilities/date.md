@@ -9,7 +9,7 @@ related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para trabajar con fechas usando `Intl`, nativo del navegador y de Node. Importa siempre desde `@/lib/date`.
+Utilidades mínimas para trabajar con fechas usando `Intl`, nativo del navegador y de Node. Importa siempre desde `@/libs/date`.
 
 No hace falta `date-fns` ni `dayjs` para lo básico: formatear, calcular diferencias, comparar días y generar secuencias de fechas (por ejemplo, para pintar un calendario).
 
@@ -30,7 +30,7 @@ export function formatDate(
 ```
 
 ```ts
-import { formatDate } from '@/lib/date';
+import { formatDate } from '@/libs/date';
 
 formatDate(new Date());
 // "15 ago 2026"
@@ -54,7 +54,7 @@ export function formatTime(
 ```
 
 ```ts
-import { formatTime } from '@/lib/date';
+import { formatTime } from '@/libs/date';
 
 formatTime(new Date());
 // "14:32"
@@ -90,7 +90,7 @@ export function formatRelativeTime(date: Date, locale = 'es'): string {
 ```
 
 ```ts
-import { formatRelativeTime } from '@/lib/date';
+import { formatRelativeTime } from '@/libs/date';
 
 const haceTresDias = new Date(Date.now() - 3 * 86400000);
 formatRelativeTime(haceTresDias);
@@ -113,7 +113,7 @@ export function formatDateRange(
 ```
 
 ```ts
-import { formatDateRange } from '@/lib/date';
+import { formatDateRange } from '@/libs/date';
 
 formatDateRange(new Date('2026-08-15'), new Date('2026-08-20'));
 // "15–20 ago 2026"
@@ -136,7 +136,7 @@ export function isSameDay(a: Date, b: Date): boolean {
 ```
 
 ```ts
-import { isSameDay } from '@/lib/date';
+import { isSameDay } from '@/libs/date';
 
 const esHoy = isSameDay(evento.fecha, new Date());
 ```
@@ -154,7 +154,7 @@ export function addDays(date: Date, amount: number): Date {
 ```
 
 ```ts
-import { addDays } from '@/lib/date';
+import { addDays } from '@/libs/date';
 
 const vencimiento = addDays(new Date(), 30);
 ```
@@ -173,7 +173,7 @@ export function daysBetween(a: Date, b: Date): number {
 ```
 
 ```ts
-import { daysBetween } from '@/lib/date';
+import { daysBetween } from '@/libs/date';
 
 const diasRestantes = daysBetween(new Date(), vencimiento);
 ```
@@ -193,7 +193,7 @@ export function startOfDay(date: Date): Date {
 ```
 
 ```ts
-import { startOfDay } from '@/lib/date';
+import { startOfDay } from '@/libs/date';
 
 const hoyDesdeCero = startOfDay(new Date());
 ```
@@ -213,7 +213,7 @@ export function endOfMonth(date: Date): Date {
 ```
 
 ```ts
-import { startOfMonth, endOfMonth } from '@/lib/date';
+import { startOfMonth, endOfMonth } from '@/libs/date';
 
 const inicio = startOfMonth(new Date());
 const fin = endOfMonth(new Date());
@@ -239,7 +239,7 @@ export function dateRange(start: Date, end: Date, stepDays = 1): Date[] {
 ```
 
 ```ts
-import { dateRange } from '@/lib/date';
+import { dateRange } from '@/libs/date';
 
 const semana = dateRange(new Date('2026-08-10'), new Date('2026-08-16'));
 // [10, 11, 12, 13, 14, 15, 16] de agosto
@@ -256,7 +256,7 @@ export function eachDayOfMonth(date: Date): Date[] {
 ```
 
 ```ts
-import { eachDayOfMonth } from '@/lib/date';
+import { eachDayOfMonth } from '@/libs/date';
 
 const diasDeAgosto = eachDayOfMonth(new Date('2026-08-01'));
 // 31 fechas, una por día

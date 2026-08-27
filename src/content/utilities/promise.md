@@ -12,7 +12,7 @@ related:
 updatedAt: 2026-08-18
 ---
 
-Utilidades mínimas para controlar tiempo y concurrencia en código async. Importa siempre desde `@/lib/promise`.
+Utilidades mínimas para controlar tiempo y concurrencia en código async. Importa siempre desde `@/libs/promise`.
 
 ## Espera y timeout
 

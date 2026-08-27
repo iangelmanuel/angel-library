@@ -9,7 +9,7 @@ related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para trabajar con strings. Importa siempre desde `@/lib/string`.
+Utilidades mínimas para trabajar con strings. Importa siempre desde `@/libs/string`.
 
 Nada de esto depende del DOM: funciona igual en el browser, en Node o en un endpoint de Astro.
 
@@ -32,7 +32,7 @@ export function slugify(text: string): string {
 ```
 
 ```ts
-import { slugify } from '@/lib/string';
+import { slugify } from '@/libs/string';
 
 slugify('Referencias entre contenidos');
 // "referencias-entre-contenidos"
@@ -53,7 +53,7 @@ export function truncate(text: string, maxLength: number, suffix = '…'): strin
 ```
 
 ```ts
-import { truncate } from '@/lib/string';
+import { truncate } from '@/libs/string';
 
 truncate('Utilidades mínimas y declarativas para manipular el DOM', 20);
 // "Utilidades mínimas…"
@@ -71,7 +71,7 @@ export function capitalize(text: string): string {
 ```
 
 ```ts
-import { capitalize } from '@/lib/string';
+import { capitalize } from '@/libs/string';
 
 capitalize('componente de formulario');
 // "Componente de formulario"
@@ -98,7 +98,7 @@ export function escapeHtml(text: string): string {
 ```
 
 ```ts
-import { escapeHtml } from '@/lib/string';
+import { escapeHtml } from '@/libs/string';
 
 const seguro = escapeHtml(comentarioDelUsuario);
 elemento.innerHTML = `<p>${seguro}</p>`;
@@ -118,7 +118,7 @@ export function randomId(prefix = ''): string {
 ```
 
 ```ts
-import { randomId } from '@/lib/string';
+import { randomId } from '@/libs/string';
 
 const inputId = randomId('campo');
 // "campo-3f1a9c02"
