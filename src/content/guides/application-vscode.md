@@ -5,15 +5,35 @@ category: applications
 stack: apps-editors
 order: 1
 tags: [vscode, editor, workspace, extensions, debugging]
+website: https://code.visualstudio.com
 related:
-  - guides/tools-vscode-workspace
-  - guides/tools-debugging-workflow
+  - commands/myjson
 updatedAt: 2026-08-25
 ---
 
 **Visual Studio Code**, o VS Code, es un editor extensible. Incluye edición, terminal, control de versiones, depuración y soporte para el **Language Server Protocol** (LSP), que permite que herramientas de distintos lenguajes ofrezcan autocompletado, navegación y diagnósticos mediante un protocolo común.
 
-Sitio oficial: [code.visualstudio.com](https://code.visualstudio.com/).
+## Instalación
+
+```bash
+# Windows (winget)
+winget install Microsoft.VisualStudioCode
+
+# macOS (Homebrew)
+brew install --cask visual-studio-code
+
+# Linux — Debian/Ubuntu (repositorio oficial de Microsoft)
+sudo apt install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |
+  sudo tee /etc/apt/sources.list.d/vscode.list
+sudo apt update && sudo apt install code
+
+# Linux — Snap (cualquier distro con snapd)
+sudo snap install --classic code
+```
+
+Fedora/RHEL usa el mismo repositorio de Microsoft pero con `dnf`/`yum`; el paso a paso completo está en la [guía de instalación en Linux](https://code.visualstudio.com/docs/setup/linux). Si prefieres no tocar la terminal, el `.exe`/`.dmg`/`.deb` está en la página de descarga directa.
 
 ## Aprende o consulta
 

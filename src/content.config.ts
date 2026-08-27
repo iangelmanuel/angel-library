@@ -162,6 +162,7 @@ const guides = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
   schema: z.object({
     ...baseFields,
+    ...linkFields,
     scope: z.string().optional(),
     technologies: refs,
     libraries: refs,

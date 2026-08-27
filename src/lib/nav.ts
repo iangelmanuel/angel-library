@@ -1,5 +1,6 @@
 import {
-  CATEGORY_LIST,
+  CATEGORIES,
+  CATEGORY_GROUPS,
   CONTENT_TYPES,
   RESOURCE_CATEGORY_LIST,
   STACK_GROUPED_CATEGORIES,
@@ -69,8 +70,17 @@ export interface NavGroup {
   items: NavItem[];
 }
 
-export interface NavData {
+/**
+ * Bloque de categorías separado visualmente en la navegación.
+ * Refleja `CATEGORY_GROUPS` de `config/site.ts`.
+ */
+export interface NavCategoryGroup {
+  id: string;
   categories: NavCategory[];
+}
+
+export interface NavData {
+  groups: NavCategoryGroup[];
 }
 
 function toNavItems(entries: AnyEntry[]): NavItem[] {
@@ -82,7 +92,8 @@ function toNavItems(entries: AnyEntry[]): NavItem[] {
 }
 
 export function buildNavData(all: AnyEntry[]): NavData {
-  const categories: NavCategory[] = CATEGORY_LIST.map((meta) => {
+  const buildCategory = (id: CategoryId): NavCategory => {
+    const meta = CATEGORIES[id];
     const entries = all.filter((entry) => entry.data.category === meta.id);
     const isResources = meta.id === 'resources';
     const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
@@ -117,12 +128,21 @@ export function buildNavData(all: AnyEntry[]): NavData {
     const items = toNavItems(ungrouped);
 
     return { ...meta, items, resourceGroups, stackGroups };
-  }).filter(
-    (category) =>
-      category.items.length > 0 ||
-      (category.resourceGroups?.length ?? 0) > 0 ||
-      (category.stackGroups?.length ?? 0) > 0,
-  );
+  };
 
-  return { categories };
+  const hasContent = (category: NavCategory) =>
+    category.items.length > 0 ||
+    (category.resourceGroups?.length ?? 0) > 0 ||
+    (category.stackGroups?.length ?? 0) > 0;
+
+  // Un grupo entero sin contenido no dibuja separador: evita dos líneas
+  // seguidas cuando todas sus categorías están vacías.
+  const groups: NavCategoryGroup[] = CATEGORY_GROUPS.map((group) => ({
+    id: group.id,
+    categories: (group.categories as readonly CategoryId[])
+      .map(buildCategory)
+      .filter(hasContent),
+  })).filter((group) => group.categories.length > 0);
+
+  return { groups };
 }

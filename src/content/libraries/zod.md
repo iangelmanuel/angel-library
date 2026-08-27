@@ -2,7 +2,7 @@
 title: Zod
 description: Validación de schemas con inferencia de tipos TypeScript — crear schemas, tipos de datos, refinamientos, parseo y manejo de errores.
 category: general
-stack: libs
+stack: config
 order: 3
 tags: [typescript, validation, schema, forms]
 website: https://zod.dev

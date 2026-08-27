@@ -8,7 +8,6 @@ tags: [ui, libraries, design-system, accessibility, evaluation]
 related:
   - guides/ui-ux-design-systems
   - guides/ui-ux-component-anatomy
-  - guides/resources-evaluation-guide
 updatedAt: 2026-08-25
 ---
 

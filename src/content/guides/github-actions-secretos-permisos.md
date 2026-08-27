@@ -1,7 +1,7 @@
 ---
 title: GitHub Actions — secretos, permisos y seguridad
 description: Proteger GITHUB_TOKEN, secretos y workflows frente a permisos excesivos, dependencias no confiables y ejecuciones desde Pull Requests.
-category: github-actions
+category: git
 stack: github-actions
 order: 4
 tags: [github-actions, security, secrets, permissions, github-token]

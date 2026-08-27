@@ -5,6 +5,7 @@ category: applications
 stack: apps-api
 order: 1
 tags: [insomnia, api, http, testing, openapi]
+website: https://insomnia.rest
 related:
   - guides/backend-api-design
   - guides/http-browser-fundamentals
@@ -14,7 +15,20 @@ updatedAt: 2026-08-25
 
 **Insomnia** es una aplicación de escritorio de código abierto para diseñar, enviar, depurar y probar APIs. Soporta solicitudes HTTP, colecciones, entornos, autenticación, documentos OpenAPI, mocks, scripts y automatización mediante CLI.
 
-Sitio oficial: [insomnia.rest](https://insomnia.rest/).
+## Instalación
+
+```bash
+# Windows (winget)
+winget install -e --id Insomnia.Insomnia
+
+# macOS (Homebrew)
+brew install --cask insomnia
+
+# Linux — también disponible como Snap
+sudo snap install insomnia
+```
+
+En Linux también hay `.deb`/`.rpm` en la página de descarga directa si no usas Snap. `inso`, el CLI de automatización que se ve más abajo, es un paquete aparte (`brew install --cask inso` en macOS).
 
 ## Modelo de trabajo
 

@@ -240,23 +240,74 @@ const favicon = await getImage({ src: logo, width: 64, height: 64, format: "webp
         }
       })
 
+      /* Desplaza SOLO la columna de navegación, nunca el documento: el
+         lector no pierde su posición en el artículo porque la sidebar
+         tuviera que moverse. */
+      function revealInSidebar(
+        el: Element | null,
+        behavior: ScrollBehavior
+      ) {
+        const nav = document.querySelector("#sidebar nav")
+        if (!nav || !el) return
+        const navBox = nav.getBoundingClientRect()
+        const elBox = el.getBoundingClientRect()
+        const margin = 56
+        if (elBox.top < navBox.top + margin) {
+          nav.scrollBy({ top: elBox.top - navBox.top - margin, behavior })
+        } else if (elBox.bottom > navBox.bottom - margin) {
+          nav.scrollBy({ top: elBox.bottom - navBox.bottom + margin, behavior })
+        }
+      }
+
       function syncSidebarState() {
         const path = location.pathname.replace(/\/+$/, "") || "/"
+        let active: Element | null = null
         document.querySelectorAll("#sidebar a[href]").forEach((link) => {
           const href =
             (link.getAttribute("href") ?? "").replace(/\/+$/, "") || "/"
-          const active = href === path
-          link.classList.toggle("is-active", active)
-          if (active) {
+          const isActive = href === path
+          link.classList.toggle("is-active", isActive)
+          if (isActive) {
+            active = link
             link.setAttribute("aria-current", "page")
-            const details = link.closest("details")
-            if (details) details.open = true
+            // Todos los ancestros, no solo el más cercano: una entrada vive
+            // dentro de subcategoría Y categoría, y abrir solo la interna
+            // la dejaba oculta dentro de una categoría cerrada.
+            let parent = link.parentElement
+            while (parent && parent.closest("#sidebar")) {
+              if (parent instanceof HTMLDetailsElement) parent.open = true
+              parent = parent.parentElement
+            }
           } else {
             link.removeAttribute("aria-current")
           }
         })
+        if (active) revealInSidebar(active, "auto")
       }
       document.addEventListener("astro:after-swap", syncSidebarState)
+
+      /* Al desplegar una categoría larga, acompaña la apertura: si su
+         contenido queda por debajo del borde visible, sube el encabezado.
+         `toggle` no burbujea, de ahí la fase de captura. */
+      document.addEventListener(
+        "toggle",
+        (event) => {
+          const details = event.target
+          if (!(details instanceof HTMLDetailsElement)) return
+          if (!details.open || !details.closest("#sidebar")) return
+          const summary = details.querySelector(":scope > summary")
+          if (!summary) return
+          requestAnimationFrame(() => {
+            const nav = document.querySelector("#sidebar nav")
+            if (!nav) return
+            const overflows =
+              details.getBoundingClientRect().bottom >
+              nav.getBoundingClientRect().bottom
+            revealInSidebar(overflows ? summary : details, "smooth")
+          })
+        },
+        true
+      )
 
       // Aplica la preferencia de package manager guardada (o "pnpm" por
       // defecto) a los bloques con tabs de cada página que carga — corre en
@@ -264,6 +315,10 @@ const favicon = await getImage({ src: logo, width: 64, height: 64, format: "webp
       document.addEventListener("astro:page-load", () => {
         const stored = window.localStorage.getItem("angel:pm")
         applyPmPreference(stored ?? "pnpm")
+        revealInSidebar(
+          document.querySelector("#sidebar .nav-link.is-active"),
+          "auto"
+        )
       })
     </script>
   </body>

@@ -69,44 +69,54 @@ export default function MobileNav({ data }: { data: NavData }) {
               </a>
             </div>
 
-            {data.categories.map((category) => (
-              <div
-                key={category.id}
-                className="pb-4"
-                style={{ '--cat-accent': `var(${category.color})` } as CSSProperties}
-              >
-                <p className="section-label flex items-center gap-2 px-2 pb-1.5">
-                  <DynamicIcon name={category.icon} className="size-3 text-[var(--cat-accent)]" />
-                  {category.label}
-                </p>
-                {(category.resourceGroups ?? category.stackGroups) && (
-                  <div className="flex flex-col gap-2 pl-2">
-                    {(category.resourceGroups ?? category.stackGroups)!.map((group) => (
-                      <div key={group.id}>
-                        <p className="px-2 pb-1 font-mono text-[0.62rem] text-muted-foreground">{group.label}</p>
-                        <div className="flex flex-col gap-0.5 border-l border-border pl-2">
-                          {group.items.map((item) => (
-                            <a key={item.url} href={item.url} className="nav-link" onClick={close}>
-                              <DynamicIcon name={item.icon} className="size-3.5 text-[var(--cat-accent)]" />
-                              <span className="truncate">{item.title}</span>
-                            </a>
-                          ))}
-                        </div>
+            {data.groups.map((group) => (
+              <section key={group.id} className="nav-group">
+                {group.categories.map((category) => (
+                  <div
+                    key={category.id}
+                    className="pb-3"
+                    style={{ '--cat-accent': `var(${category.color})` } as CSSProperties}
+                  >
+                    <p className="section-label flex items-center gap-2 px-2 pb-1.5">
+                      <DynamicIcon name={category.icon} className="nav-icon nav-icon--cat" />
+                      {category.label}
+                    </p>
+                    {(category.resourceGroups ?? category.stackGroups) && (
+                      <div className="flex flex-col gap-2">
+                        {(category.resourceGroups ?? category.stackGroups)!.map((sub) => (
+                          <div key={sub.id}>
+                            <p className="px-2 pb-1 font-mono text-[0.68rem] text-muted-foreground">
+                              {sub.label}
+                            </p>
+                            <div className="nav-children">
+                              {sub.items.map((item) => (
+                                <a key={item.url} href={item.url} className="nav-link" onClick={close}>
+                                  <span className="nav-link__label">{item.title}</span>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    )}
+                    {category.items.length > 0 && (
+                      <div className="flex flex-col">
+                        {category.items.map((item) => (
+                          <a
+                            key={item.url}
+                            href={item.url}
+                            className="nav-link nav-link--loose"
+                            onClick={close}
+                          >
+                            <DynamicIcon name={item.icon} className="nav-icon" />
+                            <span className="nav-link__label">{item.title}</span>
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                )}
-                {category.items.length > 0 && (
-                  <div className="flex flex-col gap-0.5">
-                    {category.items.map((item) => (
-                      <a key={item.url} href={item.url} className="nav-link" onClick={close}>
-                        <DynamicIcon name={item.icon} className="size-3.5 text-[var(--cat-accent)]" />
-                        <span className="truncate">{item.title}</span>
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
+                ))}
+              </section>
             ))}
           </nav>
         </DialogPrimitive.Content>

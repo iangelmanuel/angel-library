@@ -3,7 +3,7 @@ title: GitHub CLI — instalación y autenticación
 description: Instalar gh y conectarlo con tu cuenta de GitHub — la base para todo lo demás (repos, PRs, issues) sin salir de la terminal.
 category: git
 stack: github
-order: 19
+order: 1
 tags: [git, github, gh, cli]
 scope: gh auth
 updatedAt: 2026-08-16

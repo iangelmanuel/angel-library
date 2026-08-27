@@ -5,6 +5,7 @@ category: applications
 stack: apps-editors
 order: 2
 tags: [cursor, editor, ai, agent, rules]
+website: https://www.cursor.com
 related:
   - skills/cursor-rules
   - skills/cursor-config
@@ -14,7 +15,16 @@ updatedAt: 2026-08-25
 
 **Cursor** es un editor de código con funciones de inteligencia artificial integradas para consulta, edición y trabajo mediante agentes. Mantiene una experiencia cercana a VS Code, pero añade contexto del repositorio, modelos y herramientas capaces de proponer o ejecutar cambios.
 
-Sitio oficial: [cursor.com](https://www.cursor.com/).
+## Instalación
+
+Cursor no se distribuye por winget ni Homebrew: el propio equipo mantiene un script de instalación y binarios directos.
+
+```bash
+# macOS y Linux — script oficial
+curl https://cursor.com/install -fsS | bash
+```
+
+Windows, y quien prefiera no correr un script remoto, descarga el instalador desde la [página de descargas](https://cursor.com/downloads): `.exe` para Windows (x64/ARM64), `.deb`/`.rpm`/AppImage para Linux, universal para macOS. Antes de correr `curl | bash` de cualquier sitio, revisa qué hace: aquí el script solo descarga el binario y lo coloca en el PATH, sin pedir privilegios de root.
 
 ## Modelo de uso
 

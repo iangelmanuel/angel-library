@@ -1,7 +1,7 @@
 ---
 title: GitHub Actions — fundamentos de workflows
 description: Entender eventos, workflows, jobs, steps, runners y acciones antes de diseñar una automatización confiable.
-category: github-actions
+category: git
 stack: github-actions
 order: 1
 tags: [github-actions, workflows, ci, runners, yaml]

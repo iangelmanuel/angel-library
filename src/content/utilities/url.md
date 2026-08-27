@@ -14,7 +14,11 @@ updatedAt: 2026-08-18
 
 Usa `URL` y `URLSearchParams` como primitivas; estas utilidades solo encapsulan patrones repetidos.
 
-## Agregar query params
+## Construir URLs
+
+### `withQuery()` — Agregar query params
+
+Agrega o actualiza parámetros de consulta en una URL (string o `URL`) sin concatenar strings a mano. Un valor `null`, `undefined` o string vacío elimina ese parámetro en vez de agregarlo como `key=undefined`.
 
 ```ts title="lib/url.ts"
 type QueryValue = string | number | boolean | null | undefined;
@@ -36,7 +40,9 @@ withQuery('/productos', { page: 2, search: 'café', draft: false });
 // /productos?page=2&search=caf%C3%A9&draft=false
 ```
 
-## Unir paths
+### `joinUrlPath()` — Unir paths
+
+Une varios segmentos de ruta en un solo path, normalizando las barras repetidas o faltantes entre segmentos.
 
 ```ts
 export function joinUrlPath(...parts: string[]) {
@@ -48,6 +54,13 @@ export function joinUrlPath(...parts: string[]) {
 ```
 
 No uses `path.join()` de Node para URLs: en Windows puede producir backslashes. Para URLs absolutas, `new URL(relative, base)` resuelve además `..`, encoding y protocolo correctamente.
+
+## Resumen
+
+| Función | Qué hace |
+| --- | --- |
+| `withQuery()` | Agrega, actualiza o quita query params de una URL |
+| `joinUrlPath()` | Une segmentos de path normalizando las barras |
 
 ## Seguridad
 

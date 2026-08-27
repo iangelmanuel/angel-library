@@ -3,7 +3,7 @@ title: GitHub CLI — Issues
 description: Crear, listar, comentar y cerrar issues desde la terminal, y cómo conectarlos automáticamente a un Pull Request.
 category: git
 stack: github
-order: 22
+order: 4
 tags: [git, github, gh, cli, issues]
 scope: gh issue
 updatedAt: 2026-08-16

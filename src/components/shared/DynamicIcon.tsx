@@ -28,15 +28,18 @@ import {
   LayoutTemplate,
   Link,
   ListChecks,
+  MessageCircle,
   Monitor,
   Package,
   Palette,
   Network,
+  NotebookPen,
   Plug,
   Puzzle,
   Repeat2,
   Scale,
   SearchCheck,
+  Settings2,
   ShieldCheck,
   Search,
   Server,
@@ -45,6 +48,7 @@ import {
   Tags,
   TestTube2,
   Terminal,
+  UserRound,
   Workflow,
   Wrench,
   Zap,
@@ -198,8 +202,14 @@ const BrandCodex: IconComponent = (props) => (
 
 /** Icono lucide "package" recoloreado a verde: entradas tipo `libraries` (dependencia npm). */
 const StackDependency: IconComponent = (props) => <Package color="#4ade80" {...props} />;
-/** Icono de la subcategoría `libs`: configuración y dependencias reutilizables. */
-const BrandLibs: IconComponent = (props) => <Package color="#4ade80" {...props} />;
+/** Icono de la subcategoría `config`: configuración compartida del proyecto. */
+const BrandConfig: IconComponent = (props) => <Settings2 color="#4ade80" {...props} />;
+
+/** Icono de la subcategoría `monorepo`: varios paquetes en un solo repositorio. */
+const BrandMonorepo: IconComponent = (props) => <Layers color="#fb923c" {...props} />;
+
+/** Icono de la subcategoría `github-profile`: perfil público de GitHub. */
+const BrandGithubProfile: IconComponent = (props) => <UserRound color="#fbbf24" {...props} />;
 
 /** Icono lucide "component" recoloreado a amarillo: entradas tipo `components`. */
 const StackComponent: IconComponent = (props) => (
@@ -236,6 +246,10 @@ const BrandTestingAi: IconComponent = (props) => <Sparkles color="#f472b6" {...p
 const BrandAppsEditors: IconComponent = (props) => <Monitor color="#38bdf8" {...props} />;
 const BrandAppsTerminal: IconComponent = (props) => <SquareTerminal color="#c084fc" {...props} />;
 const BrandAppsApi: IconComponent = (props) => <Braces color="#fb923c" {...props} />;
+const BrandAppsDevops: IconComponent = (props) => <Container color="#38bdf8" {...props} />;
+const BrandAppsDesign: IconComponent = (props) => <Palette color="#f472b6" {...props} />;
+const BrandAppsProductivity: IconComponent = (props) => <NotebookPen color="#a78bfa" {...props} />;
+const BrandAppsComms: IconComponent = (props) => <MessageCircle color="#818cf8" {...props} />;
 
 /** Icono recoloreado para la subcategoría SEO dentro de Frontend. */
 const BrandSeo: IconComponent = (props) => <SearchCheck color="#2dd4bf" {...props} />;
@@ -278,7 +292,9 @@ const ICONS: Record<string, IconComponent> = {
   'brand-docker-redes-volumenes': BrandDockerRedesVolumenes,
   'brand-docker-compose': BrandDockerCompose,
   'brand-docker-bases-datos': BrandDockerBasesDatos,
-  'brand-libs': BrandLibs,
+  'brand-config': BrandConfig,
+  'brand-monorepo': BrandMonorepo,
+  'brand-github-profile': BrandGithubProfile,
   'brand-ci-cd': BrandCiCd,
   'brand-observabilidad': BrandObservabilidad,
   'brand-javascript': BrandJavascript,
@@ -289,6 +305,10 @@ const ICONS: Record<string, IconComponent> = {
   'brand-apps-editors': BrandAppsEditors,
   'brand-apps-terminal': BrandAppsTerminal,
   'brand-apps-api': BrandAppsApi,
+  'brand-apps-devops': BrandAppsDevops,
+  'brand-apps-design': BrandAppsDesign,
+  'brand-apps-productivity': BrandAppsProductivity,
+  'brand-apps-comms': BrandAppsComms,
   'brand-seo': BrandSeo,
   'brand-principios': BrandPrincipios,
   'brand-patrones-diseno': BrandPatronesDiseno,

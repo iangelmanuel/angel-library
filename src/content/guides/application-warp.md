@@ -5,6 +5,7 @@ category: applications
 stack: apps-terminal
 order: 1
 tags: [warp, terminal, shell, workflows, ai]
+website: https://www.warp.dev
 related:
   - guides/terminal-fundamentals-terminology
   - guides/terminal-shell-scripting
@@ -13,7 +14,24 @@ updatedAt: 2026-08-25
 
 **Warp** es una aplicación de terminal disponible para macOS, Windows y Linux. Organiza cada comando y su salida como un **Block**, añade edición moderna, búsqueda, sesiones guardadas, workflows y funciones de IA.
 
-Sitio oficial: [warp.dev](https://www.warp.dev/).
+## Instalación
+
+```bash
+# macOS (Homebrew)
+brew install --cask warp
+
+# Windows (winget)
+winget install Warp.Warp
+
+# Linux — Debian/Ubuntu (repositorio oficial)
+sudo apt-get install wget gpg
+wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor > warpdotdev.gpg
+sudo install -D -o root -g root -m 644 warpdotdev.gpg /etc/apt/keyrings/warpdotdev.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main" > /etc/apt/sources.list.d/warpdotdev.list'
+sudo apt update && sudo apt install warp-terminal
+```
+
+Fedora/RHEL/CentOS usa el mismo paquete vía `.rpm` con un repositorio equivalente; Arch Linux tiene `.pkg.tar.zst` para instalar con `pacman -U`. Todos los métodos de paquete se actualizan solos — no hace falta reinstalar para tener la última versión.
 
 ## Warp no reemplaza el shell
 

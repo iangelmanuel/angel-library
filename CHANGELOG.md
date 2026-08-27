@@ -7,14 +7,114 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 ## [Unreleased]
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
-- Reorganización de la taxonomía: HTML, CSS y JavaScript pasan a la nueva categoría `Lenguajes`; TypeScript queda en `General` junto a las librerías y utilidades.
-- La categoría `General` concentra TypeScript, librerías, utilidades, snippets y patrones reutilizables; `Libs` pasa de Frontend a General.
-- Nuevo comando privado `/myastro` con la receta de configuración inicial de Astro: Tailwind, alias de TypeScript, Prettier, `SITE`, archivos de repositorio y SEO.
-- Reordenamiento de `/myastro` como flujo ejecutable de principio a fin y corrección global de las pestañas npm, pnpm y Bun para evitar bloques de instalación repetidos.
-- La receta `/myastro` ahora parte de la plantilla oficial `basics` y documenta de forma opcional el adaptador de Vercel para renderizado bajo demanda.
-- `/myastro` adopta la misma estructura ejecutable de `/mynext`: comandos actuales de integraciones, imports ordenados con Prettier, dominio único desde `import.meta.env.SITE`, renderizado por ruta, archivos de repositorio al final y árbol final del proyecto.
-- Nuevo comando privado `/mynext` con una receta ordenada para crear proyectos Next.js con Tailwind CSS, configuración del framework, Prettier, imports, `SITE`, SEO y archivos de repositorio.
-- Las pestañas de gestores de paquetes también reconocen comandos `create` e `init`, por lo que los scaffolds e instalaciones equivalentes ya no necesitan bloques Bash repetidos.
+
+## [0.4.0] — 2026-08-26
+
+Categoría Aplicaciones ampliada y auditada, documentación completa de monorepos,
+descripciones faltantes en Utilities, y un rediseño del sistema visual: tema
+de código, tipografías, colores de encabezados, logo real y la sidebar
+terminada.
+
+### Añadido
+
+- Tema de resaltado de código Tokyo Night, tipografía Fira Code para bloques
+  de código y JetBrains Mono para el texto general del sitio, autohospedadas
+  vía Fontsource.
+- Logo real del proyecto (pixel art) en el header y como favicon, con una
+  interacción de color al pasar el cursor por encima.
+- Cursor de selección `❯` estilo terminal para la entrada activa de la
+  sidebar, coloreado según la categoría.
+- Sección "Instalación" verificada contra documentación oficial en las 4
+  guías de aplicaciones existentes (VS Code, Cursor, Insomnia, Warp), que
+  antes solo enlazaban a documentación externa.
+- 5 aplicaciones nuevas en la categoría Aplicaciones: Docker Desktop, Figma,
+  Excalidraw, Notion y Discord, cada una con instalación, funcionalidad base
+  y ejemplos.
+- 4 subcategorías nuevas en Aplicaciones: DevOps y contenedores, Diseño y
+  diagramación, Notas y documentación, Comunicación.
+- Campo `website` en el schema de `guides`, para reutilizar la card de
+  enlace externo que ya usaban `technologies` y `libraries`.
+- Subcategoría `Monorepo` en General, con 5 guías nuevas: qué es un monorepo
+  y cómo funciona, monorepo con pnpm, con npm, con Bun, y un ejemplo
+  completo de frontend + backend (Express + Vite) con un comando de
+  desarrollo único por gestor.
+- Descripciones faltantes en 3 archivos de Utilities (`object`, `promise`,
+  `url`), alineados a la estructura de grupos, tabla resumen y
+  consideraciones que ya usaba el resto de la categoría.
+
+### Cambiado
+
+- Gama de color fija para encabezados de contenido: título en naranja,
+  subtítulo en amarillo, tercer nivel en cian, cuarto nivel en gris —
+  reemplaza la rotación decorativa anterior sin significado por posición.
+- Etiquetas de sección (`section-label`) recoloreadas a azul, consistente en
+  toda la navegación.
+- Color de los tags unificado a un único morado con estilo de pill (antes
+  variaba por hash del texto).
+- Badges por defecto (accesos rápidos de la sidebar, listado de categorías
+  del inicio) recoloreados a gris terminal.
+- Código inline en el cuerpo del texto sin fondo, solo borde, en Geist
+  Pixel.
+- Sidebar sin contador numérico de entradas por categoría/subcategoría.
+- Ancho de sidebar y color de los accesos rápidos (Inicio, Buscar, Tags)
+  corregidos tras el rediseño agrupado de la versión anterior.
+
+### Verificado
+
+- `pnpm check` sin errores tras cada tanda de cambios.
+- Build estático de producción generado correctamente.
+- Comandos de instalación de aplicaciones (winget, Homebrew, apt/snap)
+  verificados contra documentación oficial antes de publicarlos.
+- Referencias de contenido y schemas validados durante el build.
+
+## [0.3.0] — 2026-08-26
+
+Reestructuración de la taxonomía de conocimiento, nueva sección de GitHub
+Actions, guías de perfil de GitHub, guía de Prettier y mejoras en la
+navegación agrupada de la sidebar.
+
+### Añadido
+
+- Nueva categoría `Lenguajes` para HTML, CSS y JavaScript, extraída de General.
+- Categoría `Git & GitHub` integrada: GitHub Actions, GitHub CLI, plataforma,
+  perfil de cuenta y gestión de repositorios en una sola sección.
+- Subcategoría `github-profile` con guías de presentación, README, claves SSH
+  y commits verificados.
+- Subcategoría `config` para configuración de proyectos en General.
+- Guía de Prettier con configuración, integración y uso en Astro.
+- `CATEGORY_GROUPS` en `site.ts` para navegación agrupada por bloques:
+  construir, producto/IA, flujo de trabajo, calidad y referencia.
+- Sidebar agrupada por categorías en vez de listado plano.
+- Enlaces rápidos (Inicio, Buscar, Tags) en la parte superior de la sidebar.
+- Validación en build para detectar categorías sin grupo en `CATEGORY_GROUPS`.
+
+### Cambiado
+
+- `CATEGORY_LIST` se deriva de `CATEGORY_GROUPS` en vez de `CATEGORY_IDS`.
+- Sidebar ampliada de `w-60` a `w-72` para alojar el nuevo diseño.
+- `category: tools` eliminada; su contenido se reasignó a otras categorías.
+- `category: github-actions` eliminada; se fusionó en Git & GitHub.
+- `stack: libs` renombrado a `stack: config` en General.
+- IA relabelada de "IA" a "IA SDK" en la categoría.
+- `stack: github-actions` y `stack: github-profile` añadidos a Git & GitHub.
+- Las pestañas de gestores de paquetes reconocen comandos `create` e `init`.
+- Reformato de `site.ts` a comillas dobles y sin punto y coma.
+
+### Eliminado
+
+- Guías de herramientas generales: `tools-calidad-codigo`,
+  `tools-chrome-devtools`, `tools-debugging-workflow`,
+  `tools-documentacion-tecnica`, `tools-vite-build`,
+  `tools-vscode-workspace`, `developer-tools-fundamentals`.
+- Guías de recursos: `resources-evaluation-guide`,
+  `resources-segundo-cerebro`.
+- Guía `content-references` (contenido reubicado).
+
+### Verificado
+
+- `pnpm sync` ejecutado tras actualizar el schema de contenido.
+- `pnpm check` sin errores.
+- Build estático de producción generado correctamente.
 
 ## [0.2.0] — 2026-08-25
 
@@ -26,8 +126,10 @@ existentes.
 
 - Comando secreto `/myjson` en la terminal interna, con redirección a su entrada
   de configuración personal de VS Code.
-- Entrada `commands/myjson` con la configuración completa de VS Code y explicación
-  detallada por secciones.
+- Comandos secretos `/myastro` y `/mynext` con recetas completas de
+  configuración inicial para Astro y Next.js respectivamente.
+- Entradas `commands/myjson`, `commands/myastro` y `commands/mynext` con
+  configuraciones detalladas y explicación por secciones.
 - Campo `private` en el schema compartido para mantener entradas personales fuera
   de la navegación, listados, tags e índice de búsqueda públicos.
 - Soporte para que las entradas privadas conserven sus rutas dinámicas y el mismo
@@ -40,8 +142,8 @@ existentes.
 
 - `pnpm sync` ejecutado tras actualizar el schema de contenido.
 - `pnpm check` sin errores.
-- Build estático de producción generado correctamente, incluida la ruta
-  `/commands/myjson`.
+- Build estático de producción generado correctamente, incluidas las rutas
+  `/commands/myjson`, `/commands/myastro` y `/commands/mynext`.
 
 ## [0.1.0] — 2026-08-25
 
@@ -82,6 +184,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.4.0
+[0.3.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.3.0
 [0.2.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.2.0
 [0.1.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.1.0

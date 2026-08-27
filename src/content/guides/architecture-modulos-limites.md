@@ -8,7 +8,6 @@ tags: [architecture, modules, boundaries, dependencies, coupling]
 related:
   - guides/architecture-fundamentals-terminology
   - guides/backend-api-design
-  - guides/content-references
 updatedAt: 2026-08-19
 ---
 

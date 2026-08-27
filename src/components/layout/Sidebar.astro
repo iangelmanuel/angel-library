@@ -9,102 +9,93 @@ interface Props {
 const { data } = Astro.props;
 const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
+
+const QUICK_LINKS = [
+  { href: '/', label: 'Inicio', icon: 'home', color: '--accent-blue' },
+  { href: '/search', label: 'Buscar', icon: 'terminal', color: '--accent-green' },
+  { href: '/tags', label: 'Tags', icon: 'tags', color: '--accent-yellow' },
+];
 ---
 
 <aside
   id="sidebar"
   transition:persist="sidebar"
-  class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-60 shrink-0 self-start border-r border-border lg:block"
+  class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-72 shrink-0 self-start border-r border-border lg:block"
 >
-  <nav
-    class="flex h-full flex-col gap-7 overflow-y-auto px-4 py-6"
-    aria-label="Navegación principal"
-  >
-    <div class="flex flex-col gap-0.5">
-      <a
-        href="/"
-        class:list={['nav-link', { 'is-active': isActive('/') }]}
-        aria-current={isActive('/') ? 'page' : undefined}
-      >
-        <Icon name="home" class="size-3.5 text-[var(--accent-blue)]" /> Inicio
-      </a>
-      <a
-        href="/search"
-        class:list={['nav-link', { 'is-active': isActive('/search') }]}
-        aria-current={isActive('/search') ? 'page' : undefined}
-      >
-        <Icon name="terminal" class="size-3.5 text-[var(--accent-green)]" /> Buscar
-      </a>
-      <a
-        href="/tags"
-        class:list={['nav-link', { 'is-active': isActive('/tags') }]}
-        aria-current={isActive('/tags') ? 'page' : undefined}
-      >
-        <Icon name="tags" class="size-3.5 text-[var(--accent-yellow)]" /> Tags
-      </a>
+  <nav class="flex h-full flex-col overflow-y-auto px-3 py-4" aria-label="Navegación principal">
+    <div class="flex flex-col gap-px">
+      {
+        QUICK_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class:list={['nav-link nav-link--quick', { 'is-active': isActive(link.href) }]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+            style={`--cat-accent: var(${link.color})`}
+          >
+            <Icon name={link.icon} class="nav-icon" />
+            <span>{link.label}</span>
+          </a>
+        ))
+      }
     </div>
 
-    <section aria-label="Categorías">
-      <p class="section-label px-2 pb-2">Categorías</p>
-      <div class="flex flex-col gap-0.5">
-        {
-          data.categories.map((category) => {
-            const groupedItems = [
-              ...(category.resourceGroups ?? category.stackGroups ?? []).flatMap((group) => group.items),
-              ...category.items,
-            ];
+    {
+      data.groups.map((group) => (
+        <section class="nav-group" aria-label={`Categorías de ${group.id}`}>
+          {group.categories.map((category) => {
+            const subgroups = category.resourceGroups ?? category.stackGroups ?? [];
+            const groupedItems = [...subgroups.flatMap((sub) => sub.items), ...category.items];
             const containsActive = groupedItems.some((item) => isActive(item.url));
+
             return (
-              <details open={containsActive} style={`--cat-accent: var(${category.color})`}>
+              <details
+                class="nav-cat"
+                open={containsActive}
+                style={`--cat-accent: var(${category.color})`}
+              >
                 <summary class="nav-summary">
-                  <Icon name={category.icon} class="size-3.5 text-[var(--cat-accent)]" />
-                  {category.label}
-                  <Icon
-                    name="chevron-right"
-                    class="chevron size-3.5 text-muted-foreground"
-                  />
+                  <Icon name={category.icon} class="nav-icon nav-icon--cat" />
+                  <span class="nav-summary__label">{category.label}</span>
+                  <Icon name="chevron-right" class="nav-chevron" />
                 </summary>
-                <div class="ml-[0.95rem] flex flex-col gap-0.5 border-l border-[var(--cat-accent)]/25 py-1 pl-3">
-                  {
-                    (category.resourceGroups ?? category.stackGroups)?.map((group) => (
-                      <details open={group.items.some((item) => isActive(item.url))}>
-                        <summary class="nav-summary py-1 text-muted-foreground">
-                          <span class="truncate">{group.label}</span>
-                          <Icon name="chevron-right" class="chevron size-3 text-muted-foreground" />
-                        </summary>
-                        <div class="ml-2 flex flex-col gap-0.5 border-l border-border py-1 pl-2">
-                          {group.items.map((item) => (
-                            <a
-                              href={item.url}
-                              class:list={['nav-link', { 'is-active': isActive(item.url) }]}
-                              aria-current={isActive(item.url) ? 'page' : undefined}
-                            >
-                              <Icon name={item.icon} class="size-3.5 shrink-0 text-[var(--cat-accent)]" />
-                              <span class="truncate">{item.title}</span>
-                            </a>
-                          ))}
-                        </div>
-                      </details>
-                    ))
-                  }
-                  {
-                    category.items.map((item) => (
-                      <a
-                        href={item.url}
-                        class:list={['nav-link', { 'is-active': isActive(item.url) }]}
-                        aria-current={isActive(item.url) ? 'page' : undefined}
-                      >
-                        <Icon name={item.icon} class="size-3.5 shrink-0 text-[var(--cat-accent)]" />
-                        <span class="truncate">{item.title}</span>
-                      </a>
-                    ))
-                  }
+
+                <div class="nav-children">
+                  {subgroups.map((sub) => (
+                    <details class="nav-sub" open={sub.items.some((item) => isActive(item.url))}>
+                      <summary class="nav-summary nav-summary--sub">
+                        <span class="nav-summary__label">{sub.label}</span>
+                        <Icon name="chevron-right" class="nav-chevron" />
+                      </summary>
+                      <div class="nav-children nav-children--deep">
+                        {sub.items.map((item) => (
+                          <a
+                            href={item.url}
+                            class:list={['nav-link', { 'is-active': isActive(item.url) }]}
+                            aria-current={isActive(item.url) ? 'page' : undefined}
+                          >
+                            <span class="nav-link__label">{item.title}</span>
+                          </a>
+                        ))}
+                      </div>
+                    </details>
+                  ))}
+
+                  {category.items.map((item) => (
+                    <a
+                      href={item.url}
+                      class:list={['nav-link nav-link--loose', { 'is-active': isActive(item.url) }]}
+                      aria-current={isActive(item.url) ? 'page' : undefined}
+                    >
+                      <Icon name={item.icon} class="nav-icon" />
+                      <span class="nav-link__label">{item.title}</span>
+                    </a>
+                  ))}
                 </div>
               </details>
             );
-          })
-        }
-      </div>
-    </section>
+          })}
+        </section>
+      ))
+    }
   </nav>
 </aside>

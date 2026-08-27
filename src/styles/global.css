@@ -405,66 +405,166 @@ main header > p { color: color-mix(in srgb, var(--accent-blue) 32%, var(--muted-
 /* ------------------------------------------------------------------ */
 /* Navegación lateral                                                  */
 /* ------------------------------------------------------------------ */
-/* Marca la entrada activa como una selección de menú de terminal (fzf,
-   lazygit, etc): un cursor `❯` a la izquierda, no una caja ni una línea.
-   El hueco queda siempre reservado (opacity, no display) para que nada
-   salte al activarse. */
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0.5rem;
-  font-size: 0.8rem;
-  color: var(--muted-foreground);
-  transition: color 120ms ease;
-}
-.nav-link::before {
-  content: '❯';
-  flex-shrink: 0;
-  width: 0.7em;
-  font-family: var(--font-pixel);
-  color: var(--cat-accent, var(--accent-blue));
-  opacity: 0;
-  transition: opacity 120ms ease;
-}
-.nav-link:hover {
-  color: var(--foreground);
-}
-.nav-link.is-active {
-  color: var(--foreground);
-}
-.nav-link.is-active::before {
-  opacity: 1;
+/* Tres niveles: categoría → subcategoría → entrada. La jerarquía se lee
+   por tamaño, peso y una guía vertical fina, no por sangrías grandes: con
+   19 categorías y ~600 entradas, cada píxel de sangría es texto que se
+   pierde. La entrada activa se marca con un cursor `❯` de terminal, con el
+   hueco siempre reservado para que nada salte al activarse. */
+
+/* Bloque de categorías (CATEGORY_GROUPS). El separador va arriba de cada
+   bloque, así también despega el primero de los accesos rápidos. */
+.nav-group {
+  margin-top: 0.7rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.7rem;
 }
 
+/* --- Fila de categoría y de subcategoría --- */
 .nav-summary {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   width: 100%;
-  padding: 0.3rem 0.5rem;
-  font-size: 0.8rem;
+  padding: 0.34rem 0.45rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: #c9c9cf;
   cursor: pointer;
   list-style: none;
   user-select: none;
+  border-radius: 2px;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease;
 }
 .nav-summary::-webkit-details-marker {
   display: none;
 }
+.nav-summary__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .nav-summary:hover {
   color: var(--foreground);
+  background: color-mix(in srgb, var(--cat-accent, var(--foreground)) 8%, transparent);
 }
 details[open] > .nav-summary {
   color: var(--cat-accent, var(--foreground));
 }
-.nav-summary .chevron {
+
+/* Subcategoría: un escalón por debajo — más pequeña, en mono y apagada,
+   para que no compita con el nombre de la categoría. */
+.nav-summary--sub {
+  padding: 0.26rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--muted-foreground);
+}
+.nav-sub[open] > .nav-summary--sub {
+  color: color-mix(in srgb, var(--cat-accent, var(--foreground)) 70%, var(--foreground));
+}
+
+/* --- Iconos, contador y chevron --- */
+.nav-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+/* Los iconos de categoría y de acceso rápido llevan el color de su acento:
+   son la única señal cromática de la columna y sin ella la navegación se
+   lee apagada. Los iconos de marca (Astro, React…) traen su propio color
+   dentro del SVG y no heredan este. */
+.nav-icon--cat,
+.nav-link--quick .nav-icon {
+  color: var(--cat-accent);
+}
+.nav-chevron {
   margin-left: auto;
+  width: 0.8rem;
+  height: 0.8rem;
+  flex-shrink: 0;
+  color: var(--muted-foreground);
   transition: transform 150ms ease;
 }
-details[open] > .nav-summary .chevron {
+details[open] > .nav-summary .nav-chevron {
   transform: rotate(90deg);
+}
+
+/* --- Contenedores anidados ---
+   La guía vertical cae bajo el icono de la categoría, así la columna de
+   texto de los hijos arranca donde arrancaba la etiqueta del padre. */
+.nav-children {
+  margin-left: 0.62rem;
+  border-left: 1px solid color-mix(in srgb, var(--cat-accent) 22%, transparent);
+  padding: 0.15rem 0 0.15rem 0.5rem;
+}
+.nav-children--deep {
+  margin-left: 0.3rem;
+  border-left-color: var(--border);
+  padding-left: 0.45rem;
+}
+
+/* --- Entrada --- */
+.nav-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 0.26rem 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+  border-radius: 2px;
+  scroll-margin: 4rem 0;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease;
+}
+.nav-link::before {
+  content: '❯';
+  flex-shrink: 0;
+  width: 0.75em;
+  font-family: var(--font-pixel);
+  line-height: inherit;
+  color: var(--cat-accent, var(--accent-blue));
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+/* Hasta tres líneas: con títulos de 40-55 caracteres, cortar con puntos
+   suspensivos escondía justo la parte que distingue una entrada de otra.
+   Tres líneas cubren el título más largo del catálogo, y solo un puñado de
+   entradas llega a necesitarlas. */
+.nav-link__label {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.nav-link .nav-icon {
+  margin-top: 0.12rem;
+}
+.nav-link--quick {
+  align-items: center;
+  padding: 0.32rem 0.45rem;
+  font-size: 0.82rem;
+}
+.nav-link--loose {
+  padding-block: 0.3rem;
+}
+.nav-link:hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--cat-accent, var(--foreground)) 8%, transparent);
+}
+.nav-link.is-active {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--cat-accent, var(--accent-blue)) 12%, transparent);
+}
+.nav-link.is-active::before {
+  opacity: 1;
 }
 
 /* Scrollbar lateral: fino, cuadrado y discreto como una guía de terminal. */
