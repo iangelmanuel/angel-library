@@ -8,6 +8,61 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.5.0] — 2026-08-27
+
+Nueva subcategoría Paquetes en General, endurecimiento del patrón `SITE`/SEO
+tras varias rondas de revisión, y sincronización completa entre las páginas
+ocultas `/myastro`/`/mynext`, la categoría SEO y la skill de SEO.
+
+### Añadido
+
+- Subcategoría `Paquetes` en General, con ícono propio (`brand-packages`).
+- `npm-check-updates.md`: instalación, `ncu` vs `ncu -u`, flags principales,
+  `--target` en detalle, modo interactivo, modo `--doctor`, workspaces,
+  `.ncurc.json` y `--errorLevel` para CI.
+- `SERVICES`/`FAQ_ITEMS` (con sus interfaces `Service`/`FaqItem`) documentados
+  como exports hermanos de `SITE` en el mismo `src/config/site.ts`, en vez de
+  importarse de módulos `@/content/faq`/`@/content/services` que nunca se
+  definían — sincronizado en `/myastro`, `astro-seo-completo`, `skill-seo-astro`
+  y el patrón `SITE`.
+- Script `"astro": "astro"` en el `package.json` de ejemplo de `/myastro`.
+- Comentario `// deprecado en TypeScript 7.0` junto a `baseUrl` en los 5
+  lugares del sitio que lo mencionan (`/myastro`, guías de configuración de
+  Astro y Next.js, guía de alias de TypeScript), más una nota explícita en
+  esta última.
+
+### Cambiado
+
+- `zod.md` movido de `stack: config` a `stack: packages`.
+- `package.json`/`.prettierrc` de ejemplo en `/myastro` y `/mynext`: los
+  campos que dependen del proyecto o del gestor (`license`, `packageManager`,
+  `engines`, `tailwindStylesheet`) ahora son placeholders `"..."` explícitos
+  en vez de valores concretos que quedaban desactualizados; orden de campos
+  sincronizado entre ambos.
+- Orden de `SITE.seo` sincronizado entre Astro y Next.js: `areaServed` al
+  final del bloque, en `/myastro`, `/mynext` y las 4 recetas/skills de SEO.
+- Orden de meta tags de `BaseHead.astro` sincronizado entre `/myastro`, la
+  receta `astro-seo-completo` y `skill-seo-astro`: `<title>` antes de
+  `charset`/`viewport`, con un ejemplo comentado de precarga de fuente.
+- Comentarios eliminados de los bloques de código para copiar de `/myastro`
+  (JsonLd.astro, seo.ts, BaseHead.astro, sitemap.xml.ts) — están pensados
+  para pegarse tal cual en un proyecto real.
+- `SITE.ts` propio del proyecto (`src/config/site.ts`): `name`/`description`/
+  `locale` agrupados bajo `SITE.info` en vez de ir sueltos en la raíz.
+
+### Arreglado
+
+- `const URL = SITE.seo.url` tapaba el constructor global `URL`, rompiendo
+  `new URL(...)` con `Type 'String' has no construct signatures.ts(2351)` —
+  renombrado a `SITE_URL` en `/myastro`, `astro-seo-completo` y
+  `skill-seo-astro`.
+- `titleTemplate` (patrón `%s`) eliminado de la `SITE` de `/myastro` — es una
+  función de la Metadata API de Next.js, Astro nunca la consumía.
+
+### Verificado
+
+- `pnpm build` sin errores tras cada tanda de cambios (1417 páginas).
+
 ## [0.4.0] — 2026-08-26
 
 Categoría Aplicaciones ampliada y auditada, documentación completa de monorepos,
@@ -184,7 +239,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.5.0
 [0.4.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.4.0
 [0.3.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.3.0
 [0.2.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.2.0

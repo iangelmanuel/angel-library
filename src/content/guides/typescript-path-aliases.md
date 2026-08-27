@@ -15,7 +15,7 @@ updatedAt: 2026-08-17
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": ".", // deprecado en TypeScript 7.0
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -42,7 +42,7 @@ Este mismo alias (`@/*` → `./src/*`) es el que usa este sitio — está declar
 | `baseUrl` | La carpeta base desde la que se resuelven las rutas de `paths`. `"."` significa la raíz del proyecto (donde está el `tsconfig.json`). |
 | `paths` | Mapa de patrones de alias a rutas reales, relativas a `baseUrl`. Cada valor es un **array** (TypeScript prueba las rutas en orden hasta encontrar una que exista). |
 
-`baseUrl` es obligatorio para que `paths` funcione — sin él, TypeScript ignora `paths` silenciosamente (no tira error, el alias simplemente no resuelve).
+`baseUrl` es obligatorio para que `paths` funcione — sin él, TypeScript ignora `paths` silenciosamente (no tira error, el alias simplemente no resuelve). **`baseUrl` está deprecado desde TypeScript 7.0** — verifica en la documentación oficial de TypeScript el reemplazo vigente antes de escribir un `tsconfig.json` nuevo en un proyecto con esa versión o superior.
 
 ## El gotcha más importante: esto es solo para TypeScript
 
@@ -70,7 +70,7 @@ Además del alias general `@/*`, es común declarar uno específico por carpeta 
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": ".", // deprecado en TypeScript 7.0
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],

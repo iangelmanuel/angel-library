@@ -96,7 +96,7 @@ import { Image } from 'astro:assets';
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": ".", // deprecado en TypeScript 7.0
     "paths": {
       "@/*": ["src/*"]
     }

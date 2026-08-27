@@ -85,11 +85,8 @@ export const SITE = {
     /** priceRange del schema ProfessionalService: $, $$, $$$ o $$$$. */
     priceRange: "$$$",
 
-    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/lib/seo.ts. */
-    areaServed: [
-      { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" },
-    ],
+    /** Región amplia para el ContactPoint de JSON-LD — separada de `geo.region`, que es el código del departamento/estado. */
+    contactRegion: "LATAM",
 
     /** Única fuente de coordenadas — meta geo.*, ICBM y JSON-LD GeoCoordinates leen todos de aquí. */
     geo: {
@@ -103,6 +100,12 @@ export const SITE = {
     themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
     /** Categorías del manifest.webmanifest (taxonomía fija de PWA). */
     manifestCategories: ["business", "design", "productivity"],
+
+    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/lib/seo.ts. */
+    areaServed: [
+      { type: "Country", name: "Colombia" },
+      { type: "Place", name: "Latin America" },
+    ],
   },
 } as const;
 ```
@@ -307,7 +310,7 @@ export function buildBusinessSchema(): Record<string, unknown> {
         email: SITE.contact.email,
         telephone: SITE.contact.whatsapp,
         availableLanguage: SITE.seo.languages,
-        areaServed: [SITE.location.countryCode, "LATAM"],
+        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
     ],
     ...(sameAs.length > 0 ? { sameAs } : {}),

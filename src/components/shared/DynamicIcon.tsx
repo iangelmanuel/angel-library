@@ -31,6 +31,7 @@ import {
   MessageCircle,
   Monitor,
   Package,
+  PackageSearch,
   Palette,
   Network,
   NotebookPen,
@@ -208,6 +209,9 @@ const BrandConfig: IconComponent = (props) => <Settings2 color="#4ade80" {...pro
 /** Icono de la subcategoría `monorepo`: varios paquetes en un solo repositorio. */
 const BrandMonorepo: IconComponent = (props) => <Layers color="#fb923c" {...props} />;
 
+/** Icono de la subcategoría `packages`: paquetes de npm que no son librerías de código propio. */
+const BrandPackages: IconComponent = (props) => <PackageSearch color="#38bdf8" {...props} />;
+
 /** Icono de la subcategoría `github-profile`: perfil público de GitHub. */
 const BrandGithubProfile: IconComponent = (props) => <UserRound color="#fbbf24" {...props} />;
 
@@ -294,6 +298,7 @@ const ICONS: Record<string, IconComponent> = {
   'brand-docker-bases-datos': BrandDockerBasesDatos,
   'brand-config': BrandConfig,
   'brand-monorepo': BrandMonorepo,
+  'brand-packages': BrandPackages,
   'brand-github-profile': BrandGithubProfile,
   'brand-ci-cd': BrandCiCd,
   'brand-observabilidad': BrandObservabilidad,

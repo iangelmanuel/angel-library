@@ -147,11 +147,8 @@ export const SITE = {
     /** priceRange for the ProfessionalService schema: $, $$, $$$, or $$$$. */
     priceRange: "$$$",
 
-    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/lib/seo.ts. */
-    areaServed: [
-      { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" },
-    ],
+    /** Broad region for JSON-LD's ContactPoint — separate from `geo.region`, which is the department/state code. */
+    contactRegion: "LATAM",
 
     /** The ONLY source of coordinates — meta geo.*, ICBM, and JSON-LD GeoCoordinates all read from here. */
     geo: {
@@ -165,6 +162,12 @@ export const SITE = {
     themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
     /** Web manifest categories (fixed PWA taxonomy). */
     manifestCategories: ["business", "design", "productivity"],
+
+    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/lib/seo.ts. */
+    areaServed: [
+      { type: "Country", name: "Colombia" },
+      { type: "Place", name: "Latin America" },
+    ],
   },
 } as const;
 ​```
@@ -361,7 +364,7 @@ export function buildBusinessSchema(): Record<string, unknown> {
         email: SITE.contact.email,
         telephone: SITE.contact.whatsapp,
         availableLanguage: SITE.seo.languages,
-        areaServed: [SITE.location.countryCode, "LATAM"],
+        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
     ],
     ...(sameAs.length > 0 ? { sameAs } : {}),

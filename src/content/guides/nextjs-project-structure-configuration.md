@@ -116,7 +116,7 @@ No agregues opciones por anticipado. Cada bandera global aumenta el modelo menta
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": ".", // deprecado en TypeScript 7.0
     "paths": {
       "@/*": ["./src/*"]
     }

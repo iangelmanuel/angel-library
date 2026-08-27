@@ -478,6 +478,7 @@ export const STACK_IDS = [
   "frontend-fundamentos",
   "config",
   "monorepo",
+  "packages",
   "backend-fundamentos",
   "devops-fundamentos",
   "ui-ux-fundamentos",
@@ -582,6 +583,7 @@ export const STACKS: Record<StackId, StackMeta> = {
   },
   config: { id: "config", label: "Config", icon: "brand-config" },
   monorepo: { id: "monorepo", label: "Monorepo", icon: "brand-monorepo" },
+  packages: { id: "packages", label: "Paquetes", icon: "brand-packages" },
   "backend-fundamentos": {
     id: "backend-fundamentos",
     label: "Fundamentos de backend",
@@ -928,7 +930,7 @@ export const STACK_LIST = STACK_IDS.map((id) => STACKS[id])
 export const CATEGORY_STACK_ORDER: Partial<
   Record<CategoryId, readonly StackId[]>
 > = {
-  general: ["config", "monorepo", "typescript", "utils"],
+  general: ["config", "monorepo", "packages", "typescript", "utils"],
   languages: ["html", "css", "javascript"],
   frontend: ["frontend-fundamentos", "astro", "react", "nextjs"],
   backend: ["backend-fundamentos", "node", "express", "astro", "nextjs"],

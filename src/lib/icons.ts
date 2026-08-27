@@ -66,6 +66,7 @@ const RECOLORED_ICONS: Record<string, { base: string; color: string }> = {
   'brand-frontend-fundamentos': { base: 'monitor-cog', color: '#38bdf8' },
   'brand-config': { base: 'settings-2', color: '#4ade80' },
   'brand-monorepo': { base: 'layers', color: '#fb923c' },
+  'brand-packages': { base: 'package-search', color: '#38bdf8' },
   'brand-backend-fundamentos': { base: 'server-cog', color: '#4ade80' },
   'brand-ai-sdk': { base: 'bot', color: '#22d3ee' },
   'brand-database-fundamentos': { base: 'database', color: '#c084fc' },

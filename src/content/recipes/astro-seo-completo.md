@@ -23,6 +23,26 @@ Requisitos: proyecto Astro con TypeScript, alias `@/*` configurado —consulta [
 Este es el bloque que se toca en el día a día. Cada campo existe porque algo más adelante en esta receta lo consume — no hay nada "por si acaso".
 
 ```ts title="src/config/site.ts"
+export interface Service {
+  /** Usado en el fragmento del JSON-LD: `${URL}#service-${id}`. */
+  id: string
+  /** Etiqueta corta arriba del título (categoría o tipo de servicio). */
+  eyebrow: string
+  /** Título visible del servicio — se mapea a `name` en el JSON-LD. */
+  h3: string
+  /** Descripción corta — se mapea a `description`. */
+  body: string
+  /** Ítems del catálogo de ofertas de ese servicio (JSON-LD `OfferCatalog`). */
+  items: string[]
+}
+
+export interface FaqItem {
+  /** La pregunta — se mapea a `name` en el JSON-LD Question. */
+  q: string
+  /** La respuesta — se mapea a `acceptedAnswer.text`. */
+  a: string
+}
+
 export const SITE = {
   // ...el resto de SITE ya existe en tu proyecto — info, location, contact, social.
   // No se repite aquí porque no es SEO, es identidad de marca (ver el patrón
@@ -44,7 +64,7 @@ export const SITE = {
       "landing pages",
       "Bogotá",
       "Colombia",
-      "software boutique",
+      "software boutique"
     ],
     /** Idiomas en los que la empresa atiende — alimenta `availableLanguage` en el schema de Organization. */
     languages: ["Spanish", "English"],
@@ -76,26 +96,48 @@ export const SITE = {
     /** priceRange del schema ProfessionalService: $, $$, $$$ o $$$$. */
     priceRange: "$$$",
 
-    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/lib/seo.ts. */
-    areaServed: [
-      { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" },
-    ],
-
-    /** Geo-targeting local (meta geo.*/ICBM) — coordenadas de la ciudad, no directamente dirección exacta. */
+    contactRegion: "LATAM",
     geo: {
       /** Código ISO 3166-2 de la región/departamento (Bogotá D.C. → "DC"). */
       region: "DC",
       latitude: 4.60971,
-      longitude: -74.08175,
+      longitude: -74.08175
     },
 
     /** Mismos colores que theme-color y que el manifest — un solo lugar para los dos. */
     themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
     /** Categorías del manifest.webmanifest (taxonomía fija de PWA: business, design, productivity, etc.). */
     manifestCategories: ["business", "design", "productivity"],
-  },
-} as const;
+
+    /** areaServed de Organization/ProfessionalService — objetos genéricos, el "@type" de schema.org se arma en src/lib/seo.ts. */
+    areaServed: [
+      { type: "Country", name: "Colombia" },
+      { type: "Place", name: "Latin America" }
+    ]
+  }
+} as const
+
+// SERVICES y FAQ_ITEMS alimentan servicesLd()/faqLd() en el Paso 3 — exports
+// hermanos de SITE, en el mismo archivo, porque son listas cortas y globales.
+// Si el catálogo crece (slug, precio, imágenes o SEO por servicio), sácalo de
+// aquí y llévalo a su propia colección de contenido.
+
+export const SERVICES: Service[] = [
+  {
+    id: "desarrollo-software",
+    eyebrow: "Desarrollo",
+    h3: "Desarrollo de Software",
+    body: "Aplicaciones a medida, desde el diagnóstico hasta el despliegue.",
+    items: ["Aplicaciones web", "Automatización de procesos", "Integraciones"]
+  }
+]
+
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    q: "¿Cuánto tarda un proyecto típico?",
+    a: "Entre 4 y 8 semanas según el alcance, con entregas parciales revisables."
+  }
+]
 ```
 
 Cada campo tiene un único consumidor claro más abajo en esta receta — si en algún punto un campo de aquí no se termina usando en ningún archivo, es señal de que sobra.
@@ -129,27 +171,24 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 Cada función arma un tipo de [schema.org](https://schema.org) distinto. Antes tenían datos sueltos escritos a mano en el archivo (`"Colombia"`, `"Spanish"`, `"$$$"` literales) — aquí todo sale de `SITE`.
 
 ```ts title="src/lib/seo.ts"
-import { SITE } from "@/config/site";
-// Ejemplo — en tu proyecto real estos vienen de tus propios módulos de contenido,
-// no de SITE (el listado de servicios y preguntas frecuentes no es "identidad de marca").
-import { FAQ_ITEMS } from "@/content/faq";
-import { SERVICES } from "@/content/services";
+import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site"
 
-const URL = SITE.seo.url;
-const LOGO_URL = new URL(SITE.seo.logo, URL).href;
-const OG_URL = new URL(SITE.seo.image, URL).href;
+const SITE_URL = SITE.seo.url
+const LOGO_URL = new URL(SITE.seo.logo, SITE_URL).href
+const OG_URL = new URL(SITE.seo.image, SITE_URL).href
 
 /** areaServed en formato schema.org — un solo lugar que le agrega el "@type". */
-const areaServed = () => SITE.seo.areaServed.map((a) => ({ "@type": a.type, name: a.name }));
+const areaServed = () =>
+  SITE.seo.areaServed.map((a) => ({ "@type": a.type, name: a.name }))
 
 export function organizationLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${URL}#organization`,
+    "@id": `${SITE_URL}#organization`,
     name: SITE.info.name,
     legalName: SITE.info.legalName,
-    url: URL,
+    url: SITE_URL,
     logo: LOGO_URL,
     image: OG_URL,
     description: SITE.seo.description,
@@ -158,12 +197,12 @@ export function organizationLd() {
     founder: SITE.info.founders.map((f) => ({
       "@type": "Person",
       name: f.name,
-      jobTitle: f.role,
+      jobTitle: f.role
     })),
     address: {
       "@type": "PostalAddress",
       addressLocality: SITE.location.city,
-      addressCountry: SITE.location.countryCode,
+      addressCountry: SITE.location.countryCode
     },
     areaServed: areaServed(),
     contactPoint: [
@@ -173,59 +212,59 @@ export function organizationLd() {
         email: SITE.contact.email,
         telephone: SITE.contact.whatsapp,
         availableLanguage: SITE.seo.languages,
-        areaServed: [SITE.location.countryCode, "LATAM"],
-      },
+        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion]
+      }
     ],
     // Object.values en vez de listar cada red a mano — agregar una red nueva a SITE.social
     // alcanza para que aparezca aquí también, sin tocar este archivo.
     sameAs: Object.values(SITE.social),
-    knowsAbout: SITE.seo.keywords,
-  } as const;
+    knowsAbout: SITE.seo.keywords
+  } as const
 }
 
 export function webSiteLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${URL}#website`,
-    url: URL,
+    "@id": `${SITE_URL}#website`,
+    url: SITE_URL,
     name: SITE.info.name,
     description: SITE.seo.description,
     inLanguage: SITE.seo.locale,
-    publisher: { "@id": `${URL}#organization` },
-  } as const;
+    publisher: { "@id": `${SITE_URL}#organization` }
+  } as const
 }
 
 export function professionalServiceLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${URL}#business`,
+    "@id": `${SITE_URL}#business`,
     name: SITE.info.name,
     image: LOGO_URL,
-    url: URL,
+    url: SITE_URL,
     telephone: SITE.contact.whatsapp,
     email: SITE.contact.email,
     priceRange: SITE.seo.priceRange,
     address: {
       "@type": "PostalAddress",
       addressLocality: SITE.location.city,
-      addressCountry: SITE.location.countryCode,
+      addressCountry: SITE.location.countryCode
     },
     areaServed: areaServed(),
-    parentOrganization: { "@id": `${URL}#organization` },
-  } as const;
+    parentOrganization: { "@id": `${SITE_URL}#organization` }
+  } as const
 }
 
 export function servicesLd() {
   return SERVICES.map((s) => ({
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": `${URL}#service-${s.id}`,
+    "@id": `${SITE_URL}#service-${s.id}`,
     name: s.h3,
     serviceType: s.eyebrow,
     description: s.body,
-    provider: { "@id": `${URL}#organization` },
+    provider: { "@id": `${SITE_URL}#organization` },
     areaServed: areaServed(),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -233,39 +272,39 @@ export function servicesLd() {
       itemListElement: s.items.map((item, i) => ({
         "@type": "Offer",
         position: i + 1,
-        itemOffered: { "@type": "Service", name: item },
-      })),
-    },
-  }));
+        itemOffered: { "@type": "Service", name: item }
+      }))
+    }
+  }))
 }
 
 export function faqLd() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": `${URL}#faq`,
+    "@id": `${SITE_URL}#faq`,
     mainEntity: FAQ_ITEMS.map((item) => ({
       "@type": "Question",
       name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
-    })),
-  } as const;
+      acceptedAnswer: { "@type": "Answer", text: item.a }
+    }))
+  } as const
 }
 ```
 
 Cinco schemas, cinco propósitos:
 
-| Función | Tipo schema.org | Para qué |
-| --- | --- | --- |
-| `organizationLd` | `Organization` | Quién es la empresa — la entidad "raíz" de la que cuelgan las demás vía `@id` |
-| `webSiteLd` | `WebSite` | El sitio como propiedad web, ligado a la Organization como `publisher` |
-| `professionalServiceLd` | `ProfessionalService` | Negocio local con dirección/teléfono — lo que Google usa para resultados con precio y ubicación |
-| `servicesLd` | `Service` (uno por servicio) | Cada servicio como oferta individual, con su propio catálogo |
-| `faqLd` | `FAQPage` | Preguntas frecuentes — puede generar el acordeón de rich results directo en el buscador |
+| Función                 | Tipo schema.org              | Para qué                                                                                        |
+| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
+| `organizationLd`        | `Organization`               | Quién es la empresa — la entidad "raíz" de la que cuelgan las demás vía `@id`                   |
+| `webSiteLd`             | `WebSite`                    | El sitio como propiedad web, ligado a la Organization como `publisher`                          |
+| `professionalServiceLd` | `ProfessionalService`        | Negocio local con dirección/teléfono — lo que Google usa para resultados con precio y ubicación |
+| `servicesLd`            | `Service` (uno por servicio) | Cada servicio como oferta individual, con su propio catálogo                                    |
+| `faqLd`                 | `FAQPage`                    | Preguntas frecuentes — puede generar el acordeón de rich results directo en el buscador         |
 
 ## Paso 4 — `<BaseHead />`: los meta tags, en el orden que importa
 
-Reordenado respecto al original: `<title>` y la descripción van antes que cualquier otra cosa (ya iban casi primero, pero ahora nada se cuela en el medio), canonical y robots suben porque son señales de indexación de las que depende todo lo demás, y OG/Twitter (que son para compartir en redes, no para indexación) bajan un escalón. Lo puramente cosmético o secundario (geo, theme-color, manifest) queda al final.
+Reordenado respecto al original: `<title>` va primero (antes que `charset` y `viewport`), canonical y robots suben porque son señales de indexación de las que depende todo lo demás, y OG/Twitter (que son para compartir en redes, no para indexación) bajan un escalón. Lo puramente cosmético o secundario (geo, theme-color, manifest) queda al final.
 
 ```astro title="src/components/seo/BaseHead.astro"
 ---
@@ -304,11 +343,13 @@ const googlebot = noindex
   : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 ---
 
+<title>{pageTitle}</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-<title>{pageTitle}</title>
-<meta name="description" content={description} />
 
+<!-- <link rel="preload" as="font" href="/fonts/mi-fuente.woff2" type="font/woff2" crossorigin /> -->
+
+<meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 {SITE.seo.locales.map((locale) => <link rel="alternate" hreflang={locale.hreflang} href={canonical} />)}
 <link rel="alternate" hreflang="x-default" href={canonical} />
@@ -421,8 +462,8 @@ El `Layout` no define ningún dato — recibe las mismas props opcionales que `B
 ## Paso 6 — `manifest.webmanifest`
 
 ```ts title="src/pages/manifest.webmanifest.ts"
-import type { APIRoute } from "astro";
-import { SITE } from "@/config/site";
+import type { APIRoute } from "astro"
+import { SITE } from "@/config/site"
 
 export const GET: APIRoute = () => {
   const manifest = {
@@ -435,13 +476,15 @@ export const GET: APIRoute = () => {
     theme_color: SITE.seo.themeColor.dark,
     lang: SITE.seo.locale,
     categories: SITE.seo.manifestCategories,
-    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
-  };
+    icons: [
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }
+    ]
+  }
 
   return new Response(JSON.stringify(manifest, null, 2), {
-    headers: { "Content-Type": "application/manifest+json; charset=utf-8" },
-  });
-};
+    headers: { "Content-Type": "application/manifest+json; charset=utf-8" }
+  })
+}
 ```
 
 Un archivo `.ts` dentro de `src/pages/` con un `export const GET` es una ruta de API de Astro. Consulta [Endpoints (rutas de API)](/guides/astro-endpoints) para el mecanismo general. Aquí sirve para generar el manifiesto dinámicamente en vez de un JSON estático en `public/`, por lo que también puede leer `SITE`.
@@ -449,8 +492,8 @@ Un archivo `.ts` dentro de `src/pages/` con un `export const GET` es una ruta de
 ## Paso 7 — `robots.txt`
 
 ```ts title="src/pages/robots.txt.ts"
-import type { APIRoute } from "astro";
-import { SITE } from "@/config/site";
+import type { APIRoute } from "astro"
+import { SITE } from "@/config/site"
 
 export const GET: APIRoute = () => {
   const body = [
@@ -460,11 +503,13 @@ export const GET: APIRoute = () => {
     "",
     `Sitemap: ${SITE.seo.url}/sitemap.xml`,
     `Host: ${SITE.seo.url}`,
-    "",
-  ].join("\n");
+    ""
+  ].join("\n")
 
-  return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
-};
+  return new Response(body, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" }
+  })
+}
 ```
 
 `Disallow: /_astro/` bloquea la carpeta de assets compilados (JS/CSS con hash) — no aportan nada a un crawler y no tiene sentido que los rastree.
@@ -472,14 +517,14 @@ export const GET: APIRoute = () => {
 ## Paso 8 — `sitemap.xml`
 
 ```ts title="src/pages/sitemap.xml.ts"
-import type { APIRoute } from "astro";
-import { SITE } from "@/config/site";
+import type { APIRoute } from "astro"
+import { SITE } from "@/config/site"
 
 /** Una página, una entrada. Agregar rutas aquí conforme crezca el sitio. */
-const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }];
+const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }]
 
 export const GET: APIRoute = () => {
-  const lastModified = new Date().toISOString();
+  const lastModified = new Date().toISOString()
 
   const urls = ROUTES.map(
     (route) => `  <url>
@@ -487,17 +532,19 @@ export const GET: APIRoute = () => {
     <lastmod>${lastModified}</lastmod>
     <changefreq>${route.changeFrequency}</changefreq>
     <priority>${route.priority}</priority>
-  </url>`,
-  ).join("\n");
+  </url>`
+  ).join("\n")
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
 </urlset>
-`;
+`
 
-  return new Response(body, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
-};
+  return new Response(body, {
+    headers: { "Content-Type": "application/xml; charset=utf-8" }
+  })
+}
 ```
 
 `ROUTES` se mantiene manual a propósito: para un sitio con pocas páginas estáticas es más simple y explícito que generarlo automáticamente a partir del sistema de archivos. Si el sitio crece a decenas de páginas dinámicas —blog o catálogo—, conviene generar este arreglo desde una colección de contenido en vez de escribirlo a mano.
@@ -535,7 +582,7 @@ Para una página que no debería indexarse (una de "gracias" después de un form
 ## Consideraciones
 
 - Todo dato que cambia de empresa a empresa vive en `SITE.seo` — si al copiar este setup a un proyecto nuevo hace falta tocar un archivo que no sea `src/config/site.ts`, es señal de que algo quedó hardcodeado y conviene subirlo a `SITE.seo`.
-- `servicesLd()` y `faqLd()` dependen de `SERVICES`/`FAQ_ITEMS`, que no son parte de `SITE` — son contenido de página (qué servicios ofrece, qué preguntas responde), no identidad de marca. Cada proyecto los define donde le haga sentido (una content collection, un archivo de constantes).
+- `servicesLd()` y `faqLd()` dependen de `SERVICES`/`FAQ_ITEMS`, que no son parte de `SITE` — son contenido de página (qué servicios ofrece, qué preguntas responde), no identidad de marca. Cada proyecto los define donde le haga sentido (una content collection, un archivo de constantes); la forma exacta que `seo.ts` espera está en [el patrón SITE](/patterns/site-config-global#forma-de-los-servicios-y-las-preguntas-frecuentes).
 - Validar el resultado con el [Rich Results Test](https://search.google.com/test/rich-results) de Google y con el [debugger de Open Graph de Meta](https://developers.facebook.com/tools/debug/) antes de dar por buena la implementación — un JSON-LD con un typo en el `"@type"` no rompe la build, solo deja de generar el rich result esperado, y eso no se nota sin probarlo.
 - `SITE.seo.locales` con un solo idioma ya genera el `hreflang` correcto para un sitio de un idioma — el campo está pensado para escalar, no es sobre-ingeniería para el caso simple.
 - Reemplazar **todos** los datos de Acme (nombre, URL, coordenadas, redes, keywords) por los reales antes de publicar — son datos de ejemplo con forma real, no placeholders tipo `"TODO"`.

@@ -77,14 +77,20 @@ y scripts.
   "version": "0.1.0",
   "private": true,
   "description": "Descripción breve y concreta del proyecto",
+  "license": "...",
+  "packageManager": "pnpm@...",
+  "homepage": "https://github.com/usuario/mi-proyecto-astro",
   "keywords": [
     "astro",
     "typescript",
     "tailwindcss",
     "web-development"
   ],
-  "author": "Tu nombre",
-  "license": "MIT",
+  "author": {
+    "name": "Tu nombre",
+    "email": "tu@correo.com",
+    "url": "https://github.com/usuario"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/usuario/mi-proyecto-astro.git"
@@ -92,15 +98,15 @@ y scripts.
   "bugs": {
     "url": "https://github.com/usuario/mi-proyecto-astro/issues"
   },
-  "homepage": "https://github.com/usuario/mi-proyecto-astro",
-  "packageManager": "pnpm@11.19.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=...",
+    "pnpm": ">=..."
   },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "astro": "astro",
     "check": "astro check",
     "sync": "astro sync",
     "format": "prettier --write .",
@@ -109,10 +115,11 @@ y scripts.
 }
 ~~~
 
-Mantén las dependencias que creó Astro debajo de estos campos. private: true
-evita publicar accidentalmente el proyecto como paquete de npm, pero no impide
-subirlo a GitHub. Si eliges Bun o npm, cambia packageManager por la versión real
-del gestor seleccionado.
+Los `"..."` (`license`, `packageManager`, `engines`) dependen del proyecto y del
+gestor elegido — reemplázalos antes de continuar, no dejes el literal `"..."`
+en el archivo real. Mantén las dependencias que creó Astro debajo de estos
+campos. private: true evita publicar accidentalmente el proyecto como paquete
+de npm, pero no impide subirlo a GitHub.
 
 ## 3. Configurar la base de Astro
 
@@ -168,7 +175,7 @@ import vercel from "@astrojs/vercel"
 
 export default defineConfig({
   site: "https://example.com",
-  output: "static", // "server" para on-demand
+  output: "static",
   adapter: vercel(),
   trailingSlash: "never",
   compressHTML: true
@@ -210,7 +217,7 @@ componentes SEO.
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": ".", // deprecado en TypeScript 7.0
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -337,7 +344,7 @@ Crea .prettierrc en la raíz con la configuración definida para este proyecto:
   ],
   "importOrderSeparation": false,
   "importOrderSortSpecifiers": true,
-  "tailwindStylesheet": "./src/styles/global.css"
+  "tailwindStylesheet": "..."
 }
 ~~~
 
@@ -345,8 +352,9 @@ El orden resultante es Astro, paquetes externos, tipos internos, alias, imports
 relativos y estilos. `@trivago/prettier-plugin-sort-imports` hace efectivas las
 propiedades `importOrder`; sin ese plugin Prettier las ignoraría.
 
-`prettier-plugin-tailwindcss` debe permanecer al final del arreglo de plugins y
-`tailwindStylesheet` apunta a la entrada de Tailwind CSS 4.
+`prettier-plugin-tailwindcss` debe permanecer al final del arreglo de plugins.
+Reemplaza `tailwindStylesheet: "..."` por la ruta real del CSS creado en el
+paso 6 (`./src/styles/global.css`).
 
 Crea también el archivo de exclusiones:
 
@@ -368,6 +376,20 @@ pnpm-lock.yaml
 lockfiles no deben reformatearse y solo debe existir el correspondiente al
 gestor elegido.
 
+Confirma que `package.json` ya tiene los scripts para ejecutar Prettier (paso 2):
+
+~~~json title="package.json (scripts)"
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
+~~~
+
+`format` reescribe los archivos; `format:check` solo falla si algo no está
+formateado, útil para CI.
+
 ## 8. Crear SITE
 
 ### Objetivo
@@ -377,6 +399,19 @@ los componentes que los consumen. Este es el mismo bloque documentado en el
 patrón SITE de la biblioteca.
 
 ~~~ts title="src/config/site.ts"
+export interface Service {
+  id: string;
+  eyebrow: string;
+  h3: string;
+  body: string;
+  items: string[];
+}
+
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
 const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
   /\/$/,
   ""
@@ -388,8 +423,8 @@ export const SITE = {
     legalName: "Acme Studio",
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
-    slogan: "Infraestructura digital, simplificada.",
-    tagline: "De invisible a inevitable.",
+    slogan: "Construimos lo que tu negocio necesita, no lo que sobra.",
+    tagline: "Menos fricción, más resultados.",
     founded: 2025,
     founders: [{ name: "Jane Doe", role: "Cofundadora" }],
     teams: [
@@ -434,9 +469,9 @@ export const SITE = {
 
   services: [
     "Desarrollo de Software",
-    "Identidad de Marca",
-    "Comunicación Organizacional",
-    "Gestión de Contenido",
+    "Consultoría Técnica",
+    "Diseño de Producto",
+    "Soporte y Mantenimiento",
   ],
 
   businessHours: [
@@ -467,8 +502,8 @@ export const SITE = {
   },
 
   stats: [
-    { value: "+340%", label: "En consultas mensuales", sublabel: "Caso: cliente real" },
-    { value: "×3", label: "Reconocimiento de marca", sublabel: "En 6 meses" },
+    { value: "+120", label: "Proyectos entregados", sublabel: "Desde 2025" },
+    { value: "98%", label: "Clientes que renuevan", sublabel: "Retención anual" },
   ],
 
   site: {
@@ -481,7 +516,6 @@ export const SITE = {
 
   seo: {
     title: "Acme — Software, marca y comunicación para empresas",
-    titleTemplate: "%s | Acme",
     description:
       "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
     keywords: [
@@ -520,16 +554,34 @@ export const SITE = {
     classification: "Business",
     priceRange: "$$",
 
+    contactRegion: "LATAM",
+    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
+    themeColor: { light: "#FFFFFF", dark: "#000000" },
+    manifestCategories: ["business", "design", "productivity"],
+
     areaServed: [
       { type: "Country", name: "Colombia" },
       { type: "Place", name: "Latin America" },
     ],
-
-    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
-    themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
-    manifestCategories: ["business", "design", "productivity"],
   },
 } as const;
+
+export const SERVICES: Service[] = [
+  {
+    id: "desarrollo-software",
+    eyebrow: "Desarrollo",
+    h3: "Desarrollo de Software",
+    body: "Aplicaciones a medida, desde el diagnóstico hasta el despliegue.",
+    items: ["Aplicaciones web", "Automatización de procesos", "Integraciones"],
+  },
+];
+
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    q: "¿Cuánto tarda un proyecto típico?",
+    a: "Entre 4 y 8 semanas según el alcance, con entregas parciales revisables.",
+  },
+];
 
 export function whatsAppMessage(message: string) {
   return `https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -543,7 +595,10 @@ El fallback local permite que el módulo siga siendo válido si `site` todavía 
 está configurado.
 
 `as const` evita mutaciones accidentales, pero no valida datos externos ni
-protege secretos.
+protege secretos. `SERVICES` y `FAQ_ITEMS` viven en el mismo archivo porque son
+listas cortas y realmente globales; si el catálogo crece (slug, precio,
+imágenes o SEO por servicio), sácalo de aquí y llévalo a su propia colección
+de contenido.
 
 ## 9. Implementar el SEO de Astro
 
@@ -565,8 +620,6 @@ interface Props {
 
 const { id, data } = Astro.props;
 
-// Se escapa `<` para que el payload nunca pueda cerrar la etiqueta <script> antes de tiempo
-// (protección contra inyección si algún dato llegara a incluir texto no confiable).
 const json = JSON.stringify(data).replace(/</g, "\\u003c");
 ---
 
@@ -578,31 +631,27 @@ is:inline mantiene el JSON-LD dentro del HTML y cada bloque debe tener un id
 
 ### 9.2 Crear los helpers de Schema.org
 
-Cada función obtiene los datos desde SITE. SERVICES y FAQ_ITEMS representan
-contenido real del proyecto y deben existir antes de importar esos módulos.
+Cada función obtiene los datos desde SITE. SERVICES y FAQ_ITEMS se definieron
+como exports hermanos de SITE en el paso 8 — reemplázalos con contenido real
+del proyecto antes de publicar.
 
 ~~~ts title="src/lib/seo.ts"
-import { SITE } from "@/config/site";
-// Ejemplo — en tu proyecto real estos vienen de tus propios módulos de contenido,
-// no de SITE (el listado de servicios y preguntas frecuentes no es "identidad de marca").
-import { FAQ_ITEMS } from "@/content/faq";
-import { SERVICES } from "@/content/services";
+import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site";
 
-const URL = SITE.seo.url;
-const LOGO_URL = new URL(SITE.seo.logo, URL).href;
-const OG_URL = new URL(SITE.seo.image, URL).href;
+const SITE_URL = SITE.seo.url
+const LOGO_URL = new URL(SITE.seo.logo, SITE_URL).href
+const OG_URL = new URL(SITE.seo.image, SITE_URL).href
 
-/** areaServed en formato schema.org — un solo lugar que le agrega el "@type". */
 const areaServed = () => SITE.seo.areaServed.map((a) => ({ "@type": a.type, name: a.name }));
 
 export function organizationLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${URL}#organization`,
+    "@id": `${SITE_URL}#organization`,
     name: SITE.info.name,
     legalName: SITE.info.legalName,
-    url: URL,
+    url: SITE_URL,
     logo: LOGO_URL,
     image: OG_URL,
     description: SITE.seo.description,
@@ -626,11 +675,9 @@ export function organizationLd() {
         email: SITE.contact.email,
         telephone: SITE.contact.whatsapp,
         availableLanguage: SITE.seo.languages,
-        areaServed: [SITE.location.countryCode, "LATAM"],
+        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
     ],
-    // Object.values en vez de listar cada red a mano — agregar una red nueva a SITE.social
-    // alcanza para que aparezca aquí también, sin tocar este archivo.
     sameAs: Object.values(SITE.social),
     knowsAbout: SITE.seo.keywords,
   } as const;
@@ -640,12 +687,12 @@ export function webSiteLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${URL}#website`,
-    url: URL,
+    "@id": `${SITE_URL}#website`,
+    url: SITE_URL,
     name: SITE.info.name,
     description: SITE.seo.description,
     inLanguage: SITE.seo.locale,
-    publisher: { "@id": `${URL}#organization` },
+    publisher: { "@id": `${SITE_URL}#organization` },
   } as const;
 }
 
@@ -653,10 +700,10 @@ export function professionalServiceLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${URL}#business`,
+    "@id": `${SITE_URL}#business`,
     name: SITE.info.name,
     image: LOGO_URL,
-    url: URL,
+    url: SITE_URL,
     telephone: SITE.contact.whatsapp,
     email: SITE.contact.email,
     priceRange: SITE.seo.priceRange,
@@ -666,7 +713,7 @@ export function professionalServiceLd() {
       addressCountry: SITE.location.countryCode,
     },
     areaServed: areaServed(),
-    parentOrganization: { "@id": `${URL}#organization` },
+    parentOrganization: { "@id": `${SITE_URL}#organization` },
   } as const;
 }
 
@@ -674,11 +721,11 @@ export function servicesLd() {
   return SERVICES.map((s) => ({
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": `${URL}#service-${s.id}`,
+    "@id": `${SITE_URL}#service-${s.id}`,
     name: s.h3,
     serviceType: s.eyebrow,
     description: s.body,
-    provider: { "@id": `${URL}#organization` },
+    provider: { "@id": `${SITE_URL}#organization` },
     areaServed: areaServed(),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -696,7 +743,7 @@ export function faqLd() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": `${URL}#faq`,
+    "@id": `${SITE_URL}#faq`,
     mainEntity: FAQ_ITEMS.map((item) => ({
       "@type": "Question",
       name: item.q,
@@ -739,8 +786,6 @@ const {
   noindex = SITE.seo.noindex,
 } = Astro.props;
 
-// Sin título propio: se usa el default tal cual (la home no queda "Acme — ... — Acme").
-// Con título propio: se le agrega el sufijo de marca.
 const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title;
 
 const ogImage = new URL(image, SITE.seo.url).href;
@@ -752,11 +797,13 @@ const googlebot = noindex
   : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 ---
 
+<title>{pageTitle}</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-<title>{pageTitle}</title>
-<meta name="description" content={description} />
 
+<!-- <link rel="preload" as="font" href="/fonts/mi-fuente.woff2" type="font/woff2" crossorigin /> -->
+
+<meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 {SITE.seo.locales.map((locale) => <link rel="alternate" hreflang={locale.hreflang} href={canonical} />)}
 <link rel="alternate" hreflang="x-default" href={canonical} />
@@ -927,7 +974,6 @@ renderizar la página y no lo uses para ocultar información sensible.
 import type { APIRoute } from "astro";
 import { SITE } from "@/config/site";
 
-/** Una página, una entrada. Agregar rutas aquí conforme crezca el sitio. */
 const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }];
 
 export const GET: APIRoute = () => {

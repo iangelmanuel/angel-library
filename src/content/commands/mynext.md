@@ -79,6 +79,9 @@ campos de identidad y los scripts del siguiente ejemplo.
   "version": "0.1.0",
   "private": true,
   "description": "Descripción breve y concreta del proyecto",
+  "license": "...",
+  "packageManager": "pnpm@...",
+  "homepage": "https://github.com/usuario/mi-proyecto-next",
   "keywords": [
     "nextjs",
     "react",
@@ -86,8 +89,11 @@ campos de identidad y los scripts del siguiente ejemplo.
     "tailwindcss",
     "app-router"
   ],
-  "author": "Tu nombre",
-  "license": "MIT",
+  "author": {
+    "name": "Tu nombre",
+    "email": "tu@correo.com",
+    "url": "https://github.com/usuario"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/usuario/mi-proyecto-next.git"
@@ -95,10 +101,9 @@ campos de identidad y los scripts del siguiente ejemplo.
   "bugs": {
     "url": "https://github.com/usuario/mi-proyecto-next/issues"
   },
-  "homepage": "https://github.com/usuario/mi-proyecto-next",
-  "packageManager": "pnpm@11.19.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=...",
+    "pnpm": ">=..."
   },
   "scripts": {
     "dev": "next dev",
@@ -113,10 +118,11 @@ campos de identidad y los scripts del siguiente ejemplo.
 }
 ~~~
 
-No reemplaces el archivo completo con ese fragmento: `next`, `react`,
-`react-dom`, Tailwind, TypeScript y ESLint deben conservar las versiones que
-instaló el CLI. Si elegiste Bun o npm, actualiza `packageManager` con el nombre y
-la versión real de ese gestor.
+Los `"..."` (`license`, `packageManager`, `engines`) dependen del proyecto y del
+gestor elegido — reemplázalos antes de continuar, no dejes el literal `"..."`
+en el archivo real. No reemplaces el archivo completo con ese fragmento:
+`next`, `react`, `react-dom`, Tailwind, TypeScript y ESLint deben conservar las
+versiones que instaló el CLI.
 
 `private: true` evita publicar accidentalmente la aplicación como paquete de
 npm; no impide subir el repositorio a GitHub ni desplegarlo.
@@ -259,8 +265,12 @@ Crea `.prettierrc` en la raíz:
   "quoteProps": "preserve",
   "trailingComma": "none",
   "singleAttributePerLine": true,
+  "htmlWhitespaceSensitivity": "css",
+  "vueIndentScriptAndStyle": false,
   "proseWrap": "preserve",
+  "insertPragma": false,
   "printWidth": 80,
+  "requirePragma": false,
   "tabWidth": 2,
   "useTabs": false,
   "embeddedLanguageFormatting": "auto",
@@ -280,14 +290,14 @@ Crea `.prettierrc` en la raíz:
   ],
   "importOrderSeparation": false,
   "importOrderSortSpecifiers": true,
-  "tailwindStylesheet": "./src/app/globals.css"
+  "tailwindStylesheet": "..."
 }
 ~~~
 
 El orden resultante es React, Next.js, paquetes externos, alias internos,
 imports relativos y estilos. `prettier-plugin-tailwindcss` debe permanecer al
-final del arreglo de plugins y `tailwindStylesheet` apunta a la entrada de
-Tailwind CSS 4.
+final del arreglo de plugins. Reemplaza `tailwindStylesheet: "..."` por la
+ruta real del CSS creado en el paso 3 (`./src/app/globals.css`).
 
 Crea el archivo de exclusiones:
 
@@ -306,6 +316,20 @@ pnpm-lock.yaml
 
 Los lockfiles son artefactos del gestor y no deben ser reformateados. Mantén en
 el repositorio solo el que corresponda al gestor elegido.
+
+Confirma que `package.json` ya tiene los scripts para ejecutar Prettier (paso 2):
+
+~~~json title="package.json (scripts)"
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
+~~~
+
+`format` reescribe los archivos; `format:check` solo falla si algo no está
+formateado, útil para CI.
 
 ## 6. Preparar variables de entorno
 
@@ -413,10 +437,7 @@ export const SITE = {
     twitterHandle: "@acmestudio" as string | null,
     noindex: false,
     priceRange: "$$$",
-    areaServed: [
-      { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" }
-    ],
+    contactRegion: "LATAM",
     geo: {
       region: "DC",
       latitude: 4.60971,
@@ -426,7 +447,11 @@ export const SITE = {
       light: "#fafafa",
       dark: "#050505"
     },
-    manifestCategories: ["business", "design", "productivity"]
+    manifestCategories: ["business", "design", "productivity"],
+    areaServed: [
+      { type: "Country", name: "Colombia" },
+      { type: "Place", name: "Latin America" }
+    ]
   }
 } as const
 ~~~

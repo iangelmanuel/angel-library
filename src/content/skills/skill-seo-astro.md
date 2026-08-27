@@ -89,6 +89,26 @@ Search the project for an existing site-wide config object (commonly `SITE`, `si
 The single source of truth for every SEO-related value in the project. Nothing SEO-related should be written directly in a component or function — it all reads from here.
 
 ​```ts title="src/config/site.ts"
+export interface Service {
+  /** Used in the JSON-LD fragment: `${URL}#service-${id}`. */
+  id: string;
+  /** Short label above the title (category or service type). */
+  eyebrow: string;
+  /** Visible service title — maps to `name` in the JSON-LD. */
+  h3: string;
+  /** Short description — maps to `description`. */
+  body: string;
+  /** Offer catalog items for that service (JSON-LD `OfferCatalog`). */
+  items: string[];
+}
+
+export interface FaqItem {
+  /** The question — maps to `name` in the JSON-LD Question. */
+  q: string;
+  /** The answer — maps to `acceptedAnswer.text`. */
+  a: string;
+}
+
 export const SITE = {
   // ...the rest of SITE already exists in the project — name, legalName, slogan,
   // founded, location, contact, social, founders. Not repeated here because it's
@@ -142,11 +162,8 @@ export const SITE = {
     /** priceRange for the ProfessionalService schema: $, $$, $$$, or $$$$. */
     priceRange: "$$$",
 
-    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/lib/seo.ts. */
-    areaServed: [
-      { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" },
-    ],
+    /** Broad region for JSON-LD's ContactPoint — separate from `geo.region`, which is the department/state code. */
+    contactRegion: "LATAM",
 
     /** Local geo-targeting (meta geo.*/ICBM) — city-level coordinates, not an exact street address. */
     geo: {
@@ -160,8 +177,36 @@ export const SITE = {
     themeColor: { light: "#FAFAFA", dark: "#0A0A0F" },
     /** Web manifest categories (fixed PWA taxonomy: business, design, productivity, etc.). */
     manifestCategories: ["business", "design", "productivity"],
+
+    /** areaServed for Organization/ProfessionalService — generic objects, the "@type" is added in src/lib/seo.ts. */
+    areaServed: [
+      { type: "Country", name: "Colombia" },
+      { type: "Place", name: "Latin America" },
+    ],
   },
 } as const;
+
+// SERVICES and FAQ_ITEMS feed servicesLd()/faqLd() below — sibling exports of
+// SITE, in the same file, since they're short and genuinely global lists. If
+// the catalog grows (its own slug, price, images, or SEO per service), move
+// it out of here into its own content collection.
+
+export const SERVICES: Service[] = [
+  {
+    id: "desarrollo-software",
+    eyebrow: "Desarrollo",
+    h3: "Desarrollo de Software",
+    body: "Aplicaciones a medida, desde el diagnóstico hasta el despliegue.",
+    items: ["Aplicaciones web", "Automatización de procesos", "Integraciones"],
+  },
+];
+
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    q: "¿Cuánto tarda un proyecto típico?",
+    a: "Entre 4 y 8 semanas según el alcance, con entregas parciales revisables.",
+  },
+];
 ​```
 
 Every field has exactly one consumer somewhere in `references/components.md`, `references/head.md`, or `references/assembly.md` — if a field here ends up unused, it doesn't belong.
@@ -197,18 +242,14 @@ const json = JSON.stringify(data).replace(/</g, "\\u003c");
 
 ## src/lib/seo.ts
 
-Five functions, one per schema.org type. Every value comes from `SITE` — nothing written inline.
+Five functions, one per schema.org type. Every value comes from `SITE`, `SERVICES`, or `FAQ_ITEMS` — nothing written inline.
 
 ​```ts title="src/lib/seo.ts"
-import { SITE } from "@/config/site";
-// Example — in the real project these come from the project's own content modules,
-// not from SITE (the services list and FAQ are page content, not brand identity).
-import { FAQ_ITEMS } from "@/content/faq";
-import { SERVICES } from "@/content/services";
+import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site";
 
-const URL = SITE.seo.url;
-const LOGO_URL = new URL(SITE.seo.logo, URL).href;
-const OG_URL = new URL(SITE.seo.image, URL).href;
+const SITE_URL = SITE.seo.url
+const LOGO_URL = new URL(SITE.seo.logo, SITE_URL).href
+const OG_URL = new URL(SITE.seo.image, SITE_URL).href
 
 /** areaServed in schema.org shape — one place that adds the "@type". */
 const areaServed = () => SITE.seo.areaServed.map((a) => ({ "@type": a.type, name: a.name }));
@@ -217,10 +258,10 @@ export function organizationLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${URL}#organization`,
+    "@id": `${SITE_URL}#organization`,
     name: SITE.info.name,
     legalName: SITE.info.legalName,
-    url: URL,
+    url: SITE_URL,
     logo: LOGO_URL,
     image: OG_URL,
     description: SITE.seo.description,
@@ -244,7 +285,7 @@ export function organizationLd() {
         email: SITE.contact.email,
         telephone: SITE.contact.whatsapp,
         availableLanguage: SITE.seo.languages,
-        areaServed: [SITE.location.countryCode, "LATAM"],
+        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
       },
     ],
     // Object.values instead of listing every network by hand — adding a new one to
@@ -258,12 +299,12 @@ export function webSiteLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${URL}#website`,
-    url: URL,
+    "@id": `${SITE_URL}#website`,
+    url: SITE_URL,
     name: SITE.info.name,
     description: SITE.seo.description,
     inLanguage: SITE.seo.locale,
-    publisher: { "@id": `${URL}#organization` },
+    publisher: { "@id": `${SITE_URL}#organization` },
   } as const;
 }
 
@@ -271,10 +312,10 @@ export function professionalServiceLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${URL}#business`,
+    "@id": `${SITE_URL}#business`,
     name: SITE.info.name,
     image: LOGO_URL,
-    url: URL,
+    url: SITE_URL,
     telephone: SITE.contact.whatsapp,
     email: SITE.contact.email,
     priceRange: SITE.seo.priceRange,
@@ -284,7 +325,7 @@ export function professionalServiceLd() {
       addressCountry: SITE.location.countryCode,
     },
     areaServed: areaServed(),
-    parentOrganization: { "@id": `${URL}#organization` },
+    parentOrganization: { "@id": `${SITE_URL}#organization` },
   } as const;
 }
 
@@ -292,11 +333,11 @@ export function servicesLd() {
   return SERVICES.map((s) => ({
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": `${URL}#service-${s.id}`,
+    "@id": `${SITE_URL}#service-${s.id}`,
     name: s.h3,
     serviceType: s.eyebrow,
     description: s.body,
-    provider: { "@id": `${URL}#organization` },
+    provider: { "@id": `${SITE_URL}#organization` },
     areaServed: areaServed(),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -314,7 +355,7 @@ export function faqLd() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": `${URL}#faq`,
+    "@id": `${SITE_URL}#faq`,
     mainEntity: FAQ_ITEMS.map((item) => ({
       "@type": "Question",
       name: item.q,
@@ -377,11 +418,13 @@ const googlebot = noindex
   : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 ---
 
+<title>{pageTitle}</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-<title>{pageTitle}</title>
-<meta name="description" content={description} />
 
+<!-- <link rel="preload" as="font" href="/fonts/my-font.woff2" type="font/woff2" crossorigin /> -->
+
+<meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 {SITE.seo.locales.map((locale) => <link rel="alternate" hreflang={locale.hreflang} href={canonical} />)}
 <link rel="alternate" hreflang="x-default" href={canonical} />
