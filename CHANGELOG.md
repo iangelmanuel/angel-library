@@ -8,6 +8,51 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.7.0] — 2026-08-27
+
+Subcategorías HTML y React en UI/UX con catálogos de componentes reales,
+logos de marca oficiales para IA Tools & Skills, subcategorías CSS y Utils
+en General, y el menú móvil reescrito con accordion real.
+
+### Añadido
+
+- Subcategorías `HTML` y `React` en UI/UX con 15 librerías/catálogos de
+  componentes: shadcn/ui, HeroUI, Magic UI, Chakra UI, Mantine, Material UI
+  y Ant Design (React); Tailwind Plus, Flowbite, daisyUI, Preline UI,
+  HyperUI, Bootstrap, Bulma y Pico CSS (HTML). Cada una con instalación,
+  configuración inicial y link a documentación oficial.
+- Bloque "documentación oficial" (+ GitHub) en `EntryMeta.astro` para
+  cualquier entrada con `website`/`github` en el frontmatter — esos campos
+  existían hace tiempo pero no se renderizaban en ningún lado del sitio.
+- Subcategorías `CSS` y `Utils` en General, agrupando los 7 snippets de CSS
+  y las 9 utilities existentes. Ícono nuevo `brand-utils` (wrench en ámbar).
+- Logos de marca reales (paths oficiales de simple-icons) para Claude Code,
+  Codex/OpenAI, Cursor y OpenCode en IA Tools & Skills, reemplazando los
+  glifos de texto ("CC"/"OC"/"Cu"/"Cx") que tenían antes.
+
+### Cambiado
+
+- Menú móvil (`MobileNav.tsx`) reescrito con accordion nativo
+  `<details>/<summary>`, igual que la sidebar de escritorio: categorías y
+  subgrupos cierran por defecto y solo se auto-abre la rama que contiene la
+  página activa. Antes listaba todo expandido de una — scroll larguísimo e
+  imposible de navegar rápido en teléfono.
+- `technologies/react.md` con `stack: react` asignado, para que viva dentro
+  de la subcategoría React de Frontend en vez de aparecer como entrada
+  suelta e independiente en el sidebar.
+
+### Eliminado
+
+- Componente "Dialog reutilizable con shadcn/ui" (duplicado de
+  `shadcn-ui.md`), junto con la referencia rota que quedaba en ese archivo.
+
+### Verificado
+
+- `pnpm check` sin errores tras cada tanda de cambios.
+- Accordion del menú móvil verificado en viewport 375×812: en una página de
+  contenido solo se auto-abre la categoría y el subgrupo con la entrada
+  activa, el resto del árbol queda colapsado.
+
 ## [0.6.1] — 2026-08-27
 
 Bugs reales de GitHub Actions encontrados al usar el CI de `/myastro` en un
@@ -381,7 +426,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.7.0
 [0.6.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.6.1
 [0.6.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.6.0
 [0.5.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.5.0

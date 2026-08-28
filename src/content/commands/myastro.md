@@ -459,7 +459,6 @@ paso 7 (`./src/styles/global.css`).
 Crea también el archivo de exclusiones:
 
 ~~~text title=".prettierignore"
-.next
 .astro
 .vercel
 build
@@ -601,8 +600,11 @@ pnpm install
 pnpm eslint
 ~~~
 
-ESLint y Prettier no compiten en esta configuración: ninguna regla de las
-recomendadas discute formato, así que no hace falta `eslint-config-prettier`.
+ESLint y Prettier no compiten en esta configuración: ni `jseslint`, ni
+`tseslint` ni `astro` traen reglas de formato en sus sets `recommended`, así
+que no hace falta `eslint-config-prettier`. (En Next.js sí se agrega, porque
+`eslint-config-next` arrastra `eslint-plugin-react`, que sí las tiene — ver el
+paso 7 de `/mynext`.)
 
 ## 10. Crear SITE
 
@@ -1333,7 +1335,8 @@ adicional dentro de `src/`.
 
 ## 14. Verificar el proyecto
 
-Ejecuta las comprobaciones después de completar todos los archivos:
+Ejecuta las comprobaciones en el mismo orden que el CI del paso 3, para que un
+fallo local sea exactamente el mismo fallo que verías en el pull request:
 
 ~~~bash
 pnpm sync
@@ -1343,6 +1346,9 @@ pnpm prettier:check
 pnpm build
 pnpm preview
 ~~~
+
+Si `prettier:check` falla, corre `pnpm prettier` para reescribir los archivos y
+vuelve a verificar.
 
 Revisa manualmente /robots.txt, /sitemap.xml y /manifest.webmanifest. En el HTML
 de una página confirma title, description, canonical, lang, Open Graph y JSON-LD.

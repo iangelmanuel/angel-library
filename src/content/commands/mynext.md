@@ -440,49 +440,93 @@ formateado, útil para CI.
 ### Objetivo
 
 `create-next-app` ya instaló ESLint con la configuración de Next.js, así que
-aquí no se instala nada nuevo: se revisa lo generado, se agregan las reglas de
-TypeScript y se excluyen las carpetas de build.
+aquí casi no se instala nada: se revisa lo generado, se confirma la versión de
+TypeScript y se agrega la única pieza que el CLI no trae.
+
+### Antes de tocar la config: confirma que TypeScript está por debajo de 7.0
+
+`eslint-config-next/typescript` está construido sobre
+[`typescript-eslint`](https://typescript-eslint.io), que al momento de escribir
+esto todavía no soporta TypeScript 7. Si `create-next-app` instaló un
+TypeScript 7.x, `pnpm eslint` y `pnpm check` fallarán con errores que no tienen
+que ver con tu código. Revisa la versión que quedó:
+
+~~~bash
+pnpm list typescript
+~~~
+
+Si es 7.x, fíjala explícitamente:
+
+~~~bash
+pnpm add -D typescript@^6
+~~~
+
+Antes de escribir un `tsconfig.json` nuevo o actualizar dependencias, confirma
+en la documentación oficial de `typescript-eslint` si ya soporta TypeScript 7
+— este freno es temporal, no una regla permanente del proyecto.
+
+El orden importa, y saltárselo es la causa más común de que esta sección falle
+a medias: TypeScript en `< 7` primero → revisar `eslint.config.mjs` →
+`pnpm install` para sincronizar `pnpm-lock.yaml` con la versión fijada → recién
+ahí `check`/`eslint`/`prettier:check`. Cambiar una versión en `package.json`
+sin correr `pnpm install` después deja el lockfile desincronizado, y
+`pnpm install --frozen-lockfile` (paso 3) fallará en CI aunque en local todo
+funcione.
+
+### La configuración
+
+Next recomienda `eslint-config-prettier` para que las reglas de formato que
+llegan vía `eslint-plugin-react` no discutan con Prettier. Es lo único que hay
+que instalar:
+
+~~~bash
+pnpm add -D eslint-config-prettier
+~~~
 
 Revisa el archivo que creó el CLI y déjalo así:
 
 ~~~js title="eslint.config.mjs"
-import { dirname } from "node:path"
-import { fileURLToPath } from "node:url"
-import { FlatCompat } from "@eslint/eslintrc"
+import { defineConfig, globalIgnores } from "eslint/config"
+import nextVitals from "eslint-config-next/core-web-vitals"
+import nextTs from "eslint-config-next/typescript"
+import prettier from "eslint-config-prettier/flat"
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  prettier,
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"])
+])
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname
-})
-
-export default [
-  {
-    ignores: [".next/", "out/", "build/", "node_modules/"]
-  },
-  ...compat.extends("next/core-web-vitals", "next/typescript")
-]
+export default eslintConfig
 ~~~
 
 | Configuración | Qué aporta |
 | --- | --- |
-| `next/core-web-vitals` | Reglas de Next.js más las que afectan Core Web Vitals |
-| `next/typescript` | Reglas de `typescript-eslint` adaptadas al proyecto |
+| `eslint-config-next/core-web-vitals` | Reglas de Next.js, React y React Hooks; sube a error las que afectan Core Web Vitals |
+| `eslint-config-next/typescript` | Reglas de `typescript-eslint` (`recommended`) para los archivos `.ts`/`.tsx` |
+| `eslint-config-prettier/flat` | Apaga las reglas de formato que chocarían con Prettier — va **después** de las anteriores para poder desactivarlas |
 
-`FlatCompat` existe porque las configuraciones de Next todavía se publican en
-el formato antiguo (`eslintrc`); es el puente oficial para consumirlas desde
-la configuración plana. El bloque `ignores` debe ir primero y reemplaza al
-antiguo `.eslintignore`, que la configuración plana ya no lee.
+`eslint-config-next` exporta configuración plana nativa: se importa directo,
+sin el puente `FlatCompat` que hacía falta cuando estas configs solo existían
+en el formato antiguo (`eslintrc`). Si encuentras un ejemplo con
+`compat.extends("next/core-web-vitals")`, está desactualizado.
+
+`globalIgnores()` reemplaza al antiguo `.eslintignore`, que la configuración
+plana ya no lee. Los cuatro patrones son los que `eslint-config-next` ignora
+por defecto: declararlos explícitamente evita perderlos al sobrescribir la
+configuración.
 
 Comprueba que corre:
 
 ~~~bash
+pnpm install
 pnpm eslint
 ~~~
 
-`next/core-web-vitals` no incluye reglas de formato, así que ESLint y Prettier
-no compiten y no hace falta `eslint-config-prettier`.
+Desde Next.js 16 el comando `next lint` ya no existe: se invoca al CLI de
+ESLint directamente, que es justamente lo que hace el script `eslint` del
+paso 2.
 
 ## 8. Preparar variables de entorno
 
@@ -1333,16 +1377,19 @@ una ruta pueden vivir junto a esa ruta cuando no se reutilizan fuera de ella.
 
 ## 18. Verificar el proyecto
 
-Ejecuta las comprobaciones en este orden:
+Ejecuta las comprobaciones en el mismo orden que el CI del paso 3, para que un
+fallo local sea exactamente el mismo fallo que verías en el pull request:
 
 ~~~bash
-pnpm prettier
-pnpm prettier:check
-pnpm eslint
 pnpm check
+pnpm eslint
+pnpm prettier:check
 pnpm build
 pnpm start
 ~~~
+
+Si `prettier:check` falla, corre `pnpm prettier` para reescribir los archivos y
+vuelve a verificar.
 
 `next dev` ayuda durante el desarrollo, pero no sustituye `next build`. El build
 descubre errores de Server Components, metadata, rutas dinámicas, variables de
@@ -1350,20 +1397,22 @@ entorno y código que depende accidentalmente del navegador.
 
 ### Checklist final
 
-- El proyecto fue creado con App Router, TypeScript, Tailwind, ESLint y `src/`.
-- Existe un solo lockfile.
-- `package.json` conserva las dependencias generadas y tiene datos reales.
-- `next.config.ts` contiene únicamente opciones que el proyecto utiliza.
-- Prettier ordena imports y clases de Tailwind.
-- ESLint corre con `next/core-web-vitals` y `next/typescript` sin errores.
-- El workflow de GitHub Actions corre check, eslint, prettier:check y build.
-- `.env.example` no contiene secretos.
-- `SITE` contiene el dominio y los datos reales del proyecto.
-- `metadataBase`, canonical, Open Graph y Twitter usan el dominio correcto.
-- `robots.txt`, `sitemap.xml` y `manifest.webmanifest` responden correctamente.
-- Los schemas JSON-LD describen contenido visible y verificable.
-- Favicon, imagen social, logo e iconos existen en las rutas documentadas.
-- `prettier:check`, `eslint`, `check` y `build` terminan sin errores.
+- [ ] El proyecto fue creado con App Router, TypeScript, Tailwind, ESLint y `src/`.
+- [ ] Existe un solo lockfile.
+- [ ] `package.json` conserva las dependencias generadas y tiene datos reales.
+- [ ] `next.config.ts` contiene únicamente opciones que el proyecto utiliza.
+- [ ] Prettier ordena imports y clases de Tailwind.
+- [ ] typescript está en `< 7` (`typescript-eslint` todavía no soporta TypeScript 7).
+- [ ] ESLint corre con `eslint-config-next` y `eslint-config-prettier` sin errores.
+- [ ] pnpm-lock.yaml quedó regenerado (`pnpm install`) tras cualquier cambio de versión en package.json.
+- [ ] El workflow de GitHub Actions corre check, eslint, prettier:check y build.
+- [ ] `.env.example` no contiene secretos.
+- [ ] `SITE` contiene el dominio y los datos reales del proyecto.
+- [ ] `metadataBase`, canonical, Open Graph y Twitter usan el dominio correcto.
+- [ ] `robots.txt`, `sitemap.xml` y `manifest.webmanifest` responden correctamente.
+- [ ] Los schemas JSON-LD describen contenido visible y verificable.
+- [ ] Favicon, imagen social, logo e iconos existen en las rutas documentadas.
+- [ ] `check`, `eslint`, `prettier:check` y `build` terminan sin errores.
 
 Referencias oficiales: [instalación de Next.js](https://nextjs.org/docs/app/getting-started/installation),
 [next.config](https://nextjs.org/docs/app/api-reference/config/next-config-js) y
