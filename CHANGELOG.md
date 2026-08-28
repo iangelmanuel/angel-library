@@ -10,18 +10,56 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 ## [0.6.1] — 2026-08-27
 
-Dos bugs reales de GitHub Actions en los workflows de ejemplo, encontrados al
-usar el CI de `/myastro` en un proyecto real.
+Bugs reales de GitHub Actions encontrados al usar el CI de `/myastro` en un
+proyecto real, ESLint reescrito para Astro con el bloqueo real de TypeScript
+7.0, workflow de CI simplificado a un solo diseño (paralelo), y un aviso
+nuevo sobre `content.config.ts` que hasta ahora no estaba documentado en
+ningún lado.
+
+### Añadido
+
+- Aviso en [Content Collections](/guides/astro-content-collections) sobre la
+  ruta exacta de `src/content.config.ts`: moverlo a `src/content/index.ts` (o
+  cualquier otra ruta) no rompe el build con un error claro — la colección
+  queda vacía en silencio, y el síntoma aparece después, en `astro check`,
+  como `Property 'data' does not exist on type 'never'` en cualquier
+  componente que la consuma.
+- Nota de secuencia en el paso de ESLint de `/myastro`: TypeScript en `< 7`
+  primero → `typescript-eslint` → `eslint.config.mjs` → `pnpm install` (para
+  sincronizar `pnpm-lock.yaml`) → recién ahí `pnpm sync` y
+  `check`/`eslint`/`prettier:check`. Saltarse el orden deja el lockfile
+  desincronizado y `pnpm install --frozen-lockfile` (paso 3) falla en CI
+  aunque en local funcione.
+- Dos ítems nuevos en el checklist final de `/myastro`: TypeScript `< 7` antes
+  de instalar `typescript-eslint`, y `pnpm-lock.yaml` regenerado tras
+  cualquier cambio de versión en `package.json`.
+
+### Cambiado
+
+- `eslint.config.mjs` de `/myastro` reescrito: `@eslint/js` +
+  `typescript-eslint` + `eslint-plugin-astro`, con dos reglas explícitas
+  (`no-explicit-any`, `no-unused-vars` con `argsIgnorePattern`/
+  `varsIgnorePattern`) y un bloque de globals para archivos `.mjs`.
+  Documentado por qué el orden del array importa (`jseslint` sin `...`,
+  `tseslint`/`astro` con `...`, y por qué Astro va al final) y por qué las
+  variables se llaman `jseslint`/`tseslint`/`astro` — nombrados por paquete,
+  no genéricos, para que no se confundan entre sí.
+- Workflow de GitHub Actions de `/myastro` y `/mynext` reducido a un solo
+  diseño: se quitó el workflow secuencial de un job y quedó únicamente el de
+  dos jobs (`quality` en matriz + `build` con `needs`), que antes se
+  presentaba como "variante en paralelo". La prosa que explicaba
+  `--frozen-lockfile`, `pnpm/action-setup` sin `version` y los pasos
+  pendientes se fusionó en el único workflow que queda.
 
 ### Arreglado
 
 - `pnpm/action-setup@v4` con `with: version` fijo chocaba con `packageManager`
   en `package.json`: dos fuentes de versión de pnpm desincronizadas producían
-  `ERR_PNPM_BAD_PM_VERSION`. Quitado el `version:` explícito en los 6 workflows
-  de `/myastro` y `/mynext` (secuencial + variante en paralelo), y en
-  `github-actions-matrices-cache.md` y `repository-rules-security.md` — la
-  action ahora lee la versión solo de `packageManager`. Agregada una nota en
-  `/myastro` y `/mynext` explicando por qué no debe fijarse en los dos lugares.
+  `ERR_PNPM_BAD_PM_VERSION`. Quitado el `version:` explícito en los workflows
+  de `/myastro` y `/mynext`, y en `github-actions-matrices-cache.md` y
+  `repository-rules-security.md` — la action ahora lee la versión solo de
+  `packageManager`. Agregada una nota en `/myastro` y `/mynext` explicando por
+  qué no debe fijarse en los dos lugares.
 - `github-actions-matrices-cache.md` tenía `actions/setup-node` con
   `cache: pnpm` **antes** de `pnpm/action-setup`: el cache necesita el binario
   `pnpm` ya en el PATH para resolver el store, así que quedaba desactivado sin
