@@ -1,17 +1,27 @@
 {
   "name": "angel-library",
   "type": "module",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
-  "description": "Segundo cerebro técnico para aprender, recordar y reutilizar conocimiento de desarrollo web",
+  "description": "Biblioteca personal y segundo cerebro técnico para aprender, recordar y reutilizar conocimiento sobre desarrollo de software",
   "keywords": [
     "astro",
     "javascript",
+    "typescript",
     "react",
     "nextjs",
+    "backend",
+    "database",
+    "testing",
+    "devops",
+    "accessibility",
+    "security",
     "web-development",
     "developer-notes",
-    "knowledge-base"
+    "developer-documentation",
+    "knowledge-base",
+    "second-brain",
+    "spanish"
   ],
   "author": "iangelmanuel",
   "license": "MIT",
@@ -25,7 +35,8 @@
   "homepage": "https://github.com/iangelmanuel/angel-library",
   "packageManager": "pnpm@11.19.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.12.0",
+    "pnpm": "11.x"
   },
   "scripts": {
     "dev": "astro dev",

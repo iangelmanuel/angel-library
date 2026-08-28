@@ -9,10 +9,21 @@ scope: next.js app router (testing)
 related:
   - libraries/vitest-backend
   - guides/cli-playwright
-updatedAt: 2026-08-18
+updatedAt: 2026-08-28
 ---
 
 No existe una sola capa de tests que cubra bien todo Next.js. Separa lógica pura, componentes cliente y flujos completos.
+
+## Ruta rápida
+
+```text
+helper, schema o service → Vitest/node
+Client Component → Testing Library
+Route Handler importable → Request/Response
+Server Action → servicio + integración del formulario
+async Server Component, middleware y cache → Playwright
+build, metadata y prerender → next build + E2E de producción
+```
 
 | Capa | Herramienta | Qué cubre |
 | --- | --- | --- |
@@ -30,9 +41,13 @@ export function calcularTotal(items: { price: number; quantity: number }[]) {
 }
 ```
 
+No extraigas una función solo para aumentar cobertura. Extrae reglas con nombre propio y deja una prueba de composición para demostrar que Next las invoca con identidad, datos y respuesta correctos.
+
 ## Componentes asíncronos
 
 Los runners basados en jsdom no reproducen por completo el pipeline de React Server Components. Para páginas async, streaming, `cookies()`, navegación y límites `loading/error`, prefiere E2E. Los Client Components sí encajan bien en Testing Library.
+
+La guía oficial de Next.js recomienda E2E para Server Components asíncronos que Vitest no soporta directamente. Evita mocks profundos del runtime que solo imitan tu interpretación de Next.
 
 ## E2E mínimo
 
@@ -75,11 +90,31 @@ it('valida el límite de resultados', async () => {
 
 Añade integración o E2E cuando intervengan `cookies()`, middleware, caché, región o runtime Edge, porque una llamada directa no reproduce toda la tubería.
 
+Prueba método no permitido, content type, body inválido, autorización, status y ausencia de datos sensibles. Si el handler accede a base, usa una instancia aislada en lugar de mockear el repositorio en todos los casos.
+
 ## Server Actions
 
 Separa la regla de negocio de la función marcada con `'use server'`. Prueba validación, autorización y persistencia en el servicio; después usa E2E para confirmar el envío del formulario, el estado pendiente, el error visible, `redirect` y `revalidatePath`/`revalidateTag`.
 
 Una acción es una frontera pública aunque solo la invoque tu interfaz. No confíes en que el formulario ocultó un campo: repite validación y autorización en servidor y agrega un caso de recurso ajeno.
+
+Comprueba doble envío e idempotencia cuando la acción produce pagos, órdenes o mensajes. Un botón deshabilitado mejora UX, pero no evita dos requests directos.
+
+## Caché, revalidación y renderizado
+
+La caché depende del modo de ejecución y no queda demostrada por un mock de `fetch`. Usa un recurso de prueba que permita observar conteos o versiones:
+
+1. carga la ruta y conserva la versión;
+2. modifica la fuente;
+3. confirma si la ruta debe seguir fresca o cacheada;
+4. ejecuta la revalidación;
+5. confirma el nuevo contenido.
+
+Prueba con build + `next start`; el dev server puede comportarse diferente. Aísla datos para que otro test no revalide la misma clave o path.
+
+## Middleware, proxy y redirects
+
+Una función pura puede decidir la regla de acceso, pero una E2E confirma matcher, cookies, URL y redirect real. Incluye rutas públicas, privadas, assets y loops de redirección. No afirmes solo la URL final: comprueba que el contenido protegido no se filtró.
 
 ## Aislar el entorno
 
@@ -88,3 +123,9 @@ Usa una base de datos de prueba y variables explícitas. No compartas una sesió
 ## Errores que la suite debe detectar
 
 Incluye acceso a un recurso ajeno, mutación sin sesión, cookie con atributos incorrectos, acción repetida, respuesta lenta y error del proveedor. Verifica el HTML y el comportamiento visible, no detalles internos del árbol de React. Un test de Next.js es más resistente cuando afirma lo que recibe el usuario.
+
+## Referencias
+
+- [Next.js: testing](https://nextjs.org/docs/app/guides/testing)
+- [Next.js: Vitest](https://nextjs.org/docs/app/guides/testing/vitest)
+- [Playwright práctico](/guides/testing-playwright-practico)

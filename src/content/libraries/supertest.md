@@ -10,10 +10,10 @@ install: |
   npm install --save-dev supertest
   npm install --save-dev @types/supertest
 related: [libraries/vitest-backend]
-updatedAt: 2026-08-16
+updatedAt: 2026-08-28
 ---
 
-[Vitest](/libraries/vitest-backend) testea funciones aisladas (services, repositories mockeados). Supertest testea la app **completa**, como un cliente HTTP real — pasando por todos los middlewares, el routing y el error handler, sin necesitar `app.listen()` en un puerto real.
+[Vitest](/libraries/vitest-backend) ejecuta la suite y prueba funciones aisladas. Supertest envía solicitudes contra la aplicación Express, atravesando middlewares, routing y manejo de errores sin necesitar un puerto público.
 
 ## Requisito: exportar `app` sin llamar a `.listen()`
 
@@ -34,6 +34,8 @@ app.listen(3000, () => console.log('Escuchando en 3000'));
 ```
 
 Separar `app.ts` (la configuración de Express) de `server.ts` (el `.listen()` real) es lo que permite que Supertest use la misma app sin abrir un puerto de verdad — Supertest simula las requests directamente contra el objeto `app`.
+
+También mejora el cierre del servidor y evita que importar un módulo inicie efectos inesperados durante los tests.
 
 ## Un test de integración
 
@@ -65,6 +67,17 @@ describe('POST /usuarios', () => {
 
 `request(app)` arma la request; `.post(ruta)`, `.get(ruta)`, etc. definen el verbo; `.send(body)` manda el body; el resultado (`response`) tiene `.status`, `.body`, `.headers` ya parseados.
 
+Comprueba el contrato completo que importa, no solo status:
+
+```ts
+expect(response.headers['content-type']).toMatch(/application\/json/);
+expect(response.body).toMatchObject({
+  id: expect.any(String),
+  email: 'nuevo@test.com',
+});
+expect(response.body).not.toHaveProperty('passwordHash');
+```
+
 ## Testear rutas protegidas (con auth)
 
 ```ts
@@ -89,6 +102,35 @@ describe('GET /perfil', () => {
 
 `.set('Authorization', ...)` agrega headers — el mismo patrón para cookies (`.set('Cookie', 'token=...')`) o cualquier header custom que la API espere.
 
+## Mantener cookies entre solicitudes
+
+`request.agent(app)` conserva cookies y permite probar una sesión:
+
+```ts
+const agent = request.agent(app);
+
+await agent
+  .post('/login')
+  .send({ email: user.email, password: 'correct-password' })
+  .expect(204);
+
+const profile = await agent.get('/profile').expect(200);
+expect(profile.body.id).toBe(user.id);
+```
+
+Usa una cuenta distinta por caso o reinicia el agente. Prueba atributos de cookie relevantes —`HttpOnly`, `Secure`, `SameSite`— cuando forman parte del control de seguridad.
+
+## Errores y archivos
+
+```ts
+await request(app)
+  .post('/avatar')
+  .attach('file', Buffer.from('not-an-image'), 'avatar.txt')
+  .expect(415);
+```
+
+Incluye body ausente, JSON inválido, tamaño excesivo, tipo de contenido incorrecto y error del servicio. Confirma que el error mantiene una forma estable y no filtra stack traces.
+
 ## Resumen
 
 | Método | Qué hace |
@@ -103,3 +145,9 @@ describe('GET /perfil', () => {
 
 - Supertest testea la app entera "de afuera hacia adentro" — es el nivel correcto para verificar que middlewares, validación y error handler realmente funcionan juntos, algo que un test de service aislado (con todo mockeado) no puede confirmar.
 - Para rutas que tocan la base de datos real, combinar con la base de test de [Vitest](/libraries/vitest-backend) — sin eso, estos tests fallarían (o peor, escribirían) contra la base de desarrollo/producción.
+- Supertest no reemplaza una prueba contra el servidor desplegado: proxy, TLS, adapter y límites de plataforma quedan fuera.
+- Cierra conexiones, workers y timers en teardown para que Vitest no quede abierto.
+
+## Referencias
+
+- [Repositorio oficial de Supertest](https://github.com/ladjs/supertest)

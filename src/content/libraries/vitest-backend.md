@@ -8,10 +8,10 @@ tags: [express, testing, vitest]
 website: https://vitest.dev
 install: npm install --save-dev vitest
 related: [libraries/supertest]
-updatedAt: 2026-08-16
+updatedAt: 2026-08-28
 ---
 
-Vitest no es exclusivo de frontend — como test runner general para proyectos TypeScript/Node, sirve igual para testear services, repositories y lógica de negocio de un backend Express. Esta guía es la config específica para ese contexto; para testear los endpoints HTTP en sí, ver [Supertest](/libraries/supertest).
+Vitest no es exclusivo de frontend. Como runner para proyectos TypeScript y Node, sirve para probar servicios, repositorios y lógica de negocio de un backend Express. Esta guía cubre la configuración específica; para endpoints HTTP completos consulta [Supertest](/libraries/supertest).
 
 ## Config
 
@@ -20,9 +20,10 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    environment: 'node', // no 'jsdom' — no hay DOM en un backend
-    globals: true,        // usar describe/it/expect sin importarlos en cada archivo
+    environment: 'node',
+    include: ['src/**/*.test.ts'],
     setupFiles: ['./test/setup.ts'],
+    restoreMocks: true,
   },
 });
 ```
@@ -38,7 +39,7 @@ export default defineConfig({
 
 ## Testear un service (sin tocar Express en absoluto)
 
-La lógica de negocio, aislada en `services/` (ver [estructura MVC](/patterns/backend-mvc-structure)), se testea directo, sin levantar ningún servidor:
+La lógica de negocio, aislada en `services/` (consulta [estructura MVC](/patterns/backend-mvc-structure)), se prueba directamente, sin levantar un servidor:
 
 ```ts title="services/users.service.test.ts"
 import { describe, it, expect, vi } from 'vitest';
@@ -63,11 +64,24 @@ describe('usersService.obtenerUsuario', () => {
 });
 ```
 
-`vi.mock()` reemplaza el repository real por uno simulado — el test corre sin necesitar una base de datos real, y es rápido porque no hace ninguna llamada de red o disco.
+`vi.mock()` reemplaza el repositorio real. Para dependencias importantes suele ser más explícito inyectar el repositorio al crear el servicio; así el test no depende del orden de carga de módulos.
+
+```ts
+const repository = {
+  findById: vi.fn().mockResolvedValue(null),
+};
+const service = createUsersService({ repository });
+
+await expect(service.getById('missing')).rejects.toMatchObject({
+  code: 'USER_NOT_FOUND',
+});
+```
+
+Comprueba un código o forma estable del error, no solo un mensaje que puede cambiar sin alterar el contrato.
 
 ## Base de datos de test (para tests de integración del repository)
 
-Para testear el repository en sí (que la query de Prisma realmente hace lo esperado), hace falta una base real — típicamente una base de test separada, limpiada entre tests:
+Para probar el repositorio —incluyendo query, tipos y constraints— necesitas una base real, normalmente aislada por suite o worker:
 
 ```ts title="test/setup.ts"
 import { beforeEach } from 'vitest';
@@ -91,6 +105,24 @@ DATABASE_URL=postgresql://localhost:5432/mibase_test
 }
 ```
 
+La limpieza debe respetar claves foráneas y paralelismo. Para suites grandes, considera un schema o contenedor por worker en lugar de eliminar todas las tablas antes de cada caso. La guía de [integración backend](/guides/testing-backend-database) desarrolla estas estrategias.
+
+## Probar errores del backend
+
+Incluye timeout, dependencia rechazada, dato duplicado y operación abortada. En unitario, el fake produce el error; una prueba de integración confirma cómo llega desde la dependencia real.
+
+```ts
+repository.save.mockRejectedValue(
+  Object.assign(new Error('duplicate'), { code: 'UNIQUE_VIOLATION' }),
+);
+
+await expect(service.create(input)).rejects.toMatchObject({
+  code: 'EMAIL_ALREADY_EXISTS',
+});
+```
+
+El servicio traduce un detalle de infraestructura a un error del dominio. Conserva una integración para verificar que el adapter reconoce el código real del motor.
+
 ## Resumen
 
 | Nivel de test | Qué mockear |
@@ -101,5 +133,12 @@ DATABASE_URL=postgresql://localhost:5432/mibase_test
 
 ## Consideraciones
 
-- `environment: 'node'` (no `'jsdom'`) es la diferencia principal frente a un setup de Vitest para frontend — sin DOM que simular, arranca más rápido.
-- Testear el service con el repository mockeado y el repository con una base de test real es la pirámide típica: muchos tests rápidos de service, menos tests de integración de repository (más lentos, tocan disco/red).
+- `environment: 'node'` evita simular un DOM inexistente en backend.
+- Prueba servicios con dependencias controladas y repositorios con la base real.
+- No compartas `DATABASE_URL` con desarrollo o producción.
+- Usa identificadores únicos, cleanup seguro y timeouts explícitos.
+
+## Referencias
+
+- [Vitest: configuración](https://vitest.dev/config/)
+- [Vitest: mocking](https://vitest.dev/guide/mocking)

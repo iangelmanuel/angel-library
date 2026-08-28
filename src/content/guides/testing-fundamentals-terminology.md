@@ -5,7 +5,7 @@ category: testing
 stack: testing-fundamentos
 tags: [testing, pruebas, unitarias, integracion, e2e, fundamentos]
 order: 1
-updatedAt: 2026-08-25
+updatedAt: 2026-08-28
 ---
 
 Una **prueba automatizada** ejecuta un comportamiento y comprueba un resultado esperado. Su valor principal no es demostrar que el sistema nunca fallará, sino detectar regresiones con rapidez y hacer explícitas las expectativas importantes.
@@ -24,6 +24,11 @@ La ruta recomendada es: comportamiento y aserción → prueba unitaria → integ
 | API + base de datos real | [Integración backend](/guides/testing-backend-database) |
 | UI React por comportamiento | [React Testing Library](/guides/testing-react-testing-library) |
 | navegador confiable en CI | [E2E](/guides/testing-e2e-reliable-ci) |
+| Playwright, locators y fixtures | [Playwright práctico](/guides/testing-playwright-practico) |
+| regresión visual y accesibilidad | [Pruebas visuales y accesibles](/guides/testing-visual-accessibility) |
+| plan, smoke y calidad no funcional | [Plan de pruebas y calidad](/guides/testing-quality-plan-nonfunctional) |
+| datos, builders y snapshots | [Datos de prueba y snapshots](/guides/testing-fixtures-snapshots) |
+| evaluar una aplicación con IA | [Evals para aplicaciones con IA](/guides/testing-ai-evals) |
 | particularidades del framework | [Astro](/guides/astro-testing) o [Next.js](/guides/nextjs-testing) |
 
 Quien aprende debe poder explicar por qué falla la prueba. Quien recuerda necesita una plantilla rápida, pero debe comprobar que la aserción observa conducta pública y no una implementación accidental.
@@ -40,6 +45,10 @@ Quien aprende debe poder explicar por qué falla la prueba. Quien recuerda neces
 | Fixture | Datos o estado preparados para una prueba |
 | Oráculo | Fuente que determina cuál es el resultado correcto |
 | Regresión | Comportamiento que funcionaba y se rompe tras un cambio |
+| Oráculo | Regla o fuente que decide cuál resultado es correcto |
+| Flaky test | Prueba que cambia de resultado sin cambiar el comportamiento relevante |
+| Test harness | Infraestructura que prepara, ejecuta y observa las pruebas |
+| Testability | Facilidad con la que un sistema puede controlarse y observarse al probar |
 
 Un nombre de prueba debe describir el comportamiento y la condición, no repetir el nombre de la función.
 
@@ -54,6 +63,12 @@ it('rechaza el descuento cuando la fecha de la promoción venció', () => {
 ```
 
 La prueba fija el reloj mediante un argumento, ejecuta una conducta y observa una salida pública. Evita depender de la fecha real del equipo.
+
+## Verificación, validación y calidad
+
+**Verificación** pregunta si construimos el sistema según la especificación. **Validación** pregunta si construimos el sistema que resuelve la necesidad real. Una suite puede verificar perfectamente una regla equivocada; por eso testing también incluye revisión de requisitos, pruebas exploratorias y retroalimentación de personas usuarias.
+
+La calidad no es sinónimo de “los tests están verdes”. Incluye corrección, seguridad, accesibilidad, rendimiento, resiliencia y facilidad de uso. Cada atributo necesita una señal distinta: una aserción funcional no demuestra que una página sea accesible ni que soporte carga.
 
 ## AAA y Given–When–Then
 
@@ -87,6 +102,23 @@ Los niveles describen alcance, no herramientas:
 **E2E** significa *End to End* o extremo a extremo. Estas pruebas dan alta confianza en rutas críticas, pero son más lentas y tienen más puntos de fallo. No conviene usarlas para cada combinación de una función matemática.
 
 La **pirámide de pruebas** propone muchas comprobaciones rápidas en la base y menos pruebas amplias en la parte superior. No fija porcentajes universales: la distribución depende de los riesgos y de la arquitectura.
+
+También existe el **trofeo de testing**, que resalta pruebas de integración como una zona de alto valor en aplicaciones web. Ninguna figura es una cuota. Elige el nivel que mantenga real la frontera donde vive el riesgo y simule únicamente lo que no necesitas comprobar en ese caso.
+
+## Clasificaciones que no son niveles
+
+| Tipo | Qué significa |
+| --- | --- |
+| Smoke | recorrido pequeño que confirma que el sistema básico está vivo |
+| Sanity | comprobación enfocada después de un cambio concreto |
+| Regresión | conjunto que detecta comportamientos rotos anteriormente válidos |
+| Aceptación | ejemplos que confirman una necesidad del producto o negocio |
+| Exploratoria | aprendizaje y diseño de pruebas mientras se usa el sistema |
+| Visual | comparación de apariencia o geometría |
+| Rendimiento | latencia, capacidad, estabilidad y uso de recursos |
+| Seguridad | controles, abuso y vulnerabilidades |
+
+Una prueba puede ser simultáneamente E2E, de regresión y de aceptación. Estas palabras describen propósito, no una herramienta diferente.
 
 ## Dobles de prueba
 
@@ -127,6 +159,20 @@ Causas frecuentes:
 
 No se debe resolver una prueba inestable con reintentos ilimitados. Los reintentos pueden reducir ruido temporal mientras se investiga, pero también esconden una carrera real.
 
+## Observabilidad y control
+
+Para probar necesitas **controlar** entradas y dependencias y **observar** resultados. Un diseño testeable permite inyectar reloj, generar datos aislados, consultar efectos persistidos y obtener errores claros sin exponer detalles internos en producción.
+
+```ts
+const service = createSubscriptionService({
+  clock: () => new Date('2026-08-28T12:00:00Z'),
+  idGenerator: () => 'sub_test_1',
+  repository,
+});
+```
+
+Esto no existe “solo para el test”: hace explícitas dependencias que antes eran globales y mejora el diseño. No abras métodos privados únicamente para probarlos; observa la interfaz pública o extrae una responsabilidad con significado propio.
+
 ## Cobertura y mutación
 
 La **cobertura** indica qué líneas, ramas o funciones se ejecutaron durante las pruebas. No demuestra que se hayan hecho buenas aserciones.
@@ -160,3 +206,14 @@ Para cada riesgo, pregunta:
 5. ¿Qué información mostrará el fallo para diagnosticarlo rápido?
 
 Una buena suite es rápida para el alcance elegido, aislada entre casos, legible y confiable. Si el equipo ignora sus fallos, dejó de cumplir su propósito.
+
+## Qué no demuestra una prueba
+
+- Un caso feliz no demuestra manejo de límites o errores.
+- Un mock verde no demuestra que el proveedor real mantenga el contrato.
+- Una cobertura alta no demuestra aserciones sensibles.
+- Un E2E verde no demuestra todas las combinaciones internas.
+- Una prueba automática de accesibilidad no sustituye teclado y lector de pantalla.
+- Una ejecución local no demuestra aislamiento en CI paralelo.
+
+La confianza nace de señales complementarias y de haber visto cada prueba fallar por la razón que pretende detectar.

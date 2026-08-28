@@ -8,6 +8,55 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.8.0] — 2026-08-28
+
+Expansión de las guías de Base de Datos y Testing, incorporación de
+herramientas CLI, una nueva categoría para Cursos y nuevos recursos técnicos.
+
+### Añadido
+
+- Recurso `Shadow Palette Generator` en la subcategoría CSS, con una guía
+  breve para convertir sus niveles de sombra en tokens de elevación.
+- Recursos `RapidAPI Hub` en APIs y `Apify MCP Connectors` en IA, con
+  criterios para evaluar proveedores, costos, credenciales y permisos.
+- Nueva categoría vacía `Cursos`, ubicada después de Aplicaciones y preparada
+  para incorporar rutas de estudio progresivamente.
+- Nueva subcategoría `CLI` en Aplicaciones, con una guía de
+  instalación y flujo esencial de Git.
+- Siete módulos para Testing: plan de pruebas y calidad no funcional, datos y
+  fixtures, MSW, Testcontainers para Node.js, Playwright práctico, regresión
+  visual/accesibilidad y evals para aplicaciones con IA.
+- Ocho guías nuevas para Base de Datos: tipos, `NULL` e integridad; patrones de
+  modelado; escritura SQL segura; SQL avanzado; mantenimiento y seguridad de
+  PostgreSQL; MongoDB; Redis; y observabilidad y seguridad operacional.
+
+### Cambiado
+
+- GitHub CLI, Vercel CLI, Supabase CLI, Railway CLI, NVM, pnpm, Bun y
+  Chocolatey se organizaron dentro de Aplicaciones y se ampliaron con
+  instalación, verificación, autenticación cuando corresponde, comandos de
+  uso diario, seguridad, automatización y errores habituales.
+- Las instalaciones basadas en pnpm, Bun o npm de las nuevas guías CLI usan
+  el selector unificado por pestañas del proyecto.
+- Las cinco subcategorías propias de Testing y sus apartados de React, Astro y
+  Next.js se ampliaron con ejemplos, tablas de consulta, criterios de nivel,
+  aislamiento, datos, flakiness, CI, seguridad y diagnóstico.
+- La curva de Testing ahora avanza desde terminología, estrategia y diseño de
+  casos hacia Vitest, integración/contratos, frameworks, Playwright y testing
+  asistido por IA, manteniendo accesos rápidos para consulta.
+- Las seis subcategorías de Base de Datos ahora siguen una curva progresiva
+  para aprender desde cero y conservan tablas, ejemplos y listas rápidas para
+  consulta: fundamentos → modelado → SQL → PostgreSQL → NoSQL → operación.
+- Las nueve guías existentes de Base de Datos se ampliaron con terminología,
+  casos de uso, errores frecuentes, seguridad, concurrencia, migraciones sin
+  interrupción, recuperación, pooling y diagnóstico.
+
+### Verificado
+
+- Diagnósticos de Astro y TypeScript mediante `pnpm check`.
+- Generación estática y validación de relaciones de contenido mediante
+  `pnpm build`.
+
 ## [0.7.0] — 2026-08-27
 
 Subcategorías HTML y React en UI/UX con catálogos de componentes reales,

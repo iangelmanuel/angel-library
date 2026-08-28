@@ -11,10 +11,21 @@ related:
   - guides/astro-testing
   - libraries/vitest-backend
   - libraries/supertest
-updatedAt: 2026-08-18
+updatedAt: 2026-08-28
 ---
 
 La unidad correcta no siempre es una función. Elige el nivel más bajo que reproduzca el riesgo real sin simular la parte que quieres verificar.
+
+## Referencia rápida por frontera
+
+```text
+regla pura → unitario
+adaptador + dependencia real → integración
+productor ↔ consumidor → contrato
+componente + DOM → componente/navegador
+flujo completo → E2E
+atributo transversal → seguridad, accesibilidad o rendimiento
+```
 
 | Nivel | Útil para | Evitar |
 | --- | --- | --- |
@@ -31,6 +42,17 @@ La unidad correcta no siempre es una función. Elige el nivel más bajo que repr
 - Formularios y flujos de recuperación.
 - Bugs que ya ocurrieron: cada regresión debería dejar una prueba.
 
+## Priorizar por riesgo
+
+Una matriz sencilla combina probabilidad e impacto. Un error frecuente pero cosmético y un error raro que duplica un cobro no reciben el mismo esfuerzo.
+
+| Impacto / Probabilidad | Baja | Alta |
+| --- | --- | --- |
+| Bajo | exploratoria o comprobación manual | automatización pequeña |
+| Alto | prueba dirigida + monitoreo | varias capas y bloqueo de release |
+
+Para un pago, una prueba unitaria protege el cálculo, integración protege idempotencia y persistencia, contrato protege al proveedor y un E2E confirma el recorrido principal. No son cuatro copias: cada una observa una frontera diferente.
+
 ## Propiedades de una buena suite
 
 - Determinista: controla reloj, random y datos.
@@ -46,6 +68,14 @@ Sustituye límites lentos o no deterministas —correo, pagos o APIs externas—
 ## CI mínima
 
 Ejecutar formato/lint, tipos, unitarios, build y un conjunto E2E crítico. Separa tests lentos, pero no permitas que queden permanentemente fuera del camino de publicación.
+
+| Momento | Suite apropiada |
+| --- | --- |
+| mientras programas | archivo o módulo afectado en watch |
+| pre-push / PR | unitarios, integración, tipos y smoke E2E |
+| rama principal | matriz completa y contratos |
+| programada | navegadores amplios, visual, carga y exploración asistida |
+| antes de release crítico | aceptación, migración y rollback ensayados |
 
 ## Elegir el nivel por riesgo
 
@@ -69,3 +99,19 @@ Incluye timeout, respuesta parcial, reintento, doble clic, sesión expirada, per
 ## Mantener la suite
 
 Mide duración, flaky rate y cobertura de rutas críticas. Elimina tests duplicados cuando una prueba superior ya cubre el mismo riesgo, pero no borres un caso porque “ya pasó una vez”. Revisa cada test que falla por un cambio de texto o estructura: quizá el selector está acoplado a implementación y debe migrar a un rol o contrato más estable.
+
+## Presupuesto de retroalimentación
+
+Define cuánto puede tardar cada ciclo. Si la suite de PR tarda una hora, el equipo empieza a evitarla; si dura dos minutos pero omite persistencia y navegación, entrega falsa velocidad. Paraleliza después de garantizar aislamiento y mueve suites costosas a etapas posteriores solo si todavía bloquean la publicación adecuada.
+
+Registra por test o grupo:
+
+- duración y tendencia;
+- tasa de reintentos e inestabilidad;
+- último fallo real detectado;
+- propietario o área;
+- evidencia disponible al fallar.
+
+## Criterio de salida
+
+“Todos los tests pasan” es insuficiente si faltan pruebas planificadas o existe un riesgo aceptado. Un criterio de salida puede exigir: rutas críticas verdes, cero defectos bloqueantes conocidos, migración ensayada, accesibilidad automática sin violaciones nuevas y observabilidad preparada. Las excepciones deben tener responsable y vencimiento.

@@ -10,10 +10,21 @@ related:
   - guides/cli-playwright
   - libraries/vitest-backend
   - guides/astro-endpoints
-updatedAt: 2026-08-18
+updatedAt: 2026-08-28
 ---
 
 Astro mezcla código de build, servidor y navegador. La prueba correcta depende del límite que quieres verificar.
+
+## Ruta rápida
+
+```text
+función importable → Vitest
+contenido y frontmatter → schema + astro check/build
+endpoint o Action → Request/Response + integración
+componente de UI de framework → su Testing Library
+página, script o isla hidratada → Playwright
+adapter y SSR → build + preview/runtime de producción
+```
 
 | Capa | Herramienta | Ejemplos |
 | --- | --- | --- |
@@ -22,18 +33,36 @@ Astro mezcla código de build, servidor y navegador. La prueba correcta depende 
 | Página e interacción | Playwright | rutas, formularios, copy, islas, accesibilidad |
 | Contenido | build/check | schemas y referencias |
 
+Un archivo `.astro` se transforma dentro del pipeline de Astro. En lugar de forzar su render en jsdom, extrae reglas puras, prueba componentes React/Vue/Svelte con su herramienta y conserva una prueba de página para composición, slots y HTML final.
+
+## Configurar Vitest con Astro
+
+```ts title="vitest.config.ts"
+/// <reference types="vitest/config" />
+import { getViteConfig } from 'astro/config';
+
+export default getViteConfig({
+  test: {
+    environment: 'node',
+    include: ['src/**/*.test.ts'],
+  },
+});
+```
+
+`getViteConfig` incorpora aliases y configuración de Vite del proyecto. Cambia environment solo en pruebas que realmente necesiten DOM.
+
 ## E2E contra preview
 
 ```ts title="playwright.config.ts"
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  webServer: { command: 'pnpm preview', url: 'http://localhost:4321', reuseExistingServer: !process.env.CI },
+  webServer: { command: 'pnpm build && pnpm preview', url: 'http://localhost:4321', reuseExistingServer: !process.env.CI },
   use: { baseURL: 'http://localhost:4321' },
 });
 ```
 
-Ejecuta primero `pnpm build`: `preview` sirve la salida real y descubre diferencias que el dev server oculta.
+`preview` sirve la salida real y descubre diferencias que el dev server oculta. Si el sitio utiliza un adapter, confirma que el comando reproduce su runtime; algunos adapters necesitan una prueba desplegada o un servidor específico.
 
 ```ts title="tests/navigation.spec.ts"
 import { test, expect } from '@playwright/test';
@@ -83,6 +112,16 @@ Extrae la lógica que no depende del contexto de Astro y pruébala sin casts. Co
 
 Incluye `pnpm check` y `pnpm build` en CI para que el schema de la colección, enlaces internos y rutas dinámicas se validen como parte del producto. Un test de navegación debe visitar tanto una ruta generada estáticamente como una ruta servida por adapter cuando el proyecto se despliega con SSR.
 
+Puedes probar transformaciones de contenido como funciones puras y dejar al build la integridad global:
+
+```ts
+it('ordena entradas por prioridad y título', () => {
+  expect(sortEntries(entries)).toEqual([highPriority, alphabetical]);
+});
+```
+
+No simules `getCollection` en todos los casos y concluyas que el schema o la ruta funcionan. El build real es el contrato para colecciones y `getStaticPaths`.
+
 ## View Transitions y progressive enhancement
 
 Prueba una carga directa, una navegación interna, volver atrás y desactivar JavaScript si la funcionalidad debe degradar de forma útil. Después de cada transición verifica foco, estado de búsqueda, listeners e islas que se montan una sola vez. Los bugs de navegación no siempre aparecen en la primera carga.
@@ -90,3 +129,29 @@ Prueba una carga directa, una navegación interna, volver atrás y desactivar Ja
 ## Islas y estrategias de hidratación
 
 Comprueba que el HTML útil exista antes de hidratar y que `client:idle`, `client:visible` o `client:media` activen la interacción en la condición esperada. Un componente puede funcionar al cargar directamente y duplicar listeners después de navegar; repite el recorrido y verifica que cada acción produce un solo efecto.
+
+## Actions, formularios y endpoints
+
+Prueba validación y autorización en funciones importables. Después confirma con navegador:
+
+- estado pendiente y doble envío;
+- error relacionado con el campo;
+- cookie/sesión y protección CSRF cuando aplica;
+- redirect y mensaje después del éxito;
+- comportamiento sin JavaScript si existe fallback.
+
+Una llamada directa al handler no ejecuta middleware, adapter ni proxy. Conserva una integración desplegada para esas fronteras.
+
+## Matriz de renderizado
+
+| Modo | Caso que no debe faltar |
+| --- | --- |
+| estático | ruta generada, assets y 404 |
+| on-demand | cookie, header, método y error del adapter |
+| híbrido | navegación entre página estática y dinámica |
+| isla | HTML inicial, hidratación y navegación repetida |
+
+## Referencias
+
+- [Astro: testing](https://docs.astro.build/en/guides/testing/)
+- [Playwright práctico](/guides/testing-playwright-practico)

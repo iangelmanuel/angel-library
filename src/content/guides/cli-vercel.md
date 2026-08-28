@@ -1,36 +1,52 @@
 ---
 title: "Vercel CLI: comandos esenciales"
 description: Instalar la CLI de Vercel, loguearse y el flujo del día a día — deploy a preview, deploy a producción, correr local y manejar variables de entorno.
-category: terminal
-stack: cli
-order: 1
+category: applications
+stack: apps-cli
+order: 7
 tags: [cli, vercel, deploy]
 scope: vercel
+website: https://vercel.com/docs/cli
 related: [guides/cli-astro]
-updatedAt: 2026-08-17
+updatedAt: 2026-08-28
 ---
+
+**Vercel CLI** conecta una carpeta local con la plataforma de Vercel. Permite crear despliegues, descargar configuración, administrar variables, consultar logs y reproducir parte del entorno de ejecución sin depender del panel web.
 
 ## Instalación
 
-Igual en Windows, macOS y Linux — es un paquete de npm:
+La CLI se distribuye como un paquete global. Elige el mismo gestor que ya utilizas para administrar herramientas de Node.js:
 
 ```bash
-npm i vercel
+pnpm add -g vercel
 ```
 
-También funciona con `pnpm i vercel`, `yarn i vercel` o `bun i vercel`. Sin el flag `-g` queda instalada como dependencia del proyecto (se corre con `npx vercel`); para tener el comando `vercel` disponible en cualquier carpeta de la terminal, instalarla global:
+Verifica que la terminal resuelve el ejecutable:
 
 ```bash
-npm i -g vercel
+vercel --version
 ```
 
-## Login
+Una instalación local también es válida si el equipo quiere fijar la versión en `package.json`, pero deberá invocarse con el ejecutor del gestor (`pnpm exec vercel`, `bunx vercel` o `npx vercel`). No mezcles una orden local y otra global sin comprobar cuál se está ejecutando.
+
+## Autenticación
 
 ```bash
 vercel login
+vercel whoami
 ```
 
-Abre el navegador para confirmar la sesión contra tu cuenta de Vercel.
+`login` inicia un flujo interactivo y permite continuar con correo o proveedores compatibles. `whoami` confirma qué usuario quedó activo antes de vincular o desplegar un proyecto.
+
+En una terminal personal, la sesión interactiva es la opción más sencilla. En integración y entrega continuas (CI/CD), donde nadie puede confirmar un navegador, crea un token con el alcance mínimo necesario y pásalo mediante una variable secreta:
+
+```bash
+vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+vercel build --prod --token="$VERCEL_TOKEN"
+vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+```
+
+No escribas el valor real del token en el workflow, el historial de la shell ni el repositorio. `VERCEL_TOKEN` representa aquí un secreto configurado por la plataforma de CI.
 
 ## Deploy
 
@@ -41,13 +57,23 @@ vercel --prod   # deploy a producción
 
 Corrido dentro de la carpeta del proyecto, `vercel` detecta el framework automáticamente, construye y sube el resultado. Sin `--prod`, cada deploy genera una URL de preview aislada — ideal para revisar cambios antes de promoverlos.
 
+Una revisión más segura antes de producción es construir primero y desplegar exactamente ese resultado:
+
+```bash
+vercel pull --yes --environment=production
+vercel build --prod
+vercel deploy --prebuilt --prod
+```
+
+`pull` descarga la configuración del proyecto, `build` crea el artefacto en `.vercel/output` y `deploy --prebuilt` evita volver a construirlo con condiciones diferentes.
+
 ## Correr local con el entorno de Vercel
 
 ```bash
 vercel dev
 ```
 
-Levanta un servidor local que replica el entorno de producción de Vercel (variables de entorno, funciones serverless, rewrites) en vez de depender del dev server nativo del framework.
+Levanta un servidor local que interpreta configuración de Vercel, funciones y reglas de enrutamiento. Es útil cuando el servidor nativo del framework no reproduce una frontera propia de la plataforma; no garantiza que red, latencia, región y límites de producción sean idénticos.
 
 ## Vincular una carpeta a un proyecto
 
@@ -56,6 +82,8 @@ vercel link
 ```
 
 Asocia el directorio actual con un proyecto existente en Vercel (crea `.vercel/project.json`). Es un paso previo habitual antes de `vercel env` o `vercel pull`.
+
+La carpeta `.vercel` contiene metadatos locales y normalmente debe permanecer en `.gitignore`. Revisa el equipo o **scope** elegido si perteneces a varias organizaciones.
 
 ## Variables de entorno
 
@@ -82,15 +110,20 @@ Muestra los logs de runtime de un deployment específico.
 | Comando | Qué hace |
 | --- | --- |
 | `vercel login` | Autentica la CLI con tu cuenta |
+| `vercel whoami` | Confirma la cuenta activa |
 | `vercel` | Deploy a preview |
 | `vercel --prod` | Deploy a producción |
 | `vercel dev` | Corre el proyecto local con el entorno de Vercel |
 | `vercel link` | Vincula la carpeta local a un proyecto de Vercel |
+| `vercel pull` | Descarga configuración y variables para un entorno |
+| `vercel build` | Construye el proyecto con Vercel Build Output API |
+| `vercel deploy --prebuilt` | Publica un artefacto construido previamente |
 | `vercel env pull` | Trae las variables de entorno del proyecto a un archivo local |
 | `vercel logs` | Muestra logs de runtime de un deployment |
 
 ## Consideraciones
 
-- En CI/CD no es viable `vercel login` (pide confirmación manual en navegador) — ahí se usa un token generado en el dashboard, vía la variable de entorno `VERCEL_TOKEN` o el flag `--token`.
+- En CI/CD no es viable `vercel login` porque necesita interacción; usa un token almacenado como secreto y pásalo con `--token`.
 - `vercel` sin flags NUNCA toca producción — hace falta `--prod` explícito, lo que hace difícil pisar el sitio en vivo por accidente.
-- La documentación oficial actual instala el paquete sin `-g` (`npm i vercel`); si el objetivo es tener `vercel` como comando global en la terminal, agregar `-g` a mano.
+- `vercel env pull` puede escribir secretos en un archivo local. Confirma que el destino esté ignorado por Git antes de ejecutarlo.
+- Si una carpeta quedó enlazada al proyecto o equipo equivocado, revisa `.vercel/project.json`, ejecuta `vercel unlink` y vuelve a usar `vercel link`.

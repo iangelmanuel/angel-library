@@ -191,6 +191,7 @@ export const CATEGORY_IDS = [
   "git",
   "terminal",
   "applications",
+  "courses",
   "skills",
   "resources"
 ] as const
@@ -285,8 +286,16 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
     label: "Aplicaciones",
     icon: "app-window",
     description:
-      "Aplicaciones de escritorio para editar código, trabajar en la terminal y desarrollar o probar APIs.",
+      "Aplicaciones de escritorio y herramientas CLI para editar código, preparar el entorno, colaborar, desplegar y probar APIs.",
     color: "--accent-indigo"
+  },
+  courses: {
+    id: "courses",
+    label: "Cursos",
+    icon: "book-open",
+    description:
+      "Cursos y rutas de estudio organizadas para aprender tecnologías y conceptos paso a paso.",
+    color: "--accent-cyan"
   },
   seo: {
     id: "seo",
@@ -394,7 +403,7 @@ export const CATEGORY_GROUPS = [
       "seo"
     ]
   },
-  { id: "referencia", categories: ["applications", "resources"] }
+  { id: "referencia", categories: ["applications", "courses", "resources"] }
 ] as const satisfies readonly {
   id: string
   categories: readonly CategoryId[]
@@ -550,6 +559,7 @@ export const STACK_IDS = [
   "testing-ai",
   "apps-editors",
   "apps-terminal",
+  "apps-cli",
   "apps-api",
   "apps-devops",
   "apps-design",
@@ -855,6 +865,11 @@ export const STACKS: Record<StackId, StackMeta> = {
     label: "Terminales",
     icon: "brand-apps-terminal"
   },
+  "apps-cli": {
+    id: "apps-cli",
+    label: "CLI",
+    icon: "brand-cli"
+  },
   "apps-api": {
     id: "apps-api",
     label: "Clientes de API",
@@ -997,6 +1012,7 @@ export const CATEGORY_STACK_ORDER: Partial<
   applications: [
     "apps-editors",
     "apps-terminal",
+    "apps-cli",
     "apps-api",
     "apps-devops",
     "apps-design",

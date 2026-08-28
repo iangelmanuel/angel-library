@@ -1,20 +1,23 @@
 ---
 title: "Bun: runtime, gestor de paquetes y bundler en uno"
 description: Instalar Bun y sus comandos básicos — install, add, run, correr TypeScript directo, bunx.
-category: terminal
-stack: terminal
-order: 18
+category: applications
+stack: apps-cli
+order: 5
 tags: [terminal, bun, node, gestor-de-paquetes, runtime]
 scope: bun
+website: https://bun.sh
 related: [guides/terminal-npm, guides/terminal-pnpm, guides/terminal-nvm]
-updatedAt: 2026-08-17
+updatedAt: 2026-08-28
 ---
 
 ## Qué es Bun
 
 Un runtime de JavaScript/TypeScript (alternativa a Node) que además incluye gestor de paquetes, bundler y test runner en un solo binario. La instalación de dependencias es notablemente más rápida que npm o pnpm, y puede correr archivos `.ts` directo sin un paso de transpilación separado.
 
-Es compatible con proyectos npm/pnpm existentes: lee `package.json` normalmente.
+**Runtime** es el programa que ejecuta JavaScript fuera del navegador; **gestor de paquetes** resuelve dependencias; **bundler** combina módulos para producir artefactos; y **test runner** descubre y ejecuta pruebas. Bun ofrece las cuatro capacidades, aunque usar `bun install` no obliga a cambiar el runtime de producción.
+
+Es compatible con el modelo de `package.json` del ecosistema npm y puede instalar muchos proyectos existentes. Compatibilidad no significa comportamiento idéntico a Node.js en cada API o módulo nativo, por lo que una migración del runtime necesita pruebas reales.
 
 ## Instalación
 
@@ -32,7 +35,7 @@ powershell -c "irm bun.sh/install.ps1 | iex"
 
 También disponible vía npm, Chocolatey o Scoop:
 
-```bash
+```text
 npm install -g bun
 ```
 
@@ -44,6 +47,15 @@ choco install bun
 scoop install bun
 ```
 
+Abre una terminal nueva y verifica tanto la versión como la revisión exacta del binario:
+
+```bash
+bun --version
+bun --revision
+```
+
+Si la instalación existe pero el comando no aparece, revisa que `~/.bun/bin` en macOS/Linux o `%USERPROFILE%\.bun\bin` en Windows esté incluido en `PATH`.
+
 ## Comandos básicos
 
 | Comando | Qué hace |
@@ -54,6 +66,11 @@ scoop install bun
 | `bun run <script>` | Corre un script del `package.json` |
 | `bun <archivo>.ts` | Ejecuta TypeScript directo, sin compilar aparte |
 | `bunx <paquete>` | Ejecuta un paquete sin instalarlo — equivalente a `npx` |
+| `bun test` | Ejecuta pruebas con el test runner integrado |
+| `bun build <entrada>` | Empaqueta uno o más puntos de entrada |
+| `bun outdated` | Muestra dependencias desactualizadas |
+| `bun update` | Actualiza dependencias |
+| `bun upgrade` | Actualiza el propio binario de Bun |
 
 ## Ejemplo: correr TypeScript sin transpilar
 
@@ -71,8 +88,40 @@ bun add zod
 bunx create-astro@latest
 ```
 
+## Adoptarlo de forma gradual
+
+Para evaluar solo el gestor de paquetes en una rama:
+
+```bash
+bun install
+bun run check
+bun run test
+bun run build
+```
+
+Revisa el nuevo `bun.lock`, ejecuta la suite y el build, y prueba cualquier dependencia nativa. Si el repositorio adopta Bun, elimina los lockfiles de otros gestores y declara la herramienta esperada:
+
+```json title="package.json"
+{
+  "packageManager": "bun@1.3.3"
+}
+```
+
+La versión es ilustrativa; fija la que realmente haya validado el equipo.
+
+## Autenticación con registros
+
+Bun no requiere una cuenta propia para instalar paquetes públicos. Puede consumir configuración compatible con npm para registros privados. Mantén el token fuera del repositorio:
+
+```ini title=".npmrc"
+//registry.npmjs.org/:_authToken=${NPM_TOKEN}
+```
+
+La variable `NPM_TOKEN` debe proceder del entorno local seguro o del almacén de secretos de CI. `bunx` también ejecuta código descargado: revisa el paquete y fija una versión cuando el comando forme parte de un proceso sensible.
+
 ## Consideraciones
 
-- Bun genera su propio lockfile (`bun.lock` o `bun.lockb` según la versión) — al mezclar Bun con npm/pnpm en el mismo repo pueden convivir lockfiles de más de un gestor, lo cual conviene evitar.
+- Las versiones actuales generan `bun.lock` en texto; proyectos antiguos pueden conservar `bun.lockb`. No confirmes además `package-lock.json` o `pnpm-lock.yaml` si Bun quedó como gestor oficial.
 - No todo el ecosistema de Node tiene 100% compatibilidad garantizada con el runtime de Bun (algunos módulos nativos o APIs muy específicas de Node pueden comportarse distinto) — para proyectos grandes en producción vale la pena verificar antes de migrar por completo.
 - Al ser runtime + gestor + bundler + test runner en un solo binario, reduce la cantidad de herramientas separadas (`ts-node`, `webpack`/`esbuild`, `jest`) que un proyecto Node tradicional suele necesitar.
+- No reemplaces Node por Bun solamente porque `bun install` funciona. Instalación, ejecución, pruebas y despliegue son fronteras diferentes y deben validarse por separado.

@@ -9,7 +9,7 @@ install: npm install -D fast-check
 related:
   - guides/testing-vitest-practico
   - guides/testing-test-design-techniques
-updatedAt: 2026-08-25
+updatedAt: 2026-08-28
 ---
 
 Los ejemplos concretos siguen siendo esenciales, pero no siempre descubren combinaciones inesperadas. El *property-based testing* genera muchas entradas y comprueba una propiedad que debe cumplirse para todas. El *mutation testing* modifica temporalmente el código para comprobar si la suite detecta el defecto. Son técnicas diferentes y complementarias.
@@ -39,6 +39,18 @@ describe('sortNumbers', () => {
 
 `fast-check` intenta reducir —*shrink*— una entrada que falla hasta obtener un contraejemplo pequeño. Si el error aparece con un arreglo enorme, podría terminar reportando algo tan simple como `[0, -1]`, que es más fácil de diagnosticar.
 
+El **arbitrary** es el generador de valores. Debe representar entradas válidas o inválidas según la propiedad, no ruido sin relación con el dominio.
+
+```ts
+const userArbitrary = fc.record({
+  id: fc.uuid(),
+  age: fc.integer({ min: 0, max: 120 }),
+  email: fc.emailAddress(),
+});
+```
+
+Cuando una propiedad falla, conserva el seed y el path reportados para reproducirla. Después añade un ejemplo concreto si el contraejemplo documenta una regla importante.
+
 ## Buenas propiedades
 
 - ida y vuelta: `decode(encode(value))` conserva el valor;
@@ -48,6 +60,16 @@ describe('sortNumbers', () => {
 - equivalencia: una implementación nueva coincide con una referencia confiable.
 
 No repitas la implementación dentro de la propiedad: si calculas el resultado con el mismo algoritmo, ambos pueden compartir el mismo error. Combina propiedades con ejemplos explícitos que documenten casos de negocio.
+
+## Propiedades que parecen buenas y no lo son
+
+- “no lanza error” puede aceptar resultados incorrectos;
+- comparar dos implementaciones copiadas comparte el mismo defecto;
+- generar cualquier string para un dominio muy específico desperdicia casos;
+- una propiedad sin límites puede crear entradas irreales y lentas;
+- afirmar solamente tipos o longitudes puede omitir semántica.
+
+Empieza con un oráculo independiente: una ley matemática, una ida y vuelta, un modelo sencillo o una invariante del negocio.
 
 ## Mutation testing
 
@@ -62,6 +84,22 @@ Una herramienta de mutación cambia operadores como `>` por `>=`, elimina una co
 
 La puntuación de mutación orienta, no es una meta absoluta. Úsala en lógica crítica y módulos estables; ejecutarla sobre todo el repositorio puede ser costoso. Primero revisa sobrevivientes con impacto real: permisos, cálculos, validación y estados.
 
+## Flujo con mutation testing
+
+1. Ejecuta primero la suite normal y elimina flakiness.
+2. Limita mutación a módulos críticos o modificados.
+3. Revisa sobrevivientes por impacto, no solo por cantidad.
+4. Añade una aserción si existe un comportamiento observable faltante.
+5. Marca mutantes equivalentes con justificación.
+6. Ejecuta el conjunto amplio de forma programada si es costoso.
+
+La herramienta puede generar timeouts porque cada mutante vuelve a ejecutar pruebas. Excluir código generado o trivial es razonable; excluir lógica difícil porque baja el score elimina el valor de la técnica.
+
 ## Cuándo aplicar cada técnica
 
 Usa generación de propiedades en parsers, serialización, cálculos y algoritmos con un dominio grande. Usa mutación cuando una suite tiene buena cobertura de líneas, pero no sabes si sus aserciones son sensibles. Para UI y flujos completos, las técnicas convencionales y E2E suelen comunicar mejor la intención.
+
+## Referencias
+
+- [fast-check: documentación](https://fast-check.dev/)
+- [Stryker Mutator para JavaScript y TypeScript](https://stryker-mutator.io/docs/stryker-js/introduction/)

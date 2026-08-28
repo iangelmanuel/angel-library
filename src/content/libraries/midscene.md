@@ -11,10 +11,21 @@ install: npm install -D @midscene/web
 related:
   - guides/testing-ai-principles
   - guides/testing-e2e-reliable-ci
-updatedAt: 2026-08-25
+updatedAt: 2026-08-28
 ---
 
 Midscene.js es una herramienta de automatización de interfaz guiada por visión y lenguaje natural. Puede integrarse con Playwright y Vitest para localizar, operar y consultar elementos sin codificar cada selector. Sigue necesitando un navegador, un modelo compatible y una señal de éxito clara.
+
+## Decisión rápida
+
+Usa Midscene cuando la interpretación visual aporta valor: canvas, superficies cambiantes, prototipos o exploración. Mantén Playwright convencional para roles estables, navegación crítica, pagos, permisos y aserciones exactas.
+
+```text
+acción determinista → page.getByRole(...).click()
+interpretación visual → aiTap('el producto agotado')
+resultado exacto → expect(...)
+resultado semántico amplio → aiAssert(...) con evidencia
+```
 
 ## Conceptos principales
 
@@ -40,6 +51,16 @@ test('encuentra un producto disponible', async ({ page, ai, aiAssert }) => {
 ```
 
 La documentación oficial propone extender el fixture de Playwright con el agente de Midscene. Mantén `page.goto`, autenticación, preparación de datos y aserciones críticas en APIs deterministas cuando sea posible; usa instrucciones de IA en el tramo que realmente necesita interpretación visual.
+
+Divide un flujo largo en pasos para localizar el fallo:
+
+```ts
+await aiTap('el filtro de disponibilidad');
+await aiTap('la opción En stock');
+await aiAssert('todos los productos visibles indican disponibilidad');
+```
+
+Si el producto expone roles y nombres estables, los locators convencionales serán más rápidos y reproducibles.
 
 ## Configurar el modelo
 
@@ -80,6 +101,19 @@ La IA interpreta la pantalla; Vitest o Playwright evalúan condiciones exactas s
 - Ninguna operación irreversible contra producción.
 
 Midscene es especialmente útil para prototipos, pruebas exploratorias y superficies visuales cambiantes. Para autorización, pagos, cálculos o contratos de API, conserva pruebas deterministas en capas inferiores.
+
+## Diagnosticar un fallo
+
+Clasifica si falló:
+
+1. la instrucción era ambigua;
+2. el modelo interpretó otro elemento;
+3. la aplicación no llegó al estado esperado;
+4. cambió el dataset;
+5. el proveedor/modelo falló o agotó timeout;
+6. la aserción aceptó una evidencia insuficiente.
+
+Repite en el mismo modelo y datos. Si el escenario necesita muchos reintentos o instrucciones defensivas, conviértelo en Playwright determinista o rediseña la señal de UI.
 
 ## Referencias
 

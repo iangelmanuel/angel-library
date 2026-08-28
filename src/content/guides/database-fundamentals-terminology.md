@@ -5,7 +5,7 @@ category: database
 stack: database-fundamentos
 tags: [bases-de-datos, sql, persistencia, fundamentos, glosario]
 order: 1
-updatedAt: 2026-08-25
+updatedAt: 2026-08-28
 ---
 
 Una **base de datos** es un sistema organizado para conservar información y consultarla después. Guardar datos no consiste únicamente en escribir un archivo: una aplicación suele necesitar búsquedas, relaciones, validación, acceso simultáneo, copias de seguridad y reglas que eviten estados imposibles.
@@ -19,10 +19,16 @@ La ruta recomendada es: datos y restricciones → modelado relacional → SQL �
 | Necesito recordar | Documento |
 | --- | --- |
 | claves, cardinalidad y constraints | [Modelado relacional](/guides/database-modelado-relacional) |
+| tipos, `NULL` e integridad | [Tipos de datos e integridad](/guides/database-data-integrity-types-null) |
 | SELECT, JOIN, GROUP BY y CTE | [SQL práctico](/guides/database-sql-consultas) |
+| INSERT, UPDATE, DELETE y transacciones | [Escritura segura con SQL](/guides/database-sql-escritura-datos) |
+| ventanas, subconsultas y operaciones de conjuntos | [SQL avanzado](/guides/database-sql-avanzado) |
 | índices y planes | [Índices y EXPLAIN](/guides/database-indices-explain) |
 | atomicidad, aislamiento y bloqueos | [Transacciones en PostgreSQL](/guides/postgresql-transacciones-concurrencia) |
 | tipos, JSONB y consultas seguras | [PostgreSQL práctico](/guides/postgresql-practico) |
+| VACUUM, roles y seguridad | [Mantenimiento y seguridad en PostgreSQL](/guides/postgresql-mantenimiento-seguridad) |
+| documentos y agregaciones | [MongoDB práctico](/guides/database-mongodb-practico) |
+| caché, TTL y estructuras | [Redis práctico](/guides/database-redis-practico) |
 | conexiones, pool y fallos | [Operación confiable](/guides/database-pooling-reliability) |
 | cambios y recuperación | [Migraciones y backups](/guides/database-migraciones-backups) |
 
@@ -40,6 +46,30 @@ Una aplicación envía una operación al gestor, el gestor comprueba permisos y 
 | Restricción o *constraint* | Regla aplicada por el gestor | Impedir dos usuarios con el mismo correo |
 | Integridad | Garantía de que los datos mantienen reglas válidas | Un pedido no referencia un cliente inexistente |
 
+Una aplicación normalmente no accede al archivo físico de la base. Utiliza un **driver** —la biblioteca que implementa el protocolo del gestor— para abrir una conexión, autenticar una identidad y enviar sentencias. El servidor analiza la consulta, decide un plan, lee o modifica páginas de datos y responde. Por eso una consulta tiene costos de red, CPU, memoria, disco y bloqueo, incluso si desde JavaScript parece una simple función.
+
+```text
+interfaz → API → driver/pool → gestor → memoria y almacenamiento
+                         └── permisos, transacciones e índices
+```
+
+El **esquema lógico** describe tablas, campos y reglas. El **almacenamiento físico** describe páginas, archivos, índices y registros de transacciones. La aplicación suele diseñar el primero; el gestor decide gran parte del segundo.
+
+## OLTP y OLAP: dos tipos de carga
+
+**OLTP** (*Online Transaction Processing* o procesamiento de transacciones en línea) describe muchas operaciones pequeñas y concurrentes: crear un pedido, cambiar una contraseña o descontar inventario. Busca baja latencia, integridad y transacciones cortas.
+
+**OLAP** (*Online Analytical Processing* o procesamiento analítico en línea) describe consultas que recorren y agregan grandes volúmenes para informes, tendencias o inteligencia de negocio. Puede usar almacenes columnares, réplicas analíticas o un *data warehouse* para no competir con el tráfico operativo.
+
+| Pregunta | OLTP | OLAP |
+| --- | --- | --- |
+| Unidad típica | Una entidad o transacción | Miles o millones de filas |
+| Patrón | Muchas lecturas/escrituras breves | Pocas consultas pesadas |
+| Modelo frecuente | Normalizado | Estrella o datos preparados para análisis |
+| Ejemplo | Confirmar una compra | Ventas mensuales por región |
+
+No es una elección absoluta: un producto puede necesitar ambos flujos, pero conviene separarlos cuando los reportes afectan la operación principal.
+
 ## Bases relacionales y no relacionales
 
 Una base **relacional** organiza información en tablas. Cada fila representa una entidad y cada columna una propiedad. Las relaciones se expresan mediante claves y las consultas suelen escribirse con **SQL** (*Structured Query Language* o lenguaje de consulta estructurado).
@@ -54,6 +84,8 @@ Una base **no relacional**, a menudo llamada NoSQL, puede almacenar documentos, 
 | Relaciones complejas que son el centro del problema | Base de grafos |
 
 La elección no se hace por moda. Primero se estudian las consultas, la consistencia necesaria, el volumen, la operación del sistema y la experiencia del equipo.
+
+También es válido combinar motores: PostgreSQL como fuente de verdad, Redis como caché y un buscador para texto completo. Esto se llama **persistencia políglota**. Aporta capacidades especializadas, pero aumenta migraciones, observabilidad y recuperación; cada copia necesita una fuente de verdad y una estrategia de sincronización.
 
 ## Tabla, fila, columna y claves
 
@@ -76,6 +108,22 @@ CREATE TABLE orders (
 `NOT NULL` hace obligatorio el valor, `UNIQUE` evita duplicados y `CHECK` valida una condición. Estas reglas deben vivir en la base aunque la interfaz también valide: otro servicio o un error de programación podría saltarse la interfaz.
 
 Guardar dinero como enteros en la unidad mínima —centavos, por ejemplo— evita varios problemas de precisión de los números de punto flotante.
+
+Una **clave candidata** es cualquier conjunto mínimo de columnas que podría identificar una fila, como un correo único. Entre ellas se elige una clave primaria. Una clave **natural** usa un dato del dominio; una clave **sustituta** usa un identificador técnico como `id`. La clave sustituta suele ser estable, pero no reemplaza la restricción `UNIQUE` de los datos que tampoco deben duplicarse.
+
+## `NULL` no significa vacío
+
+`NULL` representa un valor desconocido o ausente. No equivale a `0`, `false` ni una cadena vacía. SQL utiliza lógica de tres valores: una comparación con `NULL` suele producir “desconocido”, no `true` o `false`.
+
+```sql
+-- Incorrecto: nunca encuentra NULL.
+SELECT * FROM users WHERE deleted_at = NULL;
+
+-- Correcto.
+SELECT * FROM users WHERE deleted_at IS NULL;
+```
+
+Usa `NOT NULL` cuando la ausencia no tenga significado válido. Si una columna acepta `NULL`, documenta qué representa. Evita valores centinela como `-1`, `N/A` o fechas ficticias: mezclan datos reales con códigos ocultos.
 
 ## CRUD y SQL
 
@@ -204,3 +252,21 @@ Un respaldo no comprobado es solo una esperanza. La restauración debe ensayarse
 5. Mide consultas reales y crea índices según sus planes de ejecución.
 6. Diseña migraciones compatibles con despliegues graduales.
 7. Automatiza copias y demuestra que pueden restaurarse.
+
+## Errores frecuentes al comenzar
+
+- Confiar toda la validación a la interfaz y dejar la base sin restricciones.
+- Guardar listas separadas por comas en una columna que después necesita relaciones o filtros.
+- usar `SELECT *` como contrato permanente entre servicios;
+- crear un índice para cada columna sin observar las consultas reales;
+- mantener transacciones abiertas durante llamadas a otras APIs;
+- considerar una réplica como backup;
+- almacenar secretos, contraseñas sin hash o datos personales sin política de retención.
+
+La pregunta útil no es solamente “¿dónde guardo este dato?”, sino “¿qué significa, quién puede cambiarlo, qué regla lo protege, cómo se consulta y cómo se recupera?”.
+
+## Referencias
+
+- [Tutorial oficial de PostgreSQL](https://www.postgresql.org/docs/current/tutorial.html)
+- [MongoDB: proceso de modelado de datos](https://www.mongodb.com/docs/manual/data-modeling/schema-design-process/)
+- [Redis: tipos de datos](https://redis.io/docs/latest/develop/data-types/)
