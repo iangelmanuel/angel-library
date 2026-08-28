@@ -132,72 +132,10 @@ cada pull request corren los mismos comandos que se ejecutan en local. El
 workflow solo llama a los scripts declarados en el paso 2, así que el archivo
 no cambia aunque después se agreguen ESLint, Prettier o el SEO.
 
-~~~yaml title=".github/workflows/ci.yml"
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm sync
-
-      - run: pnpm check
-
-      - run: pnpm eslint
-
-      - run: pnpm prettier:check
-
-      - run: pnpm build
-~~~
-
-| Paso | Qué verifica |
-| --- | --- |
-| `pnpm install --frozen-lockfile` | El lockfile está sincronizado con `package.json` |
-| `pnpm sync` | Los tipos generados de Astro existen antes del type-check |
-| `pnpm check` | Errores de TypeScript y diagnósticos de Astro |
-| `pnpm eslint` | Reglas de calidad y errores de Astro |
-| `pnpm prettier:check` | Formato consistente, sin reescribir archivos |
-| `pnpm build` | El sitio compila realmente |
-
-`--frozen-lockfile` hace fallar el job si el lockfile no coincide con
-`package.json`, en vez de resolver versiones nuevas silenciosamente en CI.
-`pnpm sync` va antes de `check` porque `astro check` necesita los tipos que
-Astro genera en `.astro/`.
-
-Los pasos de `eslint` y `prettier:check` fallarán hasta completar los pasos 8
-y 9, que crean sus configuraciones. Es esperado: el workflow se agrega al
-principio para que ningún commit posterior quede sin verificar.
-
-### Variante: verificaciones en paralelo
-
-Los `steps` de un job corren **en secuencia** y el job se detiene en el primero
-que falle: si `check` falla, nunca llegas a ver si además tenías errores de
-ESLint o de formato. Los **jobs**, en cambio, sí corren en paralelo.
-
-El orden que tiene sentido no es "todo a la vez", sino en dos etapas: primero
-las tres verificaciones rápidas —independientes entre sí—, y solo si todas
-pasan, el build, que es el paso más lento y el que no vale la pena pagar sobre
-código que ya se sabe roto.
+Dos jobs, no uno: `quality` corre `check`, `eslint` y `prettier:check` en
+paralelo —son independientes entre sí, así que no hay razón para serializarlos—
+y `build` espera a que los tres pasen. Es el paso más lento; no vale la pena
+pagarlo sobre código que ya se sabe roto por tipos o lint.
 
 ~~~yaml title=".github/workflows/ci.yml"
 name: CI
@@ -221,8 +159,6 @@ jobs:
       - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v5
         with:
@@ -243,8 +179,6 @@ jobs:
       - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v5
         with:
@@ -259,9 +193,21 @@ jobs:
 | Clave | Qué hace |
 | --- | --- |
 | `strategy.matrix.task` | Crea un job por verificación; los tres arrancan a la vez |
-| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos y vuelves al mismo problema del workflow secuencial |
+| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos — perderías la visibilidad de si además tenías errores de ESLint o de formato |
+| `pnpm sync` | Genera los tipos de Astro en `.astro/` antes de `check`, que los necesita |
 | `needs: quality` | `build` espera a que los tres terminen en verde; si uno falla, se salta |
 | `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista |
+
+`--frozen-lockfile` hace fallar el job si el lockfile no coincide con
+`package.json`, en vez de resolver versiones nuevas silenciosamente en CI —
+por eso cualquier cambio de versión en `package.json` necesita un `pnpm
+install` local antes de commitear, para que `pnpm-lock.yaml` quede
+sincronizado.
+
+`pnpm/action-setup@v4` no lleva `with: version` — sin ese input, la action lee
+la versión directamente de `packageManager` en `package.json` (paso 2). Fijarla
+en los dos lugares a la vez es la causa típica de `ERR_PNPM_BAD_PM_VERSION`
+en cuanto se desincronizan.
 
 `"prettier:check"` va entre comillas porque los dos puntos sin comillas son
 sintaxis de mapa en YAML.
@@ -270,6 +216,10 @@ Cada job es una máquina distinta, así que cada uno reinstala dependencias: son
 cuatro instalaciones en vez de una. La caché de `setup-node` con `cache: pnpm`
 lo abarata bastante y, a cambio, el PR muestra los cuatro resultados por
 separado en vez de uno solo que se corta en el primer error.
+
+Los pasos `eslint` y `prettier:check` fallarán hasta completar los pasos 8 y
+9, que crean sus configuraciones. Es esperado: el workflow se agrega al
+principio para que ningún commit posterior quede sin verificar.
 
 ## 4. Configurar la base de Astro
 
@@ -547,29 +497,55 @@ formateado, útil para CI.
 Detectar errores reales de Astro y TypeScript que el formateador no ve.
 Prettier decide cómo se ve el código; ESLint decide qué código es correcto.
 
+### Antes de instalar: fija TypeScript por debajo de 7.0
+
+Al momento de escribir esto, `typescript-eslint` todavía no soporta
+TypeScript 7 — instalarlo tal cual (`pnpm add -D typescript`, sin versión)
+puede traer un TypeScript 7.x y romper `astro check`/`eslint` con errores que
+no tienen que ver con tu código. Revisa `typescript` en `package.json` (paso
+8) y, si hace falta, fíjalo explícitamente:
+
 ~~~bash
-pnpm add -D eslint eslint-plugin-astro typescript-eslint
+pnpm add -D typescript@^6
+~~~
+
+Antes de escribir un `tsconfig.json` nuevo o actualizar `typescript-eslint`,
+confirma en la documentación oficial de `typescript-eslint` si ya soporta
+TypeScript 7 — este freno es temporal, no una regla permanente del proyecto.
+
+El orden importa, y saltárselo es la causa más común de que esta sección
+falle a medias: TypeScript en `< 7` primero → instalar `typescript-eslint` →
+escribir `eslint.config.mjs` → `pnpm install` para sincronizar
+`pnpm-lock.yaml` con la versión fijada → recién ahí `pnpm sync` y
+`check`/`eslint`/`prettier:check`. Cambiar una versión en `package.json` sin
+correr `pnpm install` después dejará el lockfile desincronizado, y
+`pnpm install --frozen-lockfile` (paso 3) fallará en CI aunque en local todo
+funcione.
+
+~~~bash
+pnpm add -D eslint @eslint/js eslint-plugin-astro typescript-eslint
 ~~~
 
 Crea la configuración plana en la raíz:
 
 ~~~js title="eslint.config.mjs"
-import eslintPluginAstro from "eslint-plugin-astro"
+import astro from "eslint-plugin-astro"
 import tseslint from "typescript-eslint"
+import jseslint from "@eslint/js"
 
 export default [
-  {
-    ignores: [
-      ".astro/",
-      ".vercel/",
-      "dist/",
-      "node_modules/"
-    ]
-  },
+  { ignores: ["dist/**", ".astro/**", ".vercel/**", "node_modules/**"] },
+  jseslint.configs.recommended,
   ...tseslint.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
+  ...astro.configs.recommended,
   {
-    rules: {}
+    rules: {
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }
+      ]
+    }
   }
 ]
 ~~~
@@ -577,6 +553,7 @@ export default [
 | Paquete | Para qué |
 | --- | --- |
 | `eslint` | El motor de reglas |
+| `@eslint/js` | Reglas base de JavaScript (`jseslint.configs.recommended`) |
 | `typescript-eslint` | Parser y reglas para TypeScript |
 | `eslint-plugin-astro` | Entiende la sintaxis de un `.astro` (frontmatter + template) |
 
@@ -584,13 +561,43 @@ export default [
 `eslint.config.mjs` y no `.js`. El bloque `ignores` debe ir primero y
 reemplaza al antiguo `.eslintignore`, que la configuración plana ya no lee.
 
+`jseslint.configs.recommended` va **sin** `...` porque `@eslint/js` exporta
+`recommended` como un único objeto de configuración. `tseslint.configs.recommended`
+y `astro.configs.recommended` sí llevan `...` porque cada uno exporta un
+**arreglo** de configuraciones encadenadas (parser, reglas base, reglas por
+tipo de archivo) — sin el spread, `eslint.config.mjs` terminaría con un
+arreglo dentro de otro arreglo y ESLint lo rechaza. Cuando agregues un plugin
+nuevo, revisa qué exporta su `recommended` antes de copiar el patrón: no todos
+son arreglos.
+
 `tseslint.configs.recommended` no requiere información de tipos; si más
 adelante quieres reglas que sí la usen, cambia a
 `tseslint.configs.recommendedTypeChecked` y agrega `parserOptions.project`.
 
+Las dos reglas del bloque final no son parte de `recommended` en ningún
+plugin — se agregan a mano porque son las que de verdad importan en un
+proyecto nuevo: `no-explicit-any` obliga a tipar en vez de escapar con `any`,
+y `no-unused-vars` con `argsIgnorePattern`/`varsIgnorePattern` permite
+prefijar con `_` un parámetro o variable que se declara a propósito sin usar
+(por ejemplo, en la firma de un callback).
+
+Si algún archivo `.mjs` del proyecto (scripts de build, por ejemplo) usa
+globals de Node como `console` o `process`, decláralos explícitamente en vez
+de que ESLint los marque como no definidos:
+
+~~~js title="eslint.config.mjs (fragmento, si aplica)"
+{
+  files: ["**/*.mjs"],
+  languageOptions: {
+    globals: { console: "readonly", process: "readonly" }
+  }
+}
+~~~
+
 Comprueba que corre:
 
 ~~~bash
+pnpm install
 pnpm eslint
 ~~~
 
@@ -1349,7 +1356,9 @@ de una página confirma title, description, canonical, lang, Open Graph y JSON-L
 - [ ] @/* funciona antes de utilizar imports con alias.
 - [ ] Tailwind está instalado, registrado en Vite e importado una sola vez.
 - [ ] Prettier reconoce Astro y ordena imports y clases de Tailwind.
+- [ ] typescript está en `< 7` (revisar antes de instalar typescript-eslint).
 - [ ] ESLint corre sobre archivos .astro y .ts sin errores.
+- [ ] pnpm-lock.yaml quedó regenerado (`pnpm install`) tras cualquier cambio de versión en package.json.
 - [ ] El workflow de GitHub Actions corre check, eslint, prettier:check y build.
 - [ ] Los archivos del repositorio explican cómo instalar, contribuir y reportar.
 - [ ] SITE obtiene el dominio desde `import.meta.env.SITE` y no incluye secretos.

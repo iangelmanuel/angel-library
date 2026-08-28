@@ -27,18 +27,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: pnpm
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
 ```
 
 `fail-fast: false` permite ver todos los fallos de la matriz. Si el proyecto solo soporta una versión, una matriz añade coste sin aportar información.
+
+`pnpm/action-setup` va antes que `actions/setup-node`: `cache: pnpm` necesita el binario `pnpm` ya disponible en el PATH para resolver dónde está el store que va a cachear. Invertido, `setup-node` no encuentra `pnpm` y el cache no se activa (sin fallar el job, así que el problema pasa desapercibido).
 
 ## Ordenar jobs con `needs`
 

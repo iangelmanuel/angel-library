@@ -8,6 +8,31 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.6.1] — 2026-08-27
+
+Dos bugs reales de GitHub Actions en los workflows de ejemplo, encontrados al
+usar el CI de `/myastro` en un proyecto real.
+
+### Arreglado
+
+- `pnpm/action-setup@v4` con `with: version` fijo chocaba con `packageManager`
+  en `package.json`: dos fuentes de versión de pnpm desincronizadas producían
+  `ERR_PNPM_BAD_PM_VERSION`. Quitado el `version:` explícito en los 6 workflows
+  de `/myastro` y `/mynext` (secuencial + variante en paralelo), y en
+  `github-actions-matrices-cache.md` y `repository-rules-security.md` — la
+  action ahora lee la versión solo de `packageManager`. Agregada una nota en
+  `/myastro` y `/mynext` explicando por qué no debe fijarse en los dos lugares.
+- `github-actions-matrices-cache.md` tenía `actions/setup-node` con
+  `cache: pnpm` **antes** de `pnpm/action-setup`: el cache necesita el binario
+  `pnpm` ya en el PATH para resolver el store, así que quedaba desactivado sin
+  fallar el job. Orden corregido.
+
+### Verificado
+
+- `pnpm build` sin errores (1417 páginas).
+- Los 5 archivos con `pnpm/action-setup` revisados uno por uno; solo esa guía
+  tenía el orden invertido, el resto ya era correcto.
+
 ## [0.6.0] — 2026-08-27
 
 Directorios en plural en toda la documentación (`lib` → `libs`), `SITE`
@@ -318,7 +343,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.6.1
 [0.6.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.6.0
 [0.5.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.5.0
 [0.4.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.4.0

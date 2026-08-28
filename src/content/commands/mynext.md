@@ -138,76 +138,10 @@ cada pull request corren los mismos comandos que se ejecutan en local. El
 workflow solo llama a los scripts declarados en el paso 2, así que el archivo
 no cambia aunque después se agreguen Prettier, ESLint o el SEO.
 
-~~~yaml title=".github/workflows/ci.yml"
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-
-    env:
-      NEXT_PUBLIC_SITE_URL: https://example.com
-
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm check
-
-      - run: pnpm eslint
-
-      - run: pnpm prettier:check
-
-      - run: pnpm build
-~~~
-
-| Paso | Qué verifica |
-| --- | --- |
-| `pnpm install --frozen-lockfile` | El lockfile está sincronizado con `package.json` |
-| `pnpm check` | Errores de TypeScript (`tsc --noEmit`) |
-| `pnpm eslint` | Reglas de calidad y de Next.js |
-| `pnpm prettier:check` | Formato consistente, sin reescribir archivos |
-| `pnpm build` | La aplicación compila realmente |
-
-`--frozen-lockfile` hace fallar el job si el lockfile no coincide con
-`package.json`, en vez de resolver versiones nuevas silenciosamente en CI.
-
-`NEXT_PUBLIC_SITE_URL` se declara en el job porque `SITE` lo lee durante el
-build (paso 9); sin esa variable el build usaría el fallback de localhost y
-generaría URLs canónicas incorrectas. Nunca pongas secretos ahí: para eso
-usa `secrets` del repositorio, y solo variables `NEXT_PUBLIC_` en texto
-plano.
-
-Los pasos de `eslint` y `prettier:check` fallarán hasta completar los pasos 6
-y 7, que crean sus configuraciones. Es esperado: el workflow se agrega al
-principio para que ningún commit posterior quede sin verificar.
-
-### Variante: verificaciones en paralelo
-
-Los `steps` de un job corren **en secuencia** y el job se detiene en el primero
-que falle: si `check` falla, nunca llegas a ver si además tenías errores de
-ESLint o de formato. Los **jobs**, en cambio, sí corren en paralelo.
-
-El orden que tiene sentido no es "todo a la vez", sino en dos etapas: primero
-las tres verificaciones rápidas —independientes entre sí—, y solo si todas
-pasan, el build, que es el paso más lento y el que no vale la pena pagar sobre
-código que ya se sabe roto.
+Dos jobs, no uno: `quality` corre `check`, `eslint` y `prettier:check` en
+paralelo —son independientes entre sí, así que no hay razón para serializarlos—
+y `build` espera a que los tres pasen. Es el paso más lento; no vale la pena
+pagarlo sobre código que ya se sabe roto por tipos o lint.
 
 ~~~yaml title=".github/workflows/ci.yml"
 name: CI
@@ -231,8 +165,6 @@ jobs:
       - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v5
         with:
@@ -254,8 +186,6 @@ jobs:
       - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v5
         with:
@@ -270,9 +200,20 @@ jobs:
 | Clave | Qué hace |
 | --- | --- |
 | `strategy.matrix.task` | Crea un job por verificación; los tres arrancan a la vez |
-| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos y vuelves al mismo problema del workflow secuencial |
+| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos — perderías la visibilidad de si además tenías errores de ESLint o de formato |
 | `needs: quality` | `build` espera a que los tres terminen en verde; si uno falla, se salta |
 | `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista |
+
+`--frozen-lockfile` hace fallar el job si el lockfile no coincide con
+`package.json`, en vez de resolver versiones nuevas silenciosamente en CI —
+por eso cualquier cambio de versión en `package.json` necesita un `pnpm
+install` local antes de commitear, para que `pnpm-lock.yaml` quede
+sincronizado.
+
+`pnpm/action-setup@v4` no lleva `with: version` — sin ese input, la action lee
+la versión directamente de `packageManager` en `package.json` (paso 2). Fijarla
+en los dos lugares a la vez es la causa típica de `ERR_PNPM_BAD_PM_VERSION`
+en cuanto se desincronizan.
 
 `"prettier:check"` va entre comillas porque los dos puntos sin comillas son
 sintaxis de mapa en YAML.
@@ -285,6 +226,10 @@ Cada job es una máquina distinta, así que cada uno reinstala dependencias: son
 cuatro instalaciones en vez de una. La caché de `setup-node` con `cache: pnpm`
 lo abarata bastante y, a cambio, el PR muestra los cuatro resultados por
 separado en vez de uno solo que se corta en el primer error.
+
+Los pasos `eslint` y `prettier:check` fallarán hasta completar los pasos 6 y
+7, que crean sus configuraciones. Es esperado: el workflow se agrega al
+principio para que ningún commit posterior quede sin verificar.
 
 ## 4. Revisar Tailwind y el alias generado
 

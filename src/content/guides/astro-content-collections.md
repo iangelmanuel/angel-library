@@ -17,6 +17,8 @@ Content Collections tipa y valida Markdown/MDX/JSON con Zod en build — este mi
 
 Vive en `src/content.config.ts`, en la raíz de `src/` (no dentro de `content/`). `loader` dice de dónde salen las entradas; `schema` valida su frontmatter con Zod. Esto es la llamada **Content Layer API**, la forma actual desde Astro 5 — antes (Astro 2–4) una colección se detectaba sola por el nombre de la carpeta dentro de `src/content/`, sin declarar loader. Ese modelo implícito ya no existe: hoy toda colección se declara aquí, explícita, con su loader.
 
+**La ruta es exacta, no una convención flexible**: Astro solo reconoce colecciones declaradas en `src/content.config.ts`. Moverlo a `src/content/index.ts` (o cualquier otra ruta, por prolijo que parezca) no rompe el build con un error claro — la colección simplemente queda vacía en silencio. El síntoma aparece más adelante, en `astro check`, como errores de tipos que no mencionan el archivo movido: `Property 'data' does not exist on type 'never'` o `Argument of type "..." is not assignable to parameter of type 'never'` en cualquier componente que consuma esa colección. Si ves ese error, lo primero a revisar es la ruta exacta de `content.config.ts`, no el componente donde aparece el error.
+
 ```ts title="src/content.config.ts"
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
