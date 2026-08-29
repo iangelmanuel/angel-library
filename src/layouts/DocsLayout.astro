@@ -13,8 +13,7 @@ interface Props {
 
 const { title, description } = Astro.props
 
-const allEntries = await getAllEntries()
-const navData = buildNavData(allEntries)
+const navData = buildNavData(await getAllEntries())
 ---
 
 <BaseLayout

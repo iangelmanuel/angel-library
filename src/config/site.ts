@@ -19,41 +19,19 @@ export const SITE = {
   locale: "es"
 } as const
 
+/** Conserva el orden de declaración y el tipo literal de las claves. */
+function keysOf<const Values extends Record<string, unknown>>(values: Values) {
+  return Object.keys(values) as unknown as readonly [
+    keyof Values & string,
+    ...(keyof Values & string)[]
+  ]
+}
+
 /* ------------------------------------------------------------------ */
 /* Tipos de contenido                                                  */
 /* ------------------------------------------------------------------ */
 
-export const CONTENT_TYPE_IDS = [
-  "technologies",
-  "libraries",
-  "integrations",
-  "recipes",
-  "snippets",
-  "hooks",
-  "utilities",
-  "resources",
-  "skills",
-  "commands",
-  "patterns",
-  "practices",
-  "guides",
-  "tricks"
-] as const
-
-export type ContentTypeId = (typeof CONTENT_TYPE_IDS)[number]
-
-export interface ContentTypeMeta {
-  id: ContentTypeId
-  /** Etiqueta en plural (listados, navegación) */
-  label: string
-  /** Etiqueta en singular (badges) */
-  singular: string
-  /** Nombre de icono (lucide) */
-  icon: string
-  description: string
-}
-
-export const CONTENT_TYPES: Record<ContentTypeId, ContentTypeMeta> = {
+const CONTENT_TYPE_DEFINITIONS = {
   technologies: {
     id: "technologies",
     label: "Tecnologías",
@@ -165,7 +143,24 @@ export const CONTENT_TYPES: Record<ContentTypeId, ContentTypeMeta> = {
     description:
       "Soluciones específicas y atajos que resuelven problemas puntuales."
   }
+} as const
+
+export type ContentTypeId = keyof typeof CONTENT_TYPE_DEFINITIONS
+
+export interface ContentTypeMeta {
+  id: ContentTypeId
+  /** Etiqueta en plural (listados, navegación) */
+  label: string
+  /** Etiqueta en singular (badges) */
+  singular: string
+  /** Nombre de icono (lucide) */
+  icon: string
+  description: string
 }
+
+export const CONTENT_TYPES: Record<ContentTypeId, ContentTypeMeta> =
+  CONTENT_TYPE_DEFINITIONS
+export const CONTENT_TYPE_IDS = keysOf(CONTENT_TYPE_DEFINITIONS)
 
 export const CONTENT_TYPE_LIST = CONTENT_TYPE_IDS.map((id) => CONTENT_TYPES[id])
 
@@ -173,6 +168,7 @@ export const CONTENT_TYPE_LIST = CONTENT_TYPE_IDS.map((id) => CONTENT_TYPES[id])
 /* Categorías (áreas de conocimiento)                                  */
 /* ------------------------------------------------------------------ */
 
+/** Orden público del catálogo; es distinto del orden visual de CATEGORY_GROUPS. */
 export const CATEGORY_IDS = [
   "general",
   "languages",
@@ -198,17 +194,7 @@ export const CATEGORY_IDS = [
 
 export type CategoryId = (typeof CATEGORY_IDS)[number]
 
-export interface CategoryMeta {
-  id: CategoryId
-  label: string
-  icon: string
-  description: string
-  /** Nombre de variable CSS (definida en global.css) usada para colorear
-   *  esta categoría en la sidebar y en el título de su página de listado. */
-  color: string
-}
-
-export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
+const CATEGORY_DEFINITIONS = {
   general: {
     id: "general",
     label: "General",
@@ -366,7 +352,20 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
       "Herramientas de inteligencia artificial (IA) para programar: agentes, skills, plugins y protocolos.",
     color: "--accent-pink"
   }
+} as const satisfies Record<CategoryId, Omit<CategoryMeta, "id"> & { id: CategoryId }>
+
+export interface CategoryMeta {
+  id: CategoryId
+  label: string
+  icon: string
+  description: string
+  /** Nombre de variable CSS (definida en global.css) usada para colorear
+   *  esta categoría en la sidebar y en el título de su página de listado. */
+  color: string
 }
+
+export const CATEGORIES: Record<CategoryId, CategoryMeta> =
+  CATEGORY_DEFINITIONS
 
 /**
  * Bloques de categorías para la navegación. Cada grupo se dibuja separado
@@ -429,28 +428,7 @@ export const CATEGORY_LIST = GROUPED_CATEGORY_IDS.map((id) => CATEGORIES[id])
 /* Categorías de recursos externos                                     */
 /* ------------------------------------------------------------------ */
 
-export const RESOURCE_CATEGORY_IDS = [
-  "ui-inspiration",
-  "css",
-  "colors",
-  "gradients",
-  "glassmorphism",
-  "icons",
-  "animations",
-  "loaders",
-  "fonts",
-  "illustrations",
-  "apis",
-  "generators",
-  "accessibility",
-  "developer-tools",
-  "learning",
-  "ia"
-] as const
-
-export type ResourceCategoryId = (typeof RESOURCE_CATEGORY_IDS)[number]
-
-export const RESOURCE_CATEGORIES: Record<ResourceCategoryId, string> = {
+const RESOURCE_CATEGORY_DEFINITIONS = {
   "ui-inspiration": "UI Inspiration",
   css: "CSS",
   colors: "Colores",
@@ -467,7 +445,12 @@ export const RESOURCE_CATEGORIES: Record<ResourceCategoryId, string> = {
   "developer-tools": "Developer Tools",
   learning: "Aprendizaje",
   ia: "IA"
-}
+} as const
+
+export type ResourceCategoryId = keyof typeof RESOURCE_CATEGORY_DEFINITIONS
+export const RESOURCE_CATEGORIES: Record<ResourceCategoryId, string> =
+  RESOURCE_CATEGORY_DEFINITIONS
+export const RESOURCE_CATEGORY_IDS = keysOf(RESOURCE_CATEGORY_DEFINITIONS)
 
 export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
   id,
@@ -483,109 +466,7 @@ export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
  * Next.js), pero CATEGORY_STACK_ORDER define una curva de aprendizaje propia.
  * Los grupos vacíos se filtran en la navegación y en la página de categoría.
  */
-export const STACK_IDS = [
-  "frontend-fundamentos",
-  "config",
-  "monorepo",
-  "packages",
-  "backend-fundamentos",
-  "devops-fundamentos",
-  "ui-ux-fundamentos",
-  "skills-fundamentos",
-  "node",
-  "express",
-  "astro",
-  "html",
-  "react",
-  "nextjs",
-  "git",
-  "github",
-  "github-platform",
-  "github-actions",
-  "github-profile",
-  "repository-management",
-  "claude-code",
-  "opencode",
-  "cursor",
-  "codex",
-  "ia-comandos",
-  "ia-skills",
-  "ia-plugins",
-  "ia-mcp",
-  "docker-conceptos",
-  "docker-imagenes",
-  "docker-contenedores",
-  "docker-redes-volumenes",
-  "docker-compose",
-  "docker-bases-datos",
-  "ci-cd",
-  "observabilidad",
-  "javascript",
-  "css",
-  "typescript",
-  "utils",
-  "terminal",
-  "cli",
-  "seo",
-  "seo-tecnico",
-  "seo-contenido",
-  "database-fundamentos",
-  "database-modelado",
-  "database-sql",
-  "database-postgresql",
-  "database-nosql",
-  "database-operacion",
-  "ai-fundamentos",
-  "ai-prompts",
-  "ai-rag",
-  "ai-agentes",
-  "ai-sdk",
-  "a11y-fundamentos",
-  "a11y-contenido",
-  "a11y-interaccion",
-  "a11y-testing",
-  "performance-fundamentos",
-  "performance-carga",
-  "performance-runtime",
-  "performance-operacion",
-  "security-fundamentos",
-  "security-aplicacion",
-  "security-infra",
-  "security-testing",
-  "testing-fundamentos",
-  "testing-unitario",
-  "testing-integracion",
-  "testing-e2e",
-  "testing-ai",
-  "apps-editors",
-  "apps-terminal",
-  "apps-cli",
-  "apps-api",
-  "apps-devops",
-  "apps-design",
-  "apps-productivity",
-  "apps-comms",
-  "ui-ux-design-systems",
-  "ui-ux-interaccion",
-  "ui-css",
-  "ui-react",
-  "cloud-fundamentos",
-  "infraestructura-codigo",
-  "principios",
-  "patrones-diseno",
-  "patrones-arquitectonicos"
-] as const
-
-export type StackId = (typeof STACK_IDS)[number]
-
-export interface StackMeta {
-  id: StackId
-  label: string
-  /** Icono de marca (ver src/lib/icons.ts) */
-  icon: string
-}
-
-export const STACKS: Record<StackId, StackMeta> = {
+const STACK_DEFINITIONS = {
   "frontend-fundamentos": {
     id: "frontend-fundamentos",
     label: "Fundamentos de frontend",
@@ -932,7 +813,19 @@ export const STACKS: Record<StackId, StackMeta> = {
     label: "Patrones arquitectónicos",
     icon: "brand-patrones-arquitectonicos"
   }
+} as const
+
+export type StackId = keyof typeof STACK_DEFINITIONS
+
+export interface StackMeta {
+  id: StackId
+  label: string
+  /** Icono de marca (ver src/lib/icons.ts) */
+  icon: string
 }
+
+export const STACKS: Record<StackId, StackMeta> = STACK_DEFINITIONS
+export const STACK_IDS = keysOf(STACK_DEFINITIONS)
 
 export const STACK_LIST = STACK_IDS.map((id) => STACKS[id])
 
@@ -1047,23 +940,6 @@ export function getStacksForCategory(category: CategoryId): StackMeta[] {
 }
 
 /** Categorías que agrupan sus entradas por stack en vez de listarlas planas. */
-export const STACK_GROUPED_CATEGORIES: CategoryId[] = [
-  "general",
-  "languages",
-  "frontend",
-  "backend",
-  "database",
-  "architecture",
-  "testing",
-  "security",
-  "performance",
-  "accessibility",
-  "ui-ux",
-  "seo",
-  "ai",
-  "devops",
-  "git",
-  "terminal",
-  "applications",
-  "skills"
-]
+export const STACK_GROUPED_CATEGORIES = CATEGORY_IDS.filter(
+  (category) => CATEGORY_STACK_ORDER[category] !== undefined
+)

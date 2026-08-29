@@ -8,6 +8,72 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.9.0] — 2026-08-29
+
+Reorganización estructural de la aplicación, flujo asistido para crear
+contenido y ampliación de Git, GitHub, gestión de repositorios y GitHub
+Actions, manteniendo sin cambios la salida pública del sitio.
+
+### Añadido
+
+- Comando interactivo `pnpm content:new` para crear borradores Markdown en la
+  colección correcta, con validación de tipo, categoría, subcategoría,
+  referencias, orden y campos específicos.
+- Opción `pnpm content:new -- --list` para consultar los tipos, categorías,
+  subcategorías y categorías de recursos directamente desde la configuración
+  vigente, sin tener que leer el código.
+- Guía completa de autoría en `docs/CONTENT_GUIDE.md`, con el paso a paso para
+  crear, relacionar, publicar y organizar entradas, además de ampliar
+  categorías, stacks y colecciones.
+- Documentación de arquitectura en `docs/ARCHITECTURE.md`, centrada en el flujo
+  real de configuración, contenido, relaciones, rutas y comportamiento del
+  navegador.
+- Módulos internos para agrupar contenido por categoría, stack o tipo de
+  recurso y para preparar los datos complejos de inicio, detalle y búsqueda.
+- Componente compartido para los botones de copia usados en comandos e
+  instalaciones.
+
+### Cambiado
+
+- Git & GitHub se organizó en seis subcategorías claras: Git, GitHub,
+  Gestión de repositorios, Perfil y cuenta, GitHub CLI y GitHub Actions.
+- Se ampliaron las rutas de aprendizaje de Git, trabajo colaborativo,
+  repositorios locales y remotos, forks, pull/push, configuración comunitaria,
+  seguridad, workflows, matrices, caché, secretos, permisos y despliegues.
+- Las reglas de agrupación que estaban repetidas entre páginas de categorías,
+  tags y navegación ahora viven en un único módulo explícito.
+- Los esquemas de las 14 colecciones reutilizan un único constructor para el
+  loader y los campos base, conservando los mismos campos, defaults y errores.
+- Los IDs de tipos, stacks y categorías de recursos se derivan de sus mapas.
+  `CATEGORY_IDS` conserva su orden público histórico de forma explícita.
+- La configuración y las funciones puras de la terminal se separaron del
+  estado y renderizado de `SearchResults.tsx`.
+- Las interacciones globales del navegador se extrajeron del script inline de
+  `BaseLayout.astro` a un módulo dedicado.
+- README y guía de contribución enlazan ahora el generador y la documentación
+  de autoría.
+
+### Eliminado
+
+- Componentes internos sin consumidores: `Kbd.astro`, `ui/button.tsx` y
+  `ui/command.tsx`.
+- Dependencias directas que dejaron de ser necesarias: `cmdk`,
+  `class-variance-authority` y `@radix-ui/react-slot`.
+- Listas duplicadas de IDs cuando su orden podía derivarse sin modificar la
+  API pública.
+
+### Verificado
+
+- `pnpm check` con 0 errores y 0 warnings; permanece un único hint conocido
+  por el fallback de copia con `document.execCommand`.
+- `pnpm build` completado correctamente con 1469 páginas estáticas.
+- Los exports públicos de tipos, categorías, recursos y stacks conservan los
+  mismos valores y el mismo orden que en la versión anterior.
+- Comparación de 1470 salidas textuales sin diferencias funcionales y hash
+  idéntico para el índice de búsqueda.
+- Generador validado con catálogo, combinaciones categoría/subcategoría,
+  integraciones y creación en modo `--dry-run`.
+
 ## [0.8.0] — 2026-08-28
 
 Expansión de las guías de Base de Datos y Testing, incorporación de
@@ -475,7 +541,9 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.9.0
+[0.8.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.8.0
 [0.7.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.7.0
 [0.6.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.6.1
 [0.6.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.6.0

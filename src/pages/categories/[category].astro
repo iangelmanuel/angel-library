@@ -3,14 +3,9 @@ import DocsLayout from '@/layouts/DocsLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 import ContentCard from '@/components/content/ContentCard.astro';
 import Icon from '@/components/shared/Icon.astro';
-import {
-  CATEGORY_LIST,
-  RESOURCE_CATEGORIES,
-  STACK_GROUPED_CATEGORIES,
-  getStacksForCategory,
-  type CategoryMeta,
-} from '@/config/site';
-import { getAllEntries, sortByLearningPath } from '@/lib/content';
+import { CATEGORY_LIST, type CategoryMeta } from '@/config/site';
+import { getAllEntries } from '@/lib/content';
+import { getCategoryContent } from '@/lib/content-groups';
 
 export function getStaticPaths() {
   return CATEGORY_LIST.map((meta) => ({
@@ -24,33 +19,8 @@ interface Props {
 }
 
 const { meta } = Astro.props;
-const entries = (await getAllEntries()).filter((entry) => entry.data.category === meta.id);
-const orderedEntries = sortByLearningPath(entries);
-const resourceGroups = meta.id === 'resources'
-  ? Object.entries(RESOURCE_CATEGORIES)
-      .map(([id, label]) => ({
-        id,
-        label,
-        entries: entries.filter(
-          (entry) => entry.collection === 'resources' && entry.data.resourceCategory === id,
-        ),
-      }))
-      .filter((group) => group.entries.length > 0)
-  : [];
-const resourceIntroEntries = meta.id === 'resources'
-  ? sortByLearningPath(entries.filter((entry) => entry.collection !== 'resources'))
-  : [];
-const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
-const stackGroups = usesStackGroups
-  ? getStacksForCategory(meta.id).map((stack) => ({
-      id: stack.id,
-      label: stack.label,
-      entries: sortByLearningPath(entries.filter((entry) => entry.data.stack === stack.id)),
-    })).filter((group) => group.entries.length > 0)
-  : [];
-const ungroupedStack = usesStackGroups
-  ? sortByLearningPath(entries.filter((entry) => !entry.data.stack))
-  : [];
+const category = getCategoryContent(await getAllEntries(), meta.id);
+const { entries } = category;
 ---
 
 <DocsLayout title={meta.label} description={meta.description}>
@@ -72,20 +42,20 @@ const ungroupedStack = usesStackGroups
 
     {
       entries.length > 0 ? (
-        meta.id === 'resources' ? (
+        category.kind === 'resources' ? (
           <>
-            {resourceIntroEntries.length > 0 && (
+            {category.ungrouped.length > 0 && (
               <section class="mb-10">
                 <h2 class="section-label mb-4 flex items-center gap-2">
                   <Icon name="book-open" class="size-3.5" />
                   Guías y fundamentos
                 </h2>
                 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {resourceIntroEntries.map((entry) => <ContentCard entry={entry} />)}
+                  {category.ungrouped.map((entry) => <ContentCard entry={entry} />)}
                 </div>
               </section>
             )}
-            {resourceGroups.map((group) => (
+            {category.groups.map((group) => (
               <section class="mb-10">
                 <h2 class="section-label mb-4 flex items-center gap-2">
                   <Icon name="bookmark" class="size-3.5" />
@@ -97,9 +67,9 @@ const ungroupedStack = usesStackGroups
               </section>
             ))}
           </>
-        ) : usesStackGroups ? (
+        ) : category.kind === 'stacks' ? (
           <>
-            {stackGroups.map((group) => (
+            {category.groups.map((group) => (
               <section class="mb-10">
                 {/* Subcategoría sin icono propio: los iconos van en cada entrada (tecnología, dependencia o componente) */}
                 <h2 class="section-label mb-4">{group.label}</h2>
@@ -108,14 +78,14 @@ const ungroupedStack = usesStackGroups
                 </div>
               </section>
             ))}
-            {ungroupedStack.length > 0 && (
+            {category.ungrouped.length > 0 && (
               <section class="mb-10">
                 <h2 class="section-label mb-4 flex items-center gap-2">
                   <Icon name="book-open" class="size-3.5" />
                   Fundamentos y referencias
                 </h2>
                 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {ungroupedStack.map((entry) => <ContentCard entry={entry} />)}
+                  {category.ungrouped.map((entry) => <ContentCard entry={entry} />)}
                 </div>
               </section>
             )}
@@ -124,7 +94,7 @@ const ungroupedStack = usesStackGroups
           <section class="mb-10" aria-label={`Documentación de ${meta.label}`}>
             <h2 class="section-label mb-4">Ruta de aprendizaje</h2>
             <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {orderedEntries.map((entry) => <ContentCard entry={entry} />)}
+              {category.ungrouped.map((entry) => <ContentCard entry={entry} />)}
             </div>
           </section>
         )

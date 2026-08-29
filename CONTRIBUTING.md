@@ -21,6 +21,15 @@ Una entrada debe incluir título, descripción, categoría, tags y, cuando corre
 
 Los bloques de instalación deben escribirse una sola vez con npm, pnpm o Bun para que el sitio pueda generar las pestañas automáticamente.
 
+Usa el generador para crear un borrador válido y consultar los IDs disponibles:
+
+```bash
+pnpm content:new
+pnpm content:new -- --list
+```
+
+Consulta la [guía completa de contenido](docs/CONTENT_GUIDE.md) para elegir tipo, categoría y subcategoría, añadir referencias y ampliar la estructura editorial.
+
 ## Validación local
 
 ```bash

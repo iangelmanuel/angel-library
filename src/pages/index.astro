@@ -2,23 +2,10 @@
 import DocsLayout from "@/layouts/DocsLayout.astro"
 import ContentCard from "@/components/content/ContentCard.astro"
 import Icon from "@/components/shared/Icon.astro"
-import { CATEGORY_LIST, SITE } from "@/config/site"
-import { getAllEntries, getAllTags } from "@/lib/content"
+import { SITE } from "@/config/site"
+import { getHomePageData } from "@/lib/page-data"
 
-const all = await getAllEntries()
-
-const categories = CATEGORY_LIST.map((meta) => ({
-  ...meta,
-  count: all.filter((entry) => entry.data.category === meta.id).length
-})).filter((category) => category.count > 0)
-
-const recent = [...all]
-  .filter((entry) => entry.data.updatedAt)
-  .sort((a, b) => b.data.updatedAt!.getTime() - a.data.updatedAt!.getTime())
-  .slice(0, 6)
-
-const tags = getAllTags(all)
-const topTags = tags.slice(0, 16)
+const { entries, categories, recent, tags, topTags } = await getHomePageData()
 ---
 
 <DocsLayout>
@@ -53,7 +40,7 @@ const topTags = tags.slice(0, 16)
         </button>
 
         <dl class="library-stats">
-          <div><dt>docs</dt><dd>{all.length}</dd></div>
+          <div><dt>docs</dt><dd>{entries.length}</dd></div>
           <div><dt>categorías</dt><dd>{categories.length}</dd></div>
           <div><dt>tags</dt><dd>{tags.length}</dd></div>
           <div><dt>build</dt><dd class="text-[var(--accent-green)]">static</dd></div>

@@ -1,5 +1,6 @@
 ---
 import Icon from '@/components/shared/Icon.astro';
+import CopyButton from '@/components/shared/CopyButton.astro';
 import {
   CONTENT_TYPES,
   RESOURCE_CATEGORIES,
@@ -120,30 +121,7 @@ const showLanguage =
           <div class="code-block mt-0">
             <div class="code-block__header">
               <span class="code-block__label">terminal</span>
-              <button
-                type="button"
-                class="code-block__copy"
-                data-copy
-                aria-label="Copiar comando"
-                title="Copiar comando"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-                </svg>
-                <span data-copy-label>copiar</span>
-              </button>
+              <CopyButton label="Copiar comando" />
             </div>
             <pre class="command-line"><code>{data.command as string}</code></pre>
           </div>
@@ -177,30 +155,7 @@ const showLanguage =
               <button type="button" class="code-block__pm-tab" data-pm-tab="bun">bun</button>
               <button type="button" class="code-block__pm-tab" data-pm-tab="npm">npm</button>
             </div>
-            <button
-              type="button"
-              class="code-block__copy"
-              data-copy
-              aria-label="Copiar comando de instalación"
-              title="Copiar comando de instalación"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-              </svg>
-              <span data-copy-label>copiar</span>
-            </button>
+            <CopyButton label="Copiar comando de instalación" />
           </div>
           <pre class="command-line" data-pm="pnpm"><code>{installTabs.pnpm}</code></pre>
           <pre class="command-line" data-pm="bun" hidden><code>{installTabs.bun}</code></pre>
@@ -212,30 +167,7 @@ const showLanguage =
         <div class="code-block mt-0">
           <div class="code-block__header">
             <span class="code-block__label">instalación</span>
-            <button
-              type="button"
-              class="code-block__copy"
-              data-copy
-              aria-label="Copiar comando de instalación"
-              title="Copiar comando de instalación"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-              </svg>
-              <span data-copy-label>copiar</span>
-            </button>
+            <CopyButton label="Copiar comando de instalación" />
           </div>
           <pre class="command-line"><code>{data.install as string}</code></pre>
         </div>

@@ -2,16 +2,14 @@ import {
   CATEGORIES,
   CATEGORY_GROUPS,
   CONTENT_TYPES,
-  RESOURCE_CATEGORY_LIST,
-  STACK_GROUPED_CATEGORIES,
   STACKS,
-  getStacksForCategory,
   type CategoryId,
   type ContentTypeId,
   type ResourceCategoryId,
   type StackId,
 } from '@/config/site';
 import { getEntryUrl, sortByLearningPath, type AnyEntry } from './content';
+import { getCategoryContent } from './content-groups';
 
 /**
  * Datos de navegación para la sidebar (Astro) y el menú móvil (isla React).
@@ -94,38 +92,24 @@ function toNavItems(entries: AnyEntry[]): NavItem[] {
 export function buildNavData(all: AnyEntry[]): NavData {
   const buildCategory = (id: CategoryId): NavCategory => {
     const meta = CATEGORIES[id];
-    const entries = all.filter((entry) => entry.data.category === meta.id);
-    const isResources = meta.id === 'resources';
-    const usesStackGroups = STACK_GROUPED_CATEGORIES.includes(meta.id);
+    const content = getCategoryContent(all, id);
 
-    const resourceGroups = isResources
-      ? RESOURCE_CATEGORY_LIST.map((resourceCategory) => ({
-          ...resourceCategory,
-          items: toNavItems(
-            entries.filter(
-              (entry) => entry.collection === 'resources' && entry.data.resourceCategory === resourceCategory.id,
-            ),
-          ),
-        })).filter((group) => group.items.length > 0)
+    const resourceGroups = content.kind === 'resources'
+      ? content.groups.map(({ id, label, entries }) => ({
+          id,
+          label,
+          items: toNavItems(entries),
+        }))
       : undefined;
 
-    const stackGroups = usesStackGroups
-      ? getStacksForCategory(meta.id).map((stack) => ({
-          id: stack.id,
-          label: stack.label,
-          items: toNavItems(entries.filter((entry) => (entry.data as { stack?: StackId }).stack === stack.id)),
-        })).filter((group) => group.items.length > 0)
+    const stackGroups = content.kind === 'stacks'
+      ? content.groups.map(({ id, label, entries }) => ({
+          id,
+          label,
+          items: toNavItems(entries),
+        }))
       : undefined;
-
-    // Lo que ya quedó agrupado (por recurso o por stack) no se repite en el listado plano.
-    const ungrouped = entries.filter((entry) => {
-      // Los enlaces externos se agrupan por tipo de recurso. Las guías
-      // editoriales de la categoría permanecen visibles antes de esos grupos.
-      if (isResources) return entry.collection !== 'resources';
-      if (usesStackGroups) return !(entry.data as { stack?: StackId }).stack;
-      return true;
-    });
-    const items = toNavItems(ungrouped);
+    const items = toNavItems(content.ungrouped);
 
     return { ...meta, items, resourceGroups, stackGroups };
   };

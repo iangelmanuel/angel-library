@@ -3,28 +3,19 @@ import DocsLayout from "@/layouts/DocsLayout.astro"
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
 import ContentCard from "@/components/content/ContentCard.astro"
 import Icon from "@/components/shared/Icon.astro"
-import { CATEGORY_LIST } from "@/config/site"
-import {
-  getAllEntries,
-  getAllTags,
-  getEntriesByTag,
-  sortByLearningPath
-} from "@/lib/content"
+import { getAllEntries, getAllTags, getEntriesByTag } from "@/lib/content"
+import { groupEntriesByCategory } from "@/lib/content-groups"
 
 export async function getStaticPaths() {
-  const all = await getAllEntries()
-  return getAllTags(all).map(({ tag, count }) => ({
+  return getAllTags(await getAllEntries()).map(({ tag, count }) => ({
     params: { tag },
     props: { tag, count }
   }))
 }
 
 const { tag, count } = Astro.props
-const taggedEntries = getEntriesByTag(await getAllEntries(), tag)
-const groups = CATEGORY_LIST.map((meta) => ({
-  meta,
-  entries: sortByLearningPath(taggedEntries.filter((entry) => entry.data.category === meta.id))
-})).filter((group) => group.entries.length > 0)
+const entries = getEntriesByTag(await getAllEntries(), tag)
+const groups = groupEntriesByCategory(entries)
 ---
 
 <DocsLayout

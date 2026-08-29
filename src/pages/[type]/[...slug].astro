@@ -11,18 +11,9 @@ import TagList from '@/components/content/TagList.astro';
 import EntryMeta from '@/components/content/EntryMeta.astro';
 import RelationSection from '@/components/content/RelationSection.astro';
 import Icon from '@/components/shared/Icon.astro';
-import {
-  CATEGORIES,
-  type CategoryId,
-  type ContentTypeId,
-} from '@/config/site';
-import {
-  buildEntryMap,
-  formatDate,
-  getAllEntries,
-  sortByLearningPath,
-} from '@/lib/content';
-import { getRelated, validateContentRelations } from '@/lib/relations';
+import { type ContentTypeId } from '@/config/site';
+import { formatDate } from '@/lib/content';
+import { getEntryPageData, getEntryPathData } from '@/lib/page-data';
 
 /**
  * Ruta dinámica única para TODAS las entradas de la biblioteca.
@@ -30,11 +21,7 @@ import { getRelated, validateContentRelations } from '@/lib/relations';
  * automáticamente, sin tocar rutas ni componentes.
  */
 export async function getStaticPaths() {
-  const all = await getAllEntries(true);
-  // Integridad referencial: el build falla aquí si hay ids duplicados
-  // o referencias a entradas inexistentes.
-  validateContentRelations(all);
-  return all.map((entry) => ({
+  return (await getEntryPathData()).map((entry) => ({
     params: { type: entry.collection, slug: entry.id },
     props: { entry },
   }));
@@ -42,30 +29,15 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
 const { Content, headings } = await render(entry);
-
-const all = await getAllEntries(true);
-const entryMap = buildEntryMap(all);
-const related = getRelated(entry, all, entryMap);
-
-const categoryMeta = CATEGORIES[entry.data.category as CategoryId];
-
-const currentStack = (entry.data as { stack?: string }).stack;
-const siblings = sortByLearningPath(
-  all.filter((item) => {
-    if (item.data.category !== entry.data.category) return false;
-    return (item.data as { stack?: string }).stack === currentStack;
-  }),
-);
-const index = siblings.findIndex((item) => item.id === entry.id);
-const prev = index > 0 ? siblings[index - 1] : undefined;
-const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;
-
-const relatedExplicit = [...related.explicit, ...related.backlinks];
-
-// Detecta bloques de código con nombre de archivo (```ts title="lib/dom.ts")
-// en el markdown crudo, para mostrar el botón "copiar código completo"
-// solo cuando hay algo real que copiar.
-const hasNamedCodeBlocks = /```[^\n]*\btitle=["']/.test(entry.body ?? '');
+const {
+  entryMap,
+  related,
+  relatedExplicit,
+  categoryMeta,
+  prev,
+  next,
+  hasNamedCodeBlocks,
+} = await getEntryPageData(entry);
 ---
 
 <DocsLayout title={entry.data.title} description={entry.data.description}>
