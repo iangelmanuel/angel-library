@@ -104,13 +104,11 @@ export default function MobileNav({ data }: { data: NavData }) {
                 className="nav-group"
               >
                 {group.categories.map((category) => {
-                  const subgroups =
-                    category.resourceGroups ?? category.stackGroups ?? []
-                  const groupedItems = [
-                    ...subgroups.flatMap((sub) => sub.items),
+                  const allItems = [
+                    ...category.groups.flatMap((group) => group.items),
                     ...category.items
                   ]
-                  const containsActive = groupedItems.some((item) =>
+                  const containsActive = allItems.some((item) =>
                     isActive(item.url)
                   )
 
@@ -137,7 +135,7 @@ export default function MobileNav({ data }: { data: NavData }) {
                       </summary>
 
                       <div className="nav-children">
-                        {subgroups.map((sub) => (
+                        {category.groups.map((sub) => (
                           <details
                             key={sub.id}
                             className="nav-sub"

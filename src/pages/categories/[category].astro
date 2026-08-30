@@ -1,39 +1,46 @@
 ---
-import DocsLayout from '@/layouts/DocsLayout.astro';
-import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import ContentCard from '@/components/content/ContentCard.astro';
-import Icon from '@/components/shared/Icon.astro';
-import { CATEGORY_LIST, type CategoryMeta } from '@/config/site';
-import { getAllEntries } from '@/lib/content';
-import { getCategoryContent } from '@/lib/content-groups';
+import DocsLayout from "@/layouts/DocsLayout.astro"
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
+import ContentCard from "@/components/content/ContentCard.astro"
+import Icon from "@/components/shared/Icon.astro"
+import { CATEGORY_LIST, type CategoryMeta } from "@/config/site"
+import { getAllEntries, getCategorySections } from "@/lib/content"
 
 export function getStaticPaths() {
   return CATEGORY_LIST.map((meta) => ({
     params: { category: meta.id },
-    props: { meta },
-  }));
+    props: { meta }
+  }))
 }
 
 interface Props {
-  meta: CategoryMeta;
+  meta: CategoryMeta
 }
 
-const { meta } = Astro.props;
-const category = getCategoryContent(await getAllEntries(), meta.id);
-const { entries } = category;
+const { meta } = Astro.props
+const { entries, sections } = getCategorySections(await getAllEntries(), meta.id)
 ---
 
-<DocsLayout title={meta.label} description={meta.description}>
-  <div class:list={['mx-auto w-full max-w-4xl', `category-${meta.id}`]}>
+<DocsLayout
+  title={meta.label}
+  description={meta.description}
+>
+  <div class:list={["mx-auto w-full max-w-4xl", `category-${meta.id}`]}>
     <Breadcrumbs
-      items={[{ label: 'inicio', href: '/' }, { label: meta.label.toLowerCase(), segment: meta.id }]}
+      items={[
+        { label: "inicio", href: "/" },
+        { label: meta.label.toLowerCase(), segment: meta.id }
+      ]}
     />
 
     <header class="mb-8 border-b border-border pb-8">
       <div class="mb-4 flex items-center gap-2 text-muted-foreground">
-        <Icon name={meta.icon} class="size-4" />
+        <Icon
+          name={meta.icon}
+          class="size-4"
+        />
         <span class="font-pixel text-[0.62rem] uppercase tracking-wider">
-          {entries.length} entrada{entries.length === 1 ? '' : 's'}
+          {entries.length} entrada{entries.length === 1 ? "" : "s"}
         </span>
       </div>
       <h1 class="font-pixel text-2xl md:text-3xl">{meta.label}</h1>
@@ -42,62 +49,27 @@ const { entries } = category;
 
     {
       entries.length > 0 ? (
-        category.kind === 'resources' ? (
-          <>
-            {category.ungrouped.length > 0 && (
-              <section class="mb-10">
-                <h2 class="section-label mb-4 flex items-center gap-2">
-                  <Icon name="book-open" class="size-3.5" />
-                  Guías y fundamentos
-                </h2>
-                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {category.ungrouped.map((entry) => <ContentCard entry={entry} />)}
-                </div>
-              </section>
-            )}
-            {category.groups.map((group) => (
-              <section class="mb-10">
-                <h2 class="section-label mb-4 flex items-center gap-2">
-                  <Icon name="bookmark" class="size-3.5" />
-                  {group.label}
-                </h2>
-                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.entries.map((entry) => <ContentCard entry={entry} />)}
-                </div>
-              </section>
-            ))}
-          </>
-        ) : category.kind === 'stacks' ? (
-          <>
-            {category.groups.map((group) => (
-              <section class="mb-10">
-                {/* Subcategoría sin icono propio: los iconos van en cada entrada (tecnología, dependencia o componente) */}
-                <h2 class="section-label mb-4">{group.label}</h2>
-                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.entries.map((entry) => <ContentCard entry={entry} />)}
-                </div>
-              </section>
-            ))}
-            {category.ungrouped.length > 0 && (
-              <section class="mb-10">
-                <h2 class="section-label mb-4 flex items-center gap-2">
-                  <Icon name="book-open" class="size-3.5" />
-                  Fundamentos y referencias
-                </h2>
-                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {category.ungrouped.map((entry) => <ContentCard entry={entry} />)}
-                </div>
-              </section>
-            )}
-          </>
-        ) : (
-          <section class="mb-10" aria-label={`Documentación de ${meta.label}`}>
-            <h2 class="section-label mb-4">Ruta de aprendizaje</h2>
+        sections.map((section) => (
+          <section
+            class="mb-10"
+            aria-label={section.label}
+          >
+            <h2
+              class:list={[
+                "section-label mb-4",
+                section.icon && "flex items-center gap-2"
+              ]}
+            >
+              {section.icon && <Icon name={section.icon} class="size-3.5" />}
+              {section.label}
+            </h2>
             <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {category.ungrouped.map((entry) => <ContentCard entry={entry} />)}
+              {section.entries.map((entry) => (
+                <ContentCard entry={entry} />
+              ))}
             </div>
           </section>
-        )
+        ))
       ) : (
         <p class="border border-dashed border-border px-4 py-10 text-center font-mono text-xs text-muted-foreground">
           aún no hay contenido en esta categoría

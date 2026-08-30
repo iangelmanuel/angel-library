@@ -21,8 +21,6 @@ pnpm dev
 Comandos útiles:
 
 ```bash
-pnpm content:new       # crea una entrada mediante un asistente
-pnpm content:new -- --list # muestra tipos, categorías y subcategorías
 pnpm check             # valida Astro, TypeScript y Content Collections
 pnpm build             # genera el sitio estático de producción
 pnpm preview           # sirve la salida generada localmente
@@ -30,7 +28,7 @@ pnpm preview           # sirve la salida generada localmente
 
 El contenido vive en `src/content/`. La navegación, categorías, iconos y orden editorial se centralizan en `src/config/site.ts`. El sitio genera las rutas y los índices automáticamente.
 
-La [guía para añadir contenido](docs/CONTENT_GUIDE.md) explica paso a paso cómo elegir colección, categoría y subcategoría; cómo crear borradores; cómo relacionar entradas; y cómo ampliar la estructura editorial sin mantener listas duplicadas. La [documentación de arquitectura](docs/ARCHITECTURE.md) describe el flujo interno.
+Para añadir una entrada basta con crear un `.md` en `src/content/<colección>/`. La [guía para añadir contenido](docs/CONTENT_GUIDE.md) explica el frontmatter de cada colección, cómo relacionar entradas y cómo ampliar la estructura editorial. La [documentación de arquitectura](docs/ARCHITECTURE.md) describe el flujo interno.
 
 ## Convenciones rápidas
 

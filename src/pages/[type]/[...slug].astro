@@ -11,17 +11,24 @@ import TagList from '@/components/content/TagList.astro';
 import EntryMeta from '@/components/content/EntryMeta.astro';
 import RelationSection from '@/components/content/RelationSection.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { type ContentTypeId } from '@/config/site';
-import { formatDate } from '@/lib/content';
-import { getEntryPageData, getEntryPathData } from '@/lib/page-data';
+import { CATEGORIES, type ContentTypeId } from '@/config/site';
+import {
+  buildEntryMap,
+  formatDate,
+  getAllEntries,
+  sortByLearningPath,
+} from '@/lib/content';
+import { getRelated, validateContentRelations } from '@/lib/relations';
 
 /**
- * Ruta dinámica única para TODAS las entradas de la biblioteca.
- * Añadir un archivo .md a cualquier colección genera su página
- * automáticamente, sin tocar rutas ni componentes.
+ * Ruta única para TODAS las entradas: añadir un .md a cualquier colección
+ * genera su página, sin tocar rutas ni componentes.
  */
 export async function getStaticPaths() {
-  return (await getEntryPathData()).map((entry) => ({
+  const entries = await getAllEntries(true);
+  validateContentRelations(entries);
+
+  return entries.map((entry) => ({
     params: { type: entry.collection, slug: entry.id },
     props: { entry },
   }));
@@ -29,15 +36,24 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
 const { Content, headings } = await render(entry);
-const {
-  entryMap,
-  related,
-  relatedExplicit,
-  categoryMeta,
-  prev,
-  next,
-  hasNamedCodeBlocks,
-} = await getEntryPageData(entry);
+
+const entries = await getAllEntries(true);
+const entryMap = buildEntryMap(entries);
+const related = getRelated(entry, entries, entryMap);
+const relatedExplicit = [...related.explicit, ...related.backlinks];
+const categoryMeta = CATEGORIES[entry.data.category];
+const hasNamedCodeBlocks = /```[^\n]*\btitle=["']/.test(entry.body ?? '');
+
+// Anterior y siguiente dentro de la misma categoría y subcategoría.
+const siblings = sortByLearningPath(
+  entries.filter(
+    (item) =>
+      item.data.category === entry.data.category && item.data.stack === entry.data.stack,
+  ),
+);
+const index = siblings.findIndex((item) => item.id === entry.id);
+const prev = index > 0 ? siblings[index - 1] : undefined;
+const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;
 ---
 
 <DocsLayout title={entry.data.title} description={entry.data.description}>

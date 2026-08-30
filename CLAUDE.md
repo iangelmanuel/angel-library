@@ -34,9 +34,13 @@ UI text, comments, frontmatter values and content are **in Spanish**. Match that
 
 Content types, knowledge categories, and resource categories are declared as `as const` arrays + metadata records. Everything derives from them: Zod enums in `src/content.config.ts`, sidebar/nav (`src/lib/nav.ts`), routes, command palette, badges.
 
-Adding a content type = add id to `CONTENT_TYPE_IDS`, add its `CONTENT_TYPES` entry, add a `defineCollection` in `content.config.ts`, add its `CollectionEntry<...>` to the `AnyEntry` union in `src/lib/content.ts`, create `src/content/<id>/`. No route or component changes needed.
+Ids are the keys of those maps — `CONTENT_TYPE_IDS`, `CATEGORY_IDS`, `STACK_IDS` are derived, never hand-written lists.
 
-Adding a category = add to `CATEGORY_IDS` + `CATEGORIES` only.
+Adding a content type = add its `CONTENT_TYPE_DEFINITIONS` entry, add a `defineCollection` in `content.config.ts`, add its `CollectionEntry<...>` to the `AnyEntry` union in `src/lib/content.ts`, create `src/content/<id>/`. No route or component changes needed.
+
+Adding a category = add its `CATEGORY_DEFINITIONS` entry + place its id in `CATEGORY_GROUPS` (the build throws if you forget).
+
+Adding a stack = add `id: "Label"` to `STACK_LABELS` + place it in `CATEGORY_STACK_ORDER`. Its icon is `brand-<id>` unless listed in `STACK_ICONS`.
 
 ### Routing
 
@@ -60,26 +64,32 @@ Frontmatter references are **namespaced ids**: `collection/id` (e.g. `technologi
 
 ### Search
 
-Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 1200 chars via `stripMarkdown`). The client fetches it **once per session** (`src/lib/search.ts` module-level cache, survives view transitions) and runs Fuse.js locally. Both `CommandPalette.tsx` and `SearchResults.tsx` consume the same index.
+Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 1200 chars via `stripMarkdown`). The client fetches it **once per session** (`src/lib/search.ts` module-level cache, survives view transitions) and runs Fuse.js locally. `useSearchIndex` in the terminal feature is the only consumer.
 
-### Icons — two systems, keep both in sync
+### Icons — one table, two renderers
 
-- Astro components: `<Icon name="git-branch" />` → `src/lib/icons.ts` reads the SVG from `node_modules/lucide-static/icons/<name>.svg` at build. Unknown name = build error. Zero client JS.
-- React islands: `DynamicIcon` in `src/components/shared/DynamicIcon.tsx` uses an **explicit hand-maintained map** of `lucide-react` imports, falling back to `FileText`. Any icon name added to `site.ts` must also be registered there, or islands silently render the wrong icon.
+`src/config/icons.ts` is the single source: `BRAND_ICONS` (own logos/glyphs, stored as `viewBox` + `fill` + inner SVG `body`) and `RECOLORED_ICONS` (a lucide icon painted a fixed color).
+
+- Astro: `<Icon name="git-branch" />` → `src/lib/icons.ts` builds the SVG at build time, reading plain lucide names from `node_modules/lucide-static`. Unknown name = build error. Zero client JS.
+- React islands: `DynamicIcon` reads the same table; it only keeps a `LUCIDE` import map because `lucide-react` cannot be imported by name at runtime. A brand or recolored icon added to `icons.ts` works in both without further edits.
 
 ### Markdown pipeline
 
 `astro.config.mjs` wires Shiki (`github-dark-default`) with:
 - `src/lib/shiki-transformers.mjs` — `transformerCodeFilename()` reads ` ```ts title="src/app.ts" ` into `data-filename`.
-- `src/lib/rehype-code-blocks.mjs` — rehype plugin wrapping each `<pre>` in `.code-block` with a header (label + copy button). The copy button carries **no inline JS**; a single delegated `click` listener in `BaseLayout.astro` handles `[data-copy]` globally.
+- `src/lib/rehype-code-blocks.mjs` — rehype plugin wrapping each `<pre>` in `.code-block` with a header (label + copy button), and merging the pnpm/bun/npm triples produced by `remark-pm-tabs.mjs` into one tabbed block. The copy button carries **no inline JS**; a single delegated `click` listener in `src/scripts/site-interactions.ts` handles `[data-copy]` globally.
 
 `EntryMeta.astro` hand-duplicates that copy-button markup for `command` / `install` frontmatter fields — change one, change the other.
 
 ### Client-side interactivity
 
-`BaseLayout.astro` holds all global scripts, wired via `CustomEvent` to the React islands so the islands stay decoupled: `angel:open-search`, `angel:toggle-search`, `angel:toggle-nav`. Also Ctrl/Cmd+K and `/` shortcuts, and `astro:after-swap` → `syncSidebarState()` (needed because the sidebar uses `transition:persist` and doesn't re-render on navigation).
+`src/scripts/site-interactions.ts` (loaded once from `BaseLayout.astro`) holds all global scripts, wired via `CustomEvent` to the React islands so the islands stay decoupled: `angel:open-search`, `angel:toggle-search`, `angel:toggle-nav`. Also Ctrl/Cmd+K and `/` shortcuts, and `astro:after-swap` → `syncSidebarState()` (needed because the sidebar uses `transition:persist` and doesn't re-render on navigation).
 
-React is used only for `CommandPalette`, `MobileNav`, `SearchResults`, and the shadcn `ui/` primitives. Everything else is `.astro`.
+React is used only for the terminal (`src/features/terminal/`), `MobileNav`, and the shadcn `ui/` primitives. Everything else is `.astro`.
+
+### The terminal — `src/features/terminal/`
+
+Self-contained feature behind `/search` and Ctrl/Cmd+K: `components/` renders, `hooks/` holds the state (search index, output, history, appearance), `commands/` has one file per family, `data/` the long texts. A command is `{ description?, args?, aliases?, run(ctx) }` in its family's map; `TerminalContext` (`commands/types.ts`) is the only thing a command may touch. Commands with a `description` must be listed in `PUBLIC_COMMANDS` (`commands/index.ts`) — that array is the autocomplete order and the module throws at load if it drifts. Its README documents the flow.
 
 ### Styling
 
@@ -92,6 +102,8 @@ shadcn/ui is configured (`components.json`, new-york, zinc); new primitives land
 Each collection has its own schema on top of a shared base (`title`, `description`, `category`, `tags`, `related`, `draft`, `private`, `updatedAt`). Read `src/content.config.ts` before adding frontmatter — e.g. `commands` require `command`, `resources` require `url` + `resourceCategory`, `integrations` require ≥2 `technologies`. Use `private: true` for personal command/configuration entries: they retain their generated detail route but stay out of public navigation, listings, tags, and search.
 
 `draft: true` entries render in dev and are excluded from production builds (`getAllEntries()`).
+
+There is no content generator script: add a `.md` to a collection folder and copy the frontmatter of a similar entry. `docs/CONTENT_GUIDE.md` has ready-to-copy templates.
 
 ## Notes
 

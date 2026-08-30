@@ -2,7 +2,7 @@
 import "@/styles/global.css"
 import { ClientRouter } from "astro:transitions"
 import { getImage } from "astro:assets"
-import CommandPalette from "@/components/search/CommandPalette"
+import { TerminalDialog } from "@/features/terminal"
 import { SITE } from "@/config/site"
 import logo from "@/assets/logo/angel-library-logo.webp"
 
@@ -59,7 +59,7 @@ const favicon = await getImage({ src: logo, width: 64, height: 64, format: "webp
 
     <slot />
 
-    <CommandPalette
+    <TerminalDialog
       client:only="react"
       transition:persist="command-palette"
     />

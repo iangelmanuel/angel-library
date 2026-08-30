@@ -1,27 +1,17 @@
 # Guía para añadir contenido
 
-Esta guía explica el modelo editorial sin necesidad de conocer la implementación de Astro. La forma recomendada de crear una entrada es usar el generador:
+Añadir una entrada son tres pasos: crear un `.md` dentro de una colección, escribir el frontmatter y ejecutar `pnpm build`. No hay que tocar rutas ni componentes: `src/pages/[type]/[...slug].astro` descubre el archivo solo.
 
 ```bash
-pnpm content:new
-```
-
-El asistente pregunta lo obligatorio, muestra las opciones válidas y crea un borrador en la colección correcta. Para consultar todo el catálogo sin abrir el código:
-
-```bash
-pnpm content:new -- --list
+pnpm build
 ```
 
 ## El modelo en cuatro conceptos
 
-Cada entrada tiene una ubicación editorial formada por estas piezas:
-
-1. **Tipo de contenido o colección:** indica qué clase de documento es y determina la carpeta y la URL. Ejemplos: `guides`, `commands`, `recipes`.
-2. **Categoría:** indica el área principal de conocimiento. Ejemplos: `frontend`, `git`, `security`.
-3. **Subcategoría o stack:** organiza una categoría en temas más pequeños y ordenados. Ejemplos dentro de `git`: `git`, `github-platform`, `repository-management`, `github-actions`.
-4. **Tags:** conectan temas transversalmente. No definen la ubicación ni el orden de la entrada.
-
-Por ejemplo:
+1. **Colección (tipo de contenido):** la carpeta dentro de `src/content/`. Decide la URL: `src/content/guides/prettier.md` → `/guides/prettier`.
+2. **Categoría:** el área de conocimiento. Decide en qué página de `/categories/` aparece.
+3. **Stack (subcategoría):** agrupa la categoría en temas. Opcional.
+4. **Tags:** conectan temas entre categorías. No afectan a la ubicación.
 
 ```yaml
 category: git
@@ -29,270 +19,188 @@ stack: github-actions
 tags: [github, github-actions, ci-cd]
 ```
 
-Esta entrada aparecerá en la categoría **Git & GitHub**, dentro de **GitHub Actions**. Su prefijo de URL dependerá de la colección donde se creó; si está en `src/content/guides/`, la URL será `/guides/<slug>/`.
+Esa entrada sale en la categoría **Git & GitHub**, dentro del grupo **GitHub Actions**.
 
-## Flujo recomendado
+El catálogo válido de categorías, stacks y categorías de recurso está en `src/config/site.ts`. Si escribes un id que no existe, `pnpm build` falla y te dice cuál es.
 
-### 1. Decide el tipo de contenido
+## Frontmatter base
 
-Usa esta regla práctica:
-
-| Tipo | Carpeta | Úsalo para | Campos propios más importantes |
-| --- | --- | --- | --- |
-| Tecnología | `technologies` | Fundamento de una tecnología o lenguaje | `website`, `github` |
-| Librería | `libraries` | API e instalación de un paquete reutilizable | `install`, `technologies`, `website`, `github` |
-| Integración | `integrations` | Cómo combinar dos o más tecnologías | `technologies` con mínimo 2 referencias |
-| Receta | `recipes` | Solución completa y repetible a un problema | `problem`, `technologies` |
-| Snippet | `snippets` | Fragmento corto de código | `language` |
-| Hook | `hooks` | Hook reutilizable | `framework`, `language`, `parameters`, `returns` |
-| Utility | `utilities` | Función auxiliar pequeña | `runtime`, `language` |
-| Recurso | `resources` | Enlace externo recomendado | `url`, `resourceCategory`, `official` |
-| Skill | `skills` | Flujo o capacidad de una herramienta de IA | `tool` |
-| Comando | `commands` | Comando de terminal y sus riesgos | `command`, `whenToUse`, `warnings` |
-| Patrón | `patterns` | Solución estructural reutilizable | `problem` |
-| Buena práctica | `practices` | Regla de calidad o mantenimiento | `practice`, `why` |
-| Guía | `guides` | Explicación práctica con varios pasos | `scope`, `technologies`, `libraries` |
-| Truco | `tricks` | Atajo o solución puntual | `problem` |
-
-Si la explicación enseña un proceso, normalmente es una `guide`. Si resuelve un caso concreto con una solución lista para adaptar, suele ser una `recipe`. Si solo conserva una orden de terminal, usa `commands`.
-
-### 2. Consulta las categorías disponibles
-
-```bash
-pnpm content:new -- --list
-```
-
-El listado sale directamente de `src/config/site.ts`, así que siempre coincide con lo que entiende el sitio. Las subcategorías se muestran debajo de su categoría válida.
-
-### 3. Genera el borrador
-
-Ejecuta el asistente interactivo:
-
-```bash
-pnpm content:new
-```
-
-También puedes crear la entrada con un solo comando:
-
-```bash
-pnpm content:new -- \
-  --type guides \
-  --slug ejecutar-workflow-manualmente \
-  --title "Ejecutar un workflow manualmente" \
-  --description "Cómo configurar y lanzar workflow_dispatch desde GitHub." \
-  --category git \
-  --stack github-actions \
-  --tags github,github-actions,ci-cd
-```
-
-El archivo se crea con `draft: true`. Esto permite revisarlo en desarrollo sin publicarlo en la compilación de producción.
-
-Opciones comunes:
-
-```text
---type                 colección
---slug                 nombre o ruta sin .md
---title                título visible
---description          resumen breve
---category             área principal
---stack                subcategoría
---order                 orden manual dentro de la subcategoría
---tags                  lista separada por comas
---related               referencias separadas por comas
---publish               crea con draft: false
---private               excluye de navegación, tags y búsqueda
---dry-run               muestra el resultado sin escribir
-```
-
-El generador valida los IDs, comprueba que la subcategoría pertenezca a la categoría, crea subcarpetas cuando hacen falta y nunca sobrescribe un archivo existente.
-
-### 4. Completa el Markdown
-
-El cuerpo debe explicar primero el concepto y después incluir pasos, ejemplos, resultado esperado, caso de uso y errores frecuentes cuando apliquen.
-
-Las referencias usan siempre el formato `colección/id`:
+Todas las colecciones aceptan estos campos (definidos en `src/content.config.ts`):
 
 ```yaml
-related:
-  - guides/git/flujo-de-trabajo
-  - commands/git-pull
-technologies:
-  - technologies/react
+---
+title: "Título visible"
+description: "Una frase que explique de qué va."
+category: git # obligatorio, id de CATEGORIES
+stack: github-actions # opcional, id de CATEGORY_STACK_ORDER[category]
+order: 20 # opcional, orden manual dentro del stack
+tags: [github, ci-cd]
+related: ["commands/git-pull"] # referencias "colección/id"
+draft: false # true = solo visible en pnpm dev
+private: false # true = con URL propia, fuera de nav/tags/búsqueda
+updatedAt: 2026-08-30
+---
 ```
 
-Para recursos anidados, el ID incluye las subcarpetas. No uses un nombre sin colección como `react`, porque el build lo considera ambiguo.
+Las referencias (`related`, `technologies`, `libraries`) siempre llevan la colección delante: `technologies/react`, no `react`. En `resources`, que usa subcarpetas, el id las incluye: `resources/design/uiverse`.
 
-### 5. Revisa y publica
+## Campos propios por colección
 
-```bash
-pnpm check
-pnpm build
-```
+| Colección | Úsala para | Campos propios |
+| --- | --- | --- |
+| `technologies` | Fundamento de una tecnología o lenguaje | `website`, `github` |
+| `libraries` | API e instalación de un paquete | `install`, `technologies`, `website`, `github` |
+| `integrations` | Combinar dos o más tecnologías | `technologies` (mínimo 2) |
+| `recipes` | Solución completa a un problema | `problem`, `technologies` |
+| `snippets` | Fragmento corto de código | `language` |
+| `hooks` | Hook reutilizable | `framework`, `language`, `parameters`, `returns` |
+| `utilities` | Función auxiliar pequeña | `runtime`, `language` |
+| `resources` | Enlace externo recomendado | `url`, `resourceCategory`, `official` |
+| `skills` | Flujo de una herramienta de IA | `tool` |
+| `commands` | Comando de terminal y sus riesgos | `command`, `whenToUse`, `warnings` |
+| `patterns` | Solución estructural reutilizable | `problem` |
+| `practices` | Regla de calidad o mantenimiento | `practice`, `why` |
+| `guides` | Explicación práctica con varios pasos | `scope`, `technologies`, `libraries`, `website`, `github` |
+| `tricks` | Atajo o solución puntual | `problem` |
 
-`pnpm check` valida Astro, TypeScript y el frontmatter. `pnpm build` es la comprobación definitiva: valida referencias y genera todas las páginas estáticas.
+Si enseña un proceso, suele ser `guides`. Si resuelve un caso concreto con código listo para adaptar, `recipes`. Si solo guarda una orden de terminal, `commands`.
 
-Cuando el documento esté listo, cambia:
+## Plantillas listas para copiar
+
+### Guía dentro de un stack
+
+`src/content/guides/github-actions-variables-y-secrets.md`
 
 ```yaml
-draft: false
+---
+title: "Variables y secrets en GitHub Actions"
+description: "Cómo definir, limitar y consumir configuración segura en workflows."
+category: git
+stack: github-actions
+order: 20
+tags: [github-actions, secrets, ci-cd]
+updatedAt: 2026-08-30
+---
 ```
 
-También puedes crear una entrada publicada desde el inicio añadiendo `--publish` al generador.
-
-## Ejemplos frecuentes
-
-### Guía dentro de una categoría y subcategoría
-
-```bash
-pnpm content:new -- \
-  --type guides \
-  --slug github-actions/variables-y-secrets \
-  --title "Variables y secrets en GitHub Actions" \
-  --description "Cómo definir, limitar y consumir configuración segura en workflows." \
-  --category git \
-  --stack github-actions \
-  --order 20 \
-  --tags github-actions,secrets,ci-cd
-```
-
-### Contenido general sin subcategoría
-
-Omite `--stack`. La entrada aparecerá antes de los grupos de subcategorías como contenido introductorio:
-
-```bash
-pnpm content:new -- \
-  --type guides \
-  --slug conceptos-de-control-de-versiones \
-  --title "Conceptos de control de versiones" \
-  --description "Modelo mental antes de aprender comandos de Git." \
-  --category git \
-  --tags git,fundamentos
-```
+Sin `stack`, la entrada aparece como contenido introductorio, antes de los grupos.
 
 ### Recurso externo
 
-Los recursos necesitan una segunda clasificación propia, `resourceCategory`:
+`src/content/resources/developer-tools/github-cli.md`
 
-```bash
-pnpm content:new -- \
-  --type resources \
-  --slug developer-tools/github-cli \
-  --title "GitHub CLI" \
-  --description "Cliente oficial para trabajar con GitHub desde la terminal." \
-  --category resources \
-  --url https://cli.github.com/ \
-  --resource-category developer-tools \
-  --official \
-  --tags github,cli
+```yaml
+---
+title: "GitHub CLI"
+description: "Cliente oficial para trabajar con GitHub desde la terminal."
+category: resources
+url: "https://cli.github.com/"
+resourceCategory: developer-tools
+official: true
+tags: [github, cli]
+---
 ```
 
-### Integración entre tecnologías
+`resourceCategory` no es lo mismo que `category`: es la segunda clasificación que agrupa la página de Recursos.
 
-Una integración exige al menos dos referencias:
+### Integración
 
-```bash
-pnpm content:new -- \
-  --type integrations \
-  --slug astro/react \
-  --title "React dentro de Astro" \
-  --description "Cómo hidratar componentes React en una aplicación Astro." \
-  --category frontend \
-  --stack astro \
-  --technologies technologies/astro,technologies/react \
-  --tags astro,react,islands
+`src/content/integrations/astro-react.md`
+
+```yaml
+---
+title: "React dentro de Astro"
+description: "Cómo hidratar componentes React en una aplicación Astro."
+category: frontend
+stack: astro
+technologies: ["technologies/astro", "technologies/react"]
+tags: [astro, react, islands]
+---
 ```
 
 ### Comando personal
 
-Las entradas con `private: true` conservan una URL directa, pero no aparecen en navegación, listados, tags ni búsqueda pública:
+`src/content/commands/mi-alias-de-despliegue.md`
 
-```bash
-pnpm content:new -- \
-  --type commands \
-  --slug mi-alias-de-despliegue \
-  --title "Alias personal de despliegue" \
-  --description "Recordatorio del comando usado en mi entorno local." \
-  --category terminal \
-  --stack terminal \
-  --command "mi-comando" \
-  --private
+```yaml
+---
+title: "Alias personal de despliegue"
+description: "Recordatorio del comando que uso en mi entorno local."
+category: terminal
+stack: terminal
+command: "mi-comando"
+private: true
+tags: [terminal]
+---
 ```
 
-No guardes tokens, claves ni datos reales aunque la entrada sea privada.
+No guardes tokens ni datos reales, aunque la entrada sea privada.
 
-## Crear contenido manualmente
+## Cómo escribir el cuerpo
 
-El generador es una ayuda, no un requisito. Para crear una entrada a mano:
+Primero el concepto, después los pasos, el resultado esperado y los errores frecuentes. Los bloques de código admiten un nombre de archivo:
 
-1. Elige una colección de `src/content/`.
-2. Crea un archivo `.md`; las subcarpetas están permitidas.
-3. Copia el frontmatter de una entrada similar o consulta `src/content.config.ts`.
-4. Usa una `category` declarada en `CATEGORIES`.
-5. Si usas `stack`, confirma que figure dentro de `CATEGORY_STACK_ORDER[category]`.
-6. Escribe referencias namespaced como `guides/mi-guia`.
-7. Ejecuta `pnpm check` y `pnpm build`.
+````markdown
+```ts title="src/app.ts"
+export const saludo = "hola"
+```
+````
 
-No hay que crear una ruta Astro: `src/pages/[type]/[...slug].astro` descubre la entrada automáticamente.
+Los bloques `bash` que solo contienen instalaciones (`npm install`, `npx`, `npm create`) se convierten solos en pestañas pnpm / bun / npm. No hay que escribir las tres variantes.
 
 ## Ampliar la estructura editorial
 
-Estas tareas sí cambian el vocabulario del sitio y deben empezar en `src/config/site.ts`.
+Todo empieza en `src/config/site.ts`.
 
-### Añadir una categoría principal
+**Categoría nueva**
 
-1. Añade el ID a `CATEGORY_IDS` en el orden público del catálogo.
-2. Añade una entrada a `CATEGORIES` con `id`, `label`, `icon`, `description` y `color`.
-3. Añade su ID al bloque apropiado de `CATEGORY_GROUPS` para decidir su posición en la navegación.
-4. Si tendrá subcategorías, añade una propiedad con el mismo ID en `CATEGORY_STACK_ORDER`.
-5. Si el nombre del icono es nuevo, regístralo en `src/lib/icons.ts` y `src/components/shared/DynamicIcon.tsx`.
-6. Ejecuta `pnpm check` y `pnpm build`.
+1. Añade su entrada a `CATEGORY_DEFINITIONS` (`label`, `icon`, `description`, `color`). El id es la clave; `CATEGORY_IDS` se deriva sola.
+2. Añade su id al bloque que le corresponda en `CATEGORY_GROUPS`. Si te olvidas, el build falla avisando.
+3. Si tendrá subcategorías, añade su id a `CATEGORY_STACK_ORDER`.
+4. Si el icono es nuevo, mira la sección de iconos más abajo.
 
-`CATEGORY_IDS` es explícito porque su orden forma parte de la API y no coincide con el orden visual de `CATEGORY_GROUPS`. Las categorías agrupadas por stack sí se derivan automáticamente.
+**Subcategoría (stack) nueva**
 
-### Añadir una subcategoría
+1. Añade `id: "Etiqueta"` a `STACK_LABELS`.
+2. Colócala en la posición que quieras dentro de `CATEGORY_STACK_ORDER[category]`.
+3. Su icono será `brand-<id>`; regístralo en `src/config/icons.ts`. Si quieres reutilizar el icono de otro stack, añade la excepción a `STACK_ICONS`.
 
-1. Añade una entrada a `STACKS` con `id`, `label` e `icon`.
-2. Añade ese ID, en la posición deseada, al arreglo de la categoría en `CATEGORY_STACK_ORDER`.
-3. Registra el icono en los dos registros si es nuevo.
-4. Ejecuta `pnpm content:new -- --list` para confirmar que aparece bajo la categoría correcta.
-5. Ejecuta `pnpm check` y `pnpm build`.
+**Categoría de recurso nueva**
 
-`STACK_IDS` se deriva de `STACKS`; no existe una segunda lista que actualizar.
+Añade una línea a `RESOURCE_CATEGORY_DEFINITIONS`. El resto se deriva.
 
-### Añadir una categoría de recurso
+**Tipo de contenido nuevo**
 
-Añade una entrada a `RESOURCE_CATEGORIES`. `RESOURCE_CATEGORY_IDS`, el selector del generador y el agrupamiento de la página se actualizan automáticamente.
+1. Añade su entrada a `CONTENT_TYPE_DEFINITIONS`.
+2. Declara su colección en `src/content.config.ts` con `contentCollection` y añádela al objeto `collections`.
+3. Añade su `CollectionEntry<...>` a `AnyEntry` en `src/lib/content.ts`.
+4. Crea la carpeta `src/content/<id>/`.
+5. `pnpm sync && pnpm check && pnpm build`.
 
-### Añadir un tipo de contenido nuevo
+**Icono nuevo**
 
-Esta es la ampliación menos frecuente:
+Todos los iconos viven en `src/config/icons.ts`, que leen tanto Astro como React:
 
-1. Añade el tipo a `CONTENT_TYPES`.
-2. Declara su colección y sus campos propios en `src/content.config.ts` usando `contentCollection`.
-3. Añádelo al objeto exportado `collections`.
-4. Amplía `AnyEntry` en `src/lib/content.ts`.
-5. Si tiene campos de autoría propios, añádelos al generador `scripts/new-content.ts`.
-6. Ejecuta `pnpm sync`, `pnpm check` y `pnpm build`.
-
-Las rutas de listado y detalle se generan automáticamente a partir del tipo.
+- Nombre de [lucide](https://lucide.dev/icons) tal cual: no hay que registrar nada.
+- Icono de lucide con un color fijo: añádelo a `RECOLORED_ICONS` (`base` + `color`).
+- Logo o glifo propio: añádelo a `BRAND_ICONS` (`viewBox`, `fill`, `body`).
 
 ## Qué archivo modificar según el objetivo
 
-| Objetivo | Archivo principal |
+| Objetivo | Archivo |
 | --- | --- |
-| Crear una entrada | `pnpm content:new` o `src/content/<colección>/` |
+| Crear una entrada | `src/content/<colección>/` |
 | Cambiar campos permitidos | `src/content.config.ts` |
-| Añadir categoría, subcategoría u orden | `src/config/site.ts` |
-| Cambiar cómo se agrupa una categoría | `src/lib/content-groups.ts` |
-| Cambiar datos entregados a una página | `src/lib/page-data.ts` |
+| Añadir categoría, stack u orden | `src/config/site.ts` |
+| Cambiar cómo se agrupa una categoría | `src/lib/content.ts` (`getCategoryEntries`) |
+| Cambiar el orden de lectura | `src/lib/content.ts` (`LEARNING_TYPE_ORDER`) |
 | Cambiar relaciones automáticas | `src/lib/relations.ts` |
-| Añadir un icono | `src/lib/icons.ts` y `src/components/shared/DynamicIcon.tsx` |
+| Añadir un icono | `src/config/icons.ts` |
 
 ## Errores habituales
 
-- **La entrada no aparece en producción:** revisa si conserva `draft: true` o `private: true`.
-- **La entrada no aparece bajo la subcategoría esperada:** confirma la pareja `category`/`stack` con `pnpm content:new -- --list`.
-- **El build falla por una referencia:** usa `colección/id`, comprueba la colección y recuerda incluir subcarpetas en el ID.
-- **El recurso no aparece en su grupo:** verifica `resourceCategory`; no es lo mismo que `category`.
-- **El icono no se ve en móvil o búsqueda:** los iconos de configuración tienen un registro Astro y otro React; actualiza ambos.
-- **Los tipos generados están desactualizados:** ejecuta `pnpm sync` y después `pnpm check`.
+- **No aparece en producción:** sigue con `draft: true` o `private: true`.
+- **No aparece en el stack esperado:** el `stack` no está en `CATEGORY_STACK_ORDER[category]`.
+- **El build falla por una referencia:** usa `colección/id` e incluye la subcarpeta en los recursos.
+- **El recurso no sale en su grupo:** revisa `resourceCategory`, no `category`.
+- **Los tipos generados están viejos:** `pnpm sync` y después `pnpm check`.

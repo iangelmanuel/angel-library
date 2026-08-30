@@ -8,6 +8,71 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.10.0] — 2026-08-30
+
+Refactorización completa del código para que sea legible y modificable sin
+conocer el proyecto de antemano. La salida pública del sitio no cambia: las
+1469 páginas generadas son idénticas a las de 0.9.0.
+
+### Añadido
+
+- `src/config/icons.ts`: tabla única de iconos que leen tanto `<Icon>` (Astro)
+  como `DynamicIcon` (React). `BRAND_ICONS` guarda los logos propios y
+  `RECOLORED_ICONS` los iconos de lucide con un color fijo.
+- `src/features/terminal/`: la consola de `/search` y de Ctrl/Cmd + K como
+  feature autocontenido, con su propio README para añadir comandos.
+- Guard en build que falla si un comando con descripción no está listado en
+  `PUBLIC_COMMANDS`, igual que el que ya existía para `CATEGORY_GROUPS`.
+- Plantillas de frontmatter listas para copiar en `docs/CONTENT_GUIDE.md`,
+  una por colección.
+
+### Cambiado
+
+- Los iconos dejaron de tener dos registros paralelos. Antes había 40 nombres
+  registrados solo en el lado de Astro: no se veía en pantalla, pero cualquier
+  icono nuevo podía caer en el genérico sin avisar.
+- `src/config/site.ts` deriva los ids de las claves de sus mapas y las
+  subcategorías se declaran como `id: "Etiqueta"`; el icono `brand-<id>` se
+  calcula solo, con cuatro excepciones declaradas. 945 → 655 líneas.
+- `src/lib/content-groups.ts` y `src/lib/page-data.ts` se integraron en
+  `src/lib/content.ts` y en las propias rutas. La página de categoría recibe
+  una lista de secciones en vez de una unión de tres formas distintas.
+- La sidebar y el menú móvil reciben un único campo `groups` en lugar de
+  `resourceGroups` y `stackGroups`, que ya se trataban igual.
+- La terminal pasó de dos archivos de 1578 líneas a 22 archivos separados por
+  responsabilidad: el estado en cuatro hooks, un archivo por familia de
+  comandos y los textos largos en `data/`. `executeCommand`, que ocupaba 534
+  líneas seguidas, es ahora una tabla de comandos; `COMMAND_DESCRIPTIONS`,
+  `COMMANDS_WITH_ARGS` y `COMMAND_SET` se derivan de ella.
+- `src/lib/rehype-code-blocks.mjs` construye los nodos con un helper `h()`.
+- Cada sección de la página de categoría lleva `aria-label` con su título.
+
+### Eliminado
+
+- `scripts/new-content.ts` y el comando `pnpm content:new`. Para crear una
+  entrada se copia el frontmatter de una similar.
+- Código sin uso: `groupByType`, `STACK_LIST`, `LEARNING_TYPE_ORDER`
+  exportado, y los campos `dependencies` y `library` de las relaciones, que no
+  existían en ningún schema.
+- `src/content/guides/node_modules/`, una caché de Vite creada por error
+  dentro de la carpeta de contenido.
+
+### Corregido
+
+- `text-var(--accent-green)` en la home: no era una clase válida de Tailwind y
+  dejaba el icono del badge sin color.
+
+### Verificado
+
+- `pnpm check` con 0 errores; permanece el hint conocido de `document.execCommand`.
+- `pnpm build` con 1469 páginas estáticas.
+- Comparación página por página del HTML generado contra la versión anterior:
+  1449 de 1469 idénticas, 19 con solo el `aria-label` nuevo y diferencias de
+  espacios sin efecto visual, y `index.html` por un cambio previo sin publicar.
+- Terminal probada en el navegador: los 31 comandos públicos, el ciclo de
+  `/quiz`, el historial con flechas, el autocompletado con Tab, la navegación
+  con `/open` y `/cd`, y el diálogo abriendo y cerrando con Ctrl+K, `/` y Escape.
+
 ## [0.9.0] — 2026-08-29
 
 Reorganización estructural de la aplicación, flujo asistido para crear
@@ -541,7 +606,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.10.0
 [0.9.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.9.0
 [0.8.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.8.0
 [0.7.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.7.0

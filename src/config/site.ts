@@ -27,13 +27,20 @@ function keysOf<const Values extends Record<string, unknown>>(values: Values) {
   ]
 }
 
+/** Copia cada entrada añadiéndole su clave como campo `id`. */
+function withIds<Id extends string, Value>(values: Record<Id, Value>) {
+  const entries = Object.entries(values) as [Id, Value][]
+  return Object.fromEntries(
+    entries.map(([id, value]) => [id, { ...value, id }])
+  ) as Record<Id, Value & { id: Id }>
+}
+
 /* ------------------------------------------------------------------ */
 /* Tipos de contenido                                                  */
 /* ------------------------------------------------------------------ */
 
 const CONTENT_TYPE_DEFINITIONS = {
   technologies: {
-    id: "technologies",
     label: "Tecnologías",
     singular: "Tecnología",
     icon: "cpu",
@@ -41,7 +48,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Tecnologías y lenguajes base: qué son, cuándo los uso y referencia rápida de lo esencial."
   },
   libraries: {
-    id: "libraries",
     label: "Librerías",
     singular: "Librería",
     icon: "package",
@@ -49,7 +55,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Librerías que uso: instalación, API esencial, casos comunes, tips y errores típicos."
   },
   integrations: {
-    id: "integrations",
     label: "Integraciones",
     singular: "Integración",
     icon: "blocks",
@@ -57,7 +62,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Cómo usar una tecnología dentro de otra. Solo las particularidades de la combinación, sin duplicar documentación."
   },
   recipes: {
-    id: "recipes",
     label: "Recetas",
     singular: "Receta",
     icon: "list-checks",
@@ -65,7 +69,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Soluciones paso a paso a problemas concretos, con código listo para reutilizar."
   },
   snippets: {
-    id: "snippets",
     label: "Snippets",
     singular: "Snippet",
     icon: "code",
@@ -73,7 +76,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Trozos de código reutilizables: hooks, utilidades, helpers y funciones."
   },
   hooks: {
-    id: "hooks",
     label: "Hooks",
     singular: "Hook",
     icon: "repeat-2",
@@ -81,7 +83,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Hooks reutilizables con propósito, parámetros, retorno y ejemplos."
   },
   utilities: {
-    id: "utilities",
     label: "Utilities",
     singular: "Utility",
     icon: "wrench",
@@ -89,14 +90,12 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Funciones pequeñas y reutilizables para browser, TypeScript y backend."
   },
   resources: {
-    id: "resources",
     label: "Recursos",
     singular: "Recurso",
     icon: "link",
     description: "Herramientas y sitios externos que vale la pena recordar."
   },
   skills: {
-    id: "skills",
     label: "Skills",
     singular: "Skill",
     icon: "sparkles",
@@ -104,7 +103,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Herramientas de desarrollo asistido por IA: configuración, agentes, comandos y workflows."
   },
   commands: {
-    id: "commands",
     label: "Comandos",
     singular: "Comando",
     icon: "terminal",
@@ -112,7 +110,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Comandos que necesito con frecuencia: qué hacen, cuándo usarlos y sus riesgos."
   },
   patterns: {
-    id: "patterns",
     label: "Patrones",
     singular: "Patrón",
     icon: "layout-template",
@@ -120,7 +117,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Patrones y estructuras de arquitectura que repito entre proyectos."
   },
   practices: {
-    id: "practices",
     label: "Buenas prácticas",
     singular: "Buena práctica",
     icon: "badge-check",
@@ -128,7 +124,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Reglas prácticas para mejorar calidad, seguridad, accesibilidad y mantenimiento."
   },
   guides: {
-    id: "guides",
     label: "Guías prácticas",
     singular: "Guía",
     icon: "book-open",
@@ -136,7 +131,6 @@ const CONTENT_TYPE_DEFINITIONS = {
       "Referencias prácticas con varios pasos, sin convertirse en cursos extensos."
   },
   tricks: {
-    id: "tricks",
     label: "Trucos",
     singular: "Truco",
     icon: "zap",
@@ -158,8 +152,10 @@ export interface ContentTypeMeta {
   description: string
 }
 
-export const CONTENT_TYPES: Record<ContentTypeId, ContentTypeMeta> =
-  CONTENT_TYPE_DEFINITIONS
+export const CONTENT_TYPES = withIds(CONTENT_TYPE_DEFINITIONS) as Record<
+  ContentTypeId,
+  ContentTypeMeta
+>
 export const CONTENT_TYPE_IDS = keysOf(CONTENT_TYPE_DEFINITIONS)
 
 export const CONTENT_TYPE_LIST = CONTENT_TYPE_IDS.map((id) => CONTENT_TYPES[id])
@@ -168,35 +164,8 @@ export const CONTENT_TYPE_LIST = CONTENT_TYPE_IDS.map((id) => CONTENT_TYPES[id])
 /* Categorías (áreas de conocimiento)                                  */
 /* ------------------------------------------------------------------ */
 
-/** Orden público del catálogo; es distinto del orden visual de CATEGORY_GROUPS. */
-export const CATEGORY_IDS = [
-  "general",
-  "languages",
-  "frontend",
-  "backend",
-  "database",
-  "architecture",
-  "testing",
-  "security",
-  "performance",
-  "accessibility",
-  "ui-ux",
-  "seo",
-  "ai",
-  "devops",
-  "git",
-  "terminal",
-  "applications",
-  "courses",
-  "skills",
-  "resources"
-] as const
-
-export type CategoryId = (typeof CATEGORY_IDS)[number]
-
 const CATEGORY_DEFINITIONS = {
   general: {
-    id: "general",
     label: "General",
     icon: "globe",
     description:
@@ -204,7 +173,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-blue"
   },
   languages: {
-    id: "languages",
     label: "Lenguajes",
     icon: "code",
     description:
@@ -212,7 +180,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-yellow"
   },
   frontend: {
-    id: "frontend",
     label: "Frontend",
     icon: "monitor",
     description:
@@ -220,7 +187,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-indigo"
   },
   backend: {
-    id: "backend",
     label: "Backend",
     icon: "server",
     description:
@@ -228,7 +194,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-green"
   },
   database: {
-    id: "database",
     label: "Bases de datos",
     icon: "database",
     description:
@@ -236,7 +201,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-purple"
   },
   ai: {
-    id: "ai",
     label: "IA SDK",
     icon: "brain",
     description:
@@ -244,7 +208,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-pink"
   },
   devops: {
-    id: "devops",
     label: "DevOps",
     icon: "container",
     description:
@@ -252,7 +215,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-orange"
   },
   git: {
-    id: "git",
     label: "Git & GitHub",
     icon: "git-branch",
     description:
@@ -260,7 +222,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-yellow"
   },
   terminal: {
-    id: "terminal",
     label: "Terminal & CLI",
     icon: "terminal",
     description:
@@ -268,7 +229,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-teal"
   },
   applications: {
-    id: "applications",
     label: "Aplicaciones",
     icon: "app-window",
     description:
@@ -276,7 +236,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-indigo"
   },
   courses: {
-    id: "courses",
     label: "Cursos",
     icon: "book-open",
     description:
@@ -284,7 +243,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-cyan"
   },
   seo: {
-    id: "seo",
     label: "SEO",
     icon: "search-check",
     description:
@@ -292,14 +250,12 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-lime"
   },
   accessibility: {
-    id: "accessibility",
     label: "Accesibilidad",
     icon: "accessibility",
     description: "Interfaces y contenido que pueden utilizar más personas.",
     color: "--accent-indigo"
   },
   performance: {
-    id: "performance",
     label: "Performance",
     icon: "gauge",
     description:
@@ -307,14 +263,12 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-amber"
   },
   security: {
-    id: "security",
     label: "Seguridad",
     icon: "shield-check",
     description: "Prácticas de seguridad para frontend, backend y APIs.",
     color: "--accent-red"
   },
   testing: {
-    id: "testing",
     label: "Testing",
     icon: "test-tube-2",
     description:
@@ -322,7 +276,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-green"
   },
   "ui-ux": {
-    id: "ui-ux",
     label: "UI / UX",
     icon: "palette",
     description:
@@ -330,7 +283,6 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-purple"
   },
   architecture: {
-    id: "architecture",
     label: "Arquitectura",
     icon: "network",
     description:
@@ -338,21 +290,22 @@ const CATEGORY_DEFINITIONS = {
     color: "--accent-blue"
   },
   resources: {
-    id: "resources",
     label: "Recursos",
     icon: "bookmark",
     description: "Colección de recursos externos categorizados.",
     color: "--accent-yellow"
   },
   skills: {
-    id: "skills",
     label: "IA Tools & Skills",
     icon: "bot",
     description:
       "Herramientas de inteligencia artificial (IA) para programar: agentes, skills, plugins y protocolos.",
     color: "--accent-pink"
   }
-} as const satisfies Record<CategoryId, Omit<CategoryMeta, "id"> & { id: CategoryId }>
+} as const
+
+export type CategoryId = keyof typeof CATEGORY_DEFINITIONS
+export const CATEGORY_IDS = keysOf(CATEGORY_DEFINITIONS)
 
 export interface CategoryMeta {
   id: CategoryId
@@ -364,8 +317,10 @@ export interface CategoryMeta {
   color: string
 }
 
-export const CATEGORIES: Record<CategoryId, CategoryMeta> =
-  CATEGORY_DEFINITIONS
+export const CATEGORIES = withIds(CATEGORY_DEFINITIONS) as Record<
+  CategoryId,
+  CategoryMeta
+>
 
 /**
  * Bloques de categorías para la navegación. Cada grupo se dibuja separado
@@ -462,372 +417,127 @@ export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
 /* ------------------------------------------------------------------ */
 
 /**
- * Cada stack puede reutilizarse en varias categorías (por ejemplo, Astro o
- * Next.js), pero CATEGORY_STACK_ORDER define una curva de aprendizaje propia.
- * Los grupos vacíos se filtran en la navegación y en la página de categoría.
+ * Subcategorías dentro de una categoría. Un mismo stack puede aparecer en
+ * varias categorías; CATEGORY_STACK_ORDER decide el orden en cada una.
  */
-const STACK_DEFINITIONS = {
-  "frontend-fundamentos": {
-    id: "frontend-fundamentos",
-    label: "Fundamentos de frontend",
-    icon: "brand-frontend-fundamentos"
-  },
-  config: { id: "config", label: "Config", icon: "brand-config" },
-  monorepo: { id: "monorepo", label: "Monorepo", icon: "brand-monorepo" },
-  packages: { id: "packages", label: "Paquetes", icon: "brand-packages" },
-  "backend-fundamentos": {
-    id: "backend-fundamentos",
-    label: "Fundamentos de backend",
-    icon: "brand-backend-fundamentos"
-  },
-  "devops-fundamentos": {
-    id: "devops-fundamentos",
-    label: "Fundamentos de DevOps",
-    icon: "brand-devops-fundamentos"
-  },
-  "ui-ux-fundamentos": {
-    id: "ui-ux-fundamentos",
-    label: "Fundamentos de UI / UX",
-    icon: "brand-ui-ux-fundamentos"
-  },
-  "skills-fundamentos": {
-    id: "skills-fundamentos",
-    label: "Fundamentos de IA Tools",
-    icon: "brand-skills-fundamentos"
-  },
-  node: { id: "node", label: "Node.js", icon: "brand-node" },
-  express: { id: "express", label: "Express", icon: "brand-express" },
-  astro: { id: "astro", label: "Astro", icon: "brand-astro" },
-  html: { id: "html", label: "HTML", icon: "brand-html" },
-  react: { id: "react", label: "React", icon: "brand-react" },
-  nextjs: { id: "nextjs", label: "Next.js", icon: "brand-nextjs" },
-  git: { id: "git", label: "Git", icon: "brand-git" },
-  github: { id: "github", label: "GitHub CLI", icon: "brand-github" },
-  "github-platform": {
-    id: "github-platform",
-    label: "GitHub",
-    icon: "brand-github"
-  },
-  "github-actions": {
-    id: "github-actions",
-    label: "GitHub Actions",
-    icon: "workflow"
-  },
-  "github-profile": {
-    id: "github-profile",
-    label: "Perfil y cuenta",
-    icon: "brand-github-profile"
-  },
-  "repository-management": {
-    id: "repository-management",
-    label: "Gestión de repositorios",
-    icon: "brand-repository-management"
-  },
-  "claude-code": {
-    id: "claude-code",
-    label: "Claude Code",
-    icon: "brand-claude-code"
-  },
-  opencode: { id: "opencode", label: "OpenCode", icon: "brand-opencode" },
-  cursor: { id: "cursor", label: "Cursor", icon: "brand-cursor" },
-  codex: { id: "codex", label: "Codex CLI", icon: "brand-codex" },
-  "ia-comandos": {
-    id: "ia-comandos",
-    label: "Comandos",
-    icon: "brand-ia-comandos"
-  },
-  "ia-skills": { id: "ia-skills", label: "Skills", icon: "brand-ia-skills" },
-  "ia-plugins": {
-    id: "ia-plugins",
-    label: "Plugins",
-    icon: "brand-ia-plugins"
-  },
-  "ia-mcp": { id: "ia-mcp", label: "MCP", icon: "brand-ia-mcp" },
-  "docker-conceptos": {
-    id: "docker-conceptos",
-    label: "Conceptos básicos",
-    icon: "brand-docker-conceptos"
-  },
-  "docker-imagenes": {
-    id: "docker-imagenes",
-    label: "Imágenes",
-    icon: "brand-docker-imagenes"
-  },
-  "docker-contenedores": {
-    id: "docker-contenedores",
-    label: "Contenedores",
-    icon: "brand-docker-contenedores"
-  },
-  "docker-redes-volumenes": {
-    id: "docker-redes-volumenes",
-    label: "Redes y volúmenes",
-    icon: "brand-docker-redes-volumenes"
-  },
-  "docker-compose": {
-    id: "docker-compose",
-    label: "Docker Compose",
-    icon: "brand-docker-compose"
-  },
-  "docker-bases-datos": {
-    id: "docker-bases-datos",
-    label: "Bases de datos",
-    icon: "brand-docker-bases-datos"
-  },
-  "ci-cd": { id: "ci-cd", label: "CI/CD y despliegue", icon: "brand-ci-cd" },
-  observabilidad: {
-    id: "observabilidad",
-    label: "Observabilidad y operación",
-    icon: "brand-observabilidad"
-  },
-  javascript: {
-    id: "javascript",
-    label: "JavaScript y Web APIs",
-    icon: "brand-javascript"
-  },
-  css: { id: "css", label: "CSS", icon: "brand-css" },
-  typescript: {
-    id: "typescript",
-    label: "TypeScript",
-    icon: "brand-typescript"
-  },
-  utils: { id: "utils", label: "Utils", icon: "brand-typescript" },
-  terminal: { id: "terminal", label: "Terminal", icon: "brand-terminal" },
-  cli: { id: "cli", label: "CLI", icon: "brand-cli" },
-  seo: { id: "seo", label: "Fundamentos de SEO", icon: "brand-seo" },
-  "seo-tecnico": {
-    id: "seo-tecnico",
-    label: "SEO técnico",
-    icon: "brand-seo-tecnico"
-  },
-  "seo-contenido": {
-    id: "seo-contenido",
-    label: "Contenido y autoridad",
-    icon: "brand-seo-contenido"
-  },
-  "database-fundamentos": {
-    id: "database-fundamentos",
-    label: "Fundamentos",
-    icon: "brand-database-fundamentos"
-  },
-  "database-modelado": {
-    id: "database-modelado",
-    label: "Modelado y relaciones",
-    icon: "brand-database-modelado"
-  },
-  "database-sql": {
-    id: "database-sql",
-    label: "SQL y consultas",
-    icon: "brand-database-sql"
-  },
-  "database-postgresql": {
-    id: "database-postgresql",
-    label: "PostgreSQL",
-    icon: "brand-database-postgresql"
-  },
-  "database-nosql": {
-    id: "database-nosql",
-    label: "NoSQL",
-    icon: "brand-database-nosql"
-  },
-  "database-operacion": {
-    id: "database-operacion",
-    label: "Operación y recuperación",
-    icon: "brand-database-operacion"
-  },
-  "ai-fundamentos": {
-    id: "ai-fundamentos",
-    label: "Fundamentos de IA",
-    icon: "brand-ai-fundamentos"
-  },
-  "ai-prompts": {
-    id: "ai-prompts",
-    label: "Prompts y contexto",
-    icon: "brand-ai-prompts"
-  },
-  "ai-rag": { id: "ai-rag", label: "Embeddings y RAG", icon: "brand-ai-rag" },
-  "ai-agentes": {
-    id: "ai-agentes",
-    label: "Agentes, herramientas y evaluación",
-    icon: "brand-ai-agentes"
-  },
-  "ai-sdk": { id: "ai-sdk", label: "SDK para IA", icon: "brand-ai-sdk" },
-  "a11y-fundamentos": {
-    id: "a11y-fundamentos",
-    label: "Fundamentos de accesibilidad",
-    icon: "brand-a11y-fundamentos"
-  },
-  "a11y-contenido": {
-    id: "a11y-contenido",
-    label: "Contenido perceptible",
-    icon: "brand-a11y-contenido"
-  },
-  "a11y-interaccion": {
-    id: "a11y-interaccion",
-    label: "Semántica e interacción",
-    icon: "brand-a11y-interaccion"
-  },
-  "a11y-testing": {
-    id: "a11y-testing",
-    label: "Pruebas de accesibilidad",
-    icon: "brand-a11y-testing"
-  },
-  "performance-fundamentos": {
-    id: "performance-fundamentos",
-    label: "Fundamentos y métricas",
-    icon: "brand-performance-fundamentos"
-  },
-  "performance-carga": {
-    id: "performance-carga",
-    label: "Carga y recursos",
-    icon: "brand-performance-carga"
-  },
-  "performance-runtime": {
-    id: "performance-runtime",
-    label: "JavaScript y renderizado",
-    icon: "brand-performance-runtime"
-  },
-  "performance-operacion": {
-    id: "performance-operacion",
-    label: "Red y operación",
-    icon: "brand-performance-operacion"
-  },
-  "security-fundamentos": {
-    id: "security-fundamentos",
-    label: "Fundamentos y amenazas",
-    icon: "brand-security-fundamentos"
-  },
-  "security-aplicacion": {
-    id: "security-aplicacion",
-    label: "Aplicación y API",
-    icon: "brand-security-aplicacion"
-  },
-  "security-infra": {
-    id: "security-infra",
-    label: "Infraestructura y disponibilidad",
-    icon: "brand-security-infra"
-  },
-  "security-testing": {
-    id: "security-testing",
-    label: "Verificación de seguridad",
-    icon: "brand-security-testing"
-  },
-  "testing-fundamentos": {
-    id: "testing-fundamentos",
-    label: "Fundamentos y estrategia",
-    icon: "brand-testing-fundamentos"
-  },
-  "testing-unitario": {
-    id: "testing-unitario",
-    label: "Pruebas unitarias",
-    icon: "brand-testing-unitario"
-  },
-  "testing-integracion": {
-    id: "testing-integracion",
-    label: "Integración y contratos",
-    icon: "brand-testing-integracion"
-  },
-  "testing-e2e": {
-    id: "testing-e2e",
-    label: "Pruebas E2E",
-    icon: "brand-testing-e2e"
-  },
-  "testing-ai": {
-    id: "testing-ai",
-    label: "Testing asistido por IA",
-    icon: "brand-testing-ai"
-  },
-  "apps-editors": {
-    id: "apps-editors",
-    label: "Editores de código",
-    icon: "brand-apps-editors"
-  },
-  "apps-terminal": {
-    id: "apps-terminal",
-    label: "Terminales",
-    icon: "brand-apps-terminal"
-  },
-  "apps-cli": {
-    id: "apps-cli",
-    label: "CLI",
-    icon: "brand-cli"
-  },
-  "apps-api": {
-    id: "apps-api",
-    label: "Clientes de API",
-    icon: "brand-apps-api"
-  },
-  "apps-devops": {
-    id: "apps-devops",
-    label: "DevOps y contenedores",
-    icon: "brand-apps-devops"
-  },
-  "apps-design": {
-    id: "apps-design",
-    label: "Diseño y diagramación",
-    icon: "brand-apps-design"
-  },
-  "apps-productivity": {
-    id: "apps-productivity",
-    label: "Notas y documentación",
-    icon: "brand-apps-productivity"
-  },
-  "apps-comms": {
-    id: "apps-comms",
-    label: "Comunicación",
-    icon: "brand-apps-comms"
-  },
-  "ui-ux-design-systems": {
-    id: "ui-ux-design-systems",
-    label: "Sistemas de diseño",
-    icon: "brand-ui-ux-design-systems"
-  },
-  "ui-ux-interaccion": {
-    id: "ui-ux-interaccion",
-    label: "Diseño de interacción",
-    icon: "brand-ui-ux-interaccion"
-  },
-  "ui-css": { id: "ui-css", label: "UI con CSS", icon: "brand-ui-css" },
-  "ui-react": { id: "ui-react", label: "UI con React", icon: "brand-ui-react" },
-  "cloud-fundamentos": {
-    id: "cloud-fundamentos",
-    label: "Fundamentos de nube",
-    icon: "brand-cloud-fundamentos"
-  },
-  "infraestructura-codigo": {
-    id: "infraestructura-codigo",
-    label: "Infraestructura como código",
-    icon: "brand-infraestructura-codigo"
-  },
-  principios: {
-    id: "principios",
-    label: "Principios",
-    icon: "brand-principios"
-  },
-  "patrones-diseno": {
-    id: "patrones-diseno",
-    label: "Patrones de diseño",
-    icon: "brand-patrones-diseno"
-  },
-  "patrones-arquitectonicos": {
-    id: "patrones-arquitectonicos",
-    label: "Patrones arquitectónicos",
-    icon: "brand-patrones-arquitectonicos"
-  }
+const STACK_LABELS = {
+  "frontend-fundamentos": "Fundamentos de frontend",
+  config: "Config",
+  monorepo: "Monorepo",
+  packages: "Paquetes",
+  "backend-fundamentos": "Fundamentos de backend",
+  "devops-fundamentos": "Fundamentos de DevOps",
+  "ui-ux-fundamentos": "Fundamentos de UI / UX",
+  "skills-fundamentos": "Fundamentos de IA Tools",
+  node: "Node.js",
+  express: "Express",
+  astro: "Astro",
+  html: "HTML",
+  react: "React",
+  nextjs: "Next.js",
+  git: "Git",
+  github: "GitHub CLI",
+  "github-platform": "GitHub",
+  "github-actions": "GitHub Actions",
+  "github-profile": "Perfil y cuenta",
+  "repository-management": "Gestión de repositorios",
+  "claude-code": "Claude Code",
+  opencode: "OpenCode",
+  cursor: "Cursor",
+  codex: "Codex CLI",
+  "ia-comandos": "Comandos",
+  "ia-skills": "Skills",
+  "ia-plugins": "Plugins",
+  "ia-mcp": "MCP",
+  "docker-conceptos": "Conceptos básicos",
+  "docker-imagenes": "Imágenes",
+  "docker-contenedores": "Contenedores",
+  "docker-redes-volumenes": "Redes y volúmenes",
+  "docker-compose": "Docker Compose",
+  "docker-bases-datos": "Bases de datos",
+  "ci-cd": "CI/CD y despliegue",
+  observabilidad: "Observabilidad y operación",
+  javascript: "JavaScript y Web APIs",
+  css: "CSS",
+  typescript: "TypeScript",
+  utils: "Utils",
+  terminal: "Terminal",
+  cli: "CLI",
+  seo: "Fundamentos de SEO",
+  "seo-tecnico": "SEO técnico",
+  "seo-contenido": "Contenido y autoridad",
+  "database-fundamentos": "Fundamentos",
+  "database-modelado": "Modelado y relaciones",
+  "database-sql": "SQL y consultas",
+  "database-postgresql": "PostgreSQL",
+  "database-nosql": "NoSQL",
+  "database-operacion": "Operación y recuperación",
+  "ai-fundamentos": "Fundamentos de IA",
+  "ai-prompts": "Prompts y contexto",
+  "ai-rag": "Embeddings y RAG",
+  "ai-agentes": "Agentes, herramientas y evaluación",
+  "ai-sdk": "SDK para IA",
+  "a11y-fundamentos": "Fundamentos de accesibilidad",
+  "a11y-contenido": "Contenido perceptible",
+  "a11y-interaccion": "Semántica e interacción",
+  "a11y-testing": "Pruebas de accesibilidad",
+  "performance-fundamentos": "Fundamentos y métricas",
+  "performance-carga": "Carga y recursos",
+  "performance-runtime": "JavaScript y renderizado",
+  "performance-operacion": "Red y operación",
+  "security-fundamentos": "Fundamentos y amenazas",
+  "security-aplicacion": "Aplicación y API",
+  "security-infra": "Infraestructura y disponibilidad",
+  "security-testing": "Verificación de seguridad",
+  "testing-fundamentos": "Fundamentos y estrategia",
+  "testing-unitario": "Pruebas unitarias",
+  "testing-integracion": "Integración y contratos",
+  "testing-e2e": "Pruebas E2E",
+  "testing-ai": "Testing asistido por IA",
+  "apps-editors": "Editores de código",
+  "apps-terminal": "Terminales",
+  "apps-cli": "CLI",
+  "apps-api": "Clientes de API",
+  "apps-devops": "DevOps y contenedores",
+  "apps-design": "Diseño y diagramación",
+  "apps-productivity": "Notas y documentación",
+  "apps-comms": "Comunicación",
+  "ui-ux-design-systems": "Sistemas de diseño",
+  "ui-ux-interaccion": "Diseño de interacción",
+  "ui-css": "UI con CSS",
+  "ui-react": "UI con React",
+  "cloud-fundamentos": "Fundamentos de nube",
+  "infraestructura-codigo": "Infraestructura como código",
+  principios: "Principios",
+  "patrones-diseno": "Patrones de diseño",
+  "patrones-arquitectonicos": "Patrones arquitectónicos"
 } as const
 
-export type StackId = keyof typeof STACK_DEFINITIONS
+export type StackId = keyof typeof STACK_LABELS
+
+/** Stacks que reutilizan el icono de otro; el resto usa "brand-<id>". */
+const STACK_ICONS: Partial<Record<StackId, string>> = {
+  "github-platform": "brand-github",
+  "github-actions": "workflow",
+  utils: "brand-typescript",
+  "apps-cli": "brand-cli"
+}
 
 export interface StackMeta {
   id: StackId
   label: string
-  /** Icono de marca (ver src/lib/icons.ts) */
+  /** Icono de marca (ver src/config/icons.ts) */
   icon: string
 }
 
-export const STACKS: Record<StackId, StackMeta> = STACK_DEFINITIONS
-export const STACK_IDS = keysOf(STACK_DEFINITIONS)
+export const STACK_IDS = keysOf(STACK_LABELS)
 
-export const STACK_LIST = STACK_IDS.map((id) => STACKS[id])
+export const STACKS = Object.fromEntries(
+  STACK_IDS.map((id) => [
+    id,
+    { id, label: STACK_LABELS[id], icon: STACK_ICONS[id] ?? `brand-${id}` }
+  ])
+) as Record<StackId, StackMeta>
 
 /**
  * Cada categoría necesita su propia progresión. Un único orden global hacía,

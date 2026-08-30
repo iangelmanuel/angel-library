@@ -1,34 +1,32 @@
 import { visit } from 'unist-util-visit';
 
 /**
- * Plugin rehype que envuelve los bloques de código (<pre>) generados por
- * Shiki en una estructura con cabecera:
+ * Envuelve cada <pre> de Shiki en un .code-block con cabecera (nombre del
+ * archivo + botón de copiar). El botón no lleva JavaScript inline: un solo
+ * listener global en src/scripts/site-interactions.ts atiende a todos.
  *
- *   <div class="code-block">
- *     <div class="code-block__header">
- *       <span class="code-block__label">archivo.ts | lenguaje</span>
- *       <button data-copy>…copiar…</button>
- *     </div>
- *     <pre class="shiki">…</pre>
- *   </div>
- *
- * El nombre de archivo se declara en el meta del fence:
- *   ```ts title="src/app.ts"
- *
- * El botón de copiar no lleva JavaScript inline: un único listener global
- * (delegación de eventos en BaseLayout) se encarga de todos los bloques.
- *
- * Además, antes de ese paso, agrupa tríos de `<pre data-pm-group="X">`
- * consecutivos (generados por `remarkPmTabs` — 3 variantes pnpm/bun/npm del
- * mismo comando) en un solo `.code-block.code-block--pm` con tabs, en vez de
- * 3 bloques sueltos. Ver `remark-pm-tabs.mjs` y `shiki-transformers.mjs`.
+ * Antes de eso agrupa los tríos pnpm/bun/npm que genera remarkPmTabs en un
+ * único bloque con pestañas.
  */
 
-function copyIcon() {
-  return {
-    type: 'element',
-    tagName: 'svg',
-    properties: {
+/** Atajo para crear un nodo de elemento HAST. */
+function h(tagName, properties = {}, children = []) {
+  return { type: 'element', tagName, properties, children };
+}
+
+function text(value) {
+  return { type: 'text', value };
+}
+
+/** Lee una propiedad que puede venir en camelCase o con guiones. */
+function prop(node, camel, hyphenated) {
+  return node.properties?.[camel] ?? node.properties?.[hyphenated];
+}
+
+function copyButton(label) {
+  const icon = h(
+    'svg',
+    {
       xmlns: 'http://www.w3.org/2000/svg',
       width: 13,
       height: 13,
@@ -40,204 +38,134 @@ function copyIcon() {
       strokeLinejoin: 'round',
       'aria-hidden': 'true',
     },
-    children: [
-      {
-        type: 'element',
-        tagName: 'rect',
-        properties: { width: 14, height: 14, x: 8, y: 8, rx: 2, ry: 2 },
-        children: [],
-      },
-      {
-        type: 'element',
-        tagName: 'path',
-        properties: { d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
-        children: [],
-      },
+    [
+      h('rect', { width: 14, height: 14, x: 8, y: 8, rx: 2, ry: 2 }),
+      h('path', { d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' }),
     ],
-  };
+  );
+
+  return h(
+    'button',
+    { type: 'button', className: ['code-block__copy'], 'data-copy': '', ariaLabel: label, title: label },
+    [icon, h('span', { 'data-copy-label': '' }, [text('copiar')])],
+  );
 }
 
-function copyButton(label) {
-  return {
-    type: 'element',
-    tagName: 'button',
-    properties: {
-      type: 'button',
-      className: ['code-block__copy'],
-      'data-copy': '',
-      ariaLabel: label,
-      title: label,
-    },
-    children: [
-      copyIcon(),
-      {
-        type: 'element',
-        tagName: 'span',
-        properties: { 'data-copy-label': '' },
-        children: [{ type: 'text', value: 'copiar' }],
-      },
-    ],
-  };
+function header(children) {
+  return h('div', { className: ['code-block__header'] }, children);
 }
 
-function getData(node, camel, hyphenated) {
-  return node.properties?.[camel] ?? node.properties?.[hyphenated];
-}
-
-function pmTabButton(pm, isActive) {
-  return {
-    type: 'element',
-    tagName: 'button',
-    properties: {
-      type: 'button',
-      className: isActive ? ['code-block__pm-tab', 'is-active'] : ['code-block__pm-tab'],
-      'data-pm-tab': pm,
-    },
-    children: [{ type: 'text', value: pm }],
-  };
-}
-
-/** Agrupa un trío [pnpm, bun, npm] de <pre> en un solo .code-block--pm con tabs. */
+/** Une un trío [pnpm, bun, npm] en un solo bloque con pestañas. */
 function buildPmTabBlock(pres, group) {
+  const isDefault = (pre) => prop(pre, 'dataPmDefault', 'data-pm-default') !== undefined;
+
   for (const pre of pres) {
-    const isDefault = getData(pre, 'dataPmDefault', 'data-pm-default') !== undefined;
     pre.properties ??= {};
-    pre.properties.hidden = !isDefault;
-    // Borrar el marcador de grupo: si no, el mismo trío se reagruparía de
-    // nuevo (infinitamente) cuando el visitor entra a los hijos del wrapper
-    // que acabamos de crear.
+    pre.properties.hidden = !isDefault(pre);
+    // Sin borrar el marcador, el visitor reagruparía el mismo trío al
+    // entrar en los hijos del wrapper recién creado.
     delete pre.properties.dataPmGroup;
     delete pre.properties['data-pm-group'];
     pre.__pmHandled = true;
   }
 
-  const tabs = {
-    type: 'element',
-    tagName: 'div',
-    properties: { className: ['code-block__pm-tabs'], role: 'tablist' },
-    children: pres.map((pre) => {
-      const pm = getData(pre, 'dataPm', 'data-pm');
-      const isDefault = getData(pre, 'dataPmDefault', 'data-pm-default') !== undefined;
-      return pmTabButton(pm, isDefault);
+  const tabs = h(
+    'div',
+    { className: ['code-block__pm-tabs'], role: 'tablist' },
+    pres.map((pre) => {
+      const pm = prop(pre, 'dataPm', 'data-pm');
+      const className = isDefault(pre)
+        ? ['code-block__pm-tab', 'is-active']
+        : ['code-block__pm-tab'];
+      return h('button', { type: 'button', className, 'data-pm-tab': pm }, [text(pm)]);
     }),
-  };
+  );
 
-  const header = {
-    type: 'element',
-    tagName: 'div',
-    properties: { className: ['code-block__header'] },
-    children: [tabs, copyButton('Copiar comando')],
-  };
-
-  return {
-    type: 'element',
-    tagName: 'div',
-    properties: { className: ['code-block', 'code-block--pm'], 'data-pm-group': group },
-    children: [header, ...pres],
-  };
+  return h('div', { className: ['code-block', 'code-block--pm'], 'data-pm-group': group }, [
+    header([tabs, copyButton('Copiar comando')]),
+    ...pres,
+  ]);
 }
 
-/** Recorre un array de hijos y agrupa tríos consecutivos con el mismo data-pm-group. */
+function pmGroupOf(node) {
+  if (node?.type !== 'element' || node.tagName !== 'pre') return undefined;
+  return prop(node, 'dataPmGroup', 'data-pm-group');
+}
+
+const isBlankText = (node) =>
+  node?.type === 'text' && String(node.value ?? '').trim() === '';
+
+/** Agrupa los <pre> consecutivos que comparten data-pm-group. */
 function groupConsecutivePmBlocks(children) {
-  let changed = false;
   const result = [];
+  let changed = false;
   let i = 0;
 
   while (i < children.length) {
-    const node = children[i];
-    const group =
-      node?.type === 'element' && node.tagName === 'pre' ? getData(node, 'dataPmGroup', 'data-pm-group') : undefined;
+    const group = pmGroupOf(children[i]);
+    const run = [children[i]];
+    let j = i + 1;
 
-    if (group) {
-      const run = [node];
-      let j = i + 1;
-      while (j < children.length) {
-        const next = children[j];
-        // Markdown inserta nodos de texto con saltos de línea entre bloques
-        // consecutivos. No forman parte del comando y no deben impedir que
-        // pnpm, Bun y npm se agrupen en una sola interfaz con pestañas.
-        if (next?.type === 'text' && String(next.value ?? '').trim() === '') {
-          j++;
-          continue;
-        }
-        const nextGroup =
-          next?.type === 'element' && next.tagName === 'pre' ? getData(next, 'dataPmGroup', 'data-pm-group') : undefined;
-        if (nextGroup === group) {
-          run.push(next);
-          j++;
-        } else break;
-      }
-
-      if (run.length === 3) {
-        result.push(buildPmTabBlock(run, group));
-        i = j;
-        changed = true;
+    // Markdown deja saltos de línea entre bloques: no rompen el trío.
+    while (group && j < children.length) {
+      if (isBlankText(children[j])) {
+        j++;
         continue;
       }
+      if (pmGroupOf(children[j]) !== group) break;
+      run.push(children[j]);
+      j++;
     }
 
-    result.push(node);
+    if (group && run.length === 3) {
+      result.push(buildPmTabBlock(run, group));
+      changed = true;
+      i = j;
+      continue;
+    }
+
+    result.push(children[i]);
     i++;
   }
 
   return changed ? result : children;
 }
 
+/** Etiqueta de la cabecera: nombre de archivo o lenguaje. */
+function labelFor(pre) {
+  const filename = prop(pre, 'dataFilename', 'data-filename');
+  if (filename) return String(filename);
+
+  const language = prop(pre, 'dataLanguage', 'data-language');
+  if (language) return String(language);
+
+  const code = pre.children.find(
+    (child) => child.type === 'element' && child.tagName === 'code',
+  );
+  const languageClass = (code?.properties?.className ?? []).find(
+    (name) => typeof name === 'string' && name.startsWith('language-'),
+  );
+  return languageClass ? String(languageClass).slice('language-'.length) : 'code';
+}
+
 export function rehypeCodeBlocks() {
   return (tree) => {
-    // Paso 1: agrupar tríos pnpm/bun/npm antes de envolver cada <pre> suelto.
     visit(tree, (node) => {
       if (node.children) node.children = groupConsecutivePmBlocks(node.children);
     });
 
-    // Paso 2: envolver cada <pre> individual restante (los que no son parte
-    // de un grupo pm, que ya quedaron anidados dentro de su propio wrapper).
     visit(tree, 'element', (node, index, parent) => {
       if (!parent || index === undefined || node.tagName !== 'pre') return;
       if (node.__pmHandled) return;
-
-      const code = node.children.find(
+      const hasCode = node.children.some(
         (child) => child.type === 'element' && child.tagName === 'code',
       );
-      if (!code) return;
+      if (!hasCode) return;
 
-      const classes = code.properties?.className ?? [];
-      const langClass = classes.find(
-        (cls) => typeof cls === 'string' && cls.startsWith('language-'),
-      );
-      const languageFromPre =
-        node.properties?.dataLanguage ?? node.properties?.['data-language'];
-      const lang = languageFromPre
-        ? String(languageFromPre)
-        : langClass
-          ? String(langClass).slice('language-'.length)
-          : '';
-
-      const filename =
-        node.properties?.dataFilename ?? node.properties?.['data-filename'];
-      const label = filename ? String(filename) : lang || 'code';
-
-      const header = {
-        type: 'element',
-        tagName: 'div',
-        properties: { className: ['code-block__header'] },
-        children: [
-          {
-            type: 'element',
-            tagName: 'span',
-            properties: { className: ['code-block__label'] },
-            children: [{ type: 'text', value: label }],
-          },
-          copyButton('Copiar código'),
-        ],
-      };
-
-      parent.children[index] = {
-        type: 'element',
-        tagName: 'div',
-        properties: { className: ['code-block'] },
-        children: [header, node],
-      };
+      parent.children[index] = h('div', { className: ['code-block'] }, [
+        header([h('span', { className: ['code-block__label'] }, [text(labelFor(node))]), copyButton('Copiar código')]),
+        node,
+      ]);
     });
   };
 }

@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import SearchResults from '@/components/search/SearchResults';
+import { Terminal } from '@/features/terminal';
 ---
 
 <DocsLayout
@@ -21,7 +21,7 @@ import SearchResults from '@/components/search/SearchResults';
       </p>
     </header>
 
-    <SearchResults client:load />
+    <Terminal client:load />
 
     <noscript>
       <p class="callout">

@@ -25,16 +25,9 @@ interface Props {
 const { entry, entryMap } = Astro.props;
 const data = entry.data as Record<string, unknown>;
 
-const refIds = [
-  ...(Array.isArray(data.technologies) ? data.technologies : []),
-  ...(Array.isArray(data.dependencies) ? data.dependencies : []),
-  ...(typeof data.library === 'string' ? [data.library] : []),
-];
-const techIds: string[] = refIds.filter(
-  (item): item is string => typeof item === 'string',
-);
-const techEntries = techIds
-  .map((id) => entryMap.get(id))
+const techRefs = Array.isArray(data.technologies) ? data.technologies : [];
+const techEntries = techRefs
+  .map((ref) => (typeof ref === 'string' ? entryMap.get(ref) : undefined))
   .filter((item): item is AnyEntry => Boolean(item));
 
 const warnings: string[] = Array.isArray(data.warnings) ? (data.warnings as string[]) : [];
@@ -58,18 +51,22 @@ const showLanguage =
     entry.collection === 'hooks' ||
     entry.collection === 'utilities') &&
   typeof data.language === 'string';
+
+const hasMeta = [
+  showWebsite,
+  showGithub,
+  showProblem,
+  showCommand,
+  showInstall,
+  showResource,
+  showTech,
+  showTool,
+  showLanguage,
+].some(Boolean);
 ---
 
 {
-  (showWebsite ||
-    showGithub ||
-    showProblem ||
-    showCommand ||
-    showInstall ||
-    showResource ||
-    showTech ||
-    showTool ||
-    showLanguage) && (
+  hasMeta && (
     <div class="mb-8 flex flex-col gap-4">
       {(showWebsite || showGithub) && (
         <div class="flex flex-wrap items-stretch gap-2">

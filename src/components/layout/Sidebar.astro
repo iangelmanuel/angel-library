@@ -43,9 +43,11 @@ const QUICK_LINKS = [
       data.groups.map((group) => (
         <section class="nav-group" aria-label={`Categorías de ${group.id}`}>
           {group.categories.map((category) => {
-            const subgroups = category.resourceGroups ?? category.stackGroups ?? [];
-            const groupedItems = [...subgroups.flatMap((sub) => sub.items), ...category.items];
-            const containsActive = groupedItems.some((item) => isActive(item.url));
+            const allItems = [
+              ...category.groups.flatMap((group) => group.items),
+              ...category.items,
+            ];
+            const containsActive = allItems.some((item) => isActive(item.url));
 
             return (
               <details
@@ -60,7 +62,7 @@ const QUICK_LINKS = [
                 </summary>
 
                 <div class="nav-children">
-                  {subgroups.map((sub) => (
+                  {category.groups.map((sub) => (
                     <details class="nav-sub" open={sub.items.some((item) => isActive(item.url))}>
                       <summary class="nav-summary nav-summary--sub">
                         <span class="nav-summary__label">{sub.label}</span>

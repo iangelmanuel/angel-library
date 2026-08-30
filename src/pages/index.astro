@@ -3,29 +3,54 @@ import DocsLayout from "@/layouts/DocsLayout.astro"
 import ContentCard from "@/components/content/ContentCard.astro"
 import Icon from "@/components/shared/Icon.astro"
 import { SITE } from "@/config/site"
-import { getHomePageData } from "@/lib/page-data"
+import { getAllEntries, getAllTags, getCategoryCounts } from "@/lib/content"
 
-const { entries, categories, recent, tags, topTags } = await getHomePageData()
+const entries = await getAllEntries()
+const categories = getCategoryCounts(entries)
+const tags = getAllTags(entries)
+const topTags = tags.slice(0, 16)
+
+const recent = entries
+  .filter((entry) => entry.data.updatedAt)
+  .sort((a, b) => b.data.updatedAt!.getTime() - a.data.updatedAt!.getTime())
+  .slice(0, 6)
 ---
 
 <DocsLayout>
   <div class="mx-auto w-full max-w-5xl">
-    <section class="terminal-window home-terminal" aria-labelledby="home-title">
-      <div class="terminal-window__bar" aria-hidden="true">
+    <section
+      class="terminal-window home-terminal"
+      aria-labelledby="home-title"
+    >
+      <div
+        class="terminal-window__bar"
+        aria-hidden="true"
+      >
         <span class="terminal-window__lights"><i></i><i></i><i></i></span>
         <span>angel.library — terminal</span>
         <span class="terminal-window__state"><i></i> online</span>
       </div>
       <div class="terminal-window__body">
         <p class="badge mb-5">
-          <Icon name="terminal" class="size-3 text-[var(--accent-green)]" />
+          <Icon
+            name="terminal"
+            class="size-3 text-[var(--accent-green)]"
+          />
           segundo cerebro técnico
         </p>
-        <h1 id="home-title" class="font-pixel text-3xl leading-tight md:text-4xl">
-          {SITE.name}<span class="terminal-cursor" aria-hidden="true">_</span>
+        <h1
+          id="home-title"
+          class="font-pixel text-3xl leading-tight md:text-4xl"
+        >
+          {SITE.name}<span
+            class="terminal-cursor"
+            aria-hidden="true"
+            >_</span
+          >
         </h1>
         <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-          {SITE.description} Consulta conceptos, recupera código y continúa aprendiendo desde un solo lugar.
+          {SITE.description} Consulta conceptos, recupera código y continúa aprendiendo
+          desde un solo lugar.
         </p>
 
         <button
@@ -34,7 +59,11 @@ const { entries, categories, recent, tags, topTags } = await getHomePageData()
           class="terminal-search mt-7 w-full max-w-xl"
           aria-label="Abrir búsqueda (Control K)"
         >
-          <span class="terminal-search__prompt" aria-hidden="true">$</span>
+          <span
+            class="terminal-search__prompt"
+            aria-hidden="true"
+            >$</span
+          >
           <span class="flex-1">grep -R "tema" ~/angel.library</span>
           <kbd class="kbd">ctrl K</kbd>
         </button>
@@ -43,7 +72,9 @@ const { entries, categories, recent, tags, topTags } = await getHomePageData()
           <div><dt>docs</dt><dd>{entries.length}</dd></div>
           <div><dt>categorías</dt><dd>{categories.length}</dd></div>
           <div><dt>tags</dt><dd>{tags.length}</dd></div>
-          <div><dt>build</dt><dd class="text-[var(--accent-green)]">static</dd></div>
+          <div>
+            <dt>build</dt><dd class="text-[var(--accent-green)]">static</dd>
+          </div>
         </dl>
       </div>
     </section>
@@ -55,9 +86,14 @@ const { entries, categories, recent, tags, topTags } = await getHomePageData()
       <div class="mb-4 flex items-end justify-between gap-4">
         <div>
           <h2 class="section-label">Explorar categorías</h2>
-          <p class="mt-2 text-sm text-muted-foreground">Rutas de lectura organizadas por área de conocimiento.</p>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Rutas de lectura organizadas por área de conocimiento.
+          </p>
         </div>
-        <span class="hidden font-mono text-[0.65rem] text-muted-foreground sm:block">ls ./knowledge</span>
+        <span
+          class="hidden font-mono text-[0.65rem] text-muted-foreground sm:block"
+          >ls ./knowledge</span
+        >
       </div>
       <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {
@@ -67,14 +103,26 @@ const { entries, categories, recent, tags, topTags } = await getHomePageData()
               class="card category-card"
               style={`--card-accent: var(${category.color})`}
             >
-              <span class="category-card__command" aria-hidden="true"><b>$</b> cd ./{category.id}</span>
+              <span
+                class="category-card__command"
+                aria-hidden="true"
+              >
+                <b>$</b> cd ./{category.id}
+              </span>
               <span class="category-card__heading">
-                <Icon name={category.icon} class="size-4" />
+                <Icon
+                  name={category.icon}
+                  class="size-4"
+                />
                 <strong>{category.label}</strong>
               </span>
-              <span class="category-card__description">{category.description}</span>
+              <span class="category-card__description">
+                {category.description}
+              </span>
               <span class="category-card__footer">
-                <span>{category.count} doc{category.count === 1 ? "" : "s"}</span>
+                <span>
+                  {category.count} doc{category.count === 1 ? "" : "s"}
+                </span>
                 <span aria-hidden="true">open ↗</span>
               </span>
             </a>
@@ -91,7 +139,9 @@ const { entries, categories, recent, tags, topTags } = await getHomePageData()
         >
           <div class="mb-4 flex items-center justify-between gap-4">
             <h2 class="section-label">Actualizado recientemente</h2>
-            <span class="font-mono text-[0.65rem] text-muted-foreground">git log --latest</span>
+            <span class="font-mono text-[0.65rem] text-muted-foreground">
+              git log --latest
+            </span>
           </div>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {recent.map((entry) => (
@@ -109,15 +159,32 @@ const { entries, categories, recent, tags, topTags } = await getHomePageData()
       <div class="tags-console">
         <div class="tags-console__header">
           <h2 class="section-label">Tags frecuentes</h2>
-          <a href="/tags" class="tags-console__all">ver los {tags.length} tags <span aria-hidden="true">↗</span></a>
+          <a
+            href="/tags"
+            class="tags-console__all"
+            >ver los {tags.length} tags <span aria-hidden="true">↗</span></a
+          >
         </div>
-        <p class="tags-console__command" aria-hidden="true"><span>$</span> tags --sort frequency --limit 16</p>
+        <p
+          class="tags-console__command"
+          aria-hidden="true"
+        >
+          <span>$</span> tags --sort frequency --limit 16
+        </p>
         <div class="flex flex-wrap gap-2">
           {
             topTags.map(({ tag, count }) => (
-              <a href={`/tags/${encodeURIComponent(tag)}`} class="tag">
+              <a
+                href={`/tags/${encodeURIComponent(tag)}`}
+                class="tag"
+              >
                 <span class="tag__name">{tag}</span>
-                <span class="tag__count" aria-label={`${count} entradas`}>{count}</span>
+                <span
+                  class="tag__count"
+                  aria-label={`${count} entradas`}
+                >
+                  {count}
+                </span>
               </a>
             ))
           }

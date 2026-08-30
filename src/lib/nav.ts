@@ -4,129 +4,102 @@ import {
   CONTENT_TYPES,
   STACKS,
   type CategoryId,
-  type ContentTypeId,
-  type ResourceCategoryId,
-  type StackId,
-} from '@/config/site';
-import { getEntryUrl, sortByLearningPath, type AnyEntry } from './content';
-import { getCategoryContent } from './content-groups';
+  type ContentTypeId
+} from "@/config/site"
+import { getCategoryEntries, getEntryUrl, sortByLearningPath, type AnyEntry } from "./content"
 
-/**
- * Datos de navegación para la sidebar (Astro) y el menú móvil (isla React).
- * Se construyen una sola vez por página a partir de las colecciones.
- */
-
-/** Icono de marca por `language`, cuando aplica. */
-const LANGUAGE_ICONS: Partial<Record<string, string>> = {
-  css: 'brand-css',
-  typescript: 'brand-typescript',
-};
-
-/**
- * Icono por entrada: casos especiales primero (Zod), después el tipo de
- * contenido (libraries → caja verde,
- * hooks → glifo TS, para distinguirlos del átomo de React del stack),
- * después el stack de conocimiento (lenguaje, framework o herramienta) si está declarado,
- * después el lenguaje (CSS/TypeScript), y por defecto el icono genérico
- * del tipo.
- */
-function iconFor(entry: AnyEntry): string {
-  if (entry.collection === 'libraries' && entry.id === 'zod') return 'brand-zod';
-  if (entry.collection === 'guides' && entry.id === 'typescript-path-aliases') return 'brand-typescript';
-  if (entry.collection === 'patterns' && entry.id === 'site-config-global') return 'brand-typescript';
-  if (entry.collection === 'libraries') return 'stack-dependency';
-  if (entry.collection === 'hooks') return 'brand-typescript';
-
-  const stack = (entry.data as { stack?: StackId }).stack;
-  if (stack) return STACKS[stack].icon;
-
-  const language = (entry.data as { language?: string }).language;
-  return (language && LANGUAGE_ICONS[language]) || CONTENT_TYPES[entry.collection as ContentTypeId].icon;
-}
+/** Datos de la sidebar (Astro) y del menú móvil (React). */
 
 export interface NavItem {
-  title: string;
-  url: string;
-  /** Icono del tipo de contenido */
-  icon: string;
+  title: string
+  url: string
+  icon: string
+}
+
+export interface NavGroup {
+  id: string
+  label: string
+  items: NavItem[]
 }
 
 export interface NavCategory {
-  id: CategoryId;
-  label: string;
-  icon: string;
-  color: string;
-  items: NavItem[];
-  resourceGroups?: NavGroup[];
-  stackGroups?: NavGroup[];
-}
-
-/** Subgrupo dentro de una categoría: por categoría de recurso o por stack de conocimiento. */
-export interface NavGroup {
-  id: ResourceCategoryId | StackId;
-  label: string;
-  items: NavItem[];
-}
-
-/**
- * Bloque de categorías separado visualmente en la navegación.
- * Refleja `CATEGORY_GROUPS` de `config/site.ts`.
- */
-export interface NavCategoryGroup {
-  id: string;
-  categories: NavCategory[];
+  id: CategoryId
+  label: string
+  icon: string
+  color: string
+  /** Entradas sin subcategoría, sueltas bajo la categoría. */
+  items: NavItem[]
+  /** Subcategorías desplegables (por stack o por tipo de recurso). */
+  groups: NavGroup[]
 }
 
 export interface NavData {
-  groups: NavCategoryGroup[];
+  groups: { id: string; categories: NavCategory[] }[]
+}
+
+/** Iconos de marca que ganan al icono del tipo o del stack. */
+const ICON_OVERRIDES: Record<string, string> = {
+  "libraries/zod": "brand-zod",
+  "guides/typescript-path-aliases": "brand-typescript",
+  "patterns/site-config-global": "brand-typescript",
+  "hooks/*": "brand-typescript",
+  "libraries/*": "stack-dependency"
+}
+
+const LANGUAGE_ICONS: Record<string, string> = {
+  css: "brand-css",
+  typescript: "brand-typescript"
+}
+
+/** Icono de una entrada: excepción, stack, lenguaje o tipo. */
+function iconFor(entry: AnyEntry): string {
+  const override =
+    ICON_OVERRIDES[`${entry.collection}/${entry.id}`] ??
+    ICON_OVERRIDES[`${entry.collection}/*`]
+  if (override) return override
+
+  if (entry.data.stack) return STACKS[entry.data.stack].icon
+
+  const language = (entry.data as { language?: string }).language
+  return (
+    (language && LANGUAGE_ICONS[language]) ||
+    CONTENT_TYPES[entry.collection as ContentTypeId].icon
+  )
 }
 
 function toNavItems(entries: AnyEntry[]): NavItem[] {
   return sortByLearningPath(entries).map((entry) => ({
     title: entry.data.title,
     url: getEntryUrl(entry),
-    icon: iconFor(entry),
-  }));
+    icon: iconFor(entry)
+  }))
+}
+
+function buildCategory(all: AnyEntry[], id: CategoryId): NavCategory {
+  const { groups, ungrouped } = getCategoryEntries(all, id)
+
+  return {
+    ...CATEGORIES[id],
+    items: toNavItems(ungrouped),
+    groups: groups.map((group) => ({
+      id: group.id,
+      label: group.label,
+      items: toNavItems(group.entries)
+    }))
+  }
 }
 
 export function buildNavData(all: AnyEntry[]): NavData {
-  const buildCategory = (id: CategoryId): NavCategory => {
-    const meta = CATEGORIES[id];
-    const content = getCategoryContent(all, id);
-
-    const resourceGroups = content.kind === 'resources'
-      ? content.groups.map(({ id, label, entries }) => ({
-          id,
-          label,
-          items: toNavItems(entries),
-        }))
-      : undefined;
-
-    const stackGroups = content.kind === 'stacks'
-      ? content.groups.map(({ id, label, entries }) => ({
-          id,
-          label,
-          items: toNavItems(entries),
-        }))
-      : undefined;
-    const items = toNavItems(content.ungrouped);
-
-    return { ...meta, items, resourceGroups, stackGroups };
-  };
-
   const hasContent = (category: NavCategory) =>
-    category.items.length > 0 ||
-    (category.resourceGroups?.length ?? 0) > 0 ||
-    (category.stackGroups?.length ?? 0) > 0;
+    category.items.length > 0 || category.groups.length > 0
 
-  // Un grupo entero sin contenido no dibuja separador: evita dos líneas
-  // seguidas cuando todas sus categorías están vacías.
-  const groups: NavCategoryGroup[] = CATEGORY_GROUPS.map((group) => ({
-    id: group.id,
-    categories: (group.categories as readonly CategoryId[])
-      .map(buildCategory)
-      .filter(hasContent),
-  })).filter((group) => group.categories.length > 0);
-
-  return { groups };
+  // Un bloque entero vacío no dibuja su separador.
+  return {
+    groups: CATEGORY_GROUPS.map((group) => ({
+      id: group.id,
+      categories: (group.categories as readonly CategoryId[])
+        .map((id) => buildCategory(all, id))
+        .filter(hasContent)
+    })).filter((group) => group.categories.length > 0)
+  }
 }

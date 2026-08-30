@@ -3,8 +3,12 @@ import DocsLayout from "@/layouts/DocsLayout.astro"
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
 import ContentCard from "@/components/content/ContentCard.astro"
 import Icon from "@/components/shared/Icon.astro"
-import { getAllEntries, getAllTags, getEntriesByTag } from "@/lib/content"
-import { groupEntriesByCategory } from "@/lib/content-groups"
+import {
+  getAllEntries,
+  getAllTags,
+  getEntriesByTag,
+  groupEntriesByCategory
+} from "@/lib/content"
 
 export async function getStaticPaths() {
   return getAllTags(await getAllEntries()).map(({ tag, count }) => ({
