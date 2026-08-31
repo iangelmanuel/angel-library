@@ -1,5 +1,5 @@
 ---
-title: skills.sh
+title: "skills.sh — directorio de skills para agentes"
 description: Directorio de Agent Skills — instalar con un comando, compatible con 20+ agentes (Claude Code, Cursor, Copilot, Windsurf...).
 category: resources
 tags: [ai, skills]

@@ -1,5 +1,5 @@
 ---
-title: Cool Contrast
+title: "Cool Contrast — combinaciones de color y contraste"
 description: Herramienta para explorar combinaciones de color y comprobar contraste visual.
 category: resources
 tags: [colors, accessibility, ui, ux]

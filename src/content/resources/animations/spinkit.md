@@ -1,5 +1,5 @@
 ---
-title: SpinKit
+title: "SpinKit — spinners CSS listos para copiar"
 description: Colección de spinners CSS pequeños y fáciles de copiar.
 category: resources
 tags: [css, loaders, animation, ui]

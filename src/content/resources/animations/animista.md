@@ -1,5 +1,5 @@
 ---
-title: Animista
+title: "Animista — animaciones CSS ajustables y copiables"
 description: Biblioteca interactiva de animaciones CSS que permite ajustar y copiar keyframes.
 category: resources
 tags: [css, animation, transitions, frontend]

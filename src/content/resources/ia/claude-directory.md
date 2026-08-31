@@ -1,5 +1,5 @@
 ---
-title: Claude Directory
+title: "Claude Directory — plugins, agentes y MCP para Claude Code"
 description: Directorio de plugins, agentes, servidores MCP, skills y hooks para el ecosistema de Claude Code, con guías de instalación.
 category: resources
 tags: [ai, plugin, mcp, claude-code]

@@ -1,5 +1,5 @@
 ---
-title: iconmonstr
+title: "iconmonstr — iconos simples en varias colecciones"
 description: Biblioteca de iconos simples en múltiples colecciones y formatos.
 category: resources
 tags: [icons, svg, ui]

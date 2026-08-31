@@ -1,5 +1,5 @@
 ---
-title: UI Colors
+title: "UI Colors — escalas de color para Tailwind"
 description: Generador de escalas de color compatibles con Tailwind y sistemas de diseño.
 category: resources
 tags: [colors, tailwind, design-system, ui]

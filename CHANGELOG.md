@@ -8,6 +8,297 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.16.1] — 2026-08-31
+
+Los títulos de Hallazgos y Recursos adoptan el patrón `[nombre] — [qué hace]`
+que ya usaban Aplicaciones y otras categorías.
+
+### Cambiado
+
+- **37 títulos** reescritos con el patrón `[nombre] — [qué hace]`: las 5
+  entradas de Hallazgos, las 31 de Recursos y **Borumi** en Aplicaciones, que
+  era la única de su subcategoría sin descriptor y desentonaba junto a Figma y
+  Excalidraw.
+- El descriptor se mantiene corto, entre tres y siete palabras, para que la
+  barra lateral siga siendo legible: `Squoosh — comprimir y convertir imágenes
+  en el navegador`, `Buzz — espacio de trabajo para personas y agentes`.
+
+### Verificado
+
+- Auditoría del frontmatter: las 40 entradas de Hallazgos y Recursos cumplen
+  el patrón, sin excepciones.
+- Barra lateral comprobada en el navegador: Borumi aparece con el mismo
+  formato que Figma, Excalidraw y Notion dentro de Aplicaciones.
+- `pnpm check` con 0 errores y `pnpm build` con 1630 páginas estáticas.
+
+### Nota
+
+- `img.xyz — verificar antes de usar` conserva su descriptor de advertencia en
+  lugar de uno funcional: el dominio no sirve hoy una herramienta operativa y
+  el aviso es más útil que describir lo que debería hacer.
+
+## [0.16.0] — 2026-08-31
+
+Cada subcategoría explica ahora qué contiene, los recursos se reagrupan por lo
+que realmente son, y los enlaces del contenido se distinguen del texto.
+
+### Añadido
+
+- **Descripción en las 101 subcategorías** del sitio, escrita en lenguaje
+  claro para alguien que empieza sin resultar obvia para quien ya sabe. Se
+  muestra bajo el título de cada sección en la página de categoría, que es
+  donde alguien decide en qué apartado entrar.
+- **Descripción en las 15 subcategorías de Recursos**, con el mismo criterio.
+- Subcategoría **Imágenes y mockups** en Recursos, con PostSpark, Shots,
+  Squoosh e img.xyz.
+- **Aprende SQL** en Cursos → Midudev: curso interactivo de 26 lecciones con
+  editor SQL en cada una y certificado en PDF publicable en LinkedIn.
+
+### Cambiado
+
+- Los enlaces dentro del contenido pasan de gris a un **azul tenue**
+  (`#93bbfc`), con el subrayado en el mismo tono al 45 %. Antes solo se
+  distinguían por el subrayado, que en un párrafo largo cuesta ver.
+- **DESIGN.md** se mueve de Hallazgos a IA Tools & Skills → Fundamentos: es un
+  formato para hablarle a un agente de codificación, no un proyecto que se use
+  como herramienta.
+- Las subcategorías de recursos **Gradientes** y **Glassmorphism** se fusionan
+  en **CSS**: las tres eran generadores de CSS y separarlas dejaba grupos de
+  una sola entrada.
+- Reescrita la presentación de Midudev en su catálogo: se retira la
+  explicación del esquema `midu.link`, y en su lugar se menciona que emite en
+  directo casi a diario en Twitch y YouTube, con enlace a su comunidad de
+  Discord.
+- La fila de SQL del catálogo apunta a `aprendesql.dev` en vez de a la
+  playlist, por ser el material actual y con certificado.
+- Crédito de los apuntes de Majo ampliado con su perfil de GitHub,
+  [majoledesma](https://github.com/majoledesma).
+- Títulos de PostSpark y Shots con el patrón `[nombre] — [qué hace]`.
+
+### Eliminado
+
+- Sección "Aviso sobre el certificado de SQL" del catálogo de Midudev, que
+  advertía sobre un enlace de afiliado a DataCamp. Sale de la biblioteca por
+  completo: el curso de SQL con certificado gratuito es `aprendesql.dev`.
+
+### Verificado
+
+- Las páginas de categoría muestran la descripción bajo cada subcategoría;
+  comprobado en Recursos, Cursos, Hallazgos, Frontend e IA Tools & Skills.
+- Recursos queda en 12 grupos con contenido, sin subcategorías de una sola
+  entrada por división artificial.
+- El color de enlace calculado en el navegador es `rgb(147, 187, 252)` frente
+  al `rgb(156, 156, 165)` del párrafo, contraste suficiente para distinguirlo.
+- `pnpm check` con 0 errores y `pnpm build` con 1630 páginas estáticas.
+
+### Nota
+
+- Las descripciones se muestran en la página de categoría, no en la barra
+  lateral. Un `[nombre] — [descripción]` en la etiqueta habría ocupado tres
+  líneas por subcategoría en una columna de 288 px, con 101 subcategorías en
+  el árbol; la barra lateral conserva solo el nombre.
+
+## [0.15.0] — 2026-08-30
+
+Revisión de tono y precisión sobre lo publicado en las últimas versiones:
+un tono innecesario en la entrada de Midudev, un formato que no aportaba
+distinción real, un título sin nombre propio, y **Shots**, la herramienta
+de mockups que faltaba junto a PostSpark.
+
+### Añadido
+
+- **Shots** en Recursos → Developer Tools, junto a PostSpark: mockups de
+  dispositivo animables a partir de una captura o un diseño estático.
+
+### Cambiado
+
+- Reescrita la introducción de "Cursos de Midudev por tecnología": el párrafo
+  explicaba el esquema de enlaces `midu.link` en un tono que sonaba a señalar
+  un defecto de Miguel Ángel Durán, cuando el problema era solo que un
+  acortador no revela su destino. La introducción ahora presenta quién es y
+  qué más publica, sin comentar sus enlaces.
+- El formato **"Directo grabado"** se fusionó con **"Video"**. La mayoría de
+  los cursos en formato video de Midudev son directos re-subidos tal cual a
+  YouTube, así que la distinción no describía nada que el lector fuera a
+  encontrar distinto; queda una nota breve sobre eso dentro del formato
+  "Video" en vez de una categoría propia.
+- El título del recurso de color pasa de una frase descriptiva sin nombre a
+  **"UX Planet — alternativas al negro puro en texto y fondos"**, y el de la
+  plantilla de CV a **"Midudev — plantilla de CV para desarrollo"**: el resto
+  de títulos de la categoría ya incluían el nombre de su fuente y estos dos
+  eran la excepción.
+
+### Corregido
+
+- Enlace cruzado entre PostSpark y Shots en ambas entradas, con una tabla que
+  compara cuándo conviene cada una.
+
+### Verificado
+
+- Los 388 enlaces externos del cuerpo Markdown siguen con `target="_blank"` y
+  `rel="noopener noreferrer"` tras los cambios de esta versión.
+- Estructura de las 34 entradas de Cursos y Hallazgos revisada de nuevo:
+  entre 1 y 7 secciones cada una, consistente con el resto de la categoría.
+- `pnpm check` con 0 errores y `pnpm build` con 1629 páginas estáticas.
+
+## [0.14.0] — 2026-08-30
+
+Los enlaces externos del contenido pasan a abrirse en otra pestaña, y las
+categorías Cursos y Hallazgos se reordenan tras revisarlas entrada por entrada.
+
+### Corregido
+
+- **Los enlaces externos del Markdown se abrían en la misma pestaña**, sacando
+  al lector del sitio. Un plugin nuevo, `src/lib/rehype-external-links.mjs`,
+  les añade `target="_blank"` y `rel="noopener noreferrer"` durante el build.
+  Sin `noopener`, la página de destino recibe una referencia a la nuestra por
+  `window.opener` y puede redirigirla. Afecta a **388 enlaces** repartidos por
+  todo el contenido. Los enlaces internos se dejan intactos para no romper las
+  View Transitions.
+
+### Añadido
+
+- Subcategoría **Empleo y entrevistas** en Cursos, con la plantilla de CV y la
+  guía de entrevistas de DevCaress. Ninguna de las dos enseña una tecnología,
+  así que desentonaban en Midudev y en Repositorios.
+
+### Cambiado
+
+- Los dos cursos de **Next.js** dejan de tener entrada propia y pasan al
+  catálogo de cursos de Midudev, con sus dos enlaces y la explicación de la
+  diferencia entre App Router y Pages Router. La playlist de App Router queda
+  enlazada como playlist completa, no como un video suelto.
+- **LLMs from Scratch** se mueve de Hallazgos a Cursos → Repositorios y
+  apuntes: es el código que acompaña a un libro, o sea material de estudio, no
+  un proyecto que se use como herramienta.
+- Orden recalculado dentro de las subcategorías afectadas.
+
+### Verificado
+
+- Auditoría del HTML generado: los 388 enlaces externos del cuerpo Markdown
+  llevan `target="_blank"` con `rel` completo, y ningún enlace interno abre en
+  pestaña nueva.
+- Las 31 entradas de Cursos y Hallazgos revisadas una a una: todas tienen
+  crédito al autor, entre 1 y 7 secciones y entre 159 y 623 palabras.
+- `pnpm check` con 0 errores y `pnpm build` con 1626 páginas estáticas.
+
+### Nota
+
+- **InShot no se añadió.** El sitio `inshot.com` es una aplicación móvil de
+  edición de video y foto, no una herramienta web para convertir capturas en
+  mockups. Queda pendiente confirmar a qué producto se refería la petición.
+
+## [0.13.0] — 2026-08-30
+
+Categoría **Hallazgos** para repositorios y proyectos que vale la pena
+conocer, más créditos explícitos a quien publica cada recurso en las 40
+entradas de Cursos y Hallazgos.
+
+### Añadido
+
+- Categoría **Hallazgos**, entre Cursos y Recursos, con dos subcategorías:
+  `IA y agentes` y `Web y producto`.
+- Siete entradas en Hallazgos: **Buzz** (espacio de trabajo donde personas y
+  agentes comparten salas, sobre un relé Nostr), **Open Executive** (ocho
+  agentes especializados tras una sola voz ejecutiva), **LLMs from Scratch**
+  (construir un modelo tipo GPT paso a paso), **DESIGN.md** (formato para
+  describir una identidad visual a agentes de codificación), **HyperFrames**
+  (HTML a video MP4 determinista), **Astro Storefront** (referencia de
+  comercio electrónico con Astro) y **los 12 principios de la animación**
+  aplicados a interfaces.
+- Dos librerías en UI / UX → UI con React: **GridStack.js** para dashboards
+  con widgets arrastrables y **Untitled UI React**, componentes abiertos sobre
+  Tailwind y React Aria.
+- Tres recursos: **PostSpark** en Developer Tools, **transition.style** en
+  Animaciones y el artículo sobre **alternativas al negro puro** en Colores.
+- Crédito explícito al autor o la organización de cada recurso, al inicio de
+  las 40 entradas de Cursos y Hallazgos, con enlace a su perfil y la licencia
+  cuando aplica.
+
+### Cambiado
+
+- La subcategoría de cursos pasa a mostrarse como **Midudev**, con mayúscula.
+  El id `cursos-midudev`, los tags y las rutas `midu.link` no cambian.
+
+### Verificado
+
+- Los seis repositorios contrastados contra la API de GitHub: estrellas,
+  licencia, lenguaje y fecha del último cambio.
+- `withastro/storefront` está marcado como alfa y su último cambio es de
+  octubre de 2024; queda advertido en la entrada para que no se tome como
+  plantilla de arranque.
+- `transition.style` identificado como el paquete `transition-style`, del
+  repositorio `argyleink/transition.css` de Adam Argyle.
+- Los 12 enlaces internos de las entradas nuevas devuelven 200, y las dos
+  subcategorías de Hallazgos aparecen en la navegación y en su página de
+  categoría con sus 7 entradas.
+- `pnpm check` con 0 errores y `pnpm build` con 1627 páginas estáticas.
+
+### Nota
+
+- La entrada de PostSpark quedó en la subcategoría **Developer Tools**, junto
+  a Squoosh y img.xyz. La referencia de InShot que motivaba la ubicación no
+  existe en la biblioteca.
+
+## [0.12.0] — 2026-08-30
+
+La categoría Cursos deja de estar vacía: 28 entradas repartidas en cinco
+subcategorías por procedencia, con el formato real de cada recurso verificado
+enlace por enlace.
+
+### Añadido
+
+- Cinco subcategorías en **Cursos**, ordenadas por procedencia del material:
+  `midudev`, `Microsoft`, `Google`, `Repositorios y apuntes` y
+  `Plataformas y comunidad`.
+- Seis entradas de **midudev**: catálogo de cursos por tecnología con su
+  formato resuelto, el bootcamp JS Camp, los dos cursos de Next.js separados
+  por enrutador, los libros gratuitos, las plantillas de CV y el repositorio
+  del curso de React.
+- Cuatro de **Microsoft**: las series de Reactor sobre Python + Agentes y
+  sobre MCP, el Centro de estudiantes de Microsoft Learn con sus currículos
+  abiertos de GitHub, y las rutas de LinkedIn con certificado.
+- Dos de **Google**: el programa por cohortes GEAR Get Certified de Google
+  Cloud y el certificado profesional de IA en Coursera.
+- Siete de **repositorios y apuntes**: preguntas de JavaScript de
+  lydiahallie, 30 Days of JavaScript, Node.js Best Practices, algoritmos y
+  estructuras de datos de trekhleb, Clean Code en JavaScript, la guía de
+  entrevistas de DevCaress y los apuntes manuscritos de Majo.
+- Nueve de **plataformas y comunidad**: cursos gratuitos de NVIDIA, CS50x en
+  español, Exercism, la certificación A2 de inglés de freeCodeCamp,
+  curso-ingles.com, Learn Testing de web.dev, Replit Learn, Learn MCP de
+  Cloudflare y dos chuletas en PDF de Git y CSS.
+- Iconos de las cinco subcategorías nuevas en `src/config/icons.ts`.
+- Sección en `docs/CONTENT_GUIDE.md` sobre el error
+  `bad indentation of a mapping entry`, que aparece cuando un valor del
+  frontmatter contiene `: ` sin comillas.
+
+### Corregido
+
+- Formatos mal atribuidos en la lista de cursos de midudev. Al resolver los
+  acortadores `midu.link`, seis enlaces que figuraban como video suelto son en
+  realidad playlists completas (SQL, CSS, TypeScript) o directos grabados
+  (Docker), lo que cambia por completo el tiempo que requieren.
+- El enlace que circula como "certificado de SQL de midudev" lleva a la
+  certificación *SQL Associate* de DataCamp, que es de pago y ajena a
+  midudev; queda advertido en la entrada correspondiente.
+- Las dos series de Microsoft Reactor estaban cruzadas: `S-1567` es el MCP
+  Bootcamp LATAM y `S-1633` es Python + Agentes, no dos ediciones de lo mismo.
+
+### Verificado
+
+- Los 25 enlaces `midu.link` resueltos a su destino final con `curl` para
+  documentar el formato real de cada curso.
+- Los ocho repositorios de GitHub contrastados contra la API: estrellas,
+  licencia, última actualización y existencia real de la traducción al
+  español. `devictoribero/clean-code-javascript` resultó ser un fork sin
+  cambios desde 2024, así que la entrada apunta al original.
+- Requisitos de acceso comprobados donde condicionan el uso: GEAR Get
+  Certified exige trabajar en una empresa cliente de Google Cloud con correo
+  corporativo, y las plantillas de CV requieren sesión de Google.
+- Los 9 enlaces internos de las entradas nuevas devuelven 200.
+- `pnpm check` con 0 errores y `pnpm build` con 1590 páginas estáticas.
+
 ## [0.11.0] — 2026-08-30
 
 Tres subcategorías nuevas y 19 entradas: el gateway de WhatsApp OpenWA, una
@@ -663,7 +954,13 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.16.1...HEAD
+[0.16.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.16.1
+[0.16.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.16.0
+[0.15.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.15.0
+[0.14.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.14.0
+[0.13.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.13.0
+[0.12.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.12.0
 [0.11.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.11.0
 [0.10.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.10.0
 [0.9.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.9.0

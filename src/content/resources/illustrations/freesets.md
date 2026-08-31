@@ -1,5 +1,5 @@
 ---
-title: FreeSerts
+title: "FreeSerts — recursos visuales gratuitos para prototipos"
 description: Colección de recursos visuales gratuitos para explorar ideas de diseño y acelerar prototipos frontend.
 category: resources
 tags: [resources, design, frontend, illustrations]

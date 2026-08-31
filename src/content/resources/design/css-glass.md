@@ -1,10 +1,10 @@
 ---
-title: CSS Glass
+title: "CSS Glass — generador de glassmorphism"
 description: Generador de estilos glassmorphism con CSS listo para adaptar.
 category: resources
 tags: [css, glassmorphism, ui, backgrounds]
 url: https://css.glass/
-resourceCategory: glassmorphism
+resourceCategory: css
 technologies: []
 personalNote: "Usarlo con moderación: el blur no debe reducir contraste ni legibilidad."
 related: [resources/design/css-gradient, resources/design/neumorphism]

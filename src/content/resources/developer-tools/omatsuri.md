@@ -1,5 +1,5 @@
 ---
-title: Omatsuri
+title: "Omatsuri — herramientas pequeñas para frontend"
 description: Colección de pequeñas herramientas web para desarrolladores frontend.
 category: resources
 tags: [javascript, css, generators, developer-tools]

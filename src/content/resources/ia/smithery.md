@@ -1,5 +1,5 @@
 ---
-title: Smithery
+title: "Smithery — registro e instalador de servidores MCP"
 description: Registro e instalador de servidores MCP — buscar, ver documentación de instalación, y correr el CLI para conectarlos.
 category: resources
 tags: [ai, mcp]

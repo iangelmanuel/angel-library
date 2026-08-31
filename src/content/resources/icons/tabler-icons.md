@@ -1,5 +1,5 @@
 ---
-title: Tabler Icons
+title: "Tabler Icons — iconos SVG outline y filled"
 description: Colección open source de iconos SVG con estilos outline y filled.
 category: resources
 tags: [icons, svg, ui, accessibility]

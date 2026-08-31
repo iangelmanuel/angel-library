@@ -1,5 +1,5 @@
 ---
-title: Blobmaker
+title: "Blobmaker — formas SVG orgánicas para fondos"
 description: Generador de formas SVG orgánicas para fondos, ilustraciones y composiciones frontend.
 category: resources
 tags: [svg, generators, illustrations, ui]

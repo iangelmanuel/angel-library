@@ -1,5 +1,5 @@
 ---
-title: Heroicons
+title: "Heroicons — iconos SVG de los creadores de Tailwind"
 description: Iconos SVG de los creadores de Tailwind CSS. Outline y solid, listos para copiar como JSX o SVG.
 category: resources
 tags: [icons, ui, svg]

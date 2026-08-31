@@ -63,6 +63,11 @@ const { entries, sections } = getCategorySections(await getAllEntries(), meta.id
               {section.icon && <Icon name={section.icon} class="size-3.5" />}
               {section.label}
             </h2>
+            {section.description && (
+              <p class="mb-4 -mt-2 max-w-2xl text-sm text-muted-foreground">
+                {section.description}
+              </p>
+            )}
             <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {section.entries.map((entry) => (
                 <ContentCard entry={entry} />

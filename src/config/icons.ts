@@ -170,4 +170,12 @@ export const RECOLORED_ICONS: Record<string, { base: string; color: string }> = 
   "brand-patrones-arquitectonicos": { base: "building-2", color: "#fb923c" },
   "brand-ui-ux-estilos": { base: "shapes", color: "#f472b6" },
   "brand-apps-video": { base: "clapperboard", color: "#fb923c" },
+  "brand-cursos-midudev": { base: "monitor-play", color: "#f472b6" },
+  "brand-cursos-microsoft": { base: "building", color: "#38bdf8" },
+  "brand-cursos-google": { base: "award", color: "#fbbf24" },
+  "brand-cursos-repos": { base: "book-marked", color: "#4ade80" },
+  "brand-cursos-plataformas": { base: "graduation-cap", color: "#a78bfa" },
+  "brand-cursos-empleo": { base: "briefcase", color: "#fbbf24" },
+  "brand-hallazgos-ia": { base: "sparkles", color: "#22d3ee" },
+  "brand-hallazgos-web": { base: "compass", color: "#fb923c" },
 }

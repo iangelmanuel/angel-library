@@ -199,6 +199,16 @@ Todos los iconos viven en `src/config/icons.ts`, que leen tanto Astro como React
 
 ## Errores habituales
 
+- **`bad indentation of a mapping entry` al compilar:** el valor de un campo
+  contiene `: ` (dos puntos y espacio) sin comillas. YAML lo interpreta como
+  otra clave. Envuelve el valor en comillas dobles:
+
+  ```yaml
+  description: "Editor de escritorio: graba y monta video."
+  ```
+
+  Pasa sobre todo en `title`, `description` y `personalNote`. El build indica
+  el archivo y la línea exactos.
 - **No aparece en producción:** sigue con `draft: true` o `private: true`.
 - **No aparece en el stack esperado:** el `stack` no está en `CATEGORY_STACK_ORDER[category]`.
 - **El build falla por una referencia:** usa `colección/id` e incluye la subcarpeta en los recursos.

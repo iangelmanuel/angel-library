@@ -826,14 +826,16 @@ details[open] > .nav-summary .nav-chevron {
 .markdown p + h4 {
   margin-top: 3rem;
 }
+/* Azul tenue: se distingue del texto sin gritar en un párrafo largo. */
 .markdown a {
-  color: var(--foreground);
+  color: #93bbfc;
   text-decoration: underline;
-  text-decoration-color: #52525b;
+  text-decoration-color: color-mix(in srgb, #93bbfc 45%, transparent);
   text-underline-offset: 3px;
 }
 .markdown a:hover {
-  text-decoration-color: var(--foreground);
+  color: var(--accent-blue);
+  text-decoration-color: var(--accent-blue);
 }
 .markdown strong {
   color: var(--foreground);

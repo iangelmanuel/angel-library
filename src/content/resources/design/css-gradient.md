@@ -1,10 +1,10 @@
 ---
-title: CSS Gradient
+title: "CSS Gradient — generador y galería de degradados"
 description: Generador y galería de gradientes CSS lineales y radiales listos para copiar.
 category: resources
 tags: [css, gradients, colors, ui]
 url: https://cssgradient.io/
-resourceCategory: gradients
+resourceCategory: css
 technologies: []
 personalNote: Útil para construir fondos suaves, hero sections y accents sin usar imágenes.
 related: [resources/design/css-glass, resources/animations/animista]

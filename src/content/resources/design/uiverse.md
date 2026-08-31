@@ -1,5 +1,5 @@
 ---
-title: Uiverse
+title: "Uiverse — componentes HTML y CSS de la comunidad"
 description: Galería de componentes HTML y CSS creados por la comunidad.
 category: resources
 tags: [css, ui, components, inspiration]

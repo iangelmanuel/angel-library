@@ -1,5 +1,5 @@
 ---
-title: Animated Icons
+title: "Animated Icons — iconos animados en Lottie, SVG y PNG"
 description: Colección de iconos animados descargables como Lottie, SVG o PNG.
 category: resources
 tags: [icons, animation, lottie, ui]

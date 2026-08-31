@@ -108,15 +108,22 @@ export function sortByLearningPath<T extends AnyEntry>(entries: T[]): T[] {
 export interface EntryGroup {
   id: string
   label: string
+  /** Una línea que explica de qué va el grupo. */
+  description?: string
   entries: AnyEntry[]
 }
 
 function toGroups(
-  source: readonly { id: string; label: string }[],
+  source: readonly { id: string; label: string; description?: string }[],
   pick: (id: string) => AnyEntry[]
 ): EntryGroup[] {
   return source
-    .map(({ id, label }) => ({ id, label, entries: pick(id) }))
+    .map(({ id, label, description }) => ({
+      id,
+      label,
+      description,
+      entries: pick(id)
+    }))
     .filter((group) => group.entries.length > 0)
 }
 
@@ -162,6 +169,7 @@ export function getCategoryEntries(all: AnyEntry[], category: CategoryId) {
 export interface CategorySection {
   label: string
   icon?: string
+  description?: string
   entries: AnyEntry[]
 }
 
@@ -171,24 +179,38 @@ export function getCategorySections(
   category: CategoryId
 ): { entries: AnyEntry[]; sections: CategorySection[] } {
   const { entries, groups, ungrouped } = getCategoryEntries(all, category)
-  const loose = (label: string): CategorySection[] =>
-    ungrouped.length > 0 ? [{ label, icon: "book-open", entries: ungrouped }] : []
+  const loose = (label: string, description: string): CategorySection[] =>
+    ungrouped.length > 0
+      ? [{ label, icon: "book-open", description, entries: ungrouped }]
+      : []
 
   if (category === "resources") {
     return {
       entries,
       sections: [
-        ...loose("Guías y fundamentos"),
+        ...loose(
+          "Guías y fundamentos",
+          "Cómo elegir y evaluar un recurso antes de meterlo en un proyecto."
+        ),
         ...groups.map((group) => ({ ...group, icon: "bookmark" }))
       ]
     }
   }
 
   if (STACK_GROUPED_CATEGORIES.includes(category)) {
-    return { entries, sections: [...groups, ...loose("Fundamentos y referencias")] }
+    return { entries, sections: [...groups, ...loose(
+        "Fundamentos y referencias",
+        "Contenido de la categoría que no pertenece a ninguna subcategoría."
+      )] }
   }
 
-  return { entries, sections: [{ label: "Ruta de aprendizaje", entries: ungrouped }] }
+  return { entries, sections: [
+      {
+        label: "Ruta de aprendizaje",
+        description: "Todo el contenido de la categoría, en orden de lectura.",
+        entries: ungrouped
+      }
+    ] }
 }
 
 /** Agrupa una selección de entradas en el orden público de categorías. */

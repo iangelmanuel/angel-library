@@ -1,5 +1,5 @@
 ---
-title: Colour Contrast Checker
+title: "Colour Contrast Checker — contraste según WCAG"
 description: Comprueba el contraste entre colores de foreground y background según WCAG.
 category: resources
 tags: [accessibility, colors, ui, ux]

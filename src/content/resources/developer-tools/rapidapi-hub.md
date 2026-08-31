@@ -1,5 +1,5 @@
 ---
-title: RapidAPI Hub
+title: "RapidAPI Hub — descubrir, probar y consumir APIs"
 description: Marketplace y catálogo para descubrir, comparar, probar y consumir APIs desde una interfaz común.
 category: resources
 tags: [api, backend, marketplace, integration, testing]

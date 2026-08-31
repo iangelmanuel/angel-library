@@ -1,5 +1,5 @@
 ---
-title: Font Awesome
+title: "Font Awesome — catálogo amplio de iconos y símbolos"
 description: Ecosistema amplio de iconos, símbolos y paquetes para web y aplicaciones.
 category: resources
 tags: [icons, ui, fonts]

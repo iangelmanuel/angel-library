@@ -235,6 +235,13 @@ const CATEGORY_DEFINITIONS = {
       "Aplicaciones de escritorio y herramientas CLI para editar código, preparar el entorno, colaborar, desplegar y probar APIs.",
     color: "--accent-indigo"
   },
+  findings: {
+    label: "Hallazgos",
+    icon: "telescope",
+    description:
+      "Repositorios y proyectos que vale la pena conocer: ideas nuevas, funcionalidades poco comunes y trabajo de gente que lo comparte abierto.",
+    color: "--accent-teal"
+  },
   courses: {
     label: "Cursos",
     icon: "book-open",
@@ -357,7 +364,10 @@ export const CATEGORY_GROUPS = [
       "seo"
     ]
   },
-  { id: "referencia", categories: ["applications", "courses", "resources"] }
+  {
+    id: "referencia",
+    categories: ["applications", "courses", "findings", "resources"]
+  }
 ] as const satisfies readonly {
   id: string
   categories: readonly CategoryId[]
@@ -384,33 +394,105 @@ export const CATEGORY_LIST = GROUPED_CATEGORY_IDS.map((id) => CATEGORIES[id])
 /* ------------------------------------------------------------------ */
 
 const RESOURCE_CATEGORY_DEFINITIONS = {
-  "ui-inspiration": "UI Inspiration",
-  css: "CSS",
-  colors: "Colores",
-  gradients: "Gradientes",
-  glassmorphism: "Glassmorphism",
-  icons: "Iconos",
-  animations: "Animaciones",
-  loaders: "Loaders",
-  fonts: "Fuentes",
-  illustrations: "Ilustraciones",
-  apis: "APIs",
-  generators: "Generadores",
-  accessibility: "Accesibilidad",
-  "developer-tools": "Developer Tools",
-  learning: "Aprendizaje",
-  ia: "IA"
+  "ui-inspiration": {
+    label: "UI Inspiration",
+    description:
+      "Galerías de interfaces reales para inspirarte antes de diseñar una pantalla."
+  },
+  css: {
+    label: "CSS",
+    description:
+      "Generadores de CSS listo para copiar: sombras, degradados, vidrio y otros efectos."
+  },
+  colors: {
+    label: "Colores",
+    description:
+      "Paletas y comprobadores de contraste para elegir colores que se lean bien."
+  },
+  icons: {
+    label: "Iconos",
+    description:
+      "Colecciones de iconos libres para usar en una interfaz."
+  },
+  animations: {
+    label: "Animaciones",
+    description:
+      "Movimiento y transiciones listos para copiar en un proyecto."
+  },
+  loaders: {
+    label: "Loaders",
+    description:
+      "Indicadores de carga: spinners, barras y esqueletos."
+  },
+  fonts: {
+    label: "Fuentes",
+    description:
+      "Tipografías libres y herramientas para combinarlas."
+  },
+  illustrations: {
+    label: "Ilustraciones",
+    description:
+      "Dibujos y gráficos libres para acompañar una página."
+  },
+  images: {
+    label: "Imágenes y mockups",
+    description:
+      "Editar, comprimir y presentar capturas de pantalla."
+  },
+  apis: {
+    label: "APIs",
+    description:
+      "Directorios de APIs públicas para alimentar un proyecto con datos reales."
+  },
+  generators: {
+    label: "Generadores",
+    description:
+      "Herramientas que producen código o recursos a partir de unas opciones."
+  },
+  accessibility: {
+    label: "Accesibilidad",
+    description:
+      "Comprobadores para verificar que la interfaz se pueda usar."
+  },
+  "developer-tools": {
+    label: "Developer Tools",
+    description:
+      "Utilidades sueltas que resuelven tareas del día a día."
+  },
+  learning: {
+    label: "Aprendizaje",
+    description:
+      "Cursos y material de estudio."
+  },
+  ia: {
+    label: "IA",
+    description:
+      "Herramientas y directorios de inteligencia artificial."
+  }
 } as const
 
 export type ResourceCategoryId = keyof typeof RESOURCE_CATEGORY_DEFINITIONS
-export const RESOURCE_CATEGORIES: Record<ResourceCategoryId, string> =
-  RESOURCE_CATEGORY_DEFINITIONS
+
+export interface ResourceCategoryMeta {
+  id: ResourceCategoryId
+  label: string
+  /** Una línea que explica qué se va a encontrar en el grupo. */
+  description: string
+}
+
 export const RESOURCE_CATEGORY_IDS = keysOf(RESOURCE_CATEGORY_DEFINITIONS)
 
-export const RESOURCE_CATEGORY_LIST = RESOURCE_CATEGORY_IDS.map((id) => ({
-  id,
-  label: RESOURCE_CATEGORIES[id]
-}))
+export const RESOURCE_CATEGORY_LIST: ResourceCategoryMeta[] =
+  RESOURCE_CATEGORY_IDS.map((id) => ({
+    id,
+    ...RESOURCE_CATEGORY_DEFINITIONS[id]
+  }))
+
+/** Solo la etiqueta, para las insignias de las entradas. */
+export const RESOURCE_CATEGORIES: Record<ResourceCategoryId, string> =
+  Object.fromEntries(
+    RESOURCE_CATEGORY_IDS.map((id) => [id, RESOURCE_CATEGORY_DEFINITIONS[id].label])
+  ) as Record<ResourceCategoryId, string>
 
 /* ------------------------------------------------------------------ */
 /* Stacks (subcategorías y rutas de aprendizaje por categoría)         */
@@ -503,6 +585,14 @@ const STACK_LABELS = {
   "apps-devops": "DevOps y contenedores",
   "apps-design": "Diseño y diagramación",
   "apps-video": "Video y grabación",
+  "cursos-midudev": "Midudev",
+  "cursos-microsoft": "Microsoft",
+  "cursos-google": "Google",
+  "cursos-repos": "Repositorios y apuntes",
+  "cursos-plataformas": "Plataformas y comunidad",
+  "cursos-empleo": "Empleo y entrevistas",
+  "hallazgos-ia": "IA y agentes",
+  "hallazgos-web": "Web y producto",
   "apps-productivity": "Notas y documentación",
   "apps-comms": "Comunicación",
   "ui-ux-design-systems": "Sistemas de diseño",
@@ -526,11 +616,218 @@ const STACK_ICONS: Partial<Record<StackId, string>> = {
   "apps-cli": "brand-cli"
 }
 
+const STACK_DESCRIPTIONS: Partial<Record<StackId, string>> = {
+  config:
+    "Archivos y herramientas que configuran un proyecto antes de escribir código.",
+  monorepo:
+    "Varios paquetes conviviendo en un mismo repositorio y cómo se coordinan.",
+  packages:
+    "Paquetes de npm que se instalan como dependencia del proyecto.",
+  typescript:
+    "Tipado sobre JavaScript: qué añade y cómo se configura.",
+  utils:
+    "Funciones pequeñas y reutilizables para tareas del día a día.",
+  whatsapp:
+    "Conectar una aplicación con WhatsApp mediante un gateway propio.",
+  html:
+    "La estructura de una página: etiquetas, semántica y formularios.",
+  css:
+    "Dar estilo y disposición a una página: color, espacio y responsive.",
+  javascript:
+    "El lenguaje del navegador y las APIs que trae incorporadas.",
+  "frontend-fundamentos":
+    "Cómo funciona una interfaz en el navegador, antes de elegir framework.",
+  astro:
+    "Framework orientado a sitios de contenido, con muy poco JavaScript en el cliente.",
+  react:
+    "Construir interfaces con componentes y estado.",
+  nextjs:
+    "Framework sobre React con renderizado en servidor y enrutado por archivos.",
+  "backend-fundamentos":
+    "Qué hace un servidor: peticiones, respuestas y arquitectura de una API.",
+  node:
+    "Ejecutar JavaScript fuera del navegador.",
+  express:
+    "Framework mínimo para montar una API en Node.js.",
+  "database-fundamentos":
+    "Qué es una base de datos y cómo se decide entre los tipos que existen.",
+  "database-modelado":
+    "Diseñar tablas y relaciones para que los datos se mantengan coherentes.",
+  "database-sql":
+    "Escribir consultas para leer y modificar datos.",
+  "database-postgresql":
+    "El motor relacional más usado: configuración, mantenimiento y seguridad.",
+  "database-nosql":
+    "Bases de datos sin tablas: documentos y clave-valor.",
+  "database-operacion":
+    "Mantener una base de datos viva: copias, migraciones y diagnóstico.",
+  "testing-fundamentos":
+    "Qué probar y por qué, antes de elegir una herramienta.",
+  "testing-unitario":
+    "Probar funciones y componentes de forma aislada.",
+  "testing-integracion":
+    "Probar que varias piezas funcionan juntas y respetan su contrato.",
+  "testing-e2e":
+    "Probar la aplicación completa simulando a una persona usándola.",
+  "testing-ai":
+    "Usar IA para escribir y mantener pruebas, con sus límites.",
+  "devops-fundamentos":
+    "Llevar código a producción y mantenerlo funcionando.",
+  "cloud-fundamentos":
+    "Conceptos de la nube: qué se alquila y qué se paga.",
+  "infraestructura-codigo":
+    "Declarar servidores y servicios en archivos versionables.",
+  "docker-conceptos":
+    "Qué es un contenedor y qué problema resuelve.",
+  "docker-imagenes":
+    "Construir la plantilla desde la que arranca un contenedor.",
+  "docker-contenedores":
+    "Ejecutar, inspeccionar y depurar contenedores.",
+  "docker-redes-volumenes":
+    "Comunicar contenedores entre sí y guardar datos que sobrevivan.",
+  "docker-compose":
+    "Levantar varios contenedores a la vez con un solo archivo.",
+  "docker-bases-datos":
+    "Correr bases de datos en contenedores para desarrollo local.",
+  "ci-cd":
+    "Automatizar pruebas y despliegues en cada cambio.",
+  observabilidad:
+    "Ver qué hace un sistema en producción: registros, métricas y alertas.",
+  "ui-ux-fundamentos":
+    "Vocabulario y principios básicos de interfaz y experiencia.",
+  "ui-ux-estilos":
+    "Lenguajes visuales completos y cuándo conviene cada uno.",
+  "ui-ux-design-systems":
+    "Convertir decisiones de diseño en tokens y componentes reutilizables.",
+  "ui-ux-interaccion":
+    "Cómo responde la interfaz: estados, feedback y formularios.",
+  "ui-css":
+    "Catálogos de componentes que se usan con CSS y HTML.",
+  "ui-react":
+    "Librerías de componentes para proyectos React.",
+  "ai-fundamentos":
+    "Cómo funciona un modelo de lenguaje y qué puede o no puede hacer.",
+  "ai-prompts":
+    "Escribir instrucciones y dar contexto para obtener buenas respuestas.",
+  "ai-rag":
+    "Buscar en tus propios datos para que el modelo responda con ellos.",
+  "ai-agentes":
+    "Modelos que usan herramientas y toman pasos, y cómo evaluarlos.",
+  "ai-sdk":
+    "Programar contra modelos desde tu código.",
+  "skills-fundamentos":
+    "Cómo trabajar con un asistente de código sin perder el control.",
+  "claude-code":
+    "El asistente de Anthropic en la terminal: configuración y flujos.",
+  codex:
+    "El asistente de OpenAI en la terminal.",
+  cursor:
+    "Editor de código con IA integrada.",
+  opencode:
+    "Asistente de código abierto para la terminal.",
+  "ia-comandos":
+    "Comandos propios que automatizan tareas repetidas con el asistente.",
+  "ia-skills":
+    "Instrucciones empaquetadas que enseñan al asistente a hacer algo concreto.",
+  "ia-plugins":
+    "Extensiones que añaden capacidades al asistente.",
+  "ia-mcp":
+    "El protocolo que conecta un modelo con herramientas y datos externos.",
+  git:
+    "Control de versiones: guardar historia y trabajar en paralelo.",
+  "github-platform":
+    "La plataforma: repositorios, issues y pull requests.",
+  "repository-management":
+    "Dejar un repositorio listo para que otros colaboren.",
+  "github-profile":
+    "Tu perfil público, claves SSH y commits verificados.",
+  github:
+    "Manejar GitHub desde la terminal.",
+  "github-actions":
+    "Automatizar tareas que se disparan con cada cambio.",
+  terminal:
+    "Moverse y trabajar desde la línea de comandos.",
+  cli:
+    "Herramientas de línea de comandos y cómo se combinan.",
+  principios:
+    "Reglas generales para que el código siga siendo mantenible.",
+  "patrones-diseno":
+    "Soluciones conocidas a problemas que se repiten en el código.",
+  "patrones-arquitectonicos":
+    "Cómo se organiza un sistema completo por dentro.",
+  "security-fundamentos":
+    "Qué se ataca y por qué, antes de defender nada.",
+  "security-aplicacion":
+    "Proteger la aplicación y su API: entrada, sesión y permisos.",
+  "security-infra":
+    "Proteger el servidor y mantener el servicio disponible.",
+  "security-testing":
+    "Comprobar que las defensas realmente funcionan.",
+  "performance-fundamentos":
+    "Qué se mide y con qué métricas.",
+  "performance-carga":
+    "Que la página aparezca antes: recursos, imágenes y fuentes.",
+  "performance-runtime":
+    "Que la página responda rápido una vez cargada.",
+  "performance-operacion":
+    "Red, caché y entrega desde el servidor.",
+  "a11y-fundamentos":
+    "Por qué importa y a quién deja fuera una interfaz descuidada.",
+  "a11y-contenido":
+    "Que el contenido se pueda percibir: contraste, texto e imágenes.",
+  "a11y-interaccion":
+    "Que se pueda usar con teclado y lector de pantalla.",
+  "a11y-testing":
+    "Comprobar accesibilidad a mano y de forma automática.",
+  seo:
+    "Cómo encuentra Google una página y qué necesita para entenderla.",
+  "seo-tecnico":
+    "Rastreo, indexación, sitemap y datos estructurados.",
+  "seo-contenido":
+    "Contenido y enlaces que hacen que una página posicione.",
+  "apps-editors":
+    "Editores de código de escritorio.",
+  "apps-terminal":
+    "Terminales con mejor experiencia que la del sistema.",
+  "apps-cli":
+    "Herramientas que se instalan y se usan desde la terminal.",
+  "apps-api":
+    "Clientes para probar y depurar APIs.",
+  "apps-devops":
+    "Aplicaciones para contenedores y despliegue.",
+  "apps-design":
+    "Diseñar interfaces y dibujar diagramas.",
+  "apps-video":
+    "Grabar la pantalla y montar video.",
+  "apps-productivity":
+    "Tomar notas y escribir documentación.",
+  "apps-comms":
+    "Comunicarse con el equipo o la comunidad.",
+  "cursos-midudev":
+    "Cursos en español de Miguel Ángel Durán, gratuitos y en video.",
+  "cursos-microsoft":
+    "Formación de Microsoft: sesiones en vivo, currículos abiertos y certificados.",
+  "cursos-google":
+    "Programas y certificaciones de Google, de IA y de nube.",
+  "cursos-repos":
+    "Repositorios y apuntes de otras personas para estudiar y practicar.",
+  "cursos-plataformas":
+    "Plataformas de cursos, ejercicios e idiomas, casi todas gratuitas.",
+  "cursos-empleo":
+    "Preparar el currículum y las entrevistas técnicas.",
+  "hallazgos-ia":
+    "Proyectos que exploran ideas nuevas con modelos y agentes.",
+  "hallazgos-web":
+    "Proyectos de web y producto con enfoques poco comunes."
+}
+
 export interface StackMeta {
   id: StackId
   label: string
   /** Icono de marca (ver src/config/icons.ts) */
   icon: string
+  /** Una línea que explica qué se va a encontrar en la subcategoría. */
+  description?: string
 }
 
 export const STACK_IDS = keysOf(STACK_LABELS)
@@ -538,7 +835,12 @@ export const STACK_IDS = keysOf(STACK_LABELS)
 export const STACKS = Object.fromEntries(
   STACK_IDS.map((id) => [
     id,
-    { id, label: STACK_LABELS[id], icon: STACK_ICONS[id] ?? `brand-${id}` }
+    {
+      id,
+      label: STACK_LABELS[id],
+      icon: STACK_ICONS[id] ?? `brand-${id}`,
+      description: STACK_DESCRIPTIONS[id]
+    }
   ])
 ) as Record<StackId, StackMeta>
 
@@ -552,6 +854,15 @@ export const CATEGORY_STACK_ORDER: Partial<
   Record<CategoryId, readonly StackId[]>
 > = {
   general: ["config", "monorepo", "packages", "typescript", "utils", "whatsapp"],
+  findings: ["hallazgos-ia", "hallazgos-web"],
+  courses: [
+    "cursos-midudev",
+    "cursos-microsoft",
+    "cursos-google",
+    "cursos-repos",
+    "cursos-plataformas",
+    "cursos-empleo"
+  ],
   languages: ["html", "css", "javascript"],
   frontend: ["frontend-fundamentos", "astro", "react", "nextjs"],
   backend: ["backend-fundamentos", "node", "express", "astro", "nextjs"],

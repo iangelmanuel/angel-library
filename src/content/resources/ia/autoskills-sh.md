@@ -1,5 +1,5 @@
 ---
-title: autoskills.sh
+title: "autoskills.sh — detecta tu stack e instala skills"
 description: npx autoskills — escanea el proyecto (package.json, lockfiles), detecta el stack y te ofrece instalar los skills de skills.sh que le corresponden.
 category: resources
 tags: [ai, skills, cli]

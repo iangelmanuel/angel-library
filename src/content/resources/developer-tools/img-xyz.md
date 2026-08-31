@@ -4,7 +4,7 @@ description: Referencia solicitada para imágenes cuyo dominio no muestra actual
 category: resources
 tags: [images, security, privacy, status]
 url: https://img.xyz/
-resourceCategory: developer-tools
+resourceCategory: images
 technologies: []
 personalNote: A agosto de 2026 el dominio aparece estacionado y sin HTTPS operativo; no subir archivos ni datos sensibles hasta verificar su estado.
 official: false

@@ -1,10 +1,10 @@
 ---
-title: Squoosh
+title: "Squoosh — comprimir y convertir imágenes en el navegador"
 description: Compresor y conversor de imágenes en el navegador para comparar calidad, tamaño y codecs antes de exportar.
 category: resources
 tags: [images, compression, webp, avif, performance]
 url: https://squoosh.app/
-resourceCategory: developer-tools
+resourceCategory: images
 technologies: []
 personalNote: Recomendación principal para optimización manual; procesa la imagen localmente y permite comparar el resultado visual.
 official: true

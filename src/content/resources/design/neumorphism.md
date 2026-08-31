@@ -1,5 +1,5 @@
 ---
-title: Neumorphism.io
+title: "Neumorphism.io — generador de sombras neumórficas"
 description: Generador de sombras y superficies neumórficas en CSS.
 category: resources
 tags: [css, ui, shadows, design]

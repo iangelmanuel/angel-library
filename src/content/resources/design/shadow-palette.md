@@ -1,5 +1,5 @@
 ---
-title: Shadow Palette Generator
+title: "Shadow Palette Generator — escala de sombras coherente"
 description: Generador de una escala coherente de sombras CSS para elevaciones bajas, medias y altas.
 category: resources
 tags: [css, shadows, box-shadow, design-system, ui]

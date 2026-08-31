@@ -1,5 +1,5 @@
 ---
-title: Dark.design
+title: "Dark.design — galería de interfaces oscuras"
 description: Galería de inspiración para interfaces y sitios web con diseño oscuro.
 category: resources
 tags: [ui, ux, inspiration, dark-mode]

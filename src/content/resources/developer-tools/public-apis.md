@@ -1,5 +1,5 @@
 ---
-title: Public APIs
+title: "Public APIs — catálogo de APIs públicas gratuitas"
 description: Catálogo colaborativo de APIs públicas organizado por categorías.
 category: resources
 tags: [api, javascript, backend, learning]

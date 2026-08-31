@@ -1,5 +1,5 @@
 ---
-title: canirun.ai
+title: "canirun.ai — qué modelos de IA corre tu máquina"
 description: Detecta las specs de tu máquina y filtra qué modelos de IA puedes correr localmente, con nota de rendimiento esperado por hardware.
 category: resources
 tags: [ai, modelos-locales, hardware]
