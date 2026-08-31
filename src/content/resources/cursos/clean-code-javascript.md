@@ -1,6 +1,6 @@
 ---
 title: "Clean Code en JavaScript"
-description: "Los principios de Clean Code adaptados a JavaScript, con ejemplos de código malo y bueno lado a lado."
+description: "Guía para reconocer código JavaScript difícil de mantener y mejorarlo mediante nombres, funciones y estructuras más claras, con ejemplos comparados."
 category: courses
 stack: cursos-repos
 order: 6

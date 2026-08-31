@@ -232,21 +232,21 @@ const CATEGORY_DEFINITIONS = {
     label: "Aplicaciones",
     icon: "app-window",
     description:
-      "Aplicaciones de escritorio y herramientas CLI para editar código, preparar el entorno, colaborar, desplegar y probar APIs.",
+      "Programas que acompañan el trabajo de desarrollo: escribir y ejecutar código, probar APIs, administrar despliegues, diseñar interfaces y colaborar. Cada módulo explica qué resuelve la herramienta y cuándo conviene usarla.",
     color: "--accent-indigo"
   },
   findings: {
     label: "Hallazgos",
     icon: "telescope",
     description:
-      "Repositorios y proyectos que vale la pena conocer: ideas nuevas, funcionalidades poco comunes y trabajo de gente que lo comparte abierto.",
+      "Proyectos reales que vale la pena estudiar por la idea o la solución que exploran. No son tutoriales: sirven para descubrir enfoques poco comunes y entender cómo otras personas los llevaron a código.",
     color: "--accent-teal"
   },
   courses: {
     label: "Cursos",
     icon: "book-open",
     description:
-      "Cursos y rutas de estudio organizadas para aprender tecnologías y conceptos paso a paso.",
+      "Cursos, ejercicios y materiales de estudio organizados por proveedor y objetivo. Cada módulo aclara qué enseña, qué conocimientos conviene tener y cómo aprovecharlo.",
     color: "--accent-cyan"
   },
   seo: {
@@ -299,7 +299,8 @@ const CATEGORY_DEFINITIONS = {
   resources: {
     label: "Recursos",
     icon: "bookmark",
-    description: "Colección de recursos externos categorizados.",
+    description:
+      "Herramientas y referencias externas para resolver tareas concretas de diseño, desarrollo e inteligencia artificial. Cada ficha explica para qué sirve el recurso y qué conviene revisar antes de incorporarlo a un proyecto.",
     color: "--accent-yellow"
   },
   skills: {
@@ -395,79 +396,79 @@ export const CATEGORY_LIST = GROUPED_CATEGORY_IDS.map((id) => CATEGORIES[id])
 
 const RESOURCE_CATEGORY_DEFINITIONS = {
   "ui-inspiration": {
-    label: "UI Inspiration",
+    label: "Inspiración de interfaces",
     description:
-      "Galerías de interfaces reales para inspirarte antes de diseñar una pantalla."
+      "Galerías y componentes de ejemplo para estudiar cómo otras interfaces resuelven su estructura, jerarquía visual y estilo."
   },
   css: {
     label: "CSS",
     description:
-      "Generadores de CSS listo para copiar: sombras, degradados, vidrio y otros efectos."
+      "Herramientas que generan estilos CSS para sombras, degradados y otros efectos; el resultado se puede copiar y adaptar al diseño del proyecto."
   },
   colors: {
     label: "Colores",
     description:
-      "Paletas y comprobadores de contraste para elegir colores que se lean bien."
+      "Generadores de paletas y comprobadores de contraste para elegir colores coherentes, legibles y accesibles."
   },
   icons: {
     label: "Iconos",
     description:
-      "Colecciones de iconos libres para usar en una interfaz."
+      "Colecciones de símbolos visuales para representar acciones, estados y conceptos dentro de una interfaz."
   },
   animations: {
     label: "Animaciones",
     description:
-      "Movimiento y transiciones listos para copiar en un proyecto."
+      "Recursos para comunicar cambios de estado o guiar la atención mediante movimiento y transiciones."
   },
   loaders: {
-    label: "Loaders",
+    label: "Indicadores de carga",
     description:
-      "Indicadores de carga: spinners, barras y esqueletos."
+      "Animaciones que informan que una tarea sigue en proceso, como indicadores giratorios, barras o esqueletos de contenido."
   },
   fonts: {
     label: "Fuentes",
     description:
-      "Tipografías libres y herramientas para combinarlas."
+      "Tipografías y herramientas para elegir combinaciones legibles y coherentes con la identidad visual."
   },
   illustrations: {
     label: "Ilustraciones",
     description:
-      "Dibujos y gráficos libres para acompañar una página."
+      "Dibujos y gráficos para explicar ideas, dar contexto visual o completar un prototipo sin crearlos desde cero."
   },
   images: {
     label: "Imágenes y mockups",
     description:
-      "Editar, comprimir y presentar capturas de pantalla."
+      "Herramientas para optimizar imágenes y presentar capturas dentro de marcos o composiciones de producto."
   },
   apis: {
     label: "APIs",
     description:
-      "Directorios de APIs públicas para alimentar un proyecto con datos reales."
+      "Catálogos de servicios que permiten a una aplicación solicitar datos o ejecutar funciones de otro sistema."
   },
   generators: {
     label: "Generadores",
     description:
-      "Herramientas que producen código o recursos a partir de unas opciones."
+      "Herramientas que convierten unas opciones visuales en código o archivos que después se pueden adaptar al proyecto."
   },
   accessibility: {
     label: "Accesibilidad",
     description:
-      "Comprobadores para verificar que la interfaz se pueda usar."
+      "Comprobadores para detectar barreras y verificar que más personas puedan percibir y utilizar la interfaz."
   },
   "developer-tools": {
-    label: "Developer Tools",
+    label: "Herramientas de desarrollo",
     description:
-      "Utilidades sueltas que resuelven tareas del día a día."
+      "Utilidades web para resolver tareas frecuentes sin instalar una aplicación o escribir una herramienta propia."
   },
   learning: {
     label: "Aprendizaje",
     description:
-      "Cursos y material de estudio."
+      "Cursos, ejercicios y referencias para aprender un tema o practicarlo con una ruta definida."
   },
   ia: {
     label: "IA",
     description:
-      "Herramientas y directorios de inteligencia artificial."
+      "Herramientas y directorios para trabajar con modelos, agentes e integraciones de inteligencia artificial."
   }
 } as const
 
@@ -580,8 +581,8 @@ const STACK_LABELS = {
   "testing-ai": "Testing asistido por IA",
   "apps-editors": "Editores de código",
   "apps-terminal": "Terminales",
-  "apps-cli": "CLI",
-  "apps-api": "Clientes de API",
+  "apps-cli": "Herramientas de terminal (CLI)",
+  "apps-api": "Pruebas de APIs",
   "apps-devops": "DevOps y contenedores",
   "apps-design": "Diseño y diagramación",
   "apps-video": "Video y grabación",
@@ -786,39 +787,39 @@ const STACK_DESCRIPTIONS: Partial<Record<StackId, string>> = {
   "seo-contenido":
     "Contenido y enlaces que hacen que una página posicione.",
   "apps-editors":
-    "Editores de código de escritorio.",
+    "Programas para escribir, navegar, ejecutar y depurar código desde un mismo espacio de trabajo.",
   "apps-terminal":
-    "Terminales con mejor experiencia que la del sistema.",
+    "Aplicaciones para ejecutar comandos con búsqueda, historial y sesiones más fáciles de organizar.",
   "apps-cli":
-    "Herramientas que se instalan y se usan desde la terminal.",
+    "Programas sin interfaz gráfica que se controlan escribiendo comandos; aquí se explica qué administran y cómo empezar.",
   "apps-api":
-    "Clientes para probar y depurar APIs.",
+    "Aplicaciones para enviar solicitudes a una API, inspeccionar sus respuestas y detectar errores sin construir primero una interfaz.",
   "apps-devops":
-    "Aplicaciones para contenedores y despliegue.",
+    "Herramientas para ejecutar servicios en contenedores y administrar el entorno donde se desarrolla o publica una aplicación.",
   "apps-design":
-    "Diseñar interfaces y dibujar diagramas.",
+    "Aplicaciones para definir el aspecto de una interfaz, preparar prototipos y comunicar ideas mediante diagramas.",
   "apps-video":
-    "Grabar la pantalla y montar video.",
+    "Herramientas para grabar la pantalla y convertir el material en demostraciones, tutoriales o presentaciones.",
   "apps-productivity":
-    "Tomar notas y escribir documentación.",
+    "Espacios para organizar notas, documentación, decisiones y datos que debe consultar un equipo.",
   "apps-comms":
-    "Comunicarse con el equipo o la comunidad.",
+    "Canales para conversar, dar soporte y conectar notificaciones o automatizaciones con un equipo o comunidad.",
   "cursos-midudev":
-    "Cursos en español de Miguel Ángel Durán, gratuitos y en video.",
+    "Cursos y materiales gratuitos en español de Miguel Ángel Durán, con rutas desde fundamentos hasta proyectos completos.",
   "cursos-microsoft":
-    "Formación de Microsoft: sesiones en vivo, currículos abiertos y certificados.",
+    "Sesiones, currículos y certificados de Microsoft sobre desarrollo, nube e inteligencia artificial.",
   "cursos-google":
-    "Programas y certificaciones de Google, de IA y de nube.",
+    "Programas guiados de Google sobre inteligencia artificial y computación en la nube, algunos con requisitos o convocatorias.",
   "cursos-repos":
-    "Repositorios y apuntes de otras personas para estudiar y practicar.",
+    "Código, explicaciones y apuntes abiertos que se estudian leyendo, ejecutando ejemplos y resolviendo ejercicios.",
   "cursos-plataformas":
-    "Plataformas de cursos, ejercicios e idiomas, casi todas gratuitas.",
+    "Sitios con cursos o ejercicios guiados para aprender programación, testing, herramientas e inglés técnico.",
   "cursos-empleo":
-    "Preparar el currículum y las entrevistas técnicas.",
+    "Material para presentar la experiencia profesional y prepararse para las etapas de una entrevista técnica.",
   "hallazgos-ia":
-    "Proyectos que exploran ideas nuevas con modelos y agentes.",
+    "Proyectos para estudiar cómo varios agentes colaboran, conservan contexto o actúan dentro de un producto real.",
   "hallazgos-web":
-    "Proyectos de web y producto con enfoques poco comunes."
+    "Implementaciones web que convierten ideas poco habituales en experiencias, herramientas o arquitecturas concretas."
 }
 
 export interface StackMeta {

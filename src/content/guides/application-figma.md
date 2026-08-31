@@ -1,6 +1,6 @@
 ---
 title: Figma — diseño de interfaces y handoff a código
-description: Instalar Figma, entender Frames, componentes, Auto Layout y variables, y cómo leer un diseño para implementarlo sin adivinar medidas.
+description: Herramienta colaborativa para diseñar interfaces antes de programarlas; explica sus conceptos principales y cómo convertir un diseño en código sin adivinar medidas o estilos.
 category: applications
 stack: apps-design
 order: 1

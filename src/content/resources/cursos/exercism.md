@@ -1,6 +1,6 @@
 ---
 title: "Exercism"
-description: "Plataforma gratuita de ejercicios de programación en más de 70 lenguajes, con mentoría humana opcional sobre el código que entregas."
+description: "Plataforma gratuita para aprender un lenguaje resolviendo ejercicios pequeños y recibiendo comentarios automáticos o mentoría humana sobre la solución."
 category: courses
 stack: cursos-plataformas
 order: 3

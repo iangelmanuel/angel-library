@@ -1,6 +1,6 @@
 ---
 title: "Cursos gratuitos de IA de NVIDIA"
-description: "Catálogo comunitario que reúne cinco cursos gratuitos de NVIDIA sobre IA generativa, redes neuronales, agentes y ciencia de datos acelerada."
+description: "Índice de cursos gratuitos de NVIDIA para explorar inteligencia artificial generativa, redes neuronales, agentes y procesamiento acelerado de datos."
 category: courses
 stack: cursos-plataformas
 order: 1

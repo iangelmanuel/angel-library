@@ -1,6 +1,6 @@
 ---
 title: "nvm: manejar versiones de Node"
-description: Instalar y cambiar entre versiones de Node.js con nvm — y por qué en Windows es un proyecto distinto (nvm-windows).
+description: Herramienta para mantener varias versiones de Node.js y activar la que necesita cada proyecto; explica por qué Windows usa una implementación diferente.
 category: applications
 stack: apps-cli
 order: 3

@@ -1,6 +1,6 @@
 ---
 title: "Supabase CLI: comandos esenciales"
-description: Instalación según sistema operativo, login, levantar el stack local con Docker, migraciones y generar tipos de TypeScript desde el esquema.
+description: Herramienta de terminal para ejecutar Supabase en local, registrar cambios de la base de datos y generar tipos de TypeScript a partir de su estructura.
 category: applications
 stack: apps-cli
 order: 8

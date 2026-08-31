@@ -1,6 +1,6 @@
 ---
 title: Git — instalación y flujo esencial desde la terminal
-description: Instalar Git en Windows, macOS y Linux, configurar la identidad y recorrer el flujo mínimo de repositorios, commits, ramas y remotos.
+description: Instalar Git y aprender el flujo mínimo para registrar cambios, separar trabajo en ramas y sincronizar un proyecto local con un repositorio remoto.
 category: applications
 stack: apps-cli
 order: 1

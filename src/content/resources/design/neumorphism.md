@@ -1,6 +1,6 @@
 ---
 title: "Neumorphism.io — generador de sombras neumórficas"
-description: Generador de sombras y superficies neumórficas en CSS.
+description: Generador del estilo neumórfico, que usa luces y sombras suaves para hacer que un control parezca salir de la superficie; entrega el CSS como punto de partida.
 category: resources
 tags: [css, ui, shadows, design]
 url: https://neumorphism.io/
@@ -11,6 +11,10 @@ related: [resources/design/css-glass, resources/design/css-gradient]
 updatedAt: 2026-08-15
 ---
 
-## Uso
+## Qué genera
 
-Genera una base de `box-shadow` y adáptala a los tokens de superficie, borde y foco del proyecto.
+La herramienta combina una sombra clara y otra oscura para simular que un elemento sobresale o se hunde en una superficie del mismo color. Devuelve el `background`, el radio de borde y las declaraciones `box-shadow` necesarias.
+
+## Límite importante
+
+Este estilo puede hacer que botones y campos se confundan con el fondo. Usa el resultado como referencia visual, no como sustituto de bordes, etiquetas, estados de foco y contraste. Si un control deja de reconocerse al quitar la sombra, necesita una señal adicional.

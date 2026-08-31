@@ -1,6 +1,6 @@
 ---
 title: "Node.js Best Practices (goldbergyoni)"
-description: "Recopilación de más de un centenar de buenas prácticas de Node.js con ejemplos y citas de fuentes, con traducción al español."
+description: "Referencia para revisar decisiones de arquitectura, seguridad, pruebas y producción en Node.js; está pensada para consultar por tema, no para empezar desde cero."
 category: courses
 stack: cursos-repos
 order: 3

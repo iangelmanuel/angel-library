@@ -1,6 +1,6 @@
 ---
 title: "Tabler Icons — iconos SVG outline y filled"
-description: Colección open source de iconos SVG con estilos outline y filled.
+description: Colección abierta y extensa de iconos con contorno o relleno, diseñada sobre una cuadrícula común para mantener consistencia visual.
 category: resources
 tags: [icons, svg, ui, accessibility]
 url: https://tabler.io/icons
@@ -11,6 +11,10 @@ related: [resources/icons/heroicons, resources/icons/iconmonstr]
 updatedAt: 2026-08-15
 ---
 
-## Nota personal
+## Qué lo diferencia
 
-Los iconos están diseñados sobre una cuadrícula consistente y se pueden adaptar fácilmente a componentes propios.
+Los iconos comparten cuadrícula, proporciones y grosor de trazo, de modo que elementos de temas distintos se ven como parte de la misma familia. El catálogo permite buscar, copiar SVG y ajustar propiedades visuales antes de integrarlo.
+
+## Integración
+
+Elige entre copiar archivos individuales o instalar el paquete correspondiente al framework. En ambos casos, centraliza tamaño, color y etiquetas de accesibilidad en un componente propio. Los iconos decorativos deben ocultarse a lectores de pantalla; los que comunican una acción necesitan un nombre accesible mediante el botón o control que los contiene.

@@ -1,6 +1,6 @@
 ---
 title: "aprendiendo-react — repositorio del curso de React"
-description: "El repositorio con apuntes, ejemplos y proyectos del curso de React de Midudev, para seguir las clases con el código delante."
+description: "Código y apuntes que acompañan el curso de React de Midudev; permiten reproducir los ejemplos y comparar cada proyecto con la implementación original."
 category: courses
 stack: cursos-midudev
 order: 4

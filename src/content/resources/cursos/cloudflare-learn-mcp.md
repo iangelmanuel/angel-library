@@ -1,6 +1,6 @@
 ---
 title: "Learn MCP (Cloudflare Workers)"
-description: "Taller práctico de siete pasos para construir y desplegar un servidor MCP sobre Cloudflare Workers, con almacenamiento persistente."
+description: "Taller práctico para crear un servidor que conecta asistentes de IA con herramientas externas mediante MCP y publicarlo en Cloudflare Workers."
 category: courses
 stack: cursos-plataformas
 order: 8

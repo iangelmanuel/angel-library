@@ -1,6 +1,6 @@
 ---
 title: "LLMs from Scratch"
-description: "Implementar un modelo de lenguaje tipo GPT paso a paso en PyTorch: desarrollo, preentrenamiento y ajuste fino, con el código del libro de Sebastian Raschka."
+description: "Ruta avanzada para construir un modelo de lenguaje similar a GPT con Python y PyTorch, desde sus componentes internos hasta el entrenamiento y ajuste."
 category: courses
 stack: cursos-repos
 order: 5

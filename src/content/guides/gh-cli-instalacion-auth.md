@@ -1,6 +1,6 @@
 ---
 title: GitHub CLI — instalación y autenticación
-description: Instalar gh y conectarlo con tu cuenta de GitHub — la base para todo lo demás (repos, PRs, issues) sin salir de la terminal.
+description: Instalar la herramienta oficial de GitHub para usar repositorios, propuestas de cambio e incidencias desde la terminal; también aclara en qué se diferencia de Git.
 category: applications
 stack: apps-cli
 order: 6

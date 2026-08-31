@@ -1,6 +1,6 @@
 ---
 title: "RapidAPI Hub — descubrir, probar y consumir APIs"
-description: Marketplace y catálogo para descubrir, comparar, probar y consumir APIs desde una interfaz común.
+description: Plataforma para buscar APIs, probar solicitudes y administrar sus claves desde un mismo lugar; algunas opciones son gratuitas y otras tienen cuotas o pago.
 category: resources
 tags: [api, backend, marketplace, integration, testing]
 url: https://rapidapi.com/hub

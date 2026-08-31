@@ -1,6 +1,6 @@
 ---
 title: Notion — notas, documentación y bases de datos
-description: Instalar Notion, el modelo de bloques y páginas anidadas, bases de datos con vistas (tabla, tablero, calendario), relations/rollups, y su API para automatizar documentación.
+description: Espacio para combinar notas, documentación y bases de datos sencillas; explica cómo organizar información relacionada y automatizarla cuando una página deja de ser suficiente.
 category: applications
 stack: apps-productivity
 order: 1

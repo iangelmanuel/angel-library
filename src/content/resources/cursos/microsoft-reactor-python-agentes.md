@@ -1,6 +1,6 @@
 ---
 title: "Python + Agentes con Agent Framework (Microsoft Reactor)"
-description: "Serie de seis directos en español sobre construir agentes de IA con Agent Framework: tools, memoria, orquestación multiagente, OpenTelemetry y evaluación."
+description: "Serie técnica en español para construir agentes de IA con Python, darles herramientas y memoria, coordinarlos y observar cómo toman decisiones."
 category: courses
 stack: cursos-microsoft
 order: 1

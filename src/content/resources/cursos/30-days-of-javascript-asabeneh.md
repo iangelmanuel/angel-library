@@ -1,6 +1,6 @@
 ---
 title: "30 Days of JavaScript (Asabeneh)"
-description: "Reto guiado de 30 días para aprender JavaScript desde cero, con teoría y ejercicios por día, traducido al español."
+description: "Ruta gratuita para empezar JavaScript desde cero: cada día introduce un concepto, muestra ejemplos y propone ejercicios para practicarlo."
 category: courses
 stack: cursos-repos
 order: 2

@@ -1,6 +1,6 @@
 ---
 title: "Chocolatey: gestor de paquetes para Windows"
-description: Instalar y manejar software en Windows desde la terminal con Chocolatey — install, upgrade, uninstall, search.
+description: Gestor de paquetes para instalar, actualizar y desinstalar programas de Windows mediante comandos, evitando buscar cada instalador manualmente.
 category: applications
 stack: apps-cli
 order: 2

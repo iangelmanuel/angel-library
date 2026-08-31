@@ -1,6 +1,6 @@
 ---
 title: Cursor — editor y agente de código
-description: Usar Cursor con contexto controlado, reglas versionadas, revisión de cambios y decisiones conscientes de privacidad.
+description: Editor de código basado en VS Code que incorpora un asistente capaz de explicar y modificar archivos; la guía enseña a controlar su contexto, revisar sus cambios y proteger datos sensibles.
 category: applications
 stack: apps-editors
 order: 2

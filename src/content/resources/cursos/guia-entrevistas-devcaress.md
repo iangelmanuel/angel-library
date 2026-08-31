@@ -1,6 +1,6 @@
 ---
 title: "Guía de entrevistas de programación (DevCaress)"
-description: "Guía en español sobre el proceso completo de entrevistas técnicas: preparación, tipos de prueba, preguntas frecuentes y negociación."
+description: "Guía en español para entender las etapas de una entrevista de programación, preparar las pruebas técnicas y afrontar preguntas y negociación."
 category: courses
 stack: cursos-empleo
 order: 2

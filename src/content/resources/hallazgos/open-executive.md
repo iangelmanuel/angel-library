@@ -1,6 +1,6 @@
 ---
 title: "Open Executive — equipo ejecutivo con agentes de IA"
-description: "Equipo ejecutivo virtual: ocho agentes especializados que responden con una sola voz coherente, con memoria de decisiones entre sesiones."
+description: "Proyecto que coordina ocho agentes especializados para producir una respuesta conjunta y recordar decisiones; sirve para estudiar orquestación y memoria de agentes."
 category: findings
 stack: hallazgos-ia
 order: 2

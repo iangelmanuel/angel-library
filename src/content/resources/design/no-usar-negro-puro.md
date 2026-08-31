@@ -1,6 +1,6 @@
 ---
 title: "UX Planet — alternativas al negro puro en texto y fondos"
-description: "Por qué el #000000 cansa la vista en interfaces oscuras y qué grises usar en su lugar, con valores concretos."
+description: "Artículo que explica cuándo el negro absoluto puede dificultar la lectura y propone grises oscuros para crear fondos, texto y niveles de superficie."
 category: resources
 tags: [color, accesibilidad, dark-mode, contraste, diseño]
 url: https://uxplanet.org/alternatives-to-using-pure-black-000000-for-text-and-backgrounds-54ef0e733cdb

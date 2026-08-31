@@ -1,6 +1,6 @@
 ---
 title: Discord — comunidad, soporte y bots
-description: Instalar Discord, la estructura de servidores/canales/hilos, roles y permisos, webhooks para integrar notificaciones de CI, y bots vía la API.
+description: Aplicación de comunicación para organizar comunidades o equipos en servidores y canales; también permite automatizar avisos y tareas mediante webhooks y bots.
 category: applications
 stack: apps-comms
 order: 1

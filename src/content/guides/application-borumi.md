@@ -1,6 +1,6 @@
 ---
 title: "Borumi — grabación de pantalla y edición por transcripción"
-description: "Editor de escritorio para grabar y montar video: grabación por escenas, capturas de pantalla en 4K con zoom automático y edición por transcripción."
+description: "Aplicación para grabar la pantalla y editar el resultado como video o como texto transcrito; está pensada para crear demostraciones y tutoriales con menos trabajo manual."
 category: applications
 stack: apps-video
 order: 1

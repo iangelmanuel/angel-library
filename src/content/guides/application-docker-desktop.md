@@ -1,6 +1,6 @@
 ---
 title: Docker Desktop — motor de contenedores con interfaz
-description: Instalar Docker Desktop, entender qué corre debajo (el motor, la VM en Windows/macOS), gestionar contenedores desde la interfaz y cuándo preferir la terminal.
+description: Aplicación que permite ejecutar y administrar contenedores desde una interfaz gráfica; explica qué componentes instala, cómo observarlos y cuándo conviene usar comandos.
 category: applications
 stack: apps-devops
 order: 1

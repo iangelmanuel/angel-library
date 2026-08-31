@@ -1,6 +1,6 @@
 ---
 title: "Midudev — plantilla de CV para desarrollo"
-description: "Plantilla de currículum orientada a postular a empresas de tecnología, con la guía que explica qué poner en cada sección."
+description: "Plantilla y guía para presentar experiencia, proyectos y habilidades técnicas en un currículum fácil de revisar por empresas de tecnología."
 category: courses
 stack: cursos-empleo
 order: 1

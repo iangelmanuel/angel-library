@@ -1,6 +1,6 @@
 ---
 title: img.xyz — verificar antes de usar
-description: Referencia solicitada para imágenes cuyo dominio no muestra actualmente una herramienta operativa y segura.
+description: Registro de una herramienta de imágenes que no está operativa ni puede verificarse con seguridad; se conserva para explicar por qué no debe utilizarse ahora.
 category: resources
 tags: [images, security, privacy, status]
 url: https://img.xyz/

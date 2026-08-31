@@ -1,6 +1,6 @@
 ---
 title: "JS Camp — bootcamp full stack de Midudev"
-description: "Bootcamp de JavaScript full stack gratuito y a tu ritmo: más de 100 clases grabadas desde fundamentos hasta Docker, testing y CI/CD."
+description: "Ruta extensa y ordenada para aprender desarrollo web con JavaScript desde los fundamentos hasta proyectos, pruebas, contenedores y automatización."
 category: courses
 stack: cursos-midudev
 order: 2

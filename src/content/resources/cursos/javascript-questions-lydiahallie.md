@@ -1,6 +1,6 @@
 ---
 title: "JavaScript Questions (lydiahallie)"
-description: "Lista de preguntas avanzadas de JavaScript con explicación razonada de cada respuesta, traducida al español."
+description: "Colección de preguntas para comprobar cuánto entiendes de JavaScript; cada respuesta explica el comportamiento del lenguaje en lugar de limitarse a marcar una opción."
 category: courses
 stack: cursos-repos
 order: 1

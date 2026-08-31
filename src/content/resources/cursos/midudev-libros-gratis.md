@@ -1,6 +1,6 @@
 ---
 title: "Libros de programación gratis (Midudev)"
-description: "Dos catálogos de libros técnicos legalmente gratuitos en español: el repositorio original en GitHub y su versión navegable en web."
+description: "Catálogo comunitario de libros técnicos que pueden descargarse legalmente en español, con opciones para explorar la lista desde GitHub o desde una web."
 category: courses
 stack: cursos-midudev
 order: 5

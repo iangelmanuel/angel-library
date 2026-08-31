@@ -1,6 +1,6 @@
 ---
 title: "curso-ingles.com"
-description: "Sitio gratuito de gramática inglesa en español, con explicaciones y ejercicios por tema para consultar dudas puntuales."
+description: "Referencia gratuita de gramática inglesa explicada en español, útil para resolver una duda concreta y practicarla con ejercicios breves."
 category: courses
 stack: cursos-plataformas
 order: 5

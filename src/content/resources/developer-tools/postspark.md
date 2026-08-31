@@ -1,6 +1,6 @@
 ---
 title: "PostSpark — capturas presentables con marco de navegador"
-description: "Editor web para convertir capturas de pantalla en imágenes presentables: fondos, marcos de navegador, anotaciones y efectos."
+description: "Editor para colocar una captura dentro de un marco de navegador, añadir fondo y anotaciones y convertirla en una imagen clara para documentación o presentación."
 category: resources
 tags: [capturas, imagenes, diseño, documentacion, redes-sociales]
 url: https://postspark.app/screenshot

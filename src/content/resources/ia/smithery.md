@@ -1,6 +1,6 @@
 ---
 title: "Smithery — registro e instalador de servidores MCP"
-description: Registro e instalador de servidores MCP — buscar, ver documentación de instalación, y correr el CLI para conectarlos.
+description: Directorio de servidores MCP que permiten a un asistente de IA conectarse con herramientas y fuentes de datos externas, acompañado de instrucciones de instalación.
 category: resources
 tags: [ai, mcp]
 url: https://smithery.ai
@@ -10,6 +10,10 @@ personalNote: Complementa la lista curada de MCP servers en IA Tools & Skills �
 updatedAt: 2026-08-17
 ---
 
-## Nota personal
+## Qué permite encontrar
 
-Revisar siempre qué permisos/tokens pide un servidor MCP de terceros antes de conectarlo — tiene el mismo nivel de acceso que le des.
+Un servidor MCP expone herramientas o información para que un asistente pueda consultar un servicio y, en algunos casos, realizar acciones. Smithery ayuda a localizar esos servidores y muestra instrucciones para conectarlos desde clientes compatibles.
+
+## Antes de conectar uno
+
+Comprueba quién mantiene el servidor, dónde se ejecuta y qué datos recibe. Revisa cada token y permiso: un servidor puede leer o modificar exactamente aquello que autorice la credencial entregada. Empieza con una cuenta de prueba y el alcance mínimo, y no confundas aparecer en un directorio con haber superado una auditoría de seguridad.

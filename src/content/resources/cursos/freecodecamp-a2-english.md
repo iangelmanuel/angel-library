@@ -1,6 +1,6 @@
 ---
 title: "A2 English for Developers (freeCodeCamp)"
-description: "Certificación gratuita de inglés nivel A2 con vocabulario y situaciones del día a día de un equipo de desarrollo."
+description: "Curso gratuito de inglés básico aplicado al trabajo en desarrollo, con vocabulario para reuniones, instrucciones, errores y colaboración en equipo."
 category: courses
 stack: cursos-plataformas
 order: 4

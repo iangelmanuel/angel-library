@@ -1,6 +1,6 @@
 ---
 title: "Chuletas de Git y CSS en PDF"
-description: "Dos hojas de referencia imprimibles: los comandos de Git y GitHub, y las propiedades de Flexbox y Grid."
+description: "Hojas de consulta rápida para recordar comandos de Git y GitHub y propiedades de Flexbox y Grid; complementan la práctica, pero no sustituyen un curso."
 category: courses
 stack: cursos-plataformas
 order: 9

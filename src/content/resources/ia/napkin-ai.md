@@ -1,6 +1,6 @@
 ---
 title: "Napkin AI — texto convertido en diagramas editables"
-description: Convierte texto en diagramas, flujos, mapas mentales e infografías editables, exportables a PNG, SVG, PDF o PPT.
+description: Herramienta que interpreta un texto y propone una forma visual de explicarlo, como un flujo o una jerarquía; el resultado se puede editar y exportar.
 category: resources
 tags: [ai, diagramas, visuales, documentacion, presentaciones, svg]
 url: https://www.napkin.ai/

@@ -1,6 +1,6 @@
 ---
 title: Visual Studio Code — workspace de desarrollo
-description: Configurar VS Code con settings, perfiles, extensiones, tareas y depuración sin convertir el editor en configuración personal imposible de compartir.
+description: Editor de código que reúne archivos, terminal, control de versiones y depuración; la guía separa la configuración personal de la que conviene compartir con el proyecto.
 category: applications
 stack: apps-editors
 order: 1

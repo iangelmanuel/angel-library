@@ -1,6 +1,6 @@
 ---
 title: "Los apuntes de Majo"
-description: "Apuntes manuscritos en PDF sobre JavaScript, React, Python, Git, SQL, CSS y Swift, en español y gratuitos."
+description: "Resúmenes visuales en español sobre varias tecnologías; sirven para repasar conceptos y sintaxis después de haberlos estudiado con una fuente más completa."
 category: courses
 stack: cursos-repos
 order: 7

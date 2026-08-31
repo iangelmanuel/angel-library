@@ -1,6 +1,6 @@
 ---
 title: "Apify MCP Connectors — automatizaciones web para agentes"
-description: Colección de conectores y automatizaciones que enlazan Apify Actors con clientes y servicios compatibles con MCP.
+description: Catálogo de automatizaciones web que un agente de IA puede utilizar mediante MCP para consultar sitios, procesar datos o actuar en otros servicios.
 category: resources
 tags: [ai, mcp, apify, connectors, automation, scraping]
 url: https://apify.com/store/collections/mcp-connectors

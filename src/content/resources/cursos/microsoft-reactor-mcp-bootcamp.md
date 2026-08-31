@@ -1,6 +1,6 @@
 ---
 title: "MCP Bootcamp LATAM (Microsoft Reactor)"
-description: "Cuatro sesiones en español para crear un servidor MCP, integrarlo con VS Code y GitHub Copilot y desplegarlo en Azure Container Apps."
+description: "Serie en español para crear un servidor MCP, conectarlo con un asistente de programación y publicarlo en Azure; requiere bases de desarrollo y terminal."
 category: courses
 stack: cursos-microsoft
 order: 2

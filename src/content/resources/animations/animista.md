@@ -1,6 +1,6 @@
 ---
 title: "Animista — animaciones CSS ajustables y copiables"
-description: Biblioteca interactiva de animaciones CSS que permite ajustar y copiar keyframes.
+description: Catálogo visual para elegir una animación, ajustar su velocidad y movimiento y copiar el código CSS resultante al proyecto.
 category: resources
 tags: [css, animation, transitions, frontend]
 url: https://animista.net/
@@ -11,6 +11,11 @@ related: [resources/animations/animated-icons, resources/design/css-gradient]
 updatedAt: 2026-08-15
 ---
 
-## Licencia
+## Cómo aprovecharlo
 
-La página indica que el código generado puede utilizarse para proyectos personales y comerciales bajo licencia FreeBSD. Revisar la información vigente antes de redistribuirlo como librería.
+1. Elige el tipo de movimiento viendo la demostración, sin partir del nombre técnico.
+2. Ajusta duración, retraso y curva de velocidad hasta que la animación acompañe la acción.
+3. Copia solo los `keyframes` y las propiedades que necesita el componente.
+4. Añade una variante sin movimiento para `prefers-reduced-motion`.
+
+La página indica que el código generado puede utilizarse en proyectos personales y comerciales bajo licencia FreeBSD. Conviene revisar la licencia vigente antes de redistribuirlo como parte de otra librería.

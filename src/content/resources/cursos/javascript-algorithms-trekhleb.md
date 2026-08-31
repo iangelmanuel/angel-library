@@ -1,6 +1,6 @@
 ---
 title: "Algoritmos y estructuras de datos en JavaScript (trekhleb)"
-description: "Implementaciones de algoritmos y estructuras de datos clásicos en JavaScript, con explicación y lecturas de apoyo, en español."
+description: "Repositorio para estudiar cómo se organizan y procesan datos mediante algoritmos clásicos, con implementaciones en JavaScript y explicaciones en español."
 category: courses
 stack: cursos-repos
 order: 4

@@ -1,6 +1,6 @@
 ---
 title: "pnpm: gestor de paquetes rápido y estricto"
-description: Qué diferencia a pnpm de npm — store compartido, node_modules estricto — y sus comandos básicos.
+description: Gestor de paquetes para proyectos JavaScript que ahorra espacio y detecta dependencias mal declaradas; compara su funcionamiento con npm y reúne el flujo básico.
 category: applications
 stack: apps-cli
 order: 4

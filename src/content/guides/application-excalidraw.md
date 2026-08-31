@@ -1,6 +1,6 @@
 ---
 title: Excalidraw — diagramas y bocetos a mano alzada
-description: Por qué Excalidraw no tiene app de escritorio oficial (se instala como PWA), la biblioteca de formas, colaboración en vivo, y exportar a SVG/PNG o código Mermaid.
+description: Pizarra para dibujar diagramas, flujos y bocetos rápidos sin conocimientos de diseño; permite colaborar y exportar el resultado como imagen o diagrama editable.
 category: applications
 stack: apps-design
 order: 2

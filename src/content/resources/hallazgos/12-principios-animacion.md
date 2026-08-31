@@ -1,6 +1,6 @@
 ---
 title: "12 principios de animación — movimiento aplicado a interfaces"
-description: "Artículo interactivo que traduce los principios clásicos de animación de Disney a animación web y de producto, con demostraciones en vivo."
+description: "Explicación interactiva de doce principios que hacen que un movimiento resulte claro y natural, aplicados a botones, transiciones y otras interfaces web."
 category: findings
 stack: hallazgos-web
 order: 3

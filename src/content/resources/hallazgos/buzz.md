@@ -1,6 +1,6 @@
 ---
 title: "Buzz — espacio de trabajo para personas y agentes"
-description: "Espacio de trabajo autogestionado donde personas y agentes de IA comparten las mismas salas, construido sobre un registro de eventos firmados."
+description: "Proyecto que trata a personas y agentes de IA como participantes del mismo espacio de trabajo; permite estudiar permisos, trazabilidad y colaboración entre ambos."
 category: findings
 stack: hallazgos-ia
 order: 1

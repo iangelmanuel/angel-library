@@ -1,6 +1,6 @@
 ---
 title: "Bun: runtime, gestor de paquetes y bundler en uno"
-description: Instalar Bun y sus comandos básicos — install, add, run, correr TypeScript directo, bunx.
+description: Entorno para ejecutar JavaScript y TypeScript que también instala paquetes, ejecuta pruebas y empaqueta código; la guía muestra cómo evaluarlo sin reemplazar Node a ciegas.
 category: applications
 stack: apps-cli
 order: 5

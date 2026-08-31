@@ -1,6 +1,6 @@
 ---
 title: "Cursos de Midudev por tecnología"
-description: "Catálogo de los cursos gratuitos de Miguel Ángel Durán en YouTube, con el formato real de cada uno: video o playlist."
+description: "Índice de cursos gratuitos en español organizado por tecnología, para elegir una ruta de Midudev según el tema y abrir directamente el video o la serie."
 category: courses
 stack: cursos-midudev
 order: 1

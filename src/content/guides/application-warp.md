@@ -1,6 +1,6 @@
 ---
 title: Warp — terminal por bloques y sesiones de proyecto
-description: Entender bloques, workflows, launch configurations, shell y funciones de IA sin perder el modelo real de la terminal.
+description: Aplicación de terminal que agrupa cada comando con su salida y permite guardar sesiones; explica sus ayudas visuales y de IA sin ocultar cómo funciona la terminal real.
 category: applications
 stack: apps-terminal
 order: 1

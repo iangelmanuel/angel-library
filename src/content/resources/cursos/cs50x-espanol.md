@@ -1,6 +1,6 @@
 ---
 title: "CS50x en español"
-description: "El curso de introducción a las ciencias de la computación de Harvard, con las clases traducidas al español en una playlist de YouTube."
+description: "Curso introductorio de Harvard para comprender cómo se resuelven problemas con algoritmos, memoria, datos y varios lenguajes; las clases están traducidas al español."
 category: courses
 stack: cursos-plataformas
 order: 2

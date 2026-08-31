@@ -8,6 +8,54 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.17.0] — 2026-08-31
+
+Aplicaciones, Cursos, Hallazgos y Recursos presentan ahora cada herramienta o
+material desde el problema que resuelve, con lenguaje accesible para quien
+empieza y precisión suficiente para quien ya conoce el tema.
+
+### Añadido
+
+- Contexto de uso, límites y criterios de integración en **24 fichas de
+  Recursos** que antes tenían entre una y cuatro líneas de contenido.
+- Explicaciones sobre accesibilidad, licencias, privacidad, dependencias y
+  seguridad cuando son necesarias para decidir si un recurso encaja en un
+  proyecto real.
+
+### Cambiado
+
+- Reescritas las descripciones de las **88 entradas públicas** de las cuatro
+  categorías: 19 de Aplicaciones, 29 de Cursos, 5 de Hallazgos y 35 de
+  Recursos.
+- Cada tarjeta identifica primero qué tipo de herramienta o material es,
+  después qué problema resuelve y, cuando importa, el nivel, los requisitos o
+  el resultado que se puede esperar.
+- Las presentaciones generales de Aplicaciones, Cursos, Hallazgos y Recursos
+  explican ahora cómo interpretar su contenido y qué diferencia a cada
+  categoría.
+- Las subcategorías de estas secciones abandonan descripciones genéricas y
+  explican acciones concretas: escribir y depurar código, probar APIs,
+  administrar despliegues, practicar, estudiar implementaciones o evaluar
+  herramientas externas.
+- Los nombres visibles `UI Inspiration`, `Loaders` y `Developer Tools` pasan a
+  **Inspiración de interfaces**, **Indicadores de carga** y **Herramientas de
+  desarrollo**.
+- Los términos técnicos necesarios —CLI, API, MCP, SVG, WCAG, skills, formatos
+  de imagen y mockups— se conservan, pero se explican desde su función antes de
+  utilizarlos como referencia especializada.
+
+### Verificado
+
+- Las **88 de 88 entradas públicas** previstas recibieron la nueva redacción;
+  las tres entradas privadas de Aplicaciones permanecen fuera del alcance
+  porque no aparecen en sus módulos públicos.
+- Ninguna ficha de Recursos queda reducida a una nota aislada de menos de 50
+  palabras.
+- `pnpm check` completado con 0 errores y un único hint conocido por el
+  fallback de copia con `document.execCommand`.
+- `pnpm build` completado correctamente con 1630 páginas estáticas y todas las
+  relaciones de contenido validadas.
+
 ## [0.16.1] — 2026-08-31
 
 Los títulos de Hallazgos y Recursos adoptan el patrón `[nombre] — [qué hace]`
@@ -954,7 +1002,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.16.1...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.17.0...HEAD
+[0.17.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.17.0
 [0.16.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.16.1
 [0.16.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.16.0
 [0.15.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.15.0

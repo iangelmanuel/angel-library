@@ -1,6 +1,6 @@
 ---
 title: "Astro Storefront — comercio electrónico de referencia"
-description: "Repositorio de referencia de comercio electrónico con Astro: islas con SolidJS, renderizado bajo demanda con caché de CDN, actions, assets y env tipados."
+description: "Tienda real construida por el equipo de Astro para estudiar cómo se combinan páginas rápidas, componentes interactivos, lógica de servidor, caché y configuración tipada."
 category: findings
 stack: hallazgos-web
 order: 2

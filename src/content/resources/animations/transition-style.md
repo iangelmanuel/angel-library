@@ -1,6 +1,6 @@
 ---
 title: "transition.style — transiciones con clip-path"
-description: "Transiciones listas para copiar basadas en clip-path: se aplican con una clase y funcionan también con la API de View Transitions."
+description: "Colección de transiciones que revelan u ocultan contenido mediante formas; se pueden copiar como CSS y aplicar también al cambio entre páginas."
 category: resources
 tags: [css, transiciones, animaciones, clip-path, view-transitions]
 url: https://www.transition.style/

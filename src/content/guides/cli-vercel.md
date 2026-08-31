@@ -1,6 +1,6 @@
 ---
 title: "Vercel CLI: comandos esenciales"
-description: Instalar la CLI de Vercel, loguearse y el flujo del día a día — deploy a preview, deploy a producción, correr local y manejar variables de entorno.
+description: Herramienta de terminal para vincular un proyecto con Vercel, probar su entorno y crear despliegues de prueba o de producción sin depender del panel web.
 category: applications
 stack: apps-cli
 order: 7

@@ -1,6 +1,6 @@
 ---
 title: "HyperFrames — HTML convertido en video determinista"
-description: "Convierte HTML, CSS, multimedia y animaciones en videos MP4 deterministas, desde la línea de comandos o desde un agente de codificación."
+description: "Herramienta que convierte una página creada con HTML y CSS en un video reproducible, útil para generar muchas piezas con el mismo diseño mediante código."
 category: findings
 stack: hallazgos-web
 order: 1

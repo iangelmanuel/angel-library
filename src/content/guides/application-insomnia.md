@@ -1,6 +1,6 @@
 ---
 title: Insomnia — desarrollo y pruebas de APIs
-description: Organizar requests, colecciones, entornos, autenticación, scripts y automatización de APIs sin exponer secretos.
+description: Aplicación para enviar solicitudes a una API y revisar sus respuestas antes de crear una interfaz; permite organizar pruebas, autenticación y variables sin exponer secretos.
 category: applications
 stack: apps-api
 order: 1

@@ -1,6 +1,6 @@
 ---
 title: "Microsoft Learn — Centro de estudiantes"
-description: "Portal para estudiantes que agrupa los currículos abiertos de Microsoft en GitHub, créditos de Azure y el paquete de estudiante de GitHub."
+description: "Portal que reúne rutas abiertas de Microsoft y beneficios para estudiantes, como créditos de nube y acceso a herramientas; no es un curso único."
 category: courses
 stack: cursos-microsoft
 order: 3

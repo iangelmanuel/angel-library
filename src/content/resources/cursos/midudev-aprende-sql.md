@@ -1,6 +1,6 @@
 ---
 title: "Aprende SQL — curso interactivo con certificado gratuito"
-description: "Curso de SQL en español con 26 lecciones y un editor en cada una; al terminar da un certificado en PDF que se puede publicar en LinkedIn."
+description: "Curso interactivo en español para aprender a consultar y modificar bases de datos con SQL, practicando cada concepto en un editor integrado."
 category: courses
 stack: cursos-midudev
 order: 3

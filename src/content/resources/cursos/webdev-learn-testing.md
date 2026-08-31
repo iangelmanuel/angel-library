@@ -1,6 +1,6 @@
 ---
 title: "Learn Testing (web.dev)"
-description: "Curso del equipo de Chrome sobre testing para la web: fundamentos, pruebas unitarias y de componentes, análisis estático y filosofía de pruebas."
+description: "Curso conceptual y práctico para entender por qué se prueba una aplicación web y cómo combinar análisis estático, pruebas unitarias y pruebas de componentes."
 category: courses
 stack: cursos-plataformas
 order: 6

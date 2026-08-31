@@ -1,6 +1,6 @@
 ---
 title: "GEAR Get Certified (Google Cloud)"
-description: "Programa por cohortes con formación guiada, laboratorios y mentoría que termina en un vale gratuito para el examen de certificación de Google Cloud."
+description: "Programa por convocatorias para preparar una certificación de Google Cloud mediante clases, laboratorios y mentoría; exige revisar requisitos y fechas de admisión."
 category: courses
 stack: cursos-google
 order: 1

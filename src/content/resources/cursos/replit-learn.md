@@ -1,6 +1,6 @@
 ---
 title: "Replit Learn"
-description: "Cursos cortos de Replit sobre construir aplicaciones con IA: comunicarse con el modelo, dar forma a la idea y desplegar en su plataforma."
+description: "Cursos breves para convertir una idea en una aplicación usando la asistencia de IA y la plataforma de Replit, desde las instrucciones iniciales hasta el despliegue."
 category: courses
 stack: cursos-plataformas
 order: 7
