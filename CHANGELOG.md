@@ -8,6 +8,63 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.11.0] — 2026-08-30
+
+Tres subcategorías nuevas y 19 entradas: el gateway de WhatsApp OpenWA, una
+sección completa de estilos visuales de interfaz con demostraciones
+renderizadas, una aplicación de video, una librería de skeletons y dos
+recursos de IA.
+
+### Añadido
+
+- Subcategoría **WhatsApp API** en General, con cinco guías de OpenWA: qué es
+  y sus riesgos reales de bloqueo, instalación con Docker y perfiles de
+  servicios, sesiones y envío de mensajes por REST, webhooks con verificación
+  HMAC y filtros previos al envío, y el servidor MCP para agentes de IA.
+- Subcategoría **Estilos visuales** en UI / UX, con un panorama comparativo de
+  los nueve estilos y una guía por cada uno: skeuomorphism, neumorphism,
+  glassmorphism, claymorphism, minimalism, maximalism, brutalism, Liquid Glass
+  y Spatial UI. Siete incluyen una demostración renderizada en la propia
+  página, además del CSS comentado y notas de accesibilidad.
+- Subcategoría **Video y grabación** en Aplicaciones, con Borumi: editor de
+  escritorio para macOS y Windows con grabación por escenas y edición por
+  transcripción.
+- Boneyard en UI / UX → UI con React: genera los skeletons de carga midiendo
+  los componentes reales con Playwright en tres anchos, en vez de mantenerlos
+  a mano.
+- Recursos de IA: Napkin AI, que convierte texto en diagramas editables
+  (la exportación a SVG requiere plan de pago), y Vibiz AI, que genera embudos
+  de marketing completos a partir de la URL de un sitio.
+- Iconos `brand-whatsapp` (logotipo propio), `brand-ui-ux-estilos` y
+  `brand-apps-video` en `src/config/icons.ts`.
+
+### Cambiado
+
+- `CATEGORY_STACK_ORDER` sitúa las subcategorías nuevas en su lugar de la
+  curva de lectura: `whatsapp` al final de General, `ui-ux-estilos` justo
+  después de los fundamentos de UI / UX, y `apps-video` entre Diseño y
+  diagramación y Notas y documentación.
+
+### Verificado
+
+- Datos de los cinco proyectos externos contrastados contra su fuente real
+  —API de GitHub, registro de npm y README oficial— y no contra resúmenes
+  automáticos, que confundían OpenWA con el proyecto homónimo
+  `@open-wa/wa-automate` y le atribuían una licencia equivocada.
+- Las nueve páginas de estilos revisadas en el navegador: el HTML embebido se
+  renderiza como demostración real y no queda escapado como texto; el
+  `backdrop-filter` del ejemplo de glassmorphism se aplica de verdad.
+- Enlaces internos de las entradas nuevas comprobados uno por uno; las tres
+  subcategorías aparecen en la navegación y en su página de categoría.
+- `pnpm check` con 0 errores y `pnpm build` con 1518 páginas estáticas.
+
+### Nota
+
+- Los tres iconos nuevos quedan registrados por coherencia, pero hoy no se
+  dibujan en ninguna página: los iconos de subcategoría solo se renderizan en
+  entradas sueltas de categorías sin agrupación, y las entradas nuevas viven
+  dentro de una subcategoría.
+
 ## [0.10.0] — 2026-08-30
 
 Refactorización completa del código para que sea legible y modificable sin
@@ -606,7 +663,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.11.0
 [0.10.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.10.0
 [0.9.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.9.0
 [0.8.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.8.0

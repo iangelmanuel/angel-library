@@ -428,6 +428,7 @@ const STACK_LABELS = {
   "backend-fundamentos": "Fundamentos de backend",
   "devops-fundamentos": "Fundamentos de DevOps",
   "ui-ux-fundamentos": "Fundamentos de UI / UX",
+  "ui-ux-estilos": "Estilos visuales",
   "skills-fundamentos": "Fundamentos de IA Tools",
   node: "Node.js",
   express: "Express",
@@ -461,6 +462,7 @@ const STACK_LABELS = {
   css: "CSS",
   typescript: "TypeScript",
   utils: "Utils",
+  whatsapp: "WhatsApp API",
   terminal: "Terminal",
   cli: "CLI",
   seo: "Fundamentos de SEO",
@@ -500,6 +502,7 @@ const STACK_LABELS = {
   "apps-api": "Clientes de API",
   "apps-devops": "DevOps y contenedores",
   "apps-design": "Diseño y diagramación",
+  "apps-video": "Video y grabación",
   "apps-productivity": "Notas y documentación",
   "apps-comms": "Comunicación",
   "ui-ux-design-systems": "Sistemas de diseño",
@@ -548,7 +551,7 @@ export const STACKS = Object.fromEntries(
 export const CATEGORY_STACK_ORDER: Partial<
   Record<CategoryId, readonly StackId[]>
 > = {
-  general: ["config", "monorepo", "packages", "typescript", "utils"],
+  general: ["config", "monorepo", "packages", "typescript", "utils", "whatsapp"],
   languages: ["html", "css", "javascript"],
   frontend: ["frontend-fundamentos", "astro", "react", "nextjs"],
   backend: ["backend-fundamentos", "node", "express", "astro", "nextjs"],
@@ -619,6 +622,7 @@ export const CATEGORY_STACK_ORDER: Partial<
     "apps-api",
     "apps-devops",
     "apps-design",
+    "apps-video",
     "apps-productivity",
     "apps-comms"
   ],
@@ -635,6 +639,7 @@ export const CATEGORY_STACK_ORDER: Partial<
   ],
   "ui-ux": [
     "ui-ux-fundamentos",
+    "ui-ux-estilos",
     "ui-ux-design-systems",
     "ui-ux-interaccion",
     "ui-css",
