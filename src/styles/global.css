@@ -1,22 +1,12 @@
 /* ------------------------------------------------------------------ */
 /* Fuentes (self-hosted vía Fontsource)                                */
 /* ------------------------------------------------------------------ */
-/* Geist Sans queda importada por si se necesita, pero el texto general del
-   sitio (--font-sans) usa JetBrains Mono — ver más abajo. */
 @import '@fontsource/geist-sans/latin-400.css';
 @import '@fontsource/geist-sans/latin-500.css';
 @import '@fontsource/geist-sans/latin-600.css';
 @import '@fontsource/geist-mono/latin-400.css';
 @import '@fontsource/geist-mono/latin-500.css';
 @import '@fontsource/geist-pixel/latin-400.css';
-/* Fuente de código: Fira Code. Geist Mono queda importada arriba porque
-   --font-pixel la usa como fallback. */
-@import '@fontsource/fira-code/latin-400.css';
-@import '@fontsource/fira-code/latin-500.css';
-/* Fuente de texto general (todo lo que no es título ni código): JetBrains Mono. */
-@import '@fontsource/jetbrains-mono/latin-400.css';
-@import '@fontsource/jetbrains-mono/latin-500.css';
-@import '@fontsource/jetbrains-mono/latin-600.css';
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
@@ -28,34 +18,42 @@
 /* ------------------------------------------------------------------ */
 :root {
   --background: #000000;
-  --foreground: #ececee;
+  --foreground: #edf0f3;
   --card: #000000;
-  --card-foreground: #ececee;
+  --card-foreground: #edf0f3;
   --popover: #000000;
-  --popover-foreground: #ececee;
-  --primary: #f5f5f5;
+  --popover-foreground: #edf0f3;
+  --primary: #f5f7f9;
   --primary-foreground: #000000;
-  --secondary: #0a0a0a;
-  --secondary-foreground: #e4e4e7;
-  --muted: #0a0a0a;
-  --muted-foreground: #9c9ca5;
-  --accent: #111111;
-  --accent-foreground: #f5f5f5;
-  --destructive: #e4e4e7;
+  --secondary: #15191f;
+  --secondary-foreground: #e3e7eb;
+  --muted: #15191f;
+  --muted-foreground: #a8afb8;
+  --accent: #1a1f26;
+  --accent-foreground: #f5f7f9;
+  --destructive: #fda4af;
   --destructive-foreground: #000000;
-  --border: #232329;
-  --border-strong: #3f3f46;
-  --input: #232329;
-  --ring: #71717a;
+  --border: #29303a;
+  --border-strong: #46505d;
+  --input: #29303a;
+  --ring: #8ec5ff;
   --code-bg: #000000;
+  --reading-text: #d6dbe1;
+  --reading-muted: #b2b9c2;
+  --reading-link: #8ec5ff;
+  --heading-primary: #f08a5d;
+  --heading-secondary: #dfb84d;
+  --heading-tertiary: #58b7c5;
+  --heading-quaternary: #a98bd8;
+  --related-accent: #a98bd8;
   /* Acentos: cada uno mapea 1:1 a una categoría en config/site.ts (CategoryMeta.color)
      y también colorea títulos por tipo de contenido más abajo. Elegidos para que
      categorías vecinas en la sidebar nunca compartan color. */
   --accent-blue: #60a5fa;
   --accent-cyan: #67e8f9;
-  --accent-yellow: #facc15;
+  --accent-yellow: #f2cf72;
   --accent-green: #86efac;
-  --accent-orange: #fb923c;
+  --accent-orange: #ffa06f;
   --accent-pink: #f0abfc;
   --accent-purple: #c4b5fd;
   --accent-red: #fda4af;
@@ -89,8 +87,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-sans: 'JetBrains Mono', 'Geist Sans', ui-monospace, ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Fira Code', 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
 
   --radius-sm: 0px;
@@ -117,13 +115,33 @@
   body {
     background-color: var(--background);
     background-image:
-      linear-gradient(rgb(255 255 255 / 0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.018) 1px, transparent 1px);
+      linear-gradient(rgb(255 255 255 / 0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.012) 1px, transparent 1px);
     background-size: 32px 32px;
     color: var(--foreground);
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-synthesis: none;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
   }
 
   ::selection {
@@ -188,20 +206,18 @@
   top: 1rem;
 }
 
-/* Etiqueta de sección: badge de texto en Geist Pixel, un único verde de
-   marca en todo el proyecto (antes rotaba 4 colores por posición — sin
-   significado real, igual que le pasaba a los h2). */
+/* Etiqueta de sección: funciona como subtítulo y conserva el amarillo de la
+   jerarquía de lectura. */
 .section-label {
   font-family: var(--font-pixel);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: var(--accent-blue);
+  color: var(--heading-secondary);
 }
 .section-label::before {
   content: '$ ';
   color: var(--accent-green);
-  opacity: 0.85;
 }
 
 /* Teclas */
@@ -237,7 +253,7 @@
   border: 1px solid var(--border);
   background: transparent;
   padding: 0.2rem 0.5rem;
-  font-family: var(--font-pixel);
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -329,10 +345,10 @@ a.tag:hover {
 .type-guides { color: var(--accent-purple); }
 .type-tricks { color: var(--accent-orange); }
 
-/* Título: morado de marca, siempre — la señal consistente de "esto es un
-   título" en toda la biblioteca (entradas, categorías, tags). */
-main h1 { color: var(--accent-orange); }
-main header > p { color: color-mix(in srgb, var(--accent-blue) 32%, var(--muted-foreground)); }
+/* Jerarquía estable: naranja para el título principal y texto introductorio
+   más claro que el metadata, sin teñir párrafos largos. */
+main h1 { color: var(--heading-primary); }
+main header > p { color: var(--reading-muted); }
 
 /* Tarjeta de contenido — barra superior "title bar" en el color del tipo
    (.type-X ya pone ese color en `currentColor` de la tarjeta, ver más
@@ -458,7 +474,7 @@ details[open] > .nav-summary {
    para que no compita con el nombre de la categoría. */
 .nav-summary--sub {
   padding: 0.26rem 0.4rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -694,7 +710,7 @@ details[open] > .nav-summary .nav-chevron {
 /* Bloque especial para comandos (páginas de tipo Comando) */
 .command-line code::before {
   content: '$ ';
-  color: var(--muted-foreground);
+  color: var(--accent-green);
   user-select: none;
 }
 
@@ -773,9 +789,10 @@ details[open] > .nav-summary .nav-chevron {
 /* Contenido markdown                                                  */
 /* ------------------------------------------------------------------ */
 .markdown {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  color: #d4d4d9;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--reading-text);
 }
 .markdown > *:first-child {
   margin-top: 0;
@@ -789,7 +806,7 @@ details[open] > .nav-summary .nav-chevron {
   color: var(--foreground);
   scroll-margin-top: 5rem;
 }
-.markdown h1 { color: var(--accent-orange); }
+.markdown h1 { color: var(--heading-primary); }
 .markdown h1 {
   font-size: 1.75rem;
   margin: 3rem 0 1.25rem;
@@ -800,22 +817,22 @@ details[open] > .nav-summary .nav-chevron {
   font-size: 1.3rem;
   margin: 3.5rem 0 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px dashed color-mix(in srgb, var(--accent-yellow) 45%, var(--border));
-  color: var(--accent-yellow);
+  border-bottom: 1px solid color-mix(in srgb, var(--heading-secondary) 32%, var(--border));
+  color: var(--heading-secondary);
 }
 .markdown h3 {
   font-size: 1.05rem;
   margin: 2.5rem 0 0.85rem;
   padding-left: 0.6rem;
-  border-left: 2px solid var(--accent-cyan);
-  color: var(--accent-cyan);
+  border-left: 2px solid var(--heading-tertiary);
+  color: var(--heading-tertiary);
 }
 .markdown h4 {
   font-size: 0.82rem;
   margin: 2rem 0 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--muted-foreground);
+  color: var(--heading-quaternary);
 }
 
 .markdown p {
@@ -826,16 +843,21 @@ details[open] > .nav-summary .nav-chevron {
 .markdown p + h4 {
   margin-top: 3rem;
 }
-/* Azul tenue: se distingue del texto sin gritar en un párrafo largo. */
+/* Enlaces de lectura: azul estable, subrayado visible y fondo solo al
+   interactuar. No dependen únicamente del color. */
 .markdown a {
-  color: #93bbfc;
+  color: var(--reading-link);
   text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, #93bbfc 45%, transparent);
-  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--reading-link) 70%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  border-radius: 2px;
 }
-.markdown a:hover {
-  color: var(--accent-blue);
-  text-decoration-color: var(--accent-blue);
+.markdown a:hover,
+.markdown a:focus-visible {
+  color: #c5e0ff;
+  background: color-mix(in srgb, var(--reading-link) 10%, transparent);
+  text-decoration-color: currentColor;
 }
 .markdown strong {
   color: var(--foreground);
@@ -856,7 +878,7 @@ details[open] > .nav-summary .nav-chevron {
   content: '▪';
   position: absolute;
   left: -1.1rem;
-  color: var(--muted-foreground);
+  color: var(--heading-secondary);
   font-size: 0.7em;
   top: 0.35em;
 }
@@ -874,20 +896,20 @@ details[open] > .nav-summary .nav-chevron {
 }
 .markdown blockquote {
   margin: 1.25rem 0;
-  border-left: 2px solid var(--border-strong);
-  padding-left: 1rem;
-  color: var(--muted-foreground);
+  border-left: 3px solid var(--heading-tertiary);
+  background: color-mix(in srgb, var(--heading-tertiary) 5%, transparent);
+  padding: 0.8rem 1rem;
+  color: var(--reading-muted);
 }
-/* Código inline (atributos, props, nombres de función mencionados en el
-   texto): sin relleno, solo borde — en Geist Pixel para distinguirlo del
-   cuerpo del texto sin recurrir a un color de acento. */
+/* Código inline: Geist Mono y una superficie discreta para que propiedades,
+   comandos y nombres de API se reconozcan sin competir con los headings. */
 .markdown :not(pre) > code {
-  background: transparent;
+  background: #121821;
   border: 1px solid var(--border);
-  padding: 0.1rem 0.35rem;
-  font-family: var(--font-sans);
-  font-size: 0.78em;
-  color: var(--foreground);
+  padding: 0.12rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  color: #b9d8ff;
 }
 .markdown hr {
   border: none;
@@ -908,7 +930,7 @@ details[open] > .nav-summary .nav-chevron {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   text-align: left;
-  color: var(--muted-foreground);
+  color: var(--heading-secondary);
   border-bottom: 1px solid var(--border-strong);
   padding: 0.5rem 0.75rem;
 }
@@ -916,8 +938,58 @@ details[open] > .nav-summary .nav-chevron {
   border-bottom: 1px solid var(--border);
   padding: 0.5rem 0.75rem;
 }
+.markdown tbody tr:nth-child(even) {
+  background: rgb(255 255 255 / 0.018);
+}
 .markdown img {
   border: 1px solid var(--border);
+}
+
+/* El final de una entrada cambia de ritmo: primero cierra el artículo y luego
+   ofrece caminos para continuar. El violeta diferencia navegación relacionada
+   de los subtítulos amarillos que pertenecen al contenido principal. */
+.entry-relations {
+  margin-top: 4.5rem;
+  border-top: 1px solid var(--border-strong);
+  padding-top: 1.5rem;
+}
+.entry-relations::before {
+  content: 'seguir leyendo';
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--reading-muted);
+}
+.relation-section {
+  margin-top: 2.25rem;
+}
+.relation-section__title {
+  margin-bottom: 1rem;
+  font-family: var(--font-pixel);
+  font-size: 0.86rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--related-accent);
+}
+.relation-section__title::before {
+  content: '↳';
+  font-family: var(--font-mono);
+  color: var(--heading-tertiary);
+}
+.entry-relations .terminal-card {
+  min-height: 13.5rem;
+  border-color: var(--border-strong);
+  background: var(--background);
+  box-shadow: none;
+}
+.entry-relations .terminal-card:hover,
+.entry-relations .terminal-card:focus-visible {
+  border-color: #687384;
+  background: var(--background);
 }
 
 /* ------------------------------------------------------------------ */
@@ -1165,7 +1237,7 @@ details[open] > .nav-summary .nav-chevron {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  font-family: var(--font-pixel);
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -1176,10 +1248,11 @@ details[open] > .nav-summary .nav-chevron {
   display: flex;
   align-items: flex-start;
   gap: 0.45rem;
-  font-size: 0.94rem;
-  font-weight: 500;
-  line-height: 1.45;
-  color: var(--foreground);
+  font-family: var(--font-pixel);
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--heading-primary);
 }
 .terminal-card__prompt {
   flex-shrink: 0;
@@ -1189,9 +1262,10 @@ details[open] > .nav-summary .nav-chevron {
   color: var(--card-accent);
 }
 .terminal-card__body > p {
-  font-size: 0.77rem;
-  line-height: 1.65;
-  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  line-height: 1.7;
+  color: var(--reading-muted);
 }
 .terminal-card__tags {
   display: flex;
@@ -1461,6 +1535,10 @@ details[open] > .nav-summary .nav-chevron {
 }
 .search-terminal__echo span {
   color: var(--terminal-user);
+}
+.search-terminal__echo .search-terminal__dollar {
+  color: var(--accent-green);
+  font-weight: 600;
 }
 .search-terminal__response {
   padding-left: 0.7rem;

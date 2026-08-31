@@ -11,7 +11,8 @@ export function Messages({ messages }: { messages: TerminalMessage[] }) {
           data-tone={message.tone ?? "default"}
         >
           <p className="search-terminal__echo">
-            <span>dev@workspace:~/angel.library $</span> {message.command}
+            <span>dev@workspace:~/angel.library</span>{" "}
+            <span className="search-terminal__dollar">$</span> {message.command}
           </p>
           <div className="search-terminal__response">
             {message.lines.map((line, index) => (

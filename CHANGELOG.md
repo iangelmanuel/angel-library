@@ -8,6 +8,63 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.18.0] — 2026-08-31
+
+La biblioteca adopta un sistema tipográfico único basado en la familia Geist y
+una jerarquía visual más clara para leer documentación técnica sin abandonar su
+interfaz oscura de inspiración brutalista.
+
+### Añadido
+
+- Precarga de los archivos WOFF2 principales de **Geist Sans**, **Geist Mono**
+  y **Geist Pixel** desde el layout base para evitar esperas innecesarias al
+  entrar al sitio.
+- Tokens específicos para texto de lectura, enlaces y los cuatro niveles de
+  encabezados; permiten ajustar la jerarquía editorial sin alterar los colores
+  funcionales de categorías y tipos de contenido.
+- Separación visual al final de cada módulo para presentar **Relacionado** y
+  **Contenido similar** como caminos para continuar leyendo.
+
+### Cambiado
+
+- **Geist Sans** se utiliza en párrafos, descripciones y textos extensos;
+  **Geist Mono**, en código, comandos, metadatos y badges; y **Geist Pixel**, en
+  títulos, subtítulos y encabezados importantes.
+- Los títulos principales usan un naranja cálido, las secciones un dorado, las
+  subsecciones un cian moderado y los encabezados auxiliares un violeta
+  contenido. Los tonos conservan presencia sin aumentar la saturación del resto
+  de la página.
+- El fondo general, las superficies principales y las tarjetas de contenido
+  relacionado vuelven al negro puro. Estas últimas se distinguen exclusivamente
+  mediante bordes, incluido su estado interactivo.
+- Mejorada la lectura de párrafos, listas, tablas, citas, código en línea y
+  bloques de código mediante espaciado, contraste y familias tipográficas según
+  su función.
+- Los enlaces dentro del contenido mantienen subrayado visible y estados de
+  foco y hover reconocibles sin competir con los encabezados.
+- Todos los prompts con `$`, incluido el historial de la terminal, utilizan el
+  verde existente del proyecto de forma independiente al resto del comando.
+- El color del navegador declarado mediante `theme-color` pasa a negro puro
+  para coincidir con la superficie del sitio.
+
+### Eliminado
+
+- Dependencias y cargas de **Fira Code** y **JetBrains Mono**; la interfaz queda
+  limitada a Geist Sans, Geist Mono y Geist Pixel.
+
+### Verificado
+
+- Las tres fuentes locales se sirven en WOFF2 y sus variantes principales se
+  precargan correctamente.
+- Revisión visual de una guía completa en escritorio y móvil, incluida la
+  jerarquía de títulos, los enlaces, el código y las tarjetas relacionadas.
+- Fondo de página y tarjetas relacionadas calculado como `rgb(0, 0, 0)`, sin
+  tinte ni sombra adicional.
+- `pnpm check` completado con 0 errores y un único hint conocido por el
+  fallback de copia con `document.execCommand`.
+- `pnpm build` completado correctamente con 1630 páginas estáticas y todas las
+  relaciones de contenido validadas.
+
 ## [0.17.0] — 2026-08-31
 
 Aplicaciones, Cursos, Hallazgos y Recursos presentan ahora cada herramienta o

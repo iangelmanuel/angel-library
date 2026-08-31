@@ -120,7 +120,7 @@ const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : u
       <Content />
     </div>
 
-    <div>
+    <div class="entry-relations" aria-label="Más contenido relacionado">
       <RelationSection title="Integraciones" icon="blocks" entries={related.integrations} />
       <RelationSection title="Recetas" icon="list-checks" entries={related.recipes} />
       <RelationSection title="Recursos" icon="link" entries={related.resources} />
