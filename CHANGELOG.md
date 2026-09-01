@@ -8,6 +8,75 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.19.0] — 2026-08-31
+
+Segunda pasada sobre el sistema visual: la paleta se reorganiza para que cada
+color tenga un único significado (jerarquía de lectura, categoría, tipo de
+contenido o estado), el gris queda unificado en la escala zinc sin restos con
+tinte azulado, y el hover interactivo pasa a ser una sola definición
+reutilizada en todo el sitio en vez de variantes distintas por componente.
+
+### Añadido
+
+- Enlace al repositorio de GitHub en el navbar.
+- Barra superior de acento (3px) en las tarjetas de contenido, visible al
+  pasar el cursor en el color de su tipo de documento.
+
+### Cambiado
+
+- **Jerarquía de lectura**: título en violeta, subtítulos (`h2`/`h3`) en dos
+  tonos de amarillo fuerte sin mezcla pastel (`#eab308`/`#facc15`); "Recursos"
+  y "Contenido similar", al cierre de una entrada, comparten el color de los
+  subtítulos en vez de ir en blanco o en un cuarto color suelto.
+- El hover de las tarjetas de contenido pasa a colorearse según su **tipo de
+  documento** (guía, recurso, snippet…) en vez de su categoría — separa la
+  identidad de navegación (categoría) de la identidad de contenido (tipo). No
+  aplica a links de redirección externos (documentación oficial, GitHub,
+  recurso, anterior/siguiente), que quedan neutros como ya estaban.
+- Efecto pixel-art 3D del hover **unificado en una sola definición**
+  (`translate(-2px, -2px)` + sombra dura desplazada en el color de acento) y
+  reutilizado en cards, badge de categoría y tiles de tags — antes cada
+  componente tenía su propia variante.
+- Hash de tags (`#tag`) sin borde ni fondo, mismo azul que los enlaces del
+  contenido, estilo suelto tipo Twitter; conserva un borde propio solo en la
+  cuadrícula de `/tags`, donde funciona como botón de filtro.
+- Semáforo estilo macOS movido al lado izquierdo de la barra de cada
+  tarjeta, con los colores reales del sistema operativo (`#ff5f57`
+  `#febc2e` `#28c840`) en vez de la paleta pastel del resto del sitio.
+- Iconos de categoría en la sidebar en versión pastel (mezclados con zinc
+  claro) para orientar sin competir con la lectura.
+- Buscador de la portada con el mismo hover neutro que el del navbar — antes
+  se resaltaba en azul al pasar el cursor.
+- Breadcrumb reescrito: ya no simula el comando `cd`, muestra la ruta actual
+  en formato prompt (`usuario@host:ruta $`) con su propia paleta.
+- Escala de grises unificada en zinc de Tailwind; varios hex sueltos con
+  tinte azulado (`#c9c9cf`, `#687384`, `#25252b`, entre otros) pasan a los
+  tokens `--zinc-*`.
+- Amarillo y naranja quedan reservados para categorías; fuera de la
+  jerarquía de lectura, los tags y los badges de tipo de contenido.
+- Colores de categoría reasignados donde coincidían en hex con los de la
+  jerarquía de lectura (título/subtítulos).
+
+### Corregido
+
+- Especificidad CSS que anulaba el hover de las tarjetas dentro de
+  "Relacionado" y "Contenido similar": una regla declarada después en el
+  CSS, con la misma especificidad que `.card:hover`, pisaba el color de
+  borde del hover.
+- El badge de categoría no llegaba a colorearse al pasar el cursor: el color
+  y el borde estaban fijados con un estilo inline, que siempre gana sobre el
+  `:hover` de una hoja de estilos.
+
+### Eliminado
+
+- Textura de retícula de 32px en el fondo de la página; queda en un solo
+  color plano.
+- Indicador "online" del terminal de la portada.
+
+### Verificado
+
+- `pnpm check` completado con 0 errores tras cada tanda de cambios.
+
 ## [0.18.0] — 2026-08-31
 
 La biblioteca adopta un sistema tipográfico único basado en la familia Geist y
@@ -1059,7 +1128,9 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.17.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.19.0...HEAD
+[0.19.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.19.0
+[0.18.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.18.0
 [0.17.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.17.0
 [0.16.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.16.1
 [0.16.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.16.0

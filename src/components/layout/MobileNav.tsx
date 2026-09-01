@@ -81,7 +81,7 @@ export default function MobileNav({ data }: { data: NavData }) {
               >
                 <DynamicIcon
                   name="home"
-                  className="size-3.5 text-[var(--accent-blue)]"
+                  className="size-3.5 text-[var(--accent-purple)]"
                 />{" "}
                 Inicio
               </a>
@@ -92,7 +92,7 @@ export default function MobileNav({ data }: { data: NavData }) {
               >
                 <DynamicIcon
                   name="tags"
-                  className="size-3.5 text-[var(--accent-yellow)]"
+                  className="size-3.5 text-[var(--accent-blue)]"
                 />{" "}
                 Tags
               </a>

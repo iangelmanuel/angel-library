@@ -42,12 +42,12 @@ export function ResultOptions({
             <a
               {...shared}
               key={`tag-${item.tag.tag}`}
-              style={{ "--result-accent": "var(--accent-yellow)" } as CSSProperties}
+              style={{ "--result-accent": "var(--accent-lime)" } as CSSProperties}
             >
               <span className="search-terminal__cursor" aria-hidden="true">
                 ❯
               </span>
-              <DynamicIcon name="tags" className="size-3.5 text-[var(--accent-yellow)]" />
+              <DynamicIcon name="tags" className="size-3.5 text-[var(--accent-lime)]" />
               <span className="search-terminal__result-content">
                 <strong>
                   {index + 1}. #{item.tag.tag}

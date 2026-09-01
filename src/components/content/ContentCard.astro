@@ -16,7 +16,7 @@ const tags = entry.data.tags ?? [];
 <a
   href={getEntryUrl(entry)}
   class="card terminal-card"
-  style={`--card-accent: var(${category.color})`}
+  style={`--card-accent: var(${meta.color})`}
 >
   <div class="terminal-card__bar" aria-hidden="true">
     <span class="terminal-card__path"><span>~/</span>{category.id}/{entry.id}</span>

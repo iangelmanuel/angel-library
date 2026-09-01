@@ -45,97 +45,111 @@ const CONTENT_TYPE_DEFINITIONS = {
     singular: "Tecnología",
     icon: "cpu",
     description:
-      "Tecnologías y lenguajes base: qué son, cuándo los uso y referencia rápida de lo esencial."
+      "Tecnologías y lenguajes base: qué son, cuándo los uso y referencia rápida de lo esencial.",
+    color: "--accent-blue"
   },
   libraries: {
     label: "Librerías",
     singular: "Librería",
     icon: "package",
     description:
-      "Librerías que uso: instalación, API esencial, casos comunes, tips y errores típicos."
+      "Librerías que uso: instalación, API esencial, casos comunes, tips y errores típicos.",
+    color: "--accent-blue"
   },
   integrations: {
     label: "Integraciones",
     singular: "Integración",
     icon: "blocks",
     description:
-      "Cómo usar una tecnología dentro de otra. Solo las particularidades de la combinación, sin duplicar documentación."
+      "Cómo usar una tecnología dentro de otra. Solo las particularidades de la combinación, sin duplicar documentación.",
+    color: "--accent-indigo"
   },
   recipes: {
     label: "Recetas",
     singular: "Receta",
     icon: "list-checks",
     description:
-      "Soluciones paso a paso a problemas concretos, con código listo para reutilizar."
+      "Soluciones paso a paso a problemas concretos, con código listo para reutilizar.",
+    color: "--accent-red"
   },
   snippets: {
     label: "Snippets",
     singular: "Snippet",
     icon: "code",
     description:
-      "Trozos de código reutilizables: hooks, utilidades, helpers y funciones."
+      "Trozos de código reutilizables: hooks, utilidades, helpers y funciones.",
+    color: "--accent-cyan"
   },
   hooks: {
     label: "Hooks",
     singular: "Hook",
     icon: "repeat-2",
     description:
-      "Hooks reutilizables con propósito, parámetros, retorno y ejemplos."
+      "Hooks reutilizables con propósito, parámetros, retorno y ejemplos.",
+    color: "--accent-pink"
   },
   utilities: {
     label: "Utilities",
     singular: "Utility",
     icon: "wrench",
     description:
-      "Funciones pequeñas y reutilizables para browser, TypeScript y backend."
+      "Funciones pequeñas y reutilizables para browser, TypeScript y backend.",
+    color: "--accent-blue"
   },
   resources: {
     label: "Recursos",
     singular: "Recurso",
     icon: "link",
-    description: "Herramientas y sitios externos que vale la pena recordar."
+    description: "Herramientas y sitios externos que vale la pena recordar.",
+    color: "--accent-pink"
   },
   skills: {
     label: "Skills",
     singular: "Skill",
     icon: "sparkles",
     description:
-      "Herramientas de desarrollo asistido por IA: configuración, agentes, comandos y workflows."
+      "Herramientas de desarrollo asistido por IA: configuración, agentes, comandos y workflows.",
+    color: "--accent-pink"
   },
   commands: {
     label: "Comandos",
     singular: "Comando",
     icon: "terminal",
     description:
-      "Comandos que necesito con frecuencia: qué hacen, cuándo usarlos y sus riesgos."
+      "Comandos que necesito con frecuencia: qué hacen, cuándo usarlos y sus riesgos.",
+    color: "--accent-lime"
   },
   patterns: {
     label: "Patrones",
     singular: "Patrón",
     icon: "layout-template",
     description:
-      "Patrones y estructuras de arquitectura que repito entre proyectos."
+      "Patrones y estructuras de arquitectura que repito entre proyectos.",
+    color: "--accent-blue"
   },
   practices: {
     label: "Buenas prácticas",
     singular: "Buena práctica",
     icon: "badge-check",
     description:
-      "Reglas prácticas para mejorar calidad, seguridad, accesibilidad y mantenimiento."
+      "Reglas prácticas para mejorar calidad, seguridad, accesibilidad y mantenimiento.",
+    color: "--accent-red"
   },
   guides: {
     label: "Guías prácticas",
     singular: "Guía",
     icon: "book-open",
     description:
-      "Referencias prácticas con varios pasos, sin convertirse en cursos extensos."
+      "Referencias prácticas con varios pasos, sin convertirse en cursos extensos.",
+    color: "--accent-lime"
   },
   tricks: {
     label: "Trucos",
     singular: "Truco",
     icon: "zap",
     description:
-      "Soluciones específicas y atajos que resuelven problemas puntuales."
+      "Soluciones específicas y atajos que resuelven problemas puntuales.",
+    color: "--accent-indigo"
   }
 } as const
 
@@ -150,6 +164,9 @@ export interface ContentTypeMeta {
   /** Nombre de icono (lucide) */
   icon: string
   description: string
+  /** Nombre de variable CSS (definida en tokens.css) usada para colorear
+   *  el badge de este tipo (.type-X) y el hover de sus cards (ContentCard). */
+  color: string
 }
 
 export const CONTENT_TYPES = withIds(CONTENT_TYPE_DEFINITIONS) as Record<
@@ -177,14 +194,14 @@ const CATEGORY_DEFINITIONS = {
     icon: "code",
     description:
       "HTML, CSS y JavaScript: fundamentos, APIs del navegador y prácticas del lenguaje.",
-    color: "--accent-yellow"
+    color: "--accent-lime"
   },
   frontend: {
     label: "Frontend",
     icon: "monitor",
     description:
       "Frontend, interfaz de usuario (UI), renderizado en el navegador y frameworks de componentes.",
-    color: "--accent-indigo"
+    color: "--accent-yellow"
   },
   backend: {
     label: "Backend",
@@ -198,7 +215,7 @@ const CATEGORY_DEFINITIONS = {
     icon: "database",
     description:
       "Bases de datos, mapeadores objeto-relacionales (ORM), consultas y persistencia.",
-    color: "--accent-purple"
+    color: "--accent-red"
   },
   ai: {
     label: "IA SDK",
@@ -212,42 +229,42 @@ const CATEGORY_DEFINITIONS = {
     icon: "container",
     description:
       "Desarrollo y operaciones (DevOps): entrega continua, despliegue, infraestructura y observabilidad.",
-    color: "--accent-orange"
+    color: "--accent-pink"
   },
   git: {
     label: "Git & GitHub",
     icon: "git-branch",
     description:
       "Git, GitHub y su ecosistema: comandos, repositorios, colaboración, perfil y automatización con Actions.",
-    color: "--accent-yellow"
+    color: "--accent-blue"
   },
   terminal: {
     label: "Terminal & CLI",
     icon: "terminal",
     description:
       "Terminales e interfaces de línea de comandos (CLI) para Windows, macOS y Linux.",
-    color: "--accent-teal"
+    color: "--accent-lime"
   },
   applications: {
     label: "Aplicaciones",
     icon: "app-window",
     description:
       "Programas que acompañan el trabajo de desarrollo: escribir y ejecutar código, probar APIs, administrar despliegues, diseñar interfaces y colaborar. Cada módulo explica qué resuelve la herramienta y cuándo conviene usarla.",
-    color: "--accent-indigo"
+    color: "--accent-yellow"
   },
   findings: {
     label: "Hallazgos",
     icon: "telescope",
     description:
       "Proyectos reales que vale la pena estudiar por la idea o la solución que exploran. No son tutoriales: sirven para descubrir enfoques poco comunes y entender cómo otras personas los llevaron a código.",
-    color: "--accent-teal"
+    color: "--accent-red"
   },
   courses: {
     label: "Cursos",
     icon: "book-open",
     description:
       "Cursos, ejercicios y materiales de estudio organizados por proveedor y objetivo. Cada módulo aclara qué enseña, qué conocimientos conviene tener y cómo aprovecharlo.",
-    color: "--accent-cyan"
+    color: "--accent-green"
   },
   seo: {
     label: "SEO",
@@ -260,14 +277,14 @@ const CATEGORY_DEFINITIONS = {
     label: "Accesibilidad",
     icon: "accessibility",
     description: "Interfaces y contenido que pueden utilizar más personas.",
-    color: "--accent-indigo"
+    color: "--accent-cyan"
   },
   performance: {
     label: "Performance",
     icon: "gauge",
     description:
       "Rendimiento de carga, renderizado, tiempo de ejecución y optimización de recursos.",
-    color: "--accent-amber"
+    color: "--accent-pink"
   },
   security: {
     label: "Seguridad",
@@ -287,7 +304,7 @@ const CATEGORY_DEFINITIONS = {
     icon: "palette",
     description:
       "Interfaz de usuario (UI), experiencia de usuario (UX), interacción y sistemas visuales.",
-    color: "--accent-purple"
+    color: "--accent-orange"
   },
   architecture: {
     label: "Arquitectura",
@@ -301,7 +318,7 @@ const CATEGORY_DEFINITIONS = {
     icon: "bookmark",
     description:
       "Herramientas y referencias externas para resolver tareas concretas de diseño, desarrollo e inteligencia artificial. Cada ficha explica para qué sirve el recurso y qué conviene revisar antes de incorporarlo a un proyecto.",
-    color: "--accent-yellow"
+    color: "--accent-orange"
   },
   skills: {
     label: "IA Tools & Skills",

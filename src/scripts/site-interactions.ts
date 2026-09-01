@@ -67,18 +67,10 @@ function flashCopyLabel(button: Element): void {
 
 const logoColors = [
   "--accent-blue",
-  "--accent-cyan",
-  "--accent-green",
-  "--accent-yellow",
-  "--accent-orange",
   "--accent-pink",
-  "--accent-purple",
   "--accent-red",
-  "--accent-teal",
   "--accent-indigo",
-  "--accent-lime",
-  "--accent-amber",
-  "--accent-slate"
+  "--accent-lime"
 ]
 
 /** Cada nueva entrada del puntero avanza un color de la paleta. */

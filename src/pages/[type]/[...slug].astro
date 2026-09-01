@@ -74,8 +74,8 @@ const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : u
         <TypeBadge type={entry.collection as ContentTypeId} />
         <a
           href={`/categories/${categoryMeta.id}`}
-          class="badge"
-          style={`color: var(${categoryMeta.color}); border-color: color-mix(in srgb, var(${categoryMeta.color}) 35%, var(--border))`}
+          class="badge badge--category"
+          style={`--card-accent: var(${categoryMeta.color})`}
         >
           <Icon name={categoryMeta.icon} class="size-3" />
           {categoryMeta.label}

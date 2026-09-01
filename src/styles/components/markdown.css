@@ -1,0 +1,170 @@
+/* ------------------------------------------------------------------ */
+/* Contenido markdown                                                   */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .markdown {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--reading-text);
+  }
+  .markdown > *:first-child {
+    margin-top: 0;
+  }
+
+  /* Jerarquía de títulos (ver --heading-* en tokens.css):
+     h1 módulo (violeta) → h2 sección (amarillo) → h3 apartado (amarillo
+     más claro) → h4 detalle (gris). Cada nivel cambia de color Y de
+     tratamiento de borde, para que la separación se lea incluso en
+     escala de grises. */
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4 {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    color: var(--foreground);
+    scroll-margin-top: 5rem;
+  }
+  .markdown h1 {
+    font-size: 1.75rem;
+    margin: 3rem 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--heading-primary) 30%, var(--border-strong));
+    color: var(--heading-primary);
+  }
+  .markdown h2 {
+    font-size: 1.3rem;
+    margin: 3.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed color-mix(in srgb, var(--heading-secondary) 45%, var(--border));
+    color: var(--heading-secondary);
+  }
+  .markdown h3 {
+    font-size: 1.05rem;
+    margin: 2.5rem 0 0.85rem;
+    padding-left: 0.6rem;
+    border-left: 2px solid var(--heading-tertiary);
+    color: var(--heading-tertiary);
+  }
+  .markdown h4 {
+    font-size: 0.82rem;
+    margin: 2rem 0 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--heading-quaternary);
+  }
+
+  .markdown p {
+    margin: 1.1rem 0;
+  }
+  .markdown p + h2,
+  .markdown p + h3,
+  .markdown p + h4 {
+    margin-top: 3rem;
+  }
+  /* Enlaces de lectura: mismo azul que los tags — un único color para
+     "esto es interactivo" en todo el contenido. Subrayado visible, fondo
+     solo al interactuar; no dependen únicamente del color. */
+  .markdown a {
+    color: var(--reading-link);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--reading-link) 70%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    border-radius: 2px;
+  }
+  .markdown a:hover,
+  .markdown a:focus-visible {
+    color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
+    background: color-mix(in srgb, var(--reading-link) 10%, transparent);
+    text-decoration-color: currentColor;
+  }
+  .markdown strong {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+  .markdown ul,
+  .markdown ol {
+    margin: 1rem 0;
+    padding-left: 1.4rem;
+  }
+  .markdown ul {
+    list-style: none;
+  }
+  .markdown ul > li {
+    position: relative;
+  }
+  .markdown ul > li::before {
+    content: '▪';
+    position: absolute;
+    left: -1.1rem;
+    color: var(--heading-secondary);
+    font-size: 0.7em;
+    top: 0.35em;
+  }
+  .markdown ol {
+    list-style: decimal;
+  }
+  .markdown ol::marker,
+  .markdown li::marker {
+    color: var(--muted-foreground);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+  .markdown li {
+    margin: 0.35rem 0;
+  }
+  /* Cita: borde izquierdo reforzado en el color de los apartados, sin
+     relleno — el fondo del documento se mantiene intacto. */
+  .markdown blockquote {
+    margin: 1.25rem 0;
+    border-left: 3px solid var(--heading-tertiary);
+    padding: 0.8rem 1rem;
+    color: var(--reading-muted);
+  }
+  /* Código inline: solo borde — propiedades, comandos y nombres de API se
+     reconocen sin relleno ni acento, en la fuente mono del sitio. */
+  .markdown :not(pre) > code {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.12rem 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.84em;
+    color: var(--foreground);
+  }
+  .markdown hr {
+    border: none;
+    height: 4px;
+    margin: 2.5rem 0;
+    background: repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 12px);
+  }
+  .markdown table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .markdown th {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    color: var(--heading-secondary);
+    border-bottom: 1px solid var(--border-strong);
+    padding: 0.5rem 0.75rem;
+  }
+  .markdown td {
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0.75rem;
+  }
+  /* Cebra de tabla: velo blanco, no color. */
+  .markdown tbody tr:nth-child(even) {
+    background: rgb(255 255 255 / 0.018);
+  }
+  .markdown img {
+    border: 1px solid var(--border);
+  }
+}

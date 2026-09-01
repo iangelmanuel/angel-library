@@ -11,9 +11,9 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
 
 const QUICK_LINKS = [
-  { href: '/', label: 'Inicio', icon: 'home', color: '--accent-blue' },
+  { href: '/', label: 'Inicio', icon: 'home', color: '--accent-purple' },
   { href: '/search', label: 'Buscar', icon: 'terminal', color: '--accent-green' },
-  { href: '/tags', label: 'Tags', icon: 'tags', color: '--accent-yellow' },
+  { href: '/tags', label: 'Tags', icon: 'tags', color: '--accent-blue' },
 ];
 ---
 

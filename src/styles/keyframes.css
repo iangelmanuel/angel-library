@@ -1,0 +1,18 @@
+/* ------------------------------------------------------------------ */
+/* @keyframes compartidos por varios componentes                        */
+/* ------------------------------------------------------------------ */
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes terminal-rainbow {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}

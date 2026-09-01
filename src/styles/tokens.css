@@ -1,0 +1,122 @@
+/* ------------------------------------------------------------------ */
+/* Tokens de diseño                                                     */
+/*                                                                      */
+/* Paleta: negro puro de fondo + escala zinc de Tailwind para los       */
+/* grises (neutra, sin el tinte azulado de slate). La jerarquía visual  */
+/* se construye con bordes, no con rellenos: las superficies comparten  */
+/* el fondo del documento, como en una UI de terminal.                  */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Escala zinc (Tailwind): la referencia única de grises del sitio.
+     Ningún gris del proyecto se escribe fuera de esta escala — así se
+     evita que vuelva a colarse un gris con tinte azulado (slate). */
+  --zinc-50: #fafafa;
+  --zinc-100: #f4f4f5;
+  --zinc-200: #e4e4e7;
+  --zinc-300: #d4d4d8;
+  --zinc-400: #a1a1aa;
+  --zinc-500: #71717a;
+  --zinc-600: #52525b;
+  --zinc-700: #3f3f46;
+  --zinc-800: #27272a;
+  --zinc-900: #18181b;
+  --zinc-950: #09090b;
+
+  /* Superficies: fondo negro y tarjetas sin relleno propio — se dibujan
+     solo con borde. */
+  --background: #000000;
+  --foreground: var(--zinc-100);
+  --card: transparent;
+  --card-foreground: var(--zinc-100);
+  --popover: #000000;
+  --popover-foreground: var(--zinc-100);
+  --primary: var(--zinc-50);
+  --primary-foreground: #000000;
+  --secondary: var(--zinc-950);
+  --secondary-foreground: var(--zinc-200);
+  --muted: var(--zinc-950);
+  --muted-foreground: var(--zinc-400);
+  --accent: var(--zinc-900);
+  --accent-foreground: var(--zinc-50);
+  --destructive: #fda4af;
+  --destructive-foreground: #000000;
+  --border: var(--zinc-800);
+  --border-strong: var(--zinc-700);
+  --input: var(--zinc-800);
+  --ring: var(--zinc-500);
+  --code-bg: transparent;
+
+  /* Lectura: textos largos y enlaces de las entradas. El enlace es el
+     mismo azul que usan los tags (#hash) — un único color para "esto es
+     interactivo" en todo el contenido. */
+  --reading-text: var(--zinc-300);
+  --reading-muted: var(--zinc-400);
+  --reading-link: color-mix(in srgb, var(--accent-blue) 78%, var(--foreground));
+
+  /* Jerarquía de títulos del contenido (módulo → sección → apartado).
+     Violeta el título; los subtítulos (h2 y h3) en amarillo fuerte, sin
+     pastel, con hex propio — no el --accent-yellow pastel de categorías —
+     dos tonos de amarillo para distinguir sección de apartado. Reservados
+     dentro del contenido: tags, badges de tipo y demás UI de contenido no
+     repiten estos colores. Cambia aquí el color de toda la jerarquía. */
+  --heading-primary: var(--accent-purple);
+  --heading-secondary: #eab308;
+  --heading-tertiary: #facc15;
+  --heading-quaternary: var(--zinc-400);
+
+  /* "Recursos" / "Contenido similar" al final de una entrada: mismo color
+     que los subtítulos, para que el apartado se lea sin esfuerzo. */
+  --related-accent: var(--heading-secondary);
+
+  /* Acentos por categoría: cada uno mapea 1:1 a una categoría en
+     config/site.ts (CategoryMeta.color) y también colorea los badges por
+     tipo de contenido (.type-X). Elegidos para que categorías vecinas
+     en la sidebar nunca compartan color. El amarillo y el naranja son
+     válidos aquí — solo quedan fuera de la jerarquía de lectura del
+     contenido (títulos, tags, badges de tipo). */
+  --accent-blue: #60a5fa;
+  --accent-cyan: #67e8f9;
+  --accent-green: #86efac;
+  --accent-pink: #f0abfc;
+  --accent-purple: #c4b5fd;
+  --accent-red: #fda4af;
+  --accent-teal: #5eead4;
+  --accent-indigo: #a5b4fc;
+  --accent-lime: #bef264;
+  --accent-yellow: #fde047;
+  --accent-orange: #fdba74;
+  --radius: 0rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+}

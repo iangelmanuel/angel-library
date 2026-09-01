@@ -21,7 +21,7 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
         class="h-full overflow-y-auto py-8 pr-4"
         aria-label="Tabla de contenidos"
       >
-        <p class="section-label mb-3">En esta página</p>
+        <p class="section-label toc-title mb-3">En esta página</p>
         <ul class="flex flex-col gap-0.5 border-l border-border">
           {items.map((heading) => (
             <li>
