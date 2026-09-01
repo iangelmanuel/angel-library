@@ -8,6 +8,26 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.20.2] — 2026-09-01
+
+Mejoras visuales centradas en la legibilidad del contenido y en la jerarquía
+de la navegación lateral.
+
+### Cambiado
+
+- El contenido Markdown limita el ancho de párrafos, listas y citas a una
+  medida cómoda de lectura y usa un ajuste de línea más natural.
+- Los títulos Markdown equilibran sus líneas para mejorar la lectura de
+  encabezados largos.
+- Los iconos del sidebar conservan el color de cada categoría, pero se mezclan
+  con la escala oscura del proyecto para verse vivos sin dominar la interfaz.
+- Se conserva el fondo negro `#000000` y la paleta original del proyecto.
+
+### Verificado
+
+- `pnpm check` con 0 errores.
+- `pnpm build` generando 1630 páginas.
+
 ## [0.20.1] — 2026-09-01
 
 Correcciones visuales y de presentación para los bloques de comandos y la

@@ -64,10 +64,10 @@ details[open] > .nav-summary {
   height: 0.875rem;
   flex-shrink: 0;
 }
-/* Iconos pastel; los de marca traen su color en el SVG. */
+/* Iconos de categoría: acento vivo y profundo para orientar sin competir con el texto. */
 .nav-icon--cat,
 .nav-link--quick .nav-icon {
-  color: color-mix(in srgb, var(--cat-accent) 55%, var(--zinc-300));
+  color: color-mix(in srgb, var(--cat-accent) 55%, var(--zinc-800));
 }
 .nav-chevron {
   margin-left: auto;
