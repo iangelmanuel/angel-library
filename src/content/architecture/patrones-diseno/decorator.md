@@ -18,23 +18,23 @@ Cuando varios componentes o handlers necesitan el mismo comportamiento extra (re
 Un HOC es el patrón Decorator aplicado a componentes: recibe un componente, devuelve otro que lo envuelve y le agrega comportamiento.
 
 ```tsx title="components/with-auth.tsx"
-import type { ComponentType } from 'react';
-import { useSession } from '@/libs/auth';
+import type { ComponentType } from "react"
+import { useSession } from "@/libs/auth"
 
 export function withAuth<P extends object>(Component: ComponentType<P>) {
   return function AuthenticatedComponent(props: P) {
-    const { user, loading } = useSession();
-    if (loading) return <Spinner />;
-    if (!user) return <RedirectToLogin />;
-    return <Component {...props} />;
-  };
+    const { user, loading } = useSession()
+    if (loading) return <Spinner />
+    if (!user) return <RedirectToLogin />
+    return <Component {...props} />
+  }
 }
 ```
 
 Los decorators se pueden componer: cada capa agrega su comportamiento sin que las demás lo sepan.
 
 ```tsx
-export default withAuth(withLogging(Dashboard));
+export default withAuth(withLogging(Dashboard))
 ```
 
 ## Ejemplo: middleware de Express
@@ -42,8 +42,8 @@ export default withAuth(withLogging(Dashboard));
 Un middleware también es un decorator: envuelve el handler real y le agrega comportamiento antes (o después) de que se ejecute.
 
 ```ts
-app.use(loggerMiddleware); // decora cada request con logging antes del handler real
-app.get('/pedidos', requireAuth, obtenerPedidos); // requireAuth decora el acceso al handler
+app.use(loggerMiddleware) // decora cada request con logging antes del handler real
+app.get("/pedidos", requireAuth, obtenerPedidos) // requireAuth decora el acceso al handler
 ```
 
 ## Cuándo NO usarlo

@@ -9,27 +9,27 @@ updatedAt: 2026-08-28
 
 Una **base de datos** es un sistema organizado para conservar información y consultarla después. Guardar datos no consiste únicamente en escribir un archivo: una aplicación suele necesitar búsquedas, relaciones, validación, acceso simultáneo, copias de seguridad y reglas que eviten estados imposibles.
 
-El **DBMS** (*Database Management System* o sistema gestor de bases de datos) es el software que administra esos datos. PostgreSQL, MySQL, SQLite y MongoDB son ejemplos de gestores; la base de datos es la información organizada que vive dentro de ellos.
+El **DBMS** (_Database Management System_ o sistema gestor de bases de datos) es el software que administra esos datos. PostgreSQL, MySQL, SQLite y MongoDB son ejemplos de gestores; la base de datos es la información organizada que vive dentro de ellos.
 
 ## Aprende o consulta
 
 La ruta recomendada es: datos y restricciones → modelado relacional → SQL → joins y agregaciones → índices/EXPLAIN → transacciones → pool y operación → migraciones y recuperación. No empieces optimizando índices sin conocer las consultas ni adoptes NoSQL solo para evitar diseñar relaciones.
 
-| Necesito recordar | Documento |
-| --- | --- |
-| claves, cardinalidad y constraints | [Modelado relacional](/database/database-modelado/database-modelado-relacional) |
-| tipos, `NULL` e integridad | [Tipos de datos e integridad](/database/database-fundamentos/database-data-integrity-types-null) |
-| SELECT, JOIN, GROUP BY y CTE | [SQL práctico](/database/database-sql/database-sql-consultas) |
-| INSERT, UPDATE, DELETE y transacciones | [Escritura segura con SQL](/database/database-sql/database-sql-escritura-datos) |
-| ventanas, subconsultas y operaciones de conjuntos | [SQL avanzado](/database/database-sql/database-sql-avanzado) |
-| índices y planes | [Índices y EXPLAIN](/database/database-sql/database-indices-explain) |
-| atomicidad, aislamiento y bloqueos | [Transacciones en PostgreSQL](/database/database-postgresql/postgresql-transacciones-concurrencia) |
-| tipos, JSONB y consultas seguras | [PostgreSQL práctico](/database/database-postgresql/postgresql-practico) |
-| VACUUM, roles y seguridad | [Mantenimiento y seguridad en PostgreSQL](/database/database-postgresql/postgresql-mantenimiento-seguridad) |
-| documentos y agregaciones | [MongoDB práctico](/database/database-nosql/database-mongodb-practico) |
-| caché, TTL y estructuras | [Redis práctico](/database/database-nosql/database-redis-practico) |
-| conexiones, pool y fallos | [Operación confiable](/database/database-operacion/database-pooling-reliability) |
-| cambios y recuperación | [Migraciones y backups](/database/database-operacion/database-migraciones-backups) |
+| Necesito recordar                                 | Documento                                                                                                   |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| claves, cardinalidad y constraints                | [Modelado relacional](/database/database-modelado/database-modelado-relacional)                             |
+| tipos, `NULL` e integridad                        | [Tipos de datos e integridad](/database/database-fundamentos/database-data-integrity-types-null)            |
+| SELECT, JOIN, GROUP BY y CTE                      | [SQL práctico](/database/database-sql/database-sql-consultas)                                               |
+| INSERT, UPDATE, DELETE y transacciones            | [Escritura segura con SQL](/database/database-sql/database-sql-escritura-datos)                             |
+| ventanas, subconsultas y operaciones de conjuntos | [SQL avanzado](/database/database-sql/database-sql-avanzado)                                                |
+| índices y planes                                  | [Índices y EXPLAIN](/database/database-sql/database-indices-explain)                                        |
+| atomicidad, aislamiento y bloqueos                | [Transacciones en PostgreSQL](/database/database-postgresql/postgresql-transacciones-concurrencia)          |
+| tipos, JSONB y consultas seguras                  | [PostgreSQL práctico](/database/database-postgresql/postgresql-practico)                                    |
+| VACUUM, roles y seguridad                         | [Mantenimiento y seguridad en PostgreSQL](/database/database-postgresql/postgresql-mantenimiento-seguridad) |
+| documentos y agregaciones                         | [MongoDB práctico](/database/database-nosql/database-mongodb-practico)                                      |
+| caché, TTL y estructuras                          | [Redis práctico](/database/database-nosql/database-redis-practico)                                          |
+| conexiones, pool y fallos                         | [Operación confiable](/database/database-operacion/database-pooling-reliability)                            |
+| cambios y recuperación                            | [Migraciones y backups](/database/database-operacion/database-migraciones-backups)                          |
 
 Aprender exige ejecutar consultas y observar resultados. Recordar exige conocer la forma correcta y comprobar el plan, las restricciones y la concurrencia del caso real.
 
@@ -37,13 +37,13 @@ Aprender exige ejecutar consultas y observar resultados. Recordar exige conocer 
 
 Una aplicación envía una operación al gestor, el gestor comprueba permisos y reglas, localiza los datos y devuelve un resultado. No conviene pensar en la base de datos como una variable global remota: tiene su propio modelo de concurrencia, costos de entrada y salida y mecanismos de integridad.
 
-| Término | Significado | Ejemplo |
-| --- | --- | --- |
-| Persistencia | Conservar datos más allá de la ejecución actual | Una cuenta sigue existiendo después de reiniciar el servidor |
-| Esquema | Estructura y reglas de los datos | `email` es texto, único y obligatorio |
-| Consulta o *query* | Petición para leer o modificar datos | Buscar pedidos pendientes de una persona |
-| Restricción o *constraint* | Regla aplicada por el gestor | Impedir dos usuarios con el mismo correo |
-| Integridad | Garantía de que los datos mantienen reglas válidas | Un pedido no referencia un cliente inexistente |
+| Término                    | Significado                                        | Ejemplo                                                      |
+| -------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
+| Persistencia               | Conservar datos más allá de la ejecución actual    | Una cuenta sigue existiendo después de reiniciar el servidor |
+| Esquema                    | Estructura y reglas de los datos                   | `email` es texto, único y obligatorio                        |
+| Consulta o _query_         | Petición para leer o modificar datos               | Buscar pedidos pendientes de una persona                     |
+| Restricción o _constraint_ | Regla aplicada por el gestor                       | Impedir dos usuarios con el mismo correo                     |
+| Integridad                 | Garantía de que los datos mantienen reglas válidas | Un pedido no referencia un cliente inexistente               |
 
 Una aplicación normalmente no accede al archivo físico de la base. Utiliza un **driver** —la biblioteca que implementa el protocolo del gestor— para abrir una conexión, autenticar una identidad y enviar sentencias. El servidor analiza la consulta, decide un plan, lee o modifica páginas de datos y responde. Por eso una consulta tiene costos de red, CPU, memoria, disco y bloqueo, incluso si desde JavaScript parece una simple función.
 
@@ -56,31 +56,31 @@ El **esquema lógico** describe tablas, campos y reglas. El **almacenamiento fí
 
 ## OLTP y OLAP: dos tipos de carga
 
-**OLTP** (*Online Transaction Processing* o procesamiento de transacciones en línea) describe muchas operaciones pequeñas y concurrentes: crear un pedido, cambiar una contraseña o descontar inventario. Busca baja latencia, integridad y transacciones cortas.
+**OLTP** (_Online Transaction Processing_ o procesamiento de transacciones en línea) describe muchas operaciones pequeñas y concurrentes: crear un pedido, cambiar una contraseña o descontar inventario. Busca baja latencia, integridad y transacciones cortas.
 
-**OLAP** (*Online Analytical Processing* o procesamiento analítico en línea) describe consultas que recorren y agregan grandes volúmenes para informes, tendencias o inteligencia de negocio. Puede usar almacenes columnares, réplicas analíticas o un *data warehouse* para no competir con el tráfico operativo.
+**OLAP** (_Online Analytical Processing_ o procesamiento analítico en línea) describe consultas que recorren y agregan grandes volúmenes para informes, tendencias o inteligencia de negocio. Puede usar almacenes columnares, réplicas analíticas o un _data warehouse_ para no competir con el tráfico operativo.
 
-| Pregunta | OLTP | OLAP |
-| --- | --- | --- |
-| Unidad típica | Una entidad o transacción | Miles o millones de filas |
-| Patrón | Muchas lecturas/escrituras breves | Pocas consultas pesadas |
-| Modelo frecuente | Normalizado | Estrella o datos preparados para análisis |
-| Ejemplo | Confirmar una compra | Ventas mensuales por región |
+| Pregunta         | OLTP                              | OLAP                                      |
+| ---------------- | --------------------------------- | ----------------------------------------- |
+| Unidad típica    | Una entidad o transacción         | Miles o millones de filas                 |
+| Patrón           | Muchas lecturas/escrituras breves | Pocas consultas pesadas                   |
+| Modelo frecuente | Normalizado                       | Estrella o datos preparados para análisis |
+| Ejemplo          | Confirmar una compra              | Ventas mensuales por región               |
 
 No es una elección absoluta: un producto puede necesitar ambos flujos, pero conviene separarlos cuando los reportes afectan la operación principal.
 
 ## Bases relacionales y no relacionales
 
-Una base **relacional** organiza información en tablas. Cada fila representa una entidad y cada columna una propiedad. Las relaciones se expresan mediante claves y las consultas suelen escribirse con **SQL** (*Structured Query Language* o lenguaje de consulta estructurado).
+Una base **relacional** organiza información en tablas. Cada fila representa una entidad y cada columna una propiedad. Las relaciones se expresan mediante claves y las consultas suelen escribirse con **SQL** (_Structured Query Language_ o lenguaje de consulta estructurado).
 
 Una base **no relacional**, a menudo llamada NoSQL, puede almacenar documentos, pares clave-valor, grafos o columnas anchas. No significa “sin relaciones” ni “sin estructura”; significa que no usa necesariamente el modelo tabular relacional ni SQL como interfaz principal.
 
-| Necesidad | Punto de partida habitual |
-| --- | --- |
-| Reglas estrictas, relaciones y transacciones | Base relacional |
-| Documentos con forma variable | Base documental |
-| Caché o búsquedas por clave extremadamente rápidas | Almacén clave-valor |
-| Relaciones complejas que son el centro del problema | Base de grafos |
+| Necesidad                                           | Punto de partida habitual |
+| --------------------------------------------------- | ------------------------- |
+| Reglas estrictas, relaciones y transacciones        | Base relacional           |
+| Documentos con forma variable                       | Base documental           |
+| Caché o búsquedas por clave extremadamente rápidas  | Almacén clave-valor       |
+| Relaciones complejas que son el centro del problema | Base de grafos            |
 
 La elección no se hace por moda. Primero se estudian las consultas, la consistencia necesaria, el volumen, la operación del sistema y la experiencia del equipo.
 
@@ -88,7 +88,7 @@ También es válido combinar motores: PostgreSQL como fuente de verdad, Redis co
 
 ## Tabla, fila, columna y claves
 
-Una **clave primaria** o **PK** (*Primary Key*) identifica una fila de forma única. Una **clave foránea** o **FK** (*Foreign Key*) referencia la clave primaria de otra tabla y permite que el gestor proteja la relación.
+Una **clave primaria** o **PK** (_Primary Key_) identifica una fila de forma única. Una **clave foránea** o **FK** (_Foreign Key_) referencia la clave primaria de otra tabla y permite que el gestor proteja la relación.
 
 ```sql
 CREATE TABLE users (
@@ -126,7 +126,7 @@ Usa `NOT NULL` cuando la ausencia no tenga significado válido. Si una columna a
 
 ## CRUD y SQL
 
-**CRUD** resume cuatro operaciones: *Create*, *Read*, *Update* y *Delete*; en español, crear, leer, actualizar y eliminar. No es un protocolo, sino una forma de clasificar operaciones.
+**CRUD** resume cuatro operaciones: _Create_, _Read_, _Update_ y _Delete_; en español, crear, leer, actualizar y eliminar. No es un protocolo, sino una forma de clasificar operaciones.
 
 ```sql
 -- Create: crea una fila y devuelve sus datos.
@@ -221,9 +221,9 @@ Dos peticiones pueden leer o modificar el mismo dato al mismo tiempo. El **nivel
 
 Los problemas clásicos incluyen lecturas no repetibles, filas fantasma y actualizaciones perdidas. Para resolverlos se combinan transacciones, bloqueos, versiones optimistas y restricciones. La solución depende del conflicto real; bloquear todo reduce concurrencia y rara vez es una buena política general.
 
-## ORM, migraciones y *pool* de conexiones
+## ORM, migraciones y _pool_ de conexiones
 
-Un **ORM** (*Object-Relational Mapper* o mapeador objeto-relacional) traduce entre objetos del lenguaje y tablas. Reduce código repetitivo, pero no elimina la necesidad de entender SQL, índices o transacciones: una consulta ineficiente sigue siendo ineficiente aunque se genere automáticamente.
+Un **ORM** (_Object-Relational Mapper_ o mapeador objeto-relacional) traduce entre objetos del lenguaje y tablas. Reduce código repetitivo, pero no elimina la necesidad de entender SQL, índices o transacciones: una consulta ineficiente sigue siendo ineficiente aunque se genere automáticamente.
 
 Una **migración** es un cambio versionado del esquema, como crear una tabla o añadir una columna. Debe poder revisarse, aplicarse en orden y desplegarse sin dejar versiones incompatibles de la aplicación.
 
@@ -236,8 +236,8 @@ Una **réplica** mantiene otra copia activa de los datos para distribuir lectura
 Una estrategia de respaldo debe definir:
 
 - qué se copia y con qué frecuencia;
-- cuánto dato se acepta perder, conocido como **RPO** (*Recovery Point Objective*);
-- cuánto tiempo puede tardar la recuperación, conocido como **RTO** (*Recovery Time Objective*);
+- cuánto dato se acepta perder, conocido como **RPO** (_Recovery Point Objective_);
+- cuánto tiempo puede tardar la recuperación, conocido como **RTO** (_Recovery Time Objective_);
 - cómo se cifra, retiene y restaura la copia.
 
 Un respaldo no comprobado es solo una esperanza. La restauración debe ensayarse periódicamente.

@@ -16,63 +16,83 @@ Las convenciones — verbo HTTP correcto, cómo paginar/filtrar, formato de erro
 ## Un recurso completo
 
 ```ts title="app/api/posts/route.ts"
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { postsRepository } from '@/repositories/posts.repository';
-import { auth } from '@/libs/auth';
+import { NextRequest, NextResponse } from "next/server"
+import { z } from "zod"
+import { auth } from "@/libs/auth"
+import { postsRepository } from "@/repositories/posts.repository"
 
 export async function GET(request: NextRequest) {
-  const page = Number(request.nextUrl.searchParams.get('page') ?? 1);
-  const limit = Number(request.nextUrl.searchParams.get('limit') ?? 20);
+  const page = Number(request.nextUrl.searchParams.get("page") ?? 1)
+  const limit = Number(request.nextUrl.searchParams.get("limit") ?? 20)
 
-  const { data, total } = await postsRepository.findPaginated({ page, limit });
-  return NextResponse.json({ data, pagination: { page, limit, total } });
+  const { data, total } = await postsRepository.findPaginated({ page, limit })
+  return NextResponse.json({ data, pagination: { page, limit, total } })
 }
 
-const crearPostSchema = z.object({ title: z.string().min(1) });
+const crearPostSchema = z.object({ title: z.string().min(1) })
 
 export async function POST(request: NextRequest) {
-  const session = await auth();
+  const session = await auth()
   if (!session?.user) {
-    return NextResponse.json({ error: { code: 'NO_AUTENTICADO' } }, { status: 401 });
+    return NextResponse.json(
+      { error: { code: "NO_AUTENTICADO" } },
+      { status: 401 }
+    )
   }
 
-  const body = await request.json();
-  const resultado = crearPostSchema.safeParse(body);
+  const body = await request.json()
+  const resultado = crearPostSchema.safeParse(body)
 
   if (!resultado.success) {
     return NextResponse.json(
-      { error: { code: 'VALIDATION_ERROR', fields: resultado.error.flatten().fieldErrors } },
-      { status: 400 },
-    );
+      {
+        error: {
+          code: "VALIDATION_ERROR",
+          fields: resultado.error.flatten().fieldErrors
+        }
+      },
+      { status: 400 }
+    )
   }
 
-  const post = await postsRepository.create({ ...resultado.data, authorId: session.user.id });
-  return NextResponse.json(post, { status: 201 });
+  const post = await postsRepository.create({
+    ...resultado.data,
+    authorId: session.user.id
+  })
+  return NextResponse.json(post, { status: 201 })
 }
 ```
 
 ## Ruta dinámica: `app/api/posts/[id]/route.ts`
 
 ```ts title="app/api/posts/[id]/route.ts"
-import { NextResponse } from 'next/server';
-import { postsRepository } from '@/repositories/posts.repository';
+import { NextResponse } from "next/server"
+import { postsRepository } from "@/repositories/posts.repository"
 
-export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params; // params es una Promise desde Next 15+
-  const post = await postsRepository.findById(id);
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params // params es una Promise desde Next 15+
+  const post = await postsRepository.findById(id)
 
   if (!post) {
-    return NextResponse.json({ error: { code: 'NO_ENCONTRADO' } }, { status: 404 });
+    return NextResponse.json(
+      { error: { code: "NO_ENCONTRADO" } },
+      { status: 404 }
+    )
   }
 
-  return NextResponse.json(post);
+  return NextResponse.json(post)
 }
 
-export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  await postsRepository.delete(id);
-  return new NextResponse(null, { status: 204 });
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+  await postsRepository.delete(id)
+  return new NextResponse(null, { status: 204 })
 }
 ```
 
@@ -84,10 +104,10 @@ Igual que en Astro, Next.js no tiene una cadena de middlewares específica por R
 
 ## Equivalencias HTTP en Next.js
 
-| Concepto | Dónde ya está documentado |
-| --- | --- |
-| Verbos HTTP, status codes correctos | [REST y CRUD](/backend/express/express-rest-crud) |
-| Paginación/filtrado | [Paginación, filtrado y búsqueda](/backend/express/express-api-paginacion) |
+| Concepto                                            | Dónde ya está documentado                                                                                                 |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Verbos HTTP, status codes correctos                 | [REST y CRUD](/backend/express/express-rest-crud)                                                                         |
+| Paginación/filtrado                                 | [Paginación, filtrado y búsqueda](/backend/express/express-api-paginacion)                                                |
 | Sintaxis de Route Handlers, `params`/`searchParams` | [Endpoints](/frontend/nextjs/nextjs-endpoints), [Leer params y searchParams](/frontend/nextjs/nextjs-params-searchparams) |
 
 ## Runtime, protección y caché

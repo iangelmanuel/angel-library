@@ -16,16 +16,16 @@ Colección de **apuntes hechos a mano** sobre lenguajes y temas de programación
 
 ## Qué hay
 
-| Tema | Nivel |
-| --- | --- |
-| JavaScript | Básico |
-| React | Avanzado |
-| Python | Básico |
-| Programación orientada a objetos con Python | Intermedio |
-| Git | Básico |
-| SQL | Básico |
-| Buenas prácticas de CSS | Básico e intermedio |
-| Swift | En sitio aparte, alojado en Notion |
+| Tema                                        | Nivel                              |
+| ------------------------------------------- | ---------------------------------- |
+| JavaScript                                  | Básico                             |
+| React                                       | Avanzado                           |
+| Python                                      | Básico                             |
+| Programación orientada a objetos con Python | Intermedio                         |
+| Git                                         | Básico                             |
+| SQL                                         | Básico                             |
+| Buenas prácticas de CSS                     | Básico e intermedio                |
+| Swift                                       | En sitio aparte, alojado en Notion |
 
 La mayoría son **PDF servidos desde Google Drive**.
 

@@ -9,7 +9,7 @@ github: https://github.com/rmyndharis/OpenWA
 updatedAt: 2026-08-30
 ---
 
-**OpenWA** es un *gateway* de WhatsApp: un servicio que se instala en tu propio servidor y expone una API REST para enviar y recibir mensajes. En vez de programar contra WhatsApp directamente, tu aplicación hace `POST /api/sessions/{id}/messages/send-text` y OpenWA se encarga del resto.
+**OpenWA** es un _gateway_ de WhatsApp: un servicio que se instala en tu propio servidor y expone una API REST para enviar y recibir mensajes. En vez de programar contra WhatsApp directamente, tu aplicación hace `POST /api/sessions/{id}/messages/send-text` y OpenWA se encarga del resto.
 
 Es software libre con licencia MIT, escrito en TypeScript sobre NestJS. No tiene planes de pago, claves de licencia ni funciones bloqueadas.
 
@@ -17,10 +17,10 @@ Es software libre con licencia MIT, escrito en TypeScript sobre NestJS. No tiene
 
 Conectar una aplicación a WhatsApp tiene dos caminos:
 
-| Camino | Qué implica |
-| --- | --- |
+| Camino                                   | Qué implica                                                                   |
+| ---------------------------------------- | ----------------------------------------------------------------------------- |
 | API oficial (WhatsApp Cloud API de Meta) | Alta como negocio, verificación, plantillas aprobadas, costo por conversación |
-| Cliente no oficial | Escaneas un QR como en WhatsApp Web y automatizas esa sesión |
+| Cliente no oficial                       | Escaneas un QR como en WhatsApp Web y automatizas esa sesión                  |
 
 OpenWA es el segundo camino, pero empaquetado: en lugar de que cada proyecto integre una librería y resuelva sesiones, reconexiones, colas y webhooks por su cuenta, levantas un servicio que ya trae todo eso y le hablas por HTTP.
 
@@ -28,10 +28,10 @@ OpenWA es el segundo camino, pero empaquetado: en lugar de que cada proyecto int
 
 OpenWA **no usa la API oficial de Meta**. Se conecta mediante clientes de ingeniería inversa, y puedes elegir cuál con la variable de entorno `ENGINE_TYPE`:
 
-| Motor | Cómo funciona | Riesgo de bloqueo | RAM por sesión |
-| --- | --- | --- | --- |
-| `whatsapp-web.js` (por defecto) | Controla un Chromium headless real; el tráfico se parece al de WhatsApp Web legítimo | Menor | ~300–500 MB |
-| `baileys` | Habla el protocolo multidispositivo por WebSocket, sin navegador | Mayor: es más fácil de identificar | ~30–80 MB |
+| Motor                           | Cómo funciona                                                                        | Riesgo de bloqueo                  | RAM por sesión |
+| ------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------- | -------------- |
+| `whatsapp-web.js` (por defecto) | Controla un Chromium headless real; el tráfico se parece al de WhatsApp Web legítimo | Menor                              | ~300–500 MB    |
+| `baileys`                       | Habla el protocolo multidispositivo por WebSocket, sin navegador                     | Mayor: es más fácil de identificar | ~30–80 MB      |
 
 La regla práctica: si te importa más la cuenta que la memoria, usa `whatsapp-web.js`. Si necesitas muchas sesiones en una máquina y aceptas el riesgo, `baileys`.
 
@@ -64,16 +64,16 @@ Encaja bien en proyectos personales, herramientas internas, automatizaciones pro
 
 ## Qué trae
 
-| Área | Incluye |
-| --- | --- |
-| API | REST completa con documentación Swagger interactiva |
-| Sesiones | Varias cuentas de WhatsApp concurrentes en una sola instancia |
-| Mensajes | Texto, imagen, video, documento, audio, reacciones, edición, envío masivo, estados de entrega |
-| Grupos | Crear, administrar, unirse por código de invitación, configurar |
-| Otros | Canales, etiquetas, perfil, manejo de llamadas, proxy por sesión |
-| Seguridad | Autenticación por API key, límite de peticiones, listas de IP por CIDR, auditoría |
-| Infraestructura | SQLite o PostgreSQL, Redis opcional, almacenamiento local o S3/MinIO, Docker |
-| Extras | Webhooks con firma HMAC, servidor MCP para agentes de IA, nodos para n8n, plugins (Chatwoot, Typebot) |
+| Área            | Incluye                                                                                               |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| API             | REST completa con documentación Swagger interactiva                                                   |
+| Sesiones        | Varias cuentas de WhatsApp concurrentes en una sola instancia                                         |
+| Mensajes        | Texto, imagen, video, documento, audio, reacciones, edición, envío masivo, estados de entrega         |
+| Grupos          | Crear, administrar, unirse por código de invitación, configurar                                       |
+| Otros           | Canales, etiquetas, perfil, manejo de llamadas, proxy por sesión                                      |
+| Seguridad       | Autenticación por API key, límite de peticiones, listas de IP por CIDR, auditoría                     |
+| Infraestructura | SQLite o PostgreSQL, Redis opcional, almacenamiento local o S3/MinIO, Docker                          |
+| Extras          | Webhooks con firma HMAC, servidor MCP para agentes de IA, nodos para n8n, plugins (Chatwoot, Typebot) |
 
 ## No confundir con `@open-wa/wa-automate`
 

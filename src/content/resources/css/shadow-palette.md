@@ -26,14 +26,14 @@ Cada nivel combina varias capas de `box-shadow`. Superponer sombras pequeñas y 
 
 ## Controles importantes
 
-| Control | Qué modifica |
-| --- | --- |
-| Oomph | Intensidad y presencia general de la sombra |
-| Crispy | Nitidez o suavidad de los bordes |
-| Light Position | Dirección desde la que parece llegar la luz |
+| Control          | Qué modifica                                                    |
+| ---------------- | --------------------------------------------------------------- |
+| Oomph            | Intensidad y presencia general de la sombra                     |
+| Crispy           | Nitidez o suavidad de los bordes                                |
+| Light Position   | Dirección desde la que parece llegar la luz                     |
 | Background Color | Superficie sobre la que se calculan y previsualizan las sombras |
-| Tint Shadow | Añade color a la sombra en lugar de usar negro neutro |
-| Resolution | Cantidad de capas que componen cada elevación |
+| Tint Shadow      | Añade color a la sombra en lugar de usar negro neutro           |
+| Resolution       | Cantidad de capas que componen cada elevación                   |
 
 ## Flujo recomendado
 

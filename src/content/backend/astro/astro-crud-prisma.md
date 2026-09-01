@@ -12,72 +12,87 @@ updatedAt: 2026-08-16
 ## El repository (compartido por ambos mecanismos)
 
 ```ts title="src/repositories/posts.repository.ts"
-import { prisma } from '../lib/prisma';
+import { prisma } from "../lib/prisma"
 
 export const postsRepository = {
   findAll: () => prisma.post.findMany(),
   findById: (id: string) => prisma.post.findUnique({ where: { id } }),
-  create: (data: { title: string; authorId: string }) => prisma.post.create({ data }),
-  update: (id: string, data: { title?: string }) => prisma.post.update({ where: { id }, data }),
-  delete: (id: string) => prisma.post.delete({ where: { id } }),
-};
+  create: (data: { title: string; authorId: string }) =>
+    prisma.post.create({ data }),
+  update: (id: string, data: { title?: string }) =>
+    prisma.post.update({ where: { id }, data }),
+  delete: (id: string) => prisma.post.delete({ where: { id } })
+}
 ```
 
 ## Leer (GET): endpoint — puede necesitarlo un consumidor externo
 
 ```ts title="src/pages/api/posts.ts"
-import type { APIRoute } from 'astro';
-import { postsRepository } from '../../repositories/posts.repository';
+import type { APIRoute } from "astro"
+import { postsRepository } from "../../repositories/posts.repository"
 
 export const GET: APIRoute = async () => {
-  const posts = await postsRepository.findAll();
-  return new Response(JSON.stringify(posts), { headers: { 'Content-Type': 'application/json' } });
-};
+  const posts = await postsRepository.findAll()
+  return new Response(JSON.stringify(posts), {
+    headers: { "Content-Type": "application/json" }
+  })
+}
 ```
 
 ## Crear/actualizar/borrar: Server Actions — solo la propia UI las usa
 
 ```ts title="src/actions/posts.ts"
-import { defineAction, ActionError } from 'astro:actions';
-import { z } from 'zod';
-import { postsRepository } from '../repositories/posts.repository';
+import { ActionError, defineAction } from "astro:actions"
+import { z } from "zod"
+import { postsRepository } from "../repositories/posts.repository"
 
 export const posts = {
   crear: defineAction({
     input: z.object({ title: z.string().min(1) }),
     handler: async (input, context) => {
-      if (!context.locals.user) throw new ActionError({ code: 'UNAUTHORIZED' });
-      return postsRepository.create({ ...input, authorId: context.locals.user.id });
-    },
+      if (!context.locals.user) throw new ActionError({ code: "UNAUTHORIZED" })
+      return postsRepository.create({
+        ...input,
+        authorId: context.locals.user.id
+      })
+    }
   }),
 
   actualizar: defineAction({
     input: z.object({ id: z.string(), title: z.string().min(1) }),
     handler: async ({ id, ...datos }, context) => {
-      if (!context.locals.user) throw new ActionError({ code: 'UNAUTHORIZED' });
-      return postsRepository.update(id, datos);
-    },
+      if (!context.locals.user) throw new ActionError({ code: "UNAUTHORIZED" })
+      return postsRepository.update(id, datos)
+    }
   }),
 
   eliminar: defineAction({
     input: z.object({ id: z.string() }),
     handler: async ({ id }, context) => {
-      if (!context.locals.user) throw new ActionError({ code: 'UNAUTHORIZED' });
-      await postsRepository.delete(id);
-      return { ok: true };
-    },
-  }),
-};
+      if (!context.locals.user) throw new ActionError({ code: "UNAUTHORIZED" })
+      await postsRepository.delete(id)
+      return { ok: true }
+    }
+  })
+}
 ```
 
 ## Consumir desde un componente (sin escribir fetch a mano)
 
 ```astro title="src/pages/posts/nuevo.astro"
 ---
-import { actions } from 'astro:actions';
+import { actions } from "astro:actions"
 ---
-<form method="POST" action={actions.posts.crear}>
-  <input name="title" placeholder="Título" required />
+
+<form
+  method="POST"
+  action={actions.posts.crear}
+>
+  <input
+    name="title"
+    placeholder="Título"
+    required
+  />
   <button type="submit">Crear post</button>
 </form>
 ```

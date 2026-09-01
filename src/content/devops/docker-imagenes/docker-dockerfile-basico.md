@@ -5,7 +5,11 @@ type: guides
 order: 1
 tags: [docker, dockerfile, imagenes]
 scope: Dockerfile
-related: [devops/docker-imagenes/docker-capas-cache, devops/docker-imagenes/docker-build-tags]
+related:
+  [
+    devops/docker-imagenes/docker-capas-cache,
+    devops/docker-imagenes/docker-build-tags
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -32,17 +36,17 @@ CMD ["node", "server.js"]
 
 ## Instrucciones una por una
 
-| Instrucción | Para qué |
-|---|---|
-| `FROM` | Imagen base sobre la que se construye — siempre la primera instrucción |
-| `WORKDIR` | Directorio de trabajo dentro del contenedor (lo crea si no existe, y las instrucciones siguientes corren ahí) |
-| `COPY` | Copia archivos del host a la imagen |
-| `RUN` | Ejecuta un comando **durante el build** (instalar dependencias, compilar) |
-| `EXPOSE` | Documenta qué puerto usa la app — no publica el puerto por sí solo, eso lo hace `docker run -p` |
-| `CMD` | Comando por defecto al arrancar el contenedor — se puede sobrescribir al hacer `docker run <imagen> <otro-comando>` |
-| `ENTRYPOINT` | Comando fijo que siempre corre — lo que venga después en `docker run` se le pasa como argumento, no lo reemplaza |
-| `ENV` | Variable de entorno disponible en build y en runtime |
-| `ARG` | Variable disponible solo **durante el build** (no queda en la imagen final) |
+| Instrucción  | Para qué                                                                                                            |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `FROM`       | Imagen base sobre la que se construye — siempre la primera instrucción                                              |
+| `WORKDIR`    | Directorio de trabajo dentro del contenedor (lo crea si no existe, y las instrucciones siguientes corren ahí)       |
+| `COPY`       | Copia archivos del host a la imagen                                                                                 |
+| `RUN`        | Ejecuta un comando **durante el build** (instalar dependencias, compilar)                                           |
+| `EXPOSE`     | Documenta qué puerto usa la app — no publica el puerto por sí solo, eso lo hace `docker run -p`                     |
+| `CMD`        | Comando por defecto al arrancar el contenedor — se puede sobrescribir al hacer `docker run <imagen> <otro-comando>` |
+| `ENTRYPOINT` | Comando fijo que siempre corre — lo que venga después en `docker run` se le pasa como argumento, no lo reemplaza    |
+| `ENV`        | Variable de entorno disponible en build y en runtime                                                                |
+| `ARG`        | Variable disponible solo **durante el build** (no queda en la imagen final)                                         |
 
 ## `CMD` vs `ENTRYPOINT`
 

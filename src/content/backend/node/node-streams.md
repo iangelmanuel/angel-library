@@ -22,21 +22,21 @@ Transform  → Duplex que además modifica los datos que pasan (compresión, enc
 ## Leer un archivo grande como stream
 
 ```ts
-import { createReadStream } from 'node:fs';
+import { createReadStream } from "node:fs"
 
-const stream = createReadStream('archivo-grande.csv', { encoding: 'utf-8' });
+const stream = createReadStream("archivo-grande.csv", { encoding: "utf-8" })
 
-stream.on('data', (chunk) => {
-  console.log('Pedazo recibido:', chunk.length, 'bytes');
-});
+stream.on("data", (chunk) => {
+  console.log("Pedazo recibido:", chunk.length, "bytes")
+})
 
-stream.on('end', () => {
-  console.log('Terminó de leer todo');
-});
+stream.on("end", () => {
+  console.log("Terminó de leer todo")
+})
 
-stream.on('error', (err) => {
-  console.error('Algo falló:', err);
-});
+stream.on("error", (err) => {
+  console.error("Algo falló:", err)
+})
 ```
 
 Comparar con `readFile` (de [Filesystem](/backend/node/node-filesystem)): ese carga el archivo **completo** en memoria antes de devolver algo — para un archivo de unos KB no importa, para uno de varios GB puede tirar el proceso por falta de memoria.
@@ -44,9 +44,9 @@ Comparar con `readFile` (de [Filesystem](/backend/node/node-filesystem)): ese ca
 ## `.pipe()`: conectar un Readable a un Writable
 
 ```ts
-import { createReadStream, createWriteStream } from 'node:fs';
+import { createReadStream, createWriteStream } from "node:fs"
 
-createReadStream('origen.txt').pipe(createWriteStream('copia.txt'));
+createReadStream("origen.txt").pipe(createWriteStream("copia.txt"))
 ```
 
 `.pipe()` maneja automáticamente el **backpressure**: si el destino (Writable) es más lento consumiendo que el origen (Readable) produciendo, pausa la lectura hasta que el destino esté listo para más — sin esto, un stream rápido escribiendo a uno lento acumularía todo en memoria de todas formas, perdiendo la ventaja de usar streams en primer lugar.
@@ -56,26 +56,26 @@ createReadStream('origen.txt').pipe(createWriteStream('copia.txt'));
 `req` y `res` en un servidor Node son streams (`req` es `Readable` y `res` es `Writable`). Por eso, en [el servidor HTTP nativo](/backend/node/node-http-server), leer el body de una request implica escuchar `data` y `end` en vez de recibirlo ya construido.
 
 ```ts
-import { createServer } from 'node:http';
-import { createReadStream } from 'node:fs';
+import { createReadStream } from "node:fs"
+import { createServer } from "node:http"
 
 const server = createServer((req, res) => {
-  if (req.url === '/descargar') {
+  if (req.url === "/descargar") {
     // el archivo se transmite en pedazos directo a la respuesta,
     // sin cargarlo entero en memoria del servidor
-    createReadStream('archivo-grande.zip').pipe(res);
+    createReadStream("archivo-grande.zip").pipe(res)
   }
-});
+})
 ```
 
 ## Referencia de streams
 
-| Concepto | Qué es |
-| --- | --- |
-| `Readable` | Fuente de datos, en pedazos (`data`/`end`/`error`) |
-| `Writable` | Destino de datos |
-| `.pipe(destino)` | Conecta ambos, maneja backpressure automáticamente |
-| Backpressure | El mecanismo que evita que un productor rápido sature a un consumidor lento |
+| Concepto         | Qué es                                                                      |
+| ---------------- | --------------------------------------------------------------------------- |
+| `Readable`       | Fuente de datos, en pedazos (`data`/`end`/`error`)                          |
+| `Writable`       | Destino de datos                                                            |
+| `.pipe(destino)` | Conecta ambos, maneja backpressure automáticamente                          |
+| Backpressure     | El mecanismo que evita que un productor rápido sature a un consumidor lento |
 
 ## Cuándo usar streams
 

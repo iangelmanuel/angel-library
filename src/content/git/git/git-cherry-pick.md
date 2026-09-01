@@ -55,11 +55,11 @@ git cherry-pick -n <hash>    # aplica los cambios al working tree/staging, sin c
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `git cherry-pick <hash>` | Aplica ese commit puntual sobre la rama actual |
-| `git cherry-pick hash1 hash2` | Aplica varios commits, en orden |
-| `git cherry-pick -n <hash>` | Aplica los cambios sin crear el commit todavía |
+| Comando                                  | Qué hace                                          |
+| ---------------------------------------- | ------------------------------------------------- |
+| `git cherry-pick <hash>`                 | Aplica ese commit puntual sobre la rama actual    |
+| `git cherry-pick hash1 hash2`            | Aplica varios commits, en orden                   |
+| `git cherry-pick -n <hash>`              | Aplica los cambios sin crear el commit todavía    |
 | `git cherry-pick --continue` / `--abort` | Seguir tras resolver un conflicto / cancelar todo |
 
 ## Consideraciones

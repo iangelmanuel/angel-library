@@ -5,7 +5,11 @@ type: guides
 order: 3
 tags: [docker, compose, variables-entorno, env]
 scope: variables con Compose
-related: [devops/docker-contenedores/docker-variables-entorno, devops/docker-compose/docker-compose-basico]
+related:
+  [
+    devops/docker-contenedores/docker-variables-entorno,
+    devops/docker-compose/docker-compose-basico
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -16,7 +20,7 @@ services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_PASSWORD: secreto123   # hardcodeado — termina en el repo si se versiona el YAML
+      POSTGRES_PASSWORD: secreto123 # hardcodeado — termina en el repo si se versiona el YAML
 ```
 
 Si `docker-compose.yml` se versiona en git (lo normal — es la definición del stack, no un secreto en sí), cualquier valor hardcodeado ahí queda en el historial del repo.

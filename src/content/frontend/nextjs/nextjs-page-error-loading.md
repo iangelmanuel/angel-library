@@ -37,11 +37,11 @@ La navegación no se bloquea esperando esto: el layout compartido sigue interact
 Envuelve `page.tsx` en un error boundary. A diferencia de `loading.tsx`, **tiene** que ser Client Component (`'use client'` obligatorio) — los error boundaries de React son una clase/hook que solo funciona en cliente. Recibe el error y una función `reset` para reintentar sin recargar toda la página.
 
 ```tsx title="app/blog/error.tsx"
-'use client'
+"use client"
 
 export default function Error({
   error,
-  reset,
+  reset
 }: {
   error: Error & { digest?: string }
   reset: () => void
@@ -71,13 +71,13 @@ De afuera hacia adentro: `layout.tsx` → `error.tsx` → `loading.tsx` (Suspens
 
 ## Convenciones de archivo en una mirada
 
-| Archivo | Qué hace | Client Component obligatorio |
-| --- | --- | --- |
-| `page.tsx` | La UI de la ruta | No (por defecto Server) |
-| `layout.tsx` | UI compartida entre rutas hijas, no se remonta al navegar | No |
-| `loading.tsx` | Fallback automático, envuelve en `<Suspense>` | No |
-| `error.tsx` | Error boundary automático | Sí |
-| `not-found.tsx` | UI cuando se llama `notFound()` o no matchea ninguna ruta | No |
+| Archivo         | Qué hace                                                  | Client Component obligatorio |
+| --------------- | --------------------------------------------------------- | ---------------------------- |
+| `page.tsx`      | La UI de la ruta                                          | No (por defecto Server)      |
+| `layout.tsx`    | UI compartida entre rutas hijas, no se remonta al navegar | No                           |
+| `loading.tsx`   | Fallback automático, envuelve en `<Suspense>`             | No                           |
+| `error.tsx`     | Error boundary automático                                 | Sí                           |
+| `not-found.tsx` | UI cuando se llama `notFound()` o no matchea ninguna ruta | No                           |
 
 ## Recuperación, estado y límites de error
 

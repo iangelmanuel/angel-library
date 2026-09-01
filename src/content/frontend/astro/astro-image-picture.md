@@ -16,10 +16,14 @@ updatedAt: 2026-08-25
 
 ```astro
 ---
-import { Image } from 'astro:assets';
-import heroImg from '../assets/hero.png';
+import { Image } from "astro:assets"
+import heroImg from "../assets/hero.png"
 ---
-<Image src={heroImg} alt="Descripción de la imagen" />
+
+<Image
+  src={heroImg}
+  alt="Descripción de la imagen"
+/>
 ```
 
 Con imágenes remotas o de `public/`, sí hay que declarar `width`/`height` a mano (Astro no puede inspeccionar el archivo en build):
@@ -39,18 +43,34 @@ Es el componente a usar cuando un solo `<img>` no alcanza: por ejemplo, si quier
 
 ```astro
 ---
-import { Picture } from 'astro:assets';
-import heroImg from '../assets/hero.png';
+import { Picture } from "astro:assets"
+import heroImg from "../assets/hero.png"
 ---
-<Picture src={heroImg} formats={['avif', 'webp']} alt="Descripción" />
+
+<Picture
+  src={heroImg}
+  formats={["avif", "webp"]}
+  alt="Descripción"
+/>
 ```
 
 ```html
 <!-- output -->
 <picture>
-  <source srcset="/_astro/hero.hash.avif" type="image/avif" />
-  <source srcset="/_astro/hero.hash.webp" type="image/webp" />
-  <img src="/_astro/hero.hash.png" width="1600" height="900" alt="Descripción" />
+  <source
+    srcset="/_astro/hero.hash.avif"
+    type="image/avif"
+  />
+  <source
+    srcset="/_astro/hero.hash.webp"
+    type="image/webp"
+  />
+  <img
+    src="/_astro/hero.hash.png"
+    width="1600"
+    height="900"
+    alt="Descripción"
+  />
 </picture>
 ```
 
@@ -59,7 +79,13 @@ import heroImg from '../assets/hero.png';
 Desde Astro 5.10, la prop `layout` genera `srcset`/`sizes` automáticamente sin tener que armarlos a mano.
 
 ```astro
-<Image src={heroImg} alt="Descripción" layout="constrained" width={800} height={600} />
+<Image
+  src={heroImg}
+  alt="Descripción"
+  layout="constrained"
+  width={800}
+  height={600}
+/>
 ```
 
 Hace falta habilitar los estilos responsive una vez en `astro.config.mjs`:
@@ -67,9 +93,9 @@ Hace falta habilitar los estilos responsive una vez en `astro.config.mjs`:
 ```ts title="astro.config.mjs"
 export default defineConfig({
   image: {
-    responsiveStyles: true,
-  },
-});
+    responsiveStyles: true
+  }
+})
 ```
 
 ## Imágenes remotas: autorizar el dominio
@@ -79,22 +105,22 @@ Astro no optimiza imágenes remotas de cualquier dominio por seguridad — hay q
 ```ts title="astro.config.mjs"
 export default defineConfig({
   image: {
-    domains: ['ejemplo.com'],
+    domains: ["ejemplo.com"],
     // o por patrón:
-    remotePatterns: [{ protocol: 'https' }],
-  },
-});
+    remotePatterns: [{ protocol: "https" }]
+  }
+})
 ```
 
 ## Props y formatos en una mirada
 
-| Prop / config | Qué hace |
-| --- | --- |
-| `src` / `alt` | Obligatorios en ambos componentes |
-| `width` / `height` | Obligatorios en remotas y `public/`; automáticos en locales importadas |
-| `formats` (solo `<Picture />`) | Lista de formatos a generar, en orden de preferencia |
-| `layout="constrained"` | `srcset`/`sizes` automáticos (Astro ≥ 5.10) |
-| `image.domains` / `image.remotePatterns` | Autorizar optimización de imágenes remotas |
+| Prop / config                            | Qué hace                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------- |
+| `src` / `alt`                            | Obligatorios en ambos componentes                                      |
+| `width` / `height`                       | Obligatorios en remotas y `public/`; automáticos en locales importadas |
+| `formats` (solo `<Picture />`)           | Lista de formatos a generar, en orden de preferencia                   |
+| `layout="constrained"`                   | `srcset`/`sizes` automáticos (Astro ≥ 5.10)                            |
+| `image.domains` / `image.remotePatterns` | Autorizar optimización de imágenes remotas                             |
 
 ## Rendimiento, dimensiones y accesibilidad
 

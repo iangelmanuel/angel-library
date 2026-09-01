@@ -9,7 +9,7 @@ related: [backend/express/express-cookies-sesiones]
 updatedAt: 2026-08-16
 ---
 
-Un JWT (*JSON Web Token*) codifica claims en un string que el servidor puede verificar sin consultar una tabla de sesiones. La confianza proviene de una firma criptográfica, no de que el contenido esté oculto.
+Un JWT (_JSON Web Token_) codifica claims en un string que el servidor puede verificar sin consultar una tabla de sesiones. La confianza proviene de una firma criptográfica, no de que el contenido esté oculto.
 
 ## Estructura
 
@@ -33,12 +33,12 @@ npm install jsonwebtoken
 ```
 
 ```ts title="lib/jwt.ts"
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken"
 
-const JWT_SECRET = process.env.JWT_SECRET!; // ver Variables de entorno en Node
+const JWT_SECRET = process.env.JWT_SECRET! // ver Variables de entorno en Node
 
 export function firmarToken(payload: { sub: string; rol: string }) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" })
 }
 ```
 
@@ -46,7 +46,7 @@ export function firmarToken(payload: { sub: string; rol: string }) {
 
 ```ts
 export function verificarToken(token: string) {
-  return jwt.verify(token, JWT_SECRET) as { sub: string; rol: string };
+  return jwt.verify(token, JWT_SECRET) as { sub: string; rol: string }
 }
 ```
 
@@ -55,17 +55,17 @@ export function verificarToken(token: string) {
 ## Uso típico: login
 
 ```ts
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body
 
-  const usuario = await buscarUsuarioPorEmail(email);
+  const usuario = await buscarUsuarioPorEmail(email)
   if (!usuario || !(await compararPassword(password, usuario.passwordHash))) {
-    return res.status(401).json({ error: 'Credenciales inválidas' });
+    return res.status(401).json({ error: "Credenciales inválidas" })
   }
 
-  const token = firmarToken({ sub: usuario.id, rol: usuario.rol });
-  res.json({ token });
-});
+  const token = firmarToken({ sub: usuario.id, rol: usuario.rol })
+  res.json({ token })
+})
 ```
 
 `compararPassword` usa [bcrypt](/backend/express/bcrypt) — nunca se guarda ni se compara la contraseña en texto plano.
@@ -75,18 +75,20 @@ app.post('/login', async (req, res) => {
 Un JWT de vida corta (`expiresIn: '15m'`) limita el daño si se roba, pero obliga a re-loguearse seguido — el patrón común es combinar un **access token** de vida corta con un **refresh token** de vida larga, guardado de forma más segura (httpOnly cookie), que solo sirve para pedir un access token nuevo sin volver a mandar la contraseña.
 
 ```ts
-const accessToken = firmarToken({ sub: usuario.id, rol: usuario.rol });          // expira en 15 min
-const refreshToken = jwt.sign({ sub: usuario.id }, JWT_REFRESH_SECRET, { expiresIn: '7d' });
+const accessToken = firmarToken({ sub: usuario.id, rol: usuario.rol }) // expira en 15 min
+const refreshToken = jwt.sign({ sub: usuario.id }, JWT_REFRESH_SECRET, {
+  expiresIn: "7d"
+})
 ```
 
 ## Anatomía y operaciones
 
-| API | Qué hace |
-| --- | --- |
-| `jwt.sign(payload, secret, { expiresIn })` | Crea y firma un token |
-| `jwt.verify(token, secret)` | Verifica firma + expiración, lanza si falla |
-| Payload | Legible por cualquiera (Base64, no encriptado) — no falsificable sin el secreto |
-| Access + refresh token | Access de vida corta, refresh de vida larga para renovarlo |
+| API                                        | Qué hace                                                                        |
+| ------------------------------------------ | ------------------------------------------------------------------------------- |
+| `jwt.sign(payload, secret, { expiresIn })` | Crea y firma un token                                                           |
+| `jwt.verify(token, secret)`                | Verifica firma + expiración, lanza si falla                                     |
+| Payload                                    | Legible por cualquiera (Base64, no encriptado) — no falsificable sin el secreto |
+| Access + refresh token                     | Access de vida corta, refresh de vida larga para renovarlo                      |
 
 ## Expiración y revocación
 

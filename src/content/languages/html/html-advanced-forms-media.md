@@ -42,8 +42,15 @@ En archivos, `accept` filtra sugerencias del selector, pero no valida el archivo
 
 ```html
 <picture>
-  <source media="(max-width: 40rem)" srcset="product-crop-small.avif" type="image/avif" />
-  <source srcset="product-wide.avif" type="image/avif" />
+  <source
+    media="(max-width: 40rem)"
+    srcset="product-crop-small.avif"
+    type="image/avif"
+  />
+  <source
+    srcset="product-wide.avif"
+    type="image/avif"
+  />
   <img
     src="product-wide.jpg"
     width="1200"

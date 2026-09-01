@@ -21,22 +21,22 @@ updatedAt: 2026-08-25
 
 `fetch(url, options)` devuelve una Promise de `Response`. No rechaza por status HTTP 404 o 500: comprueba `response.ok` o `response.status` tú mismo.
 
-| API o propiedad | Devuelve | Consume el body | Caso de uso |
-| --- | --- | --- | --- |
-| `fetch(input, init?)` | `Promise<Response>` | no aplica | realizar la request |
-| `response.ok` | booleano para status 200–299 | no | validar éxito HTTP general |
-| `response.status` | número de status | no | aplicar reglas por status |
-| `response.headers` | objeto `Headers` | no | leer metadatos |
-| `response.json()` | Promise con dato parseado | **sí** | JSON |
-| `response.text()` | Promise con string | **sí** | texto, HTML o error no estructurado |
-| `response.blob()` | Promise con Blob | **sí** | archivos en navegador |
-| `response.arrayBuffer()` | Promise con bytes | **sí** | binarios y protocolos |
-| `response.formData()` | Promise con FormData | **sí** | multipart o formularios |
-| `response.clone()` | Response nueva | duplica el stream internamente | leer el body por dos consumidores |
+| API o propiedad          | Devuelve                     | Consume el body                | Caso de uso                         |
+| ------------------------ | ---------------------------- | ------------------------------ | ----------------------------------- |
+| `fetch(input, init?)`    | `Promise<Response>`          | no aplica                      | realizar la request                 |
+| `response.ok`            | booleano para status 200–299 | no                             | validar éxito HTTP general          |
+| `response.status`        | número de status             | no                             | aplicar reglas por status           |
+| `response.headers`       | objeto `Headers`             | no                             | leer metadatos                      |
+| `response.json()`        | Promise con dato parseado    | **sí**                         | JSON                                |
+| `response.text()`        | Promise con string           | **sí**                         | texto, HTML o error no estructurado |
+| `response.blob()`        | Promise con Blob             | **sí**                         | archivos en navegador               |
+| `response.arrayBuffer()` | Promise con bytes            | **sí**                         | binarios y protocolos               |
+| `response.formData()`    | Promise con FormData         | **sí**                         | multipart o formularios             |
+| `response.clone()`       | Response nueva               | duplica el stream internamente | leer el body por dos consumidores   |
 
 ```js
-const response = await fetch('/api/projects?page=2', {
-  headers: { Accept: 'application/json' },
+const response = await fetch("/api/projects?page=2", {
+  headers: { Accept: "application/json" }
 })
 
 if (!response.ok) {
@@ -46,8 +46,8 @@ if (!response.ok) {
 const projects = await response.json()
 
 response.status // por ejemplo: 200
-response.ok     // true
-projects        // dato JavaScript parseado desde el body
+response.ok // true
+projects // dato JavaScript parseado desde el body
 response.bodyUsed // true
 ```
 
@@ -59,8 +59,8 @@ El body de `Response` normalmente se consume una vez. `json()`, `text()`, `blob(
 async function readResponse(response) {
   if (response.status === 204 || response.status === 205) return null
 
-  const type = response.headers.get('content-type') ?? ''
-  const body = type.includes('application/json')
+  const type = response.headers.get("content-type") ?? ""
+  const body = type.includes("application/json")
     ? await response.json()
     : await response.text()
 
@@ -74,7 +74,7 @@ async function readResponse(response) {
   return body
 }
 
-const data = await readResponse(await fetch('/api/projects'))
+const data = await readResponse(await fetch("/api/projects"))
 // objeto/array si fue JSON; string para otro contenido
 ```
 
@@ -82,14 +82,14 @@ Un status `204 No Content` o `205 Reset Content` no tiene representación que pa
 
 ## Métodos, seguridad e idempotencia
 
-| Método | Intención habitual | Seguro | Idempotente |
-| --- | --- | --- | --- |
-| `GET` | leer | sí | sí |
-| `HEAD` | leer metadatos | sí | sí |
-| `POST` | crear o ejecutar una acción | no | no por defecto |
-| `PUT` | reemplazar un recurso | no | sí |
-| `PATCH` | modificar parcialmente | no | depende del contrato |
-| `DELETE` | eliminar | no | debería producir el mismo estado final |
+| Método   | Intención habitual          | Seguro | Idempotente                            |
+| -------- | --------------------------- | ------ | -------------------------------------- |
+| `GET`    | leer                        | sí     | sí                                     |
+| `HEAD`   | leer metadatos              | sí     | sí                                     |
+| `POST`   | crear o ejecutar una acción | no     | no por defecto                         |
+| `PUT`    | reemplazar un recurso       | no     | sí                                     |
+| `PATCH`  | modificar parcialmente      | no     | depende del contrato                   |
+| `DELETE` | eliminar                    | no     | debería producir el mismo estado final |
 
 **Seguro** significa que no pretende cambiar estado. **Idempotente** significa que repetir la misma request produce el mismo estado final, no que la respuesta deba ser idéntica. Reintentar automáticamente un `POST` puede duplicar cobros o registros; usa una idempotency key cuando el servidor ofrezca ese contrato.
 
@@ -98,10 +98,10 @@ Un status `204 No Content` o `205 Reset Content` no tiene representación que pa
 Para JSON, declara el header y serializa el body. Para archivos o formularios, `FormData` permite enviar multipart sin construir el boundary manualmente.
 
 ```js
-await fetch('/api/projects', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'Biblioteca' }),
+await fetch("/api/projects", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name: "Biblioteca" })
 })
 // Response; todavía debes comprobar response.ok
 ```
@@ -109,10 +109,10 @@ await fetch('/api/projects', {
 Guarda la respuesta para comprobarla:
 
 ```js
-const response = await fetch('/api/projects', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'Biblioteca' }),
+const response = await fetch("/api/projects", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name: "Biblioteca" })
 })
 
 if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -128,9 +128,9 @@ No envíes el token o precio que el cliente puede modificar como fuente de verda
 `headers` puede ser un objeto o `Headers`. `credentials: 'same-origin'` usa cookies del mismo origen; `include` permite cookies cross-origin cuando el servidor y CORS lo autorizan. CORS no es autenticación y no evita que un servidor reciba una request directa.
 
 ```js
-fetch('https://api.example.com/profile', {
-  credentials: 'include',
-  headers: { Accept: 'application/json' },
+fetch("https://api.example.com/profile", {
+  credentials: "include",
+  headers: { Accept: "application/json" }
 })
 ```
 
@@ -141,9 +141,9 @@ No pongas secretos de servidor en el bundle. Los valores públicos del frontend 
 Construye URLs con `URL` y `URLSearchParams`, no concatenando strings sin escapar:
 
 ```js
-const url = new URL('/api/search', window.location.origin)
-url.searchParams.set('q', query)
-url.searchParams.set('page', String(page))
+const url = new URL("/api/search", window.location.origin)
+url.searchParams.set("q", query)
+url.searchParams.set("page", String(page))
 const response = await fetch(url)
 
 url.toString()
@@ -172,7 +172,7 @@ async function fetchJSON(url, { timeout = 8_000, ...options } = {}) {
   return response.json()
 }
 
-await fetchJSON('/api/projects', { timeout: 3_000 })
+await fetchJSON("/api/projects", { timeout: 3_000 })
 // dato JSON o rechazo por HTTP, red, parseo o timeout
 ```
 
@@ -183,11 +183,11 @@ Si también recibes una señal del componente, combina ambas con `AbortSignal.an
 `response.text()` o `response.json()` acumulan el body completo. Para respuestas grandes o progresivas, lee `response.body`, un `ReadableStream` de bytes.
 
 ```js
-const response = await fetch('/api/logs')
+const response = await fetch("/api/logs")
 if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`)
 
 const decoder = new TextDecoder()
-let text = ''
+let text = ""
 
 for await (const chunk of response.body) {
   text += decoder.decode(chunk, { stream: true })
@@ -207,9 +207,9 @@ async function loadAllProjects() {
   let cursor = null
 
   do {
-    const url = new URL('/api/projects', window.location.origin)
-    url.searchParams.set('limit', '50')
-    if (cursor) url.searchParams.set('cursor', cursor)
+    const url = new URL("/api/projects", window.location.origin)
+    url.searchParams.set("limit", "50")
+    if (cursor) url.searchParams.set("cursor", cursor)
 
     const response = await fetch(url)
     const page = await readResponse(response)

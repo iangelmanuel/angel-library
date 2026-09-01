@@ -21,22 +21,22 @@ Convierte un texto a un slug seguro para URLs: quita acentos, pasa a minúsculas
 ```ts title="lib/string.ts"
 export function slugify(text: string): string {
   return text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
 }
 ```
 
 ```ts
-import { slugify } from '@/libs/string';
+import { slugify } from "@/libs/string"
 
-slugify('Referencias entre contenidos');
+slugify("Referencias entre contenidos")
 // "referencias-entre-contenidos"
 
-slugify('¿Cómo usar useDebounce?');
+slugify("¿Cómo usar useDebounce?")
 // "como-usar-usedebounce"
 ```
 
@@ -45,16 +45,20 @@ slugify('¿Cómo usar useDebounce?');
 Corta un texto a un largo máximo y agrega un sufijo (por defecto `…`) cuando lo recorta. El sufijo cuenta dentro del `maxLength`, así el resultado nunca supera ese largo.
 
 ```ts title="lib/string.ts"
-export function truncate(text: string, maxLength: number, suffix = '…'): string {
+export function truncate(
+  text: string,
+  maxLength: number,
+  suffix = "…"
+): string {
   if (text.length <= maxLength) return text
   return text.slice(0, maxLength - suffix.length).trimEnd() + suffix
 }
 ```
 
 ```ts
-import { truncate } from '@/libs/string';
+import { truncate } from "@/libs/string"
 
-truncate('Utilidades mínimas y declarativas para manipular el DOM', 20);
+truncate("Utilidades mínimas y declarativas para manipular el DOM", 20)
 // "Utilidades mínimas…"
 ```
 
@@ -70,9 +74,9 @@ export function capitalize(text: string): string {
 ```
 
 ```ts
-import { capitalize } from '@/libs/string';
+import { capitalize } from "@/libs/string"
 
-capitalize('componente de formulario');
+capitalize("componente de formulario")
 // "Componente de formulario"
 ```
 
@@ -84,11 +88,11 @@ Escapa los caracteres especiales de HTML (`& < > " '`) en un texto. Úsala siemp
 
 ```ts title="lib/string.ts"
 const HTML_ESCAPES: Record<string, string> = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;',
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;"
 }
 
 export function escapeHtml(text: string): string {
@@ -97,10 +101,10 @@ export function escapeHtml(text: string): string {
 ```
 
 ```ts
-import { escapeHtml } from '@/libs/string';
+import { escapeHtml } from "@/libs/string"
 
-const seguro = escapeHtml(comentarioDelUsuario);
-elemento.innerHTML = `<p>${seguro}</p>`;
+const seguro = escapeHtml(comentarioDelUsuario)
+elemento.innerHTML = `<p>${seguro}</p>`
 ```
 
 ## Generar
@@ -110,28 +114,28 @@ elemento.innerHTML = `<p>${seguro}</p>`;
 Genera un id corto y aleatorio a partir de `crypto.randomUUID()`, con un prefijo opcional. Útil para `id`/`aria-describedby` de elementos generados dinámicamente que necesitan un identificador único.
 
 ```ts title="lib/string.ts"
-export function randomId(prefix = ''): string {
+export function randomId(prefix = ""): string {
   const id = crypto.randomUUID().slice(0, 8)
   return prefix ? `${prefix}-${id}` : id
 }
 ```
 
 ```ts
-import { randomId } from '@/libs/string';
+import { randomId } from "@/libs/string"
 
-const inputId = randomId('campo');
+const inputId = randomId("campo")
 // "campo-3f1a9c02"
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `slugify()` | Texto a slug seguro para URLs |
-| `truncate()` | Cortar texto a un largo máximo con sufijo |
-| `capitalize()` | Primera letra en mayúscula |
-| `escapeHtml()` | Escapar caracteres especiales de HTML |
-| `randomId()` | Generar un id corto aleatorio |
+| Función        | Qué hace                                  |
+| -------------- | ----------------------------------------- |
+| `slugify()`    | Texto a slug seguro para URLs             |
+| `truncate()`   | Cortar texto a un largo máximo con sufijo |
+| `capitalize()` | Primera letra en mayúscula                |
+| `escapeHtml()` | Escapar caracteres especiales de HTML     |
+| `randomId()`   | Generar un id corto aleatorio             |
 
 ## Consideraciones
 

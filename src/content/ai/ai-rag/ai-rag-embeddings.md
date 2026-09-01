@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-19
 ---
 
-Un **embedding** representa texto, imagen u otro contenido como un vector numérico. Elementos semánticamente próximos tienden a quedar cerca según una métrica. **RAG** significa *Retrieval-Augmented Generation* o generación aumentada por recuperación: primero busca evidencia y después la entrega al modelo para producir una respuesta.
+Un **embedding** representa texto, imagen u otro contenido como un vector numérico. Elementos semánticamente próximos tienden a quedar cerca según una métrica. **RAG** significa _Retrieval-Augmented Generation_ o generación aumentada por recuperación: primero busca evidencia y después la entrega al modelo para producir una respuesta.
 
 ```text
 documentos → limpiar → dividir → embedding → índice
@@ -26,14 +26,14 @@ Un **chunk** es un fragmento recuperable. Si es demasiado grande, mezcla temas y
 
 ```ts
 type Chunk = {
-  id: string;
-  documentId: string;
-  heading: string;
-  text: string;
-  sourceUrl: string;
-  updatedAt: string;
-  permissions: string[];
-};
+  id: string
+  documentId: string
+  heading: string
+  text: string
+  sourceUrl: string
+  updatedAt: string
+  permissions: string[]
+}
 ```
 
 Conserva metadatos para citar, filtrar por tenant, fecha, idioma o permisos y eliminar versiones antiguas. Un error de autorización en recuperación puede revelar datos aunque el prompt pida no hacerlo.
@@ -70,4 +70,3 @@ Un modelo mejor no corrige documentos desactualizados, permisos incorrectos o un
 
 - [OpenAI: embeddings](https://platform.openai.com/docs/guides/embeddings)
 - [OpenAI: retrieval](https://platform.openai.com/docs/guides/retrieval)
-

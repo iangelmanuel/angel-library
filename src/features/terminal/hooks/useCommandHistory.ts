@@ -7,7 +7,9 @@ function readStored(value: string | null): string[] | null {
   try {
     const parsed = JSON.parse(value ?? "[]")
     if (!Array.isArray(parsed)) return []
-    return parsed.filter((entry): entry is string => typeof entry === "string").slice(-MAX_ENTRIES)
+    return parsed
+      .filter((entry): entry is string => typeof entry === "string")
+      .slice(-MAX_ENTRIES)
   } catch {
     return null
   }
@@ -30,7 +32,9 @@ export function useCommandHistory() {
       const detail = (event as CustomEvent<unknown>).detail
       if (!Array.isArray(detail)) return
       setHistory(
-        detail.filter((entry): entry is string => typeof entry === "string").slice(-MAX_ENTRIES)
+        detail
+          .filter((entry): entry is string => typeof entry === "string")
+          .slice(-MAX_ENTRIES)
       )
     }
     window.addEventListener(HISTORY_KEY, sync)
@@ -52,7 +56,8 @@ export function useCommandHistory() {
     history,
     cursor,
 
-    remember: (command: string) => save([...history, command].slice(-MAX_ENTRIES)),
+    remember: (command: string) =>
+      save([...history, command].slice(-MAX_ENTRIES)),
     clear: () => save([]),
 
     resetCursor: () => {
@@ -62,9 +67,11 @@ export function useCommandHistory() {
 
     /** Comando anterior. */
     previous(currentInput: string): string | null {
-      if (history.length === 0 || (currentInput !== "" && cursor === null)) return null
+      if (history.length === 0 || (currentInput !== "" && cursor === null))
+        return null
 
-      const next = cursor === null ? history.length - 1 : Math.max(0, cursor - 1)
+      const next =
+        cursor === null ? history.length - 1 : Math.max(0, cursor - 1)
       if (cursor === null) draft.current = currentInput
       setCursor(next)
       return history[next]

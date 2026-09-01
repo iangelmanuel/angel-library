@@ -67,12 +67,12 @@ Para que persista entre sesiones, esta línea tiene que vivir en `$PROFILE`, no 
 
 ## PowerShell 5.1 vs PowerShell 7+
 
-| | PowerShell 5.1 | PowerShell 7+ |
-|---|---|---|
-| Viene con Windows | Sí, preinstalado | No, se instala aparte |
-| Plataformas | Solo Windows | Windows, macOS, Linux |
-| Ejecutable | `powershell` | `pwsh` |
-| Desarrollo activo | Congelado (solo parches de seguridad) | Sí, versión activa |
+|                   | PowerShell 5.1                        | PowerShell 7+         |
+| ----------------- | ------------------------------------- | --------------------- |
+| Viene con Windows | Sí, preinstalado                      | No, se instala aparte |
+| Plataformas       | Solo Windows                          | Windows, macOS, Linux |
+| Ejecutable        | `powershell`                          | `pwsh`                |
+| Desarrollo activo | Congelado (solo parches de seguridad) | Sí, versión activa    |
 
 Instalar PowerShell 7+ en Windows:
 

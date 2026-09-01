@@ -39,11 +39,11 @@ CMD ["node", "dist/server.js"]
 
 ## Por qué importa
 
-| | Sin multi-stage | Con multi-stage |
-|---|---|---|
-| Tamaño de imagen | Grande (incluye devDependencies, source, herramientas de build) | Chica (solo runtime + artefactos) |
-| Superficie de ataque | Mayor (más paquetes = más CVEs potenciales) | Menor |
-| Velocidad de deploy/pull | Más lenta (imagen más pesada) | Más rápida |
+|                          | Sin multi-stage                                                 | Con multi-stage                   |
+| ------------------------ | --------------------------------------------------------------- | --------------------------------- |
+| Tamaño de imagen         | Grande (incluye devDependencies, source, herramientas de build) | Chica (solo runtime + artefactos) |
+| Superficie de ataque     | Mayor (más paquetes = más CVEs potenciales)                     | Menor                             |
+| Velocidad de deploy/pull | Más lenta (imagen más pesada)                                   | Más rápida                        |
 
 ## Ejemplo con más de dos etapas
 

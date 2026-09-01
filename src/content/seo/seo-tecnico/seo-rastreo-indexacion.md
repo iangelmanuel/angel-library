@@ -30,7 +30,10 @@ Sitemap: https://example.com/sitemap.xml
 `robots.txt` orienta el rastreo, pero una URL bloqueada todavía puede aparecer si otros sitios la enlazan, porque el buscador no necesita leer su contenido para conocerla. Para impedir indexación utiliza `noindex` en una respuesta que el bot pueda rastrear:
 
 ```html
-<meta name="robots" content="noindex, follow" />
+<meta
+  name="robots"
+  content="noindex, follow"
+/>
 ```
 
 Contenido privado se protege con autenticación y autorización. Ni `robots.txt` ni `noindex` son controles de seguridad.
@@ -51,7 +54,10 @@ Un sitemap facilita descubrimiento, pero no obliga a indexar. En sitios grandes 
 ## Canonical y duplicados
 
 ```html
-<link rel="canonical" href="https://example.com/products/keyboard" />
+<link
+  rel="canonical"
+  href="https://example.com/products/keyboard"
+/>
 ```
 
 La canonical es una señal para consolidar variantes con contenido equivalente. Debe ser absoluta, indexable y coherente con enlaces internos, redirecciones y sitemap. No uses todas las canonicals hacia la portada ni apuntes una página única hacia otra distinta.
@@ -72,4 +78,3 @@ Una **soft 404** devuelve `200` pero muestra una página vacía o “no encontra
 - [Google Search: rastreo e indexación](https://developers.google.com/search/docs/crawling-indexing)
 - [Google Search: crear un sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
 - [Google Search: canonicalización](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls)
-

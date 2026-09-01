@@ -57,4 +57,3 @@ Protege contra **cache stampede**: muchas solicitudes detectan la misma ausencia
 ## Regla de decisión
 
 La idempotencia protege escrituras repetidas; la caché evita trabajo repetido de lectura. No uses caché para ocultar una consulta defectuosa ni idempotencia para reemplazar restricciones únicas.
-

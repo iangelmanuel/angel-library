@@ -23,47 +23,47 @@ npm install --save-dev @types/multer
 ## Guardar en disco
 
 ```ts title="middlewares/upload.ts"
-import multer from 'multer';
-import path from 'node:path';
+import multer from "multer"
+import path from "node:path"
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
+  destination: (req, file, cb) => cb(null, "uploads/"),
   filename: (req, file, cb) => {
-    const nombreUnico = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-    cb(null, nombreUnico);
-  },
-});
+    const nombreUnico = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`
+    cb(null, nombreUnico)
+  }
+})
 
 export const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
   fileFilter: (req, file, cb) => {
-    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
+    const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"]
     if (!tiposPermitidos.includes(file.mimetype)) {
-      return cb(new Error('Tipo de archivo no permitido'));
+      return cb(new Error("Tipo de archivo no permitido"))
     }
-    cb(null, true);
-  },
-});
+    cb(null, true)
+  }
+})
 ```
 
 ```ts title="app.ts"
-import express from 'express';
-import { upload } from './middlewares/upload';
+import express from "express"
+import { upload } from "./middlewares/upload"
 
-const app = express();
+const app = express()
 
-app.post('/perfil/avatar', upload.single('avatar'), async (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'Falta el archivo' });
+app.post("/perfil/avatar", upload.single("avatar"), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "Falta el archivo" })
 
-  const url = `/uploads/${req.file.filename}`;
+  const url = `/uploads/${req.file.filename}`
   await prisma.user.update({
     where: { id: req.user!.id },
-    data: { avatarUrl: url },
-  });
+    data: { avatarUrl: url }
+  })
 
-  res.json({ url });
-});
+  res.json({ url })
+})
 ```
 
 `upload.single('avatar')` espera exactamente un archivo, en el campo `avatar` del form-data — `req.file` queda poblado con su info (`filename`, `path`, `mimetype`, `size`).
@@ -71,10 +71,13 @@ app.post('/perfil/avatar', upload.single('avatar'), async (req, res) => {
 ## Varios archivos
 
 ```ts
-app.post('/galeria', upload.array('fotos', 10), (req, res) => {
-  const archivos = req.files as Express.Multer.File[];
-  res.json({ cantidad: archivos.length, urls: archivos.map((f) => `/uploads/${f.filename}`) });
-});
+app.post("/galeria", upload.array("fotos", 10), (req, res) => {
+  const archivos = req.files as Express.Multer.File[]
+  res.json({
+    cantidad: archivos.length,
+    urls: archivos.map((f) => `/uploads/${f.filename}`)
+  })
+})
 ```
 
 ## Guardar en memoria (para subir a un servicio externo, no a disco)
@@ -82,34 +85,36 @@ app.post('/galeria', upload.array('fotos', 10), (req, res) => {
 Si el destino final es un storage externo (S3, Supabase Storage, Cloudinary), no hace falta escribir a disco local primero:
 
 ```ts
-const uploadMemoria = multer({ storage: multer.memoryStorage() });
+const uploadMemoria = multer({ storage: multer.memoryStorage() })
 
-app.post('/avatar', uploadMemoria.single('avatar'), async (req, res) => {
+app.post("/avatar", uploadMemoria.single("avatar"), async (req, res) => {
   // req.file.buffer tiene el contenido completo en memoria, listo para subir a otro lado
   const { data, error } = await supabaseAdmin.storage
-    .from('avatars')
-    .upload(`user-${req.user!.id}.png`, req.file!.buffer, { contentType: req.file!.mimetype });
+    .from("avatars")
+    .upload(`user-${req.user!.id}.png`, req.file!.buffer, {
+      contentType: req.file!.mimetype
+    })
 
-  if (error) return res.status(500).json({ error: 'Error al subir' });
-  res.json({ ok: true });
-});
+  if (error) return res.status(500).json({ error: "Error al subir" })
+  res.json({ ok: true })
+})
 ```
 
 ## Servir los archivos subidos
 
 ```ts
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"))
 ```
 
 ## Resumen
 
-| Config | Para qué |
-| --- | --- |
-| `multer.diskStorage` | Guarda en disco local |
-| `multer.memoryStorage` | Guarda en memoria (`req.file.buffer`), para reenviar a otro storage |
-| `limits: { fileSize }` | Rechaza archivos más grandes que el límite |
-| `fileFilter` | Rechaza por tipo MIME antes de guardar nada |
-| `.single(campo)` / `.array(campo, max)` | Uno o varios archivos |
+| Config                                  | Para qué                                                            |
+| --------------------------------------- | ------------------------------------------------------------------- |
+| `multer.diskStorage`                    | Guarda en disco local                                               |
+| `multer.memoryStorage`                  | Guarda en memoria (`req.file.buffer`), para reenviar a otro storage |
+| `limits: { fileSize }`                  | Rechaza archivos más grandes que el límite                          |
+| `fileFilter`                            | Rechaza por tipo MIME antes de guardar nada                         |
+| `.single(campo)` / `.array(campo, max)` | Uno o varios archivos                                               |
 
 ## Consideraciones
 

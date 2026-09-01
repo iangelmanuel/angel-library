@@ -28,11 +28,11 @@ Keep it concise — this is meant to build understanding fast, not to be exhaust
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
-| Claude Code | `.claude/commands/explain.md` |
-| Cursor | `.cursor/commands/explain.md` |
-| OpenCode | `.opencode/commands/explain.md` (+ `template:`) |
+| Dónde       | Archivo                                         |
+| ----------- | ----------------------------------------------- |
+| Claude Code | `.claude/commands/explain.md`                   |
+| Cursor      | `.cursor/commands/explain.md`                   |
+| OpenCode    | `.opencode/commands/explain.md` (+ `template:`) |
 
 ## Consideraciones
 

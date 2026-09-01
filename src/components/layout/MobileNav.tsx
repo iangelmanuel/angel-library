@@ -1,6 +1,6 @@
-import { useEffect, useState, type CSSProperties } from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { ChevronRight, X } from "lucide-react"
+import { type CSSProperties, useEffect, useState } from "react"
 import { DynamicIcon } from "@/components/shared/DynamicIcon"
 import type { NavData } from "@/lib/nav"
 
@@ -27,9 +27,9 @@ export default function MobileNav({ data }: { data: NavData }) {
       onOpenChange={setOpen}
     >
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
         <DialogPrimitive.Content
-          className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r border-border bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left"
+          className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r border-border bg-background data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left data-[state=open]:animate-in data-[state=open]:slide-in-from-left"
           aria-label="Menú de navegación"
         >
           <DialogPrimitive.Title className="sr-only">
@@ -40,7 +40,7 @@ export default function MobileNav({ data }: { data: NavData }) {
           </DialogPrimitive.Description>
 
           <div className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4">
-            <span className="font-pixel text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+            <span className="font-pixel text-[0.65rem] tracking-wider text-muted-foreground uppercase">
               menú
             </span>
             <DialogPrimitive.Close
@@ -152,7 +152,7 @@ export default function MobileNav({ data }: { data: NavData }) {
                                 <a
                                   key={item.url}
                                   href={item.url}
-                                  className={`nav-link${isActive(item.url) ? " is-active" : ""}`}
+                                  className={`nav-link${isActive(item.url) ? "is-active" : ""}`}
                                   aria-current={
                                     isActive(item.url) ? "page" : undefined
                                   }
@@ -171,7 +171,7 @@ export default function MobileNav({ data }: { data: NavData }) {
                           <a
                             key={item.url}
                             href={item.url}
-                            className={`nav-link nav-link--loose${isActive(item.url) ? " is-active" : ""}`}
+                            className={`nav-link nav-link--loose${isActive(item.url) ? "is-active" : ""}`}
                             aria-current={
                               isActive(item.url) ? "page" : undefined
                             }

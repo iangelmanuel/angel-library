@@ -27,8 +27,8 @@ updatedAt: 2026-08-16
 }
 ```
 
-- **`dependencies`**: lo que el código necesita para *correr* en producción (Express, un ORM, una librería de utilidades).
-- **`devDependencies`**: lo que solo hace falta durante *desarrollo* (test runner, linter, tipos de TypeScript) — `npm install --production` (o el equivalente en CI) no las instala.
+- **`dependencies`**: lo que el código necesita para _correr_ en producción (Express, un ORM, una librería de utilidades).
+- **`devDependencies`**: lo que solo hace falta durante _desarrollo_ (test runner, linter, tipos de TypeScript) — `npm install --production` (o el equivalente en CI) no las instala.
 - **`peerDependencies`**: para paquetes que tú **publicas** — declara qué versión de otra librería espera tu paquete que el proyecto consumidor ya tenga (típico en librerías de componentes React, que esperan que React ya esté instalado y no lo incluyen como dependencia propia).
 
 ## Versionado semver y los prefijos
@@ -104,14 +104,14 @@ Documenta (no fuerza, salvo que algo como Corepack lo chequee) qué versión de 
 
 ## Campos de consulta
 
-| Campo | Para qué |
-| --- | --- |
-| `dependencies` | Lo que el código necesita en producción |
-| `devDependencies` | Solo para desarrollo (tests, build tools) |
-| `scripts` | Comandos (`npm run <nombre>`) |
+| Campo              | Para qué                                       |
+| ------------------ | ---------------------------------------------- |
+| `dependencies`     | Lo que el código necesita en producción        |
+| `devDependencies`  | Solo para desarrollo (tests, build tools)      |
+| `scripts`          | Comandos (`npm run <nombre>`)                  |
 | `main` / `exports` | Qué archivo(s) expone el paquete al importarlo |
-| `type: "module"` | CommonJS vs ES Modules por defecto |
-| `engines.node` | Versión de Node esperada (documental) |
+| `type: "module"`   | CommonJS vs ES Modules por defecto             |
+| `engines.node`     | Versión de Node esperada (documental)          |
 
 ## Lockfile y consistencia
 

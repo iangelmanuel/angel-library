@@ -16,16 +16,16 @@ Plataforma de cursos cortos de **Replit** centrada en construir y desplegar apli
 
 ## Cursos
 
-| Curso | Lecciones | Duración | Estado |
-| --- | --- | --- | --- |
-| AI foundations | 7 | 30 min | Disponible |
-| Enterprise foundations | 6 | 30 min | Disponible |
-| Intro to Replit | 5 | 45 min | Próximamente |
-| Advanced vibes | 5 | 30 min | Próximamente |
+| Curso                  | Lecciones | Duración | Estado       |
+| ---------------------- | --------- | -------- | ------------ |
+| AI foundations         | 7         | 30 min   | Disponible   |
+| Enterprise foundations | 6         | 30 min   | Disponible   |
+| Intro to Replit        | 5         | 45 min   | Próximamente |
+| Advanced vibes         | 5         | 30 min   | Próximamente |
 
 ## Qué enseña
 
-El eje es el flujo que Replit llama *vibe coding*: cómo comunicar una intención a la IA, cómo acotar una idea de aplicación hasta que sea construible, y cómo publicarla desde su plataforma.
+El eje es el flujo que Replit llama _vibe coding_: cómo comunicar una intención a la IA, cómo acotar una idea de aplicación hasta que sea construible, y cómo publicarla desde su plataforma.
 
 ## Qué tener en cuenta
 

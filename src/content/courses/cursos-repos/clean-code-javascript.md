@@ -14,15 +14,15 @@ updatedAt: 2026-08-30
 
 > Adaptación de **[Ryan McDermott](https://github.com/ryanmcdermott)** a partir del libro de Robert C. Martin, con licencia MIT. Las traducciones son aporte de la comunidad.
 
-Los conceptos del libro *Clean Code* de Robert C. Martin, adaptados a **JavaScript** y mostrados con pares de ejemplos: primero una versión problemática, después la mejorada.
+Los conceptos del libro _Clean Code_ de Robert C. Martin, adaptados a **JavaScript** y mostrados con pares de ejemplos: primero una versión problemática, después la mejorada.
 
 ## Cuál enlazar
 
 Circulan varias copias del repositorio, y conviene saber cuál es cuál:
 
-| Repositorio | Qué es |
-| --- | --- |
-| [ryanmcdermott/clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) | **El original**, unas 94.800 estrellas |
+| Repositorio                                                                                   | Qué es                                                |
+| --------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [ryanmcdermott/clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) | **El original**, unas 94.800 estrellas                |
 | [devictoribero/clean-code-javascript](https://github.com/devictoribero/clean-code-javascript) | Fork con unas 2.100 estrellas, sin cambios desde 2024 |
 
 Para leer, mejor el original: recibe correcciones y tiene todas las traducciones enlazadas desde su README, incluida la de español.

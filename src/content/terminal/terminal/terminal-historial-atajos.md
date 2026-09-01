@@ -5,16 +5,20 @@ type: guides
 order: 12
 tags: [terminal, historial, atajos, alias]
 scope: historial y atajos
-related: [terminal/terminal/terminal-variables-entorno, terminal/terminal/terminal-procesos]
+related:
+  [
+    terminal/terminal/terminal-variables-entorno,
+    terminal/terminal/terminal-procesos
+  ]
 updatedAt: 2026-08-17
 ---
 
 ## Ver el historial de comandos
 
-| Acción | Windows (PowerShell) | macOS / Linux (bash/zsh) |
-|---|---|---|
-| Ver historial completo | `Get-History` | `history` |
-| Repetir comando anterior | flecha arriba (↑) | flecha arriba (↑) |
+| Acción                   | Windows (PowerShell) | macOS / Linux (bash/zsh) |
+| ------------------------ | -------------------- | ------------------------ |
+| Ver historial completo   | `Get-History`        | `history`                |
+| Repetir comando anterior | flecha arriba (↑)    | flecha arriba (↑)        |
 
 ```powershell
 Get-History
@@ -34,18 +38,18 @@ Funciona igual en bash/zsh y en PowerShell: abre una búsqueda incremental hacia
 
 ## Atajos universales
 
-| Atajo | Qué hace |
-|---|---|
-| `Ctrl+C` | Cancela el comando/proceso en ejecución |
+| Atajo    | Qué hace                                                              |
+| -------- | --------------------------------------------------------------------- |
+| `Ctrl+C` | Cancela el comando/proceso en ejecución                               |
 | `Ctrl+L` | Limpia la pantalla (equivalente a `clear`/`cls`, pero sin escribirlo) |
-| `Tab` | Autocompletado de comandos, rutas y (en muchas shells) flags |
-| `Ctrl+R` | Búsqueda incremental en el historial |
+| `Tab`    | Autocompletado de comandos, rutas y (en muchas shells) flags          |
+| `Ctrl+R` | Búsqueda incremental en el historial                                  |
 
 Para limpiar la pantalla también existe el comando explícito, que difiere por sistema:
 
 | Windows (PowerShell / cmd) | macOS / Linux |
-|---|---|
-| `cls` | `clear` |
+| -------------------------- | ------------- |
+| `cls`                      | `clear`       |
 
 `Ctrl+L` es más rápido porque no depende de escribir y confirmar un comando — funciona en las tres shells.
 

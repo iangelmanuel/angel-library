@@ -14,14 +14,14 @@ Una licencia comunica qué puede hacer otra persona con el código. Que un repos
 
 ## Decisión rápida
 
-| Intención | Opción habitual | Punto importante |
-| --- | --- | --- |
-| Conservar todos los derechos | sin licencia pública o licencia propietaria | terceros no reciben permiso general de reutilización |
-| Permitir uso amplio con atribución | MIT o BSD-3-Clause | pocas obligaciones para derivados |
-| Permisiva con concesión expresa de patentes | Apache-2.0 | incluye avisos y condiciones adicionales |
-| Exigir que derivados distribuidos sigan abiertos | GPL-3.0 | copyleft fuerte al distribuir |
-| Incluir software ofrecido por red | AGPL-3.0 | amplía obligaciones al uso como servicio |
-| Copyleft limitado por archivo | MPL-2.0 | permite combinar con archivos bajo otras licencias |
+| Intención                                        | Opción habitual                             | Punto importante                                     |
+| ------------------------------------------------ | ------------------------------------------- | ---------------------------------------------------- |
+| Conservar todos los derechos                     | sin licencia pública o licencia propietaria | terceros no reciben permiso general de reutilización |
+| Permitir uso amplio con atribución               | MIT o BSD-3-Clause                          | pocas obligaciones para derivados                    |
+| Permisiva con concesión expresa de patentes      | Apache-2.0                                  | incluye avisos y condiciones adicionales             |
+| Exigir que derivados distribuidos sigan abiertos | GPL-3.0                                     | copyleft fuerte al distribuir                        |
+| Incluir software ofrecido por red                | AGPL-3.0                                    | amplía obligaciones al uso como servicio             |
+| Copyleft limitado por archivo                    | MPL-2.0                                     | permite combinar con archivos bajo otras licencias   |
 
 Esta tabla orienta, pero no sustituye la lectura de la licencia ni asesoría legal cuando el proyecto tiene impacto comercial o contractual.
 
@@ -55,4 +55,3 @@ No copies una licencia desde un repositorio aleatorio: usa su texto oficial y co
 La licencia del proyecto no reemplaza la de sus dependencias, fuentes, iconos, datos o modelos. Mantén atribuciones cuando correspondan y revisa compatibilidad antes de redistribuir un bundle, una aplicación móvil o una imagen de contenedor.
 
 Fuentes: [Licenciar un repositorio — GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) y [Choose a License](https://choosealicense.com/).
-

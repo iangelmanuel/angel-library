@@ -20,14 +20,14 @@ Si solo quieres recordar: modela desde patrones de acceso, elige una clave que d
 
 ## Elegir por necesidad
 
-| Modelo | Fortalezas | Caso frecuente |
-| --- | --- | --- |
-| Clave-valor | Lectura por clave, expiración, baja latencia | Caché, sesión, rate limiting |
-| Documentos | Agregados JSON y forma flexible | Catálogos o perfiles con campos variables |
-| Columnas anchas | Escritura distribuida por clave de partición | grandes volúmenes con consultas predecibles |
-| Grafos | Recorridos de relaciones | Redes, permisos o recomendaciones |
-| Series temporales | Escrituras ordenadas por tiempo | Métricas y telemetría |
-| Búsqueda | texto, relevancia y filtros especializados | buscadores de productos o contenido |
+| Modelo            | Fortalezas                                   | Caso frecuente                              |
+| ----------------- | -------------------------------------------- | ------------------------------------------- |
+| Clave-valor       | Lectura por clave, expiración, baja latencia | Caché, sesión, rate limiting                |
+| Documentos        | Agregados JSON y forma flexible              | Catálogos o perfiles con campos variables   |
+| Columnas anchas   | Escritura distribuida por clave de partición | grandes volúmenes con consultas predecibles |
+| Grafos            | Recorridos de relaciones                     | Redes, permisos o recomendaciones           |
+| Series temporales | Escrituras ordenadas por tiempo              | Métricas y telemetría                       |
+| Búsqueda          | texto, relevancia y filtros especializados   | buscadores de productos o contenido         |
 
 Una base documental no reemplaza automáticamente a una relacional. Si predominan transacciones entre varias entidades, restricciones complejas y reportes con joins, el modelo relacional puede ser más directo.
 
@@ -91,7 +91,7 @@ Una transacción distribuida no siempre es la mejor solución. A veces el domini
 Una caché es una copia derivada, no la fuente de verdad. Define:
 
 - clave y alcance del dato;
-- **TTL** (*Time To Live* o tiempo de vida);
+- **TTL** (_Time To Live_ o tiempo de vida);
 - estrategia de invalidación;
 - comportamiento ante ausencia o caída;
 - protección contra avalanchas de solicitudes simultáneas.
@@ -133,4 +133,3 @@ Puedes migrar al leer, ejecutar un backfill o soportar ambas formas temporalment
 - [MongoDB: modelado de datos](https://www.mongodb.com/docs/manual/data-modeling/)
 - [MongoDB: embeber o referenciar](https://www.mongodb.com/docs/manual/data-modeling/concepts/embedding-vs-references/)
 - [Redis: tipos de datos](https://redis.io/docs/latest/develop/data-types/)
-

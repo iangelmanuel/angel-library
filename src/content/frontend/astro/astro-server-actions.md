@@ -18,34 +18,34 @@ Para un formulario, un [endpoint](/frontend/astro/astro-endpoints) a mano implic
 Viven en `src/actions/index.ts`, exportadas dentro de un objeto `server`.
 
 ```ts title="src/actions/index.ts"
-import { defineAction } from 'astro:actions';
-import { z } from 'astro/zod';
+import { z } from "astro/zod"
+import { defineAction } from "astro:actions"
 
 export const server = {
   crearComentario: defineAction({
     input: z.object({
       texto: z.string().min(1),
-      postId: z.string(),
+      postId: z.string()
     }),
     handler: async (input) => {
       // input ya está validado y tipado aquí
-      return { id: crypto.randomUUID(), ...input };
-    },
-  }),
-};
+      return { id: crypto.randomUUID(), ...input }
+    }
+  })
+}
 ```
 
 ## Llamar la action desde el cliente
 
 ```ts
-import { actions } from 'astro:actions';
+import { actions } from "astro:actions"
 
 const { data, error } = await actions.crearComentario({
-  texto: 'Buen artículo',
-  postId: 'post-1',
-});
+  texto: "Buen artículo",
+  postId: "post-1"
+})
 
-if (!error) console.log(data.id);
+if (!error) console.log(data.id)
 ```
 
 ## Formulario con progressive enhancement
@@ -54,19 +54,32 @@ Con `accept: 'form'` en la action, un `<form>` normal (sin JS) apuntando a `acti
 
 ```ts
 crearComentario: defineAction({
-  accept: 'form',
+  accept: "form",
   input: z.object({ texto: z.string().min(1), postId: z.string() }),
-  handler: async (input) => { /* ... */ },
-});
+  handler: async (input) => {
+    /* ... */
+  }
+})
 ```
 
 ```astro
 ---
-import { actions } from 'astro:actions';
+import { actions } from "astro:actions"
 ---
-<form method="POST" action={actions.crearComentario}>
-  <textarea name="texto" required></textarea>
-  <input type="hidden" name="postId" value={post.id} />
+
+<form
+  method="POST"
+  action={actions.crearComentario}
+>
+  <textarea
+    name="texto"
+    required
+  ></textarea>
+  <input
+    type="hidden"
+    name="postId"
+    value={post.id}
+  />
   <button>Comentar</button>
 </form>
 ```
@@ -77,11 +90,11 @@ Para el caso sin JS (o SSR directo), `Astro.getActionResult()` lee el resultado 
 
 ```astro
 ---
-import { actions } from 'astro:actions';
+import { actions } from "astro:actions"
 
-const result = Astro.getActionResult(actions.crearComentario);
+const result = Astro.getActionResult(actions.crearComentario)
 if (result && !result.error) {
-  return Astro.redirect(`/post/${result.data.postId}`);
+  return Astro.redirect(`/post/${result.data.postId}`)
 }
 ---
 ```
@@ -91,39 +104,39 @@ if (result && !result.error) {
 `ActionError` para errores controlados (permisos, no encontrado); `isInputError` para distinguir errores de validación de Zod y leer qué campo falló.
 
 ```ts
-import { ActionError, isInputError } from 'astro:actions';
+import { ActionError, isInputError } from "astro:actions"
 
 crearComentario: defineAction({
   input: z.object({ texto: z.string().min(1), postId: z.string() }),
   handler: async (input, context) => {
     if (!context.locals.user) {
-      throw new ActionError({ code: 'UNAUTHORIZED', message: 'Inicia sesión' });
+      throw new ActionError({ code: "UNAUTHORIZED", message: "Inicia sesión" })
     }
-    return { id: crypto.randomUUID() };
-  },
-});
+    return { id: crypto.randomUUID() }
+  }
+})
 ```
 
 ```ts
-const { data, error } = await actions.crearComentario(input);
+const { data, error } = await actions.crearComentario(input)
 
 if (isInputError(error)) {
-  console.log(error.fields.texto); // ["String must contain at least 1 character(s)"]
-} else if (error?.code === 'UNAUTHORIZED') {
-  mostrarLogin();
+  console.log(error.fields.texto) // ["String must contain at least 1 character(s)"]
+} else if (error?.code === "UNAUTHORIZED") {
+  mostrarLogin()
 }
 ```
 
 ## API de Actions en una mirada
 
-| API | Uso |
-| --- | --- |
-| `defineAction({ input, handler })` | Definir una action con validación Zod |
-| `accept: 'form'` | Aceptar submits de `<form>` además de JSON |
-| `actions.nombre(input)` | Llamar la action desde un componente cliente |
-| `Astro.getActionResult(actions.nombre)` | Leer el resultado server-side después del submit |
-| `ActionError` | Lanzar un error controlado con `code` y `message` |
-| `isInputError(error)` | Detectar errores de validación y leer `error.fields` |
+| API                                     | Uso                                                  |
+| --------------------------------------- | ---------------------------------------------------- |
+| `defineAction({ input, handler })`      | Definir una action con validación Zod                |
+| `accept: 'form'`                        | Aceptar submits de `<form>` además de JSON           |
+| `actions.nombre(input)`                 | Llamar la action desde un componente cliente         |
+| `Astro.getActionResult(actions.nombre)` | Leer el resultado server-side después del submit     |
+| `ActionError`                           | Lanzar un error controlado con `code` y `message`    |
+| `isInputError(error)`                   | Detectar errores de validación y leer `error.fields` |
 
 ## Validación, autorización e idempotencia
 

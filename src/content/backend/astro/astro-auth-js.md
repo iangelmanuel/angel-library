@@ -24,38 +24,48 @@ El comando `astro add` instala el paquete y agrega la integración a `astro.conf
 **1. Providers, incluyendo Credentials:**
 
 ```ts title="auth.config.ts"
-import GitHub from '@auth/core/providers/github';
-import Credentials from '@auth/core/providers/credentials';
-import { defineConfig } from 'auth-astro';
-import bcrypt from 'bcrypt';
-import { prisma } from './src/libs/prisma';
+import Credentials from "@auth/core/providers/credentials"
+import GitHub from "@auth/core/providers/github"
+import { defineConfig } from "auth-astro"
+import bcrypt from "bcrypt"
+import { prisma } from "./src/libs/prisma"
 
 export default defineConfig({
   providers: [
     GitHub({
       clientId: import.meta.env.GITHUB_CLIENT_ID,
-      clientSecret: import.meta.env.GITHUB_CLIENT_SECRET,
+      clientSecret: import.meta.env.GITHUB_CLIENT_SECRET
     }),
     Credentials({
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Contraseña', type: 'password' },
+        email: { label: "Email", type: "email" },
+        password: { label: "Contraseña", type: "password" }
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.email || !credentials?.password) return null
 
-        const usuario = await prisma.user.findUnique({ where: { email: credentials.email as string } });
-        if (!usuario) return null;
+        const usuario = await prisma.user.findUnique({
+          where: { email: credentials.email as string }
+        })
+        if (!usuario) return null
 
-        const passwordValida = await bcrypt.compare(credentials.password as string, usuario.passwordHash);
-        if (!passwordValida) return null;
+        const passwordValida = await bcrypt.compare(
+          credentials.password as string,
+          usuario.passwordHash
+        )
+        if (!passwordValida) return null
 
-        return { id: usuario.id, email: usuario.email, name: usuario.nombre, rol: usuario.rol };
-      },
-    }),
-  ],
+        return {
+          id: usuario.id,
+          email: usuario.email,
+          name: usuario.nombre,
+          rol: usuario.rol
+        }
+      }
+    })
+  ]
   // callbacks va aquí — ver la sección de abajo
-});
+})
 ```
 
 Devolver `null` en `authorize` (nunca lanzar) es la forma correcta de decir "credenciales inválidas" — Auth.js lo traduce en un error genérico del lado del cliente.
@@ -68,22 +78,22 @@ Este archivo se ubica en la raíz del proyecto (`auth.config.ts`, junto a `astro
 
 ```ts title="auth.config.ts"
 export default defineConfig({
-  providers: [ /* ... */ ],
+  providers: [/* ... */],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.rol = (user as { rol: string }).rol;
+        token.id = user.id
+        token.rol = (user as { rol: string }).rol
       }
-      return token;
+      return token
     },
     async session({ session, token }) {
-      session.user.id = token.id as string;
-      session.user.rol = token.rol as string;
-      return session;
-    },
-  },
-});
+      session.user.id = token.id as string
+      session.user.rol = token.rol as string
+      return session
+    }
+  }
+})
 ```
 
 `user` solo está disponible en `jwt` durante el login inicial (de `authorize()` o el provider OAuth) — en requests siguientes, `jwt` corre de nuevo pero solo con el `token` ya existente, de ahí el `if (user)`.
@@ -91,25 +101,25 @@ export default defineConfig({
 ## Tipar `session.user.rol` y `token.rol`
 
 ```ts title="src/env.d.ts"
-import type { DefaultSession } from '@auth/core/types';
+import type { DefaultSession } from "@auth/core/types"
 
-declare module '@auth/core/types' {
+declare module "@auth/core/types" {
   interface Session {
     user: {
-      id: string;
-      rol: string;
-    } & DefaultSession['user'];
+      id: string
+      rol: string
+    } & DefaultSession["user"]
   }
 
   interface User {
-    rol: string;
+    rol: string
   }
 }
 
-declare module '@auth/core/jwt' {
+declare module "@auth/core/jwt" {
   interface JWT {
-    id: string;
-    rol: string;
+    id: string
+    rol: string
   }
 }
 ```
@@ -120,43 +130,48 @@ Con esto, `session.user.rol` queda tipado en cualquier página/endpoint que lea 
 
 ```astro title="src/pages/perfil.astro"
 ---
-import { getSession } from 'auth-astro/server';
+import { getSession } from "auth-astro/server"
 
-const session = await getSession(Astro.request);
+const session = await getSession(Astro.request)
 
 if (!session?.user) {
-  return Astro.redirect('/login');
+  return Astro.redirect("/login")
 }
 ---
+
 <h1>Hola, {session.user.name} ({session.user.rol})</h1>
 ```
 
 ## Leer la sesión en un endpoint
 
 ```ts title="src/pages/api/posts.ts"
-import type { APIRoute } from 'astro';
-import { getSession } from 'auth-astro/server';
+import type { APIRoute } from "astro"
+import { getSession } from "auth-astro/server"
 
 export const POST: APIRoute = async ({ request }) => {
-  const session = await getSession(request);
+  const session = await getSession(request)
 
   if (!session?.user) {
-    return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401 });
+    return new Response(JSON.stringify({ error: "No autenticado" }), {
+      status: 401
+    })
   }
 
-  const post = await postsRepository.create({ authorId: session.user.id });
-  return new Response(JSON.stringify(post), { status: 201 });
-};
+  const post = await postsRepository.create({ authorId: session.user.id })
+  return new Response(JSON.stringify(post), { status: 201 })
+}
 ```
 
 ## Login/registro desde un componente
 
 ```astro title="src/components/AuthButtons.astro"
 <script>
-  import { signIn, signOut } from 'auth-astro/client';
+  import { signIn, signOut } from "auth-astro/client"
 
-  document.querySelector('#login')?.addEventListener('click', () => signIn('github'));
-  document.querySelector('#logout')?.addEventListener('click', () => signOut());
+  document
+    .querySelector("#login")
+    ?.addEventListener("click", () => signIn("github"))
+  document.querySelector("#logout")?.addEventListener("click", () => signOut())
 </script>
 
 <button id="login">Iniciar sesión con GitHub</button>
@@ -165,14 +180,14 @@ export const POST: APIRoute = async ({ request }) => {
 
 ## Piezas de Auth.js en Astro
 
-| Pieza | Rol |
-| --- | --- |
-| `npx astro add auth-astro` | Instala e integra automáticamente, sin endpoint propio |
-| `Credentials({ authorize })` | Login con email/password propio; `null` = credenciales inválidas |
-| `callbacks.jwt` / `callbacks.session` | Pasar datos custom del login al JWT, y del JWT a la sesión expuesta |
-| `declare module '@auth/core/types'` / `'/jwt'` | Tipar los campos custom |
-| `auth-astro/server` (`getSession`) | Leer sesión en páginas/endpoints |
-| `auth-astro/client` (`signIn`/`signOut`) | Login/logout desde un script de cliente |
+| Pieza                                          | Rol                                                                 |
+| ---------------------------------------------- | ------------------------------------------------------------------- |
+| `npx astro add auth-astro`                     | Instala e integra automáticamente, sin endpoint propio              |
+| `Credentials({ authorize })`                   | Login con email/password propio; `null` = credenciales inválidas    |
+| `callbacks.jwt` / `callbacks.session`          | Pasar datos custom del login al JWT, y del JWT a la sesión expuesta |
+| `declare module '@auth/core/types'` / `'/jwt'` | Tipar los campos custom                                             |
+| `auth-astro/server` (`getSession`)             | Leer sesión en páginas/endpoints                                    |
+| `auth-astro/client` (`signIn`/`signOut`)       | Login/logout desde un script de cliente                             |
 
 ## Callbacks, sesión y rutas
 

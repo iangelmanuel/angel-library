@@ -62,12 +62,12 @@ git push -u origin feature/login
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `git switch -c <rama>` | Crear una rama y cambiarse a ella |
-| `git switch <rama>` | Cambiar de rama |
-| `git branch` / `-a` | Listar ramas locales / todas |
-| `git branch -d <rama>` | Eliminar rama (solo si ya está mergeada) |
+| Comando                     | Qué hace                                         |
+| --------------------------- | ------------------------------------------------ |
+| `git switch -c <rama>`      | Crear una rama y cambiarse a ella                |
+| `git switch <rama>`         | Cambiar de rama                                  |
+| `git branch` / `-a`         | Listar ramas locales / todas                     |
+| `git branch -d <rama>`      | Eliminar rama (solo si ya está mergeada)         |
 | `git push -u origin <rama>` | Publicar una rama nueva y configurar el tracking |
 
 ## Consideraciones

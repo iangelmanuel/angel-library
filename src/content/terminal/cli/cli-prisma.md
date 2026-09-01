@@ -68,15 +68,15 @@ Corre el script de seed configurado en `package.json` (bajo `"prisma": { "seed":
 
 ## Resumen
 
-| Comando | Cuándo usarlo |
-| --- | --- |
-| `npx prisma init` | Primera vez, crea `schema.prisma` |
-| `npx prisma generate` | Regenerar el cliente tras cambiar el schema |
-| `npx prisma migrate dev` | Desarrollo — genera y aplica migración nueva |
-| `npx prisma migrate deploy` | CI/producción — aplica migraciones existentes |
-| `npx prisma db push` | Prototipado rápido, sin historial de migraciones |
-| `npx prisma studio` | UI visual para ver/editar datos |
-| `npx prisma db seed` | Poblar la base con datos iniciales |
+| Comando                     | Cuándo usarlo                                    |
+| --------------------------- | ------------------------------------------------ |
+| `npx prisma init`           | Primera vez, crea `schema.prisma`                |
+| `npx prisma generate`       | Regenerar el cliente tras cambiar el schema      |
+| `npx prisma migrate dev`    | Desarrollo — genera y aplica migración nueva     |
+| `npx prisma migrate deploy` | CI/producción — aplica migraciones existentes    |
+| `npx prisma db push`        | Prototipado rápido, sin historial de migraciones |
+| `npx prisma studio`         | UI visual para ver/editar datos                  |
+| `npx prisma db seed`        | Poblar la base con datos iniciales               |
 
 ## Consideraciones
 

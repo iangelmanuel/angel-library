@@ -43,7 +43,11 @@ Bun soporta glob completo, incluida **negación** — útil para excluir carpeta
 
 ```json title="package.json"
 {
-  "workspaces": ["packages/**", "!packages/**/test/**", "!packages/**/template/**"]
+  "workspaces": [
+    "packages/**",
+    "!packages/**/test/**",
+    "!packages/**/template/**"
+  ]
 }
 ```
 

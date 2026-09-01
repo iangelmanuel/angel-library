@@ -24,14 +24,14 @@ Un objeto agrupa propiedades formadas por una clave y un valor. Las claves son s
 ```js
 const user = {
   id: 7,
-  name: 'Sofía',
-  active: true,
+  name: "Sofía",
+  active: true
 }
 
 const sameUser = user
 sameUser.active = false
 
-user.active       // false
+user.active // false
 sameUser === user // true
 ```
 
@@ -40,15 +40,15 @@ sameUser === user // true
 La notación de punto se usa con claves conocidas. Los corchetes aceptan una expresión y son necesarios para claves dinámicas, con espacios o guardadas en otra variable.
 
 ```js
-const field = 'name'
-const user = { name: 'Sofía', 'account-id': 42 }
+const field = "name"
+const user = { name: "Sofía", "account-id": 42 }
 
-user.name          // 'Sofía'
-user[field]        // 'Sofía'
-user['account-id'] // 42
+user.name // 'Sofía'
+user[field] // 'Sofía'
+user["account-id"] // 42
 
-user.role = 'editor'
-user['lastLogin'] = '2026-08-18'
+user.role = "editor"
+user["lastLogin"] = "2026-08-18"
 delete user.role
 
 user.role // undefined
@@ -58,33 +58,33 @@ user.role // undefined
 
 ## Comprobar propiedades
 
-| Operación | Devuelve | Revisa heredadas | Caso de uso |
-| --- | --- | --- | --- |
-| `Object.hasOwn(object, key)` | booleano | no | validar un campo propio |
-| `key in object` | booleano | sí | comprobar una capacidad en toda la cadena de prototipos |
-| `object[key] !== undefined` | booleano | no distingue ausencia de valor `undefined` | solo si esa ambigüedad es aceptable |
+| Operación                    | Devuelve | Revisa heredadas                           | Caso de uso                                             |
+| ---------------------------- | -------- | ------------------------------------------ | ------------------------------------------------------- |
+| `Object.hasOwn(object, key)` | booleano | no                                         | validar un campo propio                                 |
+| `key in object`              | booleano | sí                                         | comprobar una capacidad en toda la cadena de prototipos |
+| `object[key] !== undefined`  | booleano | no distingue ausencia de valor `undefined` | solo si esa ambigüedad es aceptable                     |
 
 ```js
 const settings = { theme: undefined }
 
-Object.hasOwn(settings, 'theme') // true
-Object.hasOwn(settings, 'lang')  // false
-'toString' in settings           // true: viene del prototipo
-settings.theme !== undefined     // false: no detecta que la clave existe
+Object.hasOwn(settings, "theme") // true
+Object.hasOwn(settings, "lang") // false
+"toString" in settings // true: viene del prototipo
+settings.theme !== undefined // false: no detecta que la clave existe
 ```
 
 ## Inspeccionar y transformar
 
-| Método | Devuelve | Muta | Caso de uso |
-| --- | --- | --- | --- |
-| `Object.keys(object)` | array de claves propias enumerables | no | recorrer nombres de campos |
-| `Object.values(object)` | array de valores propios enumerables | no | sumar o comprobar valores |
-| `Object.entries(object)` | array de pares `[key, value]` | no | filtrar o mapear un objeto |
-| `Object.fromEntries(entries)` | objeto nuevo | no | reconstruir desde pares o Map |
-| `Object.assign(target, ...sources)` | el objeto `target` | **sí, el target** | mezclar propiedades superficialmente |
+| Método                              | Devuelve                             | Muta              | Caso de uso                          |
+| ----------------------------------- | ------------------------------------ | ----------------- | ------------------------------------ |
+| `Object.keys(object)`               | array de claves propias enumerables  | no                | recorrer nombres de campos           |
+| `Object.values(object)`             | array de valores propios enumerables | no                | sumar o comprobar valores            |
+| `Object.entries(object)`            | array de pares `[key, value]`        | no                | filtrar o mapear un objeto           |
+| `Object.fromEntries(entries)`       | objeto nuevo                         | no                | reconstruir desde pares o Map        |
+| `Object.assign(target, ...sources)` | el objeto `target`                   | **sí, el target** | mezclar propiedades superficialmente |
 
 ```js
-const product = { name: 'Mouse', price: 30, stock: 4 }
+const product = { name: "Mouse", price: 30, stock: 4 }
 
 Object.keys(product)
 // ['name', 'price', 'stock']
@@ -96,32 +96,32 @@ Object.entries(product)
 // [['name', 'Mouse'], ['price', 30], ['stock', 4]]
 
 const publicData = Object.fromEntries(
-  Object.entries(product).filter(([key]) => key !== 'stock'),
+  Object.entries(product).filter(([key]) => key !== "stock")
 )
 
 publicData // { name: 'Mouse', price: 30 }
-product    // { name: 'Mouse', price: 30, stock: 4 }
+product // { name: 'Mouse', price: 30, stock: 4 }
 ```
 
 ### Qué propiedades devuelve cada operación
 
-| API | String | Symbol | No enumerable | Heredada |
-| --- | --- | --- | --- | --- |
-| `Object.keys` / `values` / `entries` | sí | no | no | no |
-| `Object.getOwnPropertyNames` | sí | no | sí | no |
-| `Object.getOwnPropertySymbols` | no | sí | sí | no |
-| `Reflect.ownKeys` | sí | sí | sí | no |
-| `for...in` | sí | no | no | **sí** |
+| API                                  | String | Symbol | No enumerable | Heredada |
+| ------------------------------------ | ------ | ------ | ------------- | -------- |
+| `Object.keys` / `values` / `entries` | sí     | no     | no            | no       |
+| `Object.getOwnPropertyNames`         | sí     | no     | sí            | no       |
+| `Object.getOwnPropertySymbols`       | no     | sí     | sí            | no       |
+| `Reflect.ownKeys`                    | sí     | sí     | sí            | no       |
+| `for...in`                           | sí     | no     | no            | **sí**   |
 
 ```js
-const internal = Symbol('internal')
+const internal = Symbol("internal")
 const model = { visible: true, [internal]: 42 }
-Object.defineProperty(model, 'id', { value: 7, enumerable: false })
+Object.defineProperty(model, "id", { value: 7, enumerable: false })
 
-Object.keys(model)                  // ['visible']
-Object.getOwnPropertyNames(model)  // ['visible', 'id']
+Object.keys(model) // ['visible']
+Object.getOwnPropertyNames(model) // ['visible', 'id']
 Object.getOwnPropertySymbols(model) // [Symbol(internal)]
-Reflect.ownKeys(model)             // ['visible', 'id', Symbol(internal)]
+Reflect.ownKeys(model) // ['visible', 'id', Symbol(internal)]
 ```
 
 ### Invertir o transformar pares
@@ -129,11 +129,11 @@ Reflect.ownKeys(model)             // ['visible', 'id', Symbol(internal)]
 ```js
 const scores = { ana: 8, leo: 6 }
 const doubled = Object.fromEntries(
-  Object.entries(scores).map(([name, score]) => [name, score * 2]),
+  Object.entries(scores).map(([name, score]) => [name, score * 2])
 )
 
 doubled // { ana: 16, leo: 12 }
-scores  // { ana: 8, leo: 6 }
+scores // { ana: 8, leo: 6 }
 ```
 
 ### Agrupar con `Object.groupBy` y `Map.groupBy`
@@ -142,12 +142,12 @@ Ambos recorren un iterable y llaman un callback. `Object.groupBy` crea un objeto
 
 ```js
 const products = [
-  { name: 'Mouse', category: 'hardware' },
-  { name: 'Editor', category: 'software' },
-  { name: 'Monitor', category: 'hardware' },
+  { name: "Mouse", category: "hardware" },
+  { name: "Editor", category: "software" },
+  { name: "Monitor", category: "hardware" }
 ]
 
-const byCategory = Object.groupBy(products, product => product.category)
+const byCategory = Object.groupBy(products, (product) => product.category)
 
 byCategory.hardware
 // [
@@ -165,24 +165,24 @@ Como el resultado de `Object.groupBy` tiene prototype `null`, no llames `byCateg
 ```js
 const response = {
   id: 15,
-  profile: { displayName: 'Noa' },
-  role: 'admin',
+  profile: { displayName: "Noa" },
+  role: "admin"
 }
 
 const {
   id,
   profile: { displayName: name },
-  role = 'user',
+  role = "user"
 } = response
 
-id   // 15
+id // 15
 name // 'Noa'
 role // 'admin'
 
-const property = 'status'
+const property = "status"
 const record = {
-  [property]: 'ready',
-  [`${property}At`]: '2026-08-18',
+  [property]: "ready",
+  [`${property}At`]: "2026-08-18"
 }
 
 record // { status: 'ready', statusAt: '2026-08-18' }
@@ -194,15 +194,15 @@ El spread y `Object.assign` copian solo el primer nivel. Los objetos anidados co
 
 ```js
 const original = {
-  name: 'Panel',
-  preferences: { compact: false },
+  name: "Panel",
+  preferences: { compact: false }
 }
 
 const shallowCopy = { ...original }
-shallowCopy.name = 'Dashboard'
+shallowCopy.name = "Dashboard"
 shallowCopy.preferences.compact = true
 
-original.name                // 'Panel'
+original.name // 'Panel'
 original.preferences.compact // true: el objeto interno se comparte
 ```
 
@@ -220,23 +220,23 @@ original.preferences.compact // true
 
 ## Controlar cambios
 
-| Método | Añadir | Eliminar | Cambiar valores | Profundidad |
-| --- | --- | --- | --- | --- |
-| `Object.preventExtensions()` | no | sí | sí | superficial |
-| `Object.seal()` | no | no | sí | superficial |
-| `Object.freeze()` | no | no | no | superficial |
+| Método                       | Añadir | Eliminar | Cambiar valores | Profundidad |
+| ---------------------------- | ------ | -------- | --------------- | ----------- |
+| `Object.preventExtensions()` | no     | sí       | sí              | superficial |
+| `Object.seal()`              | no     | no       | sí              | superficial |
+| `Object.freeze()`            | no     | no       | no              | superficial |
 
 Todos mutan el estado interno del objeto recibido y devuelven ese mismo objeto.
 
 ```js
 const config = Object.freeze({
-  api: '/v1',
-  options: { retries: 2 },
+  api: "/v1",
+  options: { retries: 2 }
 })
 
 Object.isFrozen(config) // true
 config.options.retries = 3
-config.options.retries  // 3: freeze no es profundo
+config.options.retries // 3: freeze no es profundo
 ```
 
 En módulos ES y modo estricto, intentar cambiar una propiedad congelada puede lanzar `TypeError`. Para inmutabilidad profunda necesitas congelar recursivamente o adoptar estructuras y patrones que no expongan mutación.
@@ -246,14 +246,14 @@ En módulos ES y modo estricto, intentar cambiar una propiedad congelada puede l
 `===` compara referencias entre objetos. `Object.is` se parece a `===`, pero distingue `0` de `-0` y considera que `NaN` es igual a sí mismo.
 
 ```js
-({}) === ({})         // false
+;({}) === {} // false
 const item = {}
-item === item         // true
+item === item // true
 
-Object.is(NaN, NaN)   // true
-NaN === NaN           // false
-Object.is(0, -0)      // false
-0 === -0              // true
+Object.is(NaN, NaN) // true
+NaN === NaN // false
+Object.is(0, -0) // false
+0 === -0 // true
 ```
 
 Para igualdad estructural, define qué campos importan o usa una solución especializada. Serializar con JSON para comparar es frágil por el orden de claves y los tipos no representables.
@@ -265,14 +265,14 @@ Cada propiedad tiene indicadores como `writable`, `enumerable` y `configurable`.
 ```js
 const account = {}
 
-Object.defineProperty(account, 'id', {
+Object.defineProperty(account, "id", {
   value: 42,
   writable: false,
   enumerable: true,
-  configurable: false,
+  configurable: false
 })
 
-Object.getOwnPropertyDescriptor(account, 'id')
+Object.getOwnPropertyDescriptor(account, "id")
 // {
 //   value: 42,
 //   writable: false,
@@ -289,7 +289,7 @@ const rectangle = {
   height: 3,
   get area() {
     return this.width * this.height
-  },
+  }
 }
 
 rectangle.area // 12
@@ -303,21 +303,21 @@ function updateProfile(user, changes) {
     ...user,
     profile: {
       ...user.profile,
-      ...changes,
-    },
+      ...changes
+    }
   }
 }
 
 const user = {
   id: 1,
-  profile: { name: 'Eva', city: 'Cali' },
+  profile: { name: "Eva", city: "Cali" }
 }
 
-const updated = updateProfile(user, { city: 'Bogotá' })
+const updated = updateProfile(user, { city: "Bogotá" })
 
 updated
 // { id: 1, profile: { name: 'Eva', city: 'Bogotá' } }
 
 user.profile.city // 'Cali'
-updated !== user  // true
+updated !== user // true
 ```

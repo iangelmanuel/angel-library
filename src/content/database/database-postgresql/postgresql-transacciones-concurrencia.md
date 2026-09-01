@@ -14,14 +14,14 @@ Una **transacción** agrupa operaciones como una sola unidad lógica. Debe compl
 
 ## Referencia rápida
 
-| Problema | Herramienta inicial |
-| --- | --- |
-| varios cambios forman una unidad | transacción |
+| Problema                             | Herramienta inicial                  |
+| ------------------------------------ | ------------------------------------ |
+| varios cambios forman una unidad     | transacción                          |
 | dos escritores compiten por una fila | actualización atómica o `FOR UPDATE` |
-| edición humana prolongada | versión optimista, no lock abierto |
-| conflicto raro entre rangos o filas | `SERIALIZABLE` con reintento |
-| efecto externo después del commit | transactional outbox |
-| repetir una petición | clave de idempotencia |
+| edición humana prolongada            | versión optimista, no lock abierto   |
+| conflicto raro entre rangos o filas  | `SERIALIZABLE` con reintento         |
+| efecto externo después del commit    | transactional outbox                 |
+| repetir una petición                 | clave de idempotencia                |
 
 ```sql
 BEGIN;
@@ -45,17 +45,17 @@ COMMIT;
 
 ## ACID y MVCC
 
-**ACID** resume atomicidad, consistencia, aislamiento y durabilidad. PostgreSQL usa **MVCC** (*Multi-Version Concurrency Control* o control de concurrencia multiversión): cada transacción observa una versión coherente de las filas, lo que reduce bloqueos entre lecturas y escrituras.
+**ACID** resume atomicidad, consistencia, aislamiento y durabilidad. PostgreSQL usa **MVCC** (_Multi-Version Concurrency Control_ o control de concurrencia multiversión): cada transacción observa una versión coherente de las filas, lo que reduce bloqueos entre lecturas y escrituras.
 
 `UPDATE` y `DELETE` no eliminan inmediatamente todas las versiones antiguas. `VACUUM` permite reutilizar espacio y evita problemas de identificadores de transacción. Por eso una transacción que permanece abierta durante mucho tiempo también puede dificultar mantenimiento.
 
 ## Niveles de aislamiento
 
-| Nivel | Idea práctica |
-| --- | --- |
-| `READ COMMITTED` | Cada sentencia ve datos confirmados al comenzar; es el valor predeterminado |
-| `REPEATABLE READ` | La transacción conserva una instantánea estable |
-| `SERIALIZABLE` | El resultado equivale a una ejecución serial, pero puede exigir reintentos |
+| Nivel             | Idea práctica                                                               |
+| ----------------- | --------------------------------------------------------------------------- |
+| `READ COMMITTED`  | Cada sentencia ve datos confirmados al comenzar; es el valor predeterminado |
+| `REPEATABLE READ` | La transacción conserva una instantánea estable                             |
+| `SERIALIZABLE`    | El resultado equivale a una ejecución serial, pero puede exigir reintentos  |
 
 PostgreSQL trata `READ UNCOMMITTED` como `READ COMMITTED`. `REPEATABLE READ` evita cambios de la instantánea durante la transacción, pero no sustituye todas las reglas de negocio. `SERIALIZABLE` detecta dependencias peligrosas y puede abortar una transacción para preservar el resultado serial.
 
@@ -72,12 +72,12 @@ Una restricción o actualización atómica suele ser más robusta que “consult
 
 ## Locks de fila
 
-| Forma | Intención aproximada |
-| --- | --- |
-| `FOR UPDATE` | bloquear filas que se modificarán |
-| `FOR NO KEY UPDATE` | modificar sin cambiar claves referenciables |
-| `FOR SHARE` | permitir lecturas compartidas y bloquear cambios incompatibles |
-| `FOR KEY SHARE` | proteger claves ante eliminación o cambio |
+| Forma               | Intención aproximada                                           |
+| ------------------- | -------------------------------------------------------------- |
+| `FOR UPDATE`        | bloquear filas que se modificarán                              |
+| `FOR NO KEY UPDATE` | modificar sin cambiar claves referenciables                    |
+| `FOR SHARE`         | permitir lecturas compartidas y bloquear cambios incompatibles |
+| `FOR KEY SHARE`     | proteger claves ante eliminación o cambio                      |
 
 `NOWAIT` falla inmediatamente si la fila está bloqueada. `SKIP LOCKED` salta filas ocupadas y es útil para colas de trabajo, pero produce una vista deliberadamente inconsistente y no corresponde a cualquier listado.
 
@@ -153,4 +153,3 @@ Un worker publica eventos pendientes y marca su entrega. Como el consumidor tamb
 
 - [PostgreSQL: aislamiento de transacciones](https://www.postgresql.org/docs/current/transaction-iso.html)
 - [PostgreSQL: bloqueo explícito](https://www.postgresql.org/docs/current/explicit-locking.html)
-

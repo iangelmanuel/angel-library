@@ -26,7 +26,7 @@ El error habitual es leerlo como un cuestionario y contar aciertos. Rinde mucho 
 2. **Lee la explicación aunque hayas acertado.** Muchas veces se acierta por el motivo equivocado, y eso solo se descubre leyendo.
 3. **Reproduce en la consola lo que no te cuadre.** Casi todas las preguntas son de pocas líneas y se pueden pegar en el navegador.
 
-Los temas que más aparecen son *hoisting*, coerción de tipos, `this`, prototipos, el bucle de eventos, `async`/`await` y ámbito de las variables. Es decir, exactamente lo que se pregunta en entrevistas.
+Los temas que más aparecen son _hoisting_, coerción de tipos, `this`, prototipos, el bucle de eventos, `async`/`await` y ámbito de las variables. Es decir, exactamente lo que se pregunta en entrevistas.
 
 ## Aviso sobre mantenimiento
 

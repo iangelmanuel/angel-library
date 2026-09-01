@@ -35,20 +35,20 @@ Ver también @src/libs/errors.ts para el formato de error estándar.
 
 ## Los 4 modos de activación
 
-| Modo | Config |
-| --- | --- |
-| **Always Apply** | `alwaysApply: true` — siempre en contexto |
-| **Auto Attached** | `globs: "src/**/*.tsx"` — se activa cuando un archivo que matchea está en contexto |
-| **Agent Requested** | Solo `description` — el agente lee la descripción y decide si aplica |
-| **Manual** | Sin nada de lo anterior — solo se activa mencionando `@nombre-de-regla` en el chat |
+| Modo                | Config                                                                             |
+| ------------------- | ---------------------------------------------------------------------------------- |
+| **Always Apply**    | `alwaysApply: true` — siempre en contexto                                          |
+| **Auto Attached**   | `globs: "src/**/*.tsx"` — se activa cuando un archivo que matchea está en contexto |
+| **Agent Requested** | Solo `description` — el agente lee la descripción y decide si aplica               |
+| **Manual**          | Sin nada de lo anterior — solo se activa mencionando `@nombre-de-regla` en el chat |
 
 ## Resumen
 
-| Campo | Para qué |
-| --- | --- |
+| Campo         | Para qué                                                  |
+| ------------- | --------------------------------------------------------- |
 | `description` | Usado por el modo Agent Requested para decidir relevancia |
-| `globs` | Patrón de archivos para auto-attach |
-| `alwaysApply` | `true` = siempre activa, sin importar el contexto |
+| `globs`       | Patrón de archivos para auto-attach                       |
+| `alwaysApply` | `true` = siempre activa, sin importar el contexto         |
 
 ## Consideraciones
 

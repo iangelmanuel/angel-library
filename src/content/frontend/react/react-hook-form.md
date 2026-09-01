@@ -16,34 +16,40 @@ React Hook Form evita el problema clásico de un formulario controlado con `useS
 ## Uso básico
 
 ```tsx title="LoginForm.tsx"
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form"
 
 interface FormValues {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export function LoginForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormValues>();
+    formState: { errors, isSubmitting }
+  } = useForm<FormValues>()
 
   const onSubmit = async (data: FormValues) => {
     // data ya validado
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="email" {...register('email', { required: 'El email es obligatorio' })} />
+      <input
+        type="email"
+        {...register("email", { required: "El email es obligatorio" })}
+      />
       {errors.email && <p>{errors.email.message}</p>}
 
-      <input type="password" {...register('password', { required: true, minLength: 8 })} />
+      <input
+        type="password"
+        {...register("password", { required: true, minLength: 8 })}
+      />
 
       <button disabled={isSubmitting}>Entrar</button>
     </form>
-  );
+  )
 }
 ```
 

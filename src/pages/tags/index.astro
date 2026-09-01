@@ -1,10 +1,10 @@
 ---
-import DocsLayout from '@/layouts/DocsLayout.astro';
-import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import TagExplorer from '@/components/content/TagExplorer';
-import { getAllEntries, getAllTags } from '@/lib/content';
+import DocsLayout from "@/layouts/DocsLayout.astro"
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
+import TagExplorer from "@/components/content/TagExplorer"
+import { getAllEntries, getAllTags } from "@/lib/content"
 
-const tags = getAllTags(await getAllEntries());
+const tags = getAllTags(await getAllEntries())
 ---
 
 <DocsLayout
@@ -12,21 +12,29 @@ const tags = getAllTags(await getAllEntries());
   description="Todos los tags de la biblioteca: conectan contenido de cualquier tipo y categoría."
 >
   <div class="mx-auto w-full max-w-4xl">
-    <Breadcrumbs items={[{ label: 'inicio', href: '/' }, { label: 'tags', segment: 'tags' }]} />
+    <Breadcrumbs
+      items={[
+        { label: "inicio", href: "/" },
+        { label: "tags", segment: "tags" }
+      ]}
+    />
 
     <header class="mb-8 border-b border-border pb-8">
       <div class="mb-4 flex items-center gap-2 text-muted-foreground">
-        <span class="font-pixel text-[0.62rem] uppercase tracking-wider">
+        <span class="font-pixel text-[0.62rem] tracking-wider uppercase">
           {tags.length} tags
         </span>
       </div>
       <h1 class="font-pixel text-2xl md:text-3xl">Tags</h1>
       <p class="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-        Los tags conectan contenido de cualquier tipo y categoría. Úsalos para saltar
-        entre temas y descubrir contenido relacionado.
+        Los tags conectan contenido de cualquier tipo y categoría. Úsalos para
+        saltar entre temas y descubrir contenido relacionado.
       </p>
     </header>
 
-    <TagExplorer client:load tags={tags} />
+    <TagExplorer
+      client:load
+      tags={tags}
+    />
   </div>
 </DocsLayout>

@@ -15,16 +15,16 @@ Desde Next.js 16, el archivo `middleware.ts` se renombró a **`proxy.ts`** — e
 `proxy.ts` en la raíz del proyecto (o dentro de `src/` si tu estructura usa esa carpeta), al mismo nivel que `app/`.
 
 ```ts title="proxy.ts"
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 
 export function proxy(request: NextRequest) {
-  return NextResponse.redirect(new URL('/inicio', request.url));
+  return NextResponse.redirect(new URL("/inicio", request.url))
 }
 
 export const config = {
-  matcher: '/about/:path*',
-};
+  matcher: "/about/:path*"
+}
 ```
 
 ## `matcher` — En qué rutas corre
@@ -33,50 +33,48 @@ Sin `matcher`, el Proxy corre en **todas** las requests, incluidos archivos est�
 
 ```ts
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
-};
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"]
+}
 ```
 
 ## Caso típico: chequeo de auth con redirect
 
 ```ts title="proxy.ts"
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 
 export function proxy(request: NextRequest) {
-  const token = request.cookies.get('token');
+  const token = request.cookies.get("token")
 
-  if (!token && request.nextUrl.pathname.startsWith('/panel')) {
-    return NextResponse.redirect(new URL('/login', request.url));
+  if (!token && request.nextUrl.pathname.startsWith("/panel")) {
+    return NextResponse.redirect(new URL("/login", request.url))
   }
 
-  return NextResponse.next();
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: '/panel/:path*',
-};
+  matcher: "/panel/:path*"
+}
 ```
 
 ## `NextResponse` — Las tres formas de responder
 
 ```ts
-NextResponse.next();                          // dejar pasar la request tal cual
-NextResponse.redirect(new URL('/x', url));     // redirigir
-NextResponse.rewrite(new URL('/y', url));      // servir otra ruta, sin cambiar la URL visible
+NextResponse.next() // dejar pasar la request tal cual
+NextResponse.redirect(new URL("/x", url)) // redirigir
+NextResponse.rewrite(new URL("/y", url)) // servir otra ruta, sin cambiar la URL visible
 ```
 
 ## API de Proxy en una mirada
 
-| API | Uso |
-| --- | --- |
-| `proxy.ts` en la raíz | Reemplaza a `middleware.ts` desde Next 16 |
-| `export function proxy(request)` | Función principal (o default export) |
-| `export const config = { matcher }` | En qué rutas corre |
-| `NextResponse.redirect/rewrite/next()` | Las tres formas de responder |
-| `request.cookies` / `request.nextUrl` | Leer cookies y la URL parseada de la request entrante |
+| API                                    | Uso                                                   |
+| -------------------------------------- | ----------------------------------------------------- |
+| `proxy.ts` en la raíz                  | Reemplaza a `middleware.ts` desde Next 16             |
+| `export function proxy(request)`       | Función principal (o default export)                  |
+| `export const config = { matcher }`    | En qué rutas corre                                    |
+| `NextResponse.redirect/rewrite/next()` | Las tres formas de responder                          |
+| `request.cookies` / `request.nextUrl`  | Leer cookies y la URL parseada de la request entrante |
 
 ## Alcance, latencia y seguridad
 

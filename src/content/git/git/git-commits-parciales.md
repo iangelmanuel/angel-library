@@ -22,13 +22,13 @@ git add -p src/login.ts
 
 Git muestra cada bloque y espera una respuesta:
 
-| Tecla | Acción |
-| --- | --- |
-| `y` | preparar este bloque |
-| `n` | dejarlo fuera |
-| `s` | dividirlo en bloques más pequeños |
-| `e` | editar manualmente el parche |
-| `q` | salir |
+| Tecla | Acción                            |
+| ----- | --------------------------------- |
+| `y`   | preparar este bloque              |
+| `n`   | dejarlo fuera                     |
+| `s`   | dividirlo en bloques más pequeños |
+| `e`   | editar manualmente el parche      |
+| `q`   | salir                             |
 
 Después revisa el resultado:
 

@@ -52,12 +52,12 @@ Después de iniciar sesión, cambiar la contraseña, activar MFA o elevar privil
 
 Documenta las decisiones con una tabla y conviértela en pruebas:
 
-| Actor | Acción | Recurso propio | Resultado |
-| --- | --- | --- | --- |
-| visitante | leer artículo público | no aplica | permitir |
-| usuario | editar proyecto | sí | permitir |
-| usuario | editar proyecto | no | denegar |
-| administrador | exportar usuarios | no aplica | permitir con auditoría |
+| Actor         | Acción                | Recurso propio | Resultado              |
+| ------------- | --------------------- | -------------- | ---------------------- |
+| visitante     | leer artículo público | no aplica      | permitir               |
+| usuario       | editar proyecto       | sí             | permitir               |
+| usuario       | editar proyecto       | no             | denegar                |
+| administrador | exportar usuarios     | no aplica      | permitir con auditoría |
 
 Prueba también estados de cuenta suspendida, recurso eliminado, rol cambiado durante la sesión y acceso directo a un id ajeno. Los identificadores difíciles de adivinar ayudan, pero nunca sustituyen la comprobación de ownership.
 

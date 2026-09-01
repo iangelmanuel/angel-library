@@ -1,9 +1,9 @@
 ---
 interface Props {
-  label: string;
+  label: string
 }
 
-const { label } = Astro.props;
+const { label } = Astro.props
 ---
 
 <button
@@ -25,8 +25,15 @@ const { label } = Astro.props;
     stroke-linejoin="round"
     aria-hidden="true"
   >
-    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+    <rect
+      width="14"
+      height="14"
+      x="8"
+      y="8"
+      rx="2"
+      ry="2"
+    ></rect>
+    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
   </svg>
   <span data-copy-label>copiar</span>
 </button>

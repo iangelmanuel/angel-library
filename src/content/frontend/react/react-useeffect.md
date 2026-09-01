@@ -17,8 +17,8 @@ useEffect(() => {
   // código que corre después de pintar el DOM
   return () => {
     // cleanup: corre antes del próximo efecto, y al desmontar
-  };
-}, [dependencias]);
+  }
+}, [dependencias])
 ```
 
 El array de dependencias no es una opción de "cuándo correr" que tú eliges libremente — tiene que listar **todos** los valores reactivos (props, state, y cualquier cosa derivada de ellos) que el efecto lee. React los compara con los del render anterior; si alguno cambió, vuelve a correr el efecto.
@@ -28,10 +28,10 @@ El array de dependencias no es una opción de "cuándo correr" que tú eliges li
 ```tsx
 function ChatRoom({ roomId }: { roomId: string }) {
   useEffect(() => {
-    const conexion = crearConexion(roomId);
-    conexion.conectar();
-    return () => conexion.desconectar();
-  }, []); // 🔴 roomId se usa adentro pero no está declarado
+    const conexion = crearConexion(roomId)
+    conexion.conectar()
+    return () => conexion.desconectar()
+  }, []) // 🔴 roomId se usa adentro pero no está declarado
 }
 ```
 
@@ -47,45 +47,45 @@ Un objeto literal (`{ ... }`) o una función declarada dentro del componente son
 
 ```tsx
 function ChatRoom({ roomId }: { roomId: string }) {
-  const opciones = { roomId, servidor: 'wss://ejemplo.com' }; // 🔴 objeto nuevo cada render
+  const opciones = { roomId, servidor: "wss://ejemplo.com" } // 🔴 objeto nuevo cada render
 
   useEffect(() => {
-    const conexion = crearConexion(opciones);
-    conexion.conectar();
-    return () => conexion.desconectar();
-  }, [opciones]); // se re-ejecuta en cada render, sin parar
+    const conexion = crearConexion(opciones)
+    conexion.conectar()
+    return () => conexion.desconectar()
+  }, [opciones]) // se re-ejecuta en cada render, sin parar
 }
 ```
 
 Solución: mueve el objeto **dentro** del efecto —así deja de ser una dependencia externa— y depende solo de los valores primitivos que realmente cambian.
 
 ```tsx
-  useEffect(() => {
-    const opciones = { roomId, servidor: 'wss://ejemplo.com' };
-    const conexion = crearConexion(opciones);
-    conexion.conectar();
-    return () => conexion.desconectar();
-  }, [roomId]); // ✅ depende de un primitivo, no de un objeto
+useEffect(() => {
+  const opciones = { roomId, servidor: "wss://ejemplo.com" }
+  const conexion = crearConexion(opciones)
+  conexion.conectar()
+  return () => conexion.desconectar()
+}, [roomId]) // ✅ depende de un primitivo, no de un objeto
 ```
 
 ## Causa 3 — Leer un state para actualizar ese mismo state
 
 ```tsx
 useEffect(() => {
-  conexion.on('mensaje', (nuevo) => {
-    setMensajes([...mensajes, nuevo]); // 🔴 lee "mensajes"
-  });
-}, [roomId, mensajes]); // mensajes cambia → el efecto se re-ejecuta → reconecta → ...
+  conexion.on("mensaje", (nuevo) => {
+    setMensajes([...mensajes, nuevo]) // 🔴 lee "mensajes"
+  })
+}, [roomId, mensajes]) // mensajes cambia → el efecto se re-ejecuta → reconecta → ...
 ```
 
 Arreglo: usar la forma funcional de `setState`, que recibe el valor más reciente sin necesitar leerlo afuera — así `mensajes` deja de ser una dependencia.
 
 ```tsx
 useEffect(() => {
-  conexion.on('mensaje', (nuevo) => {
-    setMensajes((prev) => [...prev, nuevo]); // ✅ no depende de "mensajes"
-  });
-}, [roomId]);
+  conexion.on("mensaje", (nuevo) => {
+    setMensajes((prev) => [...prev, nuevo]) // ✅ no depende de "mensajes"
+  })
+}, [roomId])
 ```
 
 ## Causa 4 — Necesitas el valor más reciente, pero sin "reaccionar" a sus cambios
@@ -93,29 +93,29 @@ useEffect(() => {
 A veces un efecto necesita leer algo actualizado (`isMuted`, por ejemplo) sin que ese algo dispare una re-ejecución completa del efecto cuando cambia solo. Para eso existen los Effect Events (`useEffectEvent`, React 19+): una función que siempre ve el valor más reciente, pero no cuenta como dependencia reactiva.
 
 ```tsx
-import { useEffectEvent } from 'react';
+import { useEffectEvent } from "react"
 
 function Sala({ roomId, isMuted }: { roomId: string; isMuted: boolean }) {
   const onMensaje = useEffectEvent((mensaje: string) => {
-    if (!isMuted) reproducirSonido(mensaje); // lee isMuted actual, sin ser dependencia
-  });
+    if (!isMuted) reproducirSonido(mensaje) // lee isMuted actual, sin ser dependencia
+  })
 
   useEffect(() => {
-    const conexion = crearConexion(roomId);
-    conexion.on('mensaje', onMensaje);
-    return () => conexion.desconectar();
-  }, [roomId]); // isMuted no está aquí — cambiar el mute no reconecta el chat
+    const conexion = crearConexion(roomId)
+    conexion.on("mensaje", onMensaje)
+    return () => conexion.desconectar()
+  }, [roomId]) // isMuted no está aquí — cambiar el mute no reconecta el chat
 }
 ```
 
 ## API de efectos en una mirada
 
-| Causa del loop | Arreglo |
-| --- | --- |
-| Falta una dependencia reactiva | Agregarla — el linter la señala |
-| Objeto/función nuevo cada render como dependencia | Moverlo adentro del efecto, o depender de sus valores primitivos |
-| Leer un state para actualizar ese mismo state | `setEstado(prev => ...)` en vez de leer la variable externa |
-| Necesitas el valor último sin reaccionar a sus cambios | `useEffectEvent` para esa lectura específica |
+| Causa del loop                                         | Arreglo                                                          |
+| ------------------------------------------------------ | ---------------------------------------------------------------- |
+| Falta una dependencia reactiva                         | Agregarla — el linter la señala                                  |
+| Objeto/función nuevo cada render como dependencia      | Moverlo adentro del efecto, o depender de sus valores primitivos |
+| Leer un state para actualizar ese mismo state          | `setEstado(prev => ...)` en vez de leer la variable externa      |
+| Necesitas el valor último sin reaccionar a sus cambios | `useEffectEvent` para esa lectura específica                     |
 
 ## Dependencias, limpieza y sincronización
 

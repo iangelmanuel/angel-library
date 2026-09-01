@@ -19,8 +19,8 @@ NEXT_PUBLIC_APP_NAME=Mi aplicación
 ```
 
 ```ts
-const databaseUrl = process.env.DATABASE_URL;       // servidor
-const appName = process.env.NEXT_PUBLIC_APP_NAME;   // servidor y navegador
+const databaseUrl = process.env.DATABASE_URL // servidor
+const appName = process.env.NEXT_PUBLIC_APP_NAME // servidor y navegador
 ```
 
 ## Orden y archivos
@@ -36,12 +36,14 @@ Las variables privadas pueden leerse durante render server-side, Route Handlers 
 ## Validar al iniciar
 
 ```ts title="src/env.ts"
-import { z } from 'zod';
+import { z } from "zod"
 
-export const env = z.object({
-  DATABASE_URL: z.url(),
-  AUTH_SECRET: z.string().min(32),
-}).parse(process.env);
+export const env = z
+  .object({
+    DATABASE_URL: z.url(),
+    AUTH_SECRET: z.string().min(32)
+  })
+  .parse(process.env)
 ```
 
 Importa este módulo desde el código de servidor para fallar temprano con un mensaje claro. No uses una validación que lea `process.env` completo desde un Client Component.

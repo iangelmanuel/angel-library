@@ -17,40 +17,42 @@ updatedAt: 2026-08-25
 ## Validar en la frontera
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod"
 
-const createUserSchema = z.object({
-  name: z.string().trim().min(2).max(80),
-  email: z.string().email(),
-  age: z.coerce.number().int().min(13).max(120).optional(),
-}).strict();
+const createUserSchema = z
+  .object({
+    name: z.string().trim().min(2).max(80),
+    email: z.string().email(),
+    age: z.coerce.number().int().min(13).max(120).optional()
+  })
+  .strict()
 
-type CreateUserInput = z.infer<typeof createUserSchema>;
+type CreateUserInput = z.infer<typeof createUserSchema>
 
 declare global {
   namespace Express {
     interface Request {
-      validatedBody?: CreateUserInput;
+      validatedBody?: CreateUserInput
     }
   }
 }
 
-app.post('/users', (req, res, next) => {
-  const result = createUserSchema.safeParse(req.body);
+app.post("/users", (req, res, next) => {
+  const result = createUserSchema.safeParse(req.body)
 
   if (!result.success) {
     return res.status(400).json({
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Revisa los datos enviados',
-        fields: result.error.flatten().fieldErrors,
-      },
-    });
+        code: "VALIDATION_ERROR",
+        message: "Revisa los datos enviados",
+        fields: result.error.flatten().fieldErrors
+      }
+    })
   }
 
-  req.validatedBody = result.data;
-  next();
-});
+  req.validatedBody = result.data
+  next()
+})
 ```
 
 Después de `safeParse`, `result.data` es el dato transformado y validado. Usa ese valor; no vuelvas a leer `req.body`, porque conservaría la entrada original.
@@ -74,14 +76,14 @@ Query params llegan como texto. La coerción es útil, pero algunos valores sorp
 const listQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
-  sort: z.enum(['createdAt', 'name']).default('createdAt'),
-});
+  sort: z.enum(["createdAt", "name"]).default("createdAt")
+})
 ```
 
 ## TypeScript no protege la red
 
 ```ts
-const input = req.body as CreateUserInput;
+const input = req.body as CreateUserInput
 ```
 
 Una aserción `as` solo silencia al compilador. No cambia ni inspecciona el dato. Genera tipos desde el schema o mantenlos alineados con pruebas de contrato.
@@ -93,7 +95,7 @@ Devuelve un código estable para el programa cliente, un mensaje entendible y er
 ## Límites antes del schema
 
 ```ts
-app.use(express.json({ limit: '100kb', type: 'application/json' }));
+app.use(express.json({ limit: "100kb", type: "application/json" }))
 ```
 
 El límite del parser evita acumular bodies enormes. Para archivos usa streaming o carga directa a object storage; no amplíes el límite JSON para recibir base64 sin evaluar costo de memoria.

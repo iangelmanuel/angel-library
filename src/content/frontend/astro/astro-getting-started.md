@@ -64,26 +64,29 @@ Solo `src/pages/` está reservado para el routing. Las demás carpetas son conve
 ```astro title="src/components/Greeting.astro"
 ---
 interface Props {
-  name: string;
+  name: string
 }
 
-const { name } = Astro.props;
-const createdAt = new Date();
+const { name } = Astro.props
+const createdAt = new Date()
 ---
 
-<p>Hola, {name}. Renderizado a las {createdAt.toLocaleTimeString('es-CO')}.</p>
+<p>Hola, {name}. Renderizado a las {createdAt.toLocaleTimeString("es-CO")}.</p>
 ```
 
 ```astro title="src/pages/index.astro"
 ---
-import Greeting from '../components/Greeting.astro';
+import Greeting from "../components/Greeting.astro"
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="viewport"
+      content="width=device-width"
+    />
     <title>Mi sitio Astro</title>
   </head>
   <body>
@@ -99,23 +102,23 @@ El bloque entre `---` se denomina **component script** o frontmatter del compone
 
 ## Comandos que debes reconocer
 
-| Comando | Propósito |
-| --- | --- |
-| `pnpm dev` | servidor de desarrollo con recarga |
-| `pnpm build` | genera la salida de producción y revela errores de build |
-| `pnpm preview` | sirve localmente la salida compilada cuando el adapter lo permite |
-| `pnpm astro check` | revisa tipos y diagnósticos de archivos Astro |
-| `pnpm astro sync` | regenera tipos de contenido, módulos y configuración |
+| Comando            | Propósito                                                         |
+| ------------------ | ----------------------------------------------------------------- |
+| `pnpm dev`         | servidor de desarrollo con recarga                                |
+| `pnpm build`       | genera la salida de producción y revela errores de build          |
+| `pnpm preview`     | sirve localmente la salida compilada cuando el adapter lo permite |
+| `pnpm astro check` | revisa tipos y diagnósticos de archivos Astro                     |
+| `pnpm astro sync`  | regenera tipos de contenido, módulos y configuración              |
 
 `dev` no sustituye `build`: integraciones, rutas estáticas y variables pueden comportarse de forma distinta en producción. Ejecuta ambos antes de considerar terminada una funcionalidad.
 
 ## Tres lugares donde puede ejecutarse el código
 
-| Lugar | Ejemplos | Puede usar secretos |
-| --- | --- | --- |
-| build | página estática, `getStaticPaths()` | sí, pero no debe imprimirlos en HTML |
-| servidor por request | página on-demand, endpoint, Action | sí |
-| navegador | `<script>`, isla hidratada | no |
+| Lugar                | Ejemplos                            | Puede usar secretos                  |
+| -------------------- | ----------------------------------- | ------------------------------------ |
+| build                | página estática, `getStaticPaths()` | sí, pero no debe imprimirlos en HTML |
+| servidor por request | página on-demand, endpoint, Action  | sí                                   |
+| navegador            | `<script>`, isla hidratada          | no                                   |
 
 Esta separación es el modelo mental más importante de Astro. Una variable disponible en el frontmatter no existe automáticamente dentro de un `<script>` del navegador, y un evento `click` no puede ejecutarse en un componente `.astro` que nunca fue hidratado.
 
@@ -136,4 +139,3 @@ Si puedes explicar qué código se ejecutó durante el build y qué HTML recibi�
 - Esperar que una variable del frontmatter cambie después de cargar la página.
 - Añadir una isla de framework para una interacción que un `<script>` pequeño o HTML nativo resuelve.
 - depender únicamente de `dev` y descubrir problemas durante el despliegue.
-

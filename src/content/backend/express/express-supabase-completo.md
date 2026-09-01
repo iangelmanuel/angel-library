@@ -25,70 +25,77 @@ SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 ```
 
 ```ts title="lib/supabase.ts"
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js"
 
 export const supabaseAdmin = createClient(
   process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
 ```
 
 ## Paso 2: middleware que verifica el token del frontend
 
 ```ts title="middlewares/requireAuth.ts"
-import type { Request, Response, NextFunction } from 'express';
-import { supabaseAdmin } from '../lib/supabase';
+import type { NextFunction, Request, Response } from "express"
+import { supabaseAdmin } from "../lib/supabase"
 
 declare global {
   namespace Express {
     interface Request {
-      user?: { id: string; email?: string };
+      user?: { id: string; email?: string }
     }
   }
 }
 
-export async function requireAuth(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.authorization?.replace('Bearer ', '');
-  if (!token) return res.status(401).json({ error: 'No autenticado' });
+export async function requireAuth(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const token = req.headers.authorization?.replace("Bearer ", "")
+  if (!token) return res.status(401).json({ error: "No autenticado" })
 
-  const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
-  if (error || !user) return res.status(401).json({ error: 'Token inválido' });
+  const {
+    data: { user },
+    error
+  } = await supabaseAdmin.auth.getUser(token)
+  if (error || !user) return res.status(401).json({ error: "Token inválido" })
 
-  req.user = { id: user.id, email: user.email };
-  next();
+  req.user = { id: user.id, email: user.email }
+  next()
 }
 ```
 
 ## Paso 3: endpoint que usa el `user.id` para filtrar datos propios
 
 ```ts title="app.ts"
-import express from 'express';
-import { supabaseAdmin } from './lib/supabase';
-import { requireAuth } from './middlewares/requireAuth';
+import express from "express"
+import { supabaseAdmin } from "./lib/supabase"
+import { requireAuth } from "./middlewares/requireAuth"
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-app.get('/mis-posts', requireAuth, async (req, res) => {
+app.get("/mis-posts", requireAuth, async (req, res) => {
   const { data, error } = await supabaseAdmin
-    .from('posts')
-    .select('*')
-    .eq('author_id', req.user!.id); // filtra explícito, no depende de RLS aquí (service role la salta)
+    .from("posts")
+    .select("*")
+    .eq("author_id", req.user!.id) // filtra explícito, no depende de RLS aquí (service role la salta)
 
-  if (error) return res.status(500).json({ error: 'Error al leer posts' });
-  res.json(data);
-});
+  if (error) return res.status(500).json({ error: "Error al leer posts" })
+  res.json(data)
+})
 
-app.post('/posts', requireAuth, async (req, res) => {
+app.post("/posts", requireAuth, async (req, res) => {
   const { data, error } = await supabaseAdmin
-    .from('posts')
+    .from("posts")
     .insert({ title: req.body.title, author_id: req.user!.id })
     .select()
-    .single();
+    .single()
 
-  if (error) return res.status(500).json({ error: 'Error al crear post' });
-  res.status(201).json(data);
-});
+  if (error) return res.status(500).json({ error: "Error al crear post" })
+  res.status(201).json(data)
+})
 ```
 
 ## Por qué el filtro `.eq('author_id', ...)` es explícito aquí

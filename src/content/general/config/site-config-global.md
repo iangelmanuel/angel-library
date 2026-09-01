@@ -33,7 +33,7 @@ export const SITE = {
     slogan: "Construimos lo que tu negocio necesita, no lo que sobra.",
     founded: 2025,
     founders: [{ name: "Jane Doe", role: "Cofundadora" }],
-    teams: [] as Array<{ name: string; lead: string }>,
+    teams: [] as Array<{ name: string; lead: string }>
   },
 
   site: {
@@ -41,7 +41,7 @@ export const SITE = {
     locale: "es-CO",
     lang: "es",
     timezone: "America/Bogota",
-    currency: "COP",
+    currency: "COP"
   },
 
   location: {
@@ -52,7 +52,7 @@ export const SITE = {
     countryCode: "CO",
     postalCode: "110111",
     timezone: "America/Bogota",
-    display: "Bogotá, Colombia",
+    display: "Bogotá, Colombia"
   },
 
   contact: {
@@ -62,14 +62,14 @@ export const SITE = {
     phoneDisplay: () => `${SITE.contact.countryCode} ${SITE.contact.phone}`,
     whatsapp: () =>
       `${SITE.contact.countryCode}${SITE.contact.phone.replace(/\s/g, "")}`,
-    landline: null as string | null,
+    landline: null as string | null
   },
 
   whatsAppMessage: {
     general: "Hola, quiero conocer más sobre los servicios.",
     service: (service: string) =>
       `Hola, estoy interesado en el servicio de ${service}. ¿Podrías darme más información?`,
-    appointment: "Hola, quiero agendar una reunión.",
+    appointment: "Hola, quiero agendar una reunión."
   },
 
   social: {
@@ -78,7 +78,7 @@ export const SITE = {
     x: "https://x.com/acmestudio",
     github: "https://github.com/acmestudio",
     tiktok: null as string | null,
-    youtube: "https://youtube.com/@acmestudio",
+    youtube: "https://youtube.com/@acmestudio"
   },
 
   businessHours: [
@@ -88,13 +88,21 @@ export const SITE = {
     { day: "Jueves", open: "09:00", close: "18:00" },
     { day: "Viernes", open: "09:00", close: "18:00" },
     { day: "Sábado", open: "10:00", close: "14:00" },
-    { day: "Domingo", open: null, close: null },
+    { day: "Domingo", open: null, close: null }
   ],
 
   legal: [
-    { slug: "privacidad", title: "Política de Privacidad", updatedAt: "2025-02-15" },
-    { slug: "terminos", title: "Términos y Condiciones", updatedAt: "2025-02-15" },
-    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" },
+    {
+      slug: "privacidad",
+      title: "Política de Privacidad",
+      updatedAt: "2025-02-15"
+    },
+    {
+      slug: "terminos",
+      title: "Términos y Condiciones",
+      updatedAt: "2025-02-15"
+    },
+    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" }
   ],
 
   navigation: {
@@ -103,14 +111,18 @@ export const SITE = {
       { name: "Servicios", href: "/servicios" },
       { name: "Portafolio", href: "/portafolio" },
       { name: "Blog", href: "/blog" },
-      { name: "Contacto", href: "/contacto" },
+      { name: "Contacto", href: "/contacto" }
     ],
-    cta: { label: "Catálogo", href: "/catalogo" },
+    cta: { label: "Catálogo", href: "/catalogo" }
   },
 
   stats: [
     { value: "+120", label: "Proyectos entregados", sublabel: "Desde 2025" },
-    { value: "98%", label: "Clientes que renuevan", sublabel: "Retención anual" },
+    {
+      value: "98%",
+      label: "Clientes que renuevan",
+      sublabel: "Retención anual"
+    }
   ],
 
   seo: {
@@ -128,7 +140,7 @@ export const SITE = {
       "landing pages",
       "Bogotá",
       "Colombia",
-      "software boutique",
+      "software boutique"
     ],
 
     author: "Jane Doe",
@@ -154,10 +166,7 @@ export const SITE = {
     twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
     twitterCard: "summary_large_image" as
-      | "summary"
-      | "summary_large_image"
-      | "app"
-      | "player",
+      "summary" | "summary_large_image" | "app" | "player",
     noindex: false,
 
     category: "technology",
@@ -169,9 +178,9 @@ export const SITE = {
 
     areaServed: [
       { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" },
-    ],
-  },
+      { type: "Place", name: "Latin America" }
+    ]
+  }
 } as const
 
 export function whatsAppMessage(message: string) {
@@ -181,18 +190,18 @@ export function whatsAppMessage(message: string) {
 
 ## Qué hace cada sección
 
-| Sección                                                                                          | Para qué                                                                                                                                       | ¿Obligatoria?                                                      |
-| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Sección                                                                               | Para qué                                                                                                                                       | ¿Obligatoria?                                                      |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | `info` (`name`, `legalName`, `description`, `slogan`, `founded`, `founders`, `teams`) | Marca, equipo — títulos, JSON-LD Organization/ProfessionalService (`description` es la de "quiénes somos", distinta de `seo.description`)      | Sí                                                                 |
-| `location`                                                                                       | Dirección física — JSON-LD PostalAddress, footer, contacto                                                                                     | Sí (aunque el negocio no tenga local físico, al menos ciudad/país) |
-| `contact` / `whatsAppMessage` / `whatsAppMessage()`                                             | Canales de contacto y sus CTAs — botones, JSON-LD ContactPoint                                                                                 | Sí                                                                 |
-| `social`                                                                                         | Redes — alimenta `sameAs` en JSON-LD, íconos de footer                                                                                         | Sí (puede ir vacío/`null` en las que no se usan)                   |
-| `businessHours`                                                                                  | Horario de atención — JSON-LD openingHoursSpecification                                                                                        | Opcional                                                           |
-| `legal`                                                                                          | Páginas legales — datos para generar rutas `/legal/[slug]`; agregarlas al sitemap es a mano, las dos recetas dejan `ROUTES` manual a propósito | Opcional                                                           |
-| `navigation`                                                                                     | Links del header/footer y el CTA principal — un solo lugar para el menú                                                                        | Sí                                                                 |
-| `stats`                                                                                          | Métricas destacadas — sección de la home                                                                                                       | Opcional                                                           |
-| `site`                                                                                           | Config técnica compartida (URL, locale, lang, timezone, currency) fuera del contexto de SEO — formateo de fechas, precios, etc.                | Sí                                                                 |
-| `seo`                                                                                            | Todo lo de SEO técnico — ver las dos recetas                                                                                                   | Sí                                                                 |
+| `location`                                                                            | Dirección física — JSON-LD PostalAddress, footer, contacto                                                                                     | Sí (aunque el negocio no tenga local físico, al menos ciudad/país) |
+| `contact` / `whatsAppMessage` / `whatsAppMessage()`                                   | Canales de contacto y sus CTAs — botones, JSON-LD ContactPoint                                                                                 | Sí                                                                 |
+| `social`                                                                              | Redes — alimenta `sameAs` en JSON-LD, íconos de footer                                                                                         | Sí (puede ir vacío/`null` en las que no se usan)                   |
+| `businessHours`                                                                       | Horario de atención — JSON-LD openingHoursSpecification                                                                                        | Opcional                                                           |
+| `legal`                                                                               | Páginas legales — datos para generar rutas `/legal/[slug]`; agregarlas al sitemap es a mano, las dos recetas dejan `ROUTES` manual a propósito | Opcional                                                           |
+| `navigation`                                                                          | Links del header/footer y el CTA principal — un solo lugar para el menú                                                                        | Sí                                                                 |
+| `stats`                                                                               | Métricas destacadas — sección de la home                                                                                                       | Opcional                                                           |
+| `site`                                                                                | Config técnica compartida (URL, locale, lang, timezone, currency) fuera del contexto de SEO — formateo de fechas, precios, etc.                | Sí                                                                 |
+| `seo`                                                                                 | Todo lo de SEO técnico — ver las dos recetas                                                                                                   | Sí                                                                 |
 
 ## `whatsAppMessage()`
 

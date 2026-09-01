@@ -28,17 +28,17 @@ La estructura completa identifica fuente, estímulo, entorno, artefacto afectado
 
 ## Atributos frecuentes
 
-| Atributo | Pregunta medible |
-| --- | --- |
-| disponibilidad | ¿qué porcentaje y qué funciones deben seguir? |
-| rendimiento | ¿latencia y throughput bajo qué carga? |
-| seguridad | ¿qué activo, actor y control se prueban? |
-| modificabilidad | ¿qué cambio debe quedar localizado? |
-| observabilidad | ¿cuánto tardamos en detectar y explicar? |
-| recuperación | ¿RTO y RPO aceptables? |
-| costo | ¿qué límite por usuario, request o mes? |
+| Atributo        | Pregunta medible                              |
+| --------------- | --------------------------------------------- |
+| disponibilidad  | ¿qué porcentaje y qué funciones deben seguir? |
+| rendimiento     | ¿latencia y throughput bajo qué carga?        |
+| seguridad       | ¿qué activo, actor y control se prueban?      |
+| modificabilidad | ¿qué cambio debe quedar localizado?           |
+| observabilidad  | ¿cuánto tardamos en detectar y explicar?      |
+| recuperación    | ¿RTO y RPO aceptables?                        |
+| costo           | ¿qué límite por usuario, request o mes?       |
 
-**RTO** (*Recovery Time Objective*) es el tiempo objetivo para restaurar. **RPO** (*Recovery Point Objective*) es cuántos datos se acepta perder medidos en tiempo.
+**RTO** (_Recovery Time Objective_) es el tiempo objetivo para restaurar. **RPO** (_Recovery Point Objective_) es cuántos datos se acepta perder medidos en tiempo.
 
 ## Los tradeoffs son el trabajo
 

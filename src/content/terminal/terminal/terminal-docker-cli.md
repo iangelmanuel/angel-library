@@ -5,7 +5,12 @@ type: guides
 order: 19
 tags: [terminal, docker, cli]
 scope: docker
-related: [devops/docker-conceptos/docker-instalacion, devops/docker-contenedores/docker-run-basico, devops/docker-compose/docker-compose-basico]
+related:
+  [
+    devops/docker-conceptos/docker-instalacion,
+    devops/docker-contenedores/docker-run-basico,
+    devops/docker-compose/docker-compose-basico
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -23,15 +28,15 @@ La instalación completa — Docker Desktop, WSL2 en Windows, y los pasos previo
 
 ## Comandos del día a día
 
-| Comando | Para qué se usa |
-|---|---|
-| `docker ps` | Ver contenedores corriendo |
-| `docker run <imagen>` | Crear y arrancar un contenedor |
-| `docker stop <contenedor>` | Detener un contenedor |
-| `docker logs -f <contenedor>` | Ver logs en vivo |
-| `docker exec -it <contenedor> bash` | Abrir una shell dentro de un contenedor corriendo |
-| `docker compose up -d` | Levantar todos los servicios definidos en `compose.yaml`, en segundo plano |
-| `docker compose down` | Bajar y eliminar los servicios levantados por Compose |
+| Comando                             | Para qué se usa                                                            |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| `docker ps`                         | Ver contenedores corriendo                                                 |
+| `docker run <imagen>`               | Crear y arrancar un contenedor                                             |
+| `docker stop <contenedor>`          | Detener un contenedor                                                      |
+| `docker logs -f <contenedor>`       | Ver logs en vivo                                                           |
+| `docker exec -it <contenedor> bash` | Abrir una shell dentro de un contenedor corriendo                          |
+| `docker compose up -d`              | Levantar todos los servicios definidos en `compose.yaml`, en segundo plano |
+| `docker compose down`               | Bajar y eliminar los servicios levantados por Compose                      |
 
 ## Documentación completa
 

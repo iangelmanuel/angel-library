@@ -34,10 +34,14 @@ Empieza por viewport estrecho y contenido real: títulos largos, traducciones, c
 ## Container query
 
 ```css
-.card-list { container-type: inline-size; }
+.card-list {
+  container-type: inline-size;
+}
 
 @container (min-width: 36rem) {
-  .card { grid-template-columns: 10rem 1fr; }
+  .card {
+    grid-template-columns: 10rem 1fr;
+  }
 }
 ```
 

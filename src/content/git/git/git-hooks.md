@@ -20,11 +20,11 @@ Cada repositorio creado con `git init` o `clone` ya trae una carpeta `.git/hooks
 
 ## Los hooks más usados
 
-| Hook | Cuándo corre |
-| --- | --- |
-| `pre-commit` | Antes de crear el commit (puede cancelarlo si falla) |
-| `commit-msg` | Después de escribir el mensaje, antes de confirmarlo (para validar formato) |
-| `pre-push` | Antes de subir commits al remoto |
+| Hook         | Cuándo corre                                                                          |
+| ------------ | ------------------------------------------------------------------------------------- |
+| `pre-commit` | Antes de crear el commit (puede cancelarlo si falla)                                  |
+| `commit-msg` | Después de escribir el mensaje, antes de confirmarlo (para validar formato)           |
+| `pre-push`   | Antes de subir commits al remoto                                                      |
 | `post-merge` | Después de un merge exitoso (útil para reinstalar dependencias si cambió el lockfile) |
 
 ## Un hook nativo básico
@@ -61,11 +61,11 @@ Con eso commiteado, cualquiera que clone el repo y corra `npm install` termina c
 
 ## Resumen
 
-| Comando/archivo | Qué hace |
-| --- | --- |
-| `.git/hooks/<nombre>` | Hook nativo, solo local, no versionado |
-| `chmod +x .git/hooks/<nombre>` | Requisito para que Git lo ejecute |
-| `.husky/<nombre>` (con Husky) | Mismo concepto, pero versionado y compartido con el equipo |
+| Comando/archivo                | Qué hace                                                   |
+| ------------------------------ | ---------------------------------------------------------- |
+| `.git/hooks/<nombre>`          | Hook nativo, solo local, no versionado                     |
+| `chmod +x .git/hooks/<nombre>` | Requisito para que Git lo ejecute                          |
+| `.husky/<nombre>` (con Husky)  | Mismo concepto, pero versionado y compartido con el equipo |
 
 ## Consideraciones
 

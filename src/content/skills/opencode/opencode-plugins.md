@@ -20,28 +20,28 @@ A diferencia de Claude Code (plugin = manifest que empaqueta skills+agentes+hook
 ## Plantilla base
 
 ```ts title=".opencode/plugins/format-on-save.ts"
-import type { Plugin } from '@opencode-ai/plugin';
+import type { Plugin } from "@opencode-ai/plugin"
 
 export const FormatOnSave: Plugin = async ({ $ }) => {
   return {
-    'file.edited': async ({ file }) => {
-      if (file.endsWith('.ts') || file.endsWith('.tsx')) {
-        await $`npx prettier --write ${file}`;
+    "file.edited": async ({ file }) => {
+      if (file.endsWith(".ts") || file.endsWith(".tsx")) {
+        await $`npx prettier --write ${file}`
       }
-    },
-  };
-};
+    }
+  }
+}
 ```
 
 ## Hooks disponibles (los más usados)
 
-| Hook | Cuándo corre |
-| --- | --- |
-| `tool.execute.before` / `.after` | Antes/después de que una tool corra |
-| `file.edited` | Después de editar un archivo |
-| `session.created` / `.idle` | Al crear una sesión / cuando queda inactiva |
-| `message.updated` | Cuando llega un mensaje nuevo |
-| `tui.toast.show` | Mostrar una notificación en la TUI |
+| Hook                             | Cuándo corre                                |
+| -------------------------------- | ------------------------------------------- |
+| `tool.execute.before` / `.after` | Antes/después de que una tool corra         |
+| `file.edited`                    | Después de editar un archivo                |
+| `session.created` / `.idle`      | Al crear una sesión / cuando queda inactiva |
+| `message.updated`                | Cuando llega un mensaje nuevo               |
+| `tui.toast.show`                 | Mostrar una notificación en la TUI          |
 
 ## Instalar vía npm
 
@@ -55,10 +55,10 @@ OpenCode instala el paquete automáticamente (con Bun) en el cache local al arra
 
 ## Resumen
 
-| Mecanismo | Cómo se distribuye |
-| --- | --- |
+| Mecanismo     | Cómo se distribuye                       |
+| ------------- | ---------------------------------------- |
 | Archivo local | `.opencode/plugins/*.ts`, copiado a mano |
-| Paquete npm | Listado en `opencode.json` → `plugin` |
+| Paquete npm   | Listado en `opencode.json` → `plugin`    |
 
 ## Consideraciones
 

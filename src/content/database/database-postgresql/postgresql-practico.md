@@ -31,16 +31,16 @@ En PostgreSQL, un **cluster** es una instancia que administra un conjunto de bas
 
 `psql` es el cliente de terminal oficial. Sus metacomandos comienzan con barra invertida y no son SQL.
 
-| Comando | Uso |
-| --- | --- |
-| `psql "$DATABASE_URL"` | conectar mediante URL |
-| `\conninfo` | ver conexión actual |
-| `\l` | listar bases |
-| `\dn` | listar esquemas |
-| `\dt` | listar tablas visibles |
-| `\d users` | describir una relación |
-| `\x` | alternar salida expandida |
-| `\timing` | mostrar duración de sentencias |
+| Comando                | Uso                            |
+| ---------------------- | ------------------------------ |
+| `psql "$DATABASE_URL"` | conectar mediante URL          |
+| `\conninfo`            | ver conexión actual            |
+| `\l`                   | listar bases                   |
+| `\dn`                  | listar esquemas                |
+| `\dt`                  | listar tablas visibles         |
+| `\d users`             | describir una relación         |
+| `\x`                   | alternar salida expandida      |
+| `\timing`              | mostrar duración de sentencias |
 
 No pegues una URL con contraseña en historial, capturas o logs. Prefiere variables de entorno o mecanismos de secretos del entorno.
 
@@ -61,14 +61,14 @@ El `search_path` decide en qué esquemas se buscan nombres sin calificar. En có
 
 ## Elegir tipos con intención
 
-| Dato | Tipo habitual | Nota |
-| --- | --- | --- |
-| Identidad interna | `bigint identity` o `uuid` | Decide según distribución y exposición |
-| Instante global | `timestamptz` | Guarda un instante; presenta en la zona del usuario |
-| Fecha civil | `date` | Cumpleaños o día de facturación, sin hora |
-| Dinero | `numeric(12,2)` o enteros de unidad mínima | Evita `float` para cálculos exactos |
-| Estado cerrado | `CHECK` o enum | `CHECK` suele ser más sencillo de evolucionar |
-| Documento flexible | `jsonb` | Útil cuando la forma varía, no para ocultar relaciones centrales |
+| Dato               | Tipo habitual                              | Nota                                                             |
+| ------------------ | ------------------------------------------ | ---------------------------------------------------------------- |
+| Identidad interna  | `bigint identity` o `uuid`                 | Decide según distribución y exposición                           |
+| Instante global    | `timestamptz`                              | Guarda un instante; presenta en la zona del usuario              |
+| Fecha civil        | `date`                                     | Cumpleaños o día de facturación, sin hora                        |
+| Dinero             | `numeric(12,2)` o enteros de unidad mínima | Evita `float` para cálculos exactos                              |
+| Estado cerrado     | `CHECK` o enum                             | `CHECK` suele ser más sencillo de evolucionar                    |
+| Documento flexible | `jsonb`                                    | Útil cuando la forma varía, no para ocultar relaciones centrales |
 
 ```sql
 CREATE TABLE events (
@@ -133,8 +133,8 @@ const { rows } = await pool.query(
    WHERE tenant_id = $1
    ORDER BY created_at DESC, id DESC
    LIMIT $2`,
-  [tenantId, Math.min(requestedLimit, 100)],
-);
+  [tenantId, Math.min(requestedLimit, 100)]
+)
 ```
 
 Parametrizar evita que el dato sea interpretado como sintaxis SQL. También limita resultados en la aplicación: un parámetro válido de un millón todavía puede agotar memoria o ancho de banda.
@@ -144,14 +144,14 @@ Parametrizar evita que el dato sea interpretado como sintaxis SQL. También limi
 Abrir una conexión por solicitud es costoso. Un **pool** mantiene un conjunto limitado y reutilizable:
 
 ```ts
-import { Pool } from 'pg';
+import { Pool } from "pg"
 
 export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   max: 10,
   idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 5_000,
-});
+  connectionTimeoutMillis: 5_000
+})
 ```
 
 El tamaño no se elige solo por tráfico. Debe respetar el máximo del servidor y la cantidad de instancias de la aplicación: `10 conexiones × 20 instancias` ya son 200. En funciones serverless suele ser necesario un proxy o pool administrado.
@@ -181,4 +181,3 @@ Un pool debe crearse una vez por proceso o instancia, no dentro de cada handler.
 - [PostgreSQL: JSON](https://www.postgresql.org/docs/current/datatype-json.html)
 - [PostgreSQL: esquemas](https://www.postgresql.org/docs/current/ddl-schemas.html)
 - [PostgreSQL: extensiones](https://www.postgresql.org/docs/current/external-extensions.html)
-

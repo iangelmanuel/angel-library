@@ -14,10 +14,10 @@ Las variables de entorno son la forma estándar de pasarle configuración a un p
 ## `process.env`
 
 ```ts
-console.log(process.env.NODE_ENV);      // 'development', 'production', etc.
-console.log(process.env.DATABASE_URL);  // undefined si no está seteada
+console.log(process.env.NODE_ENV) // 'development', 'production', etc.
+console.log(process.env.DATABASE_URL) // undefined si no está seteada
 
-const puerto = process.env.PORT ?? '3000'; // siempre string, o undefined
+const puerto = process.env.PORT ?? "3000" // siempre string, o undefined
 ```
 
 Todo lo que sale de `process.env` es **string** (o `undefined`) — un `PORT=3000` en el entorno llega como el string `"3000"`, no el número `3000`.
@@ -47,10 +47,11 @@ PORT=3000
 ```
 
 ```ts title="server.ts"
-import 'dotenv/config';   // primera línea del entry point: carga el .env antes que nada más
-import { createServer } from 'node:http';
+import "dotenv/config"
+// primera línea del entry point: carga el .env antes que nada más
+import { createServer } from "node:http"
 
-const puerto = process.env.PORT;
+const puerto = process.env.PORT
 ```
 
 Node 20.6+ tiene soporte nativo para `.env` sin instalar `dotenv`, con el flag `--env-file`:
@@ -79,16 +80,16 @@ PORT=3000
 `process.env.PUERTO_MAL_ESCRITO` no da un error — da `undefined`, silenciosamente, y el bug aparece mucho más tarde y más confuso. La [práctica de validar en las fronteras](/architecture/principios/validate-at-boundaries) aplica directo aquí: `process.env` es una frontera del sistema (viene de afuera, no lo controla el tipo de TypeScript).
 
 ```ts title="env.ts"
-import { z } from 'zod';
+import { z } from "zod"
 
 const envSchema = z.object({
   DATABASE_URL: z.url(),
   JWT_SECRET: z.string().min(16),
   PORT: z.coerce.number().default(3000),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-});
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development")
+})
 
-export const env = envSchema.parse(process.env);
+export const env = envSchema.parse(process.env)
 // env.PORT ya es number, no string — y si falta DATABASE_URL, el proceso
 // falla aquí, al arrancar, con un mensaje claro — no 500 requests después.
 ```
@@ -97,12 +98,12 @@ Con esto, el resto de la app importa `env` (tipado, ya validado) en vez de tocar
 
 ## Mapa de configuración
 
-| Cosa | Detalle |
-| --- | --- |
-| `process.env.X` | Siempre `string \| undefined`, nunca otro tipo |
-| `dotenv` / `node --env-file` | Cargar un `.env` en desarrollo |
-| `.env` en `.gitignore` | Nunca versionar secretos |
-| `.env.example` | Sí se versiona, documenta qué variables hacen falta |
+| Cosa                           | Detalle                                                                              |
+| ------------------------------ | ------------------------------------------------------------------------------------ |
+| `process.env.X`                | Siempre `string \| undefined`, nunca otro tipo                                       |
+| `dotenv` / `node --env-file`   | Cargar un `.env` en desarrollo                                                       |
+| `.env` en `.gitignore`         | Nunca versionar secretos                                                             |
+| `.env.example`                 | Sí se versiona, documenta qué variables hacen falta                                  |
 | `envSchema.parse(process.env)` | Falla rápido y claro si falta algo, en vez de un `undefined` silencioso más adelante |
 
 ## Reglas de despliegue

@@ -11,7 +11,7 @@ technologies: [frontend/react/react]
 updatedAt: 2026-08-30
 ---
 
-Un *skeleton* es ese esqueleto gris que ocupa el sitio del contenido mientras carga. El problema de siempre no es escribirlo, es **mantenerlo**: cada vez que cambia el componente real, el skeleton hecho a mano queda desalineado y nadie se entera hasta que se ve el salto en pantalla.
+Un _skeleton_ es ese esqueleto gris que ocupa el sitio del contenido mientras carga. El problema de siempre no es escribirlo, es **mantenerlo**: cada vez que cambia el componente real, el skeleton hecho a mano queda desalineado y nadie se entera hasta que se ve el salto en pantalla.
 
 Boneyard invierte el orden: en lugar de describir el skeleton, lo **deriva del componente real**.
 
@@ -26,7 +26,10 @@ export function PerfilUsuario() {
   return (
     <Skeleton>
       <article className="perfil">
-        <img src={usuario.avatar} alt="" />
+        <img
+          src={usuario.avatar}
+          alt=""
+        />
         <h2>{usuario.nombre}</h2>
         <p>{usuario.bio}</p>
       </article>
@@ -47,12 +50,12 @@ El resultado es un skeleton que coincide con el componente porque **salió de me
 
 ## Cuándo conviene
 
-| Situación | ¿Vale la pena? |
-| --- | --- |
-| Tarjetas, listas y perfiles con estructura estable | Sí: es justo donde el skeleton a mano se desincroniza |
-| Layouts que cambian mucho entre versiones | Sí: regenerar es un comando |
-| Un spinner simple basta | No: estás añadiendo Playwright y un paso de build para nada |
-| Contenido de altura muy variable | Con cuidado: la instantánea captura un estado concreto |
+| Situación                                          | ¿Vale la pena?                                              |
+| -------------------------------------------------- | ----------------------------------------------------------- |
+| Tarjetas, listas y perfiles con estructura estable | Sí: es justo donde el skeleton a mano se desincroniza       |
+| Layouts que cambian mucho entre versiones          | Sí: regenerar es un comando                                 |
+| Un spinner simple basta                            | No: estás añadiendo Playwright y un paso de build para nada |
+| Contenido de altura muy variable                   | Con cuidado: la instantánea captura un estado concreto      |
 
 ## Lo que hay que tener en cuenta
 

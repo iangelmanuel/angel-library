@@ -54,13 +54,13 @@ Git corre `npm test` en cada commit candidato — código de salida `0` cuenta c
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `git bisect start` | Empieza la búsqueda |
-| `git bisect bad [hash]` | Marca un commit como roto (sin hash, usa el actual) |
-| `git bisect good <hash>` | Marca un commit como sano |
+| Comando                    | Qué hace                                                           |
+| -------------------------- | ------------------------------------------------------------------ |
+| `git bisect start`         | Empieza la búsqueda                                                |
+| `git bisect bad [hash]`    | Marca un commit como roto (sin hash, usa el actual)                |
+| `git bisect good <hash>`   | Marca un commit como sano                                          |
 | `git bisect run <comando>` | Automatiza todo el proceso con un comando que devuelve éxito/fallo |
-| `git bisect reset` | Termina, vuelve al estado de antes de empezar |
+| `git bisect reset`         | Termina, vuelve al estado de antes de empezar                      |
 
 ## Consideraciones
 

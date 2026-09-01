@@ -23,12 +23,12 @@ updatedAt: 2026-08-25
 
 ## Error de sintaxis, excepción y rechazo
 
-| Situación | Ejemplo | Momento habitual |
-| --- | --- | --- |
-| error de sintaxis | llave sin cerrar | antes de ejecutar el archivo |
-| excepción síncrona | leer una propiedad de `undefined` | durante la pila actual |
-| Promise rechazada | falla dentro de una función `async` | se observa al esperar o encadenar la Promise |
-| error de dominio | saldo insuficiente | resultado esperado que el producto debe presentar |
+| Situación          | Ejemplo                             | Momento habitual                                  |
+| ------------------ | ----------------------------------- | ------------------------------------------------- |
+| error de sintaxis  | llave sin cerrar                    | antes de ejecutar el archivo                      |
+| excepción síncrona | leer una propiedad de `undefined`   | durante la pila actual                            |
+| Promise rechazada  | falla dentro de una función `async` | se observa al esperar o encadenar la Promise      |
+| error de dominio   | saldo insuficiente                  | resultado esperado que el producto debe presentar |
 
 ```js
 function parseSettings(text) {
@@ -36,10 +36,10 @@ function parseSettings(text) {
 }
 
 try {
-  parseSettings('{ invalid }')
+  parseSettings("{ invalid }")
 } catch (error) {
   error instanceof SyntaxError // true
-  error.message                // mensaje del runtime
+  error.message // mensaje del runtime
 }
 ```
 
@@ -61,23 +61,23 @@ try {
 
 ## Clases de error incorporadas
 
-| Clase | Indica normalmente | Ejemplo |
-| --- | --- | --- |
-| `Error` | fallo general de aplicación | operación imposible |
-| `TypeError` | tipo o forma incompatible | se esperaba un objeto |
-| `RangeError` | valor fuera de rango | página negativa |
-| `SyntaxError` | sintaxis inválida | JSON mal formado |
-| `ReferenceError` | identificador no disponible | variable no declarada |
-| `URIError` | codificación URI inválida | secuencia corrupta |
-| `AggregateError` | varios errores reunidos | todas fallan en `Promise.any` |
+| Clase            | Indica normalmente          | Ejemplo                       |
+| ---------------- | --------------------------- | ----------------------------- |
+| `Error`          | fallo general de aplicación | operación imposible           |
+| `TypeError`      | tipo o forma incompatible   | se esperaba un objeto         |
+| `RangeError`     | valor fuera de rango        | página negativa               |
+| `SyntaxError`    | sintaxis inválida           | JSON mal formado              |
+| `ReferenceError` | identificador no disponible | variable no declarada         |
+| `URIError`       | codificación URI inválida   | secuencia corrupta            |
+| `AggregateError` | varios errores reunidos     | todas fallan en `Promise.any` |
 
 ```js
 function setPage(page) {
   if (!Number.isInteger(page)) {
-    throw new TypeError('page debe ser un entero')
+    throw new TypeError("page debe ser un entero")
   }
   if (page < 1) {
-    throw new RangeError('page debe ser mayor o igual a 1')
+    throw new RangeError("page debe ser mayor o igual a 1")
   }
 }
 ```
@@ -89,12 +89,12 @@ El tipo ayuda al consumidor a clasificar el problema sin comparar un texto que p
 `instanceof Error` depende de que el objeto y el constructor pertenezcan al mismo **realm**, es decir, al mismo conjunto de objetos globales. Un error procedente de un `iframe`, otro contexto o una máquina virtual (VM) puede ser auténtico y aun así fallar esa comparación. ECMAScript 2026 añadió `Error.isError` para comprobar la marca interna de los objetos Error sin confiar en el prototype ni en una propiedad que pueda falsificarse.
 
 ```js
-const error = new TypeError('Dato inválido')
-const imitation = { name: 'TypeError', message: 'Dato inválido' }
+const error = new TypeError("Dato inválido")
+const imitation = { name: "TypeError", message: "Dato inválido" }
 
-Error.isError(error)     // true
+Error.isError(error) // true
 Error.isError(imitation) // false
-Error.isError('fallo')   // false
+Error.isError("fallo") // false
 ```
 
 Incluye instancias de `Error`, errores nativos y `AggregateError`. Si soportas un runtime anterior, `value instanceof Error` continúa siendo una comprobación útil dentro del mismo realm, pero no es un reemplazo idéntico.
@@ -138,8 +138,8 @@ async function loadConfiguration() {
   try {
     return await readConfigurationFile()
   } catch (error) {
-    throw new Error('No se pudo cargar la configuración de inicio', {
-      cause: error,
+    throw new Error("No se pudo cargar la configuración de inicio", {
+      cause: error
     })
   }
 }
@@ -153,18 +153,18 @@ La capa superior obtiene un mensaje relacionado con la operación y todavía pue
 class HTTPError extends Error {
   constructor(status, message, options = {}) {
     super(message, options)
-    this.name = 'HTTPError'
+    this.name = "HTTPError"
     this.status = status
     this.retryable = status === 429 || status >= 500
   }
 }
 
-const error = new HTTPError(503, 'Servicio no disponible')
+const error = new HTTPError(503, "Servicio no disponible")
 
-error instanceof Error     // true
+error instanceof Error // true
 error instanceof HTTPError // true
-error.status               // 503
-error.retryable            // true
+error.status // 503
+error.retryable // true
 ```
 
 Una subclase es útil cuando varias partes necesitan reaccionar al mismo tipo de fallo. No crees una jerarquía por cada mensaje; empieza con datos claros y tipos que cambien realmente la estrategia.
@@ -176,7 +176,7 @@ Una contraseña incorrecta, un cupón vencido o un nombre ya ocupado son situaci
 ```js
 function reserve(stock, quantity) {
   if (quantity > stock) {
-    return { ok: false, reason: 'INSUFFICIENT_STOCK' }
+    return { ok: false, reason: "INSUFFICIENT_STOCK" }
   }
 
   return { ok: true, remaining: stock - quantity }
@@ -196,8 +196,8 @@ No existe una única regla para usar retornos o excepciones. Define el contrato:
 
 ```js
 function calculateDiscount(price, percentage) {
-  console.assert(Number.isFinite(price), 'price no es finito', { price })
-  console.assert(percentage >= 0 && percentage <= 1, 'porcentaje inválido')
+  console.assert(Number.isFinite(price), "price no es finito", { price })
+  console.assert(percentage >= 0 && percentage <= 1, "porcentaje inválido")
   return price * (1 - percentage)
 }
 ```
@@ -211,10 +211,10 @@ Un **stack trace** muestra la cadena de llamadas. El bundler puede transformarla
 Registra contexto operativo estructurado:
 
 ```js
-logger.error('No se pudo guardar el proyecto', {
+logger.error("No se pudo guardar el proyecto", {
   projectId,
-  operation: 'project.save',
-  error,
+  operation: "project.save",
+  error
 })
 ```
 
@@ -228,8 +228,8 @@ Recursos como locks, listeners, streams, archivos y conexiones tienen una vida �
 const controller = new AbortController()
 
 try {
-  window.addEventListener('resize', updateLayout, {
-    signal: controller.signal,
+  window.addEventListener("resize", updateLayout, {
+    signal: controller.signal
   })
   await runView()
 } finally {

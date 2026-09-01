@@ -16,13 +16,13 @@ Cambia la unidad de trabajo. No diseñas una pantalla; diseñas **dónde se colo
 
 ## Qué cambia respecto a una pantalla
 
-| | Interfaz plana | Spatial UI |
-| --- | --- | --- |
-| Profundidad | Simulada con sombras | Real, medida en metros |
-| Lienzo | Rectángulo fijo | Espacio alrededor del usuario |
-| Entrada | Puntero, toque, teclado | Mirada, gestos con las manos, voz |
-| Foco | El cursor o el orden de tabulación | Adónde mira la persona |
-| Coste de un error | Un clic mal puesto | Fatiga física, mareo |
+|                   | Interfaz plana                     | Spatial UI                        |
+| ----------------- | ---------------------------------- | --------------------------------- |
+| Profundidad       | Simulada con sombras               | Real, medida en metros            |
+| Lienzo            | Rectángulo fijo                    | Espacio alrededor del usuario     |
+| Entrada           | Puntero, toque, teclado            | Mirada, gestos con las manos, voz |
+| Foco              | El cursor o el orden de tabulación | Adónde mira la persona            |
+| Coste de un error | Un clic mal puesto                 | Fatiga física, mareo              |
 
 ## Las reglas nuevas
 
@@ -40,11 +40,11 @@ Cambia la unidad de trabajo. No diseñas una pantalla; diseñas **dónde se colo
 
 La tentación al empezar es repartir todo en muchos planos porque se puede. La práctica útil es la contraria: **pocos planos, con significado**.
 
-| Plano | Qué va ahí |
-| --- | --- |
+| Plano   | Qué va ahí                             |
+| ------- | -------------------------------------- |
 | Cercano | Aquello con lo que se interactúa ahora |
-| Medio | El contenido principal |
-| Lejano | Contexto, ambiente, elementos pasivos |
+| Medio   | El contenido principal                 |
+| Lejano  | Contexto, ambiente, elementos pasivos  |
 
 Tres planos suelen bastar. Más allá, la persona pierde la noción de qué está delante de qué, que era justo lo que la profundidad venía a resolver.
 

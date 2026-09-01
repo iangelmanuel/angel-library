@@ -16,27 +16,39 @@ El prefetch descarga por anticipado el destino probable de un enlace para que la
 No acelera el servidor ni reduce el tamaño de una página: adelanta parte del trabajo usando red y caché del navegador. Por eso es una decisión de presupuesto. Si se predice bien, la navegación parece instantánea; si se predice mal, se descargan rutas que nadie visita.
 
 ```js title="astro.config.mjs"
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config"
 
 export default defineConfig({
-  prefetch: { defaultStrategy: 'hover', prefetchAll: false },
-});
+  prefetch: { defaultStrategy: "hover", prefetchAll: false }
+})
 ```
 
 ```astro
-<a href="/docs" data-astro-prefetch>Documentación</a>
-<a href="/siguiente" data-astro-prefetch="viewport">Siguiente</a>
-<a href="/pesada" data-astro-prefetch="false">Sin prefetch</a>
+<a
+  href="/docs"
+  data-astro-prefetch
+  >Documentación</a
+>
+<a
+  href="/siguiente"
+  data-astro-prefetch="viewport"
+  >Siguiente</a
+>
+<a
+  href="/pesada"
+  data-astro-prefetch="false"
+  >Sin prefetch</a
+>
 ```
 
 ## Estrategias
 
-| Estrategia | Momento | Uso típico |
-| --- | --- | --- |
-| `tap` | al tocar/presionar | mínimo consumo de datos |
-| `hover` | hover o focus | buen default de escritorio |
-| `viewport` | entra en pantalla | siguiente artículo o paginación |
-| `load` | después de cargar | pocas rutas críticas y pequeñas |
+| Estrategia | Momento            | Uso típico                      |
+| ---------- | ------------------ | ------------------------------- |
+| `tap`      | al tocar/presionar | mínimo consumo de datos         |
+| `hover`    | hover o focus      | buen default de escritorio      |
+| `viewport` | entra en pantalla  | siguiente artículo o paginación |
+| `load`     | después de cargar  | pocas rutas críticas y pequeñas |
 
 `hover` también contempla el foco del teclado, por lo que no depende únicamente de un puntero. `viewport` funciona bien para el siguiente artículo visible, pero puede descargar muchos destinos en una lista larga. `load` es la estrategia más agresiva y debe reservarse para pocos enlaces con alta probabilidad de uso.
 

@@ -15,20 +15,24 @@ Un script de analítica y un componente React pesado no se cargan con la misma h
 
 ## Mapa rápido
 
-| Caso | Herramienta |
-| --- | --- |
-| script externo necesario para toda la aplicación | `<Script>` en el layout |
-| analítica después de hidratar | `strategy="afterInteractive"` |
-| chat o widget de baja prioridad | `strategy="lazyOnload"` |
-| componente React pesado | `dynamic(() => import(...))` |
-| componente que depende totalmente del navegador | `dynamic(..., { ssr: false })` dentro de un Client Component |
+| Caso                                             | Herramienta                                                  |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| script externo necesario para toda la aplicación | `<Script>` en el layout                                      |
+| analítica después de hidratar                    | `strategy="afterInteractive"`                                |
+| chat o widget de baja prioridad                  | `strategy="lazyOnload"`                                      |
+| componente React pesado                          | `dynamic(() => import(...))`                                 |
+| componente que depende totalmente del navegador  | `dynamic(..., { ssr: false })` dentro de un Client Component |
 
 ## `next/script`
 
 ```tsx title="app/layout.tsx"
-import Script from 'next/script';
+import Script from "next/script"
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="es">
       <body>
@@ -39,18 +43,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </body>
     </html>
-  );
+  )
 }
 ```
 
 `Script` evita insertar el mismo recurso varias veces durante la navegación y ofrece estrategias explícitas de carga.
 
-| Estrategia | Momento | Uso típico |
-| --- | --- | --- |
-| `beforeInteractive` | antes de la hidratación | scripts críticos y excepcionales, como detección temprana de bots |
-| `afterInteractive` | después de iniciar la hidratación | analítica y gestores de etiquetas |
-| `lazyOnload` | durante tiempo ocioso del navegador | chat, soporte o widgets secundarios |
-| `worker` | en un worker, cuando la configuración lo admite | experimentos con scripts costosos; valida compatibilidad |
+| Estrategia          | Momento                                         | Uso típico                                                        |
+| ------------------- | ----------------------------------------------- | ----------------------------------------------------------------- |
+| `beforeInteractive` | antes de la hidratación                         | scripts críticos y excepcionales, como detección temprana de bots |
+| `afterInteractive`  | después de iniciar la hidratación               | analítica y gestores de etiquetas                                 |
+| `lazyOnload`        | durante tiempo ocioso del navegador             | chat, soporte o widgets secundarios                               |
+| `worker`            | en un worker, cuando la configuración lo admite | experimentos con scripts costosos; valida compatibilidad          |
 
 No conviertas `beforeInteractive` en la opción predeterminada. Un tercero que ocupa red y CPU antes de la interacción puede empeorar LCP e INP aunque tu propio código esté optimizado.
 
@@ -59,33 +63,33 @@ No conviertas `beforeInteractive` en la opción predeterminada. Un tercero que o
 Callbacks como `onLoad`, `onReady` y `onError` requieren un Client Component porque son funciones ejecutadas en el navegador.
 
 ```tsx title="app/map-script.tsx"
-'use client';
+"use client"
 
-import Script from 'next/script';
+import Script from "next/script"
 
 export function MapScript() {
   return (
     <Script
       src="https://example.com/maps.js"
-      onReady={() => console.info('Mapa disponible')}
+      onReady={() => console.info("Mapa disponible")}
     />
-  );
+  )
 }
 ```
 
 ## Dividir un componente con `next/dynamic`
 
 ```tsx title="app/dashboard/chart-panel.tsx"
-'use client';
+"use client"
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic"
 
-const Chart = dynamic(() => import('./chart'), {
-  loading: () => <p>Preparando gráfica…</p>,
-});
+const Chart = dynamic(() => import("./chart"), {
+  loading: () => <p>Preparando gráfica…</p>
+})
 
 export function ChartPanel() {
-  return <Chart />;
+  return <Chart />
 }
 ```
 
@@ -94,10 +98,10 @@ La importación debe aparecer de forma explícita dentro de `dynamic()` para que
 ## Desactivar SSR
 
 ```tsx
-const BrowserEditor = dynamic(() => import('./browser-editor'), {
+const BrowserEditor = dynamic(() => import("./browser-editor"), {
   ssr: false,
-  loading: () => <p>Cargando editor…</p>,
-});
+  loading: () => <p>Cargando editor…</p>
+})
 ```
 
 `ssr: false` es una salida para módulos que necesitan `window`, `document`, Canvas u otra API exclusivamente del navegador. Debe declararse desde un Client Component. Antes de usarlo, revisa si la biblioteca permite importar una parte segura en servidor o inicializar la API dentro de un efecto.
@@ -107,7 +111,10 @@ const BrowserEditor = dynamic(() => import('./browser-editor'), {
 Si un script inline es inevitable, proporciona un `id` estable para que Next.js pueda identificarlo. Evita interpolar datos del usuario: insertar texto no confiable dentro de JavaScript puede producir Cross-Site Scripting (XSS).
 
 ```tsx
-<Script id="theme-init" strategy="beforeInteractive">
+<Script
+  id="theme-init"
+  strategy="beforeInteractive"
+>
   {`document.documentElement.dataset.theme = localStorage.getItem('theme') ?? 'dark'`}
 </Script>
 ```

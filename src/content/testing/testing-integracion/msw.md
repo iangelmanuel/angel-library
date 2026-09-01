@@ -14,33 +14,33 @@ related:
 updatedAt: 2026-08-28
 ---
 
-MSW (*Mock Service Worker*) intercepta solicitudes HTTP con handlers declarativos. En navegador utiliza un Service Worker; en Node intercepta la red del proceso. El código de aplicación continúa usando `fetch`, Axios u otro cliente real, por lo que la prueba conserva URL, método, headers, serialización y manejo de respuesta.
+MSW (_Mock Service Worker_) intercepta solicitudes HTTP con handlers declarativos. En navegador utiliza un Service Worker; en Node intercepta la red del proceso. El código de aplicación continúa usando `fetch`, Axios u otro cliente real, por lo que la prueba conserva URL, método, headers, serialización y manejo de respuesta.
 
 ## Cuándo usarlo
 
-| Necesidad | MSW | Alternativa |
-| --- | --- | --- |
-| componente consume una API | sí | mockear hook oculta HTTP |
-| forzar `500`, `429` o demora | sí | proveedor real no es determinista |
-| probar una query SQL | no | base real/Testcontainers |
-| confirmar contrato externo real | parcialmente | sandbox o contract test |
-| probar backend propio en E2E | normalmente no | entorno desplegado real |
+| Necesidad                       | MSW            | Alternativa                       |
+| ------------------------------- | -------------- | --------------------------------- |
+| componente consume una API      | sí             | mockear hook oculta HTTP          |
+| forzar `500`, `429` o demora    | sí             | proveedor real no es determinista |
+| probar una query SQL            | no             | base real/Testcontainers          |
+| confirmar contrato externo real | parcialmente   | sandbox o contract test           |
+| probar backend propio en E2E    | normalmente no | entorno desplegado real           |
 
 MSW simula la respuesta, no demuestra que el servidor real la produzca. Combínalo con contratos e integración del backend.
 
 ## Handler compartido
 
 ```ts title="test/mocks/handlers.ts"
-import { http, HttpResponse } from 'msw';
+import { HttpResponse, http } from "msw"
 
 export const handlers = [
-  http.get('/api/users/:id', ({ params }) => {
+  http.get("/api/users/:id", ({ params }) => {
     return HttpResponse.json({
       id: params.id,
-      displayName: 'Ana',
-    });
-  }),
-];
+      displayName: "Ana"
+    })
+  })
+]
 ```
 
 Un handler describe el protocolo. Mantén respuestas pequeñas y válidas; crea overrides por prueba para el caso que cambia.
@@ -48,19 +48,19 @@ Un handler describe el protocolo. Mantén respuestas pequeñas y válidas; crea 
 ## Configuración en Node con Vitest
 
 ```ts title="test/mocks/server.ts"
-import { setupServer } from 'msw/node';
-import { handlers } from './handlers';
+import { setupServer } from "msw/node"
+import { handlers } from "./handlers"
 
-export const server = setupServer(...handlers);
+export const server = setupServer(...handlers)
 ```
 
 ```ts title="test/setup.ts"
-import { afterAll, afterEach, beforeAll } from 'vitest';
-import { server } from './mocks/server';
+import { afterAll, afterEach, beforeAll } from "vitest"
+import { server } from "./mocks/server"
 
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeAll(() => server.listen({ onUnhandledRequest: "error" }))
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 ```
 
 `onUnhandledRequest: 'error'` evita que una prueba haga red real por accidente. `resetHandlers` elimina overrides temporales y conserva los handlers iniciales.
@@ -68,30 +68,29 @@ afterAll(() => server.close());
 ## Probar éxito y error
 
 ```tsx
-it('muestra el perfil recibido', async () => {
-  render(<UserProfile userId="u_1" />);
+it("muestra el perfil recibido", async () => {
+  render(<UserProfile userId="u_1" />)
 
-  expect(await screen.findByRole('heading', { name: 'Ana' })).toBeVisible();
-});
+  expect(await screen.findByRole("heading", { name: "Ana" })).toBeVisible()
+})
 ```
 
 ```tsx
-it('permite reintentar después de un error', async () => {
+it("permite reintentar después de un error", async () => {
   server.use(
-    http.get('/api/users/:id', () => {
-      return HttpResponse.json(
-        { code: 'TEMPORARY_FAILURE' },
-        { status: 503 },
-      );
-    }),
-  );
+    http.get("/api/users/:id", () => {
+      return HttpResponse.json({ code: "TEMPORARY_FAILURE" }, { status: 503 })
+    })
+  )
 
-  const user = userEvent.setup();
-  render(<UserProfile userId="u_1" />);
+  const user = userEvent.setup()
+  render(<UserProfile userId="u_1" />)
 
-  expect(await screen.findByRole('alert')).toHaveTextContent(/intenta de nuevo/i);
-  await user.click(screen.getByRole('button', { name: /reintentar/i }));
-});
+  expect(await screen.findByRole("alert")).toHaveTextContent(
+    /intenta de nuevo/i
+  )
+  await user.click(screen.getByRole("button", { name: /reintentar/i }))
+})
 ```
 
 El caso todavía necesita decidir qué respuesta tendrá el segundo intento. Puedes usar un contador local en el handler o reemplazarlo antes del clic; mantén esa secuencia explícita.
@@ -99,20 +98,20 @@ El caso todavía necesita decidir qué respuesta tendrá el segundo intento. Pue
 ## Inspeccionar request
 
 ```ts
-http.post('/api/orders', async ({ request }) => {
-  const body = await request.json() as { productId?: string };
-  const authorization = request.headers.get('authorization');
+http.post("/api/orders", async ({ request }) => {
+  const body = (await request.json()) as { productId?: string }
+  const authorization = request.headers.get("authorization")
 
   if (!authorization) {
-    return HttpResponse.json({ code: 'UNAUTHORIZED' }, { status: 401 });
+    return HttpResponse.json({ code: "UNAUTHORIZED" }, { status: 401 })
   }
 
   if (!body.productId) {
-    return HttpResponse.json({ code: 'INVALID_BODY' }, { status: 400 });
+    return HttpResponse.json({ code: "INVALID_BODY" }, { status: 400 })
   }
 
-  return HttpResponse.json({ id: 'order_1' }, { status: 201 });
-});
+  return HttpResponse.json({ id: "order_1" }, { status: 201 })
+})
 ```
 
 No dupliques todo el backend dentro del handler. Comprueba únicamente aspectos necesarios para que un request incorrecto no reciba éxito automáticamente.
@@ -120,14 +119,14 @@ No dupliques todo el backend dentro del handler. Comprueba únicamente aspectos 
 ## Latencia, red y respuestas inválidas
 
 ```ts
-import { delay, http, HttpResponse } from 'msw';
+import { HttpResponse, delay, http } from "msw"
 
 server.use(
-  http.get('/api/search', async () => {
-    await delay(2000);
-    return HttpResponse.json({ results: [] });
-  }),
-);
+  http.get("/api/search", async () => {
+    await delay(2000)
+    return HttpResponse.json({ results: [] })
+  })
+)
 ```
 
 Prueba carga, cancelación, timeout, JSON inválido y status inesperados. Evita demoras reales largas en toda la suite; usa timers o una demora corta cuando solo importa el estado de carga.

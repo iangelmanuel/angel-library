@@ -36,8 +36,7 @@ export interface TerminalProps {
 
 /** Una opción de la lista de resultados. */
 export type MenuItem =
-  | { kind: "document"; doc: SearchDoc }
-  | { kind: "tag"; tag: TagIndexItem }
+  { kind: "document"; doc: SearchDoc } | { kind: "tag"; tag: TagIndexItem }
 
 /** Qué está escribiendo el usuario: texto, #tag o /comando. */
 export type InputMode =

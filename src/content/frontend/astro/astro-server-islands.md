@@ -10,21 +10,26 @@ related:
 updatedAt: 2026-08-25
 ---
 
-Las [islas de UI](/frontend/astro/astro-islas) (`client:*`) resuelven interactividad: JS que corre en el navegador. Las **server islands** resuelven el problema espejado — un fragmento que necesita correr en el *servidor* (leer una sesión, pegarle a una base de datos) en una página que por lo demás es puramente estática. Sin esto, ese único fragmento dinámico forzaría a que toda la página sea on-demand, perdiendo el cacheo y la velocidad de servir HTML pregenerado.
+Las [islas de UI](/frontend/astro/astro-islas) (`client:*`) resuelven interactividad: JS que corre en el navegador. Las **server islands** resuelven el problema espejado — un fragmento que necesita correr en el _servidor_ (leer una sesión, pegarle a una base de datos) en una página que por lo demás es puramente estática. Sin esto, ese único fragmento dinámico forzaría a que toda la página sea on-demand, perdiendo el cacheo y la velocidad de servir HTML pregenerado.
 
 ## `server:defer`
 
 ```astro title="components/Avatar.astro"
 ---
-const usuario = await db.getUsuarioActual(Astro.cookies);
+const usuario = await db.getUsuarioActual(Astro.cookies)
 ---
-<img src={usuario.avatarUrl} alt={usuario.nombre} />
+
+<img
+  src={usuario.avatarUrl}
+  alt={usuario.nombre}
+/>
 ```
 
 ```astro title="pages/index.astro"
 ---
-import Avatar from '../components/Avatar.astro';
+import Avatar from "../components/Avatar.astro"
 ---
+
 <Avatar server:defer />
 ```
 
@@ -42,10 +47,10 @@ Mientras la isla resuelve, se puede mostrar algo inmediato en su lugar.
 
 ## Directivas y props en una mirada
 
-| Concepto | Qué es |
-| --- | --- |
-| `server:defer` | Convierte un componente `.astro` en isla de servidor: se renderiza aparte, bajo demanda |
-| `slot="fallback"` | Contenido que se muestra mientras la isla resuelve |
+| Concepto                  | Qué es                                                                                                             |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `server:defer`            | Convierte un componente `.astro` en isla de servidor: se renderiza aparte, bajo demanda                            |
+| `slot="fallback"`         | Contenido que se muestra mientras la isla resuelve                                                                 |
 | Diferencia con `client:*` | `client:*` hidrata JS en el navegador; `server:defer` renderiza HTML en el servidor, después del prerender inicial |
 
 ## Personalización, caché y fallos

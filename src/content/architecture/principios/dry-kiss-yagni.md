@@ -1,5 +1,5 @@
 ---
-title: 'DRY, KISS y YAGNI'
+title: "DRY, KISS y YAGNI"
 description: Tres principios que se malinterpretan seguido — evitar duplicar conocimiento (no código parecido), preferir lo simple, y no construir para un futuro hipotético.
 type: practices
 order: 8
@@ -15,16 +15,16 @@ DRY, KISS y YAGNI se citan todo el tiempo como si fueran reglas absolutas. Los t
 
 ## DRY — Don't Repeat Yourself
 
-La formulación original (Hunt & Thomas, *The Pragmatic Programmer*) es sobre **conocimiento**, no sobre líneas de código parecidas: "cada pieza de conocimiento debe tener una representación única, inequívoca y autoritativa dentro de un sistema". Dos funciones que se ven parecidas pero representan reglas de negocio *distintas* no son duplicación — son coincidencia.
+La formulación original (Hunt & Thomas, _The Pragmatic Programmer_) es sobre **conocimiento**, no sobre líneas de código parecidas: "cada pieza de conocimiento debe tener una representación única, inequívoca y autoritativa dentro de un sistema". Dos funciones que se ven parecidas pero representan reglas de negocio _distintas_ no son duplicación — son coincidencia.
 
 ```ts
 // Dos funciones que "se parecen"
 function formatPrice(amount: number): string {
-  return `$${amount.toFixed(2)}`;
+  return `$${amount.toFixed(2)}`
 }
 
 function formatInvoiceTotal(amount: number): string {
-  return `$${amount.toFixed(2)}`;
+  return `$${amount.toFixed(2)}`
 }
 ```
 
@@ -32,10 +32,13 @@ Se ve tentador unificarlas:
 
 ```ts
 // "DRY" forzado: una sola función con flags para las diferencias
-function formatCurrency(amount: number, opts?: { forInvoice?: boolean; noDecimals?: boolean }): string {
-  if (opts?.noDecimals) return `$${Math.round(amount)}`;
-  if (opts?.forInvoice) return `$${amount.toFixed(2)} USD`;
-  return `$${amount.toFixed(2)}`;
+function formatCurrency(
+  amount: number,
+  opts?: { forInvoice?: boolean; noDecimals?: boolean }
+): string {
+  if (opts?.noDecimals) return `$${Math.round(amount)}`
+  if (opts?.forInvoice) return `$${amount.toFixed(2)} USD`
+  return `$${amount.toFixed(2)}`
 }
 ```
 
@@ -44,11 +47,11 @@ El problema aparece cuando los requisitos divergen: precios de producto necesita
 ```ts
 // Mejor: dejarlas separadas, cada una evoluciona con su propia regla de negocio
 function formatCatalogPrice(amount: number): string {
-  return `$${Math.round(amount)}`;
+  return `$${Math.round(amount)}`
 }
 
 function formatInvoiceTotal(amount: number): string {
-  return `$${amount.toFixed(2)} USD`;
+  return `$${amount.toFixed(2)} USD`
 }
 ```
 
@@ -61,15 +64,21 @@ La solución más simple que resuelve el problema de hoy, no la más "inteligent
 ```ts
 // "Inteligente" pero difícil de leer y de debuggear
 const getDiscount = (user: User) =>
-  [premiumDiscount, loyaltyDiscount, seasonalDiscount]
-    .reduce((acc, fn) => (fn(user) > acc ? fn(user) : acc), 0);
+  [premiumDiscount, loyaltyDiscount, seasonalDiscount].reduce(
+    (acc, fn) => (fn(user) > acc ? fn(user) : acc),
+    0
+  )
 ```
 
 ```ts
 // Simple: se lee de arriba a abajo, se debuggea con un breakpoint
 function getDiscount(user: User): number {
-  const discounts = [premiumDiscount(user), loyaltyDiscount(user), seasonalDiscount(user)];
-  return Math.max(...discounts);
+  const discounts = [
+    premiumDiscount(user),
+    loyaltyDiscount(user),
+    seasonalDiscount(user)
+  ]
+  return Math.max(...discounts)
 }
 ```
 
@@ -82,24 +91,24 @@ No construir una función, un parámetro o una capa de abstracción "por si en e
 ```ts
 // Violación de YAGNI: un sistema de plugins para una función que hoy hace una sola cosa
 interface EmailPlugin {
-  beforeSend?(email: Email): Email;
-  afterSend?(email: Email): void;
+  beforeSend?(email: Email): Email
+  afterSend?(email: Email): void
 }
 
 class EmailSender {
-  private plugins: EmailPlugin[] = [];
+  private plugins: EmailPlugin[] = []
 
   registerPlugin(plugin: EmailPlugin) {
-    this.plugins.push(plugin);
+    this.plugins.push(plugin)
   }
 
   send(email: Email) {
-    let processed = email;
+    let processed = email
     for (const plugin of this.plugins) {
-      processed = plugin.beforeSend?.(processed) ?? processed;
+      processed = plugin.beforeSend?.(processed) ?? processed
     }
-    smtpClient.send(processed);
-    for (const plugin of this.plugins) plugin.afterSend?.(processed);
+    smtpClient.send(processed)
+    for (const plugin of this.plugins) plugin.afterSend?.(processed)
   }
 }
 ```
@@ -109,7 +118,11 @@ Nadie pidió plugins. Hoy solo se necesita enviar un email de bienvenida.
 ```ts
 // YAGNI respetado: la función que existe hoy, nada más
 function sendWelcomeEmail(email: string) {
-  smtpClient.send({ to: email, subject: 'Bienvenido', body: 'Hola, tu cuenta fue creada' });
+  smtpClient.send({
+    to: email,
+    subject: "Bienvenido",
+    body: "Hola, tu cuenta fue creada"
+  })
 }
 ```
 
@@ -117,9 +130,9 @@ Si mañana aparece un segundo tipo de email con lógica distinta, ese es el mome
 
 ## Cuándo estos principios se vuelven dogma (y eso es el problema)
 
-- **DRY dogmático**: unificar dos piezas de código porque "se ven iguales" sin preguntar si representan el mismo conocimiento de negocio. La regla práctica común es "duplica dos veces, abstrae a la tercera" (*rule of three*) — con dos casos todavía no hay suficiente información para saber cuál es la abstracción correcta.
+- **DRY dogmático**: unificar dos piezas de código porque "se ven iguales" sin preguntar si representan el mismo conocimiento de negocio. La regla práctica común es "duplica dos veces, abstrae a la tercera" (_rule of three_) — con dos casos todavía no hay suficiente información para saber cuál es la abstracción correcta.
 - **KISS dogmático**: usarlo como excusa para no usar ningún patrón, ninguna capa, ningún tipo — "simple" no es sinónimo de "todo en un archivo de 500 líneas". Simple significa fácil de entender y cambiar, no ausencia de estructura.
-- **YAGNI dogmático**: usarlo para justificar no pensar nunca en el diseño a futuro. Hay una diferencia entre "no construir el sistema de plugins que nadie pidió" y "no darle un nombre de módulo que después sea imposible de extender sin reescribir todo". YAGNI es sobre no construir *funcionalidad* prematura, no sobre ignorar decisiones de arquitectura baratas de tomar ahora.
+- **YAGNI dogmático**: usarlo para justificar no pensar nunca en el diseño a futuro. Hay una diferencia entre "no construir el sistema de plugins que nadie pidió" y "no darle un nombre de módulo que después sea imposible de extender sin reescribir todo". YAGNI es sobre no construir _funcionalidad_ prematura, no sobre ignorar decisiones de arquitectura baratas de tomar ahora.
 
 ## Consideraciones
 

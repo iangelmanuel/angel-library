@@ -76,11 +76,11 @@ html {
 
 ## Resumen
 
-| Técnica | Cuándo usarla |
-| --- | --- |
-| `scroll-behavior: smooth` | Cualquier salto a anclas o `scrollIntoView()` |
+| Técnica                                     | Cuándo usarla                                                    |
+| ------------------------------------------- | ---------------------------------------------------------------- |
+| `scroll-behavior: smooth`                   | Cualquier salto a anclas o `scrollIntoView()`                    |
 | `scrollbar-color` / `::-webkit-scrollbar-*` | Scrollbar a tono con el diseño, en vez del del sistema operativo |
-| `scroll-snap-type` + `scroll-snap-align` | Carruseles y galerías horizontales sin JS |
+| `scroll-snap-type` + `scroll-snap-align`    | Carruseles y galerías horizontales sin JS                        |
 
 ## Consideraciones
 

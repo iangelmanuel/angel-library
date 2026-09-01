@@ -14,25 +14,26 @@ updatedAt: 2026-08-25
 
 Astro prerenderiza por defecto. Para ejecutar una ruta cuando llega la request necesitas un adapter compatible con el destino y una ruta on-demand.
 
-**SSG** (*Static Site Generation*) produce el documento durante el build. **SSR** (*Server-Side Rendering*) lo produce al recibir la request. Astro usa “on-demand rendering” para destacar que no toda ruta dinámica tiene que renderizarse en un servidor tradicional: puede ejecutarse en serverless o edge según el adapter.
+**SSG** (_Static Site Generation_) produce el documento durante el build. **SSR** (_Server-Side Rendering_) lo produce al recibir la request. Astro usa “on-demand rendering” para destacar que no toda ruta dinámica tiene que renderizarse en un servidor tradicional: puede ejecutarse en serverless o edge según el adapter.
 
 ## Consulta rápida
 
-| La página depende de | Modo sugerido |
-| --- | --- |
-| contenido que cambia con deploy | prerender |
-| cookie, sesión o header actual | on-demand |
-| parámetros conocidos durante build | `getStaticPaths()` + prerender |
+| La página depende de               | Modo sugerido                   |
+| ---------------------------------- | ------------------------------- |
+| contenido que cambia con deploy    | prerender                       |
+| cookie, sesión o header actual     | on-demand                       |
+| parámetros conocidos durante build | `getStaticPaths()` + prerender  |
 | datos personalizados en una región | página estática + Server Island |
-| endpoint o webhook runtime | `prerender = false` |
+| endpoint o webhook runtime         | `prerender = false`             |
 
 ## Proyecto principalmente estático
 
 ```astro
 ---
-export const prerender = false;
-const user = await getUser(Astro.cookies);
+export const prerender = false
+const user = await getUser(Astro.cookies)
 ---
+
 <h1>Hola {user.name}</h1>
 ```
 
@@ -43,18 +44,22 @@ Esta estrategia mantiene HTML desplegable en CDN para la mayoría del sitio y pa
 ## Proyecto principalmente dinámico
 
 ```js title="astro.config.mjs"
-import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import { defineConfig } from "astro/config"
+import node from "@astrojs/node"
 
-export default defineConfig({ output: 'server', adapter: node({ mode: 'standalone' }) });
+export default defineConfig({
+  output: "server",
+  adapter: node({ mode: "standalone" })
+})
 ```
 
 Con `output: 'server'`, las rutas son on-demand salvo las marcadas con `export const prerender = true`.
 
 ```astro title="src/pages/about.astro"
 ---
-export const prerender = true;
+export const prerender = true
 ---
+
 <h1>Acerca de</h1>
 ```
 

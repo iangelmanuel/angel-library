@@ -33,7 +33,10 @@ updatedAt: 2026-08-18
 
 ```html
 <button id="open-delete">Eliminar proyecto</button>
-<dialog id="delete-dialog" aria-labelledby="delete-title">
+<dialog
+  id="delete-dialog"
+  aria-labelledby="delete-title"
+>
   <h2 id="delete-title">¿Eliminar proyecto?</h2>
   <form method="dialog">
     <button value="cancel">Cancelar</button>
@@ -54,7 +57,13 @@ El código todavía debe devolver el foco al disparador, manejar errores y prote
 
 ```html
 <label for="volume">Volumen</label>
-<input id="volume" type="range" min="0" max="100" value="60" />
+<input
+  id="volume"
+  type="range"
+  min="0"
+  max="100"
+  value="60"
+/>
 <output for="volume">60%</output>
 ```
 

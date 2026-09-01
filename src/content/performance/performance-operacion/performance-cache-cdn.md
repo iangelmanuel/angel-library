@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-25
 ---
 
-Una **CDN** (*Content Delivery Network* o red de distribución de contenido) mantiene copias cerca de las personas y absorbe parte del tráfico del origen. Solo ayuda cuando la respuesta se puede almacenar y la clave de caché representa correctamente sus variantes.
+Una **CDN** (_Content Delivery Network_ o red de distribución de contenido) mantiene copias cerca de las personas y absorbe parte del tráfico del origen. Solo ayuda cuando la respuesta se puede almacenar y la clave de caché representa correctamente sus variantes.
 
 ## Archivos inmutables
 
@@ -83,4 +83,3 @@ Prueba HIT, MISS, STALE y PURGE. Una tasa alta de hit no es éxito si se sirve c
 
 - [web.dev: caché HTTP](https://web.dev/articles/http-cache)
 - [MDN: Cache-Control](https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Cache-Control)
-

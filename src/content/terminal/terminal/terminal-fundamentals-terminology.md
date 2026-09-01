@@ -13,16 +13,16 @@ La terminal permite interactuar con programas mediante texto, automatizar pasos 
 
 Si comienzas, aprende navegación → archivos → contenido/búsqueda → pipes → procesos → variables → red → permisos → SSH → scripts. Practica en una carpeta temporal y revisa rutas absolutas antes de copiar comandos destructivos.
 
-| Necesito recordar | Documento |
-| --- | --- |
-| moverme y reconocer la ruta actual | [Navegación](/terminal/terminal/terminal-navegacion) |
-| crear, copiar, mover o eliminar | [Archivos y carpetas](/terminal/terminal/terminal-archivos-carpetas) |
-| buscar texto y leer archivos | [Ver contenido](/terminal/terminal/terminal-ver-contenido) |
-| encadenar comandos y leer exit codes | [Pipes y procesos](/terminal/terminal/terminal-pipes-redirection-processes) |
-| diagnosticar procesos o puertos | [Procesos](/terminal/terminal/terminal-procesos) y [puertos](/terminal/terminal/terminal-puertos) |
-| hacer requests HTTP | [`curl`](/terminal/terminal/terminal-curl) |
-| automatizar con seguridad | [Shell scripting](/terminal/terminal/terminal-shell-scripting) |
-| comparar sintaxis | [PowerShell](/terminal/terminal/terminal-powershell) y [Bash/Zsh](/terminal/terminal/terminal-linux-cli) |
+| Necesito recordar                    | Documento                                                                                                |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| moverme y reconocer la ruta actual   | [Navegación](/terminal/terminal/terminal-navegacion)                                                     |
+| crear, copiar, mover o eliminar      | [Archivos y carpetas](/terminal/terminal/terminal-archivos-carpetas)                                     |
+| buscar texto y leer archivos         | [Ver contenido](/terminal/terminal/terminal-ver-contenido)                                               |
+| encadenar comandos y leer exit codes | [Pipes y procesos](/terminal/terminal/terminal-pipes-redirection-processes)                              |
+| diagnosticar procesos o puertos      | [Procesos](/terminal/terminal/terminal-procesos) y [puertos](/terminal/terminal/terminal-puertos)        |
+| hacer requests HTTP                  | [`curl`](/terminal/terminal/terminal-curl)                                                               |
+| automatizar con seguridad            | [Shell scripting](/terminal/terminal/terminal-shell-scripting)                                           |
+| comparar sintaxis                    | [PowerShell](/terminal/terminal/terminal-powershell) y [Bash/Zsh](/terminal/terminal/terminal-linux-cli) |
 
 Para recordar, busca el objetivo, no un comando aislado. La misma acción cambia entre PowerShell y shells POSIX; confirma quoting, variables y rutas en la shell activa.
 
@@ -30,7 +30,7 @@ Para recordar, busca el objetivo, no un comando aislado. La misma acción cambia
 
 - **Terminal emulator:** ventana que muestra texto y transmite teclado, como Windows Terminal o iTerm2.
 - **Shell:** programa que interpreta comandos, variables y operadores, como PowerShell, Bash o Zsh.
-- **CLI:** *Command-Line Interface* o interfaz de línea de comandos que ofrece un programa, como `git`, `pnpm` o `docker`.
+- **CLI:** _Command-Line Interface_ o interfaz de línea de comandos que ofrece un programa, como `git`, `pnpm` o `docker`.
 - **Prompt:** texto que indica que la shell está lista para recibir una orden.
 
 La sintaxis de tuberías, variables y comillas pertenece a la shell. El significado de `git status` pertenece a la CLI de Git.
@@ -52,7 +52,7 @@ Un **flag** suele activar o desactivar una conducta; una opción puede recibir u
 
 Una ruta **absoluta** parte de la raíz o unidad. Una ruta **relativa** parte del directorio actual.
 
-**CWD** significa *Current Working Directory* o directorio de trabajo actual. Muchos comandos leen y escriben en relación con él; por eso se confirma la ubicación antes de copiar, mover o eliminar.
+**CWD** significa _Current Working Directory_ o directorio de trabajo actual. Muchos comandos leen y escriben en relación con él; por eso se confirma la ubicación antes de copiar, mover o eliminar.
 
 `PATH` es una variable de entorno con directorios donde la shell busca ejecutables. Dos terminales pueden ejecutar versiones distintas si su `PATH` difiere.
 
@@ -72,9 +72,9 @@ En Bash la idea es parecida, pero la sintaxis de variables, rutas y escape no es
 
 Los procesos suelen tener tres flujos estándar:
 
-- **stdin**: *standard input*, entrada estándar.
-- **stdout**: *standard output*, salida estándar.
-- **stderr**: *standard error*, salida de errores.
+- **stdin**: _standard input_, entrada estándar.
+- **stdout**: _standard output_, salida estándar.
+- **stderr**: _standard error_, salida de errores.
 
 Separar stdout y stderr permite guardar datos sin mezclar diagnósticos. Una **redirección** conecta un flujo con un archivo u otro destino; una **pipe** o tubería conecta la salida de un proceso con la entrada de otro.
 
@@ -86,7 +86,7 @@ No todo programa acepta entrada por stdin ni produce un formato estable. Una tub
 
 ## Proceso, PID y señal
 
-Un **proceso** es una instancia de un programa en ejecución. Su **PID** (*Process Identifier*) es el identificador asignado por el sistema operativo.
+Un **proceso** es una instancia de un programa en ejecución. Su **PID** (_Process Identifier_) es el identificador asignado por el sistema operativo.
 
 Una **señal** o evento de control solicita una acción como interrupción o terminación. El programa puede usarla para cerrar conexiones y guardar estado. Forzar la terminación evita ese cierre ordenado y se reserva para procesos que no responden.
 
@@ -113,7 +113,7 @@ Los secretos pueden aparecer en historial, listado de procesos o registros si se
 
 ## TTY e interacción
 
-**TTY** proviene de *teletypewriter* y hoy se refiere a una terminal interactiva o interfaz compatible. Algunos programas cambian color, progreso o preguntas si detectan un TTY.
+**TTY** proviene de _teletypewriter_ y hoy se refiere a una terminal interactiva o interfaz compatible. Algunos programas cambian color, progreso o preguntas si detectan un TTY.
 
 Un comando para CI debe tener un modo no interactivo: no puede quedarse esperando una confirmación que nadie responderá.
 

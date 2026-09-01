@@ -38,14 +38,22 @@ export function CommandOptions({
             aria-selected={index === selectedIndex}
             tabIndex={-1}
             className="search-terminal__result search-terminal__command-option"
-            style={{ "--result-accent": "var(--terminal-accent)" } as CSSProperties}
+            style={
+              { "--result-accent": "var(--terminal-accent)" } as CSSProperties
+            }
             onMouseEnter={() => onHover(index)}
             onClick={() => onSelect(command)}
           >
-            <span className="search-terminal__cursor" aria-hidden="true">
+            <span
+              className="search-terminal__cursor"
+              aria-hidden="true"
+            >
               ❯
             </span>
-            <DynamicIcon name="terminal" className="size-3.5 text-[var(--terminal-accent)]" />
+            <DynamicIcon
+              name="terminal"
+              className="size-3.5 text-[var(--terminal-accent)]"
+            />
             <span className="search-terminal__result-content">
               <strong>/{command}</strong>
               <small>{details?.description}</small>

@@ -13,23 +13,23 @@ updatedAt: 2026-08-19
 
 Estas técnicas resuelven direcciones diferentes:
 
-| Técnica | Dirección | Caso |
-| --- | --- | --- |
-| Webhook | Servidor externo → tu servidor | Pago confirmado |
-| SSE | Servidor → navegador sobre HTTP | Progreso o tokens de IA |
-| WebSocket | Bidireccional y persistente | Colaboración o juego |
+| Técnica   | Dirección                       | Caso                    |
+| --------- | ------------------------------- | ----------------------- |
+| Webhook   | Servidor externo → tu servidor  | Pago confirmado         |
+| SSE       | Servidor → navegador sobre HTTP | Progreso o tokens de IA |
+| WebSocket | Bidireccional y persistente     | Colaboración o juego    |
 
 ## Recibir un webhook
 
 Un webhook se considera una entrada no confiable. Verifica su firma sobre el **cuerpo crudo**, fecha y secreto compartido antes de parsear o procesar.
 
 ```ts
-const expected = createHmac('sha256', secret)
+const expected = createHmac("sha256", secret)
   .update(`${timestamp}.${rawBody}`)
-  .digest('hex');
+  .digest("hex")
 
 if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) {
-  throw new UnauthorizedError();
+  throw new UnauthorizedError()
 }
 ```
 
@@ -37,7 +37,7 @@ Comprueba tolerancia de tiempo para reducir replay, conserva el identificador de
 
 ## Server-Sent Events
 
-**SSE** (*Server-Sent Events*) envía eventos de texto por una respuesta HTTP mantenida abierta:
+**SSE** (_Server-Sent Events_) envía eventos de texto por una respuesta HTTP mantenida abierta:
 
 ```http
 Content-Type: text/event-stream
@@ -54,4 +54,3 @@ Define heartbeat, cancelación y reconexión. `Last-Event-ID` puede ayudar a rea
 ## WebSocket
 
 WebSocket permite mensajes en ambos sentidos, pero exige autenticar la conexión, autorizar cada canal, limitar tamaño y frecuencia, gestionar presencia y manejar múltiples instancias mediante un sistema compartido. No lo elijas solo por ser “tiempo real”: para notificaciones unidireccionales, SSE suele ser más simple.
-

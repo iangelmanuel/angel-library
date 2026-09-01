@@ -15,26 +15,26 @@ Si el código que crea un usuario tiene que llamar directamente a `enviarBienven
 ## Ejemplo: EventEmitter de Node
 
 ```ts title="lib/events.ts"
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events"
 
-export const eventos = new EventEmitter();
+export const eventos = new EventEmitter()
 ```
 
 ```ts title="services/users.service.ts"
-import { eventos } from '@/libs/events';
+import { eventos } from "@/libs/events"
 
 export async function crearUsuario(datos: DatosUsuario) {
-  const usuario = await db.usuario.create({ data: datos });
-  eventos.emit('user:created', { id: usuario.id, email: usuario.email });
-  return usuario;
+  const usuario = await db.usuario.create({ data: datos })
+  eventos.emit("user:created", { id: usuario.id, email: usuario.email })
+  return usuario
 }
 ```
 
 ```ts title="listeners/on-user-created.ts"
-import { eventos } from '@/libs/events';
+import { eventos } from "@/libs/events"
 
-eventos.on('user:created', ({ email }) => enviarBienvenida(email));
-eventos.on('user:created', ({ id }) => registrarEnAnalytics(id));
+eventos.on("user:created", ({ email }) => enviarBienvenida(email))
+eventos.on("user:created", ({ id }) => registrarEnAnalytics(id))
 ```
 
 `crearUsuario` no sabe (ni le importa) cuántos listeners hay ni qué hacen. Agregar uno nuevo es agregar un `.on()` en otro archivo.
@@ -47,8 +47,8 @@ eventos.on('user:created', ({ id }) => registrarEnAnalytics(id));
 ```ts
 const useStore = create<Estado>((set) => ({
   count: 0,
-  incrementar: () => set((s) => ({ count: s.count + 1 })),
-}));
+  incrementar: () => set((s) => ({ count: s.count + 1 }))
+}))
 // Cada componente que llama useStore() se suscribe y re-renderiza cuando el estado cambia.
 ```
 

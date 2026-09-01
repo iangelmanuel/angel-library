@@ -20,28 +20,28 @@ Si el elemento ya tiene un overlay/backdrop que captura el click (como un `<dial
 ## Código
 
 ```ts title="hooks/useOnClickOutside.ts"
-import { useEffect, type RefObject } from 'react';
+import { type RefObject, useEffect } from "react"
 
 export function useOnClickOutside<T extends HTMLElement>(
   ref: RefObject<T | null>,
-  handler: (event: MouseEvent | TouchEvent) => void,
+  handler: (event: MouseEvent | TouchEvent) => void
 ) {
   useEffect(() => {
     function listener(event: MouseEvent | TouchEvent) {
-      const el = ref.current;
-      if (!el || el.contains(event.target as Node)) return;
+      const el = ref.current
+      if (!el || el.contains(event.target as Node)) return
 
-      handler(event);
+      handler(event)
     }
 
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
+    document.addEventListener("mousedown", listener)
+    document.addEventListener("touchstart", listener)
 
     return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
-    };
-  }, [ref, handler]);
+      document.removeEventListener("mousedown", listener)
+      document.removeEventListener("touchstart", listener)
+    }
+  }, [ref, handler])
 }
 ```
 
@@ -49,17 +49,17 @@ export function useOnClickOutside<T extends HTMLElement>(
 
 ```tsx
 function Dropdown() {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
 
-  useOnClickOutside(ref, () => setOpen(false));
+  useOnClickOutside(ref, () => setOpen(false))
 
   return (
     <div ref={ref}>
       <button onClick={() => setOpen((v) => !v)}>Menú</button>
       {open && <ul>{/* opciones */}</ul>}
     </div>
-  );
+  )
 }
 ```
 

@@ -14,22 +14,24 @@ updatedAt: 2026-08-17
 {
   "hooks": {
     "afterFileEdit": [{ "command": "npx prettier --write \"$FILE_PATH\"" }],
-    "beforeShellExecution": [{ "command": "scripts/bloquear-comandos-peligrosos.sh" }]
+    "beforeShellExecution": [
+      { "command": "scripts/bloquear-comandos-peligrosos.sh" }
+    ]
   }
 }
 ```
 
 ## Eventos disponibles
 
-| Evento | Cuándo corre |
-| --- | --- |
-| `sessionStart` / `sessionEnd` | Al empezar/terminar la sesión |
-| `beforeSubmitPrompt` | Antes de mandar el prompt al modelo |
-| `beforeShellExecution` | Antes de correr un comando de shell (puede bloquear) |
-| `beforeMCPExecution` | Antes de invocar una tool de MCP |
-| `beforeReadFile` | Antes de leer un archivo (útil para redactar contenido sensible) |
-| `afterFileEdit` | Después de editar un archivo |
-| `stop` | Cuando el agente termina de responder |
+| Evento                        | Cuándo corre                                                     |
+| ----------------------------- | ---------------------------------------------------------------- |
+| `sessionStart` / `sessionEnd` | Al empezar/terminar la sesión                                    |
+| `beforeSubmitPrompt`          | Antes de mandar el prompt al modelo                              |
+| `beforeShellExecution`        | Antes de correr un comando de shell (puede bloquear)             |
+| `beforeMCPExecution`          | Antes de invocar una tool de MCP                                 |
+| `beforeReadFile`              | Antes de leer un archivo (útil para redactar contenido sensible) |
+| `afterFileEdit`               | Después de editar un archivo                                     |
+| `stop`                        | Cuando el agente termina de responder                            |
 
 ## Ejemplo: bloquear un comando
 
@@ -50,12 +52,12 @@ El hook recibe JSON por stdin y puede devolver JSON por stdout para bloquear/per
 
 ## Resumen
 
-| Uso típico | Evento |
-| --- | --- |
-| Formatear código automáticamente | `afterFileEdit` |
-| Bloquear comandos destructivos | `beforeShellExecution` |
-| Redactar archivos sensibles | `beforeReadFile` |
-| Logging/auditoría | `beforeMCPExecution`, `beforeShellExecution` |
+| Uso típico                       | Evento                                       |
+| -------------------------------- | -------------------------------------------- |
+| Formatear código automáticamente | `afterFileEdit`                              |
+| Bloquear comandos destructivos   | `beforeShellExecution`                       |
+| Redactar archivos sensibles      | `beforeReadFile`                             |
+| Logging/auditoría                | `beforeMCPExecution`, `beforeShellExecution` |
 
 ## Consideraciones
 

@@ -7,7 +7,7 @@ tags: [css, fonts, performance]
 updatedAt: 2026-08-16
 ---
 
-Cargar fuentes propias (*self-hosted*) en vez de depender de Google Fonts evita una conexión externa adicional y no depende de la disponibilidad de un tercero.
+Cargar fuentes propias (_self-hosted_) en vez de depender de Google Fonts evita una conexión externa adicional y no depende de la disponibilidad de un tercero.
 
 ## `@font-face` básico
 
@@ -15,15 +15,15 @@ Declara la fuente con `@font-face` antes de usarla en `font-family`. `font-displ
 
 ```css title="styles/fonts.css"
 @font-face {
-  font-family: 'Inter';
-  src: url('/fonts/inter-regular.woff2') format('woff2');
+  font-family: "Inter";
+  src: url("/fonts/inter-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
 }
 ```
 
@@ -33,8 +33,8 @@ Una fuente variable (`.woff2` con `-variations`) reemplaza varios archivos (400,
 
 ```css title="styles/fonts.css"
 @font-face {
-  font-family: 'Inter';
-  src: url('/fonts/inter-variable.woff2') format('woff2-variations');
+  font-family: "Inter";
+  src: url("/fonts/inter-variable.woff2") format("woff2-variations");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -43,7 +43,7 @@ Una fuente variable (`.woff2` con `-variations`) reemplaza varios archivos (400,
 
 ```css
 .heading {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-weight: 650; /* cualquier valor dentro del rango, no solo 100/400/700 */
 }
 ```
@@ -64,11 +64,11 @@ Para la fuente del texto principal (la que se ve antes de cualquier scroll), pre
 
 ## Resumen
 
-| Técnica | Cuándo usarla |
-| --- | --- |
-| `@font-face` + `font-display: swap` | Base para cualquier fuente self-hosted |
-| Fuente variable | Varios pesos directamente misma familia, un solo archivo |
-| `<link rel="preload">` | La fuente del texto principal, para evitar layout shift |
+| Técnica                             | Cuándo usarla                                            |
+| ----------------------------------- | -------------------------------------------------------- |
+| `@font-face` + `font-display: swap` | Base para cualquier fuente self-hosted                   |
+| Fuente variable                     | Varios pesos directamente misma familia, un solo archivo |
+| `<link rel="preload">`              | La fuente del texto principal, para evitar layout shift  |
 
 ## Consideraciones
 

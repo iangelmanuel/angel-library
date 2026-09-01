@@ -15,14 +15,14 @@ Una evaluación o **eval** ejecuta entradas conocidas, captura la salida y aplic
 
 ## Consulta rápida
 
-| Quiero medir | Método posible |
-| --- | --- |
-| JSON válido | parser + schema determinista |
-| cita incluida | regla o comparación de campos |
-| respuesta correcta | referencia, rubric o grader revisado |
-| tool call apropiada | inspeccionar nombre y argumentos |
-| seguridad | casos adversariales + clasificación |
-| experiencia | revisión humana y métricas de producto |
+| Quiero medir        | Método posible                         |
+| ------------------- | -------------------------------------- |
+| JSON válido         | parser + schema determinista           |
+| cita incluida       | regla o comparación de campos          |
+| respuesta correcta  | referencia, rubric o grader revisado   |
+| tool call apropiada | inspeccionar nombre y argumentos       |
+| seguridad           | casos adversariales + clasificación    |
+| experiencia         | revisión humana y métricas de producto |
 
 ## Construir el conjunto
 
@@ -30,15 +30,15 @@ Empieza con ejemplos reales y pequeños:
 
 ```ts
 type EvalCase = {
-  id: string;
-  input: string;
+  id: string
+  input: string
   expected: {
-    mustMention?: string[];
-    forbidden?: string[];
-    schema?: string;
-  };
-  tags: string[];
-};
+    mustMention?: string[]
+    forbidden?: string[]
+    schema?: string
+  }
+  tags: string[]
+}
 ```
 
 Incluye caso feliz, entrada ambigua, datos ausentes, idioma, texto largo, intento de inyección y dependencia caída. Etiquetar permite descubrir que el promedio mejora mientras una capacidad crítica empeora.

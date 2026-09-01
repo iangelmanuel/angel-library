@@ -9,7 +9,7 @@ updatedAt: 2026-08-19
 
 El **frontend** es la parte de un producto digital que se ejecuta cerca del usuario y presenta la interfaz. En la Web, su runtime principal es el navegador. HTML expresa estructura y significado, CSS define presentación y adaptación, y JavaScript coordina comportamiento y datos dinámicos.
 
-**UI** significa *User Interface* o interfaz de usuario: controles, contenido y estados con los que una persona interactúa. **UX** significa *User Experience* o experiencia de usuario: el recorrido completo, incluida la claridad, velocidad, accesibilidad y confianza que produce el sistema.
+**UI** significa _User Interface_ o interfaz de usuario: controles, contenido y estados con los que una persona interactúa. **UX** significa _User Experience_ o experiencia de usuario: el recorrido completo, incluida la claridad, velocidad, accesibilidad y confianza que produce el sistema.
 
 ## Del URL a una página interactiva
 
@@ -22,9 +22,9 @@ URL → solicitud HTTP → respuesta HTML → DOM
                            + JavaScript → comportamiento e interacción
 ```
 
-**URL** significa *Uniform Resource Locator*, localizador uniforme de recursos. **HTTP** es el protocolo con el que cliente y servidor intercambian solicitudes y respuestas.
+**URL** significa _Uniform Resource Locator_, localizador uniforme de recursos. **HTTP** es el protocolo con el que cliente y servidor intercambian solicitudes y respuestas.
 
-El **DOM** (*Document Object Model*) es la representación en objetos del documento. El **CSSOM** (*CSS Object Model*) representa las reglas de estilo. El navegador combina ambos para calcular qué se renderiza.
+El **DOM** (_Document Object Model_) es la representación en objetos del documento. El **CSSOM** (_CSS Object Model_) representa las reglas de estilo. El navegador combina ambos para calcular qué se renderiza.
 
 ## Cliente, servidor y frontera de confianza
 
@@ -34,24 +34,24 @@ Todo código y dato entregado al navegador puede ser inspeccionado o modificado 
 
 ```ts
 // Útil para dar respuesta inmediata en la interfaz.
-const isEmailShape = /^[^@]+@[^@]+$/.test(email);
+const isEmailShape = /^[^@]+@[^@]+$/.test(email)
 
 // El servidor todavía valida formato, permisos y reglas de negocio.
 ```
 
 ## Componentes, propiedades y estado
 
-Un **componente** encapsula una parte de la interfaz y su comportamiento. Sus **props**, abreviatura de *properties*, son datos recibidos desde el exterior. El **estado** es información que cambia durante la vida de la interfaz.
+Un **componente** encapsula una parte de la interfaz y su comportamiento. Sus **props**, abreviatura de _properties_, son datos recibidos desde el exterior. El **estado** es información que cambia durante la vida de la interfaz.
 
 ```tsx
 function Counter({ initialValue = 0 }: { initialValue?: number }) {
-  const [count, setCount] = useState(initialValue);
+  const [count, setCount] = useState(initialValue)
 
   return (
     <button onClick={() => setCount((current) => current + 1)}>
       Total: {count}
     </button>
-  );
+  )
 }
 ```
 
@@ -71,13 +71,13 @@ El **ciclo de vida** describe montaje, actualizaciones y desmontaje. Cualquier s
 
 Estos acrónimos describen decisiones diferentes:
 
-| Sigla | Significado | Idea principal |
-| --- | --- | --- |
-| SPA | *Single-Page Application* | La navegación suele actualizar una misma página mediante JavaScript |
-| MPA | *Multi-Page Application* | Cada navegación principal solicita un nuevo documento |
-| CSR | *Client-Side Rendering* | El navegador produce gran parte del contenido con JavaScript |
-| SSR | *Server-Side Rendering* | El servidor genera HTML para cada solicitud |
-| SSG | *Static Site Generation* | El HTML se genera durante el build |
+| Sigla | Significado               | Idea principal                                                      |
+| ----- | ------------------------- | ------------------------------------------------------------------- |
+| SPA   | _Single-Page Application_ | La navegación suele actualizar una misma página mediante JavaScript |
+| MPA   | _Multi-Page Application_  | Cada navegación principal solicita un nuevo documento               |
+| CSR   | _Client-Side Rendering_   | El navegador produce gran parte del contenido con JavaScript        |
+| SSR   | _Server-Side Rendering_   | El servidor genera HTML para cada solicitud                         |
+| SSG   | _Static Site Generation_  | El HTML se genera durante el build                                  |
 
 Una aplicación puede mezclar estrategias por ruta. Un catálogo público puede ser estático, una página personalizada puede usar SSR y un editor complejo puede incorporar CSR.
 
@@ -106,8 +106,8 @@ La **división de código** separa módulos y la **carga diferida** posterga tra
 
 ```ts
 async function openRichEditor() {
-  const { createEditor } = await import('./rich-editor');
-  return createEditor();
+  const { createEditor } = await import("./rich-editor")
+  return createEditor()
 }
 ```
 

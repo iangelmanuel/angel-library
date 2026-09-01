@@ -12,12 +12,12 @@ related:
 updatedAt: 2026-08-18
 ---
 
-| Estrategia | Ventaja | Costo/riesgo |
-| --- | --- | --- |
-| Recreate | simple | ventana de caída |
-| Rolling | usa capacidad existente | conviven versiones |
-| Blue-green | cambio y rollback rápidos | duplica ambiente temporalmente |
-| Canary | limita impacto a parte del tráfico | requiere routing y observación fiables |
+| Estrategia | Ventaja                            | Costo/riesgo                           |
+| ---------- | ---------------------------------- | -------------------------------------- |
+| Recreate   | simple                             | ventana de caída                       |
+| Rolling    | usa capacidad existente            | conviven versiones                     |
+| Blue-green | cambio y rollback rápidos          | duplica ambiente temporalmente         |
+| Canary     | limita impacto a parte del tráfico | requiere routing y observación fiables |
 
 ## Compatibilidad durante el deploy
 

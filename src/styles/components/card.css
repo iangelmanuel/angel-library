@@ -19,7 +19,7 @@
       transform 150ms ease;
   }
   .card::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0 0 auto 0;
     height: 2px;
@@ -30,13 +30,14 @@
   .card:hover {
     border-color: var(--card-accent);
     transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 color-mix(in srgb, var(--card-accent) 38%, transparent);
+    box-shadow: 4px 4px 0
+      color-mix(in srgb, var(--card-accent) 38%, transparent);
   }
   .card:hover::before {
     opacity: 1;
   }
   .card h3::after {
-    content: '_';
+    content: "_";
     margin-left: 1px;
     opacity: 0;
   }

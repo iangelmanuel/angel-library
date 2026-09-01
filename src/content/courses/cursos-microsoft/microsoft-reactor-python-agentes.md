@@ -14,19 +14,19 @@ updatedAt: 2026-08-30
 
 Serie de **Microsoft Reactor** sobre construir agentes de IA con **Agent Framework**, impartida por Gwyneth Peña-Siguenza, Senior Cloud Advocate en Microsoft.
 
-| | |
-| --- | --- |
-| Idioma | Español |
-| Sesiones | 6 directos |
-| Fechas | 24 de febrero a 5 de marzo de 2026 |
-| Formato | En vivo, con grabación disponible después |
-| Precio | Gratis |
+|          |                                           |
+| -------- | ----------------------------------------- |
+| Idioma   | Español                                   |
+| Sesiones | 6 directos                                |
+| Fechas   | 24 de febrero a 5 de marzo de 2026        |
+| Formato  | En vivo, con grabación disponible después |
+| Precio   | Gratis                                    |
 
 Aunque la URL está bajo `/en-us/`, **la serie es en español**.
 
 ## Qué cubre
 
-- Registrar y estructurar *tools*, las funciones que el agente puede llamar.
+- Registrar y estructurar _tools_, las funciones que el agente puede llamar.
 - Conectar servidores **MCP** locales.
 - Añadir contexto con proveedores integrados.
 - Comparar estrategias de memoria.

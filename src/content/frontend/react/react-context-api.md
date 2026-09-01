@@ -15,27 +15,27 @@ Pasar una prop a través de cinco componentes que no la usan, solo para que lleg
 `createContext` necesita un valor por defecto (se usa solo si un componente lo lee sin estar envuelto en el Provider — por eso conviene que sea `null` y no un objeto falso, para poder detectar el error).
 
 ```tsx title="context/AuthContext.tsx"
-import { createContext, useState, type ReactNode } from 'react';
+import { type ReactNode, createContext, useState } from "react"
 
 interface AuthContextValue {
-  usuario: string | null;
-  login: (nombre: string) => void;
-  logout: () => void;
+  usuario: string | null
+  login: (nombre: string) => void
+  logout: () => void
 }
 
-export const AuthContext = createContext<AuthContextValue | null>(null);
+export const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [usuario, setUsuario] = useState<string | null>(null);
+  const [usuario, setUsuario] = useState<string | null>(null)
 
-  const login = (nombre: string) => setUsuario(nombre);
-  const logout = () => setUsuario(null);
+  const login = (nombre: string) => setUsuario(nombre)
+  const logout = () => setUsuario(null)
 
   return (
     <AuthContext.Provider value={{ usuario, login, logout }}>
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
 ```
 
@@ -44,14 +44,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 Consumir `AuthContext` directo con `useContext(AuthContext)` en cada componente obliga a chequear `null` en todos lados y repite el import. Un hook custom centraliza esa validación una sola vez, y falla con un mensaje claro si alguien lo usa fuera del Provider — en vez de un `undefined` silencioso más adelante.
 
 ```tsx title="context/AuthContext.tsx"
-import { useContext } from 'react';
+import { useContext } from "react"
 
 export function useAuth() {
-  const context = useContext(AuthContext);
+  const context = useContext(AuthContext)
   if (!context) {
-    throw new Error('useAuth() debe usarse dentro de <AuthProvider>');
+    throw new Error("useAuth() debe usarse dentro de <AuthProvider>")
   }
-  return context;
+  return context
 }
 ```
 
@@ -65,22 +65,26 @@ export function useAuth() {
 ```
 
 ```tsx title="Header.tsx"
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext"
 
 export function Header() {
-  const { usuario, logout } = useAuth();
-  return usuario ? <button onClick={logout}>Salir ({usuario})</button> : <LoginButton />;
+  const { usuario, logout } = useAuth()
+  return usuario ? (
+    <button onClick={logout}>Salir ({usuario})</button>
+  ) : (
+    <LoginButton />
+  )
 }
 ```
 
 ## API de Context en una mirada
 
-| Pieza | Qué hace |
-| --- | --- |
+| Pieza                            | Qué hace                                                                      |
+| -------------------------------- | ----------------------------------------------------------------------------- |
 | `createContext<T \| null>(null)` | Crea el contexto, tipado, con `null` como default para poder detectar mal uso |
-| `<Context.Provider value={...}>` | Hace disponible ese valor para todos sus descendientes |
-| `useContext(Context)` | Lee el valor — el hook custom lo envuelve y valida |
-| Hook custom (`useAuth`, etc.) | Un solo punto de import, con error claro si falta el Provider |
+| `<Context.Provider value={...}>` | Hace disponible ese valor para todos sus descendientes                        |
+| `useContext(Context)`            | Lee el valor — el hook custom lo envuelve y valida                            |
+| Hook custom (`useAuth`, etc.)    | Un solo punto de import, con error claro si falta el Provider                 |
 
 ## Fronteras de render y diseño del contexto
 

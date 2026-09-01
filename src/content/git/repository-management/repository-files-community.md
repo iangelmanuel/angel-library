@@ -44,18 +44,18 @@ No todos son obligatorios. Añádelos cuando resuelvan una necesidad real y mant
 
 ## Qué responde cada archivo
 
-| Archivo | Debe responder |
-| --- | --- |
-| `README.md` | qué es, para quién, estado, instalación, uso y enlaces principales |
-| `CONTRIBUTING.md` | cómo preparar entorno, rama, pruebas, commits y Pull Request |
-| `LICENSE` | qué permisos y obligaciones tiene quien reutiliza el trabajo |
-| `SECURITY.md` | versiones soportadas y canal privado para vulnerabilidades |
-| `CODE_OF_CONDUCT.md` | comportamiento esperado y proceso ante incumplimientos |
-| `SUPPORT.md` | qué consultas se atienden y dónde pedir ayuda |
-| `CHANGELOG.md` | cambios relevantes por versión para consumidores humanos |
-| `.editorconfig` | reglas básicas de formato entre editores |
-| `.env.example` | nombres y propósito de variables, nunca valores secretos |
-| `CODEOWNERS` | personas o equipos responsables de rutas concretas |
+| Archivo              | Debe responder                                                     |
+| -------------------- | ------------------------------------------------------------------ |
+| `README.md`          | qué es, para quién, estado, instalación, uso y enlaces principales |
+| `CONTRIBUTING.md`    | cómo preparar entorno, rama, pruebas, commits y Pull Request       |
+| `LICENSE`            | qué permisos y obligaciones tiene quien reutiliza el trabajo       |
+| `SECURITY.md`        | versiones soportadas y canal privado para vulnerabilidades         |
+| `CODE_OF_CONDUCT.md` | comportamiento esperado y proceso ante incumplimientos             |
+| `SUPPORT.md`         | qué consultas se atienden y dónde pedir ayuda                      |
+| `CHANGELOG.md`       | cambios relevantes por versión para consumidores humanos           |
+| `.editorconfig`      | reglas básicas de formato entre editores                           |
+| `.env.example`       | nombres y propósito de variables, nunca valores secretos           |
+| `CODEOWNERS`         | personas o equipos responsables de rutas concretas                 |
 
 ## README orientado a tareas
 
@@ -67,11 +67,17 @@ El primer bloque debe permitir decidir si el proyecto sirve. Después debe permi
 Qué problema resuelve y para quién.
 
 ## Requisitos
+
 ## Instalación
+
 ## Variables de entorno
+
 ## Desarrollo y pruebas
+
 ## Arquitectura breve
+
 ## Despliegue
+
 ## Contribución, seguridad y licencia
 ```
 
@@ -116,4 +122,3 @@ El ejemplo muestra formato, no credenciales válidas. El `.env` real debe estar 
 Una plantilla debe solicitar información accionable, no producir casillas por costumbre. Para una PR suelen bastar propósito, evidencia, riesgo, migración y rollback. Para un bug: comportamiento actual, esperado, reproducción, entorno y evidencia sin datos sensibles.
 
 Fuente oficial: [archivos comunitarios y plantillas en GitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions).
-

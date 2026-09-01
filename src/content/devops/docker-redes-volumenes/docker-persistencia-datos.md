@@ -6,7 +6,11 @@ order: 3
 tags: [docker, persistencia, volumenes, contenedores]
 scope: persistencia de datos
 problem: "Corrí docker rm en mi contenedor de Postgres y perdí toda la base de datos — ¿cómo evito que vuelva a pasar?"
-related: [devops/docker-redes-volumenes/docker-volumenes, devops/docker-bases-datos/docker-postgres-run]
+related:
+  [
+    devops/docker-redes-volumenes/docker-volumenes,
+    devops/docker-bases-datos/docker-postgres-run
+  ]
 updatedAt: 2026-08-17
 ---
 

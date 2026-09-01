@@ -51,16 +51,24 @@ Usa proyectos para configuraciones con significado: navegador, dispositivo, rol 
 ```ts title="playwright.config.ts"
 export default defineConfig({
   projects: [
-    { name: 'setup', testMatch: /auth\.setup\.ts/ },
+    { name: "setup", testMatch: /auth\.setup\.ts/ },
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' },
-      dependencies: ['setup'],
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"], storageState: ".auth/user.json" },
+      dependencies: ["setup"]
     },
-    { name: 'firefox-smoke', grep: /@smoke/, use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit-smoke', grep: /@smoke/, use: { ...devices['Desktop Safari'] } },
-  ],
-});
+    {
+      name: "firefox-smoke",
+      grep: /@smoke/,
+      use: { ...devices["Desktop Firefox"] }
+    },
+    {
+      name: "webkit-smoke",
+      grep: /@smoke/,
+      use: { ...devices["Desktop Safari"] }
+    }
+  ]
+})
 ```
 
 El estado de autenticación es un secreto temporal. Excluye `.auth` de Git, no lo publiques como artefacto y usa cuentas de prueba.
@@ -70,15 +78,15 @@ El estado de autenticación es un secreto temporal. Excluye `.auth` de Git, no l
 Prepara datos por API o fixture de servidor, no haciendo clic por toda la UI en cada test. Usa una cuenta distinta por worker y elimina recursos creados cuando el entorno se comparte. Los datos deben ser deterministas, pero no todos los tests deben usar el mismo usuario: eso oculta problemas de permisos y colisiones.
 
 ```ts title="tests/fixtures.ts"
-import { test as base } from '@playwright/test';
+import { test as base } from "@playwright/test"
 
 export const test = base.extend<{ account: { id: string; email: string } }>({
   account: async ({ request }, use) => {
-    const account = await createTestAccount(request);
-    await use(account);
-    await deleteTestAccount(request, account.id);
-  },
-});
+    const account = await createTestAccount(request)
+    await use(account)
+    await deleteTestAccount(request, account.id)
+  }
+})
 ```
 
 Un fixture expresa preparación y limpieza como una dependencia del test. Si la limpieza falla, registra el recurso para retirarlo después; no ocultes el fallo original con otro error del teardown.
@@ -105,11 +113,11 @@ Guarda el trace con screenshots, consola y requests relevantes. Clasifica cada f
 export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   use: {
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-  },
-});
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure"
+  }
+})
 ```
 
 Dos reintentos no significan que el comportamiento sea aceptable: sirven para obtener evidencia y medir inestabilidad. El pipeline debe distinguir un test que pasó al primer intento de uno que necesitó retry.
@@ -120,8 +128,8 @@ Playwright distingue timeout del test, de la expectativa, de navegación y de ac
 
 ```ts
 await expect(page.getByText(/reporte listo/i)).toBeVisible({
-  timeout: 30_000,
-});
+  timeout: 30_000
+})
 ```
 
 Antes de ampliar, comprueba si la aplicación ofrece una señal mejor: respuesta de red, estado del job o mensaje visible.

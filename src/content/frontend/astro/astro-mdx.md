@@ -18,12 +18,12 @@ MDX significa **Markdown + JSX**. Conserva la escritura de Markdown, pero su arc
 
 ## Elección rápida
 
-| Contenido | Formato |
-| --- | --- |
-| artículo con texto, tablas y código | Markdown |
-| demo o componente interactivo entre párrafos | MDX |
-| datos estructurados consumidos por varias vistas | Content Collection con esquema |
-| contenido escrito por usuarios no confiables | formato sanitizado; no MDX ejecutable |
+| Contenido                                        | Formato                               |
+| ------------------------------------------------ | ------------------------------------- |
+| artículo con texto, tablas y código              | Markdown                              |
+| demo o componente interactivo entre párrafos     | MDX                                   |
+| datos estructurados consumidos por varias vistas | Content Collection con esquema        |
+| contenido escrito por usuarios no confiables     | formato sanitizado; no MDX ejecutable |
 
 ## Instalar
 
@@ -38,7 +38,7 @@ El comando instala `@astrojs/mdx` y agrega la integración a `astro.config.mjs`.
 title: Demo interactiva
 ---
 
-import Callout from '../../components/Callout.astro';
+import Callout from "../../components/Callout.astro"
 
 # Ejemplo
 
@@ -66,9 +66,9 @@ Una entrada MDX puede usar el mismo esquema, referencias y consultas de una cole
 
 ```astro
 ---
-const entry = await getEntry('guides', 'astro-mdx');
-if (!entry) throw new Error('Guía no encontrada');
-const { Content } = await render(entry);
+const entry = await getEntry("guides", "astro-mdx")
+if (!entry) throw new Error("Guía no encontrada")
+const { Content } = await render(entry)
 ---
 
 <article><Content /></article>

@@ -19,7 +19,11 @@ WCAG define relaciones mínimas según tamaño y función. Mide colores finales,
 
 ```html
 <label for="email">Correo</label>
-<input id="email" aria-describedby="email-error" aria-invalid="true" />
+<input
+  id="email"
+  aria-describedby="email-error"
+  aria-invalid="true"
+/>
 <p id="email-error">Escribe un correo válido.</p>
 ```
 
@@ -41,7 +45,9 @@ Tablas, mapas o diagramas pueden necesitar desplazamiento bidimensional por su n
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -91,4 +97,3 @@ Contraste final, foco visible, información sin depender de color, zoom, reflow,
 
 - [WCAG: reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html)
 - [WCAG: contraste mínimo](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
-

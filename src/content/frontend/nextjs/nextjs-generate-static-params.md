@@ -17,15 +17,21 @@ Mismo problema que resuelve [`getStaticPaths` en Astro](/frontend/astro/astro-ge
 
 ```tsx title="app/blog/[slug]/page.tsx"
 export async function generateStaticParams() {
-  const posts = await fetch('https://api.ejemplo.com/posts').then((r) => r.json());
+  const posts = await fetch("https://api.ejemplo.com/posts").then((r) =>
+    r.json()
+  )
 
   return posts.map((post: { slug: string }) => ({
-    slug: post.slug,
-  }));
+    slug: post.slug
+  }))
 }
 
-export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function Page({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
   // ...
 }
 ```
@@ -38,12 +44,14 @@ Para una ruta como `[categoria]/[producto]`, cada objeto lleva ambas claves.
 
 ```tsx title="app/productos/[categoria]/[producto]/page.tsx"
 export async function generateStaticParams() {
-  const productos = await fetch('https://api.ejemplo.com/productos').then((r) => r.json());
+  const productos = await fetch("https://api.ejemplo.com/productos").then((r) =>
+    r.json()
+  )
 
   return productos.map((p: { categoria: string; id: string }) => ({
     categoria: p.categoria,
-    producto: p.id,
-  }));
+    producto: p.id
+  }))
 }
 ```
 
@@ -52,7 +60,7 @@ export async function generateStaticParams() {
 Por defecto (`dynamicParams = true`), una URL que matchea el patrón pero no estaba en la lista de `generateStaticParams` igual se renderiza — la primera vez, on-demand; después queda cacheada. Poniendo `false`, cualquier valor no generado en build devuelve 404 directo, sin intentar renderizarlo.
 
 ```tsx title="app/blog/[slug]/page.tsx"
-export const dynamicParams = false; // solo los slugs de generateStaticParams existen, el resto es 404
+export const dynamicParams = false // solo los slugs de generateStaticParams existen, el resto es 404
 ```
 
 ## Generar un subconjunto, el resto bajo demanda
@@ -61,19 +69,23 @@ No hace falta devolver todo — para un blog con miles de posts, generar los 10 
 
 ```tsx
 export async function generateStaticParams() {
-  const posts = await fetch('https://api.ejemplo.com/posts').then((r) => r.json());
-  return posts.slice(0, 10).map((post: { slug: string }) => ({ slug: post.slug }));
+  const posts = await fetch("https://api.ejemplo.com/posts").then((r) =>
+    r.json()
+  )
+  return posts
+    .slice(0, 10)
+    .map((post: { slug: string }) => ({ slug: post.slug }))
 }
 ```
 
 ## Contrato de la función
 
-| API | Uso |
-| --- | --- |
-| `generateStaticParams()` | Devuelve el array de `params` a generar en build |
-| Array vacío `[]` | Ninguna página se genera en build, todas on-demand (ISR completo) |
-| `export const dynamicParams = false` | Cualquier valor no listado da 404, en vez de generarse on-demand |
-| Funciona en `page.tsx`, `layout.tsx` y `route.ts` | No es exclusivo de páginas |
+| API                                               | Uso                                                               |
+| ------------------------------------------------- | ----------------------------------------------------------------- |
+| `generateStaticParams()`                          | Devuelve el array de `params` a generar en build                  |
+| Array vacío `[]`                                  | Ninguna página se genera en build, todas on-demand (ISR completo) |
+| `export const dynamicParams = false`              | Cualquier valor no listado da 404, en vez de generarse on-demand  |
+| Funciona en `page.tsx`, `layout.tsx` y `route.ts` | No es exclusivo de páginas                                        |
 
 ## Cobertura de rutas y escalabilidad
 

@@ -5,7 +5,11 @@ type: guides
 order: 3
 tags: [docker, postgres, psql, base-de-datos]
 scope: conectar a Postgres
-related: [devops/docker-bases-datos/docker-postgres-run, devops/docker-contenedores/docker-exec-logs]
+related:
+  [
+    devops/docker-bases-datos/docker-postgres-run,
+    devops/docker-contenedores/docker-exec-logs
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -37,13 +41,13 @@ Dentro de `psql`, algunos comandos útiles:
 
 Con el puerto publicado (`-p 5432:5432` en el `docker run`/Compose), cualquier cliente instalado en la máquina se conecta como si Postgres corriera nativo:
 
-| Campo | Valor |
-|---|---|
-| Host | `localhost` |
-| Puerto | `5432` |
-| Usuario | el de `POSTGRES_USER` |
-| Contraseña | el de `POSTGRES_PASSWORD` |
-| Base de datos | el de `POSTGRES_DB` |
+| Campo         | Valor                     |
+| ------------- | ------------------------- |
+| Host          | `localhost`               |
+| Puerto        | `5432`                    |
+| Usuario       | el de `POSTGRES_USER`     |
+| Contraseña    | el de `POSTGRES_PASSWORD` |
+| Base de datos | el de `POSTGRES_DB`       |
 
 ## Connection string, para la app
 

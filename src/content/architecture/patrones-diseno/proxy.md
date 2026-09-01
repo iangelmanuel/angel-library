@@ -17,19 +17,19 @@ A veces el comportamiento extra que necesitas no es "antes o después de llamar 
 
 ```ts title="lib/config-proxy.ts"
 const configReal = {
-  apiUrl: 'https://api.miapp.com',
+  apiUrl: "https://api.miapp.com",
   featureFlagX: true,
-  secretoInterno: '...',
-};
+  secretoInterno: "..."
+}
 
 export const config = new Proxy(configReal, {
   get(target, prop: string) {
-    console.log(`[config] se leyó la clave "${prop}"`);
-    return target[prop as keyof typeof target];
-  },
-});
+    console.log(`[config] se leyó la clave "${prop}"`)
+    return target[prop as keyof typeof target]
+  }
+})
 
-config.apiUrl; // dispara el log, devuelve el valor real
+config.apiUrl // dispara el log, devuelve el valor real
 ```
 
 Útil para detectar qué claves de configuración se usan de verdad antes de eliminar las que no.
@@ -38,19 +38,19 @@ config.apiUrl; // dispara el log, devuelve el valor real
 
 ```ts title="lib/memoize-proxy.ts"
 function memoize<T extends (...args: any[]) => any>(fn: T): T {
-  const cache = new Map<string, ReturnType<T>>();
+  const cache = new Map<string, ReturnType<T>>()
   return new Proxy(fn, {
     apply(target, thisArg, args) {
-      const key = JSON.stringify(args);
-      if (cache.has(key)) return cache.get(key);
-      const resultado = Reflect.apply(target, thisArg, args);
-      cache.set(key, resultado);
-      return resultado;
-    },
-  }) as T;
+      const key = JSON.stringify(args)
+      if (cache.has(key)) return cache.get(key)
+      const resultado = Reflect.apply(target, thisArg, args)
+      cache.set(key, resultado)
+      return resultado
+    }
+  }) as T
 }
 
-const buscarUsuarioCacheado = memoize(buscarUsuarioEnDB);
+const buscarUsuarioCacheado = memoize(buscarUsuarioEnDB)
 ```
 
 `buscarUsuarioCacheado(id)` se llama exactamente igual que la función original — el proxy intercepta la llamada y decide si ejecuta la función real o devuelve el valor cacheado.

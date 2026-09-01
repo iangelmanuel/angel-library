@@ -15,15 +15,15 @@ Optimizar significa identificar el cuello de botella que afecta al usuario, modi
 
 La ruta de aprendizaje es: experiencia y métricas → red y recursos → imágenes/fuentes → render y JavaScript → caché/CDN → backend/base de datos → presupuestos y RUM. Optimiza una hipótesis a la vez y conserva una medición antes/después.
 
-| Síntoma | Documento |
-| --- | --- |
-| LCP, INP o CLS deficientes | [Core Web Vitals](/performance/performance-fundamentos/core-web-vitals) |
-| imágenes pesadas o dimensiones incorrectas | [Optimización de imágenes](/performance/performance-carga/performance-image-optimization) |
-| CSS, fuentes o scripts bloquean | [Carga de recursos](/performance/performance-carga/performance-resource-loading) |
-| interacción lenta o long tasks | [Runtime JavaScript](/performance/performance-runtime/performance-javascript-runtime) |
-| red repetida o servidor lejano | [Caché y CDN](/performance/performance-operacion/performance-cache-cdn) |
-| consultas o endpoint lentos | [Backend y base de datos](/performance/performance-operacion/performance-backend-database) |
-| regresiones después del deploy | [Presupuestos y monitoreo](/performance/performance-operacion/performance-budgets-monitoring) |
+| Síntoma                                    | Documento                                                                                     |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| LCP, INP o CLS deficientes                 | [Core Web Vitals](/performance/performance-fundamentos/core-web-vitals)                       |
+| imágenes pesadas o dimensiones incorrectas | [Optimización de imágenes](/performance/performance-carga/performance-image-optimization)     |
+| CSS, fuentes o scripts bloquean            | [Carga de recursos](/performance/performance-carga/performance-resource-loading)              |
+| interacción lenta o long tasks             | [Runtime JavaScript](/performance/performance-runtime/performance-javascript-runtime)         |
+| red repetida o servidor lejano             | [Caché y CDN](/performance/performance-operacion/performance-cache-cdn)                       |
+| consultas o endpoint lentos                | [Backend y base de datos](/performance/performance-operacion/performance-backend-database)    |
+| regresiones después del deploy             | [Presupuestos y monitoreo](/performance/performance-operacion/performance-budgets-monitoring) |
 
 Una puntuación de laboratorio ayuda a diagnosticar; no representa por sí sola a todos los usuarios. Cruza laboratorio, datos de campo y trazas del servidor antes de atribuir la causa.
 
@@ -38,45 +38,48 @@ Descubrir URL → resolver DNS → conectar → negociar TLS → solicitar
              → descargar → descomprimir → analizar → ejecutar o renderizar
 ```
 
-**DNS** significa *Domain Name System* y traduce dominios a direcciones de red. **TLS** significa *Transport Layer Security* y protege la comunicación. Reutilizar conexiones, reducir orígenes y evitar cadenas de dependencias disminuye esperas.
+**DNS** significa _Domain Name System_ y traduce dominios a direcciones de red. **TLS** significa _Transport Layer Security_ y protege la comunicación. Reutilizar conexiones, reducir orígenes y evitar cadenas de dependencias disminuye esperas.
 
 ## Métricas de laboratorio y de campo
 
 Los datos de **laboratorio** se obtienen en un entorno controlado. Permiten repetir una prueba y diagnosticar. Los datos de **campo** provienen de sesiones reales con distintos dispositivos, redes y ubicaciones.
 
-**RUM** significa *Real User Monitoring* o monitoreo de usuarios reales. Responde qué experimentan las personas en producción. Una prueba local rápida no invalida un problema que afecta a teléfonos de gama media en una red móvil.
+**RUM** significa _Real User Monitoring_ o monitoreo de usuarios reales. Responde qué experimentan las personas en producción. Una prueba local rápida no invalida un problema que afecta a teléfonos de gama media en una red móvil.
 
-| Fuente | Ventaja | Limitación |
-| --- | --- | --- |
-| Laboratorio | Repetible y detallada | Es una simulación concreta |
-| Campo o RUM | Representa usuarios reales | Tiene variación y necesita volumen |
+| Fuente              | Ventaja                     | Limitación                             |
+| ------------------- | --------------------------- | -------------------------------------- |
+| Laboratorio         | Repetible y detallada       | Es una simulación concreta             |
+| Campo o RUM         | Representa usuarios reales  | Tiene variación y necesita volumen     |
 | Trazas del servidor | Explican trabajo de backend | No muestran toda la experiencia visual |
 
 ## Core Web Vitals
 
 **Core Web Vitals** reúne métricas centradas en experiencia:
 
-- **LCP** (*Largest Contentful Paint*): cuándo aparece el elemento de contenido más grande visible, normalmente el contenido principal inicial.
-- **INP** (*Interaction to Next Paint*): cuánto tarda la página en mostrar una actualización visual después de una interacción.
-- **CLS** (*Cumulative Layout Shift*): cuánto se desplaza inesperadamente el contenido visible.
+- **LCP** (_Largest Contentful Paint_): cuándo aparece el elemento de contenido más grande visible, normalmente el contenido principal inicial.
+- **INP** (_Interaction to Next Paint_): cuánto tarda la página en mostrar una actualización visual después de una interacción.
+- **CLS** (_Cumulative Layout Shift_): cuánto se desplaza inesperadamente el contenido visible.
 
 Otras métricas complementarias:
 
-- **TTFB** (*Time to First Byte*): tiempo hasta recibir el primer byte de la respuesta.
-- **FCP** (*First Contentful Paint*): primer contenido visible renderizado.
-- **TBT** (*Total Blocking Time*): tiempo de laboratorio bloqueado por tareas largas después del primer contenido.
+- **TTFB** (_Time to First Byte_): tiempo hasta recibir el primer byte de la respuesta.
+- **FCP** (_First Contentful Paint_): primer contenido visible renderizado.
+- **TBT** (_Total Blocking Time_): tiempo de laboratorio bloqueado por tareas largas después del primer contenido.
 
 Una métrica indica un síntoma, no siempre la causa. Un LCP tardío puede venir del servidor, una imagen sin prioridad, CSS bloqueante o un elemento descubierto mediante JavaScript.
 
 ## Ruta crítica de renderizado
 
-El navegador analiza HTML y construye el **DOM** (*Document Object Model*). Analiza CSS y construye el **CSSOM** (*CSS Object Model*). Después combina información para calcular estilos, layout y pintura.
+El navegador analiza HTML y construye el **DOM** (_Document Object Model_). Analiza CSS y construye el **CSSOM** (_CSS Object Model_). Después combina información para calcular estilos, layout y pintura.
 
 Una hoja de estilos puede bloquear el primer render porque el navegador necesita conocer estilos antes de pintar. Un script clásico sin `defer` puede detener el análisis del HTML. La solución no es aplicar `async` a todo: primero se entiende si el script depende del orden o del DOM.
 
 ```html
 <!-- Se descarga en paralelo y se ejecuta después de analizar el documento. -->
-<script src="/app.js" defer></script>
+<script
+  src="/app.js"
+  defer
+></script>
 ```
 
 ## Hilo principal y tareas largas
@@ -86,11 +89,11 @@ JavaScript, cálculo de estilos, layout y parte del renderizado compiten por el 
 ```ts
 // Procesa el trabajo por partes y devuelve control entre grupos.
 async function processItems(items: Item[]) {
-  const chunkSize = 100;
+  const chunkSize = 100
 
   for (let index = 0; index < items.length; index += chunkSize) {
-    processChunk(items.slice(index, index + chunkSize));
-    await new Promise(requestAnimationFrame);
+    processChunk(items.slice(index, index + chunkSize))
+    await new Promise(requestAnimationFrame)
   }
 }
 ```

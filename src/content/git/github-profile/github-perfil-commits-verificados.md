@@ -40,10 +40,10 @@ git config --global user.signingkey ~/.ssh/id_ed25519.pub
 git config --global commit.gpgsign true
 ```
 
-| Ajuste | Qué hace |
-| --- | --- |
-| `gpg.format ssh` | Usa SSH en vez de GPG como formato de firma |
-| `user.signingkey` | Ruta a la clave **pública** con la que firmar |
+| Ajuste                | Qué hace                                                  |
+| --------------------- | --------------------------------------------------------- |
+| `gpg.format ssh`      | Usa SSH en vez de GPG como formato de firma               |
+| `user.signingkey`     | Ruta a la clave **pública** con la que firmar             |
 | `commit.gpgsign true` | Firma todos los commits sin tener que pasar `-S` cada vez |
 
 El nombre `commit.gpgsign` es histórico: se llama así también cuando el formato es SSH.
@@ -98,28 +98,28 @@ git log --format="%h %G? %an %s" -5
 
 `%G?` devuelve una letra por commit:
 
-| Letra | Significado |
-| --- | --- |
-| `G` | Firma válida |
-| `B` | Firma incorrecta |
-| `U` | Válida, pero la clave no es de confianza |
-| `N` | Sin firma |
+| Letra | Significado                              |
+| ----- | ---------------------------------------- |
+| `G`   | Firma válida                             |
+| `B`   | Firma incorrecta                         |
+| `U`   | Válida, pero la clave no es de confianza |
+| `N`   | Sin firma                                |
 
 Sin `allowedSignersFile` verás `N` incluso en commits que sí están firmados: Git no tiene contra qué contrastarlos.
 
 ## Los tres estados en GitHub
 
-| Estado | Qué significa |
-| --- | --- |
-| **Verified** | Firma válida y el correo del commit pertenece a la cuenta |
-| **Partially verified** | Firma válida, pero algún dato no coincide del todo |
-| **Unverified** | Hay firma y no se puede validar: clave no registrada, o registrada solo como autenticación |
+| Estado                 | Qué significa                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------ |
+| **Verified**           | Firma válida y el correo del commit pertenece a la cuenta                                  |
+| **Partially verified** | Firma válida, pero algún dato no coincide del todo                                         |
+| **Unverified**         | Hay firma y no se puede validar: clave no registrada, o registrada solo como autenticación |
 
 Los commits creados desde la interfaz web de GitHub —editar un archivo, aplicar una sugerencia, hacer merge desde el botón— los firma GitHub con su propia clave y aparecen como verificados sin que hagas nada.
 
 ## Modo vigilante
 
-Por defecto un commit sin firma no muestra ningún distintivo, así que un observador no distingue entre *no firmado* y *falsificado*.
+Por defecto un commit sin firma no muestra ningún distintivo, así que un observador no distingue entre _no firmado_ y _falsificado_.
 
 En **Settings → SSH and GPG keys** puedes activar **Flag unsigned commits as unverified**: a partir de ahí todo commit tuyo sin firmar se marca explícitamente como **Unverified**.
 
@@ -153,11 +153,11 @@ La diferencia práctica: GPG añade gestión de claves, caducidad y revocación 
 
 ## Diagnóstico
 
-| Síntoma | Causa |
-| --- | --- |
-| `error: gpg failed to sign the data` | La ruta de `user.signingkey` es incorrecta o apunta a la clave privada en vez de al `.pub` |
-| GitHub muestra **Unverified** | La clave no está añadida con el tipo *Signing Key* |
-| `git log` muestra `N` en commits firmados | Falta `gpg.ssh.allowedSignersFile` |
-| Firma bien en un equipo y en otro no | Cada máquina necesita su propia clave registrada como clave de firma |
+| Síntoma                                   | Causa                                                                                      |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `error: gpg failed to sign the data`      | La ruta de `user.signingkey` es incorrecta o apunta a la clave privada en vez de al `.pub` |
+| GitHub muestra **Unverified**             | La clave no está añadida con el tipo _Signing Key_                                         |
+| `git log` muestra `N` en commits firmados | Falta `gpg.ssh.allowedSignersFile`                                                         |
+| Firma bien en un equipo y en otro no      | Cada máquina necesita su propia clave registrada como clave de firma                       |
 
 Firmar demuestra **de dónde salió el commit, no que el código sea correcto**. Un commit firmado con malware sigue siendo malware, solo que ahora se sabe con certeza quién lo introdujo.

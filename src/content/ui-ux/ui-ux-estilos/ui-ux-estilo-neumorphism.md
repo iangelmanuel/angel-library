@@ -10,7 +10,7 @@ related:
 updatedAt: 2026-08-30
 ---
 
-El **neumorfismo** (de *new skeuomorphism*, también escrito *soft UI*) no dibuja objetos sobre un fondo: hace que parezcan **hechos del mismo material que el fondo**, empujados hacia afuera o hundidos hacia adentro.
+El **neumorfismo** (de _new skeuomorphism_, también escrito _soft UI_) no dibuja objetos sobre un fondo: hace que parezcan **hechos del mismo material que el fondo**, empujados hacia afuera o hundidos hacia adentro.
 
 El truco es una sola idea: dos sombras del mismo tamaño en direcciones opuestas, una clara y otra oscura, sobre un fondo que no es ni blanco ni negro.
 

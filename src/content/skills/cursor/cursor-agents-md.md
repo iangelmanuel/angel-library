@@ -23,22 +23,24 @@ apps/web/AGENTS.md      → anidado, aplica solo a esa carpeta
 # Mi Proyecto
 
 ## Comandos
+
 - `pnpm dev` — desarrollo
 - `pnpm test` — tests
 
 ## Convenciones
+
 - TypeScript estricto
 - Componentes en PascalCase
 ```
 
 ## `AGENTS.md` vs `.mdc`: cuándo cada uno
 
-| | `AGENTS.md` | `.cursor/rules/*.mdc` |
-| --- | --- | --- |
-| Scoping | Por carpeta (anidado) | Por glob (`src/**/*.tsx`) |
-| Frontmatter | No | Sí (`description`, `globs`, `alwaysApply`) |
-| Portabilidad | Estándar cross-tool (Cursor, OpenCode, Codex) | Específico de Cursor |
-| Modos de activación | Siempre activo si existe en esa carpeta | 4 modos distintos |
+|                     | `AGENTS.md`                                   | `.cursor/rules/*.mdc`                      |
+| ------------------- | --------------------------------------------- | ------------------------------------------ |
+| Scoping             | Por carpeta (anidado)                         | Por glob (`src/**/*.tsx`)                  |
+| Frontmatter         | No                                            | Sí (`description`, `globs`, `alwaysApply`) |
+| Portabilidad        | Estándar cross-tool (Cursor, OpenCode, Codex) | Específico de Cursor                       |
+| Modos de activación | Siempre activo si existe en esa carpeta       | 4 modos distintos                          |
 
 Si el archivo de reglas necesita compartirse con otras herramientas (Codex, OpenCode), `AGENTS.md` es la opción — si necesita glob-matching fino a un tipo de archivo específico, `.mdc`.
 

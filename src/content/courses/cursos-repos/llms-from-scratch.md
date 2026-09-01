@@ -10,7 +10,7 @@ personalNote: "La mejor forma de dejar de tratar un modelo como una caja negra; 
 updatedAt: 2026-08-30
 ---
 
-> Escrito por **Sebastian Raschka** ([rasbt](https://github.com/rasbt)). Es el repositorio oficial de código de su libro *Build a Large Language Model (From Scratch)*. Unas 104.000 estrellas, en cuadernos de Jupyter.
+> Escrito por **Sebastian Raschka** ([rasbt](https://github.com/rasbt)). Es el repositorio oficial de código de su libro _Build a Large Language Model (From Scratch)_. Unas 104.000 estrellas, en cuadernos de Jupyter.
 
 Repositorio para **desarrollar, preentrenar y ajustar un modelo de lenguaje grande de tipo GPT**, escrito desde cero en PyTorch y explicado paso a paso.
 
@@ -27,7 +27,7 @@ El camino completo de un modelo, en orden:
 
 ## Por qué merece la pena
 
-Casi todo el material sobre IA enseña a *usar* modelos mediante una API. Este enseña qué hay dentro, y eso cambia decisiones prácticas del día a día: por qué existe un límite de contexto, por qué el coste crece como crece, qué significa realmente hacer *fine-tuning* y en qué se diferencia de dar más contexto.
+Casi todo el material sobre IA enseña a _usar_ modelos mediante una API. Este enseña qué hay dentro, y eso cambia decisiones prácticas del día a día: por qué existe un límite de contexto, por qué el coste crece como crece, qué significa realmente hacer _fine-tuning_ y en qué se diferencia de dar más contexto.
 
 No hace falta terminar el libro para que rinda. Solo con el capítulo de atención, muchas cosas dejan de ser magia.
 

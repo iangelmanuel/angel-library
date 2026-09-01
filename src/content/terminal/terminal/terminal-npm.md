@@ -5,7 +5,12 @@ type: guides
 order: 17
 tags: [terminal, npm, node, gestor-de-paquetes]
 scope: npm
-related: [applications/apps-cli/terminal-pnpm, applications/apps-cli/terminal-nvm, applications/apps-cli/terminal-bun]
+related:
+  [
+    applications/apps-cli/terminal-pnpm,
+    applications/apps-cli/terminal-nvm,
+    applications/apps-cli/terminal-bun
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -15,17 +20,17 @@ Al instalar Node.js, npm queda instalado junto — no hace falta un paso aparte.
 
 ## Comandos básicos
 
-| Comando | Qué hace |
-|---|---|
-| `npm install` | Instala todas las dependencias listadas en `package.json` (alias: `npm i`) |
-| `npm install <paquete>` | Agrega un paquete como dependencia normal |
+| Comando                    | Qué hace                                                                              |
+| -------------------------- | ------------------------------------------------------------------------------------- |
+| `npm install`              | Instala todas las dependencias listadas en `package.json` (alias: `npm i`)            |
+| `npm install <paquete>`    | Agrega un paquete como dependencia normal                                             |
 | `npm install -D <paquete>` | Agrega un paquete como devDependency (solo necesario en desarrollo, no en producción) |
-| `npm install -g <paquete>` | Instala un paquete de forma global, disponible como comando en cualquier carpeta |
-| `npm uninstall <paquete>` | Quita un paquete |
-| `npm update` | Actualiza dependencias a la última versión permitida por el rango del `package.json` |
-| `npm run <script>` | Corre un script definido en `"scripts"` |
-| `npx <paquete>` | Ejecuta un paquete sin instalarlo globalmente |
-| `npm ci` | Instalación limpia y reproducible desde el lockfile |
+| `npm install -g <paquete>` | Instala un paquete de forma global, disponible como comando en cualquier carpeta      |
+| `npm uninstall <paquete>`  | Quita un paquete                                                                      |
+| `npm update`               | Actualiza dependencias a la última versión permitida por el rango del `package.json`  |
+| `npm run <script>`         | Corre un script definido en `"scripts"`                                               |
+| `npx <paquete>`            | Ejecuta un paquete sin instalarlo globalmente                                         |
+| `npm ci`                   | Instalación limpia y reproducible desde el lockfile                                   |
 
 ## `-D` vs `-g`
 

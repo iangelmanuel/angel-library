@@ -1,20 +1,25 @@
 ---
-import Icon from '@/components/shared/Icon.astro';
-import type { NavData } from '@/lib/nav';
+import Icon from "@/components/shared/Icon.astro"
+import type { NavData } from "@/lib/nav"
 
 interface Props {
-  data: NavData;
+  data: NavData
 }
 
-const { data } = Astro.props;
-const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const isActive = (url: string) => (url.replace(/\/+$/, '') || '/') === pathname;
+const { data } = Astro.props
+const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/"
+const isActive = (url: string) => (url.replace(/\/+$/, "") || "/") === pathname
 
 const QUICK_LINKS = [
-  { href: '/', label: 'Inicio', icon: 'home', color: '--accent-purple' },
-  { href: '/search', label: 'Buscar', icon: 'terminal', color: '--accent-green' },
-  { href: '/tags', label: 'Tags', icon: 'tags', color: '--accent-blue' },
-];
+  { href: "/", label: "Inicio", icon: "home", color: "--accent-purple" },
+  {
+    href: "/search",
+    label: "Buscar",
+    icon: "terminal",
+    color: "--accent-green"
+  },
+  { href: "/tags", label: "Tags", icon: "tags", color: "--accent-blue" }
+]
 ---
 
 <aside
@@ -22,17 +27,26 @@ const QUICK_LINKS = [
   transition:persist="sidebar"
   class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-72 shrink-0 self-start border-r border-border lg:block"
 >
-  <nav class="flex h-full flex-col overflow-y-auto px-3 py-4" aria-label="Navegación principal">
+  <nav
+    class="flex h-full flex-col overflow-y-auto px-3 py-4"
+    aria-label="Navegación principal"
+  >
     <div class="flex flex-col gap-px">
       {
         QUICK_LINKS.map((link) => (
           <a
             href={link.href}
-            class:list={['nav-link nav-link--quick', { 'is-active': isActive(link.href) }]}
-            aria-current={isActive(link.href) ? 'page' : undefined}
+            class:list={[
+              "nav-link nav-link--quick",
+              { "is-active": isActive(link.href) }
+            ]}
+            aria-current={isActive(link.href) ? "page" : undefined}
             style={`--cat-accent: var(${link.color})`}
           >
-            <Icon name={link.icon} class="nav-icon" />
+            <Icon
+              name={link.icon}
+              class="nav-icon"
+            />
             <span>{link.label}</span>
           </a>
         ))
@@ -41,13 +55,16 @@ const QUICK_LINKS = [
 
     {
       data.groups.map((group) => (
-        <section class="nav-group" aria-label={`Categorías de ${group.id}`}>
+        <section
+          class="nav-group"
+          aria-label={`Categorías de ${group.id}`}
+        >
           {group.categories.map((category) => {
             const allItems = [
               ...category.groups.flatMap((group) => group.items),
-              ...category.items,
-            ];
-            const containsActive = allItems.some((item) => isActive(item.url));
+              ...category.items
+            ]
+            const containsActive = allItems.some((item) => isActive(item.url))
 
             return (
               <details
@@ -56,24 +73,41 @@ const QUICK_LINKS = [
                 style={`--cat-accent: var(${category.color})`}
               >
                 <summary class="nav-summary">
-                  <Icon name={category.icon} class="nav-icon nav-icon--cat" />
+                  <Icon
+                    name={category.icon}
+                    class="nav-icon nav-icon--cat"
+                  />
                   <span class="nav-summary__label">{category.label}</span>
-                  <Icon name="chevron-right" class="nav-chevron" />
+                  <Icon
+                    name="chevron-right"
+                    class="nav-chevron"
+                  />
                 </summary>
 
                 <div class="nav-children">
                   {category.groups.map((sub) => (
-                    <details class="nav-sub" open={sub.items.some((item) => isActive(item.url))}>
+                    <details
+                      class="nav-sub"
+                      open={sub.items.some((item) => isActive(item.url))}
+                    >
                       <summary class="nav-summary nav-summary--sub">
                         <span class="nav-summary__label">{sub.label}</span>
-                        <Icon name="chevron-right" class="nav-chevron" />
+                        <Icon
+                          name="chevron-right"
+                          class="nav-chevron"
+                        />
                       </summary>
                       <div class="nav-children nav-children--deep">
                         {sub.items.map((item) => (
                           <a
                             href={item.url}
-                            class:list={['nav-link', { 'is-active': isActive(item.url) }]}
-                            aria-current={isActive(item.url) ? 'page' : undefined}
+                            class:list={[
+                              "nav-link",
+                              { "is-active": isActive(item.url) }
+                            ]}
+                            aria-current={
+                              isActive(item.url) ? "page" : undefined
+                            }
                           >
                             <span class="nav-link__label">{item.title}</span>
                           </a>
@@ -85,16 +119,22 @@ const QUICK_LINKS = [
                   {category.items.map((item) => (
                     <a
                       href={item.url}
-                      class:list={['nav-link nav-link--loose', { 'is-active': isActive(item.url) }]}
-                      aria-current={isActive(item.url) ? 'page' : undefined}
+                      class:list={[
+                        "nav-link nav-link--loose",
+                        { "is-active": isActive(item.url) }
+                      ]}
+                      aria-current={isActive(item.url) ? "page" : undefined}
                     >
-                      <Icon name={item.icon} class="nav-icon" />
+                      <Icon
+                        name={item.icon}
+                        class="nav-icon"
+                      />
                       <span class="nav-link__label">{item.title}</span>
                     </a>
                   ))}
                 </div>
               </details>
-            );
+            )
           })}
         </section>
       ))

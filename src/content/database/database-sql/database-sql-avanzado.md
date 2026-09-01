@@ -46,12 +46,12 @@ Es legible, pero revisa el plan: el optimizador puede transformarla o ejecutarla
 
 ## Operaciones de conjuntos
 
-| Operador | Resultado |
-| --- | --- |
-| `UNION` | combina y elimina duplicados |
-| `UNION ALL` | combina y conserva duplicados |
-| `INTERSECT` | filas presentes en ambos resultados |
-| `EXCEPT` | filas del primero ausentes en el segundo |
+| Operador    | Resultado                                |
+| ----------- | ---------------------------------------- |
+| `UNION`     | combina y elimina duplicados             |
+| `UNION ALL` | combina y conserva duplicados            |
+| `INTERSECT` | filas presentes en ambos resultados      |
+| `EXCEPT`    | filas del primero ausentes en el segundo |
 
 ```sql
 SELECT email FROM newsletter_subscribers
@@ -86,14 +86,14 @@ WHERE status = 'paid';
 - `ORDER BY` define secuencia dentro de la ventana;
 - el **frame** define qué filas alrededor de la actual participan.
 
-| Función | Uso |
-| --- | --- |
-| `row_number()` | posición única, incluso en empates |
-| `rank()` | misma posición para empates y deja saltos |
-| `dense_rank()` | misma posición sin dejar saltos |
-| `lag()` / `lead()` | valor anterior o siguiente |
-| `first_value()` | primer valor del frame |
-| `sum() OVER` | acumulado o total por partición |
+| Función            | Uso                                       |
+| ------------------ | ----------------------------------------- |
+| `row_number()`     | posición única, incluso en empates        |
+| `rank()`           | misma posición para empates y deja saltos |
+| `dense_rank()`     | misma posición sin dejar saltos           |
+| `lag()` / `lead()` | valor anterior o siguiente                |
+| `first_value()`    | primer valor del frame                    |
+| `sum() OVER`       | acumulado o total por partición           |
 
 ## Top N por grupo
 

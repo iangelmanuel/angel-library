@@ -15,7 +15,7 @@ Utilidades mínimas para manejar formularios con Vanilla JS/TS. Importa siempre 
 Para un formulario simple sin campos repetidos, el one-liner de siempre alcanza:
 
 ```ts
-const datos = Object.fromEntries(new FormData(form));
+const datos = Object.fromEntries(new FormData(form))
 ```
 
 Pero se queda corto en varios casos: con `name` repetido (checkboxes, `<select multiple>`) solo te quedas con el último valor, los inputs `disabled` no aparecen en `FormData`, y los checkboxes marcados sin `value` explícito llegan como `"on"`. Las funciones de aquí cubren esos casos: campos repetidos, archivos y poblar un formulario desde datos existentes.
@@ -35,9 +35,9 @@ export type FormValue = string | File | Array<string | File>
 Convierte un formulario en un objeto plano, igual que el one-liner con `Object.fromEntries`, pero agrupa automáticamente los campos con `name` repetido en un array en vez de quedarse solo con el último valor. El genérico `T` permite tipar el resultado según el formulario que estés leyendo.
 
 ```ts title="lib/form.ts"
-export function formToObject<T extends Record<string, FormValue> = Record<string, FormValue>>(
-  form: HTMLFormElement
-): T {
+export function formToObject<
+  T extends Record<string, FormValue> = Record<string, FormValue>
+>(form: HTMLFormElement): T {
   const data = new FormData(form)
   const result: Record<string, FormValue> = {}
 
@@ -51,15 +51,15 @@ export function formToObject<T extends Record<string, FormValue> = Record<string
 ```
 
 ```ts
-import { formToObject } from '@/libs/form';
+import { formToObject } from "@/libs/form"
 
 interface RegistroForm {
-  email: string;
-  intereses: string[];
+  email: string
+  intereses: string[]
 }
 
-const form = document.querySelector('form')!;
-const datos = formToObject<RegistroForm>(form);
+const form = document.querySelector("form")!
+const datos = formToObject<RegistroForm>(form)
 ```
 
 ### `getCheckedValues()` — Valores marcados de un grupo
@@ -67,7 +67,10 @@ const datos = formToObject<RegistroForm>(form);
 Busca todos los checkboxes marcados con un `name` dado y retorna sus valores como array de strings, sin pasar por `FormData`. Es más directo que `formToObject` cuando solo necesitas ese grupo, y siempre retorna un array aunque haya un solo marcado o ninguno.
 
 ```ts title="lib/form.ts"
-export function getCheckedValues(form: HTMLFormElement, name: string): string[] {
+export function getCheckedValues(
+  form: HTMLFormElement,
+  name: string
+): string[] {
   return Array.from(
     form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]:checked`)
   ).map((input) => input.value)
@@ -75,9 +78,9 @@ export function getCheckedValues(form: HTMLFormElement, name: string): string[] 
 ```
 
 ```ts
-import { getCheckedValues } from '@/libs/form';
+import { getCheckedValues } from "@/libs/form"
 
-const intereses = getCheckedValues(form, 'intereses');
+const intereses = getCheckedValues(form, "intereses")
 // ["frontend", "backend"]
 ```
 
@@ -95,9 +98,9 @@ export function getFormFiles(form: HTMLFormElement, name: string): File[] {
 ```
 
 ```ts
-import { getFormFiles } from '@/libs/form';
+import { getFormFiles } from "@/libs/form"
 
-const archivos = getFormFiles(form, 'adjuntos');
+const archivos = getFormFiles(form, "adjuntos")
 if (archivos.length > 5 * 1024 * 1024) {
   // validar tamaño, etc.
 }
@@ -110,17 +113,25 @@ if (archivos.length > 5 * 1024 * 1024) {
 Recorre un objeto de valores y los asigna a los campos del formulario que coincidan por `name`. Marca checkboxes y radios comparando el valor (o revisando si está incluido, cuando el valor es un array), y asigna `.value` para el resto de inputs, textarea y select. Útil para formularios de edición que arrancan con datos existentes.
 
 ```ts title="lib/form.ts"
-export function setFormValues(form: HTMLFormElement, values: Record<string, unknown>): void {
+export function setFormValues(
+  form: HTMLFormElement,
+  values: Record<string, unknown>
+): void {
   for (const [name, value] of Object.entries(values)) {
-    const fields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
-      `[name="${name}"]`
-    )
+    const fields = form.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >(`[name="${name}"]`)
 
     fields.forEach((field) => {
-      if (field instanceof HTMLInputElement && (field.type === 'checkbox' || field.type === 'radio')) {
-        field.checked = Array.isArray(value) ? value.includes(field.value) : field.value === String(value)
+      if (
+        field instanceof HTMLInputElement &&
+        (field.type === "checkbox" || field.type === "radio")
+      ) {
+        field.checked = Array.isArray(value)
+          ? value.includes(field.value)
+          : field.value === String(value)
       } else {
-        field.value = value == null ? '' : String(value)
+        field.value = value == null ? "" : String(value)
       }
     })
   }
@@ -128,13 +139,13 @@ export function setFormValues(form: HTMLFormElement, values: Record<string, unkn
 ```
 
 ```ts
-import { setFormValues } from '@/libs/form';
+import { setFormValues } from "@/libs/form"
 
 setFormValues(form, {
   email: usuario.email,
   intereses: usuario.intereses, // ["frontend", "backend"]
-  plan: usuario.plan, // radio
-});
+  plan: usuario.plan // radio
+})
 ```
 
 ## Eventos
@@ -144,7 +155,9 @@ setFormValues(form, {
 Registra el `submit` de un formulario, previene el comportamiento por defecto y entrega los datos ya convertidos con `formToObject`. Retorna una función de limpieza, igual que `on()` en DOM Utils.
 
 ```ts title="lib/form.ts"
-export function onFormSubmit<T extends Record<string, FormValue> = Record<string, FormValue>>(
+export function onFormSubmit<
+  T extends Record<string, FormValue> = Record<string, FormValue>
+>(
   form: HTMLFormElement | null | undefined,
   handler: (data: T, form: HTMLFormElement, event: SubmitEvent) => void
 ): () => void {
@@ -155,33 +168,33 @@ export function onFormSubmit<T extends Record<string, FormValue> = Record<string
     handler(formToObject<T>(form), form, event)
   }
 
-  form.addEventListener('submit', listener)
-  return () => form.removeEventListener('submit', listener)
+  form.addEventListener("submit", listener)
+  return () => form.removeEventListener("submit", listener)
 }
 ```
 
 ```ts
-import { onFormSubmit } from '@/libs/form';
+import { onFormSubmit } from "@/libs/form"
 
 interface LoginForm {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 const limpiar = onFormSubmit<LoginForm>(form, (datos) => {
-  console.log(datos.email);
-});
+  console.log(datos.email)
+})
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `formToObject()` | Formulario a objeto, agrupando campos con `name` repetido en arrays |
-| `getCheckedValues()` | Valores de un grupo de checkboxes marcados |
-| `getFormFiles()` | Archivos de un input file, sin la entrada vacía del navegador |
-| `setFormValues()` | Poblar campos de un formulario desde un objeto |
-| `onFormSubmit()` | Listener de submit con `preventDefault` y datos ya parseados |
+| Función              | Qué hace                                                            |
+| -------------------- | ------------------------------------------------------------------- |
+| `formToObject()`     | Formulario a objeto, agrupando campos con `name` repetido en arrays |
+| `getCheckedValues()` | Valores de un grupo de checkboxes marcados                          |
+| `getFormFiles()`     | Archivos de un input file, sin la entrada vacía del navegador       |
+| `setFormValues()`    | Poblar campos de un formulario desde un objeto                      |
+| `onFormSubmit()`     | Listener de submit con `preventDefault` y datos ya parseados        |
 
 ## Consideraciones
 

@@ -21,15 +21,15 @@ Comprueba si `navigator.clipboard` existe. Sirve para decidir si mostrar un bot�
 
 ```ts title="lib/clipboard.ts"
 export function isClipboardSupported(): boolean {
-  return typeof navigator !== 'undefined' && !!navigator.clipboard
+  return typeof navigator !== "undefined" && !!navigator.clipboard
 }
 ```
 
 ```ts
-import { isClipboardSupported } from '@/libs/clipboard';
+import { isClipboardSupported } from "@/libs/clipboard"
 
 if (!isClipboardSupported()) {
-  console.warn('Clipboard API no disponible, usando fallback');
+  console.warn("Clipboard API no disponible, usando fallback")
 }
 ```
 
@@ -48,24 +48,24 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     } catch {}
   }
 
-  const textarea = document.createElement('textarea')
+  const textarea = document.createElement("textarea")
   textarea.value = text
-  textarea.style.position = 'fixed'
-  textarea.style.opacity = '0'
+  textarea.style.position = "fixed"
+  textarea.style.opacity = "0"
   document.body.appendChild(textarea)
   textarea.select()
 
-  const success = document.execCommand('copy')
+  const success = document.execCommand("copy")
   textarea.remove()
   return success
 }
 ```
 
 ```ts
-import { copyToClipboard } from '@/libs/clipboard';
+import { copyToClipboard } from "@/libs/clipboard"
 
-const copiado = await copyToClipboard('npm install zod');
-mostrarToast(copiado ? 'Copiado' : 'No se pudo copiar');
+const copiado = await copyToClipboard("npm install zod")
+mostrarToast(copiado ? "Copiado" : "No se pudo copiar")
 ```
 
 ### `readFromClipboard()` — Leer texto
@@ -85,19 +85,19 @@ export async function readFromClipboard(): Promise<string | null> {
 ```
 
 ```ts
-import { readFromClipboard } from '@/libs/clipboard';
+import { readFromClipboard } from "@/libs/clipboard"
 
-const texto = await readFromClipboard();
-if (texto) input.value = texto;
+const texto = await readFromClipboard()
+if (texto) input.value = texto
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `isClipboardSupported()` | Detectar si `navigator.clipboard` existe |
-| `copyToClipboard()` | Copiar texto, con fallback automático |
-| `readFromClipboard()` | Leer texto del portapapeles, `null` si falla |
+| Función                  | Qué hace                                     |
+| ------------------------ | -------------------------------------------- |
+| `isClipboardSupported()` | Detectar si `navigator.clipboard` existe     |
+| `copyToClipboard()`      | Copiar texto, con fallback automático        |
+| `readFromClipboard()`    | Leer texto del portapapeles, `null` si falla |
 
 ## Consideraciones
 

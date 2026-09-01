@@ -46,11 +46,11 @@ Abre el JSON directo para editar, mismo archivo que a mano.
 
 ## Resumen
 
-| Campo | Para qué |
-| --- | --- |
-| `command` + `args` + `env` | Servidor local, transporte stdio |
-| `url` + `headers` | Servidor remoto, HTTP/SSE |
-| `${env:VAR}` | Interpola variables de entorno en cualquier campo |
+| Campo                      | Para qué                                          |
+| -------------------------- | ------------------------------------------------- |
+| `command` + `args` + `env` | Servidor local, transporte stdio                  |
+| `url` + `headers`          | Servidor remoto, HTTP/SSE                         |
+| `${env:VAR}`               | Interpola variables de entorno en cualquier campo |
 
 ## Consideraciones
 

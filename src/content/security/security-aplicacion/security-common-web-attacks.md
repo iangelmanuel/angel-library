@@ -12,14 +12,14 @@ related:
 updatedAt: 2026-08-18
 ---
 
-| Ataque | Cómo ocurre | Defensa principal |
-| --- | --- | --- |
-| XSS | input no confiable termina como HTML o script ejecutable | escape por contexto, sanitización y CSP defensiva |
-| SQL/command injection | datos se concatenan en una consulta o comando | parámetros, APIs seguras y mínimo privilegio |
-| CSRF | el navegador envía cookies a una acción iniciada desde otro sitio | SameSite, token/origin checks y métodos correctos |
-| SSRF | el servidor solicita una URL elegida por el atacante | allowlist, bloquear redes internas y validar redirects/DNS |
-| Path traversal | una ruta manipulada escapa del directorio permitido | ids opacos, normalización y raíz fija |
-| Upload malicioso | contenido, tamaño o nombre abusa del servidor | límites, detección real de tipo, storage aislado y no ejecutar |
+| Ataque                | Cómo ocurre                                                       | Defensa principal                                              |
+| --------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------- |
+| XSS                   | input no confiable termina como HTML o script ejecutable          | escape por contexto, sanitización y CSP defensiva              |
+| SQL/command injection | datos se concatenan en una consulta o comando                     | parámetros, APIs seguras y mínimo privilegio                   |
+| CSRF                  | el navegador envía cookies a una acción iniciada desde otro sitio | SameSite, token/origin checks y métodos correctos              |
+| SSRF                  | el servidor solicita una URL elegida por el atacante              | allowlist, bloquear redes internas y validar redirects/DNS     |
+| Path traversal        | una ruta manipulada escapa del directorio permitido               | ids opacos, normalización y raíz fija                          |
+| Upload malicioso      | contenido, tamaño o nombre abusa del servidor                     | límites, detección real de tipo, storage aislado y no ejecutar |
 
 ## XSS
 

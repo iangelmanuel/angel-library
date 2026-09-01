@@ -32,30 +32,30 @@ Un backend Express, corriendo en un entorno confiable, usa la **service role key
 **3. El client:**
 
 ```ts title="lib/supabase.ts"
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js"
 
 export const supabaseAdmin = createClient(
   process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!, // NUNCA exponer esta key al cliente
-);
+  process.env.SUPABASE_SERVICE_ROLE_KEY! // NUNCA exponer esta key al cliente
+)
 ```
 
 **4. Un endpoint real:**
 
 ```ts title="app.ts"
-import express from 'express';
-import { supabaseAdmin } from './lib/supabase';
+import express from "express"
+import { supabaseAdmin } from "./lib/supabase"
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-app.get('/posts', async (req, res) => {
-  const { data, error } = await supabaseAdmin.from('posts').select('*');
-  if (error) return res.status(500).json({ error: 'Error al leer posts' });
-  res.json(data);
-});
+app.get("/posts", async (req, res) => {
+  const { data, error } = await supabaseAdmin.from("posts").select("*")
+  if (error) return res.status(500).json({ error: "Error al leer posts" })
+  res.json(data)
+})
 
-app.listen(3000);
+app.listen(3000)
 ```
 
 ## CRUD con la API autogenerada
@@ -96,15 +96,15 @@ using (auth.uid() = author_id);
 Con la **service role key** (como en este backend Express), RLS **no aplica** — el código del servidor es responsable de esa lógica, por ejemplo filtrando explícitamente:
 
 ```ts
-app.get('/mis-posts', requireAuth, async (req, res) => {
+app.get("/mis-posts", requireAuth, async (req, res) => {
   const { data, error } = await supabaseAdmin
-    .from('posts')
-    .select('*')
-    .eq('author_id', req.user!.id); // filtro explícito — la service role no lo hace sola
+    .from("posts")
+    .select("*")
+    .eq("author_id", req.user!.id) // filtro explícito — la service role no lo hace sola
 
-  if (error) return res.status(500).json({ error: 'Error al leer' });
-  res.json(data);
-});
+  if (error) return res.status(500).json({ error: "Error al leer" })
+  res.json(data)
+})
 ```
 
 ## Auth incluida (Supabase Auth)
@@ -119,13 +119,16 @@ const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, pas
 Verificar el token que manda un frontend que ya hizo login con Supabase Auth:
 
 ```ts
-app.get('/perfil', async (req, res) => {
-  const token = req.headers.authorization?.replace('Bearer ', '');
-  const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
+app.get("/perfil", async (req, res) => {
+  const token = req.headers.authorization?.replace("Bearer ", "")
+  const {
+    data: { user },
+    error
+  } = await supabaseAdmin.auth.getUser(token)
 
-  if (error || !user) return res.status(401).json({ error: 'No autenticado' });
-  res.json({ userId: user.id });
-});
+  if (error || !user) return res.status(401).json({ error: "No autenticado" })
+  res.json({ userId: user.id })
+})
 ```
 
 `auth.uid()` (usado en las políticas RLS de arriba) es justamente el id del usuario autenticado en la sesión actual — la auth y las políticas de datos están pensadas para trabajar juntas cuando **no** se usa la service role key.
@@ -139,14 +142,14 @@ const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png'
 
 ## Capacidades de Supabase
 
-| API | Qué hace |
-| --- | --- |
-| `createClient(url, serviceRoleKey)` | Instancia el client del lado del servidor |
-| `.from('tabla').select/insert/update/delete()` | CRUD vía la API REST autogenerada |
-| `{ data, error }` | Cada llamada devuelve esto, no lanza |
-| RLS (`create policy ...`) | Controla qué fila puede tocar cada usuario, en la base misma — no aplica con service role |
-| `supabase.auth.*` | Registro, login, verificar sesión |
-| `supabase.storage.*` | Archivos |
+| API                                            | Qué hace                                                                                  |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `createClient(url, serviceRoleKey)`            | Instancia el client del lado del servidor                                                 |
+| `.from('tabla').select/insert/update/delete()` | CRUD vía la API REST autogenerada                                                         |
+| `{ data, error }`                              | Cada llamada devuelve esto, no lanza                                                      |
+| RLS (`create policy ...`)                      | Controla qué fila puede tocar cada usuario, en la base misma — no aplica con service role |
+| `supabase.auth.*`                              | Registro, login, verificar sesión                                                         |
+| `supabase.storage.*`                           | Archivos                                                                                  |
 
 ## Service role, RLS y ownership
 

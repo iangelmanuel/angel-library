@@ -15,13 +15,31 @@ La metadata resume una página para sistemas que no dependen de su diseño visua
 
 ```html
 <title>Índices SQL y EXPLAIN | angel.library</title>
-<meta name="description" content="Guía práctica para analizar planes e índices." />
-<link rel="canonical" href="https://example.com/guides/database-indices-explain" />
+<meta
+  name="description"
+  content="Guía práctica para analizar planes e índices."
+/>
+<link
+  rel="canonical"
+  href="https://example.com/guides/database-indices-explain"
+/>
 
-<meta property="og:type" content="article" />
-<meta property="og:title" content="Índices SQL y EXPLAIN" />
-<meta property="og:image" content="https://example.com/og/sql-indices.png" />
-<meta name="twitter:card" content="summary_large_image" />
+<meta
+  property="og:type"
+  content="article"
+/>
+<meta
+  property="og:title"
+  content="Índices SQL y EXPLAIN"
+/>
+<meta
+  property="og:image"
+  content="https://example.com/og/sql-indices.png"
+/>
+<meta
+  name="twitter:card"
+  content="summary_large_image"
+/>
 ```
 
 ## Título y descripción
@@ -46,14 +64,14 @@ Los scrapers pueden conservar caché. Cuando cambie una imagen urgente, usa la h
 
 ```html
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Índices SQL y EXPLAIN",
-  "dateModified": "2026-08-19",
-  "author": { "@type": "Person", "name": "Ángel" },
-  "mainEntityOfPage": "https://example.com/guides/database-indices-explain"
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Índices SQL y EXPLAIN",
+    "dateModified": "2026-08-19",
+    "author": { "@type": "Person", "name": "Ángel" },
+    "mainEntityOfPage": "https://example.com/guides/database-indices-explain"
+  }
 </script>
 ```
 
@@ -63,4 +81,3 @@ El marcado elegible no garantiza un resultado enriquecido. Valida sintaxis y pro
 
 - [Google Search: datos estructurados](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data)
 - [Schema.org](https://schema.org/)
-

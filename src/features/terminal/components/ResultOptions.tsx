@@ -24,7 +24,12 @@ export function ResultOptions({
   onSelect
 }: Props) {
   return (
-    <div id={listboxId} className="search-terminal__menu" role="listbox" aria-label={label}>
+    <div
+      id={listboxId}
+      className="search-terminal__menu"
+      role="listbox"
+      aria-label={label}
+    >
       {items.map((item, index) => {
         const shared = {
           id: optionId(index),
@@ -42,12 +47,20 @@ export function ResultOptions({
             <a
               {...shared}
               key={`tag-${item.tag.tag}`}
-              style={{ "--result-accent": "var(--accent-lime)" } as CSSProperties}
+              style={
+                { "--result-accent": "var(--accent-lime)" } as CSSProperties
+              }
             >
-              <span className="search-terminal__cursor" aria-hidden="true">
+              <span
+                className="search-terminal__cursor"
+                aria-hidden="true"
+              >
                 ❯
               </span>
-              <DynamicIcon name="tags" className="size-3.5 text-[var(--accent-lime)]" />
+              <DynamicIcon
+                name="tags"
+                className="size-3.5 text-[var(--accent-lime)]"
+              />
               <span className="search-terminal__result-content">
                 <strong>
                   {index + 1}. #{item.tag.tag}
@@ -66,13 +79,23 @@ export function ResultOptions({
           <a
             {...shared}
             key={doc.url}
-            style={{ "--result-accent": `var(${doc.categoryColor})` } as CSSProperties}
+            style={
+              {
+                "--result-accent": `var(${doc.categoryColor})`
+              } as CSSProperties
+            }
           >
-            <span className="search-terminal__cursor" aria-hidden="true">
+            <span
+              className="search-terminal__cursor"
+              aria-hidden="true"
+            >
               ❯
             </span>
             <span style={{ color: `var(${doc.categoryColor})` }}>
-              <DynamicIcon name={doc.categoryIcon} className="size-3.5" />
+              <DynamicIcon
+                name={doc.categoryIcon}
+                className="size-3.5"
+              />
             </span>
             <span className="search-terminal__result-content">
               <strong>
@@ -80,7 +103,9 @@ export function ResultOptions({
               </strong>
               <small>~/{documentPath(doc)}</small>
             </span>
-            <span className="search-terminal__result-meta">{doc.typeSingular}</span>
+            <span className="search-terminal__result-meta">
+              {doc.typeSingular}
+            </span>
           </a>
         )
       })}

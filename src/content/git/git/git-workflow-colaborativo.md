@@ -63,11 +63,11 @@ El autor revisa primero su propio diff. La persona revisora comenta impacto y co
 
 ## Estrategias de merge
 
-| Estrategia | Resultado |
-| --- | --- |
+| Estrategia   | Resultado                               |
+| ------------ | --------------------------------------- |
 | merge commit | conserva rama y contexto de integración |
-| squash | un commit final por PR |
-| rebase merge | conserva commits lineales |
+| squash       | un commit final por PR                  |
+| rebase merge | conserva commits lineales               |
 
 Elige una convención de equipo y documenta cómo revertir. Squash simplifica historial, pero elimina commits intermedios del branch en la rama base.
 

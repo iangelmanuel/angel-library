@@ -15,25 +15,25 @@ Un endpoint es un archivo `.ts`/`.js` dentro de `src/pages` que, en vez de expor
 El nombre del archivo (menos `.ts`/`.js`) es la extensión de la URL: `data.json.ts` → `/data.json`.
 
 ```ts title="pages/data.json.ts"
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro"
 
 export const GET: APIRoute = async () => {
   return new Response(JSON.stringify({ ok: true }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
-};
+    headers: { "Content-Type": "application/json" }
+  })
+}
 ```
 
 ## El contexto: params, request, url
 
 ```ts title="pages/api/[id].json.ts"
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro"
 
 export const GET: APIRoute = async ({ params, request, url }) => {
-  const id = params.id;
-  const query = url.searchParams.get('filtro');
-  return new Response(JSON.stringify({ id, query }));
-};
+  const id = params.id
+  const query = url.searchParams.get("filtro")
+  return new Response(JSON.stringify({ id, query }))
+}
 ```
 
 ## POST y otros métodos
@@ -42,13 +42,13 @@ Cada método HTTP es su propio export nombrado. Astro resuelve `HEAD` automátic
 
 ```ts
 export const POST: APIRoute = async ({ request }) => {
-  const body = await request.json();
-  return new Response(JSON.stringify({ recibido: body }), { status: 201 });
-};
+  const body = await request.json()
+  return new Response(JSON.stringify({ recibido: body }), { status: 201 })
+}
 
 export const DELETE: APIRoute = async ({ params }) => {
-  return new Response(null, { status: 204 });
-};
+  return new Response(null, { status: 204 })
+}
 ```
 
 ## Endpoints dinámicos y estáticos
@@ -57,7 +57,7 @@ Igual que las páginas, una ruta dinámica (`[id].json.ts`) en modo estático ne
 
 ```ts title="pages/api/[id].json.ts"
 export function getStaticPaths() {
-  return [{ params: { id: '1' } }, { params: { id: '2' } }];
+  return [{ params: { id: "1" } }, { params: { id: "2" } }]
 }
 ```
 
@@ -66,24 +66,24 @@ export function getStaticPaths() {
 Con `output: 'server'` en `astro.config.mjs`, o con `export const prerender = false` en el archivo aunque el proyecto siga en `output: 'static'`, el endpoint corre en cada request en vez de generarse en build — necesario si depende de `request` (headers, body, cookies) en tiempo real. El antiguo valor `output: 'hybrid'` ya no forma parte de la configuración actual: el modo mixto se expresa por ruta con `prerender`.
 
 ```ts title="pages/api/echo.ts"
-export const prerender = false;
+export const prerender = false
 
 export const POST: APIRoute = async ({ request }) => {
-  const body = await request.json();
-  return new Response(JSON.stringify(body));
-};
+  const body = await request.json()
+  return new Response(JSON.stringify(body))
+}
 ```
 
 ## Métodos y respuestas en una mirada
 
-| API | Uso |
-| --- | --- |
-| `export const GET/POST/...: APIRoute` | Handler por método HTTP |
-| `params` | Segmentos dinámicos de la URL |
-| `request` | `Request` completo (headers, body, method) |
-| `url` | URL completa, incluyendo query params |
-| `getStaticPaths()` | Requerido en rutas dinámicas prerenderizadas |
-| `export const prerender = false` | Forzar ese endpoint a on-demand |
+| API                                   | Uso                                          |
+| ------------------------------------- | -------------------------------------------- |
+| `export const GET/POST/...: APIRoute` | Handler por método HTTP                      |
+| `params`                              | Segmentos dinámicos de la URL                |
+| `request`                             | `Request` completo (headers, body, method)   |
+| `url`                                 | URL completa, incluyendo query params        |
+| `getStaticPaths()`                    | Requerido en rutas dinámicas prerenderizadas |
+| `export const prerender = false`      | Forzar ese endpoint a on-demand              |
 
 ## Contrato HTTP y despliegue
 

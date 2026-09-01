@@ -18,8 +18,8 @@ Esto describe el modelo de caché "clásico" de Next (el que tiene la mayoría d
 Por defecto, `fetch` **no cachea nada**. Se cachea explícitamente por request con el option `cache`.
 
 ```ts
-await fetch('https://api.ejemplo.com/posts', { cache: 'force-cache' }); // cachea indefinidamente
-await fetch('https://api.ejemplo.com/posts', { cache: 'no-store' });    // nunca cachea, siempre fresco
+await fetch("https://api.ejemplo.com/posts", { cache: "force-cache" }) // cachea indefinidamente
+await fetch("https://api.ejemplo.com/posts", { cache: "no-store" }) // nunca cachea, siempre fresco
 ```
 
 ## `next.revalidate` — Cachear con vencimiento
@@ -27,7 +27,7 @@ await fetch('https://api.ejemplo.com/posts', { cache: 'no-store' });    // nunca
 Cachea el resultado, pero lo refresca automáticamente después de N segundos (Incremental Static Regeneration a nivel de request individual).
 
 ```ts
-await fetch('https://api.ejemplo.com/posts', { next: { revalidate: 3600 } }); // se refresca cada hora
+await fetch("https://api.ejemplo.com/posts", { next: { revalidate: 3600 } }) // se refresca cada hora
 ```
 
 ## `next.tags` — Etiquetar para invalidar bajo demanda
@@ -35,7 +35,7 @@ await fetch('https://api.ejemplo.com/posts', { next: { revalidate: 3600 } }); //
 Marca el resultado con una o más etiquetas, para poder invalidarlo manualmente después con `revalidateTag` (ver [Revalidación de paths](/frontend/nextjs/nextjs-revalidate-path)) — sin esperar a que venza el tiempo de `revalidate`.
 
 ```ts
-await fetch('https://api.ejemplo.com/posts', { next: { tags: ['posts'] } });
+await fetch("https://api.ejemplo.com/posts", { next: { tags: ["posts"] } })
 ```
 
 ## Las constantes exportadas — a nivel de página/layout/route
@@ -47,7 +47,7 @@ Estas van en `page.tsx`, `layout.tsx` o `route.ts`, y controlan el comportamient
 Fuerza el modo de renderizado de todo el segmento.
 
 ```ts
-export const dynamic = 'auto';
+export const dynamic = "auto"
 // 'auto' (default) | 'force-dynamic' | 'error' | 'force-static'
 ```
 
@@ -61,7 +61,7 @@ export const dynamic = 'auto';
 El tiempo de revalidación por defecto de ese segmento — no pisa un `revalidate` puesto en un `fetch` individual, solo aplica donde ese fetch no especificó el suyo.
 
 ```ts
-export const revalidate = 3600; // segundos
+export const revalidate = 3600 // segundos
 // false (default, cachea indefinidamente lo que se pueda) | 0 (siempre dinámico) | número
 ```
 
@@ -73,14 +73,14 @@ Opción avanzada: cambia el comportamiento por defecto de **todos** los fetches 
 
 ## Mapa del modelo clásico
 
-| Constante / opción | Nivel | Qué controla |
-| --- | --- | --- |
-| `fetch(url, { cache })` | Por request | `'force-cache'` (cachear) vs `'no-store'` (nunca) |
-| `fetch(url, { next: { revalidate } })` | Por request | Segundos hasta refrescar ese fetch puntual |
-| `fetch(url, { next: { tags } })` | Por request | Etiquetas para invalidar bajo demanda con `revalidateTag` |
-| `export const dynamic` | Segmento (page/layout/route) | Forzar todo estático, todo dinámico, o error si no puede ser estático |
-| `export const revalidate` | Segmento | Tiempo de revalidación por defecto del segmento entero |
-| `export const fetchCache` | Segmento | Override avanzado del comportamiento default de todos los fetches |
+| Constante / opción                     | Nivel                        | Qué controla                                                          |
+| -------------------------------------- | ---------------------------- | --------------------------------------------------------------------- |
+| `fetch(url, { cache })`                | Por request                  | `'force-cache'` (cachear) vs `'no-store'` (nunca)                     |
+| `fetch(url, { next: { revalidate } })` | Por request                  | Segundos hasta refrescar ese fetch puntual                            |
+| `fetch(url, { next: { tags } })`       | Por request                  | Etiquetas para invalidar bajo demanda con `revalidateTag`             |
+| `export const dynamic`                 | Segmento (page/layout/route) | Forzar todo estático, todo dinámico, o error si no puede ser estático |
+| `export const revalidate`              | Segmento                     | Tiempo de revalidación por defecto del segmento entero                |
+| `export const fetchCache`              | Segmento                     | Override avanzado del comportamiento default de todos los fetches     |
 
 ## Pruebas, frescura y migración
 

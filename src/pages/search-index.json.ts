@@ -1,6 +1,12 @@
 import type { APIRoute } from "astro"
-import { CATEGORIES, CONTENT_TYPES } from "@/config/site"
-import { categoryOf, getAllEntries, getEntryUrl, stripMarkdown } from "@/lib/content"
+import { CATEGORIES } from "@/config/categories"
+import { CONTENT_TYPES } from "@/config/content-types"
+import {
+  categoryOf,
+  getAllEntries,
+  getEntryUrl,
+  stripMarkdown
+} from "@/lib/content"
 
 /** Índice que descarga el buscador del cliente una vez por sesión. */
 export const GET: APIRoute = async () => {

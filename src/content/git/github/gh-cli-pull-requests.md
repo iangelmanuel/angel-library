@@ -74,14 +74,14 @@ Muestra el resultado de cada check configurado (tests, lint, build) — útil pa
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `gh pr create --fill` | Crea un PR usando el mensaje del último commit |
-| `gh pr list` | Lista PRs abiertos |
-| `gh pr checkout <número>` | Trae la rama de ese PR para probarla local |
-| `gh pr review <número> --approve` | Aprueba el PR |
-| `gh pr merge <número> --squash` | Mergea combinando todos los commits en uno |
-| `gh pr checks <número>` | Ver el estado de CI de ese PR |
+| Comando                           | Qué hace                                       |
+| --------------------------------- | ---------------------------------------------- |
+| `gh pr create --fill`             | Crea un PR usando el mensaje del último commit |
+| `gh pr list`                      | Lista PRs abiertos                             |
+| `gh pr checkout <número>`         | Trae la rama de ese PR para probarla local     |
+| `gh pr review <número> --approve` | Aprueba el PR                                  |
+| `gh pr merge <número> --squash`   | Mergea combinando todos los commits en uno     |
+| `gh pr checks <número>`           | Ver el estado de CI de ese PR                  |
 
 ## Consideraciones
 

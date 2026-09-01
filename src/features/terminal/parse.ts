@@ -1,5 +1,10 @@
 import type { SearchDoc } from "./search"
-import { TERMINAL_THEMES, type InputMode, type MenuItem, type TerminalTheme } from "./types"
+import {
+  type InputMode,
+  type MenuItem,
+  TERMINAL_THEMES,
+  type TerminalTheme
+} from "./types"
 
 /** Decide si el usuario está buscando, filtrando tags o ejecutando algo. */
 export function parseInput(value: string): InputMode {

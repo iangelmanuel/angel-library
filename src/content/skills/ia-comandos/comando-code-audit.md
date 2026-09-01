@@ -5,7 +5,8 @@ type: skills
 order: 3
 tags: [ai, comando, code-quality]
 tool: Cross-tool
-related: [skills/ia-comandos/comando-review, skills/ia-comandos/comando-refactor]
+related:
+  [skills/ia-comandos/comando-review, skills/ia-comandos/comando-refactor]
 updatedAt: 2026-08-17
 ---
 
@@ -31,11 +32,11 @@ Don't make any changes, just report. Group findings by severity (must-fix vs. ni
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
-| Claude Code | `.claude/commands/code-audit.md` |
-| Cursor | `.cursor/commands/code-audit.md` |
-| OpenCode | `.opencode/commands/code-audit.md` (+ `template:`) |
+| Dónde       | Archivo                                            |
+| ----------- | -------------------------------------------------- |
+| Claude Code | `.claude/commands/code-audit.md`                   |
+| Cursor      | `.cursor/commands/code-audit.md`                   |
+| OpenCode    | `.opencode/commands/code-audit.md` (+ `template:`) |
 
 ## Consideraciones
 

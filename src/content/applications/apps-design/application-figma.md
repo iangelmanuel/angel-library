@@ -55,13 +55,13 @@ Cuando un equipo de diseño usa variables de forma disciplinada, esa colección 
 
 Con el archivo abierto y un elemento seleccionado, el panel derecho (**Inspect**, o el atajo con la tecla `I`) muestra medidas exactas, color, tipografía y, en muchos casos, el fragmento de CSS equivalente — sin necesidad de plan de edición, solo de acceso de lectura al archivo.
 
-| Necesito | Dónde mirar |
-| --- | --- |
-| Espaciado exacto entre dos elementos | Seleccionar ambos, ver la medida que aparece entre ellos |
-| Color con su valor hex/rgb | Panel derecho → Fill, o clic en el swatch |
-| Tipografía (familia, tamaño, peso, line-height) | Panel derecho → Text |
-| CSS aproximado del elemento seleccionado | Panel derecho → pestaña **Code** (Inspect) |
-| Assets exportables (SVG, PNG) | Panel derecho → **Export**, elegir formato y escala |
+| Necesito                                        | Dónde mirar                                              |
+| ----------------------------------------------- | -------------------------------------------------------- |
+| Espaciado exacto entre dos elementos            | Seleccionar ambos, ver la medida que aparece entre ellos |
+| Color con su valor hex/rgb                      | Panel derecho → Fill, o clic en el swatch                |
+| Tipografía (familia, tamaño, peso, line-height) | Panel derecho → Text                                     |
+| CSS aproximado del elemento seleccionado        | Panel derecho → pestaña **Code** (Inspect)               |
+| Assets exportables (SVG, PNG)                   | Panel derecho → **Export**, elegir formato y escala      |
 
 El CSS que exporta el modo Inspect es un punto de partida, no el código final: no sabe qué breakpoints tiene tu proyecto, ni si ese espaciado debería ser una variable de Tailwind existente en vez de un valor suelto.
 

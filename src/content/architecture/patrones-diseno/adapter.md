@@ -17,38 +17,54 @@ Dos proveedores que resuelven el mismo problema (cobrar un pago, mandar un SMS) 
 
 ```ts title="lib/payments/payment-provider.ts"
 export interface PaymentProvider {
-  charge(amountCents: number, currency: string): Promise<{ id: string; status: 'paid' | 'failed' }>;
+  charge(
+    amountCents: number,
+    currency: string
+  ): Promise<{ id: string; status: "paid" | "failed" }>
 }
 ```
 
 ## Adapter para Stripe
 
 ```ts title="lib/payments/stripe-adapter.ts"
-import Stripe from 'stripe';
-import type { PaymentProvider } from './payment-provider';
+import Stripe from "stripe"
+import type { PaymentProvider } from "./payment-provider"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 export const stripeAdapter: PaymentProvider = {
   async charge(amountCents, currency) {
-    const intent = await stripe.paymentIntents.create({ amount: amountCents, currency, confirm: true });
-    return { id: intent.id, status: intent.status === 'succeeded' ? 'paid' : 'failed' };
-  },
-};
+    const intent = await stripe.paymentIntents.create({
+      amount: amountCents,
+      currency,
+      confirm: true
+    })
+    return {
+      id: intent.id,
+      status: intent.status === "succeeded" ? "paid" : "failed"
+    }
+  }
+}
 ```
 
 ## Adapter para un proveedor local
 
 ```ts title="lib/payments/local-provider-adapter.ts"
-import { crearCobro } from 'proveedor-local-sdk';
-import type { PaymentProvider } from './payment-provider';
+import { crearCobro } from "proveedor-local-sdk"
+import type { PaymentProvider } from "./payment-provider"
 
 export const localProviderAdapter: PaymentProvider = {
   async charge(amountCents, currency) {
-    const resultado = await crearCobro({ monto: amountCents / 100, moneda: currency });
-    return { id: resultado.referencia, status: resultado.aprobado ? 'paid' : 'failed' };
-  },
-};
+    const resultado = await crearCobro({
+      monto: amountCents / 100,
+      moneda: currency
+    })
+    return {
+      id: resultado.referencia,
+      status: resultado.aprobado ? "paid" : "failed"
+    }
+  }
+}
 ```
 
 El SDK de Stripe devuelve `status: 'succeeded'`, el proveedor local devuelve `aprobado: boolean`. Ninguno de los dos coincide con la interfaz que definió la app — cada adapter absorbe esa diferencia.
@@ -57,13 +73,13 @@ El SDK de Stripe devuelve `status: 'succeeded'`, el proveedor local devuelve `ap
 
 ```ts
 async function cobrarPedido(provider: PaymentProvider, pedido: Pedido) {
-  const resultado = await provider.charge(pedido.totalCents, pedido.moneda);
-  if (resultado.status === 'failed') throw new Error('Pago rechazado');
-  return resultado.id;
+  const resultado = await provider.charge(pedido.totalCents, pedido.moneda)
+  if (resultado.status === "failed") throw new Error("Pago rechazado")
+  return resultado.id
 }
 
 // El caller elige el adapter, pero cobrarPedido no sabe cuál es.
-await cobrarPedido(stripeAdapter, pedido);
+await cobrarPedido(stripeAdapter, pedido)
 ```
 
 ## Cuándo NO usarlo

@@ -15,12 +15,12 @@ Repetir la misma comprobación (¿hay sesión?, ¿qué idioma pide el usuario?) 
 Vive en `src/middleware.ts` (o `src/middleware/index.ts`). Exporta `onRequest`, siempre con ese nombre, nunca `default`.
 
 ```ts title="src/middleware.ts"
-import { defineMiddleware } from 'astro:middleware';
+import { defineMiddleware } from "astro:middleware"
 
 export const onRequest = defineMiddleware((context, next) => {
-  context.locals.tema = 'oscuro';
-  return next();
-});
+  context.locals.tema = "oscuro"
+  return next()
+})
 ```
 
 `defineMiddleware` no es obligatorio, pero da tipado automático al `context` — sin él hay que tipar a mano.
@@ -31,15 +31,15 @@ Cualquier cosa guardada en `locals` está disponible en `Astro.locals` dentro de
 
 ```ts title="src/middleware.ts"
 export const onRequest = defineMiddleware((context, next) => {
-  context.locals.usuario = obtenerUsuarioDeCookie(context.cookies);
-  return next();
-});
+  context.locals.usuario = obtenerUsuarioDeCookie(context.cookies)
+  return next()
+})
 ```
 
 ```astro title="pages/perfil.astro"
 ---
-const usuario = Astro.locals.usuario;
-if (!usuario) return Astro.redirect('/login');
+const usuario = Astro.locals.usuario
+if (!usuario) return Astro.redirect("/login")
 ---
 ```
 
@@ -48,7 +48,7 @@ Para autocompletado tipado de `Astro.locals`, se declara la forma en `env.d.ts`:
 ```ts title="env.d.ts"
 declare namespace App {
   interface Locals {
-    usuario: { id: string; nombre: string } | null;
+    usuario: { id: string; nombre: string } | null
   }
 }
 ```
@@ -58,19 +58,19 @@ declare namespace App {
 Cada uno corre en orden; el control pasa al siguiente al llamar `next()`.
 
 ```ts title="src/middleware.ts"
-import { sequence } from 'astro:middleware';
+import { sequence } from "astro:middleware"
 
 async function logging(context, next) {
-  console.log(context.url.pathname);
-  return next();
+  console.log(context.url.pathname)
+  return next()
 }
 
 async function auth(context, next) {
-  context.locals.usuario = obtenerUsuarioDeCookie(context.cookies);
-  return next();
+  context.locals.usuario = obtenerUsuarioDeCookie(context.cookies)
+  return next()
 }
 
-export const onRequest = sequence(logging, auth);
+export const onRequest = sequence(logging, auth)
 ```
 
 ## Redirigir o reescribir
@@ -79,23 +79,23 @@ export const onRequest = sequence(logging, auth);
 
 ```ts
 export const onRequest = defineMiddleware((context, next) => {
-  if (!context.locals.usuario && context.url.pathname.startsWith('/admin')) {
-    return context.rewrite('/login');
+  if (!context.locals.usuario && context.url.pathname.startsWith("/admin")) {
+    return context.rewrite("/login")
   }
-  return next();
-});
+  return next()
+})
 ```
 
 ## Contexto y helpers en una mirada
 
-| API | Uso |
-| --- | --- |
-| `onRequest(context, next)` en `src/middleware.ts` | Punto de entrada, corre antes de cada página/endpoint |
-| `defineMiddleware(fn)` | Igual, con tipado automático del `context` |
-| `context.locals` | Compartir datos entre middleware → página/endpoint/action |
-| `sequence(a, b, ...)` | Encadenar varios middlewares en orden |
-| `next()` | Pasar el control al siguiente middleware / renderizar la página |
-| `context.rewrite(destino)` | Servir otra ruta sin cambiar la URL, re-corriendo el middleware |
+| API                                               | Uso                                                             |
+| ------------------------------------------------- | --------------------------------------------------------------- |
+| `onRequest(context, next)` en `src/middleware.ts` | Punto de entrada, corre antes de cada página/endpoint           |
+| `defineMiddleware(fn)`                            | Igual, con tipado automático del `context`                      |
+| `context.locals`                                  | Compartir datos entre middleware → página/endpoint/action       |
+| `sequence(a, b, ...)`                             | Encadenar varios middlewares en orden                           |
+| `next()`                                          | Pasar el control al siguiente middleware / renderizar la página |
+| `context.rewrite(destino)`                        | Servir otra ruta sin cambiar la URL, re-corriendo el middleware |
 
 ## Orden, alcance y seguridad
 

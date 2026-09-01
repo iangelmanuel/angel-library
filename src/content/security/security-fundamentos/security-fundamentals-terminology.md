@@ -13,17 +13,17 @@ La **seguridad** consiste en reducir riesgos a un nivel aceptable, no en promete
 
 Para aprender, sigue: activos y confianza → modelo de amenazas → entradas/ataques web → identidad y permisos → APIs y SSRF → headers/CSP → secretos/dependencias → disponibilidad → pruebas e incidentes. Practica siempre en sistemas propios o laboratorios autorizados.
 
-| Riesgo | Documento |
-| --- | --- |
-| no sé qué proteger primero | [Modelo de amenazas](/security/security-fundamentos/security-threat-modeling) |
+| Riesgo                             | Documento                                                                        |
+| ---------------------------------- | -------------------------------------------------------------------------------- |
+| no sé qué proteger primero         | [Modelo de amenazas](/security/security-fundamentos/security-threat-modeling)    |
 | XSS, CSRF, SQLi o subida maliciosa | [Ataques web comunes](/security/security-aplicacion/security-common-web-attacks) |
-| BOLA, abuso de consumo o SSRF | [Seguridad de APIs](/security/security-aplicacion/security-api-protection) |
-| sesiones, roles y ownership | [Control de acceso](/security/security-aplicacion/security-auth-access-control) |
-| scripts, iframes y MIME | [Headers y CSP](/security/security-aplicacion/security-headers-csp) |
-| DDoS y caída de dependencias | [Disponibilidad](/security/security-infra/security-ddos-resilience) |
-| paquetes o credenciales filtradas | [Cadena de suministro](/security/security-infra/security-secrets-supply-chain) |
-| integrar seguridad al desarrollo | [SDLC seguro](/security/security-testing/security-sdlc-testing) |
-| ya ocurrió un incidente | [Respuesta](/security/security-testing/security-response-incidents) |
+| BOLA, abuso de consumo o SSRF      | [Seguridad de APIs](/security/security-aplicacion/security-api-protection)       |
+| sesiones, roles y ownership        | [Control de acceso](/security/security-aplicacion/security-auth-access-control)  |
+| scripts, iframes y MIME            | [Headers y CSP](/security/security-aplicacion/security-headers-csp)              |
+| DDoS y caída de dependencias       | [Disponibilidad](/security/security-infra/security-ddos-resilience)              |
+| paquetes o credenciales filtradas  | [Cadena de suministro](/security/security-infra/security-secrets-supply-chain)   |
+| integrar seguridad al desarrollo   | [SDLC seguro](/security/security-testing/security-sdlc-testing)                  |
+| ya ocurrió un incidente            | [Respuesta](/security/security-testing/security-response-incidents)              |
 
 Una lista sirve para recordar controles; aprender seguridad exige seguir el flujo de datos y demostrar dónde cambia la confianza. “Validado en frontend” nunca es una frontera de seguridad.
 
@@ -31,14 +31,14 @@ Una lista sirve para recordar controles; aprender seguridad exige seguir el fluj
 
 Estos términos describen cosas distintas:
 
-| Término | Significado | Ejemplo |
-| --- | --- | --- |
-| Activo | Algo valioso que debe protegerse | Sesiones, datos personales, disponibilidad |
-| Amenaza | Actor o evento capaz de causar daño | Un atacante automatizado o un error interno |
-| Vulnerabilidad | Debilidad explotable | Consulta SQL construida con texto sin validar |
-| Impacto | Daño posible | Robo de cuentas o caída del servicio |
-| Riesgo | Combinación de probabilidad e impacto | Exposición de datos por una ruta sin autorización |
-| Control | Medida que reduce el riesgo | Consulta parametrizada y prueba de permisos |
+| Término        | Significado                           | Ejemplo                                           |
+| -------------- | ------------------------------------- | ------------------------------------------------- |
+| Activo         | Algo valioso que debe protegerse      | Sesiones, datos personales, disponibilidad        |
+| Amenaza        | Actor o evento capaz de causar daño   | Un atacante automatizado o un error interno       |
+| Vulnerabilidad | Debilidad explotable                  | Consulta SQL construida con texto sin validar     |
+| Impacto        | Daño posible                          | Robo de cuentas o caída del servicio              |
+| Riesgo         | Combinación de probabilidad e impacto | Exposición de datos por una ruta sin autorización |
+| Control        | Medida que reduce el riesgo           | Consulta parametrizada y prueba de permisos       |
 
 Una **superficie de ataque** es el conjunto de puntos que aceptan interacción: rutas HTTP, formularios, archivos, dependencias, paneles, webhooks y credenciales. Reducir capacidades expuestas suele ser más efectivo que intentar proteger funciones que nadie necesita.
 
@@ -75,28 +75,27 @@ El **principio de mínimo privilegio** concede solo permisos necesarios, durante
 
 ```ts
 // El valor viaja como dato; no se concatena en la instrucción SQL.
-const result = await db.query(
-  'SELECT id, email FROM users WHERE email = $1',
-  [email],
-);
+const result = await db.query("SELECT id, email FROM users WHERE email = $1", [
+  email
+])
 ```
 
 No existe una función universal de “sanitización”. HTML, URL, SQL, CSS y comandos del sistema tienen reglas diferentes. La protección se aplica al contexto de destino.
 
 ## Ataques y acrónimos frecuentes
 
-| Sigla | Nombre | Qué ocurre | Defensa principal |
-| --- | --- | --- | --- |
-| XSS | *Cross-Site Scripting* | Contenido no confiable se ejecuta como script | Escape contextual, APIs seguras y CSP |
-| CSRF | *Cross-Site Request Forgery* | Un sitio induce al navegador autenticado a enviar una acción | `SameSite`, token CSRF y verificación de origen |
-| SSRF | *Server-Side Request Forgery* | El servidor solicita una URL elegida por un atacante | Lista permitida, validación y aislamiento de red |
-| SQLi | Inyección SQL | Datos alteran la estructura de una consulta | Consultas parametrizadas |
-| IDOR | *Insecure Direct Object Reference* | Se accede a otro objeto cambiando su identificador | Autorización por recurso |
-| DDoS | *Distributed Denial of Service* | Muchas fuentes agotan capacidad | CDN, límites, caché y degradación controlada |
+| Sigla | Nombre                             | Qué ocurre                                                   | Defensa principal                                |
+| ----- | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
+| XSS   | _Cross-Site Scripting_             | Contenido no confiable se ejecuta como script                | Escape contextual, APIs seguras y CSP            |
+| CSRF  | _Cross-Site Request Forgery_       | Un sitio induce al navegador autenticado a enviar una acción | `SameSite`, token CSRF y verificación de origen  |
+| SSRF  | _Server-Side Request Forgery_      | El servidor solicita una URL elegida por un atacante         | Lista permitida, validación y aislamiento de red |
+| SQLi  | Inyección SQL                      | Datos alteran la estructura de una consulta                  | Consultas parametrizadas                         |
+| IDOR  | _Insecure Direct Object Reference_ | Se accede a otro objeto cambiando su identificador           | Autorización por recurso                         |
+| DDoS  | _Distributed Denial of Service_    | Muchas fuentes agotan capacidad                              | CDN, límites, caché y degradación controlada     |
 
-Una **CSP** (*Content Security Policy* o política de seguridad de contenido) restringe desde qué orígenes puede cargarse o ejecutarse contenido. Reduce impacto de ciertos XSS, pero no reemplaza el escape ni la eliminación de inyecciones.
+Una **CSP** (_Content Security Policy_ o política de seguridad de contenido) restringe desde qué orígenes puede cargarse o ejecutarse contenido. Reduce impacto de ciertos XSS, pero no reemplaza el escape ni la eliminación de inyecciones.
 
-**CORS** (*Cross-Origin Resource Sharing*) indica qué orígenes pueden leer una respuesta desde el navegador. No es un mecanismo general de autenticación: otros servidores no están obligados por CORS.
+**CORS** (_Cross-Origin Resource Sharing_) indica qué orígenes pueden leer una respuesta desde el navegador. No es un mecanismo general de autenticación: otros servidores no están obligados por CORS.
 
 ## Hash, cifrado y codificación
 
@@ -129,7 +128,7 @@ La **cadena de suministro** incluye dependencias, registros de paquetes, accione
 
 Prevenir todo incidente es imposible. La aplicación necesita detectar comportamientos anómalos y conservar evidencia útil sin registrar contraseñas, tokens ni datos personales innecesarios.
 
-Un plan de respuesta define responsables, canales, aislamiento, rotación de credenciales, comunicación, recuperación y análisis posterior. **MTTD** significa *Mean Time to Detect* o tiempo medio para detectar; **MTTR** puede significar tiempo medio para responder o recuperar, por lo que el equipo debe definir cuál usa.
+Un plan de respuesta define responsables, canales, aislamiento, rotación de credenciales, comunicación, recuperación y análisis posterior. **MTTD** significa _Mean Time to Detect_ o tiempo medio para detectar; **MTTR** puede significar tiempo medio para responder o recuperar, por lo que el equipo debe definir cuál usa.
 
 ## Preguntas para cada funcionalidad
 

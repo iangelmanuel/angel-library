@@ -18,13 +18,13 @@ updatedAt: 2026-08-25
 Se llama desde un Server Action o un Route Handler — nunca desde un Client Component ni desde el Proxy, porque solo funciona en el servidor.
 
 ```ts title="app/posts/actions.ts"
-'use server'
+"use server"
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath } from "next/cache"
 
 export async function crearPost(formData: FormData) {
-  await guardarPost(formData);
-  revalidatePath('/posts');
+  await guardarPost(formData)
+  revalidatePath("/posts")
 }
 ```
 
@@ -33,10 +33,10 @@ export async function crearPost(formData: FormData) {
 Un path literal (`/blog/mi-post`) invalida esa página puntual. Para invalidar **todas** las páginas que matchean una ruta dinámica, se usa el patrón con `[slug]` más el segundo argumento `'page'` (obligatorio en ese caso).
 
 ```ts
-revalidatePath('/blog/mi-post');            // solo esa página
-revalidatePath('/blog/[slug]', 'page');     // todas las que usan ese page.tsx
-revalidatePath('/blog/[slug]', 'layout');   // esas más todo lo anidado debajo del layout
-revalidatePath('/', 'layout');              // toda la app
+revalidatePath("/blog/mi-post") // solo esa página
+revalidatePath("/blog/[slug]", "page") // todas las que usan ese page.tsx
+revalidatePath("/blog/[slug]", "layout") // esas más todo lo anidado debajo del layout
+revalidatePath("/", "layout") // toda la app
 ```
 
 ## `revalidateTag` — La alternativa por etiqueta
@@ -44,13 +44,13 @@ revalidatePath('/', 'layout');              // toda la app
 Mientras `revalidatePath` invalida por **ruta**, `revalidateTag` invalida por **etiqueta** — todos los fetches en cualquier página que hayan usado esa tag (ver `next.tags` en [fetching con revalidate](/frontend/nextjs/nextjs-fetching-revalidate)), sin importar en qué ruta estén.
 
 ```ts title="app/posts/actions.ts"
-'use server'
+"use server"
 
-import { revalidateTag } from 'next/cache';
+import { revalidateTag } from "next/cache"
 
 export async function actualizarPost(id: string) {
-  await guardarCambios(id);
-  revalidateTag('posts'); // invalida CUALQUIER fetch etiquetado "posts", en cualquier página
+  await guardarCambios(id)
+  revalidateTag("posts") // invalida CUALQUIER fetch etiquetado "posts", en cualquier página
 }
 ```
 
@@ -61,24 +61,24 @@ La diferencia importa en la práctica: si `/blog` y `/dashboard` piden datos dis
 No son excluyentes — una mutación que afecta tanto una página puntual como datos compartidos por tag puede llamar a los dos.
 
 ```ts
-'use server'
+"use server"
 
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from "next/cache"
 
 export async function actualizarPost(id: string) {
-  await guardarCambios(id);
-  revalidatePath('/blog');   // refresca esa página ya
-  revalidateTag('posts');    // refresca cualquier otra página que use esos datos
+  await guardarCambios(id)
+  revalidatePath("/blog") // refresca esa página ya
+  revalidateTag("posts") // refresca cualquier otra página que use esos datos
 }
 ```
 
 ## Estrategias de invalidación en una mirada
 
-| Función | Invalida por | Alcance |
-| --- | --- | --- |
-| `revalidatePath(path)` | Ruta específica | Esa página (o layout + todo lo anidado, con `'layout'`) |
-| `revalidatePath(patron, 'page')` | Patrón de ruta dinámica | Todas las páginas que matchean ese `page.tsx` |
-| `revalidateTag(tag)` | Etiqueta de datos | Cualquier página que use un fetch con esa tag, sin importar la ruta |
+| Función                          | Invalida por            | Alcance                                                             |
+| -------------------------------- | ----------------------- | ------------------------------------------------------------------- |
+| `revalidatePath(path)`           | Ruta específica         | Esa página (o layout + todo lo anidado, con `'layout'`)             |
+| `revalidatePath(patron, 'page')` | Patrón de ruta dinámica | Todas las páginas que matchean ese `page.tsx`                       |
+| `revalidateTag(tag)`             | Etiqueta de datos       | Cualquier página que use un fetch con esa tag, sin importar la ruta |
 
 ## Consistencia, alcance y errores
 

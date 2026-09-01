@@ -26,21 +26,21 @@ const supportsMediaDevices = Boolean(navigator.mediaDevices)
 const supportsCamera = Boolean(navigator.mediaDevices?.getUserMedia)
 
 supportsMediaDevices // true o false
-supportsCamera       // true o false
+supportsCamera // true o false
 ```
 
 No solicites permisos al cargar la página. Explica primero para qué se usarán y haz la solicitud como respuesta a una acción clara. Que una API exista no significa que el dispositivo tenga cámara, que la política del documento la permita o que el usuario acepte.
 
 ## APIs principales
 
-| API | Devuelve | Solicita permiso | Caso de uso |
-| --- | --- | --- | --- |
-| `enumerateDevices()` | Promise con `MediaDeviceInfo[]` | no siempre, pero limita datos sin permiso | listar entradas y salidas |
-| `getUserMedia(constraints)` | Promise con `MediaStream` | **sí** | cámara y micrófono |
-| `getDisplayMedia(options)` | Promise con `MediaStream` | **sí, cada selección** | compartir pantalla/ventana |
-| evento `devicechange` | Event | no | detectar conexión o retiro de dispositivos |
-| `track.getSettings()` | objeto con configuración aplicada | no | conocer resolución o deviceId real |
-| `track.applyConstraints()` | Promise | puede reutilizar permiso | ajustar una pista activa |
+| API                         | Devuelve                          | Solicita permiso                          | Caso de uso                                |
+| --------------------------- | --------------------------------- | ----------------------------------------- | ------------------------------------------ |
+| `enumerateDevices()`        | Promise con `MediaDeviceInfo[]`   | no siempre, pero limita datos sin permiso | listar entradas y salidas                  |
+| `getUserMedia(constraints)` | Promise con `MediaStream`         | **sí**                                    | cámara y micrófono                         |
+| `getDisplayMedia(options)`  | Promise con `MediaStream`         | **sí, cada selección**                    | compartir pantalla/ventana                 |
+| evento `devicechange`       | Event                             | no                                        | detectar conexión o retiro de dispositivos |
+| `track.getSettings()`       | objeto con configuración aplicada | no                                        | conocer resolución o deviceId real         |
+| `track.applyConstraints()`  | Promise                           | puede reutilizar permiso                  | ajustar una pista activa                   |
 
 ## Enumerar cámaras, micrófonos y salidas
 
@@ -50,11 +50,11 @@ async function listMediaDevices() {
 
   const devices = await navigator.mediaDevices.enumerateDevices()
 
-  return devices.map(device => ({
+  return devices.map((device) => ({
     id: device.deviceId,
     groupId: device.groupId,
     kind: device.kind,
-    label: device.label || 'Dispositivo sin identificar',
+    label: device.label || "Dispositivo sin identificar"
   }))
 }
 
@@ -67,11 +67,11 @@ await listMediaDevices()
 // ]
 ```
 
-| `kind` | Representa |
-| --- | --- |
-| `audioinput` | micrófono o entrada de audio |
-| `videoinput` | cámara o entrada de video |
-| `audiooutput` | altavoz, auricular o salida |
+| `kind`        | Representa                   |
+| ------------- | ---------------------------- |
+| `audioinput`  | micrófono o entrada de audio |
+| `videoinput`  | cámara o entrada de video    |
+| `audiooutput` | altavoz, auricular o salida  |
 
 Los labels y dispositivos no predeterminados pueden ocultarse hasta que el usuario conceda permiso. La lista también excluye capacidades bloqueadas por `Permissions-Policy`. El documento debe estar activo y visible para enumerar en navegadores que aplican estas restricciones.
 
@@ -82,7 +82,7 @@ Los labels y dispositivos no predeterminados pueden ocultarse hasta que el usuar
 ```js
 const stream = await navigator.mediaDevices.getUserMedia({
   audio: true,
-  video: false,
+  video: false
 })
 
 stream instanceof MediaStream // true
@@ -98,8 +98,8 @@ const stream = await navigator.mediaDevices.getUserMedia({
   video: {
     width: { ideal: 1280 },
     height: { ideal: 720 },
-    facingMode: { ideal: 'environment' },
-  },
+    facingMode: { ideal: "environment" }
+  }
 })
 
 const [track] = stream.getVideoTracks()
@@ -113,26 +113,31 @@ track.getSettings()
 ```js
 const strictStream = await navigator.mediaDevices.getUserMedia({
   video: {
-    deviceId: { exact: selectedDeviceId },
-  },
+    deviceId: { exact: selectedDeviceId }
+  }
 })
 ```
 
 ## Mostrar una vista previa
 
 ```html
-<video id="preview" autoplay muted playsinline></video>
+<video
+  id="preview"
+  autoplay
+  muted
+  playsinline
+></video>
 ```
 
 ```js
-const video = document.querySelector('#preview')
+const video = document.querySelector("#preview")
 const stream = await navigator.mediaDevices.getUserMedia({ video: true })
 
 video.srcObject = stream
 await video.play()
 
 video.srcObject === stream // true
-video.videoWidth           // resolución disponible después de metadata
+video.videoWidth // resolución disponible después de metadata
 ```
 
 `muted` evita retroalimentación cuando hay audio local; `playsinline` reduce la posibilidad de que video móvil fuerce pantalla completa. Aun con `autoplay`, maneja el rechazo de `play()`.
@@ -151,7 +156,7 @@ function stopMediaStream(stream) {
 stopMediaStream(stream)
 video.srcObject = null
 
-stream.getTracks().every(track => track.readyState === 'ended')
+stream.getTracks().every((track) => track.readyState === "ended")
 // true
 ```
 
@@ -167,7 +172,7 @@ async function selectCamera(video, deviceId) {
 
   activeStream = await navigator.mediaDevices.getUserMedia({
     video: { deviceId: { exact: deviceId } },
-    audio: false,
+    audio: false
   })
 
   video.srcObject = activeStream
@@ -184,10 +189,14 @@ En móviles también puedes alternar con `facingMode: 'user'` o `'environment'`.
 ```js
 const controller = new AbortController()
 
-navigator.mediaDevices.addEventListener('devicechange', async () => {
-  const devices = await listMediaDevices()
-  renderDeviceOptions(devices)
-}, { signal: controller.signal })
+navigator.mediaDevices.addEventListener(
+  "devicechange",
+  async () => {
+    const devices = await listMediaDevices()
+    renderDeviceOptions(devices)
+  },
+  { signal: controller.signal }
+)
 
 // al desmontar
 controller.abort()
@@ -197,14 +206,14 @@ El evento indica que cambió el conjunto disponible; vuelve a enumerar en lugar 
 
 ## Errores de `getUserMedia`
 
-| Error | Significado habitual | Respuesta útil |
-| --- | --- | --- |
-| `NotAllowedError` | permiso denegado, contexto inseguro o política bloqueada | explicar cómo habilitarlo; no insistir |
-| `NotFoundError` | no existe una fuente solicitada | permitir continuar sin esa capacidad |
-| `NotReadableError` | hardware ocupado o error del sistema | sugerir cerrar otra aplicación |
-| `OverconstrainedError` | restricciones imposibles | relajar `exact`, `min` o `max` |
-| `AbortError` | el dispositivo no pudo iniciar | ofrecer reintento controlado |
-| `InvalidStateError` | documento no activo | esperar a una vista activa |
+| Error                  | Significado habitual                                     | Respuesta útil                         |
+| ---------------------- | -------------------------------------------------------- | -------------------------------------- |
+| `NotAllowedError`      | permiso denegado, contexto inseguro o política bloqueada | explicar cómo habilitarlo; no insistir |
+| `NotFoundError`        | no existe una fuente solicitada                          | permitir continuar sin esa capacidad   |
+| `NotReadableError`     | hardware ocupado o error del sistema                     | sugerir cerrar otra aplicación         |
+| `OverconstrainedError` | restricciones imposibles                                 | relajar `exact`, `min` o `max`         |
+| `AbortError`           | el dispositivo no pudo iniciar                           | ofrecer reintento controlado           |
+| `InvalidStateError`    | documento no activo                                      | esperar a una vista activa             |
 
 ```js
 async function openCamera() {
@@ -212,14 +221,14 @@ async function openCamera() {
     return await navigator.mediaDevices.getUserMedia({ video: true })
   } catch (error) {
     switch (error.name) {
-      case 'NotAllowedError':
-        showMessage('Necesitamos permiso para usar la cámara.')
+      case "NotAllowedError":
+        showMessage("Necesitamos permiso para usar la cámara.")
         break
-      case 'NotFoundError':
-        showMessage('No se encontró una cámara disponible.')
+      case "NotFoundError":
+        showMessage("No se encontró una cámara disponible.")
         break
       default:
-        showMessage('No fue posible iniciar la cámara.')
+        showMessage("No fue posible iniciar la cámara.")
         reportError(error)
     }
     return null
@@ -234,14 +243,14 @@ No registres constraints, nombres o identificadores de dispositivos si no son ne
 ```js
 const displayStream = await navigator.mediaDevices.getDisplayMedia({
   video: true,
-  audio: true,
+  audio: true
 })
 
 const [displayTrack] = displayStream.getVideoTracks()
 
-displayTrack.addEventListener('ended', () => {
+displayTrack.addEventListener("ended", () => {
   video.srcObject = null
-  showMessage('La pantalla dejó de compartirse.')
+  showMessage("La pantalla dejó de compartirse.")
 })
 ```
 
@@ -251,22 +260,22 @@ El navegador debe permitir que el usuario elija qué compartir y normalmente exi
 
 ```js
 function captureFrame(video) {
-  const canvas = document.createElement('canvas')
+  const canvas = document.createElement("canvas")
   canvas.width = video.videoWidth
   canvas.height = video.videoHeight
 
-  const context = canvas.getContext('2d')
+  const context = canvas.getContext("2d")
   context.drawImage(video, 0, 0)
 
-  return new Promise(resolve => {
-    canvas.toBlob(resolve, 'image/jpeg', 0.85)
+  return new Promise((resolve) => {
+    canvas.toBlob(resolve, "image/jpeg", 0.85)
   })
 }
 
 const photo = await captureFrame(video)
 
 photo instanceof Blob // true, salvo un fallo de codificación
-photo.type             // 'image/jpeg'
+photo.type // 'image/jpeg'
 ```
 
 Espera `loadedmetadata` o dimensiones distintas de cero antes de capturar. Revisa orientación, espejo de cámara frontal, resolución y consentimiento antes de guardar o enviar la imagen.

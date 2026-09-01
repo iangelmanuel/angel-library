@@ -34,9 +34,13 @@ Validate the category on the server and preserve it in pagination links.
 
 ```md
 ## Qué cambia
+
 ## Por qué
+
 ## Cómo se verificó
+
 ## Capturas o evidencia
+
 ## Riesgos, migración y rollback
 ```
 
@@ -60,18 +64,22 @@ Si una PR mezcla refactor, nueva funcionalidad y actualización masiva de depend
 
 ```md title=".github/pull_request_template.md"
 ## Problema y objetivo
+
 Closes #123
 
 ## Solución
+
 - decisión principal;
 - alternativas descartadas.
 
 ## Verificación
+
 - [ ] tipos, pruebas y build;
 - [ ] teclado, responsive o API según corresponda;
 - [ ] evidencia adjunta.
 
 ## Riesgo y operación
+
 Migración, compatibilidad, observabilidad y rollback.
 ```
 
@@ -87,11 +95,11 @@ Una casilla no reemplaza evidencia. “Tests pasaron” es menos útil que indic
 
 ## Estrategias de merge
 
-| Estrategia | Resultado | Cuándo ayuda |
-| --- | --- | --- |
-| Squash merge | un commit por PR | commits intermedios no aportan valor permanente |
-| Merge commit | conserva la rama y todos sus commits | el historial de integración es importante |
-| Rebase merge | commits lineales sin merge commit | cada commit ya es coherente y la política exige linealidad |
+| Estrategia   | Resultado                            | Cuándo ayuda                                               |
+| ------------ | ------------------------------------ | ---------------------------------------------------------- |
+| Squash merge | un commit por PR                     | commits intermedios no aportan valor permanente            |
+| Merge commit | conserva la rama y todos sus commits | el historial de integración es importante                  |
+| Rebase merge | commits lineales sin merge commit    | cada commit ya es coherente y la política exige linealidad |
 
 Elige una convención por repositorio. Cambiar de estrategia en cada PR vuelve impredecible el historial.
 

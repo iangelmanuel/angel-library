@@ -63,7 +63,11 @@ document.addEventListener("pointerover", (event) => {
   const target = event.target as HTMLElement
   const logo = target.closest<HTMLElement>("[data-logo-cycle]")
   const previousTarget = event.relatedTarget
-  if (!logo || (previousTarget instanceof Node && logo.contains(previousTarget))) return
+  if (
+    !logo ||
+    (previousTarget instanceof Node && logo.contains(previousTarget))
+  )
+    return
 
   const current = Number(logo.dataset.logoColorIndex ?? "-1")
   const next = (current + 1) % logoColors.length
@@ -115,7 +119,9 @@ document.addEventListener("click", async (event) => {
   if (copyAllButton) {
     const article = copyAllButton.closest("article")
     const blocks = Array.from(
-      article?.querySelectorAll<HTMLPreElement>(".markdown pre[data-filename]") ?? []
+      article?.querySelectorAll<HTMLPreElement>(
+        ".markdown pre[data-filename]"
+      ) ?? []
     )
     if (blocks.length === 0) return
 
@@ -132,10 +138,7 @@ document.addEventListener("click", async (event) => {
 })
 
 document.addEventListener("keydown", (event) => {
-  if (
-    (event.metaKey || event.ctrlKey) &&
-    event.key.toLowerCase() === "k"
-  ) {
+  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
     event.preventDefault()
     window.dispatchEvent(new CustomEvent("angel:toggle-search"))
     return
@@ -151,10 +154,7 @@ document.addEventListener("keydown", (event) => {
 })
 
 /* Desplaza solo la columna de navegación, nunca el documento. */
-function revealInSidebar(
-  el: Element | null,
-  behavior: ScrollBehavior
-) {
+function revealInSidebar(el: Element | null, behavior: ScrollBehavior) {
   const nav = document.querySelector("#sidebar nav")
   if (!nav || !el) return
   const navBox = nav.getBoundingClientRect()
@@ -171,8 +171,7 @@ function syncSidebarState() {
   const path = location.pathname.replace(/\/+$/, "") || "/"
   let active: Element | null = null
   document.querySelectorAll("#sidebar a[href]").forEach((link) => {
-    const href =
-      (link.getAttribute("href") ?? "").replace(/\/+$/, "") || "/"
+    const href = (link.getAttribute("href") ?? "").replace(/\/+$/, "") || "/"
     const isActive = href === path
     link.classList.toggle("is-active", isActive)
     if (isActive) {
@@ -222,4 +221,3 @@ document.addEventListener("astro:page-load", () => {
     "auto"
   )
 })
-

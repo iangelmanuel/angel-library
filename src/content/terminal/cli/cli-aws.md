@@ -86,13 +86,13 @@ Cada profile guarda su propio set de credenciales y región, identificado por no
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `aws configure` | Configura credenciales, región y formato de salida |
-| `aws sts get-caller-identity` | Muestra qué cuenta/identidad está activa |
-| `aws <servicio> <acción>` | Patrón general de cualquier comando |
-| `aws configure --profile <nombre>` | Crea/edita un profile separado |
-| `--profile <nombre>` | Usa un profile específico en cualquier comando |
+| Comando                            | Qué hace                                           |
+| ---------------------------------- | -------------------------------------------------- |
+| `aws configure`                    | Configura credenciales, región y formato de salida |
+| `aws sts get-caller-identity`      | Muestra qué cuenta/identidad está activa           |
+| `aws <servicio> <acción>`          | Patrón general de cualquier comando                |
+| `aws configure --profile <nombre>` | Crea/edita un profile separado                     |
+| `--profile <nombre>`               | Usa un profile específico en cualquier comando     |
 
 ## Consideraciones
 

@@ -17,14 +17,14 @@ Las islas de Astro hidratan de forma aislada: dos componentes de React en la mis
 ## `atom()` — Un valor simple
 
 ```ts title="stores/tema.ts"
-import { atom } from 'nanostores';
+import { atom } from "nanostores"
 
-export const $tema = atom<'claro' | 'oscuro'>('oscuro');
+export const $tema = atom<"claro" | "oscuro">("oscuro")
 ```
 
 ```ts
-$tema.get();          // "oscuro"
-$tema.set('claro');
+$tema.get() // "oscuro"
+$tema.set("claro")
 ```
 
 ## `map()` — Un objeto con updates por clave
@@ -32,19 +32,19 @@ $tema.set('claro');
 `setKey` actualiza una sola propiedad sin reemplazar el objeto entero — evita re-renders innecesarios en las claves que no cambiaron.
 
 ```ts
-import { map } from 'nanostores';
+import { map } from "nanostores"
 
-export const $perfil = map({ nombre: 'anónimo', avatar: null });
+export const $perfil = map({ nombre: "anónimo", avatar: null })
 
-$perfil.setKey('nombre', 'Ada Lovelace');
+$perfil.setKey("nombre", "Ada Lovelace")
 ```
 
 ## `computed()` — Derivar un valor de otro store
 
 ```ts
-import { computed } from 'nanostores';
+import { computed } from "nanostores"
 
-export const $temaOscuro = computed($tema, (tema) => tema === 'oscuro');
+export const $temaOscuro = computed($tema, (tema) => tema === "oscuro")
 ```
 
 ## Usarlo en React — `useStore()`
@@ -52,16 +52,16 @@ export const $temaOscuro = computed($tema, (tema) => tema === 'oscuro');
 El hook de `@nanostores/react` suscribe el componente al store: se re-renderiza solo cuando cambia el valor que lee.
 
 ```tsx
-import { useStore } from '@nanostores/react';
-import { $tema } from '../stores/tema';
+import { useStore } from "@nanostores/react"
+import { $tema } from "../stores/tema"
 
 export function ToggleTema() {
-  const tema = useStore($tema);
+  const tema = useStore($tema)
   return (
-    <button onClick={() => $tema.set(tema === 'oscuro' ? 'claro' : 'oscuro')}>
+    <button onClick={() => $tema.set(tema === "oscuro" ? "claro" : "oscuro")}>
       {tema}
     </button>
-  );
+  )
 }
 ```
 
@@ -71,13 +71,13 @@ Dos islas React separadas (`client:load` en distintos componentes `.astro`) que 
 
 ## Stores y helpers en una mirada
 
-| API | Uso |
-| --- | --- |
-| `atom(valorInicial)` | Store de un valor simple |
-| `map(objetoInicial)` | Store de objeto, con `setKey()` por propiedad |
-| `computed(store, fn)` | Derivar un valor de otro store |
-| `store.get()` / `store.set()` | Leer/escribir fuera de React |
-| `useStore(store)` (`@nanostores/react`) | Suscribir un componente React al store |
+| API                                        | Uso                                             |
+| ------------------------------------------ | ----------------------------------------------- |
+| `atom(valorInicial)`                       | Store de un valor simple                        |
+| `map(objetoInicial)`                       | Store de objeto, con `setKey()` por propiedad   |
+| `computed(store, fn)`                      | Derivar un valor de otro store                  |
+| `store.get()` / `store.set()`              | Leer/escribir fuera de React                    |
+| `useStore(store)` (`@nanostores/react`)    | Suscribir un componente React al store          |
 | `store.listen(cb)` / `store.subscribe(cb)` | Suscribirse manualmente (fuera de un framework) |
 
 ## Estado compartido e hidratación

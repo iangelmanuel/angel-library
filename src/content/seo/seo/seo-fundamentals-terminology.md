@@ -7,20 +7,20 @@ order: 1
 updatedAt: 2026-08-25
 ---
 
-**SEO** significa *Search Engine Optimization* u optimización para motores de búsqueda. Su objetivo es facilitar que un buscador descubra, comprenda e indexe contenido útil. No consiste en repetir palabras clave ni garantiza una posición concreta: combina contenido, arquitectura, accesibilidad técnica, rendimiento y reputación.
+**SEO** significa _Search Engine Optimization_ u optimización para motores de búsqueda. Su objetivo es facilitar que un buscador descubra, comprenda e indexe contenido útil. No consiste en repetir palabras clave ni garantiza una posición concreta: combina contenido, arquitectura, accesibilidad técnica, rendimiento y reputación.
 
 ## Aprende o consulta
 
 Si aprendes desde cero, sigue el recorrido del buscador: intención y arquitectura → descubrimiento/rastreo → render → canonical/indexación → metadata/datos estructurados → medición → migraciones. Después aplica la receta del framework.
 
-| Necesito recordar | Documento |
-| --- | --- |
-| intención, páginas y enlaces internos | [Contenido y arquitectura](/seo/seo-contenido/seo-contenido-arquitectura) |
-| robots, sitemap, canonical e indexación | [Rastreo e indexación](/seo/seo-tecnico/seo-rastreo-indexacion) |
-| title, description, Open Graph y JSON-LD | [Metadata y datos estructurados](/seo/seo-tecnico/seo-metadata-datos-estructurados) |
-| JavaScript, idiomas y duplicados regionales | [Render e internacionalización](/seo/seo-tecnico/seo-rendering-international) |
-| cambios de URL o caída de tráfico | [Auditoría y migraciones](/seo/seo-tecnico/seo-auditoria-migraciones) |
-| implementación completa | [Astro](/seo/astro/astro-seo-completo) o [Next.js](/seo/nextjs/nextjs-seo-completo) |
+| Necesito recordar                           | Documento                                                                           |
+| ------------------------------------------- | ----------------------------------------------------------------------------------- |
+| intención, páginas y enlaces internos       | [Contenido y arquitectura](/seo/seo-contenido/seo-contenido-arquitectura)           |
+| robots, sitemap, canonical e indexación     | [Rastreo e indexación](/seo/seo-tecnico/seo-rastreo-indexacion)                     |
+| title, description, Open Graph y JSON-LD    | [Metadata y datos estructurados](/seo/seo-tecnico/seo-metadata-datos-estructurados) |
+| JavaScript, idiomas y duplicados regionales | [Render e internacionalización](/seo/seo-tecnico/seo-rendering-international)       |
+| cambios de URL o caída de tráfico           | [Auditoría y migraciones](/seo/seo-tecnico/seo-auditoria-migraciones)               |
+| implementación completa                     | [Astro](/seo/astro/astro-seo-completo) o [Next.js](/seo/nextjs/nextjs-seo-completo) |
 
 Quien consulta necesita etiquetas exactas; quien aprende debe comprender qué señal resuelve cada etiqueta. Añadir metadata no compensa contenido duplicado, enlaces rotos o una respuesta que el crawler no puede obtener.
 
@@ -34,7 +34,7 @@ Estas etapas no son sinónimos:
 4. **Indexación:** decide si incorpora la versión comprendida a su índice.
 5. **Ranking:** ordena resultados para una consulta según múltiples señales.
 
-Un **crawler**, *spider* o bot de rastreo es el programa que recorre enlaces. **SERP** significa *Search Engine Results Page*, es decir, página de resultados del buscador.
+Un **crawler**, _spider_ o bot de rastreo es el programa que recorre enlaces. **SERP** significa _Search Engine Results Page_, es decir, página de resultados del buscador.
 
 Que una URL sea rastreable no obliga a indexarla. También puede estar indexada y no aparecer para la búsqueda que se está probando.
 
@@ -93,14 +93,17 @@ Bloquear rastreo no equivale a proteger datos ni garantiza que una URL desaparez
 La directiva meta robots actúa sobre una página que el bot puede leer:
 
 ```html
-<meta name="robots" content="noindex, follow" />
+<meta
+  name="robots"
+  content="noindex, follow"
+/>
 ```
 
 `noindex` solicita no indexar la página; `follow` permite seguir sus enlaces. Si `robots.txt` impide solicitar la URL, el buscador puede no llegar a leer el `noindex`. Para retirar contenido sensible, primero se elimina el acceso público.
 
 ## Sitemap XML
 
-Un sitemap enumera URLs canónicas que se desea facilitar al buscador. XML significa *Extensible Markup Language* o lenguaje de marcado extensible.
+Un sitemap enumera URLs canónicas que se desea facilitar al buscador. XML significa _Extensible Markup Language_ o lenguaje de marcado extensible.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -116,20 +119,20 @@ El sitemap ayuda al descubrimiento, pero no reemplaza una navegación enlazada. 
 
 ## Datos estructurados y JSON-LD
 
-Los **datos estructurados** describen entidades con un vocabulario que una máquina puede interpretar. Schema.org ofrece tipos y propiedades compartidos. **JSON-LD** significa *JavaScript Object Notation for Linked Data* y es un formato común para incluirlos.
+Los **datos estructurados** describen entidades con un vocabulario que una máquina puede interpretar. Schema.org ofrece tipos y propiedades compartidos. **JSON-LD** significa _JavaScript Object Notation for Linked Data_ y es un formato común para incluirlos.
 
 ```html
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "SEO técnico: fundamentos y terminología",
-  "dateModified": "2026-08-19",
-  "author": {
-    "@type": "Person",
-    "name": "Ángel"
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SEO técnico: fundamentos y terminología",
+    "dateModified": "2026-08-19",
+    "author": {
+      "@type": "Person",
+      "name": "Ángel"
+    }
   }
-}
 </script>
 ```
 
@@ -137,16 +140,16 @@ El marcado debe representar contenido visible y verdadero. Añadir propiedades i
 
 ## Códigos HTTP y redirecciones
 
-**HTTP** significa *Hypertext Transfer Protocol* o protocolo de transferencia de hipertexto. El código de estado comunica el resultado de una solicitud:
+**HTTP** significa _Hypertext Transfer Protocol_ o protocolo de transferencia de hipertexto. El código de estado comunica el resultado de una solicitud:
 
-| Código | Significado para una URL |
-| --- | --- |
-| `200` | Contenido disponible |
+| Código        | Significado para una URL                      |
+| ------------- | --------------------------------------------- |
+| `200`         | Contenido disponible                          |
 | `301` o `308` | Traslado permanente; se prefiere la nueva URL |
-| `302` o `307` | Cambio temporal |
-| `404` | Recurso no encontrado |
-| `410` | Recurso retirado de forma intencional |
-| `500` | Fallo del servidor |
+| `302` o `307` | Cambio temporal                               |
+| `404`         | Recurso no encontrado                         |
+| `410`         | Recurso retirado de forma intencional         |
+| `500`         | Fallo del servidor                            |
 
 Una cadena de varias redirecciones aumenta latencia y diluye señales. Cuando cambia una URL, se actualizan enlaces internos, canonical y sitemap además de crear la redirección.
 
@@ -154,7 +157,7 @@ Un **soft 404** ocurre cuando la página parece un error o carece de contenido �
 
 ## CSR, SSR y SSG
 
-**CSR** (*Client-Side Rendering*) renderiza principalmente en el cliente. **SSR** (*Server-Side Rendering*) produce HTML por solicitud en el servidor. **SSG** (*Static Site Generation*) genera HTML durante la construcción.
+**CSR** (_Client-Side Rendering_) renderiza principalmente en el cliente. **SSR** (_Server-Side Rendering_) produce HTML por solicitud en el servidor. **SSG** (_Static Site Generation_) genera HTML durante la construcción.
 
 Los buscadores modernos pueden ejecutar JavaScript, pero una respuesta HTML con contenido significativo suele facilitar el rastreo, mejorar la resiliencia y reducir trabajo de renderizado. No es obligatorio usar una sola estrategia en todo el sitio: una página pública puede ser estática y un panel privado puede renderizarse en el cliente.
 
@@ -162,9 +165,9 @@ Los buscadores modernos pueden ejecutar JavaScript, pero una respuesta HTML con 
 
 **Core Web Vitals** es un conjunto de métricas de experiencia real que incluye carga, capacidad de respuesta y estabilidad visual. Sus siglas principales son:
 
-- **LCP**: *Largest Contentful Paint*, aparición del contenido principal más grande.
-- **INP**: *Interaction to Next Paint*, respuesta visual a interacciones.
-- **CLS**: *Cumulative Layout Shift*, cambios inesperados de posición.
+- **LCP**: _Largest Contentful Paint_, aparición del contenido principal más grande.
+- **INP**: _Interaction to Next Paint_, respuesta visual a interacciones.
+- **CLS**: _Cumulative Layout Shift_, cambios inesperados de posición.
 
 Mejorar estas métricas no sustituye contenido relevante. Sí ayuda a que la página sea usable y reduce barreras para usuarios y rastreadores.
 

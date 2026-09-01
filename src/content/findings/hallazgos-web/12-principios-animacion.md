@@ -18,20 +18,20 @@ Artículo **interactivo** que toma los doce principios clásicos de la animació
 
 ## Los doce principios
 
-| | Principio | En una interfaz |
-| --- | --- | --- |
-| 1 | Elasticidad | Deformar para transmitir peso y flexibilidad |
-| 2 | Anticipación | Preparar al usuario antes de la acción |
-| 3 | Escena | Dirigir la atención hacia lo importante |
-| 4 | Acción | Cuadro a cuadro o por poses clave |
-| 5 | Continuidad | Nada se detiene ni arranca de golpe |
-| 6 | Suavidad | Entradas y salidas graduales |
-| 7 | Arcos | Movimientos curvos para mayor realismo |
-| 8 | Contexto | Detalles que apoyan la acción principal |
-| 9 | Tiempo | La duración correcta da fluidez o torpeza |
-| 10 | Exageración | Enfatizar para comunicar mejor |
-| 11 | Volumen | Coherencia, profundidad y realismo |
-| 12 | Atractivo | Animaciones agradables y con personalidad |
+|     | Principio    | En una interfaz                              |
+| --- | ------------ | -------------------------------------------- |
+| 1   | Elasticidad  | Deformar para transmitir peso y flexibilidad |
+| 2   | Anticipación | Preparar al usuario antes de la acción       |
+| 3   | Escena       | Dirigir la atención hacia lo importante      |
+| 4   | Acción       | Cuadro a cuadro o por poses clave            |
+| 5   | Continuidad  | Nada se detiene ni arranca de golpe          |
+| 6   | Suavidad     | Entradas y salidas graduales                 |
+| 7   | Arcos        | Movimientos curvos para mayor realismo       |
+| 8   | Contexto     | Detalles que apoyan la acción principal      |
+| 9   | Tiempo       | La duración correcta da fluidez o torpeza    |
+| 10  | Exageración  | Enfatizar para comunicar mejor               |
+| 11  | Volumen      | Coherencia, profundidad y realismo           |
+| 12  | Atractivo    | Animaciones agradables y con personalidad    |
 
 ## Por qué sirve para programar interfaces
 

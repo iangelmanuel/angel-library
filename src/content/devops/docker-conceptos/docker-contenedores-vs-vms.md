@@ -32,14 +32,14 @@ Proceso nativo        Máquina virtual         Contenedor
 
 ## Tabla comparativa
 
-| | Proceso nativo | Contenedor | Máquina virtual |
-|---|---|---|---|
-| Arranque | Instantáneo | Segundos | Minutos |
-| Tamaño típico | — | MBs–cientos de MBs | GBs |
-| Aislamiento | Ninguno | Proceso + filesystem + red | Total (kernel propio) |
-| Kernel | Compartido | Compartido con el host | Propio |
-| Densidad (cuántos por máquina) | — | Decenas a cientos | Unas pocas |
-| Caso de uso típico | Desarrollo directo | Apps, microservicios, bases de datos para dev | Aislamiento fuerte, SOs distintos al host |
+|                                | Proceso nativo     | Contenedor                                    | Máquina virtual                           |
+| ------------------------------ | ------------------ | --------------------------------------------- | ----------------------------------------- |
+| Arranque                       | Instantáneo        | Segundos                                      | Minutos                                   |
+| Tamaño típico                  | —                  | MBs–cientos de MBs                            | GBs                                       |
+| Aislamiento                    | Ninguno            | Proceso + filesystem + red                    | Total (kernel propio)                     |
+| Kernel                         | Compartido         | Compartido con el host                        | Propio                                    |
+| Densidad (cuántos por máquina) | —                  | Decenas a cientos                             | Unas pocas                                |
+| Caso de uso típico             | Desarrollo directo | Apps, microservicios, bases de datos para dev | Aislamiento fuerte, SOs distintos al host |
 
 ## Por qué esto importa en la práctica
 

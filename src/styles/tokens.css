@@ -88,9 +88,9 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-pixel: "Geist Pixel", "Geist Mono", ui-monospace, monospace;
 
   --radius-sm: 0px;
   --radius-md: 0px;

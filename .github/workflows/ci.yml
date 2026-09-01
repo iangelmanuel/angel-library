@@ -2,35 +2,62 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [master, main]
   pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  validate:
+  quality:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [check, eslint, "prettier:check"]
+
     steps:
       - name: Descargar repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configurar pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 11.19.0
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 22.12.0
+          node-version: 22
           cache: pnpm
 
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
-      - name: Validar contenido y tipos
-        run: pnpm check
+      - name: Generar tipos de Astro
+        run: pnpm sync
+
+      - name: Ejecutar comprobación
+        run: pnpm ${{ matrix.task }}
+
+  build:
+    needs: quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v5
+
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
 
       - name: Generar build de producción
         run: pnpm build

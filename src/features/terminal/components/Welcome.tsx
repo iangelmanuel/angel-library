@@ -12,12 +12,12 @@ export function Welcome() {
         <span>$</span> comienza con <strong>/</strong> para ejecutar comandos
       </p>
       <p>
-        <span>$</span> prueba <strong>react</strong>, <strong>#accesibilidad</strong> o{" "}
-        <strong>/help</strong>
+        <span>$</span> prueba <strong>react</strong>,{" "}
+        <strong>#accesibilidad</strong> o <strong>/help</strong>
       </p>
       <p>
-        <span>$</span> usa <kbd className="kbd">↑↓</kbd> y <kbd className="kbd">Enter</kbd> para
-        abrir
+        <span>$</span> usa <kbd className="kbd">↑↓</kbd> y{" "}
+        <kbd className="kbd">Enter</kbd> para abrir
       </p>
     </div>
   )

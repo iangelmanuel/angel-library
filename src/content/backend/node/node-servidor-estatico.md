@@ -16,55 +16,55 @@ Servir una carpeta `public/` completa (HTML, CSS, JS, imágenes) desde un servid
 ## Código completo
 
 ```ts title="server.ts"
-import { createServer } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readFile, stat } from "node:fs/promises"
+import { createServer } from "node:http"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CARPETA_PUBLICA = path.join(__dirname, 'public');
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const CARPETA_PUBLICA = path.join(__dirname, "public")
 
 const TIPOS_MIME: Record<string, string> = {
-  '.html': 'text/html',
-  '.css': 'text/css',
-  '.js': 'text/javascript',
-  '.json': 'application/json',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.svg': 'image/svg+xml',
-};
+  ".html": "text/html",
+  ".css": "text/css",
+  ".js": "text/javascript",
+  ".json": "application/json",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".svg": "image/svg+xml"
+}
 
 const server = createServer(async (req, res) => {
-  const url = new URL(req.url!, `http://${req.headers.host}`);
-  let rutaArchivo = path.join(CARPETA_PUBLICA, url.pathname);
+  const url = new URL(req.url!, `http://${req.headers.host}`)
+  let rutaArchivo = path.join(CARPETA_PUBLICA, url.pathname)
 
   // Seguridad: evitar que "../../../etc/passwd" en la URL se escape de CARPETA_PUBLICA
   if (!rutaArchivo.startsWith(CARPETA_PUBLICA)) {
-    res.writeHead(403);
-    return res.end('Prohibido');
+    res.writeHead(403)
+    return res.end("Prohibido")
   }
 
   try {
-    const info = await stat(rutaArchivo);
+    const info = await stat(rutaArchivo)
 
     // Si es un directorio, servir su index.html
     if (info.isDirectory()) {
-      rutaArchivo = path.join(rutaArchivo, 'index.html');
+      rutaArchivo = path.join(rutaArchivo, "index.html")
     }
 
-    const contenido = await readFile(rutaArchivo);
-    const extension = path.extname(rutaArchivo);
-    const tipoContenido = TIPOS_MIME[extension] ?? 'application/octet-stream';
+    const contenido = await readFile(rutaArchivo)
+    const extension = path.extname(rutaArchivo)
+    const tipoContenido = TIPOS_MIME[extension] ?? "application/octet-stream"
 
-    res.writeHead(200, { 'Content-Type': tipoContenido });
-    res.end(contenido);
+    res.writeHead(200, { "Content-Type": tipoContenido })
+    res.end(contenido)
   } catch {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('404 - No encontrado');
+    res.writeHead(404, { "Content-Type": "text/plain" })
+    res.end("404 - No encontrado")
   }
-});
+})
 
-server.listen(3000, () => console.log('http://localhost:3000'));
+server.listen(3000, () => console.log("http://localhost:3000"))
 ```
 
 ## Las tres partes clave

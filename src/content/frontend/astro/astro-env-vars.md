@@ -19,8 +19,8 @@ PUBLIC_SITE_NAME=angel.library
 
 ```astro
 ---
-const clave = import.meta.env.SECRET_API_KEY;      // solo disponible en el servidor
-const nombre = import.meta.env.PUBLIC_SITE_NAME;   // disponible en servidor y cliente
+const clave = import.meta.env.SECRET_API_KEY // solo disponible en el servidor
+const nombre = import.meta.env.PUBLIC_SITE_NAME // disponible en servidor y cliente
 ---
 ```
 
@@ -29,11 +29,11 @@ El prefijo `PUBLIC_` es la única señal que decide si una variable viaja al bun
 ## Variables incluidas por defecto
 
 ```ts
-import.meta.env.MODE;      // "development" | "production"
-import.meta.env.DEV;       // boolean
-import.meta.env.PROD;      // boolean
-import.meta.env.SITE;      // el `site` de astro.config.mjs
-import.meta.env.BASE_URL;  // el `base` de astro.config.mjs
+import.meta.env.MODE // "development" | "production"
+import.meta.env.DEV // boolean
+import.meta.env.PROD // boolean
+import.meta.env.SITE // el `site` de astro.config.mjs
+import.meta.env.BASE_URL // el `base` de astro.config.mjs
 ```
 
 ## `astro:env` — Tipadas y validadas
@@ -41,32 +41,36 @@ import.meta.env.BASE_URL;  // el `base` de astro.config.mjs
 Para proyectos dondirectamente variable de entorno faltante debería fallar el build (no un `undefined` silencioso en producción), `astro:env` define un schema tipado.
 
 ```ts title="astro.config.mjs"
-import { defineConfig, envField } from 'astro/config';
+import { defineConfig, envField } from "astro/config"
 
 export default defineConfig({
   env: {
     schema: {
-      API_URL: envField.string({ context: 'client', access: 'public' }),
-      API_SECRET: envField.string({ context: 'server', access: 'secret' }),
-      PORT: envField.number({ context: 'server', access: 'public', default: 4321 }),
-    },
-  },
-});
+      API_URL: envField.string({ context: "client", access: "public" }),
+      API_SECRET: envField.string({ context: "server", access: "secret" }),
+      PORT: envField.number({
+        context: "server",
+        access: "public",
+        default: 4321
+      })
+    }
+  }
+})
 ```
 
 ```ts
-import { API_URL } from 'astro:env/client';
-import { API_SECRET } from 'astro:env/server';
+import { API_URL } from "astro:env/client"
+import { API_SECRET } from "astro:env/server"
 ```
 
 ## Mapa de acceso por entorno
 
-| API | Uso |
-| --- | --- |
-| `import.meta.env.X` | Leer cualquier variable de `.env` |
-| Prefijo `PUBLIC_` | La única forma de exponer una variable al cliente |
-| `import.meta.env.DEV`/`PROD`/`MODE` | Variables incluidas, sin configurar nada |
-| `astro:env` + `envField` | Schema tipado, valida en build que las variables requeridas existan |
+| API                                 | Uso                                                                 |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| `import.meta.env.X`                 | Leer cualquier variable de `.env`                                   |
+| Prefijo `PUBLIC_`                   | La única forma de exponer una variable al cliente                   |
+| `import.meta.env.DEV`/`PROD`/`MODE` | Variables incluidas, sin configurar nada                            |
+| `astro:env` + `envField`            | Schema tipado, valida en build que las variables requeridas existan |
 
 ## Secretos, tipos y despliegues
 

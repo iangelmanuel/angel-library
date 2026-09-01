@@ -8,23 +8,23 @@ related: [backend/express/express-error-handling]
 updatedAt: 2026-08-16
 ---
 
-El [manejo de errores centralizado](/backend/express/express-error-handling) resuelve *dónde* se atrapan los errores — esta guía es sobre *qué forma* tiene la respuesta que el cliente recibe, para que sea consistente en toda la API.
+El [manejo de errores centralizado](/backend/express/express-error-handling) resuelve _dónde_ se atrapan los errores — esta guía es sobre _qué forma_ tiene la respuesta que el cliente recibe, para que sea consistente en toda la API.
 
 ## Un formato, siempre igual
 
 ```ts
 // Mal: cada endpoint devuelve una forma distinta
-res.status(400).json({ error: 'Falta el email' });
-res.status(400).json('Email inválido');
-res.status(400).json({ message: 'Bad request', field: 'email' });
+res.status(400).json({ error: "Falta el email" })
+res.status(400).json("Email inválido")
+res.status(400).json({ message: "Bad request", field: "email" })
 
 // Bien: un solo formato, en todos lados
 res.status(400).json({
   error: {
-    code: 'VALIDATION_ERROR',
-    message: 'Email inválido',
-  },
-});
+    code: "VALIDATION_ERROR",
+    message: "Email inválido"
+  }
+})
 ```
 
 Un cliente (frontend, app mobile, otro servicio) que consume la API puede manejar errores genéricamente (`if (response.error) ...`) solo si la forma es predecible — tres formatos distintos según el endpoint obliga a manejar cada caso por separado.
@@ -38,21 +38,21 @@ class AppError extends Error {
   constructor(
     public status: number,
     public code: string,
-    message: string,
+    message: string
   ) {
-    super(message);
+    super(message)
   }
 }
 
-throw new AppError(409, 'EMAIL_YA_REGISTRADO', 'Ese email ya está en uso');
-throw new AppError(404, 'USUARIO_NO_ENCONTRADO', 'Usuario no encontrado');
-throw new AppError(400, 'VALIDATION_ERROR', 'Datos inválidos');
+throw new AppError(409, "EMAIL_YA_REGISTRADO", "Ese email ya está en uso")
+throw new AppError(404, "USUARIO_NO_ENCONTRADO", "Usuario no encontrado")
+throw new AppError(400, "VALIDATION_ERROR", "Datos inválidos")
 ```
 
 ```ts
 // En el frontend, reaccionar al código específico, no al texto
-if (error.code === 'EMAIL_YA_REGISTRADO') {
-  mostrarLinkDeLogin();
+if (error.code === "EMAIL_YA_REGISTRADO") {
+  mostrarLinkDeLogin()
 }
 ```
 
@@ -65,14 +65,14 @@ app.use((err, req, res, next) => {
   if (err instanceof ZodError) {
     return res.status(400).json({
       error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Datos inválidos',
-        fields: err.flatten().fieldErrors, // { email: ['Email no válido'], age: [...] }
-      },
-    });
+        code: "VALIDATION_ERROR",
+        message: "Datos inválidos",
+        fields: err.flatten().fieldErrors // { email: ['Email no válido'], age: [...] }
+      }
+    })
   }
-  next(err);
-});
+  next(err)
+})
 ```
 
 ## Qué exponer vs qué ocultar
@@ -81,27 +81,29 @@ app.use((err, req, res, next) => {
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof AppError) {
     // Errores "esperados": el mensaje es seguro de mostrar
-    return res.status(err.status).json({ error: { code: err.code, message: err.message } });
+    return res
+      .status(err.status)
+      .json({ error: { code: err.code, message: err.message } })
   }
 
   // Errores inesperados (bug, falla de DB): loguear completo, NO exponer detalles
-  console.error(err);
+  console.error(err)
   res.status(500).json({
-    error: { code: 'INTERNAL_ERROR', message: 'Algo salió mal' },
-  });
-};
+    error: { code: "INTERNAL_ERROR", message: "Algo salió mal" }
+  })
+}
 ```
 
 Un error de base de datos, un stack trace o el mensaje real de una excepción interna puede filtrar detalles de implementación: nombres de tablas, versiones de librerías o rutas del sistema. Solo los errores operativos creados explícitamente por la aplicación deben exponer un mensaje controlado.
 
 ## Contrato de referencia
 
-| Elemento | Para qué |
-| --- | --- |
-| Formato único (`{ error: { code, message } }`) | El cliente maneja errores genéricamente |
-| `code` propio | Reaccionar a un error específico sin parsear texto |
-| `fields` en errores de validación | El cliente sabe qué campo mostrar en rojo |
-| Errores esperados vs inesperados | Solo los esperados exponen su mensaje real |
+| Elemento                                       | Para qué                                           |
+| ---------------------------------------------- | -------------------------------------------------- |
+| Formato único (`{ error: { code, message } }`) | El cliente maneja errores genéricamente            |
+| `code` propio                                  | Reaccionar a un error específico sin parsear texto |
+| `fields` en errores de validación              | El cliente sabe qué campo mostrar en rojo          |
+| Errores esperados vs inesperados               | Solo los esperados exponen su mensaje real         |
 
 ## Exposición segura de errores
 

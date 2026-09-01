@@ -16,43 +16,49 @@ Cuando construir algo requiere combinar varias partes opcionales —columnas, co
 
 ```ts title="lib/query-builder.ts"
 interface QueryBuilder {
-  select(...cols: string[]): QueryBuilder;
-  from(table: string): QueryBuilder;
-  where(col: string, value: unknown): QueryBuilder;
-  build(): { sql: string; params: unknown[] };
+  select(...cols: string[]): QueryBuilder
+  from(table: string): QueryBuilder
+  where(col: string, value: unknown): QueryBuilder
+  build(): { sql: string; params: unknown[] }
 }
 
 function createQueryBuilder(): QueryBuilder {
-  const state = { cols: [] as string[], table: '', conditions: [] as [string, unknown][] };
+  const state = {
+    cols: [] as string[],
+    table: "",
+    conditions: [] as [string, unknown][]
+  }
 
   const builder: QueryBuilder = {
     select(...cols) {
-      state.cols.push(...cols);
-      return builder;
+      state.cols.push(...cols)
+      return builder
     },
     from(table) {
-      state.table = table;
-      return builder;
+      state.table = table
+      return builder
     },
     where(col, value) {
-      state.conditions.push([col, value]);
-      return builder;
+      state.conditions.push([col, value])
+      return builder
     },
     build() {
-      const where = state.conditions.map(([col]) => `${col} = ?`).join(' AND ');
-      const sql = `SELECT ${state.cols.join(', ')} FROM ${state.table}` + (where ? ` WHERE ${where}` : '');
-      return { sql, params: state.conditions.map(([, value]) => value) };
-    },
-  };
+      const where = state.conditions.map(([col]) => `${col} = ?`).join(" AND ")
+      const sql =
+        `SELECT ${state.cols.join(", ")} FROM ${state.table}` +
+        (where ? ` WHERE ${where}` : "")
+      return { sql, params: state.conditions.map(([, value]) => value) }
+    }
+  }
 
-  return builder;
+  return builder
 }
 
 const { sql, params } = createQueryBuilder()
-  .select('id', 'name')
-  .from('users')
-  .where('active', true)
-  .build();
+  .select("id", "name")
+  .from("users")
+  .where("active", true)
+  .build()
 ```
 
 Cada método devuelve el propio builder, lo que permite encadenar. El objeto solo toma forma final en `.build()` — mientras tanto, el estado intermedio queda oculto en el closure.
@@ -65,18 +71,18 @@ Si los "parámetros" son independientes entre sí — no hay pasos condicionales
 
 ```ts
 interface CrearUsuarioOpciones {
-  nombre: string;
-  email: string;
-  rol?: 'admin' | 'user';
-  enviarBienvenida?: boolean;
+  nombre: string
+  email: string
+  rol?: "admin" | "user"
+  enviarBienvenida?: boolean
 }
 
 function crearUsuario(opciones: CrearUsuarioOpciones) {
-  const { rol = 'user', enviarBienvenida = true, ...datos } = opciones;
+  const { rol = "user", enviarBienvenida = true, ...datos } = opciones
   // ...
 }
 
-crearUsuario({ nombre: 'Ana', email: 'ana@mail.com', rol: 'admin' });
+crearUsuario({ nombre: "Ana", email: "ana@mail.com", rol: "admin" })
 ```
 
 ## Cuándo Builder vale la pena

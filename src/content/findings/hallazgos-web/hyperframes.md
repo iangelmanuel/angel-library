@@ -10,7 +10,7 @@ personalNote: "La palabra clave es determinista: el mismo HTML produce el mismo 
 updatedAt: 2026-08-30
 ---
 
-> Creado por **[HeyGen](https://github.com/heygen-com)** con licencia Apache-2.0. Unas 43.200 estrellas, escrito en TypeScript. Su lema lo resume: *escribe HTML, renderiza video*.
+> Creado por **[HeyGen](https://github.com/heygen-com)** con licencia Apache-2.0. Unas 43.200 estrellas, escrito en TypeScript. Su lema lo resume: _escribe HTML, renderiza video_.
 
 **HyperFrames** es un framework de código abierto para convertir **HTML, CSS, contenido multimedia y animaciones** en **videos MP4 deterministas**.
 
@@ -18,15 +18,15 @@ updatedAt: 2026-08-30
 
 Un video exportado desde un editor depende de quién lo exportó, con qué ajustes y en qué momento. Reproducirlo exactamente es difícil, y cambiar una palabra obliga a rehacer el proceso entero.
 
-Aquí el video es la **salida de un build**: el mismo HTML de entrada produce el mismo MP4 de salida. Eso permite versionar la fuente en Git, revisar cambios en un *pull request* y regenerar en integración continua.
+Aquí el video es la **salida de un build**: el mismo HTML de entrada produce el mismo MP4 de salida. Eso permite versionar la fuente en Git, revisar cambios en un _pull request_ y regenerar en integración continua.
 
 ## Tres formas de usarlo
 
-| Modo | Para qué |
-| --- | --- |
-| **CLI local** | Renderizar en tu máquina desde la línea de comandos |
-| **Desde un agente de IA** | El agente escribe el HTML y encarga el render mediante habilidades específicas |
-| **Como núcleo de renderizado** | Motor detrás de un flujo de autoría alojado |
+| Modo                           | Para qué                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------ |
+| **CLI local**                  | Renderizar en tu máquina desde la línea de comandos                            |
+| **Desde un agente de IA**      | El agente escribe el HTML y encarga el render mediante habilidades específicas |
+| **Como núcleo de renderizado** | Motor detrás de un flujo de autoría alojado                                    |
 
 El segundo modo es el que explica su diseño: al ser HTML, un agente de codificación ya sabe producirlo. No hace falta enseñarle la línea de tiempo de un editor de video.
 

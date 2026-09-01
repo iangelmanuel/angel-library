@@ -15,13 +15,13 @@ Solo CSS: cero JavaScript propio, así que interactividad (dropdowns, modales, n
 ## Configuración inicial
 
 ```ts title="main.ts"
-import 'bulma/css/bulma.min.css';
+import "bulma/css/bulma.min.css"
 ```
 
 Para personalizar variables (colores, tipografía) hace falta compilar desde el Sass fuente en vez de importar el `.css` ya compilado:
 
 ```scss title="custom.scss"
-@use 'bulma/sass' with (
+@use "bulma/sass" with (
   $primary: #7c3aed
 );
 ```

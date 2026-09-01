@@ -42,16 +42,16 @@ En cada ejemplo identifica qué ocurre en build, qué ocurre por request y qué 
 
 ### Ya uso Astro y quiero recordar
 
-| Necesito | Documento |
-| --- | --- |
-| endpoint público, webhook o cliente móvil | [API REST](/backend/astro/astro-api-rest) |
-| sintaxis de `APIRoute`, params y Response | [Endpoints](/frontend/astro/astro-endpoints) |
-| formulario o mutación interna tipada | [Actions](/frontend/astro/astro-server-actions) |
-| auth, redirects o datos por request | [Middleware](/frontend/astro/astro-middleware) |
-| escoger SSG, SSR y adapter | [On-demand y adapters](/backend/astro/astro-ssr-adapters) |
-| conservar carrito, flash o sesión | [Sessions](/backend/astro/astro-sessions) |
-| autenticación administrada | [Better Auth](/backend/astro/astro-better-auth) o [Auth.js](/backend/astro/astro-auth-js) |
-| acceso a datos | [Prisma](/backend/astro/astro-prisma) o [Supabase](/backend/astro/astro-supabase) |
+| Necesito                                  | Documento                                                                                 |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------- |
+| endpoint público, webhook o cliente móvil | [API REST](/backend/astro/astro-api-rest)                                                 |
+| sintaxis de `APIRoute`, params y Response | [Endpoints](/frontend/astro/astro-endpoints)                                              |
+| formulario o mutación interna tipada      | [Actions](/frontend/astro/astro-server-actions)                                           |
+| auth, redirects o datos por request       | [Middleware](/frontend/astro/astro-middleware)                                            |
+| escoger SSG, SSR y adapter                | [On-demand y adapters](/backend/astro/astro-ssr-adapters)                                 |
+| conservar carrito, flash o sesión         | [Sessions](/backend/astro/astro-sessions)                                                 |
+| autenticación administrada                | [Better Auth](/backend/astro/astro-better-auth) o [Auth.js](/backend/astro/astro-auth-js) |
+| acceso a datos                            | [Prisma](/backend/astro/astro-prisma) o [Supabase](/backend/astro/astro-supabase)         |
 
 ## Elegir Endpoint o Action
 
@@ -88,17 +88,17 @@ src/
 El endpoint o Action adapta el transporte. El service expresa el caso de uso. El repository encapsula persistencia. En una operación simple no hace falta crear todas las capas; extráelas cuando una regla se reutiliza, necesita tests aislados o coordina varias dependencias.
 
 ```ts title="src/pages/api/posts.ts"
-import type { APIRoute } from 'astro';
-import { listPosts } from '../../modules/posts/posts.service';
+import type { APIRoute } from "astro"
+import { listPosts } from "../../modules/posts/posts.service"
 
 export const GET: APIRoute = async ({ url, locals }) => {
   const result = await listPosts({
     actor: locals.user,
-    cursor: url.searchParams.get('cursor'),
-  });
+    cursor: url.searchParams.get("cursor")
+  })
 
-  return Response.json(result);
-};
+  return Response.json(result)
+}
 ```
 
 No pases todo el contexto Astro al dominio. Entrega valores concretos para que el caso de uso también pueda ejecutarse desde una prueba o un job.
@@ -108,13 +108,13 @@ No pases todo el contexto Astro al dominio. Entrega valores concretos para que e
 El middleware corre antes y después de la siguiente capa. Es apropiado para correlación, sesión, redirects y contexto transversal. `locals` transporta datos de esa request, no un store global.
 
 ```ts title="src/middleware.ts"
-import { defineMiddleware } from 'astro:middleware';
+import { defineMiddleware } from "astro:middleware"
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  context.locals.requestId = crypto.randomUUID();
-  context.locals.user = await readSession(context.request.headers);
-  return next();
-});
+  context.locals.requestId = crypto.randomUUID()
+  context.locals.user = await readSession(context.request.headers)
+  return next()
+})
 ```
 
 No asumas que poblar `locals.user` autoriza toda operación. Cada endpoint o Action sensible debe comprobar permiso sobre el recurso específico.

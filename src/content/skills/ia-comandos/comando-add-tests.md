@@ -21,6 +21,7 @@ allowed-tools: Read, Write, Edit, Bash(npm test:*), Bash(pnpm test:*)
 Write tests for $ARGUMENTS using the project's existing test framework and conventions (check how other test files in the repo are structured first).
 
 Cover:
+
 1. The main happy path
 2. Realistic edge cases (empty input, boundary values, error conditions) — not exhaustive combinatorics for its own sake
 3. Any bug-prone logic (conditionals, loops, async/error handling)
@@ -30,11 +31,11 @@ Match the existing test style in the repo (assertions, naming, file location) in
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
-| Claude Code | `.claude/commands/add-tests.md` |
-| Cursor | `.cursor/commands/add-tests.md` |
-| OpenCode | `.opencode/commands/add-tests.md` (+ `template:`) |
+| Dónde       | Archivo                                           |
+| ----------- | ------------------------------------------------- |
+| Claude Code | `.claude/commands/add-tests.md`                   |
+| Cursor      | `.cursor/commands/add-tests.md`                   |
+| OpenCode    | `.opencode/commands/add-tests.md` (+ `template:`) |
 
 ## Consideraciones
 

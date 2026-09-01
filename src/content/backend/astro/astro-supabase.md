@@ -31,12 +31,12 @@ SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 **3. El client:**
 
 ```ts title="src/libs/supabase.ts"
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js"
 
 export const supabaseAdmin = createClient(
   import.meta.env.SUPABASE_URL,
-  import.meta.env.SUPABASE_SERVICE_ROLE_KEY,
-);
+  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+)
 ```
 
 `import.meta.env` es la forma de leer variables de entorno en Astro — las que no llevan el prefijo `PUBLIC_` solo son legibles del lado del servidor, que es justo donde debe vivir la service role key.
@@ -44,14 +44,19 @@ export const supabaseAdmin = createClient(
 **4. Un endpoint real:**
 
 ```ts title="src/pages/api/posts.ts"
-import type { APIRoute } from 'astro';
-import { supabaseAdmin } from '../../lib/supabase';
+import type { APIRoute } from "astro"
+import { supabaseAdmin } from "../../lib/supabase"
 
 export const GET: APIRoute = async () => {
-  const { data, error } = await supabaseAdmin.from('posts').select('*');
-  if (error) return new Response(JSON.stringify({ error: 'Error al leer' }), { status: 500 });
-  return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } });
-};
+  const { data, error } = await supabaseAdmin.from("posts").select("*")
+  if (error)
+    return new Response(JSON.stringify({ error: "Error al leer" }), {
+      status: 500
+    })
+  return new Response(JSON.stringify(data), {
+    headers: { "Content-Type": "application/json" }
+  })
+}
 ```
 
 Requiere `output: 'server'` en `astro.config.mjs`.
@@ -80,13 +85,18 @@ Con la service role key (como aquí), RLS **no aplica** — el filtro queda a ca
 ```ts
 export const GET: APIRoute = async ({ locals }) => {
   const { data, error } = await supabaseAdmin
-    .from('posts')
-    .select('*')
-    .eq('author_id', locals.user?.id); // filtro explícito
+    .from("posts")
+    .select("*")
+    .eq("author_id", locals.user?.id) // filtro explícito
 
-  if (error) return new Response(JSON.stringify({ error: 'Error al leer' }), { status: 500 });
-  return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } });
-};
+  if (error)
+    return new Response(JSON.stringify({ error: "Error al leer" }), {
+      status: 500
+    })
+  return new Response(JSON.stringify(data), {
+    headers: { "Content-Type": "application/json" }
+  })
+}
 ```
 
 `locals.user` viene del middleware de auth ([better-auth](/backend/astro/astro-better-auth) o [Auth.js](/backend/astro/astro-auth-js)) — ver [Backend en Astro](/backend/astro/astro-backend-arquitectura).
@@ -96,25 +106,27 @@ export const GET: APIRoute = async ({ locals }) => {
 Alternativa a better-auth/Auth.js si el proyecto ya está integrado con el ecosistema Supabase para todo:
 
 ```ts
-const { data, error } = await supabaseAdmin.auth.signUp({ email, password });
+const { data, error } = await supabaseAdmin.auth.signUp({ email, password })
 ```
 
 Verificar la sesión en el middleware:
 
 ```ts title="src/middleware.ts"
-import { defineMiddleware } from 'astro:middleware';
-import { supabaseAdmin } from './lib/supabase';
+import { defineMiddleware } from "astro:middleware"
+import { supabaseAdmin } from "./lib/supabase"
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const token = context.cookies.get('sb-access-token')?.value;
+  const token = context.cookies.get("sb-access-token")?.value
 
   if (token) {
-    const { data: { user } } = await supabaseAdmin.auth.getUser(token);
-    context.locals.user = user;
+    const {
+      data: { user }
+    } = await supabaseAdmin.auth.getUser(token)
+    context.locals.user = user
   }
 
-  return next();
-});
+  return next()
+})
 ```
 
 ## Storage
@@ -126,13 +138,13 @@ const { data } = supabaseAdmin.storage.from('avatars').getPublicUrl('user-1.png'
 
 ## Capacidades de Supabase en Astro
 
-| API | Qué hace |
-| --- | --- |
-| `createClient(url, serviceRoleKey)` | Instancia el client del servidor |
-| `.from('tabla').select/insert/update/delete()` | CRUD vía la API REST autogenerada |
-| `{ data, error }` | Cada llamada devuelve esto, no lanza |
-| RLS | Controla qué fila puede tocar cada usuario — no aplica con service role |
-| `supabase.auth.*` | Alternativa a better-auth/Auth.js si el proyecto ya usa Supabase para todo |
+| API                                            | Qué hace                                                                   |
+| ---------------------------------------------- | -------------------------------------------------------------------------- |
+| `createClient(url, serviceRoleKey)`            | Instancia el client del servidor                                           |
+| `.from('tabla').select/insert/update/delete()` | CRUD vía la API REST autogenerada                                          |
+| `{ data, error }`                              | Cada llamada devuelve esto, no lanza                                       |
+| RLS                                            | Controla qué fila puede tocar cada usuario — no aplica con service role    |
+| `supabase.auth.*`                              | Alternativa a better-auth/Auth.js si el proyecto ya usa Supabase para todo |
 
 ## Claves, RLS y contexto de usuario
 

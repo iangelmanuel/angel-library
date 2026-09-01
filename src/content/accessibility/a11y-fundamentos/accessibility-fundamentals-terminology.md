@@ -9,42 +9,42 @@ updatedAt: 2026-08-25
 
 La **accesibilidad web** busca que una interfaz pueda ser percibida, comprendida y operada por personas con distintas capacidades, dispositivos y contextos. No es una función opcional para “algunos usuarios”: una estructura clara, un teclado funcional, mensajes comprensibles y buen contraste también ayudan ante lesiones temporales, luz intensa, conexiones lentas o dispositivos sin precisión táctil.
 
-La abreviatura **a11y** representa la palabra inglesa *accessibility*: hay once letras entre la `a` y la `y`. Se utiliza en nombres de equipos, pruebas y herramientas.
+La abreviatura **a11y** representa la palabra inglesa _accessibility_: hay once letras entre la `a` y la `y`. Se utiliza en nombres de equipos, pruebas y herramientas.
 
 ## Aprende o consulta
 
 Si comienzas desde cero, avanza así: semántica HTML → teclado y foco → ARIA → formularios → componentes complejos → contenido visual → pruebas. No empieces memorizando atributos ARIA; primero comprende qué comportamiento entrega un elemento nativo.
 
-| Necesito recordar | Documento |
-| --- | --- |
-| nombres, roles, estados y relaciones | [Atributos ARIA](/accessibility/a11y-interaccion/accessibility-aria-attributes) |
+| Necesito recordar                     | Documento                                                                                           |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| nombres, roles, estados y relaciones  | [Atributos ARIA](/accessibility/a11y-interaccion/accessibility-aria-attributes)                     |
 | foco visible y navegación por teclado | [Semántica, teclado y foco](/accessibility/a11y-interaccion/accessibility-semantics-keyboard-focus) |
-| labels, instrucciones y errores | [Formularios accesibles](/accessibility/a11y-interaccion/accessibility-forms-validation) |
-| diálogos, menús y anuncios | [Patrones interactivos](/accessibility/a11y-interaccion/accessibility-dialogs-live-regions) |
-| imágenes, tablas, audio y video | [Contenido accesible](/accessibility/a11y-contenido/accessibility-contenido-multimedia) |
-| contraste, zoom y movimiento | [Accesibilidad visual](/accessibility/a11y-contenido/accessibility-visual-reflow-motion) |
-| auditoría manual y automática | [Pruebas](/accessibility/a11y-testing/accessibility-testing-manual-automatico) |
+| labels, instrucciones y errores       | [Formularios accesibles](/accessibility/a11y-interaccion/accessibility-forms-validation)            |
+| diálogos, menús y anuncios            | [Patrones interactivos](/accessibility/a11y-interaccion/accessibility-dialogs-live-regions)         |
+| imágenes, tablas, audio y video       | [Contenido accesible](/accessibility/a11y-contenido/accessibility-contenido-multimedia)             |
+| contraste, zoom y movimiento          | [Accesibilidad visual](/accessibility/a11y-contenido/accessibility-visual-reflow-motion)            |
+| auditoría manual y automática         | [Pruebas](/accessibility/a11y-testing/accessibility-testing-manual-automatico)                      |
 
 Para aprender, ejecuta cada ejemplo con teclado y lector de pantalla. Para recordar, usa la tabla y termina verificando comportamiento; una regla correcta en el código puede fallar cuando se combina con CSS, JavaScript o contenido real.
 
 ## WCAG, W3C y WAI
 
-**W3C** significa *World Wide Web Consortium*, la organización que desarrolla estándares de la Web. Dentro de ella, **WAI** significa *Web Accessibility Initiative* o iniciativa de accesibilidad web.
+**W3C** significa _World Wide Web Consortium_, la organización que desarrolla estándares de la Web. Dentro de ella, **WAI** significa _Web Accessibility Initiative_ o iniciativa de accesibilidad web.
 
-**WCAG** significa *Web Content Accessibility Guidelines* o pautas de accesibilidad para el contenido web. Sus criterios se organizan alrededor del principio **POUR**:
+**WCAG** significa _Web Content Accessibility Guidelines_ o pautas de accesibilidad para el contenido web. Sus criterios se organizan alrededor del principio **POUR**:
 
-| Principio | Pregunta práctica |
-| --- | --- |
-| Perceptible | ¿La información puede recibirse por más de un sentido? |
-| Operable | ¿Se puede usar con teclado, voz u otro dispositivo de entrada? |
-| Comprensible | ¿La interfaz y sus mensajes son previsibles y claros? |
-| Robusto | ¿El contenido se interpreta correctamente en navegadores y tecnologías asistivas? |
+| Principio    | Pregunta práctica                                                                 |
+| ------------ | --------------------------------------------------------------------------------- |
+| Perceptible  | ¿La información puede recibirse por más de un sentido?                            |
+| Operable     | ¿Se puede usar con teclado, voz u otro dispositivo de entrada?                    |
+| Comprensible | ¿La interfaz y sus mensajes son previsibles y claros?                             |
+| Robusto      | ¿El contenido se interpreta correctamente en navegadores y tecnologías asistivas? |
 
 Cumplir una lista no garantiza una experiencia excelente, pero ofrece una base verificable. La prueba final combina análisis automático, revisión manual y uso con personas reales.
 
 ## Tecnologías asistivas
 
-Una **tecnología asistiva (AT, *Assistive Technology*)** ayuda a interactuar con un sistema. Algunos ejemplos son lectores de pantalla, magnificadores, reconocimiento de voz, teclados alternativos y dispositivos de seguimiento ocular.
+Una **tecnología asistiva (AT, _Assistive Technology_)** ayuda a interactuar con un sistema. Algunos ejemplos son lectores de pantalla, magnificadores, reconocimiento de voz, teclados alternativos y dispositivos de seguimiento ocular.
 
 Un **lector de pantalla** no “lee una captura” de la interfaz. Interpreta información expuesta por el navegador mediante el árbol de accesibilidad: nombres, roles, estados, relaciones y texto. Por eso la semántica del HTML importa aunque el diseño visual parezca correcto.
 
@@ -53,10 +53,15 @@ Un **lector de pantalla** no “lee una captura” de la interfaz. Interpreta in
 La semántica expresa qué es cada elemento. Un botón nativo ya posee rol, comportamiento de teclado, foco y estado deshabilitado:
 
 ```html
-<button type="button" disabled>Guardar cambios</button>
+<button
+  type="button"
+  disabled
+>
+  Guardar cambios
+</button>
 ```
 
-Recrear lo mismo con un `div` exige implementar cada comportamiento y comunicarlo correctamente. La primera regla práctica de **ARIA** (*Accessible Rich Internet Applications*) es no usar ARIA si un elemento HTML nativo ofrece la semántica y el comportamiento necesarios.
+Recrear lo mismo con un `div` exige implementar cada comportamiento y comunicarlo correctamente. La primera regla práctica de **ARIA** (_Accessible Rich Internet Applications_) es no usar ARIA si un elemento HTML nativo ofrece la semántica y el comportamiento necesarios.
 
 ARIA añade información de accesibilidad, pero no añade funcionalidad por sí sola:
 
@@ -69,7 +74,10 @@ ARIA añade información de accesibilidad, pero no añade funcionalidad por sí 
   Mostrar filtros
 </button>
 
-<section id="filters-panel" hidden>
+<section
+  id="filters-panel"
+  hidden
+>
   <!-- Controles de filtrado -->
 </section>
 ```
@@ -149,7 +157,10 @@ Para video, los **subtítulos** representan diálogo y sonidos relevantes. Una *
 Una región `aria-live` anuncia cambios que ocurren sin mover el foco:
 
 ```html
-<p id="save-status" aria-live="polite"></p>
+<p
+  id="save-status"
+  aria-live="polite"
+></p>
 ```
 
 `polite` espera una pausa adecuada; `assertive` interrumpe y debe reservarse para mensajes urgentes. No se debe convertir toda la página en una región viva: demasiados anuncios hacen la interfaz imposible de seguir.

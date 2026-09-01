@@ -5,7 +5,11 @@ type: skills
 order: 19
 tags: [ai, skill, testing, vitest]
 tool: Cross-tool
-related: [testing/testing-unitario/vitest-backend, testing/testing-integracion/supertest]
+related:
+  [
+    testing/testing-unitario/vitest-backend,
+    testing/testing-integracion/supertest
+  ]
 updatedAt: 2026-08-17
 ---
 

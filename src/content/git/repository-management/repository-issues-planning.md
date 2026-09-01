@@ -16,21 +16,26 @@ Un **Issue** registra trabajo o una conversación que necesita seguimiento. Pued
 
 ```md
 ## Contexto
+
 El usuario pierde el formulario al renovar una sesión expirada.
 
 ## Comportamiento actual
+
 Después de iniciar sesión nuevamente, vuelve al inicio.
 
 ## Comportamiento esperado
+
 Regresa al formulario con los datos no sensibles conservados.
 
 ## Criterios de aceptación
+
 - conserva campos permitidos;
 - nunca conserva contraseña ni token;
 - funciona con teclado;
 - incluye una prueba de regresión.
 
 ## Fuera de alcance
+
 Rediseñar toda la autenticación.
 ```
 
@@ -95,4 +100,3 @@ Un **milestone** agrupa Issues y PR alrededor de una versión u objetivo con fec
 La PR explica la solución; el Issue conserva el problema y los criterios. Usa `Closes #123` cuando el merge realmente complete el Issue. Si solo aporta una parte, referencia `Related to #123` y deja explícito qué falta.
 
 Fuente oficial: [plantillas e Issue Forms de GitHub](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates).
-

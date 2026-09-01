@@ -13,7 +13,7 @@ updatedAt: 2026-08-16
 ## Argumentos de línea de comandos (`argv`)
 
 ```ts title="script.ts"
-console.log(process.argv);
+console.log(process.argv)
 ```
 
 ```bash
@@ -31,8 +31,8 @@ Los primeros dos elementos siempre son el path de Node y el path del script — 
 ## Salir del proceso con un código
 
 ```ts
-process.exit(0);   // éxito
-process.exit(1);   // error genérico
+process.exit(0) // éxito
+process.exit(1) // error genérico
 ```
 
 El código de salida es lo que otro proceso (una CI, un script que orquesta varios comandos, `$?` en bash) usa para saber si algo terminó bien o mal — `0` es la única convención de "éxito", cualquier otro número es "algo falló".
@@ -48,15 +48,15 @@ node script.js; echo $?   # imprime el exit code del comando anterior
 Un proceso recibe **señales** del sistema operativo — las dos que más importan para un servidor:
 
 ```ts
-process.on('SIGINT', () => {
-  console.log('Ctrl+C recibido, cerrando...');
-  cerrarConexionesYSalir();
-});
+process.on("SIGINT", () => {
+  console.log("Ctrl+C recibido, cerrando...")
+  cerrarConexionesYSalir()
+})
 
-process.on('SIGTERM', () => {
-  console.log('Señal de terminación recibida (ej: Docker stop, deploy)');
-  cerrarConexionesYSalir();
-});
+process.on("SIGTERM", () => {
+  console.log("Señal de terminación recibida (ej: Docker stop, deploy)")
+  cerrarConexionesYSalir()
+})
 ```
 
 - **`SIGINT`**: se dispara con `Ctrl+C` en la terminal.
@@ -67,33 +67,33 @@ process.on('SIGTERM', () => {
 El patrón real en un servidor: al recibir la señal, dejar de aceptar conexiones nuevas, esperar a que las requests en curso terminen, cerrar la conexión a la base de datos, y **recién ahí** salir.
 
 ```ts title="server.ts"
-import { createServer } from 'node:http';
+import { createServer } from "node:http"
 
-const server = createServer((req, res) => res.end('ok'));
-server.listen(3000);
+const server = createServer((req, res) => res.end("ok"))
+server.listen(3000)
 
 function shutdown() {
-  console.log('Cerrando servidor...');
+  console.log("Cerrando servidor...")
   server.close(() => {
-    console.log('Servidor cerrado, saliendo.');
-    process.exit(0);
-  });
+    console.log("Servidor cerrado, saliendo.")
+    process.exit(0)
+  })
 }
 
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
+process.on("SIGINT", shutdown)
+process.on("SIGTERM", shutdown)
 ```
 
 `server.close()` deja de aceptar conexiones nuevas, pero espera a que las existentes terminen antes de ejecutar su callback. Forzar el cierre durante una request activa puede dejar una escritura incompleta en la base de datos.
 
 ## Referencia del proceso
 
-| API | Qué hace |
-| --- | --- |
-| `process.argv` | Argumentos de línea de comandos (desde el índice 2) |
-| `process.exit(codigo)` | Termina el proceso; `0` = éxito, cualquier otro = error |
-| `process.on('SIGINT'/'SIGTERM', fn)` | Interceptar la señal en vez de que mate el proceso de inmediato |
-| `server.close(callback)` | Deja de aceptar conexiones nuevas, espera a que terminen las activas |
+| API                                  | Qué hace                                                             |
+| ------------------------------------ | -------------------------------------------------------------------- |
+| `process.argv`                       | Argumentos de línea de comandos (desde el índice 2)                  |
+| `process.exit(codigo)`               | Termina el proceso; `0` = éxito, cualquier otro = error              |
+| `process.on('SIGINT'/'SIGTERM', fn)` | Interceptar la señal en vez de que mate el proceso de inmediato      |
+| `server.close(callback)`             | Deja de aceptar conexiones nuevas, espera a que terminen las activas |
 
 ## Reglas de cierre
 

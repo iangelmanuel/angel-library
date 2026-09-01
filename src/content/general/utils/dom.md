@@ -20,10 +20,10 @@ Solo existen aquí las funciones que el sitio realmente usa. Si necesitas algo q
 Con `HTMLElement` de default, esto ya funciona sin genéricos explícitos:
 
 ```ts
-import { $, on } from '@/libs/dom';
+import { $, on } from "@/libs/dom"
 
-const boton = $('[data-submit]');
-on(boton, 'click', () => {});
+const boton = $("[data-submit]")
+on(boton, "click", () => {})
 ```
 
 Solo especifica el genérico cuando necesites propiedades de un subtipo concreto (`.value` en `HTMLInputElement`, `.checked` en checkboxes) o cuando selecciones algo que no es `HTMLElement` (un `SVGElement`, por ejemplo).
@@ -46,13 +46,13 @@ export function $<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $ } from '@/libs/dom';
+import { $ } from "@/libs/dom"
 
 // Selector global
-const boton = $<HTMLButtonElement>('[data-submit]');
+const boton = $<HTMLButtonElement>("[data-submit]")
 
 // Buscar dentro de un elemento
-const input = $<HTMLInputElement>('[data-email]', formulario);
+const input = $<HTMLInputElement>("[data-email]", formulario)
 ```
 
 ### `$opt()` — Elemento opcional
@@ -69,10 +69,10 @@ export function $opt<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $opt } from '@/libs/dom';
+import { $opt } from "@/libs/dom"
 
-const modal = $opt<HTMLDivElement>('[data-modal]');
-if (modal) show(modal);
+const modal = $opt<HTMLDivElement>("[data-modal]")
+if (modal) show(modal)
 ```
 
 ### `$$()` — Todos los elementos
@@ -89,13 +89,13 @@ export function $$<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $$ } from '@/libs/dom';
+import { $$ } from "@/libs/dom"
 
-const items = $$<HTMLLIElement>('[data-item]');
-items.forEach((item) => console.log(item.textContent));
+const items = $$<HTMLLIElement>("[data-item]")
+items.forEach((item) => console.log(item.textContent))
 
 // Buscar dentro de un contenedor
-const campos = $$<HTMLInputElement>('[data-field]', formulario);
+const campos = $$<HTMLInputElement>("[data-field]", formulario)
 ```
 
 ## Mostrar / Ocultar
@@ -114,9 +114,9 @@ export function show(el: HTMLElement | HTMLElement[]): void {
 ```
 
 ```ts
-import { show } from '@/libs/dom';
+import { show } from "@/libs/dom"
 
-show(mensajeFinal);
+show(mensajeFinal)
 ```
 
 ### `hide()` — Ocultar elementos
@@ -133,9 +133,9 @@ export function hide(el: HTMLElement | HTMLElement[]): void {
 ```
 
 ```ts
-import { hide } from '@/libs/dom';
+import { hide } from "@/libs/dom"
 
-hide([cargador1, cargador2]);
+hide([cargador1, cargador2])
 ```
 
 ## CSS Variables
@@ -156,9 +156,9 @@ export function getCssVar(
 ```
 
 ```ts
-import { getCssVar } from '@/libs/dom';
+import { getCssVar } from "@/libs/dom"
 
-const azul = getCssVar(elemento, '--color-verlun-blue', '#2547FF');
+const azul = getCssVar(elemento, "--color-verlun-blue", "#2547FF")
 ```
 
 ## Event Listeners
@@ -185,12 +185,12 @@ export function on<K extends keyof HTMLElementEventMap>(
 ```
 
 ```ts
-import { on } from '@/libs/dom';
+import { on } from "@/libs/dom"
 
-const limpiar = on(boton, 'click', () => console.log('Clickeado'));
+const limpiar = on(boton, "click", () => console.log("Clickeado"))
 
 // Remover después
-limpiar();
+limpiar()
 ```
 
 ### `onAll()` — Mismo listener en varios eventos
@@ -210,9 +210,9 @@ export function onAll<K extends keyof HTMLElementEventMap>(
 ```
 
 ```ts
-import { onAll } from '@/libs/dom';
+import { onAll } from "@/libs/dom"
 
-const limpiar = onAll(formulario, ['input', 'change'], actualizarContador);
+const limpiar = onAll(formulario, ["input", "change"], actualizarContador)
 ```
 
 ## Observers
@@ -240,14 +240,14 @@ export function onVisible(
 ```
 
 ```ts
-import { onVisible } from '@/libs/dom';
+import { onVisible } from "@/libs/dom"
 
 const limpiar = onVisible(seccion, (visible) => {
-  if (visible) iniciarAnimacion();
-});
+  if (visible) iniciarAnimacion()
+})
 
 // Con opciones: threshold indica cuándo se activa
-onVisible(elemento, handler, { threshold: 0.5 });
+onVisible(elemento, handler, { threshold: 0.5 })
 ```
 
 ### `onResize()` — Cambios de tamaño
@@ -269,15 +269,15 @@ export function onResize(
 ```
 
 ```ts
-import { $, onResize } from '@/libs/dom';
+import { $, onResize } from "@/libs/dom"
 
-const canvas = $<HTMLCanvasElement>('[data-canvas]');
+const canvas = $<HTMLCanvasElement>("[data-canvas]")
 
 const limpiar = onResize(canvas, (rect) => {
-  canvas.width = rect.width;
-  canvas.height = rect.height;
-  redibujar();
-});
+  canvas.width = rect.width
+  canvas.height = rect.height
+  redibujar()
+})
 ```
 
 ### `onMutation()` — Cambios en el DOM
@@ -302,29 +302,29 @@ export function onMutation(
 ```
 
 ```ts
-import { onMutation } from '@/libs/dom';
+import { onMutation } from "@/libs/dom"
 
 const limpiar = onMutation(document.documentElement, actualizarColores, {
   attributes: true,
-  attributeFilter: ['data-theme'],
-});
+  attributeFilter: ["data-theme"]
+})
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `$()` | Seleccionar un elemento requerido; lanza error si falta |
-| `$opt()` | Seleccionar un elemento opcional; retorna `null` si falta |
-| `$$()` | Seleccionar todos los elementos que coincidan |
-| `show()` | Mostrar elemento(s) |
-| `hide()` | Ocultar elemento(s) |
-| `getCssVar()` | Leer una variable CSS calculada |
-| `on()` | Agregar un event listener |
-| `onAll()` | Agregar el mismo listener a varios eventos |
-| `onVisible()` | Observar entrada y salida del viewport |
-| `onResize()` | Observar cambios de tamaño |
-| `onMutation()` | Observar cambios en el DOM |
+| Función        | Qué hace                                                  |
+| -------------- | --------------------------------------------------------- |
+| `$()`          | Seleccionar un elemento requerido; lanza error si falta   |
+| `$opt()`       | Seleccionar un elemento opcional; retorna `null` si falta |
+| `$$()`         | Seleccionar todos los elementos que coincidan             |
+| `show()`       | Mostrar elemento(s)                                       |
+| `hide()`       | Ocultar elemento(s)                                       |
+| `getCssVar()`  | Leer una variable CSS calculada                           |
+| `on()`         | Agregar un event listener                                 |
+| `onAll()`      | Agregar el mismo listener a varios eventos                |
+| `onVisible()`  | Observar entrada y salida del viewport                    |
+| `onResize()`   | Observar cambios de tamaño                                |
+| `onMutation()` | Observar cambios en el DOM                                |
 
 ## Consideraciones
 

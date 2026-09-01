@@ -44,11 +44,11 @@ Antes de optimizar pregunta:
 ## `memo`
 
 ```tsx
-import { memo } from 'react';
+import { memo } from "react"
 
 const ResultRow = memo(function ResultRow({ result }: { result: Result }) {
-  return <li>{result.title}</li>;
-});
+  return <li>{result.title}</li>
+})
 ```
 
 `memo` permite omitir el render cuando las props son iguales según comparación superficial. No impide renders causados por estado o contexto propios. Si cada render recibe un objeto o callback nuevo, la comparación no puede reutilizar la prop anterior.
@@ -58,8 +58,8 @@ const ResultRow = memo(function ResultRow({ result }: { result: Result }) {
 ```tsx
 const visibleResults = useMemo(
   () => expensiveFilter(results, query),
-  [results, query],
-);
+  [results, query]
+)
 ```
 
 Úsalo cuando el cálculo es costoso y sus dependencias permanecen estables, o cuando una identidad estable participa en otra optimización. No lo uses para ejecutar efectos ni como garantía de persistencia semántica.
@@ -79,15 +79,15 @@ return <MemoizedList results={results} onSelect={selectResult} />;
 ## Prioridad: transition y valor diferido
 
 ```tsx
-const [isPending, startTransition] = useTransition();
+const [isPending, startTransition] = useTransition()
 
 function changeTab(nextTab: Tab) {
-  startTransition(() => setTab(nextTab));
+  startTransition(() => setTab(nextTab))
 }
 ```
 
 ```tsx
-const deferredQuery = useDeferredValue(query);
+const deferredQuery = useDeferredValue(query)
 ```
 
 La transición marca una actualización que controlas. El valor diferido recibe un valor que ya cambió y permite que una parte costosa se actualice en segundo plano. Ninguna API agrega debounce ni cancela una consulta por sí sola.
@@ -117,14 +117,14 @@ Para adoptarlo:
 
 Una búsqueda lenta puede tener varios cuellos distintos:
 
-| Síntoma | Primera opción |
-| --- | --- |
-| cada tecla hace request | debounce o caché de datos |
-| lista filtra 50 000 elementos | estructura de datos, worker o memo medido |
-| input se congela mientras pinta | `useDeferredValue` o transición |
-| miles de nodos DOM | virtualización o paginación |
-| todos los consumidores de contexto renderizan | dividir contexto o store con selector |
-| bundle inicial incluye editor pesado | `lazy` o import dinámico |
+| Síntoma                                       | Primera opción                            |
+| --------------------------------------------- | ----------------------------------------- |
+| cada tecla hace request                       | debounce o caché de datos                 |
+| lista filtra 50 000 elementos                 | estructura de datos, worker o memo medido |
+| input se congela mientras pinta               | `useDeferredValue` o transición           |
+| miles de nodos DOM                            | virtualización o paginación               |
+| todos los consumidores de contexto renderizan | dividir contexto o store con selector     |
+| bundle inicial incluye editor pesado          | `lazy` o import dinámico                  |
 
 ## Qué no hacer
 
@@ -134,4 +134,3 @@ Una búsqueda lenta puede tener varios cuellos distintos:
 - guardar datos derivados en estado para evitar un cálculo trivial.
 - ignorar red, imágenes, layout y JavaScript de terceros porque React Profiler no los muestra.
 - asumir que React Compiler elimina la necesidad de comprender renders y efectos.
-

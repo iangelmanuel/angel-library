@@ -30,11 +30,11 @@ If a "refactor" would actually change behavior (fixing a bug along the way), sto
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
-| Claude Code | `.claude/commands/refactor.md` |
-| Cursor | `.cursor/commands/refactor.md` |
-| OpenCode | `.opencode/commands/refactor.md` (+ `template:`) |
+| Dónde       | Archivo                                          |
+| ----------- | ------------------------------------------------ |
+| Claude Code | `.claude/commands/refactor.md`                   |
+| Cursor      | `.cursor/commands/refactor.md`                   |
+| OpenCode    | `.opencode/commands/refactor.md` (+ `template:`) |
 
 ## Consideraciones
 

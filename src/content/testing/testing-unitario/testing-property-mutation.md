@@ -11,32 +11,34 @@ related:
 updatedAt: 2026-08-28
 ---
 
-Los ejemplos concretos siguen siendo esenciales, pero no siempre descubren combinaciones inesperadas. El *property-based testing* genera muchas entradas y comprueba una propiedad que debe cumplirse para todas. El *mutation testing* modifica temporalmente el código para comprobar si la suite detecta el defecto. Son técnicas diferentes y complementarias.
+Los ejemplos concretos siguen siendo esenciales, pero no siempre descubren combinaciones inesperadas. El _property-based testing_ genera muchas entradas y comprueba una propiedad que debe cumplirse para todas. El _mutation testing_ modifica temporalmente el código para comprobar si la suite detecta el defecto. Son técnicas diferentes y complementarias.
 
 ## Propiedades en lugar de resultados aislados
 
 Una propiedad o invariante describe algo que siempre debe ser cierto. En una función de ordenamiento, la salida conserva la longitud, contiene los mismos elementos y queda ordenada; no necesitas predecir cada arreglo generado.
 
 ```ts
-import { describe, expect, it } from 'vitest';
-import fc from 'fast-check';
+import fc from "fast-check"
+import { describe, expect, it } from "vitest"
 
-describe('sortNumbers', () => {
-  it('conserva los elementos y produce orden ascendente', () => {
+describe("sortNumbers", () => {
+  it("conserva los elementos y produce orden ascendente", () => {
     fc.assert(
       fc.property(fc.array(fc.integer()), (input) => {
-        const output = sortNumbers(input);
+        const output = sortNumbers(input)
 
-        expect(output).toHaveLength(input.length);
-        expect([...output].sort((a, b) => a - b)).toEqual(output);
-        expect([...output].sort((a, b) => a - b)).toEqual([...input].sort((a, b) => a - b));
-      }),
-    );
-  });
-});
+        expect(output).toHaveLength(input.length)
+        expect([...output].sort((a, b) => a - b)).toEqual(output)
+        expect([...output].sort((a, b) => a - b)).toEqual(
+          [...input].sort((a, b) => a - b)
+        )
+      })
+    )
+  })
+})
 ```
 
-`fast-check` intenta reducir —*shrink*— una entrada que falla hasta obtener un contraejemplo pequeño. Si el error aparece con un arreglo enorme, podría terminar reportando algo tan simple como `[0, -1]`, que es más fácil de diagnosticar.
+`fast-check` intenta reducir —_shrink_— una entrada que falla hasta obtener un contraejemplo pequeño. Si el error aparece con un arreglo enorme, podría terminar reportando algo tan simple como `[0, -1]`, que es más fácil de diagnosticar.
 
 El **arbitrary** es el generador de valores. Debe representar entradas válidas o inválidas según la propiedad, no ruido sin relación con el dominio.
 
@@ -44,8 +46,8 @@ El **arbitrary** es el generador de valores. Debe representar entradas válidas 
 const userArbitrary = fc.record({
   id: fc.uuid(),
   age: fc.integer({ min: 0, max: 120 }),
-  email: fc.emailAddress(),
-});
+  email: fc.emailAddress()
+})
 ```
 
 Cuando una propiedad falla, conserva el seed y el path reportados para reproducirla. Después añade un ejemplo concreto si el contraejemplo documenta una regla importante.
@@ -74,12 +76,12 @@ Empieza con un oráculo independiente: una ley matemática, una ida y vuelta, un
 
 Una herramienta de mutación cambia operadores como `>` por `>=`, elimina una condición o sustituye un valor. Si todos los tests siguen verdes, el mutante “sobrevivió”: esa parte del comportamiento no está protegida por una aserción capaz de detectar el cambio.
 
-| Resultado | Significado |
-| --- | --- |
-| Mutante eliminado | al menos una prueba detectó el defecto |
-| Mutante sobreviviente | falta una prueba o una aserción útil |
-| Mutante equivalente | el cambio no altera comportamiento observable |
-| Timeout/error | revisar costo, aislamiento o configuración |
+| Resultado             | Significado                                   |
+| --------------------- | --------------------------------------------- |
+| Mutante eliminado     | al menos una prueba detectó el defecto        |
+| Mutante sobreviviente | falta una prueba o una aserción útil          |
+| Mutante equivalente   | el cambio no altera comportamiento observable |
+| Timeout/error         | revisar costo, aislamiento o configuración    |
 
 La puntuación de mutación orienta, no es una meta absoluta. Úsala en lógica crítica y módulos estables; ejecutarla sobre todo el repositorio puede ser costoso. Primero revisa sobrevivientes con impacto real: permisos, cálculos, validación y estados.
 

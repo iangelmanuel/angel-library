@@ -15,13 +15,16 @@ Apunta HTML semántico plano (`<button>`, `<article>`, `<nav>`, `<table>`) y ya 
 ## Configuración inicial
 
 ```ts title="main.ts"
-import '@picocss/pico/css/pico.min.css';
+import "@picocss/pico/css/pico.min.css"
 ```
 
 O vía CDN:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+/>
 ```
 
 ## Tips

@@ -24,11 +24,11 @@ async Server Component, middleware y cache → Playwright
 build, metadata y prerender → next build + E2E de producción
 ```
 
-| Capa | Herramienta | Qué cubre |
-| --- | --- | --- |
-| Unitario | Vitest | validadores, mappers, services, helpers |
-| Componente cliente | Vitest + Testing Library | interacción, estados y accesibilidad local |
-| Integración/E2E | Playwright | routing, Server Components, Actions, cookies y navegador real |
+| Capa               | Herramienta              | Qué cubre                                                     |
+| ------------------ | ------------------------ | ------------------------------------------------------------- |
+| Unitario           | Vitest                   | validadores, mappers, services, helpers                       |
+| Componente cliente | Vitest + Testing Library | interacción, estados y accesibilidad local                    |
+| Integración/E2E    | Playwright               | routing, Server Components, Actions, cookies y navegador real |
 
 ## Extraer lógica antes de testear
 
@@ -36,7 +36,7 @@ Una Server Action debería coordinar autorización, validación y persistencia; 
 
 ```ts
 export function calcularTotal(items: { price: number; quantity: number }[]) {
-  return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  return items.reduce((total, item) => total + item.price * item.quantity, 0)
 }
 ```
 
@@ -51,13 +51,15 @@ La guía oficial de Next.js recomienda E2E para Server Components asíncronos qu
 ## E2E mínimo
 
 ```ts title="tests/home.spec.ts"
-import { test, expect } from '@playwright/test';
+import { expect, test } from "@playwright/test"
 
-test('navega al detalle', async ({ page }) => {
-  await page.goto('/productos');
-  await page.getByRole('link', { name: /producto uno/i }).click();
-  await expect(page.getByRole('heading', { name: /producto uno/i })).toBeVisible();
-});
+test("navega al detalle", async ({ page }) => {
+  await page.goto("/productos")
+  await page.getByRole("link", { name: /producto uno/i }).click()
+  await expect(
+    page.getByRole("heading", { name: /producto uno/i })
+  ).toBeVisible()
+})
 ```
 
 Prueba contra `next build && next start` al menos en CI: desarrollo no replica caché, optimizaciones ni errores de prerender de producción.
@@ -77,14 +79,18 @@ Referencia oficial: [Testing](https://nextjs.org/docs/app/guides/testing).
 Si el handler no depende de estado global de Next.js, invócalo con un `Request` real y afirma la respuesta completa.
 
 ```ts
-import { GET } from '@/app/api/products/route';
+import { GET } from "@/app/api/products/route"
 
-it('valida el límite de resultados', async () => {
-  const response = await GET(new Request('http://example.test/api/products?limit=0'));
+it("valida el límite de resultados", async () => {
+  const response = await GET(
+    new Request("http://example.test/api/products?limit=0")
+  )
 
-  expect(response.status).toBe(400);
-  await expect(response.json()).resolves.toMatchObject({ code: 'INVALID_LIMIT' });
-});
+  expect(response.status).toBe(400)
+  await expect(response.json()).resolves.toMatchObject({
+    code: "INVALID_LIMIT"
+  })
+})
 ```
 
 Añade integración o E2E cuando intervengan `cookies()`, middleware, caché, región o runtime Edge, porque una llamada directa no reproduce toda la tubería.

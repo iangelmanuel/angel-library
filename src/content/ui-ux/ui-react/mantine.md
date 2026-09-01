@@ -16,12 +16,12 @@ Cubre casos que otras librerías dejan para paquetes aparte: fechas, notificacio
 ## Configuración inicial
 
 ```tsx title="main.tsx"
-import '@mantine/core/styles.css';
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider } from "@mantine/core"
+import "@mantine/core/styles.css"
 
-<MantineProvider>
+;<MantineProvider>
   <App />
-</MantineProvider>;
+</MantineProvider>
 ```
 
 Cada paquete extra (`@mantine/dates`, `@mantine/notifications`, etc.) trae su propio CSS que hay que importar aparte.

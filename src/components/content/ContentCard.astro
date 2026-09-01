@@ -1,15 +1,15 @@
 ---
-import Icon from '@/components/shared/Icon.astro';
-import { CONTENT_TYPES } from '@/config/site';
-import { getEntryUrl, type AnyEntry } from '@/lib/content';
+import Icon from "@/components/shared/Icon.astro"
+import { CONTENT_TYPES } from "@/config/content-types"
+import { getEntryUrl, type AnyEntry } from "@/lib/content"
 
 interface Props {
-  entry: AnyEntry;
+  entry: AnyEntry
 }
 
-const { entry } = Astro.props;
-const meta = CONTENT_TYPES[entry.data.type];
-const tags = entry.data.tags ?? [];
+const { entry } = Astro.props
+const meta = CONTENT_TYPES[entry.data.type]
+const tags = entry.data.tags ?? []
 ---
 
 <a
@@ -17,7 +17,10 @@ const tags = entry.data.tags ?? [];
   class="card terminal-card"
   style={`--card-accent: var(${meta.color})`}
 >
-  <div class="terminal-card__bar" aria-hidden="true">
+  <div
+    class="terminal-card__bar"
+    aria-hidden="true"
+  >
     <span class="terminal-card__path"><span>~/</span>{entry.id}</span>
     <span class="terminal-card__status">
       <i></i><i></i><i></i>
@@ -25,14 +28,23 @@ const tags = entry.data.tags ?? [];
   </div>
   <div class="terminal-card__body">
     <div class="terminal-card__meta">
-      <span class:list={['flex items-center gap-1.5', `type-${entry.data.type}`]}>
-        <Icon name={meta.icon} class="size-3" />
+      <span
+        class:list={["flex items-center gap-1.5", `type-${entry.data.type}`]}
+      >
+        <Icon
+          name={meta.icon}
+          class="size-3"
+        />
         <span>{meta.singular}</span>
       </span>
       <span aria-hidden="true">.md</span>
     </div>
     <h3>
-      <span class="terminal-card__prompt" aria-hidden="true">❯</span>
+      <span
+        class="terminal-card__prompt"
+        aria-hidden="true"
+        >❯</span
+      >
       {entry.data.title}
     </h3>
     <p class="line-clamp-3">{entry.data.description}</p>
@@ -42,10 +54,16 @@ const tags = entry.data.tags ?? [];
           {tags.slice(0, 3).map((tag) => (
             <span class="tag">{tag}</span>
           ))}
-          {tags.length > 3 && <span class="terminal-card__more">+{tags.length - 3}</span>}
+          {tags.length > 3 && (
+            <span class="terminal-card__more">+{tags.length - 3}</span>
+          )}
         </div>
       )
     }
   </div>
-  <span class="terminal-card__open" aria-hidden="true">↗</span>
+  <span
+    class="terminal-card__open"
+    aria-hidden="true"
+    >↗</span
+  >
 </a>

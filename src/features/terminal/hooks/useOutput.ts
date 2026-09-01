@@ -16,7 +16,11 @@ export function useOutput() {
     if (output) output.scrollTop = output.scrollHeight
   }, [messages])
 
-  function print(command: string, lines: string[], tone: MessageTone = "default") {
+  function print(
+    command: string,
+    lines: string[],
+    tone: MessageTone = "default"
+  ) {
     lastId.current += 1
     setMessages((current) => [
       ...current.slice(-VISIBLE_MESSAGES),

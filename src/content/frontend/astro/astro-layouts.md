@@ -17,10 +17,11 @@ Un layout en Astro no es un archivo especial con nombre reservado (como `layout.
 ```astro title="layouts/BaseLayout.astro"
 ---
 interface Props {
-  title: string;
+  title: string
 }
-const { title } = Astro.props;
+const { title } = Astro.props
 ---
+
 <html lang="es">
   <head>
     <title>{title}</title>
@@ -33,8 +34,9 @@ const { title } = Astro.props;
 
 ```astro title="pages/index.astro"
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro"
 ---
+
 <BaseLayout title="Inicio">
   <h1>Contenido de la página</h1>
 </BaseLayout>
@@ -53,7 +55,10 @@ Un layout puede tener varios huecos, no solo el contenido principal — un slot 
 
 ```astro
 <DocsLayout>
-  <Toc slot="aside" headings={headings} />
+  <Toc
+    slot="aside"
+    headings={headings}
+  />
   <article>Contenido normal, va al slot por defecto</article>
 </DocsLayout>
 ```
@@ -66,8 +71,9 @@ Un layout puede envolver a otro, igual que en Next — pasa su propio `<slot />`
 
 ```astro title="layouts/DocsLayout.astro"
 ---
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout from "./BaseLayout.astro"
 ---
+
 <BaseLayout title="...">
   <Header />
   <main><slot /></main>
@@ -90,20 +96,21 @@ Contenido en Markdown.
 
 ```astro title="layouts/PostLayout.astro"
 ---
-const { frontmatter } = Astro.props;
+const { frontmatter } = Astro.props
 ---
+
 <h1>{frontmatter.title}</h1>
 <slot />
 ```
 
 ## Formas de composición
 
-| Concepto | Qué es |
-| --- | --- |
-| `<slot />` | Dónde se inyecta el contenido del que usa el layout |
-| `<slot name="x" />` + `slot="x"` | Slots con nombre, para más de un hueco (sidebar, footer custom, etc.) |
-| Layouts anidados | Un layout importa y envuelve a otro, pasando su propio `<slot />` hacia arriba |
-| `layout:` en frontmatter Markdown | Layout automático para un `.md`, recibe `frontmatter` como prop |
+| Concepto                          | Qué es                                                                         |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| `<slot />`                        | Dónde se inyecta el contenido del que usa el layout                            |
+| `<slot name="x" />` + `slot="x"`  | Slots con nombre, para más de un hueco (sidebar, footer custom, etc.)          |
+| Layouts anidados                  | Un layout importa y envuelve a otro, pasando su propio `<slot />` hacia arriba |
+| `layout:` en frontmatter Markdown | Layout automático para un `.md`, recibe `frontmatter` como prop                |
 
 ## Límites de un layout
 

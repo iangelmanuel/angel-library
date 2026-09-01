@@ -3,7 +3,8 @@ import { visit } from "unist-util-visit"
 /** Pipeline visual de bloques de código: metadatos Shiki, cabeceras y tabs. */
 
 function rawMeta(meta) {
-  const value = meta && typeof meta === "object" && "__raw" in meta ? meta.__raw : meta
+  const value =
+    meta && typeof meta === "object" && "__raw" in meta ? meta.__raw : meta
   return String(value ?? "")
 }
 
@@ -53,7 +54,8 @@ export function transformerCodeFilename() {
     preprocess(code, options) {
       const filename = filenameFromMeta(options.meta)
       if (filename) {
-        const existing = options.meta && typeof options.meta === "object" ? options.meta : {}
+        const existing =
+          options.meta && typeof options.meta === "object" ? options.meta : {}
         options.meta = { ...existing, "data-filename": filename }
       }
       return code
@@ -110,7 +112,9 @@ function copyButton(label) {
     },
     [
       element("rect", { width: 14, height: 14, x: 8, y: 8, rx: 2, ry: 2 }),
-      element("path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" })
+      element("path", {
+        d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+      })
     ]
   )
 
@@ -151,7 +155,11 @@ function buildPackageManagerBlock(blocks, group) {
       const className = isDefault(pre)
         ? ["code-block__pm-tab", "is-active"]
         : ["code-block__pm-tab"]
-      return element("button", { type: "button", className, "data-pm-tab": pm }, [text(pm)])
+      return element(
+        "button",
+        { type: "button", className, "data-pm-tab": pm },
+        [text(pm)]
+      )
     })
   )
 
@@ -214,18 +222,27 @@ function codeLabel(pre) {
   const languageClass = (code?.properties?.className ?? []).find(
     (name) => typeof name === "string" && name.startsWith("language-")
   )
-  return languageClass ? String(languageClass).slice("language-".length) : "code"
+  return languageClass
+    ? String(languageClass).slice("language-".length)
+    : "code"
 }
 
 /** Agrupa tabs y añade etiqueta y botón de copia a cada bloque. */
 export function rehypeCodeBlocks() {
   return (tree) => {
     visit(tree, (node) => {
-      if (node.children) node.children = groupPackageManagerBlocks(node.children)
+      if (node.children)
+        node.children = groupPackageManagerBlocks(node.children)
     })
 
     visit(tree, "element", (node, index, parent) => {
-      if (!parent || index === undefined || node.tagName !== "pre" || node.__pmHandled) return
+      if (
+        !parent ||
+        index === undefined ||
+        node.tagName !== "pre" ||
+        node.__pmHandled
+      )
+        return
       const hasCode = node.children.some(
         (child) => child.type === "element" && child.tagName === "code"
       )
@@ -233,7 +250,9 @@ export function rehypeCodeBlocks() {
 
       parent.children[index] = element("div", { className: ["code-block"] }, [
         header([
-          element("span", { className: ["code-block__label"] }, [text(codeLabel(node))]),
+          element("span", { className: ["code-block__label"] }, [
+            text(codeLabel(node))
+          ]),
           copyButton("Copiar código")
         ]),
         node

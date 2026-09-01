@@ -5,7 +5,11 @@ type: guides
 order: 5
 tags: [docker, variables-entorno, env, contenedores]
 scope: variables de entorno
-related: [devops/docker-contenedores/docker-run-basico, devops/docker-imagenes/docker-dockerignore]
+related:
+  [
+    devops/docker-contenedores/docker-run-basico,
+    devops/docker-imagenes/docker-dockerignore
+  ]
 updatedAt: 2026-08-17
 ---
 

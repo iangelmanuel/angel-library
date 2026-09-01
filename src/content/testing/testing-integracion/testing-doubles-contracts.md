@@ -20,13 +20,13 @@ updatedAt: 2026-08-28
 
 Prefiere afirmar resultados observables. Verificar cada llamada interna congela el refactor aunque el comportamiento no cambie.
 
-| Doble | Controla | Aserción habitual |
-| --- | --- | --- |
-| Stub | respuesta de una dependencia | resultado del SUT |
-| Spy | registro de llamadas | interacción pública relevante |
-| Mock | expectativa de colaboración | método, argumentos o cantidad |
-| Fake | implementación simplificada | comportamiento a través de su API |
-| Dummy | requisito de una firma | ninguna |
+| Doble | Controla                     | Aserción habitual                 |
+| ----- | ---------------------------- | --------------------------------- |
+| Stub  | respuesta de una dependencia | resultado del SUT                 |
+| Spy   | registro de llamadas         | interacción pública relevante     |
+| Mock  | expectativa de colaboración  | método, argumentos o cantidad     |
+| Fake  | implementación simplificada  | comportamiento a través de su API |
+| Dummy | requisito de una firma       | ninguna                           |
 
 Un mismo objeto puede actuar como stub y spy. Nombra la intención en la prueba: “proveedor rechazado” comunica más que “mock del gateway”.
 
@@ -53,17 +53,17 @@ Un contrato comprueba que productor y consumidor coinciden en método, ruta, esq
 Incluye casos de tiempo de espera agotado, `429`, errores parciales y campos adicionales. Los contratos deben permitir evolución compatible y fallar cuando desaparece algo que el consumidor usa.
 
 ```ts
-it('mantiene el contrato del perfil público', async () => {
-  const response = await request(app).get('/users/u_1');
+it("mantiene el contrato del perfil público", async () => {
+  const response = await request(app).get("/users/u_1")
 
-  expect(response.status).toBe(200);
-  expect(response.headers['content-type']).toMatch(/application\/json/);
+  expect(response.status).toBe(200)
+  expect(response.headers["content-type"]).toMatch(/application\/json/)
   expect(response.body).toMatchObject({
     id: expect.any(String),
-    displayName: expect.any(String),
-  });
-  expect(response.body).not.toHaveProperty('passwordHash');
-});
+    displayName: expect.any(String)
+  })
+  expect(response.body).not.toHaveProperty("passwordHash")
+})
 ```
 
 El ejemplo comprueba forma, semántica HTTP y ausencia de un dato sensible. Un schema automatiza la forma, pero todavía necesitas casos que expliquen permisos, errores y significado de los campos.
@@ -89,14 +89,14 @@ Si un fake se utiliza ampliamente, ejecuta una suite de contrato común contra e
 
 ```ts
 export function repositoryContract(createRepository: () => UserRepository) {
-  it('rechaza correos duplicados', async () => {
-    const repository = createRepository();
-    await repository.save(userFactory({ email: 'same@example.test' }));
+  it("rechaza correos duplicados", async () => {
+    const repository = createRepository()
+    await repository.save(userFactory({ email: "same@example.test" }))
 
     await expect(
-      repository.save(userFactory({ email: 'same@example.test' })),
-    ).rejects.toMatchObject({ code: 'EMAIL_ALREADY_EXISTS' });
-  });
+      repository.save(userFactory({ email: "same@example.test" }))
+    ).rejects.toMatchObject({ code: "EMAIL_ALREADY_EXISTS" })
+  })
 }
 ```
 

@@ -18,25 +18,38 @@ En el App Router, `page.tsx`, `layout.tsx` y los componentes que importan son **
 Usa un Server Component cuando necesites datos, secretos o HTML sin interacción. Usa un Client Component únicamente cuando necesites estado, efectos, eventos o APIs del navegador.
 
 ```tsx title="app/posts/[id]/page.tsx"
-import LikeButton from './LikeButton';
-import { db } from '@/libs/db';
+import { db } from "@/libs/db"
+import LikeButton from "./LikeButton"
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const post = await db.post.findUniqueOrThrow({ where: { id } });
+export default async function Page({
+  params
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const post = await db.post.findUniqueOrThrow({ where: { id } })
 
-  return <article><h1>{post.title}</h1><LikeButton postId={post.id} /></article>;
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <LikeButton postId={post.id} />
+    </article>
+  )
 }
 ```
 
 ```tsx title="app/posts/[id]/LikeButton.tsx"
-'use client';
+"use client"
 
-import { useState } from 'react';
+import { useState } from "react"
 
 export default function LikeButton({ postId }: { postId: string }) {
-  const [liked, setLiked] = useState(false);
-  return <button onClick={() => setLiked(!liked)}>{liked ? 'Guardado' : 'Guardar'} {postId}</button>;
+  const [liked, setLiked] = useState(false)
+  return (
+    <button onClick={() => setLiked(!liked)}>
+      {liked ? "Guardado" : "Guardar"} {postId}
+    </button>
+  )
 }
 ```
 
@@ -52,7 +65,9 @@ Un Client Component no puede importar directamente un Server Component, pero pue
 
 ```tsx
 // Server Component
-<Modal><CarritoDelServidor /></Modal>
+<Modal>
+  <CarritoDelServidor />
+</Modal>
 ```
 
 ## Errores comunes

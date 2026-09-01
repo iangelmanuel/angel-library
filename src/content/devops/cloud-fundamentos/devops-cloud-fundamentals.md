@@ -15,13 +15,13 @@ La nube entrega infraestructura y servicios mediante APIs. No elimina servidores
 
 ## Bloques principales
 
-| Bloque | Ejemplos | Pregunta clave |
-| --- | --- | --- |
-| Cómputo | VM, contenedor, función | ¿Cómo escala y cuánto dura? |
-| Red | VPC, balanceador, DNS, CDN | ¿Quién puede comunicarse con quién? |
-| Datos | objeto, bloque, base administrada | ¿Qué consistencia, backup y región requiere? |
-| Identidad | usuarios, roles, políticas | ¿Cuál es el privilegio mínimo? |
-| Observabilidad | logs, métricas, trazas | ¿Cómo se detecta y explica un fallo? |
+| Bloque         | Ejemplos                          | Pregunta clave                               |
+| -------------- | --------------------------------- | -------------------------------------------- |
+| Cómputo        | VM, contenedor, función           | ¿Cómo escala y cuánto dura?                  |
+| Red            | VPC, balanceador, DNS, CDN        | ¿Quién puede comunicarse con quién?          |
+| Datos          | objeto, bloque, base administrada | ¿Qué consistencia, backup y región requiere? |
+| Identidad      | usuarios, roles, políticas        | ¿Cuál es el privilegio mínimo?               |
+| Observabilidad | logs, métricas, trazas            | ¿Cómo se detecta y explica un fallo?         |
 
 ## Región y zona
 
@@ -49,4 +49,3 @@ Mide cómputo, almacenamiento, operaciones y transferencia de salida. Configura 
 ## Diseño inicial razonable
 
 Empieza con una región cercana, dos zonas cuando el servicio lo permita, infraestructura reproducible, backups probados, identidad por servicio y observabilidad básica. Agrega distribución global solo cuando requisitos y mediciones lo justifiquen.
-

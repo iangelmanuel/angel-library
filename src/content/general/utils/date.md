@@ -21,20 +21,20 @@ Formatea una fecha con `Intl.DateTimeFormat`. Por defecto usa locale `es` y esti
 ```ts title="lib/date.ts"
 export function formatDate(
   date: Date,
-  options: Intl.DateTimeFormatOptions = { dateStyle: 'medium' },
-  locale = 'es'
+  options: Intl.DateTimeFormatOptions = { dateStyle: "medium" },
+  locale = "es"
 ): string {
   return new Intl.DateTimeFormat(locale, options).format(date)
 }
 ```
 
 ```ts
-import { formatDate } from '@/libs/date';
+import { formatDate } from "@/libs/date"
 
-formatDate(new Date());
+formatDate(new Date())
 // "15 ago 2026"
 
-formatDate(new Date(), { dateStyle: 'full' });
+formatDate(new Date(), { dateStyle: "full" })
 // "sábado, 15 de agosto de 2026"
 ```
 
@@ -45,17 +45,17 @@ Igual que `formatDate()`, pero para la hora. Por defecto usa estilo `short` (sin
 ```ts title="lib/date.ts"
 export function formatTime(
   date: Date,
-  options: Intl.DateTimeFormatOptions = { timeStyle: 'short' },
-  locale = 'es'
+  options: Intl.DateTimeFormatOptions = { timeStyle: "short" },
+  locale = "es"
 ): string {
   return new Intl.DateTimeFormat(locale, options).format(date)
 }
 ```
 
 ```ts
-import { formatTime } from '@/libs/date';
+import { formatTime } from "@/libs/date"
 
-formatTime(new Date());
+formatTime(new Date())
 // "14:32"
 ```
 
@@ -65,34 +65,34 @@ Formatea la diferencia entre una fecha y ahora como texto relativo ("hace 3 día
 
 ```ts title="lib/date.ts"
 const RELATIVE_UNITS: { unit: Intl.RelativeTimeFormatUnit; ms: number }[] = [
-  { unit: 'year', ms: 31536000000 },
-  { unit: 'month', ms: 2592000000 },
-  { unit: 'week', ms: 604800000 },
-  { unit: 'day', ms: 86400000 },
-  { unit: 'hour', ms: 3600000 },
-  { unit: 'minute', ms: 60000 },
-  { unit: 'second', ms: 1000 },
+  { unit: "year", ms: 31536000000 },
+  { unit: "month", ms: 2592000000 },
+  { unit: "week", ms: 604800000 },
+  { unit: "day", ms: 86400000 },
+  { unit: "hour", ms: 3600000 },
+  { unit: "minute", ms: 60000 },
+  { unit: "second", ms: 1000 }
 ]
 
-export function formatRelativeTime(date: Date, locale = 'es'): string {
+export function formatRelativeTime(date: Date, locale = "es"): string {
   const diff = date.getTime() - Date.now()
-  const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
+  const formatter = new Intl.RelativeTimeFormat(locale, { numeric: "auto" })
 
   for (const { unit, ms } of RELATIVE_UNITS) {
-    if (Math.abs(diff) >= ms || unit === 'second') {
+    if (Math.abs(diff) >= ms || unit === "second") {
       return formatter.format(Math.round(diff / ms), unit)
     }
   }
 
-  return formatter.format(0, 'second')
+  return formatter.format(0, "second")
 }
 ```
 
 ```ts
-import { formatRelativeTime } from '@/libs/date';
+import { formatRelativeTime } from "@/libs/date"
 
-const haceTresDias = new Date(Date.now() - 3 * 86400000);
-formatRelativeTime(haceTresDias);
+const haceTresDias = new Date(Date.now() - 3 * 86400000)
+formatRelativeTime(haceTresDias)
 // "hace 3 días"
 ```
 
@@ -104,17 +104,17 @@ Formatea dos fechas como un rango legible con `Intl.DateTimeFormat.prototype.for
 export function formatDateRange(
   start: Date,
   end: Date,
-  options: Intl.DateTimeFormatOptions = { dateStyle: 'medium' },
-  locale = 'es'
+  options: Intl.DateTimeFormatOptions = { dateStyle: "medium" },
+  locale = "es"
 ): string {
   return new Intl.DateTimeFormat(locale, options).formatRange(start, end)
 }
 ```
 
 ```ts
-import { formatDateRange } from '@/libs/date';
+import { formatDateRange } from "@/libs/date"
 
-formatDateRange(new Date('2026-08-15'), new Date('2026-08-20'));
+formatDateRange(new Date("2026-08-15"), new Date("2026-08-20"))
 // "15–20 ago 2026"
 ```
 
@@ -135,9 +135,9 @@ export function isSameDay(a: Date, b: Date): boolean {
 ```
 
 ```ts
-import { isSameDay } from '@/libs/date';
+import { isSameDay } from "@/libs/date"
 
-const esHoy = isSameDay(evento.fecha, new Date());
+const esHoy = isSameDay(evento.fecha, new Date())
 ```
 
 ### `addDays()` — Sumar días
@@ -153,9 +153,9 @@ export function addDays(date: Date, amount: number): Date {
 ```
 
 ```ts
-import { addDays } from '@/libs/date';
+import { addDays } from "@/libs/date"
 
-const vencimiento = addDays(new Date(), 30);
+const vencimiento = addDays(new Date(), 30)
 ```
 
 ### `daysBetween()` — Días entre dos fechas
@@ -172,9 +172,9 @@ export function daysBetween(a: Date, b: Date): number {
 ```
 
 ```ts
-import { daysBetween } from '@/libs/date';
+import { daysBetween } from "@/libs/date"
 
-const diasRestantes = daysBetween(new Date(), vencimiento);
+const diasRestantes = daysBetween(new Date(), vencimiento)
 ```
 
 ## Rangos y secuencias
@@ -192,9 +192,9 @@ export function startOfDay(date: Date): Date {
 ```
 
 ```ts
-import { startOfDay } from '@/libs/date';
+import { startOfDay } from "@/libs/date"
 
-const hoyDesdeCero = startOfDay(new Date());
+const hoyDesdeCero = startOfDay(new Date())
 ```
 
 ### `startOfMonth()` / `endOfMonth()` — Límites del mes
@@ -212,10 +212,10 @@ export function endOfMonth(date: Date): Date {
 ```
 
 ```ts
-import { startOfMonth, endOfMonth } from '@/libs/date';
+import { endOfMonth, startOfMonth } from "@/libs/date"
 
-const inicio = startOfMonth(new Date());
-const fin = endOfMonth(new Date());
+const inicio = startOfMonth(new Date())
+const fin = endOfMonth(new Date())
 ```
 
 ### `dateRange()` — Secuencia de fechas
@@ -238,9 +238,9 @@ export function dateRange(start: Date, end: Date, stepDays = 1): Date[] {
 ```
 
 ```ts
-import { dateRange } from '@/libs/date';
+import { dateRange } from "@/libs/date"
 
-const semana = dateRange(new Date('2026-08-10'), new Date('2026-08-16'));
+const semana = dateRange(new Date("2026-08-10"), new Date("2026-08-16"))
 // [10, 11, 12, 13, 14, 15, 16] de agosto
 ```
 
@@ -255,27 +255,27 @@ export function eachDayOfMonth(date: Date): Date[] {
 ```
 
 ```ts
-import { eachDayOfMonth } from '@/libs/date';
+import { eachDayOfMonth } from "@/libs/date"
 
-const diasDeAgosto = eachDayOfMonth(new Date('2026-08-01'));
+const diasDeAgosto = eachDayOfMonth(new Date("2026-08-01"))
 // 31 fechas, una por día
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `formatDate()` | Formatear una fecha con `Intl.DateTimeFormat` |
-| `formatTime()` | Formatear una hora |
-| `formatRelativeTime()` | Formatear una fecha como tiempo relativo ("hace 3 días") |
-| `formatDateRange()` | Formatear un rango de dos fechas |
-| `isSameDay()` | Comparar si dos fechas son el mismo día calendario |
-| `addDays()` | Sumar (o restar) días a una fecha, sin mutar |
-| `daysBetween()` | Calcular días entre dos fechas, sin errores de DST |
-| `startOfDay()` | Fecha con la hora en cero |
-| `startOfMonth()` / `endOfMonth()` | Primer y último día del mes |
-| `dateRange()` | Generar un array de fechas entre dos extremos |
-| `eachDayOfMonth()` | Generar un array con todos los días del mes |
+| Función                           | Qué hace                                                 |
+| --------------------------------- | -------------------------------------------------------- |
+| `formatDate()`                    | Formatear una fecha con `Intl.DateTimeFormat`            |
+| `formatTime()`                    | Formatear una hora                                       |
+| `formatRelativeTime()`            | Formatear una fecha como tiempo relativo ("hace 3 días") |
+| `formatDateRange()`               | Formatear un rango de dos fechas                         |
+| `isSameDay()`                     | Comparar si dos fechas son el mismo día calendario       |
+| `addDays()`                       | Sumar (o restar) días a una fecha, sin mutar             |
+| `daysBetween()`                   | Calcular días entre dos fechas, sin errores de DST       |
+| `startOfDay()`                    | Fecha con la hora en cero                                |
+| `startOfMonth()` / `endOfMonth()` | Primer y último día del mes                              |
+| `dateRange()`                     | Generar un array de fechas entre dos extremos            |
+| `eachDayOfMonth()`                | Generar un array con todos los días del mes              |
 
 ## Consideraciones
 

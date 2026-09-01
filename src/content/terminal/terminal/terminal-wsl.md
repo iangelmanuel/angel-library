@@ -5,7 +5,8 @@ type: guides
 order: 24
 tags: [terminal, wsl, windows, linux]
 scope: wsl
-related: [terminal/terminal/terminal-linux-cli, terminal/terminal/terminal-powershell]
+related:
+  [terminal/terminal/terminal-linux-cli, terminal/terminal/terminal-powershell]
 updatedAt: 2026-08-17
 ---
 
@@ -43,12 +44,12 @@ Se puede tener más de una distribución instalada al mismo tiempo, cada una con
 
 ## Comandos de gestión
 
-| Comando | Qué hace |
-|---|---|
-| `wsl --list --verbose` | Lista las distros instaladas, con versión de WSL (1 o 2) y estado (Running/Stopped) |
-| `wsl --set-default <distro>` | Cambia cuál distro abre `wsl` sin argumentos |
-| `wsl --shutdown` | Apaga por completo la VM de WSL2 (todas las distros) — útil si quedó consumiendo memoria de más |
-| `wsl -d <distro>` | Abre una sesión en una distro específica |
+| Comando                      | Qué hace                                                                                        |
+| ---------------------------- | ----------------------------------------------------------------------------------------------- |
+| `wsl --list --verbose`       | Lista las distros instaladas, con versión de WSL (1 o 2) y estado (Running/Stopped)             |
+| `wsl --set-default <distro>` | Cambia cuál distro abre `wsl` sin argumentos                                                    |
+| `wsl --shutdown`             | Apaga por completo la VM de WSL2 (todas las distros) — útil si quedó consumiendo memoria de más |
+| `wsl -d <distro>`            | Abre una sesión en una distro específica                                                        |
 
 ## Acceso a filesystem cruzado
 

@@ -14,18 +14,18 @@ updatedAt: 2026-08-25
 
 Next.js no impone una librería de traducciones. El patrón base es detectar un locale soportado, incluirlo en la URL y cargar el diccionario correspondiente desde un Server Component.
 
-**i18n** abrevia *internationalization*. El problema incluye routing, traducción, formato regional, metadatos y preferencia de idioma. Next.js aporta las piezas de routing y servidor; tú defines los locales válidos y la estrategia de contenido.
+**i18n** abrevia _internationalization_. El problema incluye routing, traducción, formato regional, metadatos y preferencia de idioma. Next.js aporta las piezas de routing y servidor; tú defines los locales válidos y la estrategia de contenido.
 
 ## Arquitectura rápida
 
-| Responsabilidad | Lugar habitual |
-| --- | --- |
-| locale visible | segmento `app/[lang]/` |
-| detección inicial | `proxy.ts` |
-| validación | layout o helper servidor |
-| textos | diccionarios o CMS |
-| fechas, moneda y plural | APIs `Intl` |
-| SEO por idioma | Metadata API y alternates |
+| Responsabilidad         | Lugar habitual            |
+| ----------------------- | ------------------------- |
+| locale visible          | segmento `app/[lang]/`    |
+| detección inicial       | `proxy.ts`                |
+| validación              | layout o helper servidor  |
+| textos                  | diccionarios o CMS        |
+| fechas, moneda y plural | APIs `Intl`               |
+| SEO por idioma          | Metadata API y alternates |
 
 ```text
 app/
@@ -38,24 +38,28 @@ app/
 ## Generar locales conocidos
 
 ```tsx title="app/[lang]/layout.tsx"
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation"
 
-const locales = ['es', 'en'] as const;
+const locales = ["es", "en"] as const
 
 export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
+  return locales.map((lang) => ({ lang }))
 }
 
 export default async function Layout({
   children,
-  params,
+  params
 }: {
-  children: React.ReactNode;
-  params: Promise<{ lang: string }>;
+  children: React.ReactNode
+  params: Promise<{ lang: string }>
 }) {
-  const { lang } = await params;
-  if (!locales.includes(lang as (typeof locales)[number])) notFound();
-  return <html lang={lang}><body>{children}</body></html>;
+  const { lang } = await params
+  if (!locales.includes(lang as (typeof locales)[number])) notFound()
+  return (
+    <html lang={lang}>
+      <body>{children}</body>
+    </html>
+  )
 }
 ```
 
@@ -65,11 +69,12 @@ export default async function Layout({
 
 ```ts title="app/[lang]/dictionaries.ts"
 const dictionaries = {
-  es: () => import('./dictionaries/es.json').then((m) => m.default),
-  en: () => import('./dictionaries/en.json').then((m) => m.default),
-};
+  es: () => import("./dictionaries/es.json").then((m) => m.default),
+  en: () => import("./dictionaries/en.json").then((m) => m.default)
+}
 
-export const getDictionary = (locale: keyof typeof dictionaries) => dictionaries[locale]();
+export const getDictionary = (locale: keyof typeof dictionaries) =>
+  dictionaries[locale]()
 ```
 
 Al cargar el diccionario en un Server Component, el JSON completo no entra automáticamente al bundle cliente. Pasa a cada isla solo los textos que necesita.

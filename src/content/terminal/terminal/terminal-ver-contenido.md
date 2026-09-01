@@ -5,7 +5,11 @@ type: guides
 order: 4
 tags: [terminal, busqueda, archivos, cli]
 scope: cat / grep / find
-related: [terminal/terminal/terminal-navegacion, terminal/terminal/terminal-archivos-carpetas]
+related:
+  [
+    terminal/terminal/terminal-navegacion,
+    terminal/terminal/terminal-archivos-carpetas
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -13,8 +17,8 @@ Leer un archivo sin abrir un editor o buscar en qué archivo está una función 
 
 ## Mostrar contenido completo
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
+| Acción             | Windows (PowerShell)                            | macOS / Linux     |
+| ------------------ | ----------------------------------------------- | ----------------- |
 | Mostrar un archivo | `Get-Content archivo.txt` (alias `cat`, `type`) | `cat archivo.txt` |
 
 ```powershell title="PowerShell"
@@ -59,11 +63,11 @@ tail -f archivo.log       # seguir el archivo en vivo
 
 `grep` es el estándar en macOS/Linux. En PowerShell el equivalente nativo es `Select-String`; en `cmd.exe` clásico existe `findstr`, más limitado pero disponible sin PowerShell.
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Buscar texto en un archivo | `Select-String "texto" archivo.txt` | `grep "texto" archivo.txt` |
-| Buscar recursivo en una carpeta | `Select-String "texto" -Path * -Recurse` | `grep -r "texto" .` |
-| Buscar ignorando mayúsculas | `Select-String "texto" archivo.txt -CaseSensitive:$false` (por defecto ya ignora) | `grep -i "texto" archivo.txt` |
+| Acción                          | Windows (PowerShell)                                                              | macOS / Linux                 |
+| ------------------------------- | --------------------------------------------------------------------------------- | ----------------------------- |
+| Buscar texto en un archivo      | `Select-String "texto" archivo.txt`                                               | `grep "texto" archivo.txt`    |
+| Buscar recursivo en una carpeta | `Select-String "texto" -Path * -Recurse`                                          | `grep -r "texto" .`           |
+| Buscar ignorando mayúsculas     | `Select-String "texto" archivo.txt -CaseSensitive:$false` (por defecto ya ignora) | `grep -i "texto" archivo.txt` |
 
 ```powershell title="PowerShell"
 Select-String "TODO" -Path *.ts -Recurse
@@ -77,10 +81,10 @@ grep -rn "TODO" --include="*.ts" .
 
 ## Buscar archivos por nombre
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Buscar por nombre, recursivo | `Get-ChildItem -Recurse -Filter "*.md"` | `find . -name "*.md"` |
-| Buscar ejecutable en el PATH | `Get-Command nombre` o `where.exe nombre` | `which nombre` |
+| Acción                       | Windows (PowerShell)                      | macOS / Linux         |
+| ---------------------------- | ----------------------------------------- | --------------------- |
+| Buscar por nombre, recursivo | `Get-ChildItem -Recurse -Filter "*.md"`   | `find . -name "*.md"` |
+| Buscar ejecutable en el PATH | `Get-Command nombre` o `where.exe nombre` | `which nombre`        |
 
 ```powershell title="PowerShell"
 Get-ChildItem -Path . -Recurse -Filter "*.config.js"

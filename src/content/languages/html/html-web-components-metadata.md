@@ -31,7 +31,7 @@ Un custom element debe tener un nombre con guion y puede reaccionar a `connected
 
 ```js
 class UserBadge extends HTMLElement {
-  static observedAttributes = ['name']
+  static observedAttributes = ["name"]
 
   connectedCallback() {
     this.render()
@@ -42,11 +42,11 @@ class UserBadge extends HTMLElement {
   }
 
   render() {
-    this.textContent = this.getAttribute('name') ?? 'Sin nombre'
+    this.textContent = this.getAttribute("name") ?? "Sin nombre"
   }
 }
 
-customElements.define('user-badge', UserBadge)
+customElements.define("user-badge", UserBadge)
 ```
 
 Escapa o asigna texto con `textContent` cuando el valor viene de usuarios. Un custom element no debe asumir que existe `window` si también se usa en SSR.

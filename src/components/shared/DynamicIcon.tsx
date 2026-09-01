@@ -1,4 +1,3 @@
-import type { ComponentType } from "react"
 import {
   Accessibility,
   Activity,
@@ -85,6 +84,7 @@ import {
   Wrench,
   Zap
 } from "lucide-react"
+import type { ComponentType } from "react"
 import { BRAND_ICONS, RECOLORED_ICONS } from "@/config/icons"
 
 type LucideIcon = ComponentType<{
@@ -180,7 +180,13 @@ const LUCIDE: Record<string, LucideIcon> = {
 }
 
 /** Mismo icono que <Icon> de Astro, pero para las islas de React. */
-export function DynamicIcon({ name, className }: { name: string; className?: string }) {
+export function DynamicIcon({
+  name,
+  className
+}: {
+  name: string
+  className?: string
+}) {
   const brand = BRAND_ICONS[name]
   if (brand) {
     return (

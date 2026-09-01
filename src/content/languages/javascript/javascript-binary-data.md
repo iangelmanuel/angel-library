@@ -31,8 +31,8 @@ bytes[0] = 255
 bytes[1] = 16
 
 buffer.byteLength // 4
-bytes.length      // 4 elementos de un byte
-bytes             // Uint8Array [255, 16, 0, 0]
+bytes.length // 4 elementos de un byte
+bytes // Uint8Array [255, 16, 0, 0]
 ```
 
 El buffer es almacenamiento. La vista define cómo interpretar ese almacenamiento. Crear una vista no copia los bytes.
@@ -41,32 +41,32 @@ El buffer es almacenamiento. La vista define cómo interpretar ese almacenamient
 const words = new Uint16Array(buffer)
 
 words.buffer === bytes.buffer // true
-words.byteLength              // 4
-words.length                  // 2 elementos de dos bytes
+words.byteLength // 4
+words.length // 2 elementos de dos bytes
 ```
 
 El resultado numérico de `words[0]` depende del orden de bytes de la plataforma. Para formatos de red o archivos, usa `DataView` y especifica endianness.
 
 ## Elegir una TypedArray
 
-| Vista | Bits por elemento | Rango o uso |
-| --- | ---: | --- |
-| `Int8Array` | 8 | enteros con signo |
-| `Uint8Array` | 8 | bytes; imágenes, red y codificación |
-| `Uint8ClampedArray` | 8 | valores limitados a 0–255; píxeles Canvas |
-| `Int16Array`, `Uint16Array` | 16 | audio PCM y formatos compactos |
-| `Int32Array`, `Uint32Array` | 32 | enteros y buffers de bajo nivel |
-| `BigInt64Array`, `BigUint64Array` | 64 | enteros grandes; devuelve BigInt |
-| `Float16Array` | 16 | valores flotantes compactos cuando el runtime lo soporta |
-| `Float32Array` | 32 | gráficos, audio y modelos numéricos |
-| `Float64Array` | 64 | precisión equivalente a Number |
+| Vista                             | Bits por elemento | Rango o uso                                              |
+| --------------------------------- | ----------------: | -------------------------------------------------------- |
+| `Int8Array`                       |                 8 | enteros con signo                                        |
+| `Uint8Array`                      |                 8 | bytes; imágenes, red y codificación                      |
+| `Uint8ClampedArray`               |                 8 | valores limitados a 0–255; píxeles Canvas                |
+| `Int16Array`, `Uint16Array`       |                16 | audio PCM y formatos compactos                           |
+| `Int32Array`, `Uint32Array`       |                32 | enteros y buffers de bajo nivel                          |
+| `BigInt64Array`, `BigUint64Array` |                64 | enteros grandes; devuelve BigInt                         |
+| `Float16Array`                    |                16 | valores flotantes compactos cuando el runtime lo soporta |
+| `Float32Array`                    |                32 | gráficos, audio y modelos numéricos                      |
+| `Float64Array`                    |                64 | precisión equivalente a Number                           |
 
 Las TypedArrays tienen muchos métodos de Array, pero tamaño fijo. No poseen `push`, `pop` ni `splice`.
 
 ```js
 const samples = new Float32Array([0.25, -0.5, 1])
 
-samples.map(value => value * 2)
+samples.map((value) => value * 2)
 // Float32Array [0.5, -1, 2]
 
 samples.slice(0, 2)
@@ -80,7 +80,7 @@ samples.subarray(0, 2)
 
 ## `DataView` y endianness
 
-**Endianness** es el orden de los bytes que forman un número de varios bytes. Los protocolos definen si el byte más significativo va primero (*big-endian*) o al final (*little-endian*).
+**Endianness** es el orden de los bytes que forman un número de varios bytes. Los protocolos definen si el byte más significativo va primero (_big-endian_) o al final (_little-endian_).
 
 ```js
 const packet = new ArrayBuffer(6)
@@ -90,18 +90,18 @@ view.setUint16(0, 513, false) // big-endian
 view.setUint32(2, 100_000, true) // little-endian
 
 view.getUint16(0, false) // 513
-view.getUint32(2, true)  // 100000
+view.getUint32(2, true) // 100000
 ```
 
-| Método | Bytes | Tipo |
-| --- | ---: | --- |
-| `getInt8`, `getUint8` | 1 | entero |
-| `getInt16`, `getUint16` | 2 | entero |
-| `getInt32`, `getUint32` | 4 | entero |
-| `getBigInt64`, `getBigUint64` | 8 | BigInt |
-| `getFloat16` | 2 | flotante, compatibilidad reciente |
-| `getFloat32` | 4 | flotante |
-| `getFloat64` | 8 | flotante |
+| Método                        | Bytes | Tipo                              |
+| ----------------------------- | ----: | --------------------------------- |
+| `getInt8`, `getUint8`         |     1 | entero                            |
+| `getInt16`, `getUint16`       |     2 | entero                            |
+| `getInt32`, `getUint32`       |     4 | entero                            |
+| `getBigInt64`, `getBigUint64` |     8 | BigInt                            |
+| `getFloat16`                  |     2 | flotante, compatibilidad reciente |
+| `getFloat32`                  |     4 | flotante                          |
+| `getFloat64`                  |     8 | flotante                          |
 
 Los métodos `set...` equivalentes escriben. Valida offsets y tamaño del paquete; un acceso fuera del buffer lanza `RangeError`.
 
@@ -113,7 +113,7 @@ Los métodos `set...` equivalentes escriben. Valida offsets y tamaño del paquet
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
-const encoded = encoder.encode('Hola 👋')
+const encoded = encoder.encode("Hola 👋")
 // Uint8Array con bytes UTF-8
 
 decoder.decode(encoded)
@@ -126,22 +126,22 @@ No conviertas bytes arbitrarios con `String.fromCharCode(...bytes)`: mezcla codi
 
 Base64 y hexadecimal son representaciones textuales de bytes; no son cifrado ni compresión. ECMAScript 2026 incorporó conversiones directas en `Uint8Array`, evitando cadenas intermedias y las limitaciones de `btoa` y `atob` con texto Unicode.
 
-| API | Devuelve | ¿Muta? |
-| --- | --- | --- |
-| `Uint8Array.fromBase64(text, options?)` | `Uint8Array` nuevo | no |
-| `Uint8Array.fromHex(text)` | `Uint8Array` nuevo | no |
-| `bytes.toBase64(options?)` | string | no |
-| `bytes.toHex()` | string | no |
-| `bytes.setFromBase64(text, options?)` | `{ read, written }` | **sí** |
-| `bytes.setFromHex(text)` | `{ read, written }` | **sí** |
+| API                                     | Devuelve            | ¿Muta? |
+| --------------------------------------- | ------------------- | ------ |
+| `Uint8Array.fromBase64(text, options?)` | `Uint8Array` nuevo  | no     |
+| `Uint8Array.fromHex(text)`              | `Uint8Array` nuevo  | no     |
+| `bytes.toBase64(options?)`              | string              | no     |
+| `bytes.toHex()`                         | string              | no     |
+| `bytes.setFromBase64(text, options?)`   | `{ read, written }` | **sí** |
+| `bytes.setFromHex(text)`                | `{ read, written }` | **sí** |
 
 ```js
-const bytes = Uint8Array.fromHex('486f6c61')
+const bytes = Uint8Array.fromHex("486f6c61")
 
 new TextDecoder().decode(bytes) // 'Hola'
-bytes.toBase64()                // 'SG9sYQ=='
+bytes.toBase64() // 'SG9sYQ=='
 
-const restored = Uint8Array.fromBase64('SG9sYQ==')
+const restored = Uint8Array.fromBase64("SG9sYQ==")
 restored.toHex() // '486f6c61'
 ```
 
@@ -156,7 +156,7 @@ const source = new ArrayBuffer(1_024)
 const moved = structuredClone(source, { transfer: [source] })
 
 source.byteLength // 0: fue transferido
-moved.byteLength  // 1024
+moved.byteLength // 1024
 ```
 
 Transferir evita copiar buffers grandes al enviarlos a un worker. No leas el original después. Runtimes modernos también pueden ofrecer buffers redimensionables y métodos `resize` o `transfer`; comprueba compatibilidad antes de diseñar un contrato que dependa de ellos.
@@ -183,7 +183,7 @@ En la Web, `SharedArrayBuffer` suele requerir aislamiento entre orígenes median
 APIs del runtime conectan estos datos con el mundo exterior:
 
 ```js
-const response = await fetch('/image.bin')
+const response = await fetch("/image.bin")
 const buffer = await response.arrayBuffer()
 const bytes = new Uint8Array(buffer)
 
@@ -213,7 +213,7 @@ bytes.at(0) // primer byte
 ```js
 function readHeader(buffer) {
   if (buffer.byteLength < 8) {
-    throw new RangeError('La cabecera necesita al menos 8 bytes')
+    throw new RangeError("La cabecera necesita al menos 8 bytes")
   }
 
   const view = new DataView(buffer)
@@ -221,7 +221,7 @@ function readHeader(buffer) {
   return {
     version: view.getUint8(0),
     flags: view.getUint8(1),
-    payloadLength: view.getUint32(4, false),
+    payloadLength: view.getUint32(4, false)
   }
 }
 

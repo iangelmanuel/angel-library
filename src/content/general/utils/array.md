@@ -31,9 +31,9 @@ export function chunk<T>(array: T[], size: number): T[][] {
 ```
 
 ```ts
-import { chunk } from '@/libs/array';
+import { chunk } from "@/libs/array"
 
-const filas = chunk([1, 2, 3, 4, 5], 2);
+const filas = chunk([1, 2, 3, 4, 5], 2)
 // [[1, 2], [3, 4], [5]]
 ```
 
@@ -57,9 +57,9 @@ export function groupBy<T, K extends PropertyKey>(
 ```
 
 ```ts
-import { groupBy } from '@/libs/array';
+import { groupBy } from "@/libs/array"
 
-const porCategoria = groupBy(entradas, (entrada) => entrada.category);
+const porCategoria = groupBy(entradas, (entrada) => entrada.category)
 // { frontend: [...], backend: [...] }
 ```
 
@@ -76,9 +76,9 @@ export function unique<T>(array: T[]): T[] {
 ```
 
 ```ts
-import { unique } from '@/libs/array';
+import { unique } from "@/libs/array"
 
-const tags = unique(['react', 'astro', 'react']);
+const tags = unique(["react", "astro", "react"])
 // ["react", "astro"]
 ```
 
@@ -99,9 +99,9 @@ export function uniqueBy<T, K>(array: T[], key: (item: T) => K): T[] {
 ```
 
 ```ts
-import { uniqueBy } from '@/libs/array';
+import { uniqueBy } from "@/libs/array"
 
-const usuarios = uniqueBy(resultados, (usuario) => usuario.email);
+const usuarios = uniqueBy(resultados, (usuario) => usuario.email)
 ```
 
 ## Generar
@@ -119,10 +119,10 @@ export function range(start: number, end?: number, step = 1): number[] {
 ```
 
 ```ts
-import { range } from '@/libs/array';
+import { range } from "@/libs/array"
 
-range(5);        // [0, 1, 2, 3, 4]
-range(2, 10, 2);  // [2, 4, 6, 8]
+range(5) // [0, 1, 2, 3, 4]
+range(2, 10, 2) // [2, 4, 6, 8]
 ```
 
 ### `shuffle()` — Orden aleatorio
@@ -141,21 +141,21 @@ export function shuffle<T>(array: T[]): T[] {
 ```
 
 ```ts
-import { shuffle } from '@/libs/array';
+import { shuffle } from "@/libs/array"
 
-const orden = shuffle(preguntas);
+const orden = shuffle(preguntas)
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `chunk()` | Dividir un array en bloques de tamaño fijo |
-| `groupBy()` | Agrupar elementos en un objeto según una clave derivada |
-| `unique()` | Quitar duplicados de valores primitivos |
-| `uniqueBy()` | Quitar duplicados de objetos según una clave derivada |
-| `range()` | Generar una secuencia numérica |
-| `shuffle()` | Devolver una copia del array en orden aleatorio |
+| Función      | Qué hace                                                |
+| ------------ | ------------------------------------------------------- |
+| `chunk()`    | Dividir un array en bloques de tamaño fijo              |
+| `groupBy()`  | Agrupar elementos en un objeto según una clave derivada |
+| `unique()`   | Quitar duplicados de valores primitivos                 |
+| `uniqueBy()` | Quitar duplicados de objetos según una clave derivada   |
+| `range()`    | Generar una secuencia numérica                          |
+| `shuffle()`  | Devolver una copia del array en orden aleatorio         |
 
 ## Consideraciones
 

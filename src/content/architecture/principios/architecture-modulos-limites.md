@@ -26,7 +26,7 @@ orders/
 
 ```ts
 export interface PaymentGateway {
-  charge(input: ChargeInput): Promise<ChargeResult>;
+  charge(input: ChargeInput): Promise<ChargeResult>
 }
 
 export function createCheckout(deps: { payments: PaymentGateway }) {
@@ -51,4 +51,3 @@ Las reglas estables no deberían depender de UI, framework o infraestructura que
 ## Evolución
 
 Empieza con un monolito modular cuando el producto no exige distribución. Separar un servicio agrega red, despliegue, consistencia eventual y observabilidad. Extrae cuando el límite ya existe y hay una razón operativa clara, como escalado independiente, aislamiento o propiedad de equipo.
-

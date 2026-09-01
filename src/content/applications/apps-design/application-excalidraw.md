@@ -44,11 +44,11 @@ El contenido de una sesión colaborativa se cifra de extremo a extremo — el se
 
 ## Guardar y exportar
 
-| Acción | Cómo |
-| --- | --- |
-| Guardar el archivo | `Ctrl/Cmd+S` descarga un `.excalidraw` (JSON) — es el formato nativo, reabrible y editable |
-| Exportar imagen | Menú → Export image → SVG o PNG, con fondo transparente opcional |
-| Copiar como código | Selecciona elementos → clic derecho → **Copy to clipboard as SVG/PNG** |
+| Acción              | Cómo                                                                                                                    |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Guardar el archivo  | `Ctrl/Cmd+S` descarga un `.excalidraw` (JSON) — es el formato nativo, reabrible y editable                              |
+| Exportar imagen     | Menú → Export image → SVG o PNG, con fondo transparente opcional                                                        |
+| Copiar como código  | Selecciona elementos → clic derecho → **Copy to clipboard as SVG/PNG**                                                  |
 | Convertir a Mermaid | Menú → **Mermaid to Excalidraw** hace la conversión inversa: pega un diagrama Mermaid y lo convierte a formas editables |
 
 El `.excalidraw` guardado localmente (o vía `localStorage` del navegador, que es donde vive el lienzo activo si no lo descargas) es el que hay que versionar en un repositorio si el diagrama documenta una decisión de arquitectura — el enlace de una sesión colaborativa no es permanente.

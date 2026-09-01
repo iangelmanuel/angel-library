@@ -27,15 +27,15 @@ Un **operador** combina, transforma o inspecciona valores. Una **expresión** es
 
 Una asignación guarda un valor y también devuelve el valor asignado. Los operadores compuestos leen, calculan y escriben.
 
-| Operador | Equivalencia conceptual | Resultado visible |
-| --- | --- | --- |
-| `x = 5` | asignar `5` | `5` |
-| `x += 2` | `x = x + 2` | nuevo valor de `x` |
-| `x -= 2` | `x = x - 2` | nuevo valor de `x` |
-| `x *= 2` | `x = x * 2` | nuevo valor de `x` |
-| `x /= 2` | `x = x / 2` | nuevo valor de `x` |
-| `x %= 2` | `x = x % 2` | nuevo valor de `x` |
-| `x **= 2` | `x = x ** 2` | nuevo valor de `x` |
+| Operador  | Equivalencia conceptual | Resultado visible  |
+| --------- | ----------------------- | ------------------ |
+| `x = 5`   | asignar `5`             | `5`                |
+| `x += 2`  | `x = x + 2`             | nuevo valor de `x` |
+| `x -= 2`  | `x = x - 2`             | nuevo valor de `x` |
+| `x *= 2`  | `x = x * 2`             | nuevo valor de `x` |
+| `x /= 2`  | `x = x / 2`             | nuevo valor de `x` |
+| `x %= 2`  | `x = x % 2`             | nuevo valor de `x` |
+| `x **= 2` | `x = x ** 2`            | nuevo valor de `x` |
 
 ```js
 let count = 5
@@ -51,69 +51,69 @@ count %= 4 // 1
 let index = 0
 
 const before = index++ // before = 0, index = 1
-const after = ++index  // after = 2, index = 2
+const after = ++index // after = 2, index = 2
 ```
 
 ## Operadores aritméticos
 
-| Operador | Significado | Ejemplo | Resultado |
-| --- | --- | --- | --- |
-| `+` | suma o concatenación | `2 + 3` | `5` |
-| `-` | resta | `7 - 2` | `5` |
-| `*` | multiplicación | `4 * 3` | `12` |
-| `/` | división | `5 / 2` | `2.5` |
-| `%` | residuo | `7 % 3` | `1` |
-| `**` | potencia | `2 ** 3` | `8` |
-| `+value` | conversión numérica | `+'42'` | `42` |
-| `-value` | negación numérica | `-'4'` | `-4` |
+| Operador | Significado          | Ejemplo  | Resultado |
+| -------- | -------------------- | -------- | --------- |
+| `+`      | suma o concatenación | `2 + 3`  | `5`       |
+| `-`      | resta                | `7 - 2`  | `5`       |
+| `*`      | multiplicación       | `4 * 3`  | `12`      |
+| `/`      | división             | `5 / 2`  | `2.5`     |
+| `%`      | residuo              | `7 % 3`  | `1`       |
+| `**`     | potencia             | `2 ** 3` | `8`       |
+| `+value` | conversión numérica  | `+'42'`  | `42`      |
+| `-value` | negación numérica    | `-'4'`   | `-4`      |
 
 `+` es especial porque concatena si uno de sus operandos se convierte a string:
 
 ```js
-1 + 2       // 3
-'1' + 2     // '12'
-1 + '2'     // '12'
-1 + 2 + '3' // '33'
-'1' + 2 + 3 // '123'
+1 + 2 // 3
+"1" + 2 // '12'
+1 + "2" // '12'
+1 + 2 + "3" // '33'
+"1" + 2 + 3 // '123'
 ```
 
 Cuando una entrada debe ser numérica, conviértela y valídala antes de operar.
 
 ```js
-const rawQuantity = '4'
+const rawQuantity = "4"
 const quantity = Number(rawQuantity)
 
 if (!Number.isFinite(quantity)) {
-  throw new TypeError('La cantidad debe ser numérica')
+  throw new TypeError("La cantidad debe ser numérica")
 }
 ```
 
 ## Igualdad y comparación
 
-| Operación | Coerción | Diferencia importante |
-| --- | --- | --- |
-| `a === b` | no | comparación habitual |
-| `a !== b` | no | desigualdad habitual |
-| `a == b` | sí | aplica reglas de conversión difíciles de recordar |
-| `Object.is(a, b)` | no | `NaN` igual a sí mismo y distingue `0` de `-0` |
-| `a < b`, `a > b` | depende de tipos | compara números o texto por unidades UTF-16 |
+| Operación         | Coerción         | Diferencia importante                             |
+| ----------------- | ---------------- | ------------------------------------------------- |
+| `a === b`         | no               | comparación habitual                              |
+| `a !== b`         | no               | desigualdad habitual                              |
+| `a == b`          | sí               | aplica reglas de conversión difíciles de recordar |
+| `Object.is(a, b)` | no               | `NaN` igual a sí mismo y distingue `0` de `-0`    |
+| `a < b`, `a > b`  | depende de tipos | compara números o texto por unidades UTF-16       |
 
 ```js
-5 === '5'            // false
-5 == '5'             // true
-Object.is(NaN, NaN)  // true
-NaN === NaN          // false
-Object.is(0, -0)     // false
-0 === -0             // true
+5 === "5" // false
+5 == "5" // true
+Object.is(NaN, NaN) // true
+NaN === NaN // false
+Object.is(0, -0) // false
+0 === -0 // true
 ```
 
 Los objetos se comparan por identidad, no por contenido:
 
 ```js
-({ id: 1 }) === ({ id: 1 }) // false
+;({ id: 1 }) === { id: 1 } // false
 
 const user = { id: 1 }
-user === user             // true
+user === user // true
 ```
 
 Para texto de usuario usa `Intl.Collator` o `localeCompare`; `<` no entiende reglas lingüísticas.
@@ -123,17 +123,17 @@ Para texto de usuario usa `Intl.Collator` o `localeCompare`; `<` no entiende reg
 `&&`, `||` y `??` devuelven operandos, no booleanos obligatoriamente. También aplican cortocircuito.
 
 ```js
-true && 'visible'       // 'visible'
-0 && runTask()          // 0; runTask no se ejecuta
-'' || 'Sin nombre'      // 'Sin nombre'
-0 ?? 10                 // 0
-null ?? 10              // 10
+true && "visible" // 'visible'
+0 && runTask() // 0; runTask no se ejecuta
+"" || "Sin nombre" // 'Sin nombre'
+0 ?? 10 // 0
+null ?? 10 // 10
 ```
 
 El operador ternario elige un valor:
 
 ```js
-const access = isAdmin ? 'total' : 'limitado'
+const access = isAdmin ? "total" : "limitado"
 ```
 
 Úsalo para una decisión breve. Varias condiciones ternarias anidadas suelen ser más claras como `if`, un mapa o una función con retornos tempranos.
@@ -141,21 +141,21 @@ const access = isAdmin ? 'total' : 'limitado'
 ## Acceso a propiedades y claves dinámicas
 
 ```js
-const field = 'email'
-const user = { email: 'ana@example.com' }
+const field = "email"
+const user = { email: "ana@example.com" }
 
-user.email       // 'ana@example.com'
-user[field]      // 'ana@example.com'
-user['email']    // 'ana@example.com'
-user.field       // undefined: busca literalmente "field"
+user.email // 'ana@example.com'
+user[field] // 'ana@example.com'
+user["email"] // 'ana@example.com'
+user.field // undefined: busca literalmente "field"
 ```
 
 La expresión dentro de `[]` se evalúa. Esto permite construir una clave o usar otra variable:
 
 ```js
-const section = 'profile'
-const property = 'name'
-const data = { profile: { name: 'Ana' } }
+const section = "profile"
+const property = "name"
+const data = { profile: { name: "Ana" } }
 
 data[section][property] // 'Ana'
 ```
@@ -163,28 +163,28 @@ data[section][property] // 'Ana'
 Usa optional chaining si una parte es realmente opcional:
 
 ```js
-data.settings?.[property] ?? 'Sin configurar'
+data.settings?.[property] ?? "Sin configurar"
 // 'Sin configurar'
 ```
 
 ## Operadores de inspección
 
-| Operador | Devuelve | Uso |
-| --- | --- | --- |
-| `typeof value` | string con categoría de tipo | primitivos y funciones |
-| `key in object` | booleano | propiedad propia o heredada |
-| `value instanceof Constructor` | booleano | cadena de prototypes |
-| `delete object.key` | booleano | eliminar una propiedad configurable |
-| `void expression` | `undefined` | ignorar deliberadamente un resultado |
+| Operador                       | Devuelve                     | Uso                                  |
+| ------------------------------ | ---------------------------- | ------------------------------------ |
+| `typeof value`                 | string con categoría de tipo | primitivos y funciones               |
+| `key in object`                | booleano                     | propiedad propia o heredada          |
+| `value instanceof Constructor` | booleano                     | cadena de prototypes                 |
+| `delete object.key`            | booleano                     | eliminar una propiedad configurable  |
+| `void expression`              | `undefined`                  | ignorar deliberadamente un resultado |
 
 ```js
-typeof (() => {})              // 'function'
-'toString' in {}               // true: propiedad heredada
-new Date() instanceof Date     // true
+typeof (() => {}) // 'function'
+"toString" in {} // true: propiedad heredada
+new Date() instanceof Date // true
 
 const draft = { temporary: true }
-delete draft.temporary         // true
-draft                           // {}
+delete draft.temporary // true
+draft // {}
 ```
 
 `instanceof` puede fallar entre realms distintos, como iframes, y puede personalizarse. Para arrays usa `Array.isArray`; para datos externos valida estructura.
@@ -205,7 +205,8 @@ La Promise sigue ejecutándose. `void` no captura el rechazo; por eso el ejemplo
 const base = [1, 2]
 const copy = [...base, 3] // spread → [1, 2, 3]
 
-function sum(...numbers) { // rest → reúne argumentos
+function sum(...numbers) {
+  // rest → reúne argumentos
   return numbers.reduce((total, number) => total + number, 0)
 }
 
@@ -215,7 +216,7 @@ sum(...copy) // spread en la llamada → 6
 En objetos, spread copia propiedades propias enumerables de forma superficial:
 
 ```js
-const defaults = { theme: 'dark', compact: false }
+const defaults = { theme: "dark", compact: false }
 const settings = { ...defaults, compact: true }
 
 settings // { theme: 'dark', compact: true }
@@ -227,22 +228,20 @@ El orden importa: la última propiedad con la misma clave gana.
 
 Los operadores bitwise convierten a enteros de 32 bits, salvo los operadores de `BigInt`. Son útiles para flags, protocolos y gráficos; no son una alternativa general a la lógica booleana.
 
-| Operador | Nombre | Ejemplo | Resultado |
-| --- | --- | --- | --- |
-| `&` | AND | `6 & 3` | `2` |
-| `|` | OR | `6 | 3` | `7` |
-| `^` | XOR | `6 ^ 3` | `5` |
-| `~` | NOT | `~5` | `-6` |
-| `<<` | desplazamiento izquierdo | `3 << 1` | `6` |
-| `>>` | derecho con signo | `-8 >> 1` | `-4` |
-| `>>>` | derecho sin signo | `-1 >>> 0` | `4294967295` |
+| Operador | Nombre                   | Ejemplo    | Resultado    |
+| -------- | ------------------------ | ---------- | ------------ |
+| `&`      | AND                      | `6 & 3`    | `2`          |
+| `        | `                        | OR         | `6           | 3`  | `7` |
+| `^`      | XOR                      | `6 ^ 3`    | `5`          |
+| `~`      | NOT                      | `~5`       | `-6`         |
+| `<<`     | desplazamiento izquierdo | `3 << 1`   | `6`          |
+| `>>`     | derecho con signo        | `-8 >> 1`  | `-4`         |
+| `>>>`    | derecho sin signo        | `-1 >>> 0` | `4294967295` |
 
 ```js
 const READ = 0b001
 const WRITE = 0b010
-const permissions = READ | WRITE
-
-(permissions & WRITE) === WRITE // true
+const permissions = READ | (WRITE(permissions & WRITE) === WRITE) // true
 ```
 
 ## Precedencia: no memorices una tabla completa
@@ -250,8 +249,11 @@ const permissions = READ | WRITE
 La multiplicación ocurre antes que la suma, y `&&` antes que `||`, pero una expresión larga obliga a recordar demasiadas reglas.
 
 ```js
-2 + 3 * 4       // 14
-(2 + 3) * 4     // 20
+2 +
+  3 *
+    4 // 14
+    (2 + 3) *
+    4 // 20
 
 const canEdit = isOwner || (isEditor && !isLocked)
 ```
@@ -281,14 +283,14 @@ function normalizePreferences(input = {}) {
   const volume = Number(input.volume ?? 50)
 
   return {
-    theme: input.theme ?? 'system',
+    theme: input.theme ?? "system",
     volume: Number.isFinite(volume) ? volume : 50,
     autoplay: input.autoplay ?? false,
-    label: input.label || 'Sin nombre',
+    label: input.label || "Sin nombre"
   }
 }
 
-normalizePreferences({ volume: 0, autoplay: false, label: '' })
+normalizePreferences({ volume: 0, autoplay: false, label: "" })
 // { theme: 'system', volume: 0, autoplay: false, label: 'Sin nombre' }
 ```
 

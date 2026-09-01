@@ -22,12 +22,12 @@ DNS/TLS → edge → cola → aplicación → base de datos / API externa
 
 Para un endpoint objetivo de 300 ms, asigna presupuestos aproximados y registra spans:
 
-| Paso | Presupuesto ejemplo |
-| --- | ---: |
-| Autenticación y routing | 20 ms |
-| Consulta principal | 100 ms |
-| Dependencia externa | 100 ms |
-| Serialización y margen | 80 ms |
+| Paso                    | Presupuesto ejemplo |
+| ----------------------- | ------------------: |
+| Autenticación y routing |               20 ms |
+| Consulta principal      |              100 ms |
+| Dependencia externa     |              100 ms |
+| Serialización y margen  |               80 ms |
 
 Los percentiles importan más que el promedio. `p95` significa que 95 % de observaciones son iguales o menores; el 5 % restante puede concentrar la experiencia problemática.
 
@@ -48,11 +48,11 @@ Una prueba de carga debe aumentar tráfico gradualmente, conservar tasa de error
 ```ts
 // N+1
 for (const order of orders) {
-  order.user = await users.findById(order.userId);
+  order.user = await users.findById(order.userId)
 }
 
 // Preferible: batch o join según el caso.
-const usersById = await users.findManyById(uniqueUserIds);
+const usersById = await users.findManyById(uniqueUserIds)
 ```
 
 ## Dependencias externas
@@ -78,4 +78,3 @@ cambio: batch de usuarios
 resultado: 2 queries, p95 420 → 170 ms
 control: test que limita consultas del caso
 ```
-

@@ -82,6 +82,7 @@ Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 
 ### Markdown pipeline
 
 `astro.config.mjs` wires Shiki (`tokyo-night`) with:
+
 - `src/markdown/package-manager.mjs` translates install commands and expands them into pnpm/Bun/npm variants.
 - `src/markdown/code-blocks.mjs` preserves fence metadata, groups those variants and wraps each `<pre>` in `.code-block` with its header and copy button. The copy button carries **no inline JS**; a single delegated `click` listener in `src/scripts/site-interactions.ts` handles `[data-copy]` globally.
 - `src/markdown/external-links.mjs` adds safe external-link attributes.

@@ -13,23 +13,23 @@ Devolver una tabla completa en un solo `GET /posts` funciona con 20 filas y se v
 ## Paginación offset-based (la más simple)
 
 ```ts
-app.get('/posts', async (req, res) => {
-  const page = Number(req.query.page ?? 1);
-  const limit = Number(req.query.limit ?? 20);
+app.get("/posts", async (req, res) => {
+  const page = Number(req.query.page ?? 1)
+  const limit = Number(req.query.limit ?? 20)
 
   const [posts, total] = await Promise.all([
     prisma.post.findMany({
       skip: (page - 1) * limit,
-      take: limit,
+      take: limit
     }),
-    prisma.post.count(),
-  ]);
+    prisma.post.count()
+  ])
 
   res.json({
     data: posts,
-    pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
-  });
-});
+    pagination: { page, limit, total, totalPages: Math.ceil(total / limit) }
+  })
+})
 ```
 
 Simple de implementar y de consumir (`?page=2&limit=20`), pero tiene un problema real con tablas grandes: `skip` en una base de datos generalmente sigue leyendo (y descartando) todas las filas anteriores — página 10.000 es notablemente más lenta que página 1.
@@ -39,20 +39,21 @@ Simple de implementar y de consumir (`?page=2&limit=20`), pero tiene un problema
 En vez de "saltate N filas", el cliente manda el id del último elemento visto, y el servidor pide "todo lo que viene después de ese id":
 
 ```ts
-app.get('/posts', async (req, res) => {
-  const limit = Number(req.query.limit ?? 20);
-  const cursor = req.query.cursor as string | undefined;
+app.get("/posts", async (req, res) => {
+  const limit = Number(req.query.limit ?? 20)
+  const cursor = req.query.cursor as string | undefined
 
   const posts = await prisma.post.findMany({
     take: limit,
     ...(cursor && { cursor: { id: cursor }, skip: 1 }), // skip: 1 para no repetir el cursor mismo
-    orderBy: { id: 'asc' },
-  });
+    orderBy: { id: "asc" }
+  })
 
-  const siguienteCursor = posts.length === limit ? posts[posts.length - 1].id : null;
+  const siguienteCursor =
+    posts.length === limit ? posts[posts.length - 1].id : null
 
-  res.json({ data: posts, nextCursor: siguienteCursor });
-});
+  res.json({ data: posts, nextCursor: siguienteCursor })
+})
 ```
 
 No permite "saltar a la página 50" directamente (no hay concepto de página, solo "seguir desde aquí") — a cambio, el rendimiento es constante sin importar cuán profundo se pagine. Es el patrón típico de feeds infinitos (scroll infinito), donde no hace falta números de página.
@@ -60,18 +61,18 @@ No permite "saltar a la página 50" directamente (no hay concepto de página, so
 ## Filtrado por query params
 
 ```ts
-app.get('/posts', async (req, res) => {
-  const { published, authorId } = req.query;
+app.get("/posts", async (req, res) => {
+  const { published, authorId } = req.query
 
   const posts = await prisma.post.findMany({
     where: {
-      ...(published !== undefined && { published: published === 'true' }),
-      ...(authorId && { authorId: authorId as string }),
-    },
-  });
+      ...(published !== undefined && { published: published === "true" }),
+      ...(authorId && { authorId: authorId as string })
+    }
+  })
 
-  res.json(posts);
-});
+  res.json(posts)
+})
 ```
 
 Cada filtro es opcional — el spread condicional (`...(condicion && {...})`) agrega la clave al `where` solo si el query param vino, en vez de armar el objeto con `if`s por fuera.
@@ -79,22 +80,22 @@ Cada filtro es opcional — el spread condicional (`...(condicion && {...})`) ag
 ## Búsqueda de texto
 
 ```ts
-app.get('/posts', async (req, res) => {
-  const { q } = req.query; // término de búsqueda
+app.get("/posts", async (req, res) => {
+  const { q } = req.query // término de búsqueda
 
   const posts = await prisma.post.findMany({
     where: q
       ? {
           OR: [
-            { title: { contains: q as string, mode: 'insensitive' } },
-            { content: { contains: q as string, mode: 'insensitive' } },
-          ],
+            { title: { contains: q as string, mode: "insensitive" } },
+            { content: { contains: q as string, mode: "insensitive" } }
+          ]
         }
-      : undefined,
-  });
+      : undefined
+  })
 
-  res.json(posts);
-});
+  res.json(posts)
+})
 ```
 
 `mode: 'insensitive'` evita que la búsqueda dependa de mayúsculas/minúsculas exactas. Para búsqueda de texto más seria (relevancia, typos, múltiples idiomas), Postgres tiene full-text search nativo, o herramientas dedicadas (Algolia, Meilisearch, Elasticsearch) — `contains` alcanza para búsqueda simple, no para un buscador serio.
@@ -102,35 +103,35 @@ app.get('/posts', async (req, res) => {
 ## Combinar todo
 
 ```ts
-app.get('/posts', async (req, res) => {
-  const page = Number(req.query.page ?? 1);
-  const limit = Number(req.query.limit ?? 20);
-  const { published, q } = req.query;
+app.get("/posts", async (req, res) => {
+  const page = Number(req.query.page ?? 1)
+  const limit = Number(req.query.limit ?? 20)
+  const { published, q } = req.query
 
   const where = {
-    ...(published !== undefined && { published: published === 'true' }),
-    ...(q && { title: { contains: q as string, mode: 'insensitive' as const } }),
-  };
+    ...(published !== undefined && { published: published === "true" }),
+    ...(q && { title: { contains: q as string, mode: "insensitive" as const } })
+  }
 
   const [posts, total] = await Promise.all([
     prisma.post.findMany({ where, skip: (page - 1) * limit, take: limit }),
-    prisma.post.count({ where }),
-  ]);
+    prisma.post.count({ where })
+  ])
 
-  res.json({ data: posts, pagination: { page, limit, total } });
-});
+  res.json({ data: posts, pagination: { page, limit, total } })
+})
 ```
 
 `where` se calcula una vez y se reusa tanto en `findMany` como en `count` — sin esto, el total contaría todos los registros en vez de solo los que matchean los filtros.
 
 ## Comparación de paginación
 
-| Patrón | Cuándo usarlo |
-| --- | --- |
-| Offset (`page`/`limit`) | La mayoría de los casos — simple, permite saltar a cualquier página |
-| Cursor (`cursor`/`nextCursor`) | Tablas grandes, feeds infinitos, performance constante |
-| Filtros vía query params | Cada filtro opcional, se combina con `where` condicional |
-| Búsqueda con `contains` | Búsqueda simple; para algo serio, un motor de búsqueda dedicado |
+| Patrón                         | Cuándo usarlo                                                       |
+| ------------------------------ | ------------------------------------------------------------------- |
+| Offset (`page`/`limit`)        | La mayoría de los casos — simple, permite saltar a cualquier página |
+| Cursor (`cursor`/`nextCursor`) | Tablas grandes, feeds infinitos, performance constante              |
+| Filtros vía query params       | Cada filtro opcional, se combina con `where` condicional            |
+| Búsqueda con `contains`        | Búsqueda simple; para algo serio, un motor de búsqueda dedicado     |
 
 ## Límites, índices y orden estable
 

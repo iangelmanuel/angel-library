@@ -43,9 +43,9 @@ updatedAt: 2026-08-17
 
 ## Resumen
 
-| Config | Qué hace |
-| --- | --- |
-| `instructions: ["archivo.md"]` | Carga ese archivo siempre |
+| Config                                   | Qué hace                                 |
+| ---------------------------------------- | ---------------------------------------- |
+| `instructions: ["archivo.md"]`           | Carga ese archivo siempre                |
 | `instructions: ["packages/*/AGENTS.md"]` | Carga instrucciones específicas por glob |
 
 ## Consideraciones

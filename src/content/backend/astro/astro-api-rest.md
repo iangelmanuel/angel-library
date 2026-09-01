@@ -16,63 +16,83 @@ Las convenciones — qué verbo HTTP usar, cómo paginar/filtrar, el formato de 
 ## Un recurso completo
 
 ```ts title="src/pages/api/posts.ts"
-import type { APIRoute } from 'astro';
-import { z } from 'zod';
-import { postsRepository } from '../../repositories/posts.repository';
+import type { APIRoute } from "astro"
+import { z } from "zod"
+import { postsRepository } from "../../repositories/posts.repository"
 
 export const GET: APIRoute = async ({ url }) => {
-  const page = Number(url.searchParams.get('page') ?? 1);
-  const limit = Number(url.searchParams.get('limit') ?? 20);
+  const page = Number(url.searchParams.get("page") ?? 1)
+  const limit = Number(url.searchParams.get("limit") ?? 20)
 
-  const { data, total } = await postsRepository.findPaginated({ page, limit });
+  const { data, total } = await postsRepository.findPaginated({ page, limit })
 
-  return new Response(JSON.stringify({ data, pagination: { page, limit, total } }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
-};
+  return new Response(
+    JSON.stringify({ data, pagination: { page, limit, total } }),
+    {
+      headers: { "Content-Type": "application/json" }
+    }
+  )
+}
 
-const crearPostSchema = z.object({ title: z.string().min(1) });
+const crearPostSchema = z.object({ title: z.string().min(1) })
 
 export const POST: APIRoute = async ({ request, locals }) => {
   if (!locals.user) {
-    return new Response(JSON.stringify({ error: { code: 'NO_AUTENTICADO' } }), { status: 401 });
+    return new Response(JSON.stringify({ error: { code: "NO_AUTENTICADO" } }), {
+      status: 401
+    })
   }
 
-  const body = await request.json();
-  const resultado = crearPostSchema.safeParse(body);
+  const body = await request.json()
+  const resultado = crearPostSchema.safeParse(body)
 
   if (!resultado.success) {
     return new Response(
-      JSON.stringify({ error: { code: 'VALIDATION_ERROR', fields: resultado.error.flatten().fieldErrors } }),
-      { status: 400 },
-    );
+      JSON.stringify({
+        error: {
+          code: "VALIDATION_ERROR",
+          fields: resultado.error.flatten().fieldErrors
+        }
+      }),
+      { status: 400 }
+    )
   }
 
-  const post = await postsRepository.create({ ...resultado.data, authorId: locals.user.id });
-  return new Response(JSON.stringify(post), { status: 201, headers: { 'Content-Type': 'application/json' } });
-};
+  const post = await postsRepository.create({
+    ...resultado.data,
+    authorId: locals.user.id
+  })
+  return new Response(JSON.stringify(post), {
+    status: 201,
+    headers: { "Content-Type": "application/json" }
+  })
+}
 ```
 
 ## Ruta dinámica: `/api/posts/[id]`
 
 ```ts title="src/pages/api/posts/[id].ts"
-import type { APIRoute } from 'astro';
-import { postsRepository } from '../../../repositories/posts.repository';
+import type { APIRoute } from "astro"
+import { postsRepository } from "../../../repositories/posts.repository"
 
 export const GET: APIRoute = async ({ params }) => {
-  const post = await postsRepository.findById(params.id!);
+  const post = await postsRepository.findById(params.id!)
 
   if (!post) {
-    return new Response(JSON.stringify({ error: { code: 'NO_ENCONTRADO' } }), { status: 404 });
+    return new Response(JSON.stringify({ error: { code: "NO_ENCONTRADO" } }), {
+      status: 404
+    })
   }
 
-  return new Response(JSON.stringify(post), { headers: { 'Content-Type': 'application/json' } });
-};
+  return new Response(JSON.stringify(post), {
+    headers: { "Content-Type": "application/json" }
+  })
+}
 
 export const DELETE: APIRoute = async ({ params }) => {
-  await postsRepository.delete(params.id!);
-  return new Response(null, { status: 204 });
-};
+  await postsRepository.delete(params.id!)
+  return new Response(null, { status: 204 })
+}
 ```
 
 `[id].ts` es la misma convención de rutas dinámicas que Astro usa para páginas — un endpoint no es conceptualmente distinto, solo exporta funciones de verbo HTTP en vez de un componente.
@@ -83,12 +103,12 @@ Express permite `app.get(ruta, mw1, mw2, handler)` — una cadena de middlewares
 
 ## Equivalencias HTTP en Astro
 
-| Concepto | Dónde ya está documentado |
-| --- | --- |
-| Verbos HTTP, status codes correctos | [REST y CRUD](/backend/express/express-rest-crud) |
-| Paginación/filtrado | [Paginación, filtrado y búsqueda](/backend/express/express-api-paginacion) |
-| Formato de respuesta de error | [Diseño de respuestas de error](/backend/express/express-api-error-responses) |
-| Sintaxis de rutas/params de Astro | [Endpoints (API routes)](/frontend/astro/astro-endpoints) |
+| Concepto                            | Dónde ya está documentado                                                     |
+| ----------------------------------- | ----------------------------------------------------------------------------- |
+| Verbos HTTP, status codes correctos | [REST y CRUD](/backend/express/express-rest-crud)                             |
+| Paginación/filtrado                 | [Paginación, filtrado y búsqueda](/backend/express/express-api-paginacion)    |
+| Formato de respuesta de error       | [Diseño de respuestas de error](/backend/express/express-api-error-responses) |
+| Sintaxis de rutas/params de Astro   | [Endpoints (API routes)](/frontend/astro/astro-endpoints)                     |
 
 ## Protección y consistencia del contrato
 

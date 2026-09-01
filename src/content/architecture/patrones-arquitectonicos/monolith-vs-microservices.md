@@ -5,7 +5,11 @@ type: patterns
 order: 7
 tags: [arquitectura, patrones-arquitectonicos, monolito, microservicios]
 problem: Elegir microservicios por default, asumiendo que es "lo moderno", suma complejidad real antes de que exista un problema que la justifique.
-related: [architecture/patrones-arquitectonicos/layered-architecture, architecture/patrones-arquitectonicos/event-driven]
+related:
+  [
+    architecture/patrones-arquitectonicos/layered-architecture,
+    architecture/patrones-arquitectonicos/event-driven
+  ]
 updatedAt: 2026-08-17
 ---
 

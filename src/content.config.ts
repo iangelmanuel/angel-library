@@ -1,7 +1,8 @@
-import { defineCollection } from "astro:content"
 import { glob } from "astro/loaders"
 import { z } from "astro/zod"
-import { RESOURCE_CATEGORY_IDS, type ContentTypeId } from "./config/site"
+import { defineCollection } from "astro:content"
+import type { ContentTypeId } from "./config/content-types"
+import { RESOURCE_CATEGORY_IDS } from "./config/resources"
 
 /**
  * Esquema del contenido: una sola colección, una rama por `type`.
@@ -9,7 +10,9 @@ import { RESOURCE_CATEGORY_IDS, type ContentTypeId } from "./config/site"
  */
 
 /** Ids de otras entradas. */
-const refs = z.array(z.string().regex(/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/)).default([])
+const refs = z
+  .array(z.string().regex(/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/))
+  .default([])
 
 const baseFields = {
   title: z.string(),

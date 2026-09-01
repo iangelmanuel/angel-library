@@ -18,35 +18,50 @@ Un `<form action={serverAction}>` envía `FormData` a una Server Action. Funcion
 ## Action con validación
 
 ```ts title="app/usuarios/actions.ts"
-'use server';
-import { z } from 'zod';
+"use server"
 
-const schema = z.object({ email: z.email(), nombre: z.string().trim().min(2) });
+import { z } from "zod"
+
+const schema = z.object({ email: z.email(), nombre: z.string().trim().min(2) })
 
 export async function crearUsuario(_prev: unknown, formData: FormData) {
-  const parsed = schema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, errors: parsed.error.flatten().fieldErrors };
-  await db.user.create({ data: parsed.data });
-  return { ok: true, errors: {} };
+  const parsed = schema.safeParse(Object.fromEntries(formData))
+  if (!parsed.success)
+    return { ok: false, errors: parsed.error.flatten().fieldErrors }
+  await db.user.create({ data: parsed.data })
+  return { ok: true, errors: {} }
 }
 ```
 
 ## Mostrar errores y estado pendiente
 
 ```tsx title="app/usuarios/Formulario.tsx"
-'use client';
-import { useActionState } from 'react';
-import { crearUsuario } from './actions';
+"use client"
+
+import { useActionState } from "react"
+import { crearUsuario } from "./actions"
 
 export function Formulario() {
-  const [state, action, pending] = useActionState(crearUsuario, { ok: false, errors: {} });
-  return <form action={action}>
-    <input name="nombre" required />
-    <p>{state.errors.nombre?.[0]}</p>
-    <input name="email" type="email" required />
-    <p>{state.errors.email?.[0]}</p>
-    <button disabled={pending}>{pending ? 'Guardando…' : 'Guardar'}</button>
-  </form>;
+  const [state, action, pending] = useActionState(crearUsuario, {
+    ok: false,
+    errors: {}
+  })
+  return (
+    <form action={action}>
+      <input
+        name="nombre"
+        required
+      />
+      <p>{state.errors.nombre?.[0]}</p>
+      <input
+        name="email"
+        type="email"
+        required
+      />
+      <p>{state.errors.email?.[0]}</p>
+      <button disabled={pending}>{pending ? "Guardando…" : "Guardar"}</button>
+    </form>
+  )
 }
 ```
 

@@ -15,13 +15,17 @@ Un `layout.tsx` envuelve `page.tsx` y todo lo que haya debajo en su carpeta — 
 ## Lo básico
 
 ```tsx title="app/dashboard/layout.tsx"
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <section>
       <Sidebar />
       {children}
     </section>
-  );
+  )
 }
 ```
 
@@ -30,12 +34,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 `app/layout.tsx` es especial: es el único lugar donde van las etiquetas `<html>` y `<body>`. Toda la app necesita exactamente uno (salvo que uses múltiples layouts raíz con route groups, ver abajo).
 
 ```tsx title="app/layout.tsx"
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="es">
       <body>{children}</body>
     </html>
-  );
+  )
 }
 ```
 
@@ -79,7 +87,9 @@ app/
 Como no se vuelve a renderizar en cada navegación, un layout no tiene acceso confiable a `searchParams` ni a la ruta actual, pues quedarían obsoletos al navegar. Para ello, extrae esa parte a un Client Component con [`usePathname`](/frontend/nextjs/nextjs-usepathname) o [`useSearchParams`](/frontend/nextjs/nextjs-usesearchparams) e impórtalo en el layout.
 
 ```tsx title="app/dashboard/layout.tsx"
-import { Breadcrumbs } from '@/app/ui/breadcrumbs'; // Client Component con usePathname
+import { Breadcrumbs } from "@/app/ui/breadcrumbs"
+
+// Client Component con usePathname
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -87,19 +97,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Breadcrumbs />
       <main>{children}</main>
     </>
-  );
+  )
 }
 ```
 
 ## Archivos de composición en una mirada
 
-| Concepto | Qué es |
-| --- | --- |
-| `layout.tsx` | UI compartida, no se remonta al navegar entre páginas hijas |
-| Layout raíz (`app/layout.tsx`) | Obligatorio, define `<html>`/`<body>` |
-| Layouts anidados | Uno por carpeta, se envuelven en cascada |
-| Route group `(nombre)` | Agrupa/organiza rutas sin afectar la URL, puede tener su propio layout raíz |
-| `template.tsx` | Como un layout, pero SÍ se remonta en cada navegación (poco común, casos con animación de entrada por página) |
+| Concepto                       | Qué es                                                                                                        |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `layout.tsx`                   | UI compartida, no se remonta al navegar entre páginas hijas                                                   |
+| Layout raíz (`app/layout.tsx`) | Obligatorio, define `<html>`/`<body>`                                                                         |
+| Layouts anidados               | Uno por carpeta, se envuelven en cascada                                                                      |
+| Route group `(nombre)`         | Agrupa/organiza rutas sin afectar la URL, puede tener su propio layout raíz                                   |
+| `template.tsx`                 | Como un layout, pero SÍ se remonta en cada navegación (poco común, casos con animación de entrada por página) |
 
 ## Persistencia y límites de layouts
 

@@ -19,31 +19,32 @@ npm install cookie-parser
 ```
 
 ```ts
-import cookieParser from 'cookie-parser';
-app.use(cookieParser());
+import cookieParser from "cookie-parser"
 
-app.post('/login', async (req, res) => {
+app.use(cookieParser())
+
+app.post("/login", async (req, res) => {
   // ... verificar credenciales ...
-  const token = firmarToken({ sub: usuario.id, rol: usuario.rol });
+  const token = firmarToken({ sub: usuario.id, rol: usuario.rol })
 
-  res.cookie('token', token, {
-    httpOnly: true,   // JavaScript del navegador NO puede leer esta cookie (protege contra XSS)
-    secure: true,      // solo se manda por HTTPS
-    sameSite: 'lax',   // limita cuándo se manda en requests cross-site (protege contra CSRF)
-    maxAge: 60 * 60 * 1000, // 1 hora, en ms
-  });
+  res.cookie("token", token, {
+    httpOnly: true, // JavaScript del navegador NO puede leer esta cookie (protege contra XSS)
+    secure: true, // solo se manda por HTTPS
+    sameSite: "lax", // limita cuándo se manda en requests cross-site (protege contra CSRF)
+    maxAge: 60 * 60 * 1000 // 1 hora, en ms
+  })
 
-  res.json({ ok: true });
-});
+  res.json({ ok: true })
+})
 ```
 
 ```ts
 // Leer el token en requests siguientes
-app.get('/perfil', (req, res) => {
-  const token = req.cookies.token;
-  const payload = verificarToken(token);
-  res.json({ userId: payload.sub });
-});
+app.get("/perfil", (req, res) => {
+  const token = req.cookies.token
+  const payload = verificarToken(token)
+  res.json({ userId: payload.sub })
+})
 ```
 
 `httpOnly: true` es la razón principal para preferir cookie sobre `localStorage`: un JWT en `localStorage` es legible por **cualquier** script que corra en la página (incluyendo uno inyectado por un XSS) — una cookie httpOnly no, el navegador la manda automáticamente pero JavaScript no puede tocarla.
@@ -57,47 +58,48 @@ npm install express-session
 ```
 
 ```ts
-import session from 'express-session';
+import session from "express-session"
 
 app.use(
   session({
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 },
-  }),
-);
+    cookie: { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 }
+  })
+)
 
-app.post('/login', async (req, res) => {
+app.post("/login", async (req, res) => {
   // ... verificar credenciales ...
-  req.session.userId = usuario.id; // Express guarda esto server-side, la cookie solo tiene el id de sesión
-  res.json({ ok: true });
-});
+  req.session.userId = usuario.id // Express guarda esto server-side, la cookie solo tiene el id de sesión
+  res.json({ ok: true })
+})
 
-app.get('/perfil', (req, res) => {
-  if (!req.session.userId) return res.status(401).json({ error: 'No autenticado' });
-  res.json({ userId: req.session.userId });
-});
+app.get("/perfil", (req, res) => {
+  if (!req.session.userId)
+    return res.status(401).json({ error: "No autenticado" })
+  res.json({ userId: req.session.userId })
+})
 ```
 
 ## La diferencia real: revocación
 
-| | JWT (autocontenido) | Sesión server-side |
-| --- | --- | --- |
-| Verificar | Sin tocar la base — solo la firma | Consulta al store de sesiones (Redis/DB) en cada request |
-| Cerrar sesión antes de que expire | No es directo (ver nota en [JWT](/backend/express/express-jwt)) | Trivial — borrar esa sesión del store |
-| Escala horizontal | Sin estado compartido — cualquier instancia del servidor puede verificarlo | Necesita un store compartido (Redis) entre instancias |
+|                                   | JWT (autocontenido)                                                        | Sesión server-side                                       |
+| --------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------- |
+| Verificar                         | Sin tocar la base — solo la firma                                          | Consulta al store de sesiones (Redis/DB) en cada request |
+| Cerrar sesión antes de que expire | No es directo (ver nota en [JWT](/backend/express/express-jwt))            | Trivial — borrar esa sesión del store                    |
+| Escala horizontal                 | Sin estado compartido — cualquier instancia del servidor puede verificarlo | Necesita un store compartido (Redis) entre instancias    |
 
 No hay una respuesta universalmente "mejor" — JWT gana en no depender de un store centralizado; sesión server-side gana en poder revocar acceso inmediatamente (crítico para "cerrar sesión en todos los dispositivos", o banear una cuenta al instante).
 
 ## Comparación de modelos
 
-| Cookie option | Qué hace |
-| --- | --- |
-| `httpOnly: true` | JavaScript del navegador no puede leer la cookie (protege contra XSS) |
-| `secure: true` | Solo se manda por HTTPS |
-| `sameSite: 'lax' \| 'strict'` | Limita cuándo se manda en requests cross-site (protege contra CSRF) |
-| `maxAge` | Cuánto dura antes de expirar, en ms |
+| Cookie option                 | Qué hace                                                              |
+| ----------------------------- | --------------------------------------------------------------------- |
+| `httpOnly: true`              | JavaScript del navegador no puede leer la cookie (protege contra XSS) |
+| `secure: true`                | Solo se manda por HTTPS                                               |
+| `sameSite: 'lax' \| 'strict'` | Limita cuándo se manda en requests cross-site (protege contra CSRF)   |
+| `maxAge`                      | Cuánto dura antes de expirar, en ms                                   |
 
 ## Elegir transporte y revocación
 

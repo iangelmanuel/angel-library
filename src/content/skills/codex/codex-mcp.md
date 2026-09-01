@@ -25,10 +25,10 @@ auth = "oauth"
 
 ## Servidor local (stdio) vs remoto
 
-| Tipo | Campos |
-| --- | --- |
-| Local | `command`, `args`, `cwd`, `env`, `startup_timeout_sec`, `tool_timeout_sec` |
-| Remoto | `url`, `bearer_token_env_var`, `http_headers`, `auth = "oauth"`, `scopes` |
+| Tipo   | Campos                                                                     |
+| ------ | -------------------------------------------------------------------------- |
+| Local  | `command`, `args`, `cwd`, `env`, `startup_timeout_sec`, `tool_timeout_sec` |
+| Remoto | `url`, `bearer_token_env_var`, `http_headers`, `auth = "oauth"`, `scopes`  |
 
 ## Control fino por tool
 
@@ -45,11 +45,11 @@ Nivel de detalle que ninguna de las otras 3 herramientas documentadas aquí ofre
 
 ## Resumen
 
-| Campo | Para qué |
-| --- | --- |
-| `[mcp_servers.<id>]` | Un servidor, local o remoto según los campos |
+| Campo                              | Para qué                                         |
+| ---------------------------------- | ------------------------------------------------ |
+| `[mcp_servers.<id>]`               | Un servidor, local o remoto según los campos     |
 | `enabled_tools` / `disabled_tools` | Filtrar qué tools del servidor están disponibles |
-| `[mcp_servers.<id>.tools.<tool>]` | Override de aprobación por tool individual |
+| `[mcp_servers.<id>.tools.<tool>]`  | Override de aprobación por tool individual       |
 
 ## Consideraciones
 

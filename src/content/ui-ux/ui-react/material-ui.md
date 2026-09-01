@@ -24,13 +24,13 @@ npm install @fontsource/roboto @mui/icons-material
 Theming opcional con `ThemeProvider`:
 
 ```tsx title="main.tsx"
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from "@mui/material/styles"
 
-const theme = createTheme({ palette: { mode: 'dark' } });
+const theme = createTheme({ palette: { mode: "dark" } })
 
-<ThemeProvider theme={theme}>
+;<ThemeProvider theme={theme}>
   <App />
-</ThemeProvider>;
+</ThemeProvider>
 ```
 
 ## Tips

@@ -42,15 +42,15 @@ turso auth login --headless
 
 ## Comandos esenciales
 
-| Comando | Qué hace |
-|---|---|
-| `turso db create <nombre>` | Crea una base de datos nueva (sin nombre, genera uno) |
-| `turso db list` | Lista las bases de datos de la cuenta u organización actual |
-| `turso db shell <nombre>` | Abre un shell SQL interactivo contra la base indicada |
-| `turso db show <nombre>` | Muestra nombre, ID, versión, grupo, tamaño y ubicación |
-| `turso db show <nombre> --url` | Muestra la URL de conexión (`libsql://...`) |
-| `turso db tokens create <nombre>` | Genera un token de acceso para conectarse a esa base |
-| `turso db destroy <nombre>` | Elimina la base de datos |
+| Comando                           | Qué hace                                                    |
+| --------------------------------- | ----------------------------------------------------------- |
+| `turso db create <nombre>`        | Crea una base de datos nueva (sin nombre, genera uno)       |
+| `turso db list`                   | Lista las bases de datos de la cuenta u organización actual |
+| `turso db shell <nombre>`         | Abre un shell SQL interactivo contra la base indicada       |
+| `turso db show <nombre>`          | Muestra nombre, ID, versión, grupo, tamaño y ubicación      |
+| `turso db show <nombre> --url`    | Muestra la URL de conexión (`libsql://...`)                 |
+| `turso db tokens create <nombre>` | Genera un token de acceso para conectarse a esa base        |
+| `turso db destroy <nombre>`       | Elimina la base de datos                                    |
 
 ## Flujo típico: crear una base y conectarse desde la app
 
@@ -70,6 +70,6 @@ Con esos dos valores (`TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN`) cualquier clien
 
 ## Consideraciones
 
-- El token que genera `turso auth login` es de **sesión del CLI** y expira a los 7 días — no confundirlo con los tokens que genera `turso db tokens create`, que son para que la *aplicación* se conecte a una base puntual y pueden no expirar nunca (`--expiration never`).
+- El token que genera `turso auth login` es de **sesión del CLI** y expira a los 7 días — no confundirlo con los tokens que genera `turso db tokens create`, que son para que la _aplicación_ se conecte a una base puntual y pueden no expirar nunca (`--expiration never`).
 - Al no haber build nativo de Windows, cualquier flujo en Windows pasa por WSL — vale la pena instalar Turso ahí desde el arranque si el resto del proyecto ya vive en WSL.
 - `turso db shell <nombre>` sirve tanto para exploración interactiva como para correr una query puntual: `turso db shell <nombre> "select * from users limit 5"`.

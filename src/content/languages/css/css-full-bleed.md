@@ -26,8 +26,14 @@ Si aparece scroll horizontal por el ancho de la scrollbar, prefiere unidades din
   grid-template-columns: 1fr min(65ch, calc(100% - 2rem)) 1fr;
 }
 
-.page > * { grid-column: 2; }
-.page > .full-bleed { grid-column: 1 / -1; width: auto; margin: 0; }
+.page > * {
+  grid-column: 2;
+}
+.page > .full-bleed {
+  grid-column: 1 / -1;
+  width: auto;
+  margin: 0;
+}
 ```
 
 El patrón con Grid es más robusto cuando controlas el layout padre; el truco con `100vw` sirve para contenido Markdown donde solo puedes agregar una clase al bloque puntual.

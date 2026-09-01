@@ -15,12 +15,12 @@ Una API expone objetos y acciones directamente. Autenticar a la persona no demue
 
 ## BOLA y BFLA
 
-**BOLA** (*Broken Object Level Authorization*) ocurre cuando se cambia un identificador y el servidor devuelve un recurso ajeno. **BFLA** (*Broken Function Level Authorization*) permite ejecutar una función reservada.
+**BOLA** (_Broken Object Level Authorization_) ocurre cuando se cambia un identificador y el servidor devuelve un recurso ajeno. **BFLA** (_Broken Function Level Authorization_) permite ejecutar una función reservada.
 
 ```ts
-const invoice = await invoices.findById(params.id);
+const invoice = await invoices.findById(params.id)
 if (!invoice || invoice.accountId !== auth.accountId) {
-  throw new NotFoundError();
+  throw new NotFoundError()
 }
 ```
 
@@ -31,11 +31,11 @@ La consulta puede incorporar el alcance: `WHERE id = $1 AND account_id = $2`. Ap
 No pases el cuerpo completo al ORM:
 
 ```ts
-const input = UpdateProfile.parse(request.body);
+const input = UpdateProfile.parse(request.body)
 await users.update(auth.userId, {
   displayName: input.displayName,
-  timezone: input.timezone,
-});
+  timezone: input.timezone
+})
 ```
 
 Una lista permitida impide que aparezcan campos como `role`, `balance` o `accountId` por asignación masiva.
@@ -46,7 +46,7 @@ Limita tamaño de body, profundidad JSON, filas, rango de fechas, concurrencia, 
 
 ## SSRF
 
-**SSRF** (*Server-Side Request Forgery*) sucede cuando el servidor realiza una solicitud a una URL controlada por el atacante y puede alcanzar red interna, metadata cloud o servicios privilegiados.
+**SSRF** (_Server-Side Request Forgery_) sucede cuando el servidor realiza una solicitud a una URL controlada por el atacante y puede alcanzar red interna, metadata cloud o servicios privilegiados.
 
 - Prefiere identificadores sobre URLs libres.
 - Mantén allowlists de esquema, host y puerto.
@@ -63,4 +63,3 @@ Valida sus respuestas como datos no confiables, aplica timeout y no sigas redire
 
 - [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
 - [OWASP: SSRF](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery)
-

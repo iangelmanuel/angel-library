@@ -51,10 +51,10 @@ El segundo comando solo se ejecuta si el primero termina correctamente. Una pipe
 `Ctrl+C` envía una interrupción. Un servidor debe manejar el cierre para dejar de aceptar tráfico, terminar solicitudes, cerrar conexiones y salir dentro del límite del orquestador.
 
 ```ts
-process.on('SIGTERM', async () => {
-  server.close();
-  await database.end();
-});
+process.on("SIGTERM", async () => {
+  server.close()
+  await database.end()
+})
 ```
 
 No mates un proceso por PID sin comprobar qué ejecutable y usuario representa; los identificadores pueden reutilizarse.

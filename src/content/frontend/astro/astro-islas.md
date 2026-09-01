@@ -8,7 +8,7 @@ scope: astro (directivas client:)
 updatedAt: 2026-08-25
 ---
 
-Esta es la idea central de Astro, la que explica todo lo demás: por defecto, un componente de framework (`.tsx`, `.vue`, `.svelte`) dentro de un `.astro` se renderiza a HTML estático en build — cero JS enviado al navegador, aunque el componente esté escrito en React. Una directiva `client:*` es la única forma de decir "esto sí necesita JavaScript en el cliente", y además decide *cuándo* se hidrata, no solo *si*. Sin ninguna directiva, el componente es puro HTML; con una, se convierte en una "isla": un fragmento interactivo que hidrata de forma aislada, sin arrastrar al resto de la página.
+Esta es la idea central de Astro, la que explica todo lo demás: por defecto, un componente de framework (`.tsx`, `.vue`, `.svelte`) dentro de un `.astro` se renderiza a HTML estático en build — cero JS enviado al navegador, aunque el componente esté escrito en React. Una directiva `client:*` es la única forma de decir "esto sí necesita JavaScript en el cliente", y además decide _cuándo_ se hidrata, no solo _si_. Sin ninguna directiva, el componente es puro HTML; con una, se convierte en una "isla": un fragmento interactivo que hidrata de forma aislada, sin arrastrar al resto de la página.
 
 ## `client:load` — Inmediato
 
@@ -33,7 +33,7 @@ Usa `IntersectionObserver`: hidrata recién cuando el componente entra en el vie
 
 ```astro
 <HeavyImageCarousel client:visible />
-<HeavyImageCarousel client:visible={{ rootMargin: '200px' }} />
+<HeavyImageCarousel client:visible={{ rootMargin: "200px" }} />
 ```
 
 ## `client:media` — Según un media query
@@ -56,14 +56,14 @@ Este mismo sitio usa `client:only="react"` para el `CommandPalette`, justamente 
 
 ## Directivas `client:*` en una mirada
 
-| Directiva | Cuándo hidrata |
-| --- | --- |
-| `client:load` | Inmediatamente al cargar la página |
-| `client:idle` | Cuando el navegador está libre (`requestIdleCallback`) |
-| `client:visible` | Al entrar en el viewport (`IntersectionObserver`) |
-| `client:media="query"` | Cuando la media query coincide |
-| `client:only="framework"` | Nunca en servidor, solo en cliente |
-| (sin directiva) | Nunca — HTML estático, cero JS |
+| Directiva                 | Cuándo hidrata                                         |
+| ------------------------- | ------------------------------------------------------ |
+| `client:load`             | Inmediatamente al cargar la página                     |
+| `client:idle`             | Cuando el navegador está libre (`requestIdleCallback`) |
+| `client:visible`          | Al entrar en el viewport (`IntersectionObserver`)      |
+| `client:media="query"`    | Cuando la media query coincide                         |
+| `client:only="framework"` | Nunca en servidor, solo en cliente                     |
+| (sin directiva)           | Nunca — HTML estático, cero JS                         |
 
 ## Presupuesto de JavaScript e hidratación
 

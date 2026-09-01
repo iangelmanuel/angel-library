@@ -35,13 +35,13 @@ Eres un revisor de código senior. Al invocarte:
 
 ## Campos de frontmatter
 
-| Campo | Para qué |
-| --- | --- |
-| `name` | Requerido — así se invoca (`@code-reviewer`) |
-| `description` | Requerido — Claude lo usa para delegar automáticamente sin que lo pidas |
-| `tools` | Qué herramientas puede usar (sin esto, hereda todas) |
-| `model` | `sonnet` / `opus` / `haiku` / `inherit` (el mismo que la sesión principal) |
-| `permissionMode` | Nivel de permisos del subagente |
+| Campo            | Para qué                                                                   |
+| ---------------- | -------------------------------------------------------------------------- |
+| `name`           | Requerido — así se invoca (`@code-reviewer`)                               |
+| `description`    | Requerido — Claude lo usa para delegar automáticamente sin que lo pidas    |
+| `tools`          | Qué herramientas puede usar (sin esto, hereda todas)                       |
+| `model`          | `sonnet` / `opus` / `haiku` / `inherit` (el mismo que la sesión principal) |
+| `permissionMode` | Nivel de permisos del subagente                                            |
 
 ## Invocar
 
@@ -53,9 +53,9 @@ O dejar que Claude lo delegue solo cuando la tarea matchea la `description`.
 
 ## Resumen
 
-| Ubicación | Alcance |
-| --- | --- |
-| `.claude/agents/` | Proyecto |
+| Ubicación           | Alcance  |
+| ------------------- | -------- |
+| `.claude/agents/`   | Proyecto |
 | `~/.claude/agents/` | Personal |
 
 ## Consideraciones

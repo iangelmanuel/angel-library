@@ -29,10 +29,10 @@ Report each finding with file, line, and a concrete fix suggestion. Don't apply 
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
+| Dónde       | Archivo                              |
+| ----------- | ------------------------------------ |
 | Claude Code | `.claude/commands/security-audit.md` |
-| Cursor | `.cursor/commands/security-audit.md` |
+| Cursor      | `.cursor/commands/security-audit.md` |
 
 ## Consideraciones
 

@@ -31,11 +31,11 @@ Eso significa que la gestión del foco, la navegación por teclado, los roles AR
 
 Los dos se copian al proyecto y usan Tailwind. La diferencia está en la base:
 
-| | Untitled UI React | [shadcn/ui](/ui-ux/ui-react/shadcn-ui) |
-| --- | --- | --- |
-| Primitivas | React Aria (Adobe) | Radix UI |
-| Alcance | Componentes, secciones y plantillas de página | Componentes |
-| Modelo | Abierto con capa PRO de pago | Todo abierto |
+|            | Untitled UI React                             | [shadcn/ui](/ui-ux/ui-react/shadcn-ui) |
+| ---------- | --------------------------------------------- | -------------------------------------- |
+| Primitivas | React Aria (Adobe)                            | Radix UI                               |
+| Alcance    | Componentes, secciones y plantillas de página | Componentes                            |
+| Modelo     | Abierto con capa PRO de pago                  | Todo abierto                           |
 
 Ninguna es mejor: si ya usas Radix en el proyecto, mezclar dos librerías de primitivas añade peso sin ganancia.
 

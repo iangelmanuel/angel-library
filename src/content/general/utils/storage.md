@@ -21,8 +21,8 @@ Comprueba si el almacenamiento indicado está disponible escribiendo y borrando 
 ```ts title="lib/storage.ts"
 export function isStorageAvailable(storage: Storage): boolean {
   try {
-    const testKey = '__storage_test__'
-    storage.setItem(testKey, '1')
+    const testKey = "__storage_test__"
+    storage.setItem(testKey, "1")
     storage.removeItem(testKey)
     return true
   } catch {
@@ -32,7 +32,7 @@ export function isStorageAvailable(storage: Storage): boolean {
 ```
 
 ```ts
-import { isStorageAvailable } from '@/libs/storage';
+import { isStorageAvailable } from "@/libs/storage"
 
 if (isStorageAvailable(localStorage)) {
   // guardar preferencias del usuario
@@ -46,7 +46,11 @@ if (isStorageAvailable(localStorage)) {
 Lee una clave, la parsea como JSON y la tipa según el genérico `T`. Si la clave no existe o el valor guardado no es JSON válido, retorna `fallback` en vez de lanzar. El tercer argumento permite elegir `sessionStorage` en vez de `localStorage`.
 
 ```ts title="lib/storage.ts"
-export function getStorageItem<T>(key: string, fallback: T, storage: Storage = localStorage): T {
+export function getStorageItem<T>(
+  key: string,
+  fallback: T,
+  storage: Storage = localStorage
+): T {
   try {
     const raw = storage.getItem(key)
     return raw === null ? fallback : (JSON.parse(raw) as T)
@@ -57,13 +61,13 @@ export function getStorageItem<T>(key: string, fallback: T, storage: Storage = l
 ```
 
 ```ts
-import { getStorageItem } from '@/libs/storage';
+import { getStorageItem } from "@/libs/storage"
 
 interface Preferencias {
-  tema: 'claro' | 'oscuro';
+  tema: "claro" | "oscuro"
 }
 
-const prefs = getStorageItem<Preferencias>('preferencias', { tema: 'oscuro' });
+const prefs = getStorageItem<Preferencias>("preferencias", { tema: "oscuro" })
 ```
 
 ### `setStorageItem()` — Guardar serializado
@@ -71,7 +75,11 @@ const prefs = getStorageItem<Preferencias>('preferencias', { tema: 'oscuro' });
 Serializa el valor con `JSON.stringify` y lo guarda. Si falla (cuota excedida, storage no disponible), no lanza: falla en silencio, ya que guardar una preferencia nunca debería romper el flujo principal de la página.
 
 ```ts title="lib/storage.ts"
-export function setStorageItem<T>(key: string, value: T, storage: Storage = localStorage): void {
+export function setStorageItem<T>(
+  key: string,
+  value: T,
+  storage: Storage = localStorage
+): void {
   try {
     storage.setItem(key, JSON.stringify(value))
   } catch {}
@@ -79,9 +87,9 @@ export function setStorageItem<T>(key: string, value: T, storage: Storage = loca
 ```
 
 ```ts
-import { setStorageItem } from '@/libs/storage';
+import { setStorageItem } from "@/libs/storage"
 
-setStorageItem('preferencias', { tema: 'claro' });
+setStorageItem("preferencias", { tema: "claro" })
 ```
 
 ### `removeStorageItem()` — Eliminar una clave
@@ -89,25 +97,28 @@ setStorageItem('preferencias', { tema: 'claro' });
 Elimina una clave del storage indicado. Es un alias directo de `storage.removeItem()`, incluido para no mezclar imports de `@/libs/storage` con llamadas directas a la API nativa.
 
 ```ts title="lib/storage.ts"
-export function removeStorageItem(key: string, storage: Storage = localStorage): void {
+export function removeStorageItem(
+  key: string,
+  storage: Storage = localStorage
+): void {
   storage.removeItem(key)
 }
 ```
 
 ```ts
-import { removeStorageItem } from '@/libs/storage';
+import { removeStorageItem } from "@/libs/storage"
 
-removeStorageItem('preferencias');
+removeStorageItem("preferencias")
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `isStorageAvailable()` | Detectar si el storage se puede usar |
-| `getStorageItem()` | Leer y parsear una clave, con fallback tipado |
-| `setStorageItem()` | Serializar y guardar un valor |
-| `removeStorageItem()` | Eliminar una clave |
+| Función                | Qué hace                                      |
+| ---------------------- | --------------------------------------------- |
+| `isStorageAvailable()` | Detectar si el storage se puede usar          |
+| `getStorageItem()`     | Leer y parsear una clave, con fallback tipado |
+| `setStorageItem()`     | Serializar y guardar un valor                 |
+| `removeStorageItem()`  | Eliminar una clave                            |
 
 ## Consideraciones
 

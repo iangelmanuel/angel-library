@@ -67,10 +67,10 @@ Complementa a los [tags](/git/git/git-tags): el tag marca el commit, el Release 
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `gh repo create <nombre> --public/--private` | Crea un repo nuevo en GitHub |
-| `gh repo clone usuario/repo` | Clona un repo existente |
-| `gh repo fork usuario/repo --clone` | Fork + clone en un paso |
-| `gh repo view --web` | Abre el repo actual en el navegador |
-| `gh release create <tag>` | Crea un Release a partir de un tag |
+| Comando                                      | Qué hace                            |
+| -------------------------------------------- | ----------------------------------- |
+| `gh repo create <nombre> --public/--private` | Crea un repo nuevo en GitHub        |
+| `gh repo clone usuario/repo`                 | Clona un repo existente             |
+| `gh repo fork usuario/repo --clone`          | Fork + clone en un paso             |
+| `gh repo view --web`                         | Abre el repo actual en el navegador |
+| `gh release create <tag>`                    | Crea un Release a partir de un tag  |

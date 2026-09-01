@@ -2,12 +2,24 @@
 title: Configuración inicial de Astro
 description: Paso a paso privado para iniciar un proyecto Astro con metadatos, configuración base, GitHub Actions, aliases, Tailwind, Prettier, ESLint, SITE, SEO y archivos de repositorio.
 type: commands
-tags: [astro, configuración, setup, tailwind, typescript, prettier, eslint, github-actions, seo, privado]
+tags:
+  [
+    astro,
+    configuración,
+    setup,
+    tailwind,
+    typescript,
+    prettier,
+    eslint,
+    github-actions,
+    seo,
+    privado
+  ]
 command: /myastro
 whenToUse: Ejecuta /myastro en la terminal interna cuando quieras iniciar un proyecto Astro con esta configuración.
 warnings:
   - "Esta entrada es privada y solo se abre mediante el comando /myastro en la terminal de búsqueda."
-  - "Reemplaza los nombres, URLs, datos de marca y contenido de Acme antes de publicar."
+  - "Completa únicamente los datos reales del proyecto y conserva en null los campos que no apliquen."
 private: true
 related:
   - frontend/astro/astro-getting-started
@@ -38,24 +50,24 @@ layout, componentes, assets y la organización inicial de Astro. Es la base
 adecuada para este flujo; `minimal` es una plantilla vacía pensada para empezar
 prácticamente desde cero.
 
-~~~bash
+```bash
 pnpm create astro@latest mi-proyecto --template basics
-~~~
+```
 
 En el asistente selecciona:
 
-| Pregunta | Selección |
-| --- | --- |
-| Instalar dependencias | Sí |
-| Inicializar repositorio Git | Sí |
-| TypeScript | Strict |
-| Plantilla | Basics: estructura inicial recomendada |
+| Pregunta                    | Selección                              |
+| --------------------------- | -------------------------------------- |
+| Instalar dependencias       | Sí                                     |
+| Inicializar repositorio Git | Sí                                     |
+| TypeScript                  | Strict                                 |
+| Plantilla                   | Basics: estructura inicial recomendada |
 
 Entra al directorio creado:
 
-~~~bash
+```bash
 cd mi-proyecto
-~~~
+```
 
 A partir de este punto todos los archivos de la receta se crean dentro de esa
 carpeta. No vuelvas a ejecutar la instalación inicial ni mezcles pnpm-lock.yaml,
@@ -69,7 +81,7 @@ Dejar package.json como la ficha técnica del repositorio. El instalador de Astr
 ya añadió las dependencias; aquí se completan identidad, enlaces, compatibilidad
 y scripts.
 
-~~~json title="package.json"
+```json title="package.json"
 {
   "name": "mi-proyecto-astro",
   "type": "module",
@@ -79,12 +91,7 @@ y scripts.
   "license": "...",
   "packageManager": "pnpm@...",
   "homepage": "https://github.com/usuario/mi-proyecto-astro",
-  "keywords": [
-    "astro",
-    "typescript",
-    "tailwindcss",
-    "web-development"
-  ],
+  "keywords": ["astro", "typescript", "tailwindcss", "web-development"],
   "author": {
     "name": "Tu nombre",
     "email": "tu@correo.com",
@@ -114,7 +121,7 @@ y scripts.
     "prettier:check": "prettier . --check"
   }
 }
-~~~
+```
 
 Los `"..."` (`license`, `packageManager`, `engines`) dependen del proyecto y del
 gestor elegido — reemplázalos antes de continuar, no dejes el literal `"..."`
@@ -136,7 +143,7 @@ paralelo —son independientes entre sí, así que no hay razón para serializar
 y `build` espera a que los tres pasen. Es el paso más lento; no vale la pena
 pagarlo sobre código que ya se sabe roto por tipos o lint.
 
-~~~yaml title=".github/workflows/ci.yml"
+```yaml title=".github/workflows/ci.yml"
 name: CI
 
 on:
@@ -187,15 +194,15 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm build
-~~~
+```
 
-| Clave | Qué hace |
-| --- | --- |
-| `strategy.matrix.task` | Crea un job por verificación; los tres arrancan a la vez |
-| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos — perderías la visibilidad de si además tenías errores de ESLint o de formato |
-| `pnpm sync` | Genera los tipos de Astro en `.astro/` antes de `check`, que los necesita |
-| `needs: quality` | `build` espera a que los tres terminen en verde; si uno falla, se salta |
-| `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista |
+| Clave                     | Qué hace                                                                                                                                |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `strategy.matrix.task`    | Crea un job por verificación; los tres arrancan a la vez                                                                                |
+| `fail-fast: false`        | Sin esto, el primer job que falla cancela a los otros dos — perderías la visibilidad de si además tenías errores de ESLint o de formato |
+| `pnpm sync`               | Genera los tipos de Astro en `.astro/` antes de `check`, que los necesita                                                               |
+| `needs: quality`          | `build` espera a que los tres terminen en verde; si uno falla, se salta                                                                 |
+| `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista                                     |
 
 `--frozen-lockfile` hace fallar el job si el lockfile no coincide con
 `package.json`, en vez de resolver versiones nuevas silenciosamente en CI —
@@ -228,7 +235,7 @@ Definir primero las decisiones propias del framework: dominio canónico, modo de
 salida, barras finales y compresión. Tailwind todavía no aparece porque se instala
 en un paso posterior.
 
-~~~js title="astro.config.mjs"
+```js title="astro.config.mjs"
 import { defineConfig } from "astro/config"
 
 export default defineConfig({
@@ -237,14 +244,14 @@ export default defineConfig({
   trailingSlash: "never",
   compressHTML: true
 })
-~~~
+```
 
-| Opción | Qué controla |
-| --- | --- |
-| site | Origen absoluto usado para canonical, sitemap y URLs sociales |
-| output | static genera HTML durante el build |
-| trailingSlash | Evita publicar dos formas de una misma URL |
-| compressHTML | Reduce el HTML generado |
+| Opción        | Qué controla                                                  |
+| ------------- | ------------------------------------------------------------- |
+| site          | Origen absoluto usado para canonical, sitemap y URLs sociales |
+| output        | static genera HTML durante el build                           |
+| trailingSlash | Evita publicar dos formas de una misma URL                    |
+| compressHTML  | Reduce el HTML generado                                       |
 
 Reemplaza example.com por el dominio definitivo. Si todavía no existe, usa el
 dominio previsto y corrígelo antes de desplegar. base solo se agrega cuando el
@@ -262,13 +269,13 @@ renderizado bajo demanda también se conoce como SSR (Server-Side Rendering).
 Usa el comando de integraciones de Astro. Este instala el adaptador y registra
 su importación en la configuración:
 
-~~~bash
+```bash
 pnpm astro add vercel
-~~~
+```
 
 Después revisa la configuración resultante y conserva las decisiones de la base:
 
-~~~js title="astro.config.mjs"
+```js title="astro.config.mjs"
 import { defineConfig } from "astro/config"
 import vercel from "@astrojs/vercel"
 
@@ -279,7 +286,7 @@ export default defineConfig({
   trailingSlash: "never",
   compressHTML: true
 })
-~~~
+```
 
 Mantén `output: "static"` como valor inicial. Cuando necesites que las rutas se
 rendericen bajo demanda por defecto, cambia ese valor a `"server"`; el comentario
@@ -288,7 +295,7 @@ junto a la propiedad sirve como recordatorio dentro de la configuración.
 Si solamente una ruta necesita servidor, conserva `output: "static"` y opta esa
 ruta al renderizado bajo demanda:
 
-~~~astro title="src/pages/cuenta.astro"
+```astro title="src/pages/cuenta.astro"
 ---
 export const prerender = false
 
@@ -296,7 +303,7 @@ const session = Astro.cookies.get("session")
 ---
 
 <h1>Cuenta privada</h1>
-~~~
+```
 
 El adaptador aporta el runtime de servidor. `prerender = false` afecta solo esa
 ruta; `output: "server"` cambia el valor predeterminado de todo el proyecto. No
@@ -310,7 +317,7 @@ en el servidor.
 Hacer que @/ apunte a src/ antes de utilizar ese alias en layouts, estilos o
 componentes SEO.
 
-~~~json title="tsconfig.json"
+```json title="tsconfig.json"
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
@@ -322,13 +329,13 @@ componentes SEO.
     }
   }
 }
-~~~
+```
 
 Comprueba el alias con un import pequeño:
 
-~~~ts
+```ts
 import { SITE } from "@/config/site"
-~~~
+```
 
 No añadas jsxImportSource ni configuración de React mientras el proyecto no use
 React. Si más adelante agregas un framework de interfaz, su integración puede
@@ -342,15 +349,15 @@ Instalar Tailwind CSS 4 con el comando oficial de integraciones, conectarlo con
 Vite y crear el stylesheet global. Ahora sí puede usarse @/ porque el alias ya
 existe.
 
-~~~bash
+```bash
 pnpm astro add tailwind
-~~~
+```
 
 El comando instala `tailwindcss` y `@tailwindcss/vite` y modifica
 `astro.config.mjs`. Revisa el resultado conservando la configuración base del
 paso 4:
 
-~~~js title="astro.config.mjs"
+```js title="astro.config.mjs"
 import { defineConfig } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
 
@@ -363,17 +370,17 @@ export default defineConfig({
     plugins: [tailwindcss()]
   }
 })
-~~~
+```
 
 Crea el archivo global:
 
-~~~css title="src/styles/global.css"
+```css title="src/styles/global.css"
 @import "tailwindcss";
-~~~
+```
 
 Impórtalo una sola vez en el layout raíz:
 
-~~~astro title="src/layouts/Layout.astro"
+```astro title="src/layouts/Layout.astro"
 ---
 import "@/styles/global.css"
 ---
@@ -381,14 +388,17 @@ import "@/styles/global.css"
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
     <slot name="head" />
   </head>
   <body>
     <slot />
   </body>
 </html>
-~~~
+```
 
 No necesitas tailwind.config.js para esta configuración de Tailwind 4. Añádelo
 solo si una capacidad concreta del proyecto lo exige.
@@ -400,13 +410,13 @@ solo si una capacidad concreta del proyecto lo exige.
 Instalar el formateador, el soporte de Astro, el orden real de imports, el orden
 de clases de Tailwind y las herramientas necesarias para ejecutar `astro check`.
 
-~~~bash
+```bash
 pnpm add -D prettier prettier-plugin-astro @trivago/prettier-plugin-sort-imports prettier-plugin-tailwindcss @astrojs/check typescript
-~~~
+```
 
 Crea .prettierrc en la raíz con la configuración definida para este proyecto:
 
-~~~json title=".prettierrc"
+```json title=".prettierrc"
 {
   "arrowParens": "always",
   "bracketSameLine": false,
@@ -445,7 +455,7 @@ Crea .prettierrc en la raíz con la configuración definida para este proyecto:
   "importOrderSortSpecifiers": true,
   "tailwindStylesheet": "..."
 }
-~~~
+```
 
 El orden resultante es Astro, paquetes externos, tipos internos, alias, imports
 relativos y estilos. `@trivago/prettier-plugin-sort-imports` hace efectivas las
@@ -457,7 +467,7 @@ paso 7 (`./src/styles/global.css`).
 
 Crea también el archivo de exclusiones:
 
-~~~text title=".prettierignore"
+```text title=".prettierignore"
 .astro
 .vercel
 build
@@ -468,7 +478,7 @@ bun.lock
 bun.lockb
 package-lock.json
 pnpm-lock.yaml
-~~~
+```
 
 `.astro`, `.vercel`, `dist` y `node_modules` contienen archivos generados. Los
 lockfiles no deben reformatearse y solo debe existir el correspondiente al
@@ -476,14 +486,14 @@ gestor elegido.
 
 Confirma que `package.json` ya tiene los scripts para ejecutar Prettier (paso 2):
 
-~~~json title="package.json (scripts)"
+```json title="package.json (scripts)"
 {
   "scripts": {
     "prettier": "prettier --write .",
     "prettier:check": "prettier . --check"
   }
 }
-~~~
+```
 
 `prettier` reescribe los archivos; `prettier:check` solo falla si algo no está
 formateado, útil para CI.
@@ -500,12 +510,11 @@ Prettier decide cómo se ve el código; ESLint decide qué código es correcto.
 Al momento de escribir esto, `typescript-eslint` todavía no soporta
 TypeScript 7 — instalarlo tal cual (`pnpm add -D typescript`, sin versión)
 puede traer un TypeScript 7.x y romper `astro check`/`eslint` con errores que
-no tienen que ver con tu código. Revisa `typescript` en `package.json` (paso
-8) y, si hace falta, fíjalo explícitamente:
+no tienen que ver con tu código. Revisa `typescript` en `package.json` (paso 8) y, si hace falta, fíjalo explícitamente:
 
-~~~bash
+```bash
 pnpm add -D typescript@^6
-~~~
+```
 
 Antes de escribir un `tsconfig.json` nuevo o actualizar `typescript-eslint`,
 confirma en la documentación oficial de `typescript-eslint` si ya soporta
@@ -520,16 +529,16 @@ correr `pnpm install` después dejará el lockfile desincronizado, y
 `pnpm install --frozen-lockfile` (paso 3) fallará en CI aunque en local todo
 funcione.
 
-~~~bash
+```bash
 pnpm add -D eslint @eslint/js eslint-plugin-astro typescript-eslint
-~~~
+```
 
 Crea la configuración plana en la raíz:
 
-~~~js title="eslint.config.mjs"
+```js title="eslint.config.mjs"
+import jseslint from "@eslint/js"
 import astro from "eslint-plugin-astro"
 import tseslint from "typescript-eslint"
-import jseslint from "@eslint/js"
 
 export default [
   { ignores: ["dist/**", ".astro/**", ".vercel/**", "node_modules/**"] },
@@ -546,13 +555,13 @@ export default [
     }
   }
 ]
-~~~
+```
 
-| Paquete | Para qué |
-| --- | --- |
-| `eslint` | El motor de reglas |
-| `@eslint/js` | Reglas base de JavaScript (`jseslint.configs.recommended`) |
-| `typescript-eslint` | Parser y reglas para TypeScript |
+| Paquete               | Para qué                                                     |
+| --------------------- | ------------------------------------------------------------ |
+| `eslint`              | El motor de reglas                                           |
+| `@eslint/js`          | Reglas base de JavaScript (`jseslint.configs.recommended`)   |
+| `typescript-eslint`   | Parser y reglas para TypeScript                              |
 | `eslint-plugin-astro` | Entiende la sintaxis de un `.astro` (frontmatter + template) |
 
 `eslint-plugin-astro` es ESM, por eso la configuración se llama
@@ -583,21 +592,21 @@ Si algún archivo `.mjs` del proyecto (scripts de build, por ejemplo) usa
 globals de Node como `console` o `process`, decláralos explícitamente en vez
 de que ESLint los marque como no definidos:
 
-~~~js title="eslint.config.mjs (fragmento, si aplica)"
+```js title="eslint.config.mjs (fragmento, si aplica)"
 {
   files: ["**/*.mjs"],
   languageOptions: {
     globals: { console: "readonly", process: "readonly" }
   }
 }
-~~~
+```
 
 Comprueba que corre:
 
-~~~bash
+```bash
 pnpm install
 pnpm eslint
-~~~
+```
 
 ESLint y Prettier no compiten en esta configuración: ni `jseslint`, ni
 `tseslint` ni `astro` traen reglas de formato en sus sets `recommended`, así
@@ -613,18 +622,20 @@ Centralizar identidad, contacto, navegación, dominio y valores SEO antes de cre
 los componentes que los consumen. Este es el mismo bloque documentado en el
 patrón SITE de la biblioteca.
 
-~~~ts title="src/config/site.ts"
+```ts title="src/config/site.ts"
+/** Configuración de identidad y SEO global del sitio. */
+
 export interface Service {
-  id: string;
-  eyebrow: string;
-  h3: string;
-  body: string;
-  items: string[];
+  id: string
+  eyebrow: string
+  h3: string
+  body: string
+  items: string[]
 }
 
 export interface FaqItem {
-  q: string;
-  a: string;
+  q: string
+  a: string
 }
 
 const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
@@ -632,16 +643,29 @@ const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
   ""
 )
 
+const DESCRIPTION =
+  "Biblioteca personal de conocimiento técnico: snippets, recetas, comandos y referencias rápidas para desarrollo web."
+
+/**
+ * Fuente única para los datos que describen al sitio, no para su catálogo.
+ * Categorías, tipos, subcategorías y orden editorial viven en módulos hermanos.
+ * Los campos sin aplicación comercial se mantienen explícitos como null para
+ * que la estructura pueda crecer sin inventar información.
+ */
 export const SITE = {
+  name: "angel.library",
+  description: DESCRIPTION,
+  locale: "es",
+
   info: {
-    name: "Acme",
-    legalName: "Acme Studio",
-    description:
-      "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
-    slogan: "Construimos lo que tu negocio necesita, no lo que sobra.",
-    founded: 2025,
-    founders: [{ name: "Jane Doe", role: "Cofundadora" }],
-    teams: [] as Array<{ name: string; lead: string }>,
+    name: "angel.library",
+    legalName: "angel.library",
+    description: DESCRIPTION,
+    slogan: "Segundo cerebro técnico para desarrollo web.",
+    founded: null as number | null,
+    founders: [{ name: "iangelmanuel", role: null as string | null }],
+    teams: null as Array<{ name: string; lead: string }> | null,
+    author: "iangelmanuel"
   },
 
   site: {
@@ -649,172 +673,158 @@ export const SITE = {
     locale: "es-CO",
     lang: "es",
     timezone: "America/Bogota",
-    currency: "COP",
+    currency: null as string | null
   },
 
   location: {
-    address: "Cra. 50 #13-95",
-    city: "Bogotá",
-    state: "Cundinamarca",
-    country: "Colombia",
-    countryCode: "CO",
-    postalCode: "110111",
+    address: null as string | null,
+    city: null as string | null,
+    state: null as string | null,
+    country: null as string | null,
+    countryCode: null as string | null,
+    postalCode: null as string | null,
     timezone: "America/Bogota",
-    display: "Bogotá, Colombia",
+    display: null as string | null
   },
 
   contact: {
-    email: "hola@acme.studio",
-    countryCode: "+57",
-    phone: "300 123 4567",
-    phoneDisplay: () => `${SITE.contact.countryCode} ${SITE.contact.phone}`,
-    whatsapp: () =>
-      `${SITE.contact.countryCode}${SITE.contact.phone.replace(/\s/g, "")}`,
-    landline: null as string | null,
+    email: null as string | null,
+    countryCode: null as string | null,
+    phone: null as string | null,
+    phoneDisplay: () => null as string | null,
+    whatsapp: () => null as string | null,
+    landline: null as string | null
   },
 
   whatsAppMessage: {
-    general: "Hola, quiero conocer más sobre los servicios.",
-    service: (service: string) =>
-      `Hola, estoy interesado en el servicio de ${service}. ¿Podrías darme más información?`,
-    appointment: "Hola, quiero agendar una reunión.",
+    general: null as string | null,
+    service: (_service: string) => null as string | null,
+    appointment: null as string | null
   },
 
   social: {
-    instagram: "https://instagram.com/acmestudio",
-    linkedin: "https://linkedin.com/company/acmestudio",
-    x: "https://x.com/acmestudio",
-    github: "https://github.com/acmestudio",
+    instagram: null as string | null,
+    linkedin: null as string | null,
+    x: null as string | null,
+    github: "https://github.com/iangelmanuel/angel-library",
     tiktok: null as string | null,
-    youtube: "https://youtube.com/@acmestudio",
+    youtube: null as string | null
   },
 
-  businessHours: [
-    { day: "Lunes", open: "09:00", close: "18:00" },
-    { day: "Martes", open: "09:00", close: "18:00" },
-    { day: "Miércoles", open: "09:00", close: "18:00" },
-    { day: "Jueves", open: "09:00", close: "18:00" },
-    { day: "Viernes", open: "09:00", close: "18:00" },
-    { day: "Sábado", open: "10:00", close: "14:00" },
-    { day: "Domingo", open: null, close: null },
-  ],
+  businessHours: null as Array<{
+    day: string
+    open: string | null
+    close: string | null
+  }> | null,
 
-  legal: [
-    { slug: "privacidad", title: "Política de Privacidad", updatedAt: "2025-02-15" },
-    { slug: "terminos", title: "Términos y Condiciones", updatedAt: "2025-02-15" },
-    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" },
-  ],
+  legal: null as Array<{
+    slug: string
+    title: string
+    updatedAt: string
+  }> | null,
 
   navigation: {
-    main: [
-      { name: "Inicio", href: "/" },
-      { name: "Servicios", href: "/servicios" },
-      { name: "Portafolio", href: "/portafolio" },
-      { name: "Blog", href: "/blog" },
-      { name: "Contacto", href: "/contacto" },
-    ],
-    cta: { label: "Catálogo", href: "/catalogo" },
+    main: null as Array<{ name: string; href: string }> | null,
+    cta: null as { label: string; href: string } | null
   },
 
-  stats: [
-    { value: "+120", label: "Proyectos entregados", sublabel: "Desde 2025" },
-    { value: "98%", label: "Clientes que renuevan", sublabel: "Retención anual" },
-  ],
+  stats: null as Array<{
+    value: string
+    label: string
+    sublabel: string
+  }> | null,
 
   seo: {
-    title: "Acme — Software, marca y comunicación para empresas",
-    description:
-      "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
+    title: "angel.library — segundo cerebro técnico para desarrollo web",
+    description: DESCRIPTION,
     keywords: [
-      "agencia digital",
       "desarrollo web",
-      "desarrollo de software",
-      "diseño web Bogotá",
-      "identidad de marca",
-      "comunicación organizacional",
-      "e-commerce",
-      "landing pages",
-      "Bogotá",
-      "Colombia",
-      "software boutique",
+      "JavaScript",
+      "TypeScript",
+      "Astro",
+      "React",
+      "Next.js",
+      "Git",
+      "GitHub",
+      "frontend",
+      "backend",
+      "bases de datos",
+      "accesibilidad",
+      "SEO"
     ],
 
-    author: "Jane Doe",
-    creator: "Jane Doe",
-    publisher: "Acme Studio",
+    author: "iangelmanuel",
+    creator: "iangelmanuel",
+    publisher: "angel.library",
 
     url: SITE_URL,
     locale: "es-CO",
     lang: "es",
-    currency: "COP",
-    contactRegion: "LATAM",
-    languages: ["Spanish", "English"],
+    currency: null as string | null,
+    contactRegion: null as string | null,
+    languages: ["Spanish"],
     locales: [{ hreflang: "es-CO", default: true }] as const,
-    geo: { region: "DC", latitude: 4.60971, longitude: -74.08175 },
+    geo: {
+      region: null as string | null,
+      latitude: null as number | null,
+      longitude: null as number | null
+    },
 
-    image: "/opengraph-image.png",
-    imageAlt: "Logo de Acme sobre fondo blanco",
+    image: "/opengraph-image.svg",
+    imageAlt: "angel.library, segundo cerebro técnico para desarrollo web",
     imageWidth: 1200,
     imageHeight: 630,
-    logo: "/brand/logo.png",
+    logo: "/icon.svg",
 
     ogType: "website" as "website" | "article",
-    twitterAuthor: "@acmestudio" as string | null,
-    twitterHandle: "@acmestudio" as string | null,
+    twitterAuthor: null as string | null,
+    twitterHandle: null as string | null,
     twitterCard: "summary_large_image" as
       | "summary"
       | "summary_large_image"
       | "app"
       | "player",
-    noindex: false,
+    /** El fallback local no debe indexarse; el deploy define SITE explícitamente. */
+    noindex: SITE_URL === "http://localhost:4321",
 
     category: "technology",
-    classification: "Business",
-    priceRange: "$$",
+    classification: "Education",
+    priceRange: null as string | null,
 
-    themeColor: { light: "#FFFFFF", dark: "#000000" },
-    manifestCategories: ["business", "design", "productivity"],
+    themeColor: { light: "#000000", dark: "#000000" },
+    manifestCategories: ["education", "reference", "developer-tools"],
 
-    areaServed: [
-      { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" },
-    ],
-  },
-} as const;
+    areaServed: null as Array<{ type: string; name: string }> | null
+  }
+} as const
 
-export const SERVICES: Service[] = [
-  {
-    id: "desarrollo-software",
-    eyebrow: "Desarrollo",
-    h3: "Desarrollo de Software",
-    body: "Aplicaciones a medida, desde el diagnóstico hasta el despliegue.",
-    items: ["Aplicaciones web", "Automatización de procesos", "Integraciones"],
-  },
-];
+export const SERVICES: Service[] = []
 
-export const FAQ_ITEMS: FaqItem[] = [
-  {
-    q: "¿Cuánto tarda un proyecto típico?",
-    a: "Entre 4 y 8 semanas según el alcance, con entregas parciales revisables.",
-  },
-];
+export const FAQ_ITEMS: FaqItem[] = []
 
 export function whatsAppMessage(message: string) {
-  return `https://wa.me/${SITE.contact.whatsapp()}?text=${encodeURIComponent(message)}`;
-}
-~~~
+  const phone = SITE.contact.whatsapp()
 
-Antes de continuar reemplaza todos los datos de Acme. `import.meta.env.SITE`
-proviene de la opción `site` de `astro.config.mjs`, por lo que el dominio se
-define una sola vez y `SITE.site.url` y `SITE.seo.url` nunca se desincronizan.
-El fallback local permite que el módulo siga siendo válido si `site` todavía no
-está configurado.
+  return phone
+    ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+    : null
+}
+```
+
+En este proyecto los datos de identidad ya están adaptados a `angel.library`.
+Los campos sin aplicación comercial se dejan explícitamente en `null`: no se
+deben inventar teléfonos, direcciones, horarios, datos legales o perfiles
+sociales. `import.meta.env.SITE` proviene de la opción `site` de
+`astro.config.mjs`, por lo que el dominio se define una sola vez y
+`SITE.site.url` y `SITE.seo.url` nunca se desincronizan. El fallback local
+permite que el módulo siga siendo válido si `site` todavía no está configurado.
 
 `as const` evita mutaciones accidentales, pero no valida datos externos ni
-protege secretos. `SERVICES` y `FAQ_ITEMS` viven en el mismo archivo porque son
-listas cortas y realmente globales; si el catálogo crece (slug, precio,
-imágenes o SEO por servicio), sácalo de aquí y llévalo a su propia colección
-de contenido.
+protege secretos. `SERVICES` y `FAQ_ITEMS` se conservan como listas vacías
+porque esta biblioteca no tiene servicios comerciales ni preguntas frecuentes.
+Si una futura sección necesita esos datos, completa sus listas; si el catálogo
+crece (slug, precio, imágenes o SEO por servicio), sácalo de aquí y llévalo a
+su propia colección de contenido.
 
 ## 11. Implementar el SEO de Astro
 
@@ -827,20 +837,25 @@ head y el layout, y al final las rutas técnicas.
 El componente serializa cualquier entidad de Schema.org y escapa el carácter <
 para que un valor no pueda cerrar la etiqueta script antes de tiempo.
 
-~~~astro title="src/components/seo/JsonLd.astro"
+```astro title="src/components/seo/JsonLd.astro"
 ---
 interface Props {
-  id: string;
-  data: object | object[];
+  id: string
+  data: object | object[]
 }
 
-const { id, data } = Astro.props;
+const { id, data } = Astro.props
 
-const json = JSON.stringify(data).replace(/</g, "\\u003c");
+const json = JSON.stringify(data).replace(/</g, "\\u003c")
 ---
 
-<script id={id} type="application/ld+json" is:inline set:html={json} />
-~~~
+<script
+  id={id}
+  type="application/ld+json"
+  is:inline
+  set:html={json}
+/>
+```
 
 is:inline mantiene el JSON-LD dentro del HTML y cada bloque debe tener un id
 único, como ld-organization o ld-website.
@@ -851,14 +866,15 @@ Cada función obtiene los datos desde SITE. SERVICES y FAQ_ITEMS se definieron
 como exports hermanos de SITE en el paso 10 — reemplázalos con contenido real
 del proyecto antes de publicar.
 
-~~~ts title="src/libs/seo.ts"
-import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site";
+```ts title="src/libs/seo.ts"
+import { FAQ_ITEMS, SERVICES, SITE } from "@/config/site"
 
 const SITE_URL = SITE.seo.url
 const LOGO_URL = new URL(SITE.seo.logo, SITE_URL).href
 const OG_URL = new URL(SITE.seo.image, SITE_URL).href
 
-const areaServed = () => SITE.seo.areaServed.map((a) => ({ "@type": a.type, name: a.name }));
+const areaServed = () =>
+  (SITE.seo.areaServed ?? []).map((a) => ({ "@type": a.type, name: a.name }))
 
 export function organizationLd() {
   return {
@@ -876,12 +892,12 @@ export function organizationLd() {
     founder: SITE.info.founders.map((f) => ({
       "@type": "Person",
       name: f.name,
-      jobTitle: f.role,
+      jobTitle: f.role
     })),
     address: {
       "@type": "PostalAddress",
       addressLocality: SITE.location.city,
-      addressCountry: SITE.location.countryCode,
+      addressCountry: SITE.location.countryCode
     },
     areaServed: areaServed(),
     contactPoint: [
@@ -891,12 +907,12 @@ export function organizationLd() {
         email: SITE.contact.email,
         telephone: SITE.contact.whatsapp(),
         availableLanguage: SITE.seo.languages,
-        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
-      },
+        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion]
+      }
     ],
     sameAs: Object.values(SITE.social),
-    knowsAbout: SITE.seo.keywords,
-  } as const;
+    knowsAbout: SITE.seo.keywords
+  } as const
 }
 
 export function webSiteLd() {
@@ -908,8 +924,8 @@ export function webSiteLd() {
     name: SITE.info.name,
     description: SITE.seo.description,
     inLanguage: SITE.seo.locale,
-    publisher: { "@id": `${SITE_URL}#organization` },
-  } as const;
+    publisher: { "@id": `${SITE_URL}#organization` }
+  } as const
 }
 
 export function professionalServiceLd() {
@@ -927,11 +943,11 @@ export function professionalServiceLd() {
     address: {
       "@type": "PostalAddress",
       addressLocality: SITE.location.city,
-      addressCountry: SITE.location.countryCode,
+      addressCountry: SITE.location.countryCode
     },
     areaServed: areaServed(),
-    parentOrganization: { "@id": `${SITE_URL}#organization` },
-  } as const;
+    parentOrganization: { "@id": `${SITE_URL}#organization` }
+  } as const
 }
 
 export function servicesLd() {
@@ -950,10 +966,10 @@ export function servicesLd() {
       itemListElement: s.items.map((item, i) => ({
         "@type": "Offer",
         position: i + 1,
-        itemOffered: { "@type": "Service", name: item },
-      })),
-    },
-  }));
+        itemOffered: { "@type": "Service", name: item }
+      }))
+    }
+  }))
 }
 
 export function faqLd() {
@@ -964,11 +980,11 @@ export function faqLd() {
     mainEntity: FAQ_ITEMS.map((item) => ({
       "@type": "Question",
       name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
-    })),
-  } as const;
+      acceptedAnswer: { "@type": "Answer", text: item.a }
+    }))
+  } as const
 }
-~~~
+```
 
 Si el proyecto todavía no tiene servicios o preguntas frecuentes, comienza con
 organizationLd y webSiteLd. Agrega los otros helpers cuando exista contenido
@@ -979,18 +995,18 @@ visible que los respalde.
 BaseHead centraliza título, descripción, canonical, hreflang, robots, Open Graph,
 Twitter, metadatos de marca, icono y manifest.
 
-~~~astro title="src/components/seo/BaseHead.astro"
+```astro title="src/components/seo/BaseHead.astro"
 ---
-import { SITE } from "@/config/site";
+import { SITE } from "@/config/site"
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonical?: string;
-  keywords?: readonly string[];
-  ogType?: "website" | "article";
-  noindex?: boolean;
+  title?: string
+  description?: string
+  image?: string
+  canonical?: string
+  keywords?: readonly string[]
+  ogType?: "website" | "article"
+  noindex?: boolean
 }
 
 const {
@@ -1000,78 +1016,222 @@ const {
   canonical = new URL(Astro.url.pathname, SITE.seo.url).href,
   keywords = SITE.seo.keywords,
   ogType = SITE.seo.ogType,
-  noindex = SITE.seo.noindex,
-} = Astro.props;
+  noindex = SITE.seo.noindex
+} = Astro.props
 
-const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title;
+const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title
 
-const ogImage = new URL(image, SITE.seo.url).href;
-const ogLocale = SITE.seo.locale.replace("-", "_");
-const robots = noindex ? "noindex, nofollow" : "index, follow";
+const ogImage = new URL(image, SITE.seo.url).href
+const ogLocale = SITE.seo.locale.replace("-", "_")
+const robots = noindex ? "noindex, nofollow" : "index, follow"
 const googlebot = noindex
   ? robots
-  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
+  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
 ---
 
 <title>{pageTitle}</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=5"
+/>
 
 <!-- <link rel="preload" as="font" href="/fonts/mi-fuente.woff2" type="font/woff2" crossorigin /> -->
 
-<meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
-{SITE.seo.locales.map((locale) => <link rel="alternate" hreflang={locale.hreflang} href={canonical} />)}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+<meta
+  name="description"
+  content={description}
+/>
+<link
+  rel="canonical"
+  href={canonical}
+/>
+{
+  SITE.seo.locales.map((locale) => (
+    <link
+      rel="alternate"
+      hreflang={locale.hreflang}
+      href={canonical}
+    />
+  ))
+}
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={canonical}
+/>
 
-<meta name="robots" content={robots} />
-<meta name="googlebot" content={googlebot} />
+<meta
+  name="robots"
+  content={robots}
+/>
+<meta
+  name="googlebot"
+  content={googlebot}
+/>
 
-<meta property="og:type" content={ogType} />
-<meta property="og:site_name" content={SITE.info.name} />
-<meta property="og:title" content={pageTitle} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
-<meta property="og:locale" content={ogLocale} />
-<meta property="og:image" content={ogImage} />
-<meta property="og:image:width" content={String(SITE.seo.imageWidth)} />
-<meta property="og:image:height" content={String(SITE.seo.imageHeight)} />
-<meta property="og:image:alt" content={SITE.seo.imageAlt} />
+<meta
+  property="og:type"
+  content={ogType}
+/>
+<meta
+  property="og:site_name"
+  content={SITE.info.name}
+/>
+<meta
+  property="og:title"
+  content={pageTitle}
+/>
+<meta
+  property="og:description"
+  content={description}
+/>
+<meta
+  property="og:url"
+  content={canonical}
+/>
+<meta
+  property="og:locale"
+  content={ogLocale}
+/>
+<meta
+  property="og:image"
+  content={ogImage}
+/>
+<meta
+  property="og:image:width"
+  content={String(SITE.seo.imageWidth)}
+/>
+<meta
+  property="og:image:height"
+  content={String(SITE.seo.imageHeight)}
+/>
+<meta
+  property="og:image:alt"
+  content={SITE.seo.imageAlt}
+/>
 
-<meta name="twitter:card" content={SITE.seo.twitterCard} />
-<meta name="twitter:site" content={SITE.seo.twitterHandle} />
-<meta name="twitter:creator" content={SITE.seo.twitterAuthor} />
-<meta name="twitter:title" content={pageTitle} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta
+  name="twitter:card"
+  content={SITE.seo.twitterCard}
+/>
+<meta
+  name="twitter:site"
+  content={SITE.seo.twitterHandle}
+/>
+<meta
+  name="twitter:creator"
+  content={SITE.seo.twitterAuthor}
+/>
+<meta
+  name="twitter:title"
+  content={pageTitle}
+/>
+<meta
+  name="twitter:description"
+  content={description}
+/>
+<meta
+  name="twitter:image"
+  content={ogImage}
+/>
 
-<meta name="keywords" content={keywords.join(", ")} />
-<meta name="author" content={SITE.seo.author} />
-<meta name="creator" content={SITE.seo.creator} />
-<meta name="publisher" content={SITE.seo.publisher} />
-<meta name="application-name" content={SITE.info.name} />
-<meta name="category" content={SITE.seo.category} />
-<meta name="classification" content={SITE.seo.classification} />
-<meta name="generator" content={Astro.generator} />
-<meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="format-detection" content="telephone=no, address=no, email=no" />
+<meta
+  name="keywords"
+  content={keywords.join(", ")}
+/>
+<meta
+  name="author"
+  content={SITE.seo.author}
+/>
+<meta
+  name="creator"
+  content={SITE.seo.creator}
+/>
+<meta
+  name="publisher"
+  content={SITE.seo.publisher}
+/>
+<meta
+  name="application-name"
+  content={SITE.info.name}
+/>
+<meta
+  name="category"
+  content={SITE.seo.category}
+/>
+<meta
+  name="classification"
+  content={SITE.seo.classification}
+/>
+<meta
+  name="generator"
+  content={Astro.generator}
+/>
+<meta
+  name="referrer"
+  content="strict-origin-when-cross-origin"
+/>
+<meta
+  name="format-detection"
+  content="telephone=no, address=no, email=no"
+/>
 
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content={SITE.info.name} />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+/>
+<meta
+  name="apple-mobile-web-app-title"
+  content={SITE.info.name}
+/>
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+/>
 
-<meta name="geo.region" content={`${SITE.location.countryCode}-${SITE.seo.geo.region}`} />
-<meta name="geo.placename" content={SITE.location.city} />
-<meta name="geo.position" content={`${SITE.seo.geo.latitude};${SITE.seo.geo.longitude}`} />
-<meta name="ICBM" content={`${SITE.seo.geo.latitude}, ${SITE.seo.geo.longitude}`} />
+<meta
+  name="geo.region"
+  content={`${SITE.location.countryCode}-${SITE.seo.geo.region}`}
+/>
+<meta
+  name="geo.placename"
+  content={SITE.location.city}
+/>
+<meta
+  name="geo.position"
+  content={`${SITE.seo.geo.latitude};${SITE.seo.geo.longitude}`}
+/>
+<meta
+  name="ICBM"
+  content={`${SITE.seo.geo.latitude}, ${SITE.seo.geo.longitude}`}
+/>
 
-<meta name="color-scheme" content="dark light" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content={SITE.seo.themeColor.light} />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content={SITE.seo.themeColor.dark} />
+<meta
+  name="color-scheme"
+  content="dark light"
+/>
+<meta
+  name="theme-color"
+  media="(prefers-color-scheme: light)"
+  content={SITE.seo.themeColor.light}
+/>
+<meta
+  name="theme-color"
+  media="(prefers-color-scheme: dark)"
+  content={SITE.seo.themeColor.dark}
+/>
 
-<link rel="icon" href="/icon.svg" type="image/svg+xml" />
-<link rel="manifest" href="/manifest.webmanifest" />
-~~~
+<link
+  rel="icon"
+  href="/icon.svg"
+  type="image/svg+xml"
+/>
+<link
+  rel="manifest"
+  href="/manifest.webmanifest"
+/>
+```
 
 La canonical debe ser absoluta y coincidir con enlaces internos, redirecciones y
 sitemap. noindex no protege contenido privado: las rutas privadas requieren
@@ -1083,25 +1243,32 @@ Reemplaza el layout provisional del paso de Tailwind por la implementación
 definitiva. El import de global.css sigue funcionando porque el alias se configuró
 antes.
 
-~~~astro title="src/layouts/Layout.astro"
+```astro title="src/layouts/Layout.astro"
 ---
-import BaseHead from "@/components/seo/BaseHead.astro";
-import JsonLd from "@/components/seo/JsonLd.astro";
-import { SITE } from "@/config/site";
-import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/libs/seo";
-import "@/styles/globals.css";
+import BaseHead from "@/components/seo/BaseHead.astro"
+import JsonLd from "@/components/seo/JsonLd.astro"
+import { SITE } from "@/config/site"
+import {
+  faqLd,
+  organizationLd,
+  professionalServiceLd,
+  servicesLd,
+  webSiteLd
+} from "@/libs/seo"
+import "@/styles/globals.css"
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonical?: string;
-  keywords?: readonly string[];
-  ogType?: "website" | "article";
-  noindex?: boolean;
+  title?: string
+  description?: string
+  image?: string
+  canonical?: string
+  keywords?: readonly string[]
+  ogType?: "website" | "article"
+  noindex?: boolean
 }
 
-const { title, description, image, canonical, keywords, ogType, noindex } = Astro.props;
+const { title, description, image, canonical, keywords, ogType, noindex } =
+  Astro.props
 ---
 
 <html lang={SITE.seo.locale}>
@@ -1116,27 +1283,42 @@ const { title, description, image, canonical, keywords, ogType, noindex } = Astr
       noindex={noindex}
     />
 
-    <JsonLd id="ld-organization" data={organizationLd()} />
-    <JsonLd id="ld-website" data={webSiteLd()} />
-    <JsonLd id="ld-business" data={professionalServiceLd()} />
-    <JsonLd id="ld-services" data={servicesLd()} />
-    <JsonLd id="ld-faq" data={faqLd()} />
+    <JsonLd
+      id="ld-organization"
+      data={organizationLd()}
+    />
+    <JsonLd
+      id="ld-website"
+      data={webSiteLd()}
+    />
+    <JsonLd
+      id="ld-business"
+      data={professionalServiceLd()}
+    />
+    <JsonLd
+      id="ld-services"
+      data={servicesLd()}
+    />
+    <JsonLd
+      id="ld-faq"
+      data={faqLd()}
+    />
   </head>
 
   <body class="antialiased">
     <slot />
   </body>
 </html>
-~~~
+```
 
 Retira del layout los helpers que todavía no tengan datos reales. No publiques
 FAQPage, Service ni ProfessionalService con contenido inventado.
 
 ### 11.5 Crear manifest.webmanifest
 
-~~~ts title="src/pages/manifest.webmanifest.ts"
-import type { APIRoute } from "astro";
-import { SITE } from "@/config/site";
+```ts title="src/pages/manifest.webmanifest.ts"
+import type { APIRoute } from "astro"
+import { SITE } from "@/config/site"
 
 export const GET: APIRoute = () => {
   const manifest = {
@@ -1149,22 +1331,24 @@ export const GET: APIRoute = () => {
     theme_color: SITE.seo.themeColor.dark,
     lang: SITE.seo.locale,
     categories: SITE.seo.manifestCategories,
-    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
-  };
+    icons: [
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }
+    ]
+  }
 
   return new Response(JSON.stringify(manifest, null, 2), {
-    headers: { "Content-Type": "application/manifest+json; charset=utf-8" },
-  });
-};
-~~~
+    headers: { "Content-Type": "application/manifest+json; charset=utf-8" }
+  })
+}
+```
 
 El manifest reutiliza nombre, descripción, colores e iconos de SITE.
 
 ### 11.6 Crear robots.txt
 
-~~~ts title="src/pages/robots.txt.ts"
-import type { APIRoute } from "astro";
-import { SITE } from "@/config/site";
+```ts title="src/pages/robots.txt.ts"
+import type { APIRoute } from "astro"
+import { SITE } from "@/config/site"
 
 export const GET: APIRoute = () => {
   const body = [
@@ -1174,26 +1358,28 @@ export const GET: APIRoute = () => {
     "",
     `Sitemap: ${SITE.seo.url}/sitemap.xml`,
     `Host: ${SITE.seo.url}`,
-    "",
-  ].join("\n");
+    ""
+  ].join("\n")
 
-  return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
-};
-~~~
+  return new Response(body, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" }
+  })
+}
+```
 
 robots.txt controla rastreo, no acceso. No bloquees recursos necesarios para
 renderizar la página y no lo uses para ocultar información sensible.
 
 ### 11.7 Crear sitemap.xml
 
-~~~ts title="src/pages/sitemap.xml.ts"
-import type { APIRoute } from "astro";
-import { SITE } from "@/config/site";
+```ts title="src/pages/sitemap.xml.ts"
+import type { APIRoute } from "astro"
+import { SITE } from "@/config/site"
 
-const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }];
+const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }]
 
 export const GET: APIRoute = () => {
-  const lastModified = new Date().toISOString();
+  const lastModified = new Date().toISOString()
 
   const urls = ROUTES.map(
     (route) => `  <url>
@@ -1201,18 +1387,20 @@ export const GET: APIRoute = () => {
     <lastmod>${lastModified}</lastmod>
     <changefreq>${route.changeFrequency}</changefreq>
     <priority>${route.priority}</priority>
-  </url>`,
-  ).join("\n");
+  </url>`
+  ).join("\n")
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
 </urlset>
-`;
+`
 
-  return new Response(body, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
-};
-~~~
+  return new Response(body, {
+    headers: { "Content-Type": "application/xml; charset=utf-8" }
+  })
+}
+```
 
 Para un sitio pequeño, ROUTES puede mantenerse explícito. En blogs o catálogos
 genera las rutas desde la colección de contenido y utiliza fechas reales de
@@ -1224,13 +1412,13 @@ modificación.
 
 Completar todas las rutas utilizadas por `BaseHead`, el manifest y JSON-LD.
 
-~~~text
+```text
 public/
 ├── brand/
 │   └── logo.png
 ├── icon.svg
 └── opengraph-image.png
-~~~
+```
 
 La imagen social debe medir 1200 × 630 si SITE declara esas dimensiones. Verifica
 que todas las rutas usadas por BaseHead, manifest y JSON-LD existan realmente.
@@ -1242,7 +1430,7 @@ que todas las rutas usadas por BaseHead, manifest y JSON-LD existan realmente.
 Presentar el proyecto correctamente en GitHub sin crear documentos vacíos que
 nadie mantendrá.
 
-~~~text
+```text
 .
 ├── .editorconfig
 ├── .env.example
@@ -1261,20 +1449,20 @@ nadie mantendrá.
     ├── ISSUE_TEMPLATE/
     ├── PULL_REQUEST_TEMPLATE.md
     └── workflows/ci.yml
-~~~
+```
 
-| Archivo | Contenido mínimo |
-| --- | --- |
-| `README.md` | Propósito, requisitos, instalación, scripts, estructura y despliegue |
-| `LICENSE` | Licencia MIT para el código |
-| `LICENSE-CONTENT.md` | Condiciones de uso de documentación, textos y recursos visuales |
-| `CHANGELOG.md` | Cambios agrupados por versión |
-| `CONTRIBUTING.md` | Ramas, commits, comprobaciones y pull requests |
-| `SECURITY.md` | Canal privado para reportes y versiones soportadas |
-| `.env.example` | Variables requeridas sin secretos |
-| `.gitignore` | `node_modules`, `dist`, `.astro`, `.env` y artefactos locales |
-| `.editorconfig` | UTF-8, LF, espacios y tamaño de indentación |
-| `eslint.config.mjs` | Configuración de ESLint (paso 9) |
+| Archivo              | Contenido mínimo                                                     |
+| -------------------- | -------------------------------------------------------------------- |
+| `README.md`          | Propósito, requisitos, instalación, scripts, estructura y despliegue |
+| `LICENSE`            | Licencia MIT para el código                                          |
+| `LICENSE-CONTENT.md` | Condiciones de uso de documentación, textos y recursos visuales      |
+| `CHANGELOG.md`       | Cambios agrupados por versión                                        |
+| `CONTRIBUTING.md`    | Ramas, commits, comprobaciones y pull requests                       |
+| `SECURITY.md`        | Canal privado para reportes y versiones soportadas                   |
+| `.env.example`       | Variables requeridas sin secretos                                    |
+| `.gitignore`         | `node_modules`, `dist`, `.astro`, `.env` y artefactos locales        |
+| `.editorconfig`      | UTF-8, LF, espacios y tamaño de indentación                          |
+| `eslint.config.mjs`  | Configuración de ESLint (paso 9)                                     |
 
 `.github/workflows/ci.yml` ya existe desde el paso 3 — aquí solo aparece para
 que el árbol muestre el repositorio completo. `CODEOWNERS`, plantillas de
@@ -1287,7 +1475,7 @@ logs de CI, Issues o capturas de pantalla.
 Esta estructura permite comprobar visualmente que cada archivo creado durante
 la receta quedó en el lugar correcto:
 
-~~~text
+```text
 mi-proyecto/
 ├── .github/
 │   └── workflows/
@@ -1321,7 +1509,7 @@ mi-proyecto/
 ├── eslint.config.mjs
 ├── package.json
 └── tsconfig.json
-~~~
+```
 
 `src/pages` define rutas públicas, `src/layouts` construye la estructura HTML,
 `src/components` guarda piezas reutilizables, `src/libs` concentra lógica sin UI
@@ -1337,14 +1525,14 @@ adicional dentro de `src/`.
 Ejecuta las comprobaciones en el mismo orden que el CI del paso 3, para que un
 fallo local sea exactamente el mismo fallo que verías en el pull request:
 
-~~~bash
+```bash
 pnpm sync
 pnpm check
 pnpm eslint
 pnpm prettier:check
 pnpm build
 pnpm preview
-~~~
+```
 
 Si `prettier:check` falla, corre `pnpm prettier` para reescribir los archivos y
 vuelve a verificar.

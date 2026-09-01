@@ -62,4 +62,3 @@ Escenario: una clave de proveedor aparece en un repositorio público. Recorre de
 5. Rotar o revocar y buscar persistencia.
 6. Recuperar desde estado confiable y aumentar monitoreo.
 7. Crear acciones verificables con responsable y fecha.
-

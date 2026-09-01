@@ -23,16 +23,16 @@ Es especialmente útil cuando necesitas comparar opciones para un prototipo: cli
 
 ## Qué revisar antes de elegir una API
 
-| Criterio | Pregunta importante |
-| --- | --- |
-| Autenticación | ¿La clave viaja en un header y puede mantenerse exclusivamente en el backend? |
-| Límites | ¿Cuántas solicitudes permite por segundo, día o mes? |
-| Precio | ¿Cómo cambia el costo cuando aumenta el tráfico? |
-| Datos | ¿La licencia permite almacenarlos, mostrarlos o reutilizarlos? |
-| Disponibilidad | ¿Publica estado, historial de incidentes o un acuerdo de nivel de servicio? |
-| Contrato | ¿Los campos, versiones y errores están documentados de forma estable? |
-| Privacidad | ¿Qué información de usuarios recibirá el proveedor y dónde la procesa? |
-| Portabilidad | ¿La aplicación puede cambiar de proveedor sin reescribir toda su lógica? |
+| Criterio       | Pregunta importante                                                           |
+| -------------- | ----------------------------------------------------------------------------- |
+| Autenticación  | ¿La clave viaja en un header y puede mantenerse exclusivamente en el backend? |
+| Límites        | ¿Cuántas solicitudes permite por segundo, día o mes?                          |
+| Precio         | ¿Cómo cambia el costo cuando aumenta el tráfico?                              |
+| Datos          | ¿La licencia permite almacenarlos, mostrarlos o reutilizarlos?                |
+| Disponibilidad | ¿Publica estado, historial de incidentes o un acuerdo de nivel de servicio?   |
+| Contrato       | ¿Los campos, versiones y errores están documentados de forma estable?         |
+| Privacidad     | ¿Qué información de usuarios recibirá el proveedor y dónde la procesa?        |
+| Portabilidad   | ¿La aplicación puede cambiar de proveedor sin reescribir toda su lógica?      |
 
 ## Flujo recomendado
 

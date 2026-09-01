@@ -19,13 +19,13 @@ Un repositorio no es únicamente una carpeta con código y un historial de Git. 
 
 Si estás creando tu primer repositorio, sigue esta secuencia: propósito → ejecución local → archivos esenciales → Issues → Pull Requests → licencia → automatización y protección. Si vienes a revisar uno existente, usa la tabla como auditoría rápida.
 
-| Pregunta | Documento |
-| --- | --- |
-| ¿Qué archivos debería tener? | [Archivos y documentación comunitaria](/git/repository-management/repository-files-community) |
-| ¿Cómo convertir trabajo en Issues útiles? | [Issues, etiquetas y planificación](/git/repository-management/repository-issues-planning) |
-| ¿Cómo preparar y revisar una PR? | [Pull Requests y revisión](/git/repository-management/git-colaboracion-pull-requests) |
-| ¿Qué licencia corresponde? | [Licencias de software](/git/repository-management/repository-licenses) |
-| ¿Cómo proteger la rama principal? | [Rulesets, automatización y seguridad](/git/repository-management/repository-rules-security) |
+| Pregunta                                  | Documento                                                                                     |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------- |
+| ¿Qué archivos debería tener?              | [Archivos y documentación comunitaria](/git/repository-management/repository-files-community) |
+| ¿Cómo convertir trabajo en Issues útiles? | [Issues, etiquetas y planificación](/git/repository-management/repository-issues-planning)    |
+| ¿Cómo preparar y revisar una PR?          | [Pull Requests y revisión](/git/repository-management/git-colaboracion-pull-requests)         |
+| ¿Qué licencia corresponde?                | [Licencias de software](/git/repository-management/repository-licenses)                       |
+| ¿Cómo proteger la rama principal?         | [Rulesets, automatización y seguridad](/git/repository-management/repository-rules-security)  |
 
 ## Mínimo viable de un repositorio
 
@@ -82,4 +82,3 @@ La cantidad de archivos no garantiza calidad. Una plantilla que nadie completa o
 - probar una contribución simulada desde Issue hasta merge.
 
 La meta es que el repositorio explique su propio funcionamiento y que los controles críticos no dependan de que una persona recuerde ejecutarlos.
-

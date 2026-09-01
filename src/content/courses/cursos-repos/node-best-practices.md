@@ -19,15 +19,15 @@ Ronda las 105.000 estrellas, se actualiza de forma continua y tiene licencia CC 
 
 ## Qué cubre
 
-| Área | Ejemplos de contenido |
-| --- | --- |
-| Estructura del proyecto | Separar por componentes, capas dentro del componente |
-| Manejo de errores | Usar objetos `Error`, distinguir errores operacionales de bugs |
-| Estilo de código | Convenciones, `const` sobre `let`, comparación estricta |
-| Pruebas | Nombres de test que expliquen la intención, cobertura útil |
-| Producción | Monitoreo, registro de eventos, delegar lo que no es Node |
-| Seguridad | Validación de entrada, dependencias, cabeceras |
-| Rendimiento | Evitar bloquear el bucle de eventos |
+| Área                    | Ejemplos de contenido                                          |
+| ----------------------- | -------------------------------------------------------------- |
+| Estructura del proyecto | Separar por componentes, capas dentro del componente           |
+| Manejo de errores       | Usar objetos `Error`, distinguir errores operacionales de bugs |
+| Estilo de código        | Convenciones, `const` sobre `let`, comparación estricta        |
+| Pruebas                 | Nombres de test que expliquen la intención, cobertura útil     |
+| Producción              | Monitoreo, registro de eventos, delegar lo que no es Node      |
+| Seguridad               | Validación de entrada, dependencias, cabeceras                 |
+| Rendimiento             | Evitar bloquear el bucle de eventos                            |
 
 ## Cómo usarlo
 

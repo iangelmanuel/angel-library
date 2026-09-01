@@ -16,57 +16,66 @@ Un Server Component no puede leer la URL actual (es intencional: mantiene el lay
 ## Uso básico
 
 ```tsx title="app/ui/nav-link.tsx"
-'use client'
+"use client"
 
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation"
 
-export function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
-  const pathname = usePathname();
-  const activo = pathname === href;
+export function NavLink({
+  href,
+  children
+}: {
+  href: string
+  children: React.ReactNode
+}) {
+  const pathname = usePathname()
+  const activo = pathname === href
 
   return (
-    <a href={href} className={activo ? 'activo' : ''}>
+    <a
+      href={href}
+      className={activo ? "activo" : ""}
+    >
       {children}
     </a>
-  );
+  )
 }
 ```
 
-| URL visitada | `usePathname()` devuelve |
-| --- | --- |
-| `/` | `'/'` |
-| `/dashboard` | `'/dashboard'` |
-| `/dashboard?v=2` | `'/dashboard'` (sin la query) |
-| `/blog/hola-mundo` | `'/blog/hola-mundo'` |
+| URL visitada       | `usePathname()` devuelve      |
+| ------------------ | ----------------------------- |
+| `/`                | `'/'`                         |
+| `/dashboard`       | `'/dashboard'`                |
+| `/dashboard?v=2`   | `'/dashboard'` (sin la query) |
+| `/blog/hola-mundo` | `'/blog/hola-mundo'`          |
 
 ## Reaccionar a un cambio de ruta
 
 No hay un evento "cambió la ruta" directo — se combina con `useEffect`, poniendo `pathname` (y `searchParams` si también importa) en el array de dependencias.
 
 ```tsx
-'use client'
+"use client"
 
-import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from "next/navigation"
+import { useEffect } from "react"
 
 function Analytics() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    trackPageView(pathname, searchParams.toString());
-  }, [pathname, searchParams]);
+    trackPageView(pathname, searchParams.toString())
+  }, [pathname, searchParams])
 
-  return null;
+  return null
 }
 ```
 
 ## API de pathname en una mirada
 
-| API | Uso |
-| --- | --- |
-| `usePathname()` | String con el pathname actual, sin query string |
-| Requiere `'use client'` | Sí, siempre |
+| API                       | Uso                                                                  |
+| ------------------------- | -------------------------------------------------------------------- |
+| `usePathname()`           | String con el pathname actual, sin query string                      |
+| Requiere `'use client'`   | Sí, siempre                                                          |
 | Combinado con `useEffect` | Para reaccionar a cambios de ruta (analytics, cerrar un modal, etc.) |
 
 ## Hidratación y alcance cliente

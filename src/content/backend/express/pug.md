@@ -14,19 +14,19 @@ Pug (antes Jade) es un motor de plantillas que Express reconoce: genera HTML en 
 ## Setup en Express
 
 ```ts title="app.ts"
-import express from 'express';
-import path from 'node:path';
+import express from "express"
+import path from "node:path"
 
-const app = express();
+const app = express()
 
-app.set('view engine', 'pug');
-app.set('views', path.join(process.cwd(), 'views'));
+app.set("view engine", "pug")
+app.set("views", path.join(process.cwd(), "views"))
 ```
 
 ```ts
-app.get('/', (req, res) => {
-  res.render('index', { titulo: 'Mi sitio', usuarios: ['Ana', 'Luis'] });
-});
+app.get("/", (req, res) => {
+  res.render("index", { titulo: "Mi sitio", usuarios: ["Ana", "Luis"] })
+})
 ```
 
 ## Sintaxis básica
@@ -86,13 +86,13 @@ block contenido
 
 ## Resumen
 
-| Sintaxis | Qué hace |
-| --- | --- |
-| `tag= variable` | Interpola escapando HTML |
-| `tag!= variable` | Interpola sin escapar (HTML de confianza) |
+| Sintaxis            | Qué hace                                      |
+| ------------------- | --------------------------------------------- |
+| `tag= variable`     | Interpola escapando HTML                      |
+| `tag!= variable`    | Interpola sin escapar (HTML de confianza)     |
 | `extends` / `block` | Layout base + huecos que las páginas rellenan |
-| `include` | Insertar un parcial (header, footer, etc.) |
-| `each ... in ...` | Iterar sobre un array |
+| `include`           | Insertar un parcial (header, footer, etc.)    |
+| `each ... in ...`   | Iterar sobre un array                         |
 
 ## Consideraciones — cuándo un template engine server-side sigue teniendo sentido
 

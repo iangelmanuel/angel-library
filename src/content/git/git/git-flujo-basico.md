@@ -52,7 +52,7 @@ git commit                # abre el editor configurado para un mensaje más larg
 git commit -am "mensaje"  # add + commit en un paso, SOLO para archivos ya trackeados (no nuevos)
 ```
 
-`-am` es un atajo cómodo, pero solo agrega cambios a archivos que Git *ya* conoce — un archivo nuevo (`untracked`) necesita `git add` explícito una vez, sí o sí.
+`-am` es un atajo cómodo, pero solo agrega cambios a archivos que Git _ya_ conoce — un archivo nuevo (`untracked`) necesita `git add` explícito una vez, sí o sí.
 
 ## Ver el historial
 
@@ -76,14 +76,14 @@ La distinción entre `git diff` y `git diff --staged` es la que más confunde al
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `git init` | Convierte la carpeta actual en un repo Git |
-| `git status` | Estado actual: qué cambió, qué está en staging |
-| `git add <archivo\|.>` | Working tree → staging |
-| `git commit -m "..."` | Staging → historial (crea un commit) |
-| `git log --oneline --graph` | Ver el historial de forma compacta |
-| `git diff` / `git diff --staged` | Ver cambios sin agregar / ya agregados |
+| Comando                          | Qué hace                                       |
+| -------------------------------- | ---------------------------------------------- |
+| `git init`                       | Convierte la carpeta actual en un repo Git     |
+| `git status`                     | Estado actual: qué cambió, qué está en staging |
+| `git add <archivo\|.>`           | Working tree → staging                         |
+| `git commit -m "..."`            | Staging → historial (crea un commit)           |
+| `git log --oneline --graph`      | Ver el historial de forma compacta             |
+| `git diff` / `git diff --staged` | Ver cambios sin agregar / ya agregados         |
 
 ## Errores comunes
 

@@ -26,7 +26,9 @@ export const aparienciaCommands: CommandMap = {
         requested = TERMINAL_THEMES[(current + 1) % TERMINAL_THEMES.length]
       }
       if (requested === "random") {
-        requested = pickRandom(TERMINAL_THEMES.filter((theme) => theme !== ctx.theme))
+        requested = pickRandom(
+          TERMINAL_THEMES.filter((theme) => theme !== ctx.theme)
+        )
       }
 
       if (!isTerminalTheme(requested)) {
@@ -52,7 +54,8 @@ export const aparienciaCommands: CommandMap = {
         return
       }
 
-      const enabled = option === "on" ? true : option === "off" ? false : !ctx.scanlines
+      const enabled =
+        option === "on" ? true : option === "off" ? false : !ctx.scanlines
       ctx.setScanlines(enabled)
       ctx.print([`scanlines: ${enabled ? "on" : "off"}`], "success")
     }

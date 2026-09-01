@@ -6,7 +6,12 @@ order: 3
 tags: [terminal, nvm, node, herramientas]
 scope: nvm
 website: https://github.com/nvm-sh/nvm
-related: [terminal/terminal/terminal-npm, applications/apps-cli/terminal-pnpm, applications/apps-cli/terminal-bun]
+related:
+  [
+    terminal/terminal/terminal-npm,
+    applications/apps-cli/terminal-pnpm,
+    applications/apps-cli/terminal-bun
+  ]
 updatedAt: 2026-08-28
 ---
 
@@ -14,17 +19,17 @@ updatedAt: 2026-08-28
 
 Distintos proyectos pueden necesitar versiones diferentes de Node: uno antiguo que solo funciona bien en Node 18 y otro que ya usa características de Node 22. Instalar Node manualmente deja una sola versión global; nvm (Node Version Manager) permite mantener varias en paralelo y cambiar de una a otra por proyecto sin reinstalar nada.
 
-**NVM** significa *Node Version Manager*. No administra dependencias del proyecto y no reemplaza a npm, pnpm o Bun: decide qué instalación de Node.js queda activa en la shell y, con ella, qué versión de npm y qué herramientas globales están disponibles.
+**NVM** significa _Node Version Manager_. No administra dependencias del proyecto y no reemplaza a npm, pnpm o Bun: decide qué instalación de Node.js queda activa en la shell y, con ella, qué versión de npm y qué herramientas globales están disponibles.
 
 ## Dos proyectos distintos con el mismo nombre
 
 Esto genera confusión seguido:
 
-| | macOS / Linux | Windows |
-|---|---|---|
-| Proyecto | [nvm-sh/nvm](https://github.com/nvm-sh/nvm) | [coreybutler/nvm-windows](https://github.com/coreybutler/nvm-windows) |
-| Instalación | Script vía `curl` | Instalador `.exe` |
-| Mantenido por | nvm-sh | Corey Butler |
+|               | macOS / Linux                               | Windows                                                               |
+| ------------- | ------------------------------------------- | --------------------------------------------------------------------- |
+| Proyecto      | [nvm-sh/nvm](https://github.com/nvm-sh/nvm) | [coreybutler/nvm-windows](https://github.com/coreybutler/nvm-windows) |
+| Instalación   | Script vía `curl`                           | Instalador `.exe`                                                     |
+| Mantenido por | nvm-sh                                      | Corey Butler                                                          |
 
 No es el mismo software con dos instaladores — son dos implementaciones separadas, con comandos similares pero no idénticos, y **no son compatibles entre sí** (los archivos que usa uno no los entiende el otro).
 
@@ -57,15 +62,15 @@ nvm debug
 
 ## Comandos básicos
 
-| Comando | macOS / Linux (nvm) | Windows (nvm-windows) |
-|---|---|---|
-| Instalar LTS reciente | `nvm install --lts` | `nvm install lts` |
-| Instalar una versión | `nvm install 22` | `nvm install 22.0.0` |
-| Usar una versión | `nvm use 22` | `nvm use 22.0.0` |
-| Listar instaladas | `nvm list` | `nvm list` |
-| Listar disponibles | `nvm list-remote` | `nvm list available` |
-| Versión por default | `nvm alias default 22` | Automático: `nvm use` sin argumento aplica la última usada; no hay `alias default` |
-| Desinstalar una versión | `nvm uninstall 22` | `nvm uninstall 22.0.0` |
+| Comando                 | macOS / Linux (nvm)    | Windows (nvm-windows)                                                              |
+| ----------------------- | ---------------------- | ---------------------------------------------------------------------------------- |
+| Instalar LTS reciente   | `nvm install --lts`    | `nvm install lts`                                                                  |
+| Instalar una versión    | `nvm install 22`       | `nvm install 22.0.0`                                                               |
+| Usar una versión        | `nvm use 22`           | `nvm use 22.0.0`                                                                   |
+| Listar instaladas       | `nvm list`             | `nvm list`                                                                         |
+| Listar disponibles      | `nvm list-remote`      | `nvm list available`                                                               |
+| Versión por default     | `nvm alias default 22` | Automático: `nvm use` sin argumento aplica la última usada; no hay `alias default` |
+| Desinstalar una versión | `nvm uninstall 22`     | `nvm uninstall 22.0.0`                                                             |
 
 ## Ejemplo típico
 

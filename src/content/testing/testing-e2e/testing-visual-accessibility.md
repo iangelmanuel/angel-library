@@ -26,14 +26,14 @@ Para texto, estados o atributos exactos, usa aserciones semánticas. Una captura
 ## Primera captura
 
 ```ts
-import { expect, test } from '@playwright/test';
+import { expect, test } from "@playwright/test"
 
-test('mantiene la tarjeta de producto', async ({ page }) => {
-  await page.goto('/products/demo');
+test("mantiene la tarjeta de producto", async ({ page }) => {
+  await page.goto("/products/demo")
 
-  const card = page.getByRole('article', { name: /teclado/i });
-  await expect(card).toHaveScreenshot('product-card.png');
-});
+  const card = page.getByRole("article", { name: /teclado/i })
+  await expect(card).toHaveScreenshot("product-card.png")
+})
 ```
 
 La primera ejecución crea el baseline; las siguientes comparan. Revisa el archivo inicial y cada actualización. El baseline es una expectativa, no una verdad generada automáticamente.
@@ -49,11 +49,11 @@ La primera ejecución crea el baseline; las siguientes comparan. Revisa el archi
 - no eleves la tolerancia hasta ocultar cambios reales.
 
 ```ts
-await expect(page).toHaveScreenshot('dashboard.png', {
-  animations: 'disabled',
-  mask: [page.getByTestId('current-time')],
-  maxDiffPixelRatio: 0.01,
-});
+await expect(page).toHaveScreenshot("dashboard.png", {
+  animations: "disabled",
+  mask: [page.getByTestId("current-time")],
+  maxDiffPixelRatio: 0.01
+})
 ```
 
 El umbral debe responder al ruido conocido. Si cambia mucho entre sistemas, genera y compara baselines en el mismo contenedor/CI.
@@ -62,14 +62,14 @@ El umbral debe responder al ruido conocido. Si cambia mucho entre sistemas, gene
 
 ```ts
 for (const viewport of [
-  { name: 'mobile', width: 375, height: 812 },
-  { name: 'desktop', width: 1440, height: 900 },
+  { name: "mobile", width: 375, height: 812 },
+  { name: "desktop", width: 1440, height: 900 }
 ]) {
   test(`layout ${viewport.name}`, async ({ page }) => {
-    await page.setViewportSize(viewport);
-    await page.goto('/pricing');
-    await expect(page).toHaveScreenshot(`pricing-${viewport.name}.png`);
-  });
+    await page.setViewportSize(viewport)
+    await page.goto("/pricing")
+    await expect(page).toHaveScreenshot(`pricing-${viewport.name}.png`)
+  })
 }
 ```
 
@@ -78,18 +78,18 @@ No pruebes cada ancho. Elige breakpoints y tamaños donde el layout cambia o ya 
 ## axe con Playwright
 
 ```ts
-import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import AxeBuilder from "@axe-core/playwright"
+import { expect, test } from "@playwright/test"
 
-test('no introduce violaciones automáticas en checkout', async ({ page }) => {
-  await page.goto('/checkout');
+test("no introduce violaciones automáticas en checkout", async ({ page }) => {
+  await page.goto("/checkout")
 
   const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-    .analyze();
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze()
 
-  expect(results.violations).toEqual([]);
-});
+  expect(results.violations).toEqual([])
+})
 ```
 
 Ejecuta el análisis después de abrir modal, errores o contenido dinámico; escanear solo la carga inicial omite estados importantes.
@@ -97,11 +97,11 @@ Ejecuta el análisis después de abrir modal, errores o contenido dinámico; esc
 ## Aserciones accesibles dirigidas
 
 ```ts
-const email = page.getByRole('textbox', { name: /correo/i });
-await expect(email).toHaveAccessibleDescription(/formato inválido/i);
+const email = page.getByRole("textbox", { name: /correo/i })
+await expect(email).toHaveAccessibleDescription(/formato inválido/i)
 
-await page.keyboard.press('Tab');
-await expect(page.getByRole('button', { name: /continuar/i })).toBeFocused();
+await page.keyboard.press("Tab")
+await expect(page.getByRole("button", { name: /continuar/i })).toBeFocused()
 ```
 
 Estas aserciones documentan el contrato del flujo. Agrega navegación por teclado, foco al abrir/cerrar diálogos, nombre accesible, estados `expanded/checked/selected` y anuncios importantes.

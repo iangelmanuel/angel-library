@@ -19,18 +19,24 @@ El formateo usa `Intl.NumberFormat`, nativo del navegador y de Node — no hace 
 Formatea un número como moneda usando `Intl.NumberFormat` con `style: 'currency'`. `amount` siempre en la unidad base de la moneda (dólares, no centavos).
 
 ```ts title="lib/number.ts"
-export function formatCurrency(amount: number, currency = 'USD', locale = 'es'): string {
-  return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(amount)
+export function formatCurrency(
+  amount: number,
+  currency = "USD",
+  locale = "es"
+): string {
+  return new Intl.NumberFormat(locale, { style: "currency", currency }).format(
+    amount
+  )
 }
 ```
 
 ```ts
-import { formatCurrency } from '@/libs/number';
+import { formatCurrency } from "@/libs/number"
 
-formatCurrency(1250.5);
+formatCurrency(1250.5)
 // "US$ 1,250.50"
 
-formatCurrency(1250.5, 'EUR', 'es-ES');
+formatCurrency(1250.5, "EUR", "es-ES")
 // "1250,50 €"
 ```
 
@@ -42,16 +48,16 @@ Formatea un número con separadores de miles según el locale. `options` acepta 
 export function formatNumber(
   value: number,
   options: Intl.NumberFormatOptions = {},
-  locale = 'es'
+  locale = "es"
 ): string {
   return new Intl.NumberFormat(locale, options).format(value)
 }
 ```
 
 ```ts
-import { formatNumber } from '@/libs/number';
+import { formatNumber } from "@/libs/number"
 
-formatNumber(1234567.891, { maximumFractionDigits: 2 });
+formatNumber(1234567.891, { maximumFractionDigits: 2 })
 // "1,234,567.89"
 ```
 
@@ -63,16 +69,18 @@ Formatea un número como porcentaje. El valor va como fracción (`0.42`, no `42`
 export function formatPercent(
   value: number,
   options: Intl.NumberFormatOptions = { maximumFractionDigits: 1 },
-  locale = 'es'
+  locale = "es"
 ): string {
-  return new Intl.NumberFormat(locale, { style: 'percent', ...options }).format(value)
+  return new Intl.NumberFormat(locale, { style: "percent", ...options }).format(
+    value
+  )
 }
 ```
 
 ```ts
-import { formatPercent } from '@/libs/number';
+import { formatPercent } from "@/libs/number"
 
-formatPercent(0.4256);
+formatPercent(0.4256)
 // "42.6%"
 ```
 
@@ -81,18 +89,21 @@ formatPercent(0.4256);
 Formatea un número grande de forma compacta ("1.2K", "3.4M"), usando `notation: 'compact'`. Útil para contadores y estadísticas donde el número exacto no importa.
 
 ```ts title="lib/number.ts"
-export function formatCompact(value: number, locale = 'es'): string {
-  return new Intl.NumberFormat(locale, { notation: 'compact', maximumFractionDigits: 1 }).format(value)
+export function formatCompact(value: number, locale = "es"): string {
+  return new Intl.NumberFormat(locale, {
+    notation: "compact",
+    maximumFractionDigits: 1
+  }).format(value)
 }
 ```
 
 ```ts
-import { formatCompact } from '@/libs/number';
+import { formatCompact } from "@/libs/number"
 
-formatCompact(1500);
+formatCompact(1500)
 // "1.5K"
 
-formatCompact(2300000);
+formatCompact(2300000)
 // "2.3M"
 ```
 
@@ -102,10 +113,13 @@ Convierte un número de bytes a la unidad legible más adecuada (B, KB, MB, GB, 
 
 ```ts title="lib/number.ts"
 export function formatFileSize(bytes: number, decimals = 1): string {
-  if (bytes === 0) return '0 B'
+  if (bytes === 0) return "0 B"
 
-  const units = ['B', 'KB', 'MB', 'GB', 'TB']
-  const exponent = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1)
+  const units = ["B", "KB", "MB", "GB", "TB"]
+  const exponent = Math.min(
+    Math.floor(Math.log(bytes) / Math.log(1024)),
+    units.length - 1
+  )
   const value = bytes / 1024 ** exponent
 
   return `${value.toFixed(decimals)} ${units[exponent]}`
@@ -113,9 +127,9 @@ export function formatFileSize(bytes: number, decimals = 1): string {
 ```
 
 ```ts
-import { formatFileSize } from '@/libs/number';
+import { formatFileSize } from "@/libs/number"
 
-formatFileSize(2_500_000);
+formatFileSize(2_500_000)
 // "2.4 MB"
 ```
 
@@ -132,21 +146,21 @@ export function clamp(value: number, min: number, max: number): number {
 ```
 
 ```ts
-import { clamp } from '@/libs/number';
+import { clamp } from "@/libs/number"
 
-const progreso = clamp(porcentajeCalculado, 0, 100);
+const progreso = clamp(porcentajeCalculado, 0, 100)
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `formatCurrency()` | Formatear como moneda |
-| `formatNumber()` | Formatear con separadores de miles |
-| `formatPercent()` | Formatear como porcentaje (valor en fracción) |
-| `formatCompact()` | Formatear en notación compacta ("1.2K") |
-| `formatFileSize()` | Bytes a unidad legible (KB, MB, GB…) |
-| `clamp()` | Restringir un número a un rango |
+| Función            | Qué hace                                      |
+| ------------------ | --------------------------------------------- |
+| `formatCurrency()` | Formatear como moneda                         |
+| `formatNumber()`   | Formatear con separadores de miles            |
+| `formatPercent()`  | Formatear como porcentaje (valor en fracción) |
+| `formatCompact()`  | Formatear en notación compacta ("1.2K")       |
+| `formatFileSize()` | Bytes a unidad legible (KB, MB, GB…)          |
+| `clamp()`          | Restringir un número a un rango               |
 
 ## Consideraciones
 

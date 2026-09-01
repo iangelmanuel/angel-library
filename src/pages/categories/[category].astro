@@ -3,7 +3,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro"
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
 import ContentCard from "@/components/content/ContentCard.astro"
 import Icon from "@/components/shared/Icon.astro"
-import { CATEGORY_LIST, type CategoryMeta } from "@/config/site"
+import { CATEGORY_LIST, type CategoryMeta } from "@/config/categories"
 import { getAllEntries, getCategorySections } from "@/lib/content"
 
 export function getStaticPaths() {
@@ -18,7 +18,10 @@ interface Props {
 }
 
 const { meta } = Astro.props
-const { entries, sections } = getCategorySections(await getAllEntries(), meta.id)
+const { entries, sections } = getCategorySections(
+  await getAllEntries(),
+  meta.id
+)
 ---
 
 <DocsLayout
@@ -39,12 +42,14 @@ const { entries, sections } = getCategorySections(await getAllEntries(), meta.id
           name={meta.icon}
           class="size-4"
         />
-        <span class="font-pixel text-[0.62rem] uppercase tracking-wider">
+        <span class="font-pixel text-[0.62rem] tracking-wider uppercase">
           {entries.length} entrada{entries.length === 1 ? "" : "s"}
         </span>
       </div>
       <h1 class="font-pixel text-2xl md:text-3xl">{meta.label}</h1>
-      <p class="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{meta.description}</p>
+      <p class="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+        {meta.description}
+      </p>
     </header>
 
     {
@@ -60,11 +65,16 @@ const { entries, sections } = getCategorySections(await getAllEntries(), meta.id
                 section.icon && "flex items-center gap-2"
               ]}
             >
-              {section.icon && <Icon name={section.icon} class="size-3.5" />}
+              {section.icon && (
+                <Icon
+                  name={section.icon}
+                  class="size-3.5"
+                />
+              )}
               {section.label}
             </h2>
             {section.description && (
-              <p class="mb-4 -mt-2 max-w-2xl text-sm text-muted-foreground">
+              <p class="-mt-2 mb-4 max-w-2xl text-sm text-muted-foreground">
                 {section.description}
               </p>
             )}

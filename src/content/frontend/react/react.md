@@ -50,23 +50,23 @@ No memorices Hooks como recetas aisladas. Cada uno responde a una necesidad del 
 
 ### Ya programo y quiero recordar
 
-| Necesito | Documento |
-| --- | --- |
-| JSX, componentes, props, listas y formularios | [Fundamentos](/frontend/react/react-fundamentos-componentes) |
-| render, commit, fuente de verdad y flujo de datos | [Renderizado y flujo](/frontend/react/frontend-rendering-state-data-flow) |
-| snapshot, batching, inmutabilidad y reset con keys | [Modelo de estado](/frontend/react/react-state-snapshots-immutability) |
-| estado local | [`useState`](/frontend/react/react-usestate) |
-| transiciones complejas | [`useReducer`](/frontend/react/react-usereducer) |
-| compartir un valor lejano | [Context](/frontend/react/react-context-api) |
-| DOM o valores mutables no visuales | [`useRef`](/frontend/react/react-useref) |
-| suscripciones, timers y sistemas externos | [`useEffect`](/frontend/react/react-useeffect) |
-| firma y propósito de cualquier Hook | [Mapa de Hooks](/frontend/react/react-hooks-reference) |
-| extraer comportamiento reutilizable | [Hooks personalizados](/frontend/react/react-custom-hooks) |
-| código diferido y límites de espera | [Suspense, lazy y use](/frontend/react/react-suspense-lazy-use) |
-| prioridad de actualizaciones | [`useTransition`](/frontend/react/react-usetransition) |
-| UI optimista | [`useOptimistic`](/frontend/react/react-useoptimistic) |
-| estado de formularios y Actions | [`useActionState`](/frontend/react/react-useactionstate) |
-| memoización, Profiler y compiler | [Rendimiento](/frontend/react/react-performance-compiler) |
+| Necesito                                           | Documento                                                                 |
+| -------------------------------------------------- | ------------------------------------------------------------------------- |
+| JSX, componentes, props, listas y formularios      | [Fundamentos](/frontend/react/react-fundamentos-componentes)              |
+| render, commit, fuente de verdad y flujo de datos  | [Renderizado y flujo](/frontend/react/frontend-rendering-state-data-flow) |
+| snapshot, batching, inmutabilidad y reset con keys | [Modelo de estado](/frontend/react/react-state-snapshots-immutability)    |
+| estado local                                       | [`useState`](/frontend/react/react-usestate)                              |
+| transiciones complejas                             | [`useReducer`](/frontend/react/react-usereducer)                          |
+| compartir un valor lejano                          | [Context](/frontend/react/react-context-api)                              |
+| DOM o valores mutables no visuales                 | [`useRef`](/frontend/react/react-useref)                                  |
+| suscripciones, timers y sistemas externos          | [`useEffect`](/frontend/react/react-useeffect)                            |
+| firma y propósito de cualquier Hook                | [Mapa de Hooks](/frontend/react/react-hooks-reference)                    |
+| extraer comportamiento reutilizable                | [Hooks personalizados](/frontend/react/react-custom-hooks)                |
+| código diferido y límites de espera                | [Suspense, lazy y use](/frontend/react/react-suspense-lazy-use)           |
+| prioridad de actualizaciones                       | [`useTransition`](/frontend/react/react-usetransition)                    |
+| UI optimista                                       | [`useOptimistic`](/frontend/react/react-useoptimistic)                    |
+| estado de formularios y Actions                    | [`useActionState`](/frontend/react/react-useactionstate)                  |
+| memoización, Profiler y compiler                   | [Rendimiento](/frontend/react/react-performance-compiler)                 |
 
 ## Curva de aprendizaje
 
@@ -113,16 +113,16 @@ Un **escape hatch** permite salir del flujo declarativo para integrarse con algo
 
 ## Glosario mínimo
 
-| Término | Significado |
-| --- | --- |
-| render | ejecución que calcula la descripción siguiente de la UI |
-| commit | fase que aplica cambios necesarios al DOM |
+| Término        | Significado                                                               |
+| -------------- | ------------------------------------------------------------------------- |
+| render         | ejecución que calcula la descripción siguiente de la UI                   |
+| commit         | fase que aplica cambios necesarios al DOM                                 |
 | reconciliación | relación entre elementos anteriores y siguientes por tipo, posición y key |
-| snapshot | props y estado fijos disponibles para un render |
-| Hook | función que compone capacidades de React |
-| efecto | sincronización posterior con un sistema externo |
-| hidratación | conexión de React a HTML producido por servidor |
-| transición | actualización no urgente e interrumpible |
+| snapshot       | props y estado fijos disponibles para un render                           |
+| Hook           | función que compone capacidades de React                                  |
+| efecto         | sincronización posterior con un sistema externo                           |
+| hidratación    | conexión de React a HTML producido por servidor                           |
+| transición     | actualización no urgente e interrumpible                                  |
 
 ## Reglas que conectan toda la ruta
 

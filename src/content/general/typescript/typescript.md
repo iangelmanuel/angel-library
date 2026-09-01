@@ -24,10 +24,10 @@ TypeScript analiza el programa antes de ejecutarlo y luego elimina los tipos. Si
 Un **tipo estático** existe durante el análisis. Un **valor de runtime** existe cuando el programa se ejecuta.
 
 ```ts
-type User = { id: string; name: string };
+type User = { id: string; name: string }
 
-const response = await fetch('/api/user');
-const payload: unknown = await response.json();
+const response = await fetch("/api/user")
+const payload: unknown = await response.json()
 ```
 
 Anotar directamente `payload as User` solo afirma algo al compilador. Para demostrarlo se comprueban los campos o se usa un esquema de validación.
@@ -38,11 +38,11 @@ La **inferencia** permite que TypeScript deduzca un tipo. Una **anotación** lo 
 
 ```ts
 function formatId(id: string | number) {
-  if (typeof id === 'number') {
-    return id.toFixed(0); // Aquí id es number.
+  if (typeof id === "number") {
+    return id.toFixed(0) // Aquí id es number.
   }
 
-  return id.toUpperCase(); // Aquí id es string.
+  return id.toUpperCase() // Aquí id es string.
 }
 ```
 
@@ -59,12 +59,10 @@ No se necesita anotar cada variable local. Las APIs públicas, parámetros ambig
 ## Patrones que valen la pena
 
 ```ts
-type Result<T> =
-  | { ok: true; data: T }
-  | { ok: false; error: string };
+type Result<T> = { ok: true; data: T } | { ok: false; error: string }
 
 function assertNever(value: never): never {
-  throw new Error(`Caso no manejado: ${String(value)}`);
+  throw new Error(`Caso no manejado: ${String(value)}`)
 }
 ```
 
@@ -86,10 +84,10 @@ Un **genérico** conserva una relación entre tipos:
 
 ```ts
 function first<T>(items: readonly T[]): T | undefined {
-  return items[0];
+  return items[0]
 }
 
-const name = first(['Ana', 'Luis']); // string | undefined
+const name = first(["Ana", "Luis"]) // string | undefined
 ```
 
 `T` no significa “cualquier cosa sin control”; representa el tipo concreto inferido para esa llamada. El retorno conserva ese vínculo.
@@ -100,10 +98,10 @@ Una propiedad literal compartida permite modelar estados mutuamente excluyentes:
 
 ```ts
 type RequestState<T> =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'success'; data: T }
-  | { status: 'error'; message: string };
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: T }
+  | { status: "error"; message: string }
 ```
 
 Solo el estado `success` contiene `data`. Esto evita combinaciones ambiguas como `isLoading: true` junto con un error activo.

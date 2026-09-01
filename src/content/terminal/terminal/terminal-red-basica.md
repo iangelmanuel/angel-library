@@ -17,21 +17,21 @@ ping google.com
 
 El comando en sí es igual en los tres sistemas, pero el comportamiento por defecto difiere:
 
-| | Windows | macOS / Linux |
-|---|---|---|
-| Comportamiento por defecto | Manda 4 paquetes y se detiene solo | Manda paquetes sin parar hasta cortarlo a mano |
-| Cómo cortarlo | No hace falta (ya termina solo) | `Ctrl+C` |
-| Cantidad fija de paquetes | `ping -n 4 google.com` (ya es el default) | `ping -c 4 google.com` |
+|                            | Windows                                   | macOS / Linux                                  |
+| -------------------------- | ----------------------------------------- | ---------------------------------------------- |
+| Comportamiento por defecto | Manda 4 paquetes y se detiene solo        | Manda paquetes sin parar hasta cortarlo a mano |
+| Cómo cortarlo              | No hace falta (ya termina solo)           | `Ctrl+C`                                       |
+| Cantidad fija de paquetes  | `ping -n 4 google.com` (ya es el default) | `ping -c 4 google.com`                         |
 
 En Windows, olvidarse de esto no rompe nada (el comando termina solo). En macOS/Linux, lanzar `ping` sin `-c` y no saber que hay que cortarlo con `Ctrl+C` es el error de principiante clásico — se queda pingueando indefinidamente.
 
 ## Ver la IP local
 
-| Sistema | Comando |
-|---|---|
+| Sistema              | Comando    |
+| -------------------- | ---------- |
 | Windows (PowerShell) | `ipconfig` |
-| macOS | `ifconfig` |
-| Linux (moderno) | `ip addr` |
+| macOS                | `ifconfig` |
+| Linux (moderno)      | `ip addr`  |
 
 ```powershell
 ipconfig

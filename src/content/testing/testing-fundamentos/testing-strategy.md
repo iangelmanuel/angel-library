@@ -26,12 +26,12 @@ flujo completo → E2E
 atributo transversal → seguridad, accesibilidad o rendimiento
 ```
 
-| Nivel | Útil para | Evitar |
-| --- | --- | --- |
-| Unitario | reglas, parsers, cálculos | mocks de cada línea interna |
-| Integración | DB, HTTP, módulos colaborando | reemplazar la dependencia principal |
-| Contrato | APIs entre servicios | asumir que OpenAPI y runtime coinciden |
-| E2E | flujos críticos de usuario | cubrir cada combinación visual |
+| Nivel       | Útil para                     | Evitar                                 |
+| ----------- | ----------------------------- | -------------------------------------- |
+| Unitario    | reglas, parsers, cálculos     | mocks de cada línea interna            |
+| Integración | DB, HTTP, módulos colaborando | reemplazar la dependencia principal    |
+| Contrato    | APIs entre servicios          | asumir que OpenAPI y runtime coinciden |
+| E2E         | flujos críticos de usuario    | cubrir cada combinación visual         |
 
 ## Qué merece prioridad
 
@@ -45,10 +45,10 @@ atributo transversal → seguridad, accesibilidad o rendimiento
 
 Una matriz sencilla combina probabilidad e impacto. Un error frecuente pero cosmético y un error raro que duplica un cobro no reciben el mismo esfuerzo.
 
-| Impacto / Probabilidad | Baja | Alta |
-| --- | --- | --- |
-| Bajo | exploratoria o comprobación manual | automatización pequeña |
-| Alto | prueba dirigida + monitoreo | varias capas y bloqueo de release |
+| Impacto / Probabilidad | Baja                               | Alta                              |
+| ---------------------- | ---------------------------------- | --------------------------------- |
+| Bajo                   | exploratoria o comprobación manual | automatización pequeña            |
+| Alto                   | prueba dirigida + monitoreo        | varias capas y bloqueo de release |
 
 Para un pago, una prueba unitaria protege el cálculo, integración protege idempotencia y persistencia, contrato protege al proveedor y un E2E confirma el recorrido principal. No son cuatro copias: cada una observa una frontera diferente.
 
@@ -68,24 +68,24 @@ Sustituye límites lentos o no deterministas —correo, pagos o APIs externas—
 
 Ejecutar formato/lint, tipos, unitarios, build y un conjunto E2E crítico. Separa tests lentos, pero no permitas que queden permanentemente fuera del camino de publicación.
 
-| Momento | Suite apropiada |
-| --- | --- |
-| mientras programas | archivo o módulo afectado en watch |
-| pre-push / PR | unitarios, integración, tipos y smoke E2E |
-| rama principal | matriz completa y contratos |
-| programada | navegadores amplios, visual, carga y exploración asistida |
-| antes de release crítico | aceptación, migración y rollback ensayados |
+| Momento                  | Suite apropiada                                           |
+| ------------------------ | --------------------------------------------------------- |
+| mientras programas       | archivo o módulo afectado en watch                        |
+| pre-push / PR            | unitarios, integración, tipos y smoke E2E                 |
+| rama principal           | matriz completa y contratos                               |
+| programada               | navegadores amplios, visual, carga y exploración asistida |
+| antes de release crítico | aceptación, migración y rollback ensayados                |
 
 ## Elegir el nivel por riesgo
 
 Si una regla puede expresarse como una función pura, pruébala con muchos casos pequeños. Si depende de SQL, serialización, cookies o encabezados, usa integración con la dependencia real en un entorno controlado. Si el riesgo está en la navegación, el streaming o la composición de varias piezas, usa pruebas de extremo a extremo (E2E). La cantidad de pruebas debe seguir el costo de una regresión, no una proporción rígida.
 
-| Riesgo | Prueba recomendada | Señal de éxito |
-| --- | --- | --- |
-| Precio o descuento incorrecto | unitario con límites | total exacto y errores claros |
-| Query no autorizada | integración con DB | usuario ajeno recibe rechazo |
-| API consumida por otro equipo | contrato + integración | schema y errores compatibles |
-| Compra completa | E2E con proveedor simulado | usuario puede terminar el flujo |
+| Riesgo                        | Prueba recomendada         | Señal de éxito                  |
+| ----------------------------- | -------------------------- | ------------------------------- |
+| Precio o descuento incorrecto | unitario con límites       | total exacto y errores claros   |
+| Query no autorizada           | integración con DB         | usuario ajeno recibe rechazo    |
+| API consumida por otro equipo | contrato + integración     | schema y errores compatibles    |
+| Compra completa               | E2E con proveedor simulado | usuario puede terminar el flujo |
 
 ## Datos, aislamiento y tiempo
 

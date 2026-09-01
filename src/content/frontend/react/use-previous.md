@@ -16,12 +16,14 @@ updatedAt: 2026-08-25
 ## Implementación
 
 ```ts title="hooks/usePrevious.ts"
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react"
 
 export function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>(undefined);
-  useEffect(() => { ref.current = value; }, [value]);
-  return ref.current;
+  const ref = useRef<T>(undefined)
+  useEffect(() => {
+    ref.current = value
+  }, [value])
+  return ref.current
 }
 ```
 
@@ -30,11 +32,11 @@ Durante render, `ref.current` todavía contiene el valor anterior. Después de q
 ## Caso de uso
 
 ```tsx
-const previousStatus = usePrevious(status);
+const previousStatus = usePrevious(status)
 
 useEffect(() => {
-  if (previousStatus === 'saving' && status === 'saved') mostrarConfirmacion();
-}, [previousStatus, status]);
+  if (previousStatus === "saving" && status === "saved") mostrarConfirmacion()
+}, [previousStatus, status])
 ```
 
 El primer render devuelve `undefined`. El ref se actualiza después del commit, por eso durante el siguiente render todavía contiene el valor anterior.

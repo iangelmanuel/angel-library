@@ -27,11 +27,11 @@ Herramienta web para convertir una captura de pantalla o un diseño estático en
 
 Los dos resuelven "capturas presentables", pero con énfasis distinto:
 
-| | Shots | [PostSpark](/resources/images/postspark) |
-| --- | --- | --- |
-| Punto fuerte | Marcos de dispositivo y animación | Marcos de navegador y captura por URL |
-| Salida | PNG y video con movimiento | Imagen, video y animación |
-| Integración | App web | Extensiones de Chrome y VS Code |
+|              | Shots                             | [PostSpark](/resources/images/postspark) |
+| ------------ | --------------------------------- | ---------------------------------------- |
+| Punto fuerte | Marcos de dispositivo y animación | Marcos de navegador y captura por URL    |
+| Salida       | PNG y video con movimiento        | Imagen, video y animación                |
+| Integración  | App web                           | Extensiones de Chrome y VS Code          |
 
 Para mostrar un producto **móvil** en redes, Shots encaja mejor por sus marcos de teléfono y la animación. Para documentación técnica de una interfaz **web**, PostSpark encaja mejor por el marco de navegador y la captura directa desde una URL.
 

@@ -1,0 +1,16 @@
+---
+interface Props {
+  id: string
+  data: object | object[]
+}
+
+const { id, data } = Astro.props
+const json = JSON.stringify(data).replace(/</g, "\\u003c")
+---
+
+<script
+  id={id}
+  type="application/ld+json"
+  is:inline
+  set:html={json}
+/>

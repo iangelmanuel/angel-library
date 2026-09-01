@@ -16,15 +16,15 @@ React describe una interfaz como una función del estado. Un **componente** reci
 
 ## En 30 segundos
 
-| Concepto | Idea para recordar |
-| --- | --- |
-| componente | función que describe una parte de la interfaz |
-| JSX | sintaxis que combina estructura y expresiones de JavaScript |
-| props | entradas de solo lectura entregadas por el padre |
-| estado | memoria local que solicita un nuevo render al cambiar |
-| evento | intención iniciada desde la interfaz |
-| `key` | identidad estable de un elemento entre renders |
-| efecto | sincronización con un sistema externo |
+| Concepto   | Idea para recordar                                          |
+| ---------- | ----------------------------------------------------------- |
+| componente | función que describe una parte de la interfaz               |
+| JSX        | sintaxis que combina estructura y expresiones de JavaScript |
+| props      | entradas de solo lectura entregadas por el padre            |
+| estado     | memoria local que solicita un nuevo render al cambiar       |
+| evento     | intención iniciada desde la interfaz                        |
+| `key`      | identidad estable de un elemento entre renders              |
+| efecto     | sincronización con un sistema externo                       |
 
 El flujo normal es descendente: el padre entrega datos mediante props y el hijo comunica intenciones mediante callbacks. Si puedes describir una pantalla usando ese flujo, no necesitas comenzar con Context, un store global o un efecto.
 
@@ -43,7 +43,7 @@ function Greeting({ name, admin }: { name: string; admin: boolean }) {
       <h1>Hola, {name}</h1>
       {admin ? <AdminPanel /> : null}
     </>
-  );
+  )
 }
 ```
 
@@ -53,19 +53,24 @@ JSX no es una plantilla desconectada: las variables y funciones pertenecen al al
 
 ```tsx
 type ProductCardProps = {
-  name: string;
-  price: number;
-  onAdd: () => void;
-};
+  name: string
+  price: number
+  onAdd: () => void
+}
 
 function ProductCard({ name, price, onAdd }: ProductCardProps) {
   return (
     <article>
       <h2>{name}</h2>
-      <p>{price.toLocaleString('es-CO')}</p>
-      <button type="button" onClick={onAdd}>Agregar</button>
+      <p>{price.toLocaleString("es-CO")}</p>
+      <button
+        type="button"
+        onClick={onAdd}
+      >
+        Agregar
+      </button>
     </article>
-  );
+  )
 }
 ```
 
@@ -76,16 +81,24 @@ El nombre de una prop callback suele describir el evento desde el punto de vista
 ## Composición con `children`
 
 ```tsx
-function Panel({ title, children }: { title: string; children: React.ReactNode }) {
+function Panel({
+  title,
+  children
+}: {
+  title: string
+  children: React.ReactNode
+}) {
   return (
     <section>
       <h2>{title}</h2>
       <div>{children}</div>
     </section>
-  );
+  )
 }
 
-<Panel title="Actividad"><ActivityList /></Panel>
+;<Panel title="Actividad">
+  <ActivityList />
+</Panel>
 ```
 
 `children` representa el contenido colocado entre las etiquetas del componente. La composición suele ser más flexible que agregar props como `body`, `footer`, `icon` y `rightColumn` para cada variante posible.
@@ -93,10 +106,10 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
 ## Estado y render
 
 ```tsx
-const [quantity, setQuantity] = useState(1);
+const [quantity, setQuantity] = useState(1)
 
 function increment() {
-  setQuantity((current) => current + 1);
+  setQuantity((current) => current + 1)
 }
 ```
 
@@ -120,9 +133,14 @@ Usa una salida temprana cuando cambia toda la pantalla y un ternario cuando elig
 ## Listas y keys
 
 ```tsx
-{products.map((product) => (
-  <ProductCard key={product.id} {...product} />
-))}
+{
+  products.map((product) => (
+    <ProductCard
+      key={product.id}
+      {...product}
+    />
+  ))
+}
 ```
 
 La `key` identifica al elemento entre renders. Debe ser estable y única entre hermanos; el índice no es una buena clave cuando la lista se reordena, inserta o elimina.
@@ -133,20 +151,24 @@ La `key` identifica al elemento entre renders. Debe ser estable y única entre h
 
 ```tsx
 function SearchForm() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("")
 
   function submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    search(query.trim());
+    event.preventDefault()
+    search(query.trim())
   }
 
   return (
     <form onSubmit={submit}>
       <label htmlFor="query">Buscar</label>
-      <input id="query" value={query} onChange={(event) => setQuery(event.target.value)} />
+      <input
+        id="query"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
       <button>Buscar</button>
     </form>
-  );
+  )
 }
 ```
 
@@ -157,11 +179,19 @@ Un campo **no controlado** conserva su valor en el DOM y se lee al enviar el for
 ```tsx
 function NewsletterForm() {
   function subscribe(formData: FormData) {
-    const email = String(formData.get('email') ?? '').trim();
+    const email = String(formData.get("email") ?? "").trim()
     // Validar y enviar.
   }
 
-  return <form action={subscribe}><input name="email" type="email" required /></form>;
+  return (
+    <form action={subscribe}>
+      <input
+        name="email"
+        type="email"
+        required
+      />
+    </form>
+  )
 }
 ```
 

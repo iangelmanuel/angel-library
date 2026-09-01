@@ -70,18 +70,22 @@ Igual que arriba, pero cortando después de N líneas en vez directamente. Sigue
 ```
 
 ```html
-<img src="/portada.jpg" alt="…" class="media-16-9" />
+<img
+  src="/portada.jpg"
+  alt="…"
+  class="media-16-9"
+/>
 ```
 
 ## Resumen
 
-| Técnica | Cuándo usarla |
-| --- | --- |
-| `place-items: center` | Centrar cualquier cosa en ambos ejes |
-| `repeat(auto-fit, minmax(...))` | Grillas de tarjetas que se acomodan solas al ancho disponible |
-| `text-overflow: ellipsis` | Truncar texto a una línea |
-| `-webkit-line-clamp` | Truncar texto a varias líneas |
-| `aspect-ratio` + `object-fit: cover` | Imágenes/video responsivos sin layout shift ni deformación |
+| Técnica                              | Cuándo usarla                                                 |
+| ------------------------------------ | ------------------------------------------------------------- |
+| `place-items: center`                | Centrar cualquier cosa en ambos ejes                          |
+| `repeat(auto-fit, minmax(...))`      | Grillas de tarjetas que se acomodan solas al ancho disponible |
+| `text-overflow: ellipsis`            | Truncar texto a una línea                                     |
+| `-webkit-line-clamp`                 | Truncar texto a varias líneas                                 |
+| `aspect-ratio` + `object-fit: cover` | Imágenes/video responsivos sin layout shift ni deformación    |
 
 ## Consideraciones
 

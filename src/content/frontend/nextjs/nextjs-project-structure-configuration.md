@@ -16,17 +16,17 @@ La estructura de Next.js comunica dos cosas distintas: qué URL existe y cómo e
 
 ## Consulta rápida
 
-| Necesidad | Convención |
-| --- | --- |
-| crear una página | `app/segmento/page.tsx` |
-| compartir UI persistente | `layout.tsx` |
-| mostrar espera progresiva | `loading.tsx` |
-| capturar un error de un segmento | `error.tsx` |
-| responder HTTP | `route.ts` |
-| ocultar una carpeta al router | prefijo `_`, por ejemplo `_components/` |
-| organizar sin alterar la URL | grupo `(nombre)` |
-| configurar el framework | `next.config.ts` |
-| servir un archivo sin transformación | `public/` |
+| Necesidad                            | Convención                              |
+| ------------------------------------ | --------------------------------------- |
+| crear una página                     | `app/segmento/page.tsx`                 |
+| compartir UI persistente             | `layout.tsx`                            |
+| mostrar espera progresiva            | `loading.tsx`                           |
+| capturar un error de un segmento     | `error.tsx`                             |
+| responder HTTP                       | `route.ts`                              |
+| ocultar una carpeta al router        | prefijo `_`, por ejemplo `_components/` |
+| organizar sin alterar la URL         | grupo `(nombre)`                        |
+| configurar el framework              | `next.config.ts`                        |
+| servir un archivo sin transformación | `public/`                               |
 
 ## Una estructura que puede crecer
 
@@ -56,18 +56,18 @@ mi-app/
 
 ## Archivos con significado para el router
 
-| Archivo | Responsabilidad |
-| --- | --- |
-| `page.tsx` | hace público un segmento y renderiza su página |
-| `layout.tsx` | comparte UI y estado visual entre descendientes |
-| `template.tsx` | se vuelve a montar en cada navegación del segmento |
-| `loading.tsx` | fallback de Suspense automático durante la carga |
-| `error.tsx` | límite de error cliente para el segmento |
-| `global-error.tsx` | captura errores del layout raíz |
-| `not-found.tsx` | interfaz para recursos o rutas no encontradas |
-| `route.ts` | Route Handler para métodos HTTP |
-| `default.tsx` | fallback de una ranura en rutas paralelas |
-| `proxy.ts` | intercepta solicitudes antes de resolver la ruta |
+| Archivo            | Responsabilidad                                    |
+| ------------------ | -------------------------------------------------- |
+| `page.tsx`         | hace público un segmento y renderiza su página     |
+| `layout.tsx`       | comparte UI y estado visual entre descendientes    |
+| `template.tsx`     | se vuelve a montar en cada navegación del segmento |
+| `loading.tsx`      | fallback de Suspense automático durante la carga   |
+| `error.tsx`        | límite de error cliente para el segmento           |
+| `global-error.tsx` | captura errores del layout raíz                    |
+| `not-found.tsx`    | interfaz para recursos o rutas no encontradas      |
+| `route.ts`         | Route Handler para métodos HTTP                    |
+| `default.tsx`      | fallback de una ranura en rutas paralelas          |
+| `proxy.ts`         | intercepta solicitudes antes de resolver la ruta   |
 
 Los nombres anteriores son una API del framework, no una preferencia estética. Un archivo como `products.tsx` no crea `/products`; debe vivir dentro de `products/page.tsx`.
 
@@ -89,18 +89,16 @@ Los grupos entre paréntesis permiten crear layouts diferentes o separar equipos
 Este archivo configura comportamiento global que no pertenece a una página concreta.
 
 ```ts title="next.config.ts"
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   typedRoutes: true,
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'images.example.com' },
-    ],
-  },
-};
+    remotePatterns: [{ protocol: "https", hostname: "images.example.com" }]
+  }
+}
 
-export default nextConfig;
+export default nextConfig
 ```
 
 - `typedRoutes` valida destinos literales de `<Link>` y otras APIs de navegación.
@@ -130,11 +128,11 @@ El alias evita rutas como `../../../../lib/db`, pero no define arquitectura. Usa
 Los módulos del servidor pueden acceder a base de datos, sistema de archivos y secretos. Para evitar que una importación accidental los lleve al grafo cliente, márcalos:
 
 ```ts title="src/libs/db.ts"
-import 'server-only';
-import { db } from './client';
+import "server-only"
+import { db } from "./client"
 
 export async function getProducts() {
-  return db.product.findMany();
+  return db.product.findMany()
 }
 ```
 

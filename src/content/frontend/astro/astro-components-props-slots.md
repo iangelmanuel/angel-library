@@ -16,14 +16,14 @@ Un componente `.astro` tiene un script de componente entre fences y una plantill
 
 ## Consulta rápida
 
-| Necesidad | Herramienta |
-| --- | --- |
-| recibir datos del padre | `Astro.props` |
-| definir el contrato | `interface Props` |
-| insertar contenido hijo | `<slot />` |
-| crear zonas de contenido | `<slot name="..." />` |
-| aplicar clases condicionales | `class:list` |
-| reenviar atributos HTML | extraer `...rest` y aplicarlo al elemento |
+| Necesidad                      | Herramienta                                            |
+| ------------------------------ | ------------------------------------------------------ |
+| recibir datos del padre        | `Astro.props`                                          |
+| definir el contrato            | `interface Props`                                      |
+| insertar contenido hijo        | `<slot />`                                             |
+| crear zonas de contenido       | `<slot name="..." />`                                  |
+| aplicar clases condicionales   | `class:list`                                           |
+| reenviar atributos HTML        | extraer `...rest` y aplicarlo al elemento              |
 | agregar estado de un framework | importar un componente y usar una directiva `client:*` |
 
 ## Anatomía de un componente
@@ -33,12 +33,12 @@ El bloque delimitado por `---` se conoce como **frontmatter del componente**. Al
 ```astro title="src/components/Card.astro"
 ---
 interface Props {
-  title: string;
-  href?: string;
-  featured?: boolean;
+  title: string
+  href?: string
+  featured?: boolean
 }
 
-const { title, href = '#', featured = false } = Astro.props;
+const { title, href = "#", featured = false } = Astro.props
 ---
 
 <article class:list={{ featured }}>
@@ -55,17 +55,21 @@ Un componente contenedor debe permitir atributos como `id`, `aria-label` o `data
 
 ```astro title="src/components/ButtonLink.astro"
 ---
-import type { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from "astro/types"
 
-interface Props extends HTMLAttributes<'a'> {
-  href: string;
-  variant?: 'primary' | 'quiet';
+interface Props extends HTMLAttributes<"a"> {
+  href: string
+  variant?: "primary" | "quiet"
 }
 
-const { href, variant = 'primary', class: className, ...rest } = Astro.props;
+const { href, variant = "primary", class: className, ...rest } = Astro.props
 ---
 
-<a href={href} class:list={['button', `button--${variant}`, className]} {...rest}>
+<a
+  href={href}
+  class:list={["button", `button--${variant}`, className]}
+  {...rest}
+>
   <slot />
 </a>
 ```
@@ -78,7 +82,13 @@ Aquí `class` se extrae porque es una palabra especial en JavaScript y luego se 
 <section>
   <header><slot name="header">Sin título</slot></header>
   <div><slot /></div>
-  {Astro.slots.has('footer') && <footer><slot name="footer" /></footer>}
+  {
+    Astro.slots.has("footer") && (
+      <footer>
+        <slot name="footer" />
+      </footer>
+    )
+  }
 </section>
 ```
 
@@ -86,7 +96,11 @@ Aquí `class` se extrae porque es una palabra especial en JavaScript y luego se 
 <Panel>
   <h2 slot="header">Resumen</h2>
   <p>Contenido principal.</p>
-  <a slot="footer" href="/detalle">Ver detalle</a>
+  <a
+    slot="footer"
+    href="/detalle"
+    >Ver detalle</a
+  >
 </Panel>
 ```
 
@@ -102,10 +116,13 @@ Puedes importar React, Vue, Svelte u otro renderer dentro de un componente Astro
 
 ```astro
 ---
-import SearchBox from './SearchBox.tsx';
+import SearchBox from "./SearchBox.tsx"
 ---
 
-<SearchBox client:visible initialQuery="astro" />
+<SearchBox
+  client:visible
+  initialQuery="astro"
+/>
 ```
 
 La directiva pertenece al punto donde se usa el componente, no a su archivo interno. De esta forma una misma pieza puede renderizarse sin JavaScript en un lugar e hidratarse en otro.

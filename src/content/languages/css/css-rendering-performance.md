@@ -35,8 +35,14 @@ Anima preferentemente `transform` y `opacity`, respeta `prefers-reduced-motion` 
 
 ```css
 @media (prefers-reduced-motion: no-preference) {
-  .card { transition: transform 180ms ease, opacity 180ms ease; }
-  .card:hover { transform: translateY(-0.25rem); }
+  .card {
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease;
+  }
+  .card:hover {
+    transform: translateY(-0.25rem);
+  }
 }
 ```
 

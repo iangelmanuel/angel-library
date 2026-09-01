@@ -57,9 +57,9 @@ Este es exactamente el caso de uso real que mencionaba [la guía de qué es un m
 
 ```ts title="packages/shared-types/src/index.ts"
 export interface Task {
-  id: string;
-  title: string;
-  done: boolean;
+  id: string
+  title: string
+  done: boolean
 }
 ```
 
@@ -89,26 +89,26 @@ Sin build ni paso de compilación: `main` apunta directo al `.ts` fuente. Funcio
 ```
 
 ```ts title="apps/api/src/index.ts"
-import cors from "cors";
-import express from "express";
-import type { Task } from "@repo/shared-types";
+import type { Task } from "@repo/shared-types"
+import cors from "cors"
+import express from "express"
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const app = express()
+app.use(cors())
+app.use(express.json())
 
 const tasks: Task[] = [
   { id: "1", title: "Configurar el monorepo", done: true },
-  { id: "2", title: "Conectar frontend y backend", done: false },
-];
+  { id: "2", title: "Conectar frontend y backend", done: false }
+]
 
 app.get("/api/tasks", (_req, res) => {
-  res.json(tasks);
-});
+  res.json(tasks)
+})
 
 app.listen(3001, () => {
-  console.log("API en http://localhost:3001");
-});
+  console.log("API en http://localhost:3001")
+})
 ```
 
 `tsx watch` corre el TypeScript directo, sin paso de compilación previo, y reinicia el proceso cuando el código cambia — el equivalente de `nodemon` pensado para TypeScript. `@repo/shared-types` se importa exactamente igual que cualquier paquete de npm, porque el workspace lo symlinkeó en `apps/api/node_modules/@repo/shared-types`.
@@ -136,32 +136,32 @@ app.listen(3001, () => {
 ```
 
 ```ts title="apps/web/vite.config.ts"
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
 
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
     proxy: {
-      "/api": "http://localhost:3001",
-    },
-  },
-});
+      "/api": "http://localhost:3001"
+    }
+  }
+})
 ```
 
 ```tsx title="apps/web/src/App.tsx"
-import { useEffect, useState } from "react";
-import type { Task } from "@repo/shared-types";
+import type { Task } from "@repo/shared-types"
+import { useEffect, useState } from "react"
 
 export function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
     fetch("/api/tasks")
       .then((res) => res.json())
-      .then(setTasks);
-  }, []);
+      .then(setTasks)
+  }, [])
 
   return (
     <ul>
@@ -171,7 +171,7 @@ export function App() {
         </li>
       ))}
     </ul>
-  );
+  )
 }
 ```
 

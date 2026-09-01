@@ -17,10 +17,17 @@ Mismo problema que resuelve [`<Image />` en Astro](/frontend/astro/astro-image-p
 `src` y `alt` obligatorios. `width`/`height` obligatorios salvo que uses `fill` — son los que le dicen al navegador el aspect ratio antes de que la imagen cargue, para reservar el espacio y evitar el salto de layout.
 
 ```tsx
-import Image from 'next/image';
+import Image from "next/image"
 
 export default function Perfil() {
-  return <Image src="/avatar.png" width={500} height={500} alt="Foto de perfil" />;
+  return (
+    <Image
+      src="/avatar.png"
+      width={500}
+      height={500}
+      alt="Foto de perfil"
+    />
+  )
 }
 ```
 
@@ -29,8 +36,13 @@ export default function Perfil() {
 Cuando no se conocen las dimensiones exactas de antemano —por ejemplo, una imagen que debe ocupar el 100 % de una tarjeta de tamaño variable—, `fill` hace que la imagen ocupe todo el elemento padre, que necesita `position: relative` o una posición equivalente.
 
 ```tsx
-<div style={{ position: 'relative', width: '100%', height: '300px' }}>
-  <Image src="/banner.jpg" alt="Banner" fill style={{ objectFit: 'cover' }} />
+<div style={{ position: "relative", width: "100%", height: "300px" }}>
+  <Image
+    src="/banner.jpg"
+    alt="Banner"
+    fill
+    style={{ objectFit: "cover" }}
+  />
 </div>
 ```
 
@@ -52,7 +64,13 @@ Sin `sizes`, Next asume que la imagen podría mostrarse a ancho completo en cual
 Por defecto, las imágenes usan lazy loading. Si una imagen es claramente el **Largest Contentful Paint (LCP)** de la página, `preload` puede indicarle al navegador que la descubra antes. En Next.js 16, `priority` quedó deprecado a favor de este nombre más explícito.
 
 ```tsx
-<Image src="/hero.jpg" alt="Equipo trabajando" width={1200} height={600} preload />
+<Image
+  src="/hero.jpg"
+  alt="Equipo trabajando"
+  width={1200}
+  height={600}
+  preload
+/>
 ```
 
 No combines `preload` con `loading` o `fetchPriority`. Si la imagen se descubre temprano en el HTML y solo necesita prioridad de red, `loading="eager"` o `fetchPriority="high"` puede expresar mejor el caso. Mide el LCP real antes de elegir.
@@ -62,10 +80,14 @@ No combines `preload` con `loading` o `fetchPriority`. Si la imagen se descubre 
 Para imágenes locales importadas (no directamente URL string), Next puede generar automáticamente un placeholder borroso a partir de la imagen real, sin que tú generes ese blur a mano.
 
 ```tsx
-import Image from 'next/image';
-import heroImg from '../public/hero.jpg';
+import Image from "next/image"
+import heroImg from "../public/hero.jpg"
 
-<Image src={heroImg} alt="Hero" placeholder="blur" />;
+;<Image
+  src={heroImg}
+  alt="Hero"
+  placeholder="blur"
+/>
 ```
 
 ## Imágenes remotas — autorizar el dominio
@@ -75,22 +97,22 @@ Igual que en Astro, una URL externa no se optimiza sin autorizar el dominio prim
 ```ts title="next.config.ts"
 const nextConfig = {
   images: {
-    remotePatterns: [{ protocol: 'https', hostname: 'ejemplo.com' }],
-  },
-};
+    remotePatterns: [{ protocol: "https", hostname: "ejemplo.com" }]
+  }
+}
 ```
 
 ## API en una mirada
 
-| Prop | Uso |
-| --- | --- |
-| `src` / `alt` | Obligatorios |
-| `width` / `height` | Obligatorios salvo `fill` |
-| `fill` | Ocupar el contenedor padre (que necesita `position: relative`) |
-| `sizes` | Cuánto espacio real ocupa por breakpoint, para no sobre-descargar |
-| `preload` | precargar la imagen LCP cuando existe un caso claro |
-| `placeholder="blur"` | Difuminado automático mientras carga (solo imágenes locales importadas) |
-| `images.remotePatterns` (next.config) | Autorizar dominios externos para optimización |
+| Prop                                  | Uso                                                                     |
+| ------------------------------------- | ----------------------------------------------------------------------- |
+| `src` / `alt`                         | Obligatorios                                                            |
+| `width` / `height`                    | Obligatorios salvo `fill`                                               |
+| `fill`                                | Ocupar el contenedor padre (que necesita `position: relative`)          |
+| `sizes`                               | Cuánto espacio real ocupa por breakpoint, para no sobre-descargar       |
+| `preload`                             | precargar la imagen LCP cuando existe un caso claro                     |
+| `placeholder="blur"`                  | Difuminado automático mientras carga (solo imágenes locales importadas) |
+| `images.remotePatterns` (next.config) | Autorizar dominios externos para optimización                           |
 
 ## Carga, seguridad y errores
 

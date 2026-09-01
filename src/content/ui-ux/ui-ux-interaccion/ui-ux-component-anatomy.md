@@ -33,7 +33,12 @@ Define primero qué permite: abrir, descargar, renombrar o eliminar. La tarjeta 
 <article aria-labelledby="file-42-title">
   <h3 id="file-42-title"><a href="/files/42">reporte.pdf</a></h3>
   <p>2,4 MB · PDF</p>
-  <button type="button" aria-label="Más acciones para reporte.pdf">•••</button>
+  <button
+    type="button"
+    aria-label="Más acciones para reporte.pdf"
+  >
+    •••
+  </button>
 </article>
 ```
 
@@ -41,16 +46,16 @@ El nombre accesible del menú incluye el archivo porque “Más acciones” aisl
 
 ## Matriz de estados
 
-| Estado | Pregunta |
-| --- | --- |
-| default | ¿se entiende propósito y acción principal? |
-| hover/focus | ¿el indicador no depende solo de color? |
-| loading | ¿se bloquea solo lo necesario? |
-| vacío | ¿explica causa y siguiente paso? |
-| error | ¿conserva datos y permite recuperar? |
-| disabled | ¿por qué no está disponible? |
-| contenido extremo | ¿nombres largos y traducciones caben? |
-| permiso limitado | ¿se oculta o explica la acción? |
+| Estado            | Pregunta                                   |
+| ----------------- | ------------------------------------------ |
+| default           | ¿se entiende propósito y acción principal? |
+| hover/focus       | ¿el indicador no depende solo de color?    |
+| loading           | ¿se bloquea solo lo necesario?             |
+| vacío             | ¿explica causa y siguiente paso?           |
+| error             | ¿conserva datos y permite recuperar?       |
+| disabled          | ¿por qué no está disponible?               |
+| contenido extremo | ¿nombres largos y traducciones caben?      |
+| permiso limitado  | ¿se oculta o explica la acción?            |
 
 ## API del componente
 
@@ -58,10 +63,10 @@ Prefiere props que expresen intención (`status="error"`, `onRetry`) sobre combi
 
 ```ts
 type ResultState<T> =
-  | { status: 'loading' }
-  | { status: 'success'; data: T }
-  | { status: 'empty' }
-  | { status: 'error'; message: string; retry: () => void };
+  | { status: "loading" }
+  | { status: "success"; data: T }
+  | { status: "empty" }
+  | { status: "error"; message: string; retry: () => void }
 ```
 
 ## Validación
@@ -71,4 +76,3 @@ Prueba teclado, zoom, lector de pantalla, viewport estrecho, traducción larga y
 ## Regla de diseño
 
 La apariencia final debe reforzar el contrato. Si el componente solo se entiende por una animación, color o tooltip, todavía falta información en su estructura.
-

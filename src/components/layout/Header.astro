@@ -1,6 +1,6 @@
 ---
-import Logo from '@/components/shared/Logo.astro';
-import Icon from '@/components/shared/Icon.astro';
+import Logo from "@/components/shared/Logo.astro"
+import Icon from "@/components/shared/Icon.astro"
 ---
 
 <header
@@ -13,7 +13,10 @@ import Icon from '@/components/shared/Icon.astro';
       class="nav-link -ml-2 lg:hidden"
       aria-label="Abrir menú de navegación"
     >
-      <Icon name="menu" class="size-4" />
+      <Icon
+        name="menu"
+        class="size-4"
+      />
     </button>
 
     <Logo />
@@ -27,7 +30,10 @@ import Icon from '@/components/shared/Icon.astro';
       class="shrink-0 text-muted-foreground transition-colors hover:text-foreground hover:brightness-125"
       aria-label="Ver repositorio en GitHub"
     >
-      <Icon name="brand-github" class="size-4" />
+      <Icon
+        name="brand-github"
+        class="size-4"
+      />
     </a>
 
     <button
@@ -36,7 +42,11 @@ import Icon from '@/components/shared/Icon.astro';
       class="hidden w-full max-w-xs items-center gap-2 border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground sm:flex"
       aria-label="Abrir búsqueda (Control K)"
     >
-      <span class="font-mono font-semibold text-[var(--accent-green)]" aria-hidden="true">$</span>
+      <span
+        class="font-mono font-semibold text-[var(--accent-green)]"
+        aria-hidden="true"
+        >$</span
+      >
       <span class="flex-1 text-left">grep docs</span>
       <kbd class="kbd">ctrl K</kbd>
     </button>
@@ -47,7 +57,11 @@ import Icon from '@/components/shared/Icon.astro';
       class="nav-link sm:hidden"
       aria-label="Abrir búsqueda"
     >
-      <span class="font-mono font-semibold text-[var(--accent-green)]" aria-hidden="true">$</span>
+      <span
+        class="font-mono font-semibold text-[var(--accent-green)]"
+        aria-hidden="true"
+        >$</span
+      >
     </button>
   </div>
 </header>

@@ -21,8 +21,8 @@ updatedAt: 2026-08-25
 JavaScript usa números de punto flotante IEEE-754 para enteros y decimales. Esto ofrece un rango amplio, pero algunos decimales no se representan de forma exacta y los enteros dejan de ser seguros fuera de `Number.MIN_SAFE_INTEGER` y `Number.MAX_SAFE_INTEGER`.
 
 ```js
-0.1 + 0.2                    // 0.30000000000000004
-Number.MAX_SAFE_INTEGER      // 9007199254740991
+0.1 + 0.2 // 0.30000000000000004
+Number.MAX_SAFE_INTEGER // 9007199254740991
 Number.isSafeInteger(9007199254740991) // true
 Number.isSafeInteger(9007199254740992) // false
 ```
@@ -31,20 +31,20 @@ Para dinero, trabaja en unidades mínimas enteras —centavos— o usa una libre
 
 ### Constantes útiles
 
-| Constante | Significado |
-| --- | --- |
-| `Number.MAX_VALUE` | mayor número finito representable |
-| `Number.MIN_VALUE` | menor número positivo mayor que cero |
-| `Number.MAX_SAFE_INTEGER` | mayor entero exacto seguro |
-| `Number.MIN_SAFE_INTEGER` | menor entero exacto seguro |
-| `Number.POSITIVE_INFINITY` | infinito positivo |
-| `Number.NEGATIVE_INFINITY` | infinito negativo |
-| `Number.NaN` | valor numérico inválido |
-| `Number.EPSILON` | distancia entre 1 y el siguiente Number representable |
+| Constante                  | Significado                                           |
+| -------------------------- | ----------------------------------------------------- |
+| `Number.MAX_VALUE`         | mayor número finito representable                     |
+| `Number.MIN_VALUE`         | menor número positivo mayor que cero                  |
+| `Number.MAX_SAFE_INTEGER`  | mayor entero exacto seguro                            |
+| `Number.MIN_SAFE_INTEGER`  | menor entero exacto seguro                            |
+| `Number.POSITIVE_INFINITY` | infinito positivo                                     |
+| `Number.NEGATIVE_INFINITY` | infinito negativo                                     |
+| `Number.NaN`               | valor numérico inválido                               |
+| `Number.EPSILON`           | distancia entre 1 y el siguiente Number representable |
 
 ```js
 Number.MAX_SAFE_INTEGER // 9007199254740991
-Number.EPSILON          // aproximadamente 2.220446049250313e-16
+Number.EPSILON // aproximadamente 2.220446049250313e-16
 
 function nearlyEqual(a, b, tolerance = Number.EPSILON) {
   return Math.abs(a - b) <= tolerance * Math.max(1, Math.abs(a), Math.abs(b))
@@ -64,9 +64,9 @@ const oneMillion = 1_000_000
 const creditLimit = 25_000_000
 const millisecondsPerDay = 86_400_000
 
-oneMillion          // 1000000
-creditLimit         // 25000000
-millisecondsPerDay  // 86400000
+oneMillion // 1000000
+creditLimit // 25000000
+millisecondsPerDay // 86400000
 
 1_000_000 === 1000000 // true
 ```
@@ -81,12 +81,12 @@ const color = 0xff_88_00
 const mask = 0o755
 const largeId = 9_007_199_254_740_993n
 
-precise     // 1234.56789
-scientific  // 15000000000
+precise // 1234.56789
+scientific // 15000000000
 permissions // 240
-color       // 16746496
-mask        // 493
-largeId     // 9007199254740993n
+color // 16746496
+mask // 493
+largeId // 9007199254740993n
 ```
 
 Reglas importantes:
@@ -97,68 +97,72 @@ Reglas importantes:
 - funciona en código, no en JSON ni en texto recibido de un formulario.
 
 ```js
-Number('1_000')          // NaN
-Number.parseInt('1_000', 10) // 1: se detiene en el guion bajo
+Number("1_000") // NaN
+Number.parseInt("1_000", 10) // 1: se detiene en el guion bajo
 JSON.parse('{"total": 1_000}') // SyntaxError
 ```
 
 Para mostrar separadores al usuario usa `Intl.NumberFormat` o `toLocaleString`; el guion bajo solo mejora la lectura del código fuente.
 
 ```js
-(1_000_000).toLocaleString('es-CO')
+;(1_000_000).toLocaleString("es-CO")
 // '1.000.000'
 ```
 
 ## Convertir y validar
 
-| Función o método | Devuelve | Muta | Caso de uso |
-| --- | --- | --- | --- |
-| `Number(value)` | número o `NaN` | no | convertir el valor completo |
-| `Number.parseInt(text, radix)` | entero o `NaN` | no | leer una parte entera |
-| `Number.parseFloat(text)` | decimal o `NaN` | no | leer una parte decimal |
-| `Number.isNaN(value)` | booleano | no | detectar exactamente `NaN` |
-| `Number.isFinite(value)` | booleano | no | aceptar solo números finitos |
-| `Number.isInteger(value)` | booleano | no | validar enteros |
-| `Number.isSafeInteger(value)` | booleano | no | validar enteros representables sin pérdida |
+| Función o método               | Devuelve        | Muta | Caso de uso                                |
+| ------------------------------ | --------------- | ---- | ------------------------------------------ |
+| `Number(value)`                | número o `NaN`  | no   | convertir el valor completo                |
+| `Number.parseInt(text, radix)` | entero o `NaN`  | no   | leer una parte entera                      |
+| `Number.parseFloat(text)`      | decimal o `NaN` | no   | leer una parte decimal                     |
+| `Number.isNaN(value)`          | booleano        | no   | detectar exactamente `NaN`                 |
+| `Number.isFinite(value)`       | booleano        | no   | aceptar solo números finitos               |
+| `Number.isInteger(value)`      | booleano        | no   | validar enteros                            |
+| `Number.isSafeInteger(value)`  | booleano        | no   | validar enteros representables sin pérdida |
 
 ```js
-Number('42')              // 42
-Number('42px')            // NaN
-Number('')                // 0
-Number.parseInt('42px', 10) // 42
-Number.parseFloat('3.14rem') // 3.14
+Number("42") // 42
+Number("42px") // NaN
+Number("") // 0
+Number.parseInt("42px", 10) // 42
+Number.parseFloat("3.14rem") // 3.14
 
-Number.isNaN(NaN)         // true
-Number.isNaN('no')        // false
-Number.isFinite(20)       // true
-Number.isFinite('20')     // false
-Number.isInteger(4.0)     // true
-Number.isInteger(4.2)     // false
+Number.isNaN(NaN) // true
+Number.isNaN("no") // false
+Number.isFinite(20) // true
+Number.isFinite("20") // false
+Number.isInteger(4.0) // true
+Number.isInteger(4.2) // false
 ```
 
 Evita la función global `isNaN()` cuando no quieres coerción: `isNaN('texto')` es `true`, mientras `Number.isNaN('texto')` es `false`.
 
 ## Formatear y representar
 
-| Método | Devuelve | Muta | Caso de uso |
-| --- | --- | --- | --- |
-| `toFixed(digits)` | string con decimales fijos | no | visualización simple |
-| `toPrecision(digits)` | string con cifras significativas | no | mediciones y notación científica |
-| `toString(radix?)` | string; admite bases 2–36 | no | binario, hexadecimal o ids cortos |
-| `toLocaleString(locale, options)` | string localizado | no | moneda, porcentajes y unidades |
+| Método                            | Devuelve                         | Muta | Caso de uso                       |
+| --------------------------------- | -------------------------------- | ---- | --------------------------------- |
+| `toFixed(digits)`                 | string con decimales fijos       | no   | visualización simple              |
+| `toPrecision(digits)`             | string con cifras significativas | no   | mediciones y notación científica  |
+| `toString(radix?)`                | string; admite bases 2–36        | no   | binario, hexadecimal o ids cortos |
+| `toLocaleString(locale, options)` | string localizado                | no   | moneda, porcentajes y unidades    |
 
 ```js
 const value = 1234.567
 
-value.toFixed(2)                  // '1234.57'
-value.toPrecision(4)              // '1235'
-(255).toString(16)                // 'ff'
-(10).toString(2)                  // '1010'
+value.toFixed(2) // '1234.57'
+value
+  .toPrecision(4) // '1235'
+  (255)
+  .toString(16) // 'ff'
+  (10)
+  .toString(2) // '1010'
 
-(1234.5).toLocaleString('es-CO', {
-  style: 'currency',
-  currency: 'COP',
-})
+  (1234.5)
+  .toLocaleString("es-CO", {
+    style: "currency",
+    currency: "COP"
+  })
 // resultado localizado, por ejemplo: '$ 1.234,50'
 ```
 
@@ -168,38 +172,38 @@ value.toPrecision(4)              // '1235'
 
 `Math` es un objeto estático: no se instancia con `new`. Sus métodos no mutan los argumentos.
 
-| Método | Devuelve | Caso de uso |
-| --- | --- | --- |
-| `Math.abs(x)` | valor absoluto | distancia o diferencia sin signo |
-| `Math.sign(x)` | `-1`, `0`, `-0`, `1` o `NaN` | conocer dirección |
-| `Math.min(...values)` | menor valor | límites y estadísticas |
-| `Math.max(...values)` | mayor valor | límites y estadísticas |
-| `Math.sumPrecise(iterable)` | suma con menor pérdida de precisión | acumulaciones numéricas sensibles al orden |
-| `Math.floor(x)` | entero hacia abajo | páginas completas o índice aleatorio |
-| `Math.ceil(x)` | entero hacia arriba | cantidad de páginas |
-| `Math.round(x)` | entero más cercano | redondeo general |
-| `Math.trunc(x)` | parte entera hacia cero | eliminar decimales |
-| `Math.pow(base, exponent)` | potencia | fórmulas; también `base ** exponent` |
-| `Math.sqrt(x)` | raíz cuadrada | geometría |
-| `Math.cbrt(x)` | raíz cúbica | cálculos volumétricos |
-| `Math.hypot(...values)` | raíz de suma de cuadrados | distancia euclidiana |
-| `Math.random()` | número entre 0 incluido y 1 excluido | simulaciones no criptográficas |
+| Método                      | Devuelve                             | Caso de uso                                |
+| --------------------------- | ------------------------------------ | ------------------------------------------ |
+| `Math.abs(x)`               | valor absoluto                       | distancia o diferencia sin signo           |
+| `Math.sign(x)`              | `-1`, `0`, `-0`, `1` o `NaN`         | conocer dirección                          |
+| `Math.min(...values)`       | menor valor                          | límites y estadísticas                     |
+| `Math.max(...values)`       | mayor valor                          | límites y estadísticas                     |
+| `Math.sumPrecise(iterable)` | suma con menor pérdida de precisión  | acumulaciones numéricas sensibles al orden |
+| `Math.floor(x)`             | entero hacia abajo                   | páginas completas o índice aleatorio       |
+| `Math.ceil(x)`              | entero hacia arriba                  | cantidad de páginas                        |
+| `Math.round(x)`             | entero más cercano                   | redondeo general                           |
+| `Math.trunc(x)`             | parte entera hacia cero              | eliminar decimales                         |
+| `Math.pow(base, exponent)`  | potencia                             | fórmulas; también `base ** exponent`       |
+| `Math.sqrt(x)`              | raíz cuadrada                        | geometría                                  |
+| `Math.cbrt(x)`              | raíz cúbica                          | cálculos volumétricos                      |
+| `Math.hypot(...values)`     | raíz de suma de cuadrados            | distancia euclidiana                       |
+| `Math.random()`             | número entre 0 incluido y 1 excluido | simulaciones no criptográficas             |
 
 ```js
-Math.abs(-8)          // 8
-Math.sign(-8)         // -1
-Math.min(4, 1, 9)     // 1
-Math.max(4, 1, 9)     // 9
+Math.abs(-8) // 8
+Math.sign(-8) // -1
+Math.min(4, 1, 9) // 1
+Math.max(4, 1, 9) // 9
 Math.sumPrecise([1e20, 1, -1e20]) // 1
-Math.floor(4.9)       // 4
-Math.ceil(4.1)        // 5
-Math.round(4.5)       // 5
-Math.trunc(-4.9)      // -4
-Math.pow(2, 3)        // 8
-2 ** 3                // 8
-Math.sqrt(81)         // 9
-Math.cbrt(27)         // 3
-Math.hypot(3, 4)      // 5
+Math.floor(4.9) // 4
+Math.ceil(4.1) // 5
+Math.round(4.5) // 5
+Math.trunc(-4.9) // -4
+Math.pow(2, 3) // 8
+2 ** 3 // 8
+Math.sqrt(81) // 9
+Math.cbrt(27) // 3
+Math.hypot(3, 4) // 5
 ```
 
 ### Trigonometría y logaritmos
@@ -211,32 +215,32 @@ const degrees = 180
 const radians = degrees * (Math.PI / 180)
 
 Math.sin(radians) // aproximadamente 0
-Math.cos(0)       // 1
-Math.log2(8)      // 3
-Math.log10(1000)  // 3
+Math.cos(0) // 1
+Math.log2(8) // 3
+Math.log10(1000) // 3
 ```
 
 ### Referencia de métodos restantes
 
-| Familia | Métodos | Qué resuelven |
-| --- | --- | --- |
-| redondeo binario | `fround`, `f16round` | aproximar a float de 32 o 16 bits |
-| enteros de 32 bits | `imul`, `clz32` | multiplicación y ceros iniciales bitwise |
-| exponenciales | `exp`, `expm1` | `eˣ` y `eˣ - 1` con mejor precisión cerca de cero |
-| logaritmos | `log`, `log1p`, `log2`, `log10` | log natural y variantes |
-| trigonometría | `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `atan2` | ángulos en radianes |
-| hiperbólicas | `sinh`, `cosh`, `tanh`, `asinh`, `acosh`, `atanh` | funciones hiperbólicas |
+| Familia            | Métodos                                              | Qué resuelven                                     |
+| ------------------ | ---------------------------------------------------- | ------------------------------------------------- |
+| redondeo binario   | `fround`, `f16round`                                 | aproximar a float de 32 o 16 bits                 |
+| enteros de 32 bits | `imul`, `clz32`                                      | multiplicación y ceros iniciales bitwise          |
+| exponenciales      | `exp`, `expm1`                                       | `eˣ` y `eˣ - 1` con mejor precisión cerca de cero |
+| logaritmos         | `log`, `log1p`, `log2`, `log10`                      | log natural y variantes                           |
+| trigonometría      | `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `atan2` | ángulos en radianes                               |
+| hiperbólicas       | `sinh`, `cosh`, `tanh`, `asinh`, `acosh`, `atanh`    | funciones hiperbólicas                            |
 
 ```js
-Math.fround(1.337)      // aproximación Float32: 1.3370000123977661
-Math.imul(2, 4)        // 8
-Math.clz32(1)          // 31
-Math.exp(1)            // 2.718281828459045
-Math.expm1(0)          // 0
-Math.log1p(0)          // 0
-Math.atan2(1, 1)       // aproximadamente 0.785: 45 grados
-Math.sinh(0)           // 0
-Math.asinh(0)          // 0
+Math.fround(1.337) // aproximación Float32: 1.3370000123977661
+Math.imul(2, 4) // 8
+Math.clz32(1) // 31
+Math.exp(1) // 2.718281828459045
+Math.expm1(0) // 0
+Math.log1p(0) // 0
+Math.atan2(1, 1) // aproximadamente 0.785: 45 grados
+Math.sinh(0) // 0
+Math.asinh(0) // 0
 ```
 
 `Math.f16round` pertenece a ECMAScript 2025 y puede no existir en runtimes antiguos. Está relacionado con `Float16Array`, explicado en datos binarios.
@@ -249,7 +253,7 @@ Una reducción normal suma de izquierda a derecha y redondea después de cada op
 const values = [1e20, 1, -1e20]
 
 values.reduce((total, value) => total + value, 0) // 0
-Math.sumPrecise(values)                           // 1
+Math.sumPrecise(values) // 1
 
 Math.sumPrecise(new Set([0.1, 0.2, 0.3])) // 0.6
 ```
@@ -258,14 +262,14 @@ No convierte strings ni acepta `BigInt`: un elemento que no sea `Number` provoca
 
 ### Constantes de `Math`
 
-| Constante | Valor aproximado | Uso |
-| --- | ---: | --- |
-| `Math.PI` | 3.14159 | círculos y ángulos |
-| `Math.E` | 2.71828 | crecimiento exponencial |
-| `Math.LN2`, `Math.LN10` | 0.693, 2.303 | logaritmos naturales |
-| `Math.LOG2E`, `Math.LOG10E` | 1.443, 0.434 | conversión de bases |
-| `Math.SQRT2` | 1.414 | raíz de 2 |
-| `Math.SQRT1_2` | 0.707 | raíz de 1/2 |
+| Constante                   | Valor aproximado | Uso                     |
+| --------------------------- | ---------------: | ----------------------- |
+| `Math.PI`                   |          3.14159 | círculos y ángulos      |
+| `Math.E`                    |          2.71828 | crecimiento exponencial |
+| `Math.LN2`, `Math.LN10`     |     0.693, 2.303 | logaritmos naturales    |
+| `Math.LOG2E`, `Math.LOG10E` |     1.443, 0.434 | conversión de bases     |
+| `Math.SQRT2`                |            1.414 | raíz de 2               |
+| `Math.SQRT1_2`              |            0.707 | raíz de 1/2             |
 
 ## Patrones matemáticos frecuentes
 
@@ -277,8 +281,8 @@ function clamp(value, min, max) {
 }
 
 clamp(120, 0, 100) // 100
-clamp(-5, 0, 100)  // 0
-clamp(40, 0, 100)  // 40
+clamp(-5, 0, 100) // 0
+clamp(40, 0, 100) // 40
 ```
 
 ### Entero aleatorio dentro de un rango
@@ -305,9 +309,9 @@ crypto.randomUUID()
 ```js
 const largeId = 9_007_199_254_740_993n
 
-largeId + 2n          // 9007199254740995n
-largeId * 10n         // 90071992547409930n
-BigInt('123456789')   // 123456789n
+largeId + 2n // 9007199254740995n
+largeId * 10n // 90071992547409930n
+BigInt("123456789") // 123456789n
 // largeId + 2        // TypeError: no mezcla BigInt y Number
 ```
 
@@ -321,7 +325,7 @@ function getPagination(totalItems, pageSize, currentPage) {
   return {
     page,
     totalPages,
-    offset: (page - 1) * pageSize,
+    offset: (page - 1) * pageSize
   }
 }
 

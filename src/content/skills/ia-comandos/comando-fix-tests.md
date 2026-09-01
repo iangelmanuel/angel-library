@@ -27,10 +27,10 @@ If a test fails for a reason you don't understand (external dependency, flaky), 
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
+| Dónde       | Archivo                         |
+| ----------- | ------------------------------- |
 | Claude Code | `.claude/commands/fix-tests.md` |
-| Cursor | `.cursor/commands/fix-tests.md` |
+| Cursor      | `.cursor/commands/fix-tests.md` |
 
 ## Consideraciones
 

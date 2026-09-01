@@ -26,13 +26,13 @@ Promueve el mismo artefacto probado. Si producción vuelve a compilar, ya no se 
 
 ## Qué debe variar
 
-| Configuración | Ejemplo |
-| --- | --- |
+| Configuración    | Ejemplo                         |
+| ---------------- | ------------------------------- |
 | endpoint externo | sandbox frente a proveedor real |
-| credencial | clave propia del entorno |
-| capacidad | réplicas o límites |
-| telemetría | dataset y release identificable |
-| feature flag | activación controlada |
+| credencial       | clave propia del entorno        |
+| capacidad        | réplicas o límites              |
+| telemetría       | dataset y release identificable |
+| feature flag     | activación controlada           |
 
 No uses `NODE_ENV` como único interruptor para decenas de comportamientos. Configura capacidades explícitas y valida al iniciar.
 
@@ -60,4 +60,3 @@ Rollback restaura un artefacto anterior; roll-forward publica una corrección. E
 ## Criterio de confianza
 
 Puedes responder qué commit corre, con qué configuración no secreta, quién lo promovió, qué migraciones aplicó, cómo se verifica y cuánto tarda volver a una versión segura.
-

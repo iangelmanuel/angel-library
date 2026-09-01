@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { createFuse, loadSearchIndex, type SearchDoc } from "../search"
+import { type SearchDoc, createFuse, loadSearchIndex } from "../search"
 import type { CategoryItem, TagIndexItem } from "../types"
 
 /**
@@ -31,11 +31,17 @@ export function useSearchIndex() {
     const counts = new Map<string, TagIndexItem>()
     const categoryIndex = new Map<string, CategoryItem>()
     for (const doc of docs) {
-      categoryIndex.set(doc.categoryId, { id: doc.categoryId, label: doc.categoryLabel })
+      categoryIndex.set(doc.categoryId, {
+        id: doc.categoryId,
+        label: doc.categoryLabel
+      })
       for (const tag of doc.tags) {
         const key = tag.toLocaleLowerCase("es")
         const current = counts.get(key)
-        counts.set(key, { tag: current?.tag ?? tag, count: (current?.count ?? 0) + 1 })
+        counts.set(key, {
+          tag: current?.tag ?? tag,
+          count: (current?.count ?? 0) + 1
+        })
       }
     }
 

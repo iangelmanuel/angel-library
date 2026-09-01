@@ -16,7 +16,7 @@ Esta librería se llamaba **Framer Motion** — se renombró a **Motion**. El pa
 ## Import
 
 ```tsx
-import { motion } from 'motion/react';
+import { motion } from "motion/react"
 ```
 
 ## El componente `motion.*`
@@ -24,7 +24,11 @@ import { motion } from 'motion/react';
 Cualquier elemento HTML tiene su versión animable con el prefijo `motion.` — acepta las props normales más `animate`, que anima hacia ese estado apenas cambia.
 
 ```tsx
-<motion.button animate={{ scale: 1.1 }} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.95 }}>
+<motion.button
+  animate={{ scale: 1.1 }}
+  whileHover={{ scale: 1.2 }}
+  whileTap={{ scale: 0.95 }}
+>
   Click
 </motion.button>
 ```
@@ -48,7 +52,7 @@ Cualquier elemento HTML tiene su versión animable con el prefijo `motion.` — 
 React desmonta un elemento de forma instantánea por defecto — no hay tiempo para animar su salida. `AnimatePresence` retiene el elemento en el DOM hasta que termina su animación `exit`, y recién ahí lo desmonta de verdad.
 
 ```tsx
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion } from "motion/react"
 
 function Modal({ abierto }: { abierto: boolean }) {
   return (
@@ -63,20 +67,20 @@ function Modal({ abierto }: { abierto: boolean }) {
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }
 ```
 
 ## API de Motion en una mirada
 
-| API | Uso |
-| --- | --- |
-| `motion.div`, `motion.button`, etc. | Cualquier tag HTML, animable |
-| `animate` | Estado al que anima (cambia cuando cambian las props) |
-| `initial` / `animate` | Animación de entrada |
-| `whileHover` / `whileTap` | Animación mientras dura la interacción |
-| `exit` + `<AnimatePresence>` | Animación de salida, retiene el nodo hasta que termina |
-| `transition={{ duration, ease, delay }}` | Configurar cómo se anima el cambio |
+| API                                      | Uso                                                    |
+| ---------------------------------------- | ------------------------------------------------------ |
+| `motion.div`, `motion.button`, etc.      | Cualquier tag HTML, animable                           |
+| `animate`                                | Estado al que anima (cambia cuando cambian las props)  |
+| `initial` / `animate`                    | Animación de entrada                                   |
+| `whileHover` / `whileTap`                | Animación mientras dura la interacción                 |
+| `exit` + `<AnimatePresence>`             | Animación de salida, retiene el nodo hasta que termina |
+| `transition={{ duration, ease, delay }}` | Configurar cómo se anima el cambio                     |
 
 ## Presencia, layout y movimiento reducido
 

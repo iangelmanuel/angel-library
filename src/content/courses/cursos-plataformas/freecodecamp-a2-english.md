@@ -16,13 +16,13 @@ updatedAt: 2026-08-30
 
 Certificación de **freeCodeCamp** que enseña inglés de nivel **A2** usando situaciones propias del trabajo en desarrollo de software: reuniones, correos, revisiones de código, presentaciones.
 
-| | |
-| --- | --- |
-| Nivel | A2 del marco europeo, elemental |
-| Dedicación estimada | Unas 300 horas |
-| Precio | Gratis |
-| Certificado | Sí, verificado y gratuito |
-| Estado | Beta |
+|                     |                                 |
+| ------------------- | ------------------------------- |
+| Nivel               | A2 del marco europeo, elemental |
+| Dedicación estimada | Unas 300 horas                  |
+| Precio              | Gratis                          |
+| Certificado         | Sí, verificado y gratuito       |
+| Estado              | Beta                            |
 
 Hay **versión en español** de la interfaz, que es la enlazada aquí: las instrucciones se leen en español y se practica el inglés.
 

@@ -35,16 +35,20 @@ HTML no reemplaza la validación del servidor, la autorización ni el diseño vi
 Un **elemento** es una unidad del documento, como `<button>`. Un **atributo** aparece en el HTML y configura su estado inicial, como `disabled`. Cuando el navegador analiza el documento crea un objeto DOM con **propiedades** que JavaScript puede leer o modificar.
 
 ```html
-<input id="nickname" value="Ana" disabled />
+<input
+  id="nickname"
+  value="Ana"
+  disabled
+/>
 
 <script>
-  const input = document.querySelector('#nickname');
+  const input = document.querySelector("#nickname")
 
-  console.log(input.getAttribute('value')); // "Ana": atributo del HTML
-  console.log(input.value);                 // "Ana": valor actual de la propiedad
+  console.log(input.getAttribute("value")) // "Ana": atributo del HTML
+  console.log(input.value) // "Ana": valor actual de la propiedad
 
-  input.value = 'Andrea';
-  console.log(input.getAttribute('value')); // Sigue siendo "Ana"
+  input.value = "Andrea"
+  console.log(input.getAttribute("value")) // Sigue siendo "Ana"
 </script>
 ```
 
@@ -66,14 +70,14 @@ Cuando un framework hidrata HTML inválido, el árbol producido en el servidor p
 
 ## Atributos globales menos obvios
 
-| Atributo | Qué expresa | Caso de uso |
-| --- | --- | --- |
-| `hidden` | El elemento no se presenta actualmente | Panel colapsado que JavaScript puede revelar |
-| `inert` | El subárbol no recibe foco ni interacción | Contenido detrás de un diálogo modal |
-| `data-*` | Metadatos propios accesibles desde `dataset` | Identificador para comportamiento del componente |
-| `translate="no"` | El contenido no debería traducirse | Nombre de producto o fragmento de código |
-| `contenteditable` | El contenido puede editarse | Editor simple, con gestión adicional de selección y pegado |
-| `spellcheck` | Sugiere revisión ortográfica | Texto natural, no códigos o identificadores |
+| Atributo          | Qué expresa                                  | Caso de uso                                                |
+| ----------------- | -------------------------------------------- | ---------------------------------------------------------- |
+| `hidden`          | El elemento no se presenta actualmente       | Panel colapsado que JavaScript puede revelar               |
+| `inert`           | El subárbol no recibe foco ni interacción    | Contenido detrás de un diálogo modal                       |
+| `data-*`          | Metadatos propios accesibles desde `dataset` | Identificador para comportamiento del componente           |
+| `translate="no"`  | El contenido no debería traducirse           | Nombre de producto o fragmento de código                   |
+| `contenteditable` | El contenido puede editarse                  | Editor simple, con gestión adicional de selección y pegado |
+| `spellcheck`      | Sugiere revisión ortográfica                 | Texto natural, no códigos o identificadores                |
 
 `data-*` sirve para datos pequeños asociados al elemento, no para almacenar objetos grandes ni información secreta: el atributo es visible en el documento.
 
@@ -84,7 +88,11 @@ El árbol DOM representa estructura para scripts y estilos. El **árbol de acces
 ```html
 <nav aria-label="Documentación principal">
   <a href="/html">HTML</a>
-  <a href="/css" aria-current="page">CSS</a>
+  <a
+    href="/css"
+    aria-current="page"
+    >CSS</a
+  >
 </nav>
 ```
 

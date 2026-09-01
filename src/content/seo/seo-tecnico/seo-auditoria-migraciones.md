@@ -71,4 +71,3 @@ La migración no termina el día del deploy. Continúa hasta que rastreo, indexa
 
 - [Google Search Console](https://search.google.com/search-console/about)
 - [Google Search: migraciones con cambios de URL](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes)
-

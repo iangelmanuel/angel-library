@@ -19,20 +19,20 @@ Vive en `src/content.config.ts`, en la raíz de `src/` (no dentro de `content/`)
 **La ruta es exacta, no una convención flexible**: Astro solo reconoce colecciones declaradas en `src/content.config.ts`. Moverlo a `src/content/index.ts` (o cualquier otra ruta, por prolijo que parezca) no rompe el build con un error claro — la colección simplemente queda vacía en silencio. El síntoma aparece más adelante, en `astro check`, como errores de tipos que no mencionan el archivo movido: `Property 'data' does not exist on type 'never'` o `Argument of type "..." is not assignable to parameter of type 'never'` en cualquier componente que consuma esa colección. Si ves ese error, lo primero a revisar es la ruta exacta de `content.config.ts`, no el componente donde aparece el error.
 
 ```ts title="src/content.config.ts"
-import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
+import { glob } from "astro/loaders"
+import { z } from "astro/zod"
+import { defineCollection } from "astro:content"
 
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     pubDate: z.coerce.date(),
-    draft: z.boolean().default(false),
-  }),
-});
+    draft: z.boolean().default(false)
+  })
+})
 
-export const collections = { blog };
+export const collections = { blog }
 ```
 
 ## Loaders: `glob` y `file`
@@ -40,20 +40,20 @@ export const collections = { blog };
 `glob` lee varios archivos (típicamente Markdown, uno por entrada). `file` lee un único JSON/YAML/TOML con varias entradas adentro — cada una necesita un `id` único.
 
 ```ts
-glob({ pattern: '**/*.md', base: './src/content/blog' });
+glob({ pattern: "**/*.md", base: "./src/content/blog" })
 
-file('src/data/autores.json'); // requiere { id: "...", ... } por entrada
+file("src/data/autores.json") // requiere { id: "...", ... } por entrada
 ```
 
 ## Leer entradas
 
 ```ts
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry } from "astro:content"
 
-const posts = await getCollection('blog');
-const publicados = await getCollection('blog', ({ data }) => !data.draft);
+const posts = await getCollection("blog")
+const publicados = await getCollection("blog", ({ data }) => !data.draft)
 
-const post = await getEntry('blog', 'primer-post');
+const post = await getEntry("blog", "primer-post")
 ```
 
 ## Renderizar el contenido
@@ -62,11 +62,12 @@ const post = await getEntry('blog', 'primer-post');
 
 ```astro
 ---
-import { render, getEntry } from 'astro:content';
+import { render, getEntry } from "astro:content"
 
-const post = await getEntry('blog', 'primer-post');
-const { Content, headings } = await render(post);
+const post = await getEntry("blog", "primer-post")
+const { Content, headings } = await render(post)
 ---
+
 <Content />
 ```
 
@@ -75,37 +76,37 @@ const { Content, headings } = await render(post);
 `reference()` tipa un campo como id de otra colección, en vez de un string suelto — falla en build si apunta a algo que no existe.
 
 ```ts
-import { reference } from 'astro:content';
+import { reference } from "astro:content"
 
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
-    autor: reference('autores'),
-    relacionados: z.array(reference('blog')).default([]),
-  }),
-});
+    autor: reference("autores"),
+    relacionados: z.array(reference("blog")).default([])
+  })
+})
 ```
 
 ```ts
-import { getEntry, getEntries } from 'astro:content';
+import { getEntries, getEntry } from "astro:content"
 
-const post = await getEntry('blog', 'primer-post');
-const autor = await getEntry(post.data.autor);
-const relacionados = await getEntries(post.data.relacionados);
+const post = await getEntry("blog", "primer-post")
+const autor = await getEntry(post.data.autor)
+const relacionados = await getEntries(post.data.relacionados)
 ```
 
 ## APIs de colección en una mirada
 
-| API | Uso |
-| --- | --- |
-| `defineCollection({ loader, schema })` | Declarar una colección |
-| `glob()` / `file()` | Loader desde varios archivos / uno solo |
-| `getCollection(nombre, filtro?)` | Todas las entradas, con filtro opcional |
-| `getEntry(nombre, id)` | Una entrada puntual |
-| `render(entry)` | `{ Content, headings }` para renderizar el body |
-| `reference(coleccion)` | Tipar un campo como referencia a otra colección |
-| `getEntries(refs)` | Resolver varias referencias directamente |
+| API                                    | Uso                                             |
+| -------------------------------------- | ----------------------------------------------- |
+| `defineCollection({ loader, schema })` | Declarar una colección                          |
+| `glob()` / `file()`                    | Loader desde varios archivos / uno solo         |
+| `getCollection(nombre, filtro?)`       | Todas las entradas, con filtro opcional         |
+| `getEntry(nombre, id)`                 | Una entrada puntual                             |
+| `render(entry)`                        | `{ Content, headings }` para renderizar el body |
+| `reference(coleccion)`                 | Tipar un campo como referencia a otra colección |
+| `getEntries(refs)`                     | Resolver varias referencias directamente        |
 
 ## Diseño del esquema y del contenido
 

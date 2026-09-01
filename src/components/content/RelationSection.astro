@@ -1,22 +1,25 @@
 ---
-import ContentCard from '@/components/content/ContentCard.astro';
-import Icon from '@/components/shared/Icon.astro';
-import type { AnyEntry } from '@/lib/content';
+import ContentCard from "@/components/content/ContentCard.astro"
+import Icon from "@/components/shared/Icon.astro"
+import type { AnyEntry } from "@/lib/content"
 
 interface Props {
-  title: string;
-  icon: string;
-  entries: AnyEntry[];
+  title: string
+  icon: string
+  entries: AnyEntry[]
 }
 
-const { title, icon, entries } = Astro.props;
+const { title, icon, entries } = Astro.props
 ---
 
 {
   entries.length > 0 && (
     <section class="relation-section">
       <h2 class="relation-section__title flex items-center gap-2">
-        <Icon name={icon} class="size-3.5" />
+        <Icon
+          name={icon}
+          class="size-3.5"
+        />
         {title}
       </h2>
       <div class="grid gap-3 sm:grid-cols-2">

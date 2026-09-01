@@ -19,19 +19,19 @@ A diferencia de Context, un store de Zustand vive fuera del árbol de React: no 
 `create<T>()` define el estado y las acciones en el mismo lugar, tipado. `set` actualiza de forma inmutable — igual que en un reducer, siempre se devuelve un objeto nuevo.
 
 ```ts title="stores/carrito.ts"
-import { create } from 'zustand';
+import { create } from "zustand"
 
 interface CarritoStore {
-  items: string[];
-  agregar: (item: string) => void;
-  vaciar: () => void;
+  items: string[]
+  agregar: (item: string) => void
+  vaciar: () => void
 }
 
 export const useCarritoStore = create<CarritoStore>((set) => ({
   items: [],
   agregar: (item) => set((state) => ({ items: [...state.items, item] })),
-  vaciar: () => set({ items: [] }),
-}));
+  vaciar: () => set({ items: [] })
+}))
 ```
 
 ## Usar el store — con selector
@@ -40,13 +40,13 @@ Llamar al hook sin selector (`useCarritoStore()`) suscribe el componente a **tod
 
 ```tsx
 function ContadorCarrito() {
-  const cantidad = useCarritoStore((state) => state.items.length);
-  return <span>{cantidad}</span>;
+  const cantidad = useCarritoStore((state) => state.items.length)
+  return <span>{cantidad}</span>
 }
 
 function BotonAgregar({ producto }: { producto: string }) {
-  const agregar = useCarritoStore((state) => state.agregar);
-  return <button onClick={() => agregar(producto)}>Agregar</button>;
+  const agregar = useCarritoStore((state) => state.agregar)
+  return <button onClick={() => agregar(producto)}>Agregar</button>
 }
 ```
 
@@ -57,33 +57,33 @@ function BotonAgregar({ producto }: { producto: string }) {
 Envuelve el store para sincronizarlo automáticamente con `localStorage` (o cualquier storage compatible), sin escribir el `JSON.parse`/`stringify` a mano.
 
 ```ts title="stores/preferencias.ts"
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 interface PreferenciasStore {
-  tema: 'claro' | 'oscuro';
-  setTema: (tema: 'claro' | 'oscuro') => void;
+  tema: "claro" | "oscuro"
+  setTema: (tema: "claro" | "oscuro") => void
 }
 
 export const usePreferenciasStore = create<PreferenciasStore>()(
   persist(
     (set) => ({
-      tema: 'oscuro',
-      setTema: (tema) => set({ tema }),
+      tema: "oscuro",
+      setTema: (tema) => set({ tema })
     }),
-    { name: 'preferencias' }, // clave en localStorage
-  ),
-);
+    { name: "preferencias" } // clave en localStorage
+  )
+)
 ```
 
 ## API del store en una mirada
 
-| API | Uso |
-| --- | --- |
-| `create<T>((set) => ({...}))` | Definir el store: estado + acciones, tipado |
-| `set((state) => ({...}))` | Actualizar de forma inmutable, con acceso al estado actual |
+| API                                | Uso                                                          |
+| ---------------------------------- | ------------------------------------------------------------ |
+| `create<T>((set) => ({...}))`      | Definir el store: estado + acciones, tipado                  |
+| `set((state) => ({...}))`          | Actualizar de forma inmutable, con acceso al estado actual   |
 | `useStore((state) => state.campo)` | Selector: suscribe solo a ese campo, evita re-renders de más |
-| `persist(config, { name })` | Middleware para sincronizar el store con `localStorage` |
+| `persist(config, { name })`        | Middleware para sincronizar el store con `localStorage`      |
 
 ## Selectores, persistencia y alcance
 

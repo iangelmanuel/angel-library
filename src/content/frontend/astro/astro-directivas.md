@@ -8,14 +8,16 @@ scope: sintaxis de archivos .astro
 updatedAt: 2026-08-25
 ---
 
-Las directivas son atributos especiales que Astro reconoce en el compilador — no llegan al HTML final tal cual, cambian *cómo* se genera el elemento antes de renderizarlo. Se distinguen de un atributo normal por el `:` en el nombre (`class:list`, `set:html`...). Estas cuatro son las que más se usan día a día escribiendo componentes `.astro`.
+Las directivas son atributos especiales que Astro reconoce en el compilador — no llegan al HTML final tal cual, cambian _cómo_ se genera el elemento antes de renderizarlo. Se distinguen de un atributo normal por el `:` en el nombre (`class:list`, `set:html`...). Estas cuatro son las que más se usan día a día escribiendo componentes `.astro`.
 
 ## `class:list` — Clases condicionales
 
 Convierte un array de strings, objetos y arrays anidados en un solo string de clases. Los objetos aportan la clase solo si el valor es truthy — reemplaza `clsx`/`classnames` para casos simples.
 
 ```astro
-<span class:list={['base', { activo: isActivo, disabled: isDisabled }, ['extra']]} />
+<span
+  class:list={["base", { activo: isActivo, disabled: isDisabled }, ["extra"]]}
+></span>
 <!-- Si isActivo=true y isDisabled=false: class="base activo extra" -->
 ```
 
@@ -42,26 +44,29 @@ Pasa variables del frontmatter a un `<style>` o `<script>` del mismo componente,
 
 ```astro
 ---
-const colorTexto = '#60a5fa';
-const mensaje = 'Hola';
+const colorTexto = "#60a5fa"
+const mensaje = "Hola"
 ---
+
 <style define:vars={{ colorTexto }}>
-  h1 { color: var(--colorTexto); }
+  h1 {
+    color: var(--colorTexto);
+  }
 </style>
 
 <script define:vars={{ mensaje }}>
-  alert(mensaje);
+  alert(mensaje)
 </script>
 ```
 
 ## Mapa de directivas
 
-| Directiva | Qué hace |
-| --- | --- |
-| `class:list` | Arma un string de clases desde array/objeto, con condicionales |
-| `set:html` | Inyecta HTML crudo (sin escapar) |
-| `set:text` | Inyecta texto escapado, reemplazando hijos |
-| `define:vars` | Pasa variables del frontmatter a `<style>`/`<script>` |
+| Directiva     | Qué hace                                                       |
+| ------------- | -------------------------------------------------------------- |
+| `class:list`  | Arma un string de clases desde array/objeto, con condicionales |
+| `set:html`    | Inyecta HTML crudo (sin escapar)                               |
+| `set:text`    | Inyecta texto escapado, reemplazando hijos                     |
+| `define:vars` | Pasa variables del frontmatter a `<style>`/`<script>`          |
 
 ## Seguridad y límites de plantilla
 

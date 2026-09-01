@@ -15,19 +15,26 @@ Igual espíritu que [Fontsource en Astro](/languages/css/css-fonts): nada de un 
 ## Google Fonts
 
 ```tsx title="app/layout.tsx"
-import { Inter } from 'next/font/google';
+import { Inter } from "next/font/google"
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-});
+  subsets: ["latin"],
+  display: "swap"
+})
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="es" className={inter.className}>
+    <html
+      lang="es"
+      className={inter.className}
+    >
       <body>{children}</body>
     </html>
-  );
+  )
 }
 ```
 
@@ -36,12 +43,12 @@ Con una fuente variable (la mayoría de las modernas), no hace falta especificar
 ## Fuente local
 
 ```tsx title="app/layout.tsx"
-import localFont from 'next/font/local';
+import localFont from "next/font/local"
 
 const miFuente = localFont({
-  src: './fonts/mi-fuente.woff2',
-  display: 'swap',
-});
+  src: "./fonts/mi-fuente.woff2",
+  display: "swap"
+})
 ```
 
 ## Varias fuentes con CSS variables
@@ -49,35 +56,55 @@ const miFuente = localFont({
 Para usar más directamente fuente (una para texto, otra para código, por ejemplo), la forma más prolija es declarar cada una con `variable` y aplicarla selectivamente por CSS — en vez de un `className` global que mezcla ambas.
 
 ```tsx title="app/layout.tsx"
-import { Inter, Roboto_Mono } from 'next/font/google';
+import { Inter, Roboto_Mono } from "next/font/google"
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const robotoMono = Roboto_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap"
+})
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap"
+})
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="es" className={`${inter.variable} ${robotoMono.variable}`}>
+    <html
+      lang="es"
+      className={`${inter.variable} ${robotoMono.variable}`}
+    >
       <body>{children}</body>
     </html>
-  );
+  )
 }
 ```
 
 ```css
-html { font-family: var(--font-inter); }
-code, pre { font-family: var(--font-mono); }
+html {
+  font-family: var(--font-inter);
+}
+code,
+pre {
+  font-family: var(--font-mono);
+}
 ```
 
 ## API de fuentes en una mirada
 
-| API | Uso |
-| --- | --- |
-| `next/font/google` | Cualquier fuente de Google Fonts, self-hosted en build |
-| `next/font/local` | Un archivo de fuente propio |
-| `subsets` | Qué subconjunto de caracteres precargar (requerido si `preload` está activo, que es el default) |
-| `weight` | Obligatorio si la fuente no es variable |
-| `.className` | Aplicar directo a un elemento |
-| `variable` + CSS | Para usar varias fuentes selectivamente, en vez directamente global |
+| API                | Uso                                                                                             |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| `next/font/google` | Cualquier fuente de Google Fonts, self-hosted en build                                          |
+| `next/font/local`  | Un archivo de fuente propio                                                                     |
+| `subsets`          | Qué subconjunto de caracteres precargar (requerido si `preload` está activo, que es el default) |
+| `weight`           | Obligatorio si la fuente no es variable                                                         |
+| `.className`       | Aplicar directo a un elemento                                                                   |
+| `variable` + CSS   | Para usar varias fuentes selectivamente, en vez directamente global                             |
 
 ## Métricas, subsets y carga
 

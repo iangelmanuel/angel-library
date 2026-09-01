@@ -18,13 +18,13 @@ updatedAt: 2026-08-30
 
 ## Qué incluye
 
-| | |
-| --- | --- |
+|         |                                                     |
+| ------- | --------------------------------------------------- |
 | Formato | Clases grabadas, a tu ritmo, sin fecha de caducidad |
-| Volumen | Más de 13 módulos y más de 100 clases |
-| Idioma | Español |
-| Nivel | Desde cero, con dificultad progresiva |
-| Precio | Gratis el temario completo |
+| Volumen | Más de 13 módulos y más de 100 clases               |
+| Idioma  | Español                                             |
+| Nivel   | Desde cero, con dificultad progresiva               |
+| Precio  | Gratis el temario completo                          |
 
 El recorrido cubre frontend (HTML, CSS, JavaScript, React), backend (Node.js, Express, bases de datos) y una capa más avanzada con TypeScript, testing, Docker, CI/CD e integración de IA.
 

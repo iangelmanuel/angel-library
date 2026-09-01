@@ -1,17 +1,16 @@
 import {
   CATEGORIES,
   CATEGORY_GROUPS,
-  CONTENT_TYPES,
-  SUBCATEGORIES,
-  type CategoryId,
-  type ContentTypeId
-} from "@/config/site"
+  type CategoryId
+} from "@/config/categories"
+import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
+import { SUBCATEGORIES } from "@/config/subcategories"
 import {
+  type AnyEntry,
   getCategoryEntries,
   getEntryUrl,
   sortByLearningPath,
-  subcategoryOf,
-  type AnyEntry
+  subcategoryOf
 } from "./content"
 
 /** Datos de la sidebar y del menú móvil. */
@@ -72,7 +71,10 @@ function iconFor(entry: AnyEntry): string {
   if (icon) return icon
 
   const language = (entry.data as { language?: string }).language
-  return (language && LANGUAGE_ICONS[language]) || CONTENT_TYPES[entry.data.type].icon
+  return (
+    (language && LANGUAGE_ICONS[language]) ||
+    CONTENT_TYPES[entry.data.type].icon
+  )
 }
 
 function toNavItems(entries: AnyEntry[]): NavItem[] {

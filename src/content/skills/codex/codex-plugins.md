@@ -31,11 +31,11 @@ apps = true
 
 ## Resumen
 
-| Componente | Empaquetado |
-| --- | --- |
-| Skills | `skills/*/SKILL.md` |
-| Servidores MCP | `mcp.json` |
-| Hooks | `hooks/hooks.json` |
+| Componente     | Empaquetado         |
+| -------------- | ------------------- |
+| Skills         | `skills/*/SKILL.md` |
+| Servidores MCP | `mcp.json`          |
+| Hooks          | `hooks/hooks.json`  |
 
 ## Consideraciones
 

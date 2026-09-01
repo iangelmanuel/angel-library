@@ -26,10 +26,10 @@ Es la diferencia principal con el resto de recursos de esta sección: los demás
 
 ## Rutas disponibles
 
-| Certificación | Duración |
-| --- | --- |
-| Generative AI Leader | 5 semanas |
-| Associate Cloud Engineer | 9 semanas |
+| Certificación                | Duración                                                                               |
+| ---------------------------- | -------------------------------------------------------------------------------------- |
+| Generative AI Leader         | 5 semanas                                                                              |
+| Associate Cloud Engineer     | 9 semanas                                                                              |
 | Professional Cloud Architect | 6 a 9 semanas, con opción exprés de 6 para quien ya tenga certificación de AWS o Azure |
 
 En la ruta de Generative AI Leader, la asistencia en vivo de la primera etapa es obligatoria.

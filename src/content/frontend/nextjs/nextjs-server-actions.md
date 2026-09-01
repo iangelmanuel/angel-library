@@ -17,34 +17,37 @@ Una Server Action es una función marcada con `'use server'`, invocada desde un 
 ## Definir y usar una
 
 ```ts title="app/posts/actions.ts"
-'use server'
+"use server"
 
-import { revalidatePath } from 'next/cache';
-import { auth } from '@/libs/auth';
-import { db } from '@/libs/db';
+import { revalidatePath } from "next/cache"
+import { auth } from "@/libs/auth"
+import { db } from "@/libs/db"
 
 export async function crearPost(formData: FormData) {
-  const session = await auth();
-  if (!session?.user) throw new Error('No autenticado');
+  const session = await auth()
+  if (!session?.user) throw new Error("No autenticado")
 
   await db.post.create({
-    data: { title: String(formData.get('title')), authorId: session.user.id },
-  });
+    data: { title: String(formData.get("title")), authorId: session.user.id }
+  })
 
-  revalidatePath('/posts');
+  revalidatePath("/posts")
 }
 ```
 
 ```tsx title="app/posts/nuevo/page.tsx"
-import { crearPost } from '../actions';
+import { crearPost } from "../actions"
 
 export default function NuevoPost() {
   return (
     <form action={crearPost}>
-      <input name="title" required />
+      <input
+        name="title"
+        required
+      />
       <button>Publicar</button>
     </form>
-  );
+  )
 }
 ```
 
@@ -67,30 +70,32 @@ Cada Server Action es un endpoint POST alcanzable por cualquiera que sepa la URL
 Ninguna de esas protecciones reemplaza la autorización dentro de la action — el renderizado condicional ("este botón solo se muestra si eres admin") **no** es una barrera de seguridad, porque la request se puede mandar sin pasar por tu UI.
 
 ```ts title="app/posts/actions.ts"
-'use server'
+"use server"
 
 export async function borrarPost(postId: string) {
-  const session = await auth();
-  if (!session?.user) throw new Error('No autenticado');
+  const session = await auth()
+  if (!session?.user) throw new Error("No autenticado")
 
   // No confiar en que el cliente mande solo IDs de posts propios:
   // verificar ownership aquí, con datos del servidor.
-  const post = await db.post.findFirst({ where: { id: postId, authorId: session.user.id } });
-  if (!post) throw new Error('No autorizado');
+  const post = await db.post.findFirst({
+    where: { id: postId, authorId: session.user.id }
+  })
+  if (!post) throw new Error("No autorizado")
 
-  await db.post.delete({ where: { id: postId } });
+  await db.post.delete({ where: { id: postId } })
 }
 ```
 
 ## Contrato de una Action en una mirada
 
-| Concepto | Qué significa |
-| --- | --- |
-| `'use server'` | Marca la función como Server Action |
-| `<form action={miAction}>` | Forma más simple de invocarla, con progressive enhancement |
-| `revalidatePath`/`revalidateTag` dentro de la action | La respuesta incluye la UI re-renderizada, sin fetch aparte |
-| Despacho secuencial | Varias actions del mismo cliente no corren en paralelo entre sí |
-| Autorización dentro de la action | Obligatoria — el framework no la reemplaza |
+| Concepto                                             | Qué significa                                                   |
+| ---------------------------------------------------- | --------------------------------------------------------------- |
+| `'use server'`                                       | Marca la función como Server Action                             |
+| `<form action={miAction}>`                           | Forma más simple de invocarla, con progressive enhancement      |
+| `revalidatePath`/`revalidateTag` dentro de la action | La respuesta incluye la UI re-renderizada, sin fetch aparte     |
+| Despacho secuencial                                  | Varias actions del mismo cliente no corren en paralelo entre sí |
+| Autorización dentro de la action                     | Obligatoria — el framework no la reemplaza                      |
 
 ## Seguridad, errores y consistencia
 

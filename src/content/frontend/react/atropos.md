@@ -16,17 +16,28 @@ Atropos inclina un elemento en 3D siguiendo el mouse (o el dedo, en touch — us
 ## Uso básico
 
 ```tsx
-import Atropos from 'atropos/react';
-import 'atropos/css';
+import "atropos/css"
+import Atropos from "atropos/react"
 
 function TarjetaConProfundidad() {
   return (
-    <Atropos className="mi-tarjeta" activeOffset={40} shadow highlight>
-      <img src="/fondo.png" data-atropos-offset="-5" />
-      <img src="/personaje.png" data-atropos-offset="3" />
+    <Atropos
+      className="mi-tarjeta"
+      activeOffset={40}
+      shadow
+      highlight
+    >
+      <img
+        src="/fondo.png"
+        data-atropos-offset="-5"
+      />
+      <img
+        src="/personaje.png"
+        data-atropos-offset="3"
+      />
       <h2 data-atropos-offset="8">Título</h2>
     </Atropos>
-  );
+  )
 }
 ```
 
@@ -65,13 +76,13 @@ Atropos no define el tamaño del contenedor — hay que darle dimensiones explí
 
 ## Props y elementos en una mirada
 
-| API | Uso |
-| --- | --- |
-| `<Atropos>` | Contenedor que activa el efecto 3D |
-| `data-atropos-offset` | En cada hijo directo, define su profundidad relativa |
-| `shadow` / `highlight` | Sombra/brillo dinámicos según la inclinación |
-| `rotateXMax` / `rotateYMax` | Límite de rotación en grados |
-| `activeOffset` | Intensidad del efecto general al activarse |
+| API                         | Uso                                                  |
+| --------------------------- | ---------------------------------------------------- |
+| `<Atropos>`                 | Contenedor que activa el efecto 3D                   |
+| `data-atropos-offset`       | En cada hijo directo, define su profundidad relativa |
+| `shadow` / `highlight`      | Sombra/brillo dinámicos según la inclinación         |
+| `rotateXMax` / `rotateYMax` | Límite de rotación en grados                         |
+| `activeOffset`              | Intensidad del efecto general al activarse           |
 
 ## Movimiento, rendimiento y accesibilidad
 

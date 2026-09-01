@@ -40,15 +40,17 @@ Al recibir `SIGTERM`:
 Los workers deben reconocer cancelación y los jobs ser idempotentes, porque una máquina puede morir sin ejecutar cleanup.
 
 ```ts
-process.once('SIGTERM', async () => {
-  ready = false;
-  server.close();
+process.once("SIGTERM", async () => {
+  ready = false
+  server.close()
 
   await Promise.race([
     closeDependencies(),
-    new Promise((_, reject) => setTimeout(() => reject(new Error('shutdown timeout')), 20_000)),
-  ]);
-});
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("shutdown timeout")), 20_000)
+    )
+  ])
+})
 ```
 
 Evita llamar `process.exit()` antes de drenar logs y conexiones. Aun con cleanup correcto, diseña para un kill forzado.
@@ -60,4 +62,3 @@ El timeout exterior debe superar al interior con margen. Si el proxy espera 30 s
 ## Prueba de despliegue
 
 Envía tráfico, inicia un shutdown y verifica que la instancia salga del balanceador antes de cerrar. Confirma que no se pierdan jobs, que el despliegue tenga un límite y que una dependencia caída no provoque un ciclo infinito de reinicios.
-

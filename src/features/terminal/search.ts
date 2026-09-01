@@ -27,7 +27,9 @@ export function loadSearchIndex(): Promise<SearchDoc[]> {
   pending ??= fetch("/search-index.json")
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`Error al cargar el índice de búsqueda (${response.status})`)
+        throw new Error(
+          `Error al cargar el índice de búsqueda (${response.status})`
+        )
       }
       return response.json() as Promise<SearchDoc[]>
     })

@@ -39,9 +39,21 @@ Evita cambiar únicamente por cookie o header bajo la misma URL si quieres que a
 ## `hreflang`
 
 ```html
-<link rel="alternate" hreflang="es" href="https://example.com/es/guia" />
-<link rel="alternate" hreflang="en" href="https://example.com/en/guide" />
-<link rel="alternate" hreflang="x-default" href="https://example.com/guide" />
+<link
+  rel="alternate"
+  hreflang="es"
+  href="https://example.com/es/guia"
+/>
+<link
+  rel="alternate"
+  hreflang="en"
+  href="https://example.com/en/guide"
+/>
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href="https://example.com/guide"
+/>
 ```
 
 Las relaciones son recíprocas: cada versión referencia las demás, incluida ella misma. Usa códigos de idioma y, cuando haga falta, región (`es-CO`). `x-default` representa una página neutral o selector.

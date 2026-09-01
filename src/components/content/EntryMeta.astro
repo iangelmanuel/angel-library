@@ -1,11 +1,11 @@
 ---
 import Icon from "@/components/shared/Icon.astro"
 import CopyButton from "@/components/shared/CopyButton.astro"
+import { CONTENT_TYPES } from "@/config/content-types"
 import {
-  CONTENT_TYPES,
   RESOURCE_CATEGORIES,
   type ResourceCategoryId
-} from "@/config/site"
+} from "@/config/resources"
 import { getEntryUrl, type AnyEntry } from "@/lib/content"
 import { translateBlock } from "@/markdown/package-manager.mjs"
 
@@ -40,13 +40,22 @@ const problem =
     ? data.problem
     : null
 const command =
-  entry.data.type === "commands" && typeof data.command === "string" ? data.command : null
+  entry.data.type === "commands" && typeof data.command === "string"
+    ? data.command
+    : null
 const install =
-  entry.data.type === "libraries" && typeof data.install === "string" ? data.install : null
+  entry.data.type === "libraries" && typeof data.install === "string"
+    ? data.install
+    : null
 const installTabs = install !== null ? translateBlock(install) : null
 const resourceUrl =
-  entry.data.type === "resources" && typeof data.url === "string" ? data.url : null
-const tool = entry.data.type === "skills" && typeof data.tool === "string" ? data.tool : null
+  entry.data.type === "resources" && typeof data.url === "string"
+    ? data.url
+    : null
+const tool =
+  entry.data.type === "skills" && typeof data.tool === "string"
+    ? data.tool
+    : null
 const language =
   (entry.data.type === "snippets" ||
     entry.data.type === "hooks" ||
@@ -89,7 +98,7 @@ const hasMeta =
                 <span class="block truncate font-mono text-xs text-muted-foreground">
                   {website}
                 </span>
-                <span class="font-pixel text-[0.62rem] uppercase tracking-wider text-foreground">
+                <span class="font-pixel text-[0.62rem] tracking-wider text-foreground uppercase">
                   documentación oficial
                 </span>
               </span>
@@ -114,7 +123,7 @@ const hasMeta =
 
       {problem !== null && (
         <div class="callout mt-0">
-          <span class="font-pixel text-[0.62rem] uppercase tracking-wider text-muted-foreground">
+          <span class="font-pixel text-[0.62rem] tracking-wider text-muted-foreground uppercase">
             Problema ·{" "}
           </span>
           {problem}
@@ -128,7 +137,7 @@ const hasMeta =
               <span class="code-block__label">terminal</span>
               <CopyButton label="Copiar comando" />
             </div>
-            <pre class="command-line"><code>{command}</code></pre>
+            <pre class="command-line" set:text={command} />
           </div>
 
           {typeof data.whenToUse === "string" && (
@@ -142,7 +151,7 @@ const hasMeta =
 
           {warnings.length > 0 && (
             <div class="callout mt-0">
-              <p class="mb-1.5 flex items-center gap-2 font-pixel text-[0.62rem] uppercase tracking-wider text-muted-foreground">
+              <p class="mb-1.5 flex items-center gap-2 font-pixel text-[0.62rem] tracking-wider text-muted-foreground uppercase">
                 <Icon
                   name="triangle-alert"
                   class="size-3.5"
@@ -169,9 +178,11 @@ const hasMeta =
               {PACKAGE_MANAGERS.map((packageManager) => (
                 <button
                   type="button"
-                  class={packageManager === "pnpm"
-                    ? "code-block__pm-tab is-active"
-                    : "code-block__pm-tab"}
+                  class={
+                    packageManager === "pnpm"
+                      ? "code-block__pm-tab is-active"
+                      : "code-block__pm-tab"
+                  }
                   data-pm-tab={packageManager}
                 >
                   {packageManager}
@@ -185,7 +196,8 @@ const hasMeta =
               class="command-line"
               data-pm={packageManager}
               hidden={packageManager !== "pnpm"}
-            ><code>{installTabs[packageManager]}</code></pre>
+              set:text={installTabs[packageManager]}
+            />
           ))}
         </div>
       )}
@@ -196,7 +208,7 @@ const hasMeta =
             <span class="code-block__label">instalación</span>
             <CopyButton label="Copiar comando de instalación" />
           </div>
-          <pre class="command-line"><code>{install}</code></pre>
+          <pre class="command-line" set:text={install} />
         </div>
       )}
 
@@ -217,7 +229,7 @@ const hasMeta =
             <span class="block truncate font-mono text-xs text-muted-foreground">
               {resourceUrl}
             </span>
-            <span class="font-pixel text-[0.62rem] uppercase tracking-wider text-foreground">
+            <span class="font-pixel text-[0.62rem] tracking-wider text-foreground uppercase">
               abrir recurso
             </span>
           </span>
@@ -231,7 +243,7 @@ const hasMeta =
 
       {techEntries.length > 0 && (
         <div class="flex flex-wrap items-center gap-2">
-          <span class="font-pixel text-[0.62rem] uppercase tracking-wider text-muted-foreground">
+          <span class="font-pixel text-[0.62rem] tracking-wider text-muted-foreground uppercase">
             {entry.data.type === "integrations" ? "Combina" : "Usa"}
           </span>
           {techEntries.map((tech) => (

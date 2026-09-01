@@ -6,13 +6,18 @@ order: 4
 tags: [terminal, pnpm, node, gestor-de-paquetes]
 scope: pnpm
 website: https://pnpm.io
-related: [terminal/terminal/terminal-npm, applications/apps-cli/terminal-nvm, applications/apps-cli/terminal-bun]
+related:
+  [
+    terminal/terminal/terminal-npm,
+    applications/apps-cli/terminal-nvm,
+    applications/apps-cli/terminal-bun
+  ]
 updatedAt: 2026-08-28
 ---
 
 ## Qué diferencia a pnpm de npm
 
-- **pnpm** significa *performant npm*: usa el mismo ecosistema de `package.json` y el registro npm, pero cambia cómo instala y enlaza las dependencias.
+- **pnpm** significa _performant npm_: usa el mismo ecosistema de `package.json` y el registro npm, pero cambia cómo instala y enlaza las dependencias.
 - **Store global compartido**: cada versión de cada paquete se guarda una sola vez en un store centralizado (`~/.local/share/pnpm/store` en Linux, ubicaciones equivalentes en macOS/Windows), y los `node_modules` de cada proyecto usan symlinks/hardlinks hacia ese store en vez de copiar los archivos. Con varios proyectos que comparten dependencias, esto ahorra espacio en disco de forma notable.
 - **`node_modules` estricto por default**: npm "aplana" el árbol de dependencias, así que un paquete puede terminar importando otro paquete que nunca declaró en su propio `package.json` (una "phantom dependency") solo porque quedó disponible por casualidad. pnpm arma una estructura no plana donde solo las dependencias declaradas explícitamente son accesibles — si falta declarar algo, el import falla en vez de funcionar "de casualidad".
 
@@ -81,19 +86,19 @@ Corepack no debe asumirse universalmente: puede no venir instalado o estar desha
 
 ## Comandos básicos
 
-| Comando | Qué hace |
-|---|---|
-| `pnpm install` | Instala las dependencias del `package.json` (alias: `pnpm i`) |
-| `pnpm add <paquete>` | Agrega una dependencia |
-| `pnpm add -D <paquete>` | Agrega una devDependency |
-| `pnpm remove <paquete>` | Quita una dependencia |
-| `pnpm run <script>` | Corre un script del `package.json` (alias: `pnpm <script>` si no colisiona con un comando de pnpm) |
-| `pnpm dlx <paquete>` | Ejecuta un paquete sin instalarlo — equivalente a `npx` |
-| `pnpm exec <binario>` | Ejecuta un binario instalado en el proyecto |
-| `pnpm outdated` | Muestra dependencias que tienen versiones más recientes |
-| `pnpm update` | Actualiza dependencias dentro de los rangos permitidos |
-| `pnpm why <paquete>` | Explica por qué existe un paquete en el árbol |
-| `pnpm store prune` | Elimina del store paquetes que ningún proyecto referencia |
+| Comando                 | Qué hace                                                                                           |
+| ----------------------- | -------------------------------------------------------------------------------------------------- |
+| `pnpm install`          | Instala las dependencias del `package.json` (alias: `pnpm i`)                                      |
+| `pnpm add <paquete>`    | Agrega una dependencia                                                                             |
+| `pnpm add -D <paquete>` | Agrega una devDependency                                                                           |
+| `pnpm remove <paquete>` | Quita una dependencia                                                                              |
+| `pnpm run <script>`     | Corre un script del `package.json` (alias: `pnpm <script>` si no colisiona con un comando de pnpm) |
+| `pnpm dlx <paquete>`    | Ejecuta un paquete sin instalarlo — equivalente a `npx`                                            |
+| `pnpm exec <binario>`   | Ejecuta un binario instalado en el proyecto                                                        |
+| `pnpm outdated`         | Muestra dependencias que tienen versiones más recientes                                            |
+| `pnpm update`           | Actualiza dependencias dentro de los rangos permitidos                                             |
+| `pnpm why <paquete>`    | Explica por qué existe un paquete en el árbol                                                      |
+| `pnpm store prune`      | Elimina del store paquetes que ningún proyecto referencia                                          |
 
 ## Ejemplo
 

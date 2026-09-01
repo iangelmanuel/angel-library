@@ -17,17 +17,21 @@ Ambas funcionan igual por dentro: lanzan un error especial que Next.js intercept
 Se puede llamar en Server Components, Route Handlers y Server Actions.
 
 ```tsx title="app/team/[id]/page.tsx"
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation"
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const team = await fetchTeam(id);
+export default async function Page({
+  params
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const team = await fetchTeam(id)
 
   if (!team) {
-    redirect('/login');
+    redirect("/login")
   }
 
-  return <h1>{team.name}</h1>;
+  return <h1>{team.name}</h1>
 }
 ```
 
@@ -38,17 +42,21 @@ No hace falta `return redirect(...)` — la función tiene tipo `never`, TypeScr
 Corta el render y muestra el `not-found.tsx` más cercano en el árbol de esa ruta (ver [page.tsx, error.tsx, loading.tsx](/frontend/nextjs/nextjs-page-error-loading)).
 
 ```tsx title="app/blog/[slug]/page.tsx"
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation"
 
-export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = await fetchPost(slug);
+export default async function Page({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const post = await fetchPost(slug)
 
   if (!post) {
-    notFound();
+    notFound()
   }
 
-  return <h1>{post.title}</h1>;
+  return <h1>{post.title}</h1>
 }
 ```
 
@@ -59,13 +67,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 ## En un Server Action
 
 ```ts title="app/actions.ts"
-'use server'
+"use server"
 
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation"
 
 export async function crearPost(formData: FormData) {
-  const post = await guardarPost(formData);
-  redirect(`/blog/${post.slug}`);
+  const post = await guardarPost(formData)
+  redirect(`/blog/${post.slug}`)
 }
 ```
 
@@ -73,11 +81,11 @@ En un Server Action, `redirect()` usa `push` por defecto (agrega una entrada al 
 
 ## Respuestas de navegación en una mirada
 
-| Función | Efecto | Dónde se puede llamar |
-| --- | --- | --- |
-| `redirect(ruta)` | Navega a otra ruta, corta el render actual | Server Components, Route Handlers, Server Actions |
-| `notFound()` | Muestra el `not-found.tsx` más cercano | Server Components, Route Handlers, Server Actions |
-| `permanentRedirect(ruta)` | Como `redirect`, pero devuelve 308 en vez de 307 | Igual que `redirect` |
+| Función                   | Efecto                                           | Dónde se puede llamar                             |
+| ------------------------- | ------------------------------------------------ | ------------------------------------------------- |
+| `redirect(ruta)`          | Navega a otra ruta, corta el render actual       | Server Components, Route Handlers, Server Actions |
+| `notFound()`              | Muestra el `not-found.tsx` más cercano           | Server Components, Route Handlers, Server Actions |
+| `permanentRedirect(ruta)` | Como `redirect`, pero devuelve 308 en vez de 307 | Igual que `redirect`                              |
 
 ## Control de flujo y códigos HTTP
 

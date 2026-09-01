@@ -40,12 +40,12 @@ La key se genera desde el dashboard de OpenRouter (`openrouter.ai/keys`).
 Como la API es compatible, cualquier SDK de OpenAI (Python o JS) funciona sin cambios apuntando el `baseURL`/`base_url` a OpenRouter:
 
 ```ts
-import OpenAI from "openai";
+import OpenAI from "openai"
 
 const client = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
+  apiKey: process.env.OPENROUTER_API_KEY
+})
 ```
 
 ```python

@@ -15,21 +15,21 @@ El testing asistido por inteligencia artificial (IA) usa modelos para interpreta
 
 ## Dos significados diferentes
 
-| Tema | Pregunta |
-| --- | --- |
-| Testing asistido por IA | ¿cómo ayuda un modelo a generar, explorar o ejecutar pruebas? |
+| Tema                       | Pregunta                                                                   |
+| -------------------------- | -------------------------------------------------------------------------- |
+| Testing asistido por IA    | ¿cómo ayuda un modelo a generar, explorar o ejecutar pruebas?              |
 | Testing de sistemas con IA | ¿cómo evaluamos una salida probabilística, seguridad y calidad del modelo? |
 
 Esta guía cubre el primer caso. Para el segundo, continúa con [Evals para aplicaciones con IA](/testing/testing-ai/testing-ai-evals).
 
 ## Qué conviene delegar
 
-| Buen caso | Mejor opción convencional |
-| --- | --- |
-| encontrar un control por su apariencia o intención | selector por rol cuando es estable |
-| explorar un flujo cambiante | regresión crítica de pagos o permisos |
-| extraer datos visuales difíciles de localizar | afirmar un status HTTP exacto |
-| comprobar una idea semántica amplia | cálculo con resultado exacto |
+| Buen caso                                          | Mejor opción convencional             |
+| -------------------------------------------------- | ------------------------------------- |
+| encontrar un control por su apariencia o intención | selector por rol cuando es estable    |
+| explorar un flujo cambiante                        | regresión crítica de pagos o permisos |
+| extraer datos visuales difíciles de localizar      | afirmar un status HTTP exacto         |
+| comprobar una idea semántica amplia                | cálculo con resultado exacto          |
 
 Una instrucción como “abre el producto más barato” necesita contexto y puede cambiar con los datos. Una aserción como `expect(total).toBe(1990)` debe permanecer en código determinista.
 

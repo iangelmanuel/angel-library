@@ -18,14 +18,14 @@ El navegador puede borrar almacenamiento, aplicar cuotas o bloquearlo. Web Stora
 
 ## Elegir dónde guardar un dato
 
-| Mecanismo | Tipo de dato | Vida útil | Se envía solo al servidor | Caso adecuado |
-| --- | --- | --- | --- | --- |
-| Cookie | string pequeño | sesión o expiración | **sí**, según dominio/path | sesión y preferencias requeridas por servidor |
-| `sessionStorage` | strings | pestaña actual | no | estado temporal de una pestaña |
-| `localStorage` | strings | persistente | no | preferencias pequeñas no sensibles |
-| IndexedDB | datos estructurados clonables | persistente | no | datos grandes, índices y trabajo offline |
-| Cache Storage | pares Request/Response | persistente | no | respuestas y assets controlados por la app |
-| OPFS | archivos y bytes | persistente | no | edición local y archivos de alto rendimiento |
+| Mecanismo        | Tipo de dato                  | Vida útil           | Se envía solo al servidor  | Caso adecuado                                 |
+| ---------------- | ----------------------------- | ------------------- | -------------------------- | --------------------------------------------- |
+| Cookie           | string pequeño                | sesión o expiración | **sí**, según dominio/path | sesión y preferencias requeridas por servidor |
+| `sessionStorage` | strings                       | pestaña actual      | no                         | estado temporal de una pestaña                |
+| `localStorage`   | strings                       | persistente         | no                         | preferencias pequeñas no sensibles            |
+| IndexedDB        | datos estructurados clonables | persistente         | no                         | datos grandes, índices y trabajo offline      |
+| Cache Storage    | pares Request/Response        | persistente         | no                         | respuestas y assets controlados por la app    |
+| OPFS             | archivos y bytes              | persistente         | no                         | edición local y archivos de alto rendimiento  |
 
 El almacenamiento del navegador es una mejora, no una garantía: el usuario puede borrarlo; el navegador puede aplicar cuotas o desalojo; el modo privado puede cambiar su comportamiento; y un script que se ejecute en el origen puede acceder a gran parte de esos datos.
 
@@ -33,22 +33,22 @@ El almacenamiento del navegador es una mejora, no una garantía: el usuario pued
 
 `localStorage` y `sessionStorage` son APIs síncronas. Una operación pequeña es sencilla, pero serializar o leer datos grandes puede bloquear el hilo principal.
 
-| Miembro | Devuelve | ¿Muta? |
-| --- | --- | --- |
-| `length` | cantidad de claves | no |
-| `getItem(key)` | string o `null` | no |
-| `setItem(key, value)` | `undefined` | **sí** |
-| `removeItem(key)` | `undefined` | **sí** |
-| `clear()` | `undefined` | **sí, todo el storage del origen** |
-| `key(index)` | nombre de clave o `null` | no |
+| Miembro               | Devuelve                 | ¿Muta?                             |
+| --------------------- | ------------------------ | ---------------------------------- |
+| `length`              | cantidad de claves       | no                                 |
+| `getItem(key)`        | string o `null`          | no                                 |
+| `setItem(key, value)` | `undefined`              | **sí**                             |
+| `removeItem(key)`     | `undefined`              | **sí**                             |
+| `clear()`             | `undefined`              | **sí, todo el storage del origen** |
+| `key(index)`          | nombre de clave o `null` | no                                 |
 
 ```js
-const preferences = { version: 2, theme: 'dark' }
+const preferences = { version: 2, theme: "dark" }
 
-localStorage.setItem('preferences', JSON.stringify(preferences))
+localStorage.setItem("preferences", JSON.stringify(preferences))
 // undefined
 
-const raw = localStorage.getItem('preferences')
+const raw = localStorage.getItem("preferences")
 const restored = raw ? JSON.parse(raw) : null
 
 restored // { version: 2, theme: 'dark' }
@@ -66,7 +66,7 @@ function readStorage(key, fallback) {
   }
 }
 
-readStorage('preferences', { version: 2, theme: 'system' })
+readStorage("preferences", { version: 2, theme: "system" })
 // preferencias guardadas o fallback
 ```
 
@@ -75,14 +75,14 @@ readStorage('preferences', { version: 2, theme: 'system' })
 El evento `storage` se dispara en otros documentos del mismo origen, no en el que hizo la escritura.
 
 ```js
-window.addEventListener('storage', event => {
-  if (event.key !== 'preferences') return
+window.addEventListener("storage", (event) => {
+  if (event.key !== "preferences") return
 
   event.oldValue // string anterior o null
   event.newValue // string nuevo o null
   event.storageArea === localStorage // true para este caso
 
-  applyPreferences(readStorage('preferences', defaultPreferences))
+  applyPreferences(readStorage("preferences", defaultPreferences))
 })
 ```
 
@@ -94,15 +94,15 @@ Las cookies viajan automáticamente en requests que coinciden con su dominio, pa
 Set-Cookie: session=opaque-id; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=3600
 ```
 
-| Atributo | Función |
-| --- | --- |
-| `HttpOnly` | impide lectura desde JavaScript |
-| `Secure` | solo se envía por HTTPS |
-| `SameSite` | limita envío cross-site |
-| `Path` | restringe rutas de envío |
-| `Domain` | amplía hosts que la reciben; omitir suele ser más restrictivo |
-| `Max-Age` / `Expires` | define persistencia |
-| `Partitioned` | almacenamiento particionado en contextos compatibles |
+| Atributo              | Función                                                       |
+| --------------------- | ------------------------------------------------------------- |
+| `HttpOnly`            | impide lectura desde JavaScript                               |
+| `Secure`              | solo se envía por HTTPS                                       |
+| `SameSite`            | limita envío cross-site                                       |
+| `Path`                | restringe rutas de envío                                      |
+| `Domain`              | amplía hosts que la reciben; omitir suele ser más restrictivo |
+| `Max-Age` / `Expires` | define persistencia                                           |
+| `Partitioned`         | almacenamiento particionado en contextos compatibles          |
 
 JavaScript solo ve cookies no `HttpOnly` mediante `document.cookie`, una interfaz string poco ergonómica. Las cookies de sesión deberían crearse y expirar desde el servidor.
 
@@ -124,24 +124,24 @@ base de datos
 ```js
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('developer-library', 1)
+    const request = indexedDB.open("developer-library", 1)
 
-    request.addEventListener('upgradeneeded', () => {
+    request.addEventListener("upgradeneeded", () => {
       const database = request.result
-      const projects = database.createObjectStore('projects', {
-        keyPath: 'id',
+      const projects = database.createObjectStore("projects", {
+        keyPath: "id"
       })
 
-      projects.createIndex('by-status', 'status')
+      projects.createIndex("by-status", "status")
     })
 
-    request.addEventListener('success', () => resolve(request.result))
-    request.addEventListener('error', () => reject(request.error))
+    request.addEventListener("success", () => resolve(request.result))
+    request.addEventListener("error", () => reject(request.error))
   })
 }
 
 const database = await openDatabase()
-database.name    // 'developer-library'
+database.name // 'developer-library'
 database.version // 1
 ```
 
@@ -150,18 +150,18 @@ database.version // 1
 ```js
 function saveProject(database, project) {
   return new Promise((resolve, reject) => {
-    const transaction = database.transaction('projects', 'readwrite')
-    const store = transaction.objectStore('projects')
+    const transaction = database.transaction("projects", "readwrite")
+    const store = transaction.objectStore("projects")
 
     store.put(project)
 
-    transaction.addEventListener('complete', () => resolve(project))
-    transaction.addEventListener('abort', () => reject(transaction.error))
-    transaction.addEventListener('error', () => reject(transaction.error))
+    transaction.addEventListener("complete", () => resolve(project))
+    transaction.addEventListener("abort", () => reject(transaction.error))
+    transaction.addEventListener("error", () => reject(transaction.error))
   })
 }
 
-await saveProject(database, { id: 1, name: 'Docs', status: 'active' })
+await saveProject(database, { id: 1, name: "Docs", status: "active" })
 // { id: 1, name: 'Docs', status: 'active' }
 ```
 
@@ -172,18 +172,18 @@ La transacción puede cerrarse cuando ya no tiene requests pendientes. No coloqu
 ```js
 function requestAsPromise(request) {
   return new Promise((resolve, reject) => {
-    request.addEventListener('success', () => resolve(request.result))
-    request.addEventListener('error', () => reject(request.error))
+    request.addEventListener("success", () => resolve(request.result))
+    request.addEventListener("error", () => reject(request.error))
   })
 }
 
-const transaction = database.transaction('projects', 'readonly')
-const store = transaction.objectStore('projects')
+const transaction = database.transaction("projects", "readonly")
+const store = transaction.objectStore("projects")
 
 await requestAsPromise(store.get(1))
 // { id: 1, name: 'Docs', status: 'active' }
 
-await requestAsPromise(store.index('by-status').getAll('active'))
+await requestAsPromise(store.index("by-status").getAll("active"))
 // array de proyectos activos
 ```
 
@@ -194,15 +194,12 @@ Planifica migraciones en `upgradeneeded`; abre una versión superior para cambia
 Cache Storage guarda pares de `Request` y `Response`. No es la misma caché HTTP automática, aunque puede conservar respuestas con headers HTTP.
 
 ```js
-const cache = await caches.open('docs-v1')
+const cache = await caches.open("docs-v1")
 
-await cache.add('/offline.html')
-await cache.put(
-  '/api/profile',
-  Response.json({ name: 'Ana' }),
-)
+await cache.add("/offline.html")
+await cache.put("/api/profile", Response.json({ name: "Ana" }))
 
-const cached = await cache.match('/api/profile')
+const cached = await cache.match("/api/profile")
 await cached.json() // { name: 'Ana' }
 ```
 
@@ -225,13 +222,13 @@ Define versión, invalidación y límite. No caches respuestas privadas bajo una
 Un service worker puede interceptar requests dentro de su scope:
 
 ```js
-self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return
+self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") return
 
   event.respondWith(
-    caches.match(event.request).then(cached => {
+    caches.match(event.request).then((cached) => {
       return cached ?? fetch(event.request)
-    }),
+    })
   )
 })
 ```
@@ -264,13 +261,13 @@ No llenes la cuota preventivamente. Informa tamaños, limpia versiones viejas y 
 Permite enviar datos clonables entre pestañas, iframes y workers del mismo origen.
 
 ```js
-const channel = new BroadcastChannel('auth-state')
+const channel = new BroadcastChannel("auth-state")
 
-channel.addEventListener('message', event => {
-  if (event.data.type === 'signed-out') redirectToLogin()
+channel.addEventListener("message", (event) => {
+  if (event.data.type === "signed-out") redirectToLogin()
 })
 
-channel.postMessage({ type: 'signed-out' })
+channel.postMessage({ type: "signed-out" })
 channel.close()
 ```
 
@@ -281,7 +278,7 @@ No es almacenamiento: los mensajes no quedan disponibles para una pestaña que s
 Web Locks coordina trabajo exclusivo entre contextos del mismo origen cuando existe compatibilidad.
 
 ```js
-await navigator.locks.request('sync-projects', async lock => {
+await navigator.locks.request("sync-projects", async (lock) => {
   lock.name // 'sync-projects'
   await synchronizeProjects()
 })

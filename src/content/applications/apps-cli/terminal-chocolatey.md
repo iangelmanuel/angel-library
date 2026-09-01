@@ -39,17 +39,17 @@ choco source list
 
 ## Comandos básicos
 
-| Comando | Qué hace |
-|---|---|
-| `choco install <paquete>` | Instala un paquete |
-| `choco upgrade <paquete>` | Actualiza un paquete a su última versión |
-| `choco upgrade all` | Actualiza todo lo instalado con Chocolatey |
-| `choco uninstall <paquete>` | Desinstala un paquete |
-| `choco list` | Lista los paquetes instalados localmente en Chocolatey 2.x |
-| `choco outdated` | Muestra paquetes con actualizaciones disponibles |
-| `choco search <paquete>` | Busca un paquete en el repositorio |
-| `choco info <paquete>` | Muestra versión, descripción y metadatos |
-| `choco pin add -n=<paquete>` | Evita que un paquete se actualice automáticamente |
+| Comando                      | Qué hace                                                   |
+| ---------------------------- | ---------------------------------------------------------- |
+| `choco install <paquete>`    | Instala un paquete                                         |
+| `choco upgrade <paquete>`    | Actualiza un paquete a su última versión                   |
+| `choco upgrade all`          | Actualiza todo lo instalado con Chocolatey                 |
+| `choco uninstall <paquete>`  | Desinstala un paquete                                      |
+| `choco list`                 | Lista los paquetes instalados localmente en Chocolatey 2.x |
+| `choco outdated`             | Muestra paquetes con actualizaciones disponibles           |
+| `choco search <paquete>`     | Busca un paquete en el repositorio                         |
+| `choco info <paquete>`       | Muestra versión, descripción y metadatos                   |
+| `choco pin add -n=<paquete>` | Evita que un paquete se actualice automáticamente          |
 
 ## Ejemplos
 

@@ -19,11 +19,11 @@ Es la única superficie del perfil donde escribes contenido libre en lugar de re
 
 Tres condiciones, y las tres son obligatorias:
 
-| Condición | Detalle |
-| --- | --- |
+| Condición     | Detalle                                                                                 |
+| ------------- | --------------------------------------------------------------------------------------- |
 | Nombre exacto | Idéntico a tu usuario, respetando mayúsculas: usuario `AngelDM` → repositorio `AngelDM` |
-| Visibilidad | **Público**. En uno privado el README no se muestra en el perfil |
-| Archivo | `README.md` en la raíz del repositorio |
+| Visibilidad   | **Público**. En uno privado el README no se muestra en el perfil                        |
+| Archivo       | `README.md` en la raíz del repositorio                                                  |
 
 Desde la terminal con GitHub CLI:
 
@@ -37,13 +37,13 @@ Si el nombre coincide, la propia interfaz de GitHub lo señala con un aviso de q
 
 El README de perfil pasa por el mismo saneador que cualquier otro markdown de GitHub, con una consecuencia importante: **no se ejecuta JavaScript y la mayoría del HTML se filtra**.
 
-| Funciona | No funciona |
-| --- | --- |
-| Markdown completo, incluidas tablas y listas de tareas | `<script>` y cualquier controlador de eventos (`onclick`) |
-| Emoji con `:sparkles:` y emoji Unicode | CSS propio: `<style>` y atributos `style` |
-| `<img>`, `<a>`, `<details>`, `<summary>`, `<picture>`, `<table>` | Iframes y formularios |
-| Imágenes SVG remotas servidas por HTTPS | Animaciones o interacción que dependan de scripts |
-| Diagramas Mermaid en bloques ```` ```mermaid ```` | Rutas relativas a archivos fuera del repositorio |
+| Funciona                                                         | No funciona                                               |
+| ---------------------------------------------------------------- | --------------------------------------------------------- |
+| Markdown completo, incluidas tablas y listas de tareas           | `<script>` y cualquier controlador de eventos (`onclick`) |
+| Emoji con `:sparkles:` y emoji Unicode                           | CSS propio: `<style>` y atributos `style`                 |
+| `<img>`, `<a>`, `<details>`, `<summary>`, `<picture>`, `<table>` | Iframes y formularios                                     |
+| Imágenes SVG remotas servidas por HTTPS                          | Animaciones o interacción que dependan de scripts         |
+| Diagramas Mermaid en bloques ` ```mermaid `                      | Rutas relativas a archivos fuera del repositorio          |
 
 `<details>` es la forma habitual de plegar secciones largas sin CSS:
 

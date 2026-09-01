@@ -27,4 +27,3 @@ La referencia se conserva porque forma parte de la lista solicitada, pero no deb
 - validar que el archivo descargado tenga el formato esperado.
 
 Para optimización manual local, usar Squoosh mientras este estado no cambie.
-

@@ -28,25 +28,25 @@ resultado semántico amplio → aiAssert(...) con evidencia
 
 ## Conceptos principales
 
-| API | Propósito | Ejemplo |
-| --- | --- | --- |
-| `ai` | ejecutar una secuencia descrita en lenguaje natural | buscar y abrir un producto |
-| `aiTap` | pulsar un elemento descrito | botón “Finalizar compra” |
-| `aiInput` | escribir en un campo descrito | correo de acceso |
-| `aiQuery` | extraer información estructurada | precio y disponibilidad |
-| `aiAssert` | comprobar una condición visual/semántica | mensaje de confirmación visible |
-| `aiWaitFor` | esperar una condición interpretada por IA | finalización de una carga |
+| API         | Propósito                                           | Ejemplo                         |
+| ----------- | --------------------------------------------------- | ------------------------------- |
+| `ai`        | ejecutar una secuencia descrita en lenguaje natural | buscar y abrir un producto      |
+| `aiTap`     | pulsar un elemento descrito                         | botón “Finalizar compra”        |
+| `aiInput`   | escribir en un campo descrito                       | correo de acceso                |
+| `aiQuery`   | extraer información estructurada                    | precio y disponibilidad         |
+| `aiAssert`  | comprobar una condición visual/semántica            | mensaje de confirmación visible |
+| `aiWaitFor` | esperar una condición interpretada por IA           | finalización de una carga       |
 
 ## Integración con Playwright
 
 ```ts title="tests/catalog.spec.ts"
-import { test } from './fixture';
+import { test } from "./fixture"
 
-test('encuentra un producto disponible', async ({ page, ai, aiAssert }) => {
-  await page.goto('/catalogo');
-  await ai('Busca un teclado mecánico disponible y abre su detalle');
-  await aiAssert('La página muestra nombre, precio y estado disponible');
-});
+test("encuentra un producto disponible", async ({ page, ai, aiAssert }) => {
+  await page.goto("/catalogo")
+  await ai("Busca un teclado mecánico disponible y abre su detalle")
+  await aiAssert("La página muestra nombre, precio y estado disponible")
+})
 ```
 
 La documentación oficial propone extender el fixture de Playwright con el agente de Midscene. Mantén `page.goto`, autenticación, preparación de datos y aserciones críticas en APIs deterministas cuando sea posible; usa instrucciones de IA en el tramo que realmente necesita interpretación visual.
@@ -54,9 +54,9 @@ La documentación oficial propone extender el fixture de Playwright con el agent
 Divide un flujo largo en pasos para localizar el fallo:
 
 ```ts
-await aiTap('el filtro de disponibilidad');
-await aiTap('la opción En stock');
-await aiAssert('todos los productos visibles indican disponibilidad');
+await aiTap("el filtro de disponibilidad")
+await aiTap("la opción En stock")
+await aiAssert("todos los productos visibles indican disponibilidad")
 ```
 
 Si el producto expone roles y nombres estables, los locators convencionales serán más rápidos y reproducibles.
@@ -79,13 +79,13 @@ Cuando necesitas datos, una consulta estructurada es más verificable que pedir 
 
 ```ts
 const product = await aiQuery<{
-  name: string;
-  price: number;
-  available: boolean;
-}>('Extrae el nombre, precio numérico y disponibilidad del producto abierto');
+  name: string
+  price: number
+  available: boolean
+}>("Extrae el nombre, precio numérico y disponibilidad del producto abierto")
 
-expect(product.available).toBe(true);
-expect(product.price).toBeGreaterThan(0);
+expect(product.available).toBe(true)
+expect(product.price).toBeGreaterThan(0)
 ```
 
 La IA interpreta la pantalla; Vitest o Playwright evalúan condiciones exactas sobre el resultado. Valida el tipo y no uses la respuesta sin comprobarla en una operación sensible.

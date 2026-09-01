@@ -18,13 +18,13 @@ updatedAt: 2026-08-30
 
 ## Qué incluye
 
-| | |
-| --- | --- |
-| Lecciones | 26 |
-| Formato | Interactivo, con editor SQL en cada lección |
-| Idioma | Español |
-| Precio | Gratis |
-| Certificado | Sí, en PDF y publicable en LinkedIn |
+|             |                                             |
+| ----------- | ------------------------------------------- |
+| Lecciones   | 26                                          |
+| Formato     | Interactivo, con editor SQL en cada lección |
+| Idioma      | Español                                     |
+| Precio      | Gratis                                      |
+| Certificado | Sí, en PDF y publicable en LinkedIn         |
 
 ## Temario
 

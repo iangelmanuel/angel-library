@@ -16,21 +16,21 @@ updatedAt: 2026-08-28
 
 ## Qué contiene
 
-La colección agrupa herramientas construidas sobre **Apify Actors** que pueden participar en flujos compatibles con **MCP**, siglas de *Model Context Protocol*. Un Actor es una unidad ejecutable alojada en Apify para scraping, procesamiento de datos o automatización; MCP permite exponer herramientas y contexto a aplicaciones o agentes de IA mediante un contrato común.
+La colección agrupa herramientas construidas sobre **Apify Actors** que pueden participar en flujos compatibles con **MCP**, siglas de _Model Context Protocol_. Un Actor es una unidad ejecutable alojada en Apify para scraping, procesamiento de datos o automatización; MCP permite exponer herramientas y contexto a aplicaciones o agentes de IA mediante un contrato común.
 
 Los conectores cubren casos como monitorear cambios en sitios, recopilar información pública, enviar resultados a Notion o Slack, consultar repositorios y activar automatizaciones desde otros clientes.
 
 ## Antes de conectar uno
 
-| Revisión | Por qué importa |
-| --- | --- |
-| Autor y mantenimiento | La colección incluye herramientas de Apify y de terceros con niveles de soporte diferentes |
-| Inputs | Pueden contener URLs privadas, consultas, identificadores o información sensible |
-| Outputs | Determina dónde se almacenan los datasets y durante cuánto tiempo |
-| Tokens y permisos | Un conector que escribe en Notion, Slack u otro servicio puede actuar con los permisos concedidos |
-| Precio | Algunos Actors cobran por ejecución, tiempo, memoria o cantidad de resultados |
-| Frecuencia | Una automatización programada puede multiplicar costos y solicitudes rápidamente |
-| Cumplimiento | El scraping debe respetar legislación, términos del sitio y datos personales aplicables |
+| Revisión              | Por qué importa                                                                                   |
+| --------------------- | ------------------------------------------------------------------------------------------------- |
+| Autor y mantenimiento | La colección incluye herramientas de Apify y de terceros con niveles de soporte diferentes        |
+| Inputs                | Pueden contener URLs privadas, consultas, identificadores o información sensible                  |
+| Outputs               | Determina dónde se almacenan los datasets y durante cuánto tiempo                                 |
+| Tokens y permisos     | Un conector que escribe en Notion, Slack u otro servicio puede actuar con los permisos concedidos |
+| Precio                | Algunos Actors cobran por ejecución, tiempo, memoria o cantidad de resultados                     |
+| Frecuencia            | Una automatización programada puede multiplicar costos y solicitudes rápidamente                  |
+| Cumplimiento          | El scraping debe respetar legislación, términos del sitio y datos personales aplicables           |
 
 ## Flujo seguro de evaluación
 

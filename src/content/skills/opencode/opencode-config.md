@@ -28,15 +28,15 @@ updatedAt: 2026-08-17
 
 ## Campos que más se usan
 
-| Campo | Para qué |
-| --- | --- |
-| `model` / `small_model` | Modelo por defecto / modelo liviano para tareas simples |
-| `agent` | Override de config por agente (modelo, permisos) |
-| `permission` | `allow`/`ask`/`deny` global por tipo de acción |
-| `instructions` | Archivos de reglas de proyecto (ver [Instrucciones](/skills/opencode/opencode-instrucciones)) |
-| `tools` | Habilitar/deshabilitar tools por nombre o patrón |
-| `mcp` | Servidores MCP (ver [MCP](/skills/opencode/opencode-mcp)) |
-| `plugin` | Plugins vía npm (ver [Plugins](/skills/opencode/opencode-plugins)) |
+| Campo                   | Para qué                                                                                      |
+| ----------------------- | --------------------------------------------------------------------------------------------- |
+| `model` / `small_model` | Modelo por defecto / modelo liviano para tareas simples                                       |
+| `agent`                 | Override de config por agente (modelo, permisos)                                              |
+| `permission`            | `allow`/`ask`/`deny` global por tipo de acción                                                |
+| `instructions`          | Archivos de reglas de proyecto (ver [Instrucciones](/skills/opencode/opencode-instrucciones)) |
+| `tools`                 | Habilitar/deshabilitar tools por nombre o patrón                                              |
+| `mcp`                   | Servidores MCP (ver [MCP](/skills/opencode/opencode-mcp))                                     |
+| `plugin`                | Plugins vía npm (ver [Plugins](/skills/opencode/opencode-plugins))                            |
 
 ## Precedencia: se mergea, no se sobre-escribe
 
@@ -54,11 +54,11 @@ Cada fuente **aporta** campos en vez de reemplazar el archivo entero — a difer
 
 ## Resumen
 
-| Diferencia con Claude Code | Detalle |
-| --- | --- |
-| Modelo de precedencia | Merge entre 8 fuentes, no override por scope |
-| Config remota | Soporta un endpoint `.well-known/opencode`, único entre las 4 herramientas |
-| Interpolación | `{env:VAR}` y `{file:path}` |
+| Diferencia con Claude Code | Detalle                                                                    |
+| -------------------------- | -------------------------------------------------------------------------- |
+| Modelo de precedencia      | Merge entre 8 fuentes, no override por scope                               |
+| Config remota              | Soporta un endpoint `.well-known/opencode`, único entre las 4 herramientas |
+| Interpolación              | `{env:VAR}` y `{file:path}`                                                |
 
 ## Consideraciones
 

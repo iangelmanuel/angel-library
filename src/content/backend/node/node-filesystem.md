@@ -13,15 +13,19 @@ updatedAt: 2026-08-16
 ## Las tres variantes
 
 ```ts
-import { readFileSync } from 'node:fs';                // síncrona: bloquea hasta terminar
-import { readFile } from 'node:fs';                     // callback: la más vieja, evitar en código nuevo
-import { readFile as readFileAsync } from 'node:fs/promises'; // promesas: la que se usa hoy
+import { readFileSync } from "node:fs"
+// síncrona: bloquea hasta terminar
+import { readFile } from "node:fs"
+// callback: la más vieja, evitar en código nuevo
+import { readFile as readFileAsync } from "node:fs/promises"
+
+// promesas: la que se usa hoy
 
 // Síncrona — bloquea todo el proceso hasta que termina
-const contenido = readFileSync('archivo.txt', 'utf-8');
+const contenido = readFileSync("archivo.txt", "utf-8")
 
 // Promesas — no bloquea, se puede await
-const contenido2 = await readFileAsync('archivo.txt', 'utf-8');
+const contenido2 = await readFileAsync("archivo.txt", "utf-8")
 ```
 
 La versión **síncrona** solo tiene sentido en scripts de un solo uso o en el arranque de la aplicación (por ejemplo, leer configuración antes de iniciar el servidor). Usarla durante una request bloquea el event loop completo y afecta a todas las solicitudes concurrentes, no solo a la actual.
@@ -29,15 +33,22 @@ La versión **síncrona** solo tiene sentido en scripts de un solo uso o en el a
 ## Operaciones comunes (API de promesas)
 
 ```ts
-import { readFile, writeFile, mkdir, readdir, stat, unlink } from 'node:fs/promises';
+import {
+  mkdir,
+  readFile,
+  readdir,
+  stat,
+  unlink,
+  writeFile
+} from "node:fs/promises"
 
-await readFile('archivo.txt', 'utf-8');           // leer como texto
-await readFile('imagen.png');                      // sin encoding: devuelve un Buffer (binario)
-await writeFile('archivo.txt', 'contenido nuevo'); // sobrescribe si existe, crea si no
-await mkdir('carpeta/anidada', { recursive: true }); // crea toda la ruta si hace falta
-await readdir('carpeta');                           // lista nombres de archivos/carpetas
-await stat('archivo.txt');                           // metadata: tamaño, fechas, si es directorio
-await unlink('archivo.txt');                          // borrar un archivo
+await readFile("archivo.txt", "utf-8") // leer como texto
+await readFile("imagen.png") // sin encoding: devuelve un Buffer (binario)
+await writeFile("archivo.txt", "contenido nuevo") // sobrescribe si existe, crea si no
+await mkdir("carpeta/anidada", { recursive: true }) // crea toda la ruta si hace falta
+await readdir("carpeta") // lista nombres de archivos/carpetas
+await stat("archivo.txt") // metadata: tamaño, fechas, si es directorio
+await unlink("archivo.txt") // borrar un archivo
 ```
 
 `{ recursive: true }` en `mkdir` es el equivalente a `mkdir -p` — sin eso, falla si algún directorio intermedio de la ruta no existe todavía.
@@ -47,17 +58,17 @@ await unlink('archivo.txt');                          // borrar un archivo
 Concatenar rutas con `/` a mano rompe en Windows (usa `\`). `path` arma la ruta correcta según el sistema operativo donde corre el proceso.
 
 ```ts
-import path from 'node:path';
+import path from "node:path"
 
-path.join('carpeta', 'subcarpeta', 'archivo.txt');
+path.join("carpeta", "subcarpeta", "archivo.txt")
 // 'carpeta/subcarpeta/archivo.txt' en Linux/Mac, 'carpeta\subcarpeta\archivo.txt' en Windows
 
-path.resolve('carpeta', 'archivo.txt');
+path.resolve("carpeta", "archivo.txt")
 // ruta absoluta, resuelta desde el directorio de trabajo actual
 
-path.extname('archivo.txt');   // '.txt'
-path.basename('/a/b/archivo.txt'); // 'archivo.txt'
-path.dirname('/a/b/archivo.txt');  // '/a/b'
+path.extname("archivo.txt") // '.txt'
+path.basename("/a/b/archivo.txt") // 'archivo.txt'
+path.dirname("/a/b/archivo.txt") // '/a/b'
 ```
 
 `path.join` es el que se usa casi siempre para armar una ruta a partir de partes; `path.resolve` cuando específicamente necesitas una ruta absoluta.
@@ -67,22 +78,22 @@ path.dirname('/a/b/archivo.txt');  // '/a/b'
 En CommonJS existían `__dirname`/`__filename` automáticamente. En ES Modules no existen — el equivalente es:
 
 ```ts
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
+import path from "node:path"
+import { fileURLToPath } from "node:url"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 ```
 
 ## Referencia de filesystem
 
-| Función | Qué hace |
-| --- | --- |
+| Función                             | Qué hace                                                |
+| ----------------------------------- | ------------------------------------------------------- |
 | `readFile` / `writeFile` (promises) | Leer/escribir, la variante a usar en código de servidor |
-| `readFileSync` | Solo para scripts o arranque, bloquea el proceso |
-| `mkdir(ruta, { recursive: true })` | Crear carpetas, incluyendo intermedias |
-| `path.join(...)` | Armar una ruta cross-platform |
-| `path.resolve(...)` | Ruta absoluta desde el directorio actual |
+| `readFileSync`                      | Solo para scripts o arranque, bloquea el proceso        |
+| `mkdir(ruta, { recursive: true })`  | Crear carpetas, incluyendo intermedias                  |
+| `path.join(...)`                    | Armar una ruta cross-platform                           |
+| `path.resolve(...)`                 | Ruta absoluta desde el directorio actual                |
 
 ## Rutas, tamaños y errores
 

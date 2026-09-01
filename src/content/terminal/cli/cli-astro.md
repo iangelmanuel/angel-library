@@ -64,15 +64,15 @@ Regenera los tipos TypeScript de `astro:content` (en `.astro/types.d.ts`) a part
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `npm create astro@latest` | Crea un proyecto Astro nuevo |
-| `astro dev` | Servidor de desarrollo con recarga en vivo |
-| `astro build` | Build de producción |
-| `astro preview` | Sirve localmente el build ya generado |
-| `astro check` | Diagnóstico de tipos (TypeScript + Astro) |
-| `astro add <integración>` | Instala y configura una integración |
-| `astro sync` | Regenera tipos de content collections |
+| Comando                   | Qué hace                                   |
+| ------------------------- | ------------------------------------------ |
+| `npm create astro@latest` | Crea un proyecto Astro nuevo               |
+| `astro dev`               | Servidor de desarrollo con recarga en vivo |
+| `astro build`             | Build de producción                        |
+| `astro preview`           | Sirve localmente el build ya generado      |
+| `astro check`             | Diagnóstico de tipos (TypeScript + Astro)  |
+| `astro add <integración>` | Instala y configura una integración        |
+| `astro sync`              | Regenera tipos de content collections      |
 
 ## Consideraciones
 

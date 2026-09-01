@@ -14,39 +14,40 @@ updatedAt: 2026-08-16
 ## Middleware de autenticación: poblar `req.user`
 
 ```ts title="middlewares/requireAuth.ts"
-import type { Request, Response, NextFunction } from 'express';
-import { verificarToken } from '../lib/jwt';
+import type { NextFunction, Request, Response } from "express"
+import { verificarToken } from "../lib/jwt"
 
 // Extender el tipo de Request para que TypeScript conozca req.user
 declare global {
   namespace Express {
     interface Request {
-      user?: { id: string; rol: string };
+      user?: { id: string; rol: string }
     }
   }
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies?.token ?? req.headers.authorization?.replace('Bearer ', '');
+  const token =
+    req.cookies?.token ?? req.headers.authorization?.replace("Bearer ", "")
 
   if (!token) {
-    return res.status(401).json({ error: 'No autenticado' });
+    return res.status(401).json({ error: "No autenticado" })
   }
 
   try {
-    const payload = verificarToken(token);
-    req.user = { id: payload.sub, rol: payload.rol };
-    next();
+    const payload = verificarToken(token)
+    req.user = { id: payload.sub, rol: payload.rol }
+    next()
   } catch {
-    return res.status(401).json({ error: 'Token inválido o expirado' });
+    return res.status(401).json({ error: "Token inválido o expirado" })
   }
 }
 ```
 
 ```ts
-app.get('/perfil', requireAuth, (req, res) => {
-  res.json({ userId: req.user!.id }); // req.user existe porque requireAuth ya corrió
-});
+app.get("/perfil", requireAuth, (req, res) => {
+  res.json({ userId: req.user!.id }) // req.user existe porque requireAuth ya corrió
+})
 ```
 
 Aceptar el token desde una cookie (`req.cookies.token`) o un header `Authorization: Bearer <token>` cubre dos clientes habituales: navegador del mismo producto y cliente API. Consulta [Cookies vs sesiones](/backend/express/express-cookies-sesiones) para evaluar seguridad y transporte.
@@ -56,25 +57,25 @@ Aceptar el token desde una cookie (`req.cookies.token`) o un header `Authorizati
 Una vez que `req.user` existe (gracias a `requireAuth`), un segundo middleware puede decidir si ese rol específico tiene permiso:
 
 ```ts title="middlewares/requireRole.ts"
-import type { Request, Response, NextFunction } from 'express';
+import type { NextFunction, Request, Response } from "express"
 
 export function requireRole(...rolesPermitidos: string[]) {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.user || !rolesPermitidos.includes(req.user.rol)) {
-      return res.status(403).json({ error: 'No tienes permiso para esto' });
+      return res.status(403).json({ error: "No tienes permiso para esto" })
     }
-    next();
-  };
+    next()
+  }
 }
 ```
 
 ```ts
 app.delete(
-  '/usuarios/:id',
-  requireAuth,                    // primero: ¿quién eres?
-  requireRole('admin'),           // segundo: ¿puedes hacer esto?
-  handlerDeEliminarUsuario,
-);
+  "/usuarios/:id",
+  requireAuth, // primero: ¿quién eres?
+  requireRole("admin"), // segundo: ¿puedes hacer esto?
+  handlerDeEliminarUsuario
+)
 ```
 
 `requireRole` es una **fábrica** de middleware (una función que devuelve un middleware) — permite parametrizar qué roles se aceptan por ruta, en vez de un middleware fijo para cada combinación posible.
@@ -90,11 +91,11 @@ Confundirlos no rompe nada técnicamente, pero da información engañosa al clie
 
 ## Flujo de protección
 
-| Middleware | Responde |
-| --- | --- |
-| `requireAuth` | ¿Hay un token válido? Puebla `req.user` |
-| `requireRole(...roles)` | ¿El `req.user` actual tiene uno de estos roles? |
-| Orden en la ruta | Siempre `requireAuth` antes que `requireRole` — no se puede chequear rol sin saber antes quién es |
+| Middleware              | Responde                                                                                          |
+| ----------------------- | ------------------------------------------------------------------------------------------------- |
+| `requireAuth`           | ¿Hay un token válido? Puebla `req.user`                                                           |
+| `requireRole(...roles)` | ¿El `req.user` actual tiene uno de estos roles?                                                   |
+| Orden en la ruta        | Siempre `requireAuth` antes que `requireRole` — no se puede chequear rol sin saber antes quién es |
 
 ## Autenticación no es autorización
 

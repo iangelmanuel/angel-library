@@ -5,7 +5,12 @@ type: guides
 order: 1
 tags: [docker, postgres, base-de-datos]
 scope: Postgres con docker run
-related: [devops/docker-redes-volumenes/docker-persistencia-datos, devops/docker-bases-datos/docker-postgres-compose, devops/docker-bases-datos/docker-postgres-conectar]
+related:
+  [
+    devops/docker-redes-volumenes/docker-persistencia-datos,
+    devops/docker-bases-datos/docker-postgres-compose,
+    devops/docker-bases-datos/docker-postgres-conectar
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -26,11 +31,11 @@ Esto levanta Postgres 16 en segundo plano, con un usuario, contraseña y base de
 
 ## Las variables de entorno de la imagen oficial
 
-| Variable | Para qué |
-|---|---|
-| `POSTGRES_USER` | Usuario que se crea (default: `postgres`) |
-| `POSTGRES_PASSWORD` | **Obligatoria** — la imagen no arranca sin ella |
-| `POSTGRES_DB` | Base de datos que se crea al primer arranque (default: igual al `POSTGRES_USER`) |
+| Variable            | Para qué                                                                         |
+| ------------------- | -------------------------------------------------------------------------------- |
+| `POSTGRES_USER`     | Usuario que se crea (default: `postgres`)                                        |
+| `POSTGRES_PASSWORD` | **Obligatoria** — la imagen no arranca sin ella                                  |
+| `POSTGRES_DB`       | Base de datos que se crea al primer arranque (default: igual al `POSTGRES_USER`) |
 
 Estas variables solo tienen efecto la **primera vez** que el contenedor arranca con un volumen vacío — si ya existe un volumen con datos, la imagen no vuelve a aplicar estas variables (no resetea usuario/contraseña en cada arranque).
 

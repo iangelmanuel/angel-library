@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-19
 ---
 
-**IaC** significa *Infrastructure as Code* o infraestructura como código. Describe redes, permisos y servicios en archivos versionados para revisar, repetir y auditar cambios.
+**IaC** significa _Infrastructure as Code_ o infraestructura como código. Describe redes, permisos y servicios en archivos versionados para revisar, repetir y auditar cambios.
 
 ```hcl
 resource "example_bucket" "assets" {
@@ -58,4 +58,3 @@ El código referencia secretos desde un gestor; no incluye valores. Revisa que e
 - Requiere aprobación para producción.
 - Aplica desde una única ruta controlada.
 - Verifica salud después del cambio y documenta rollback.
-

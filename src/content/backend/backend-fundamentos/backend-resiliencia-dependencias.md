@@ -16,13 +16,13 @@ Una API casi nunca trabaja sola: consulta una base de datos, un proveedor de pag
 
 ## Consulta rápida
 
-| Problema | Mecanismo | Idea principal |
-| --- | --- | --- |
-| la dependencia nunca responde | timeout + cancelación | dejar de esperar y liberar recursos |
-| falla de forma transitoria | retry con backoff y jitter | reintentar pocas veces y cada vez más tarde |
-| lleva varios minutos fallando | circuit breaker | dejar de enviarle trabajo temporalmente |
-| demasiadas llamadas simultáneas | límite de concurrencia | proteger sockets, memoria y cuota |
-| la función no es esencial | fallback | degradar una capacidad sin derribar todo |
+| Problema                        | Mecanismo                  | Idea principal                              |
+| ------------------------------- | -------------------------- | ------------------------------------------- |
+| la dependencia nunca responde   | timeout + cancelación      | dejar de esperar y liberar recursos         |
+| falla de forma transitoria      | retry con backoff y jitter | reintentar pocas veces y cada vez más tarde |
+| lleva varios minutos fallando   | circuit breaker            | dejar de enviarle trabajo temporalmente     |
+| demasiadas llamadas simultáneas | límite de concurrencia     | proteger sockets, memoria y cuota           |
+| la función no es esencial       | fallback                   | degradar una capacidad sin derribar todo    |
 
 ## Toda llamada necesita un presupuesto de tiempo
 
@@ -32,14 +32,14 @@ Un **timeout** es el máximo que una operación puede consumir. Debe ser menor q
 export async function fetchJson(url: string, timeoutMs = 3_000) {
   const response = await fetch(url, {
     signal: AbortSignal.timeout(timeoutMs),
-    headers: { accept: 'application/json' },
-  });
+    headers: { accept: "application/json" }
+  })
 
   if (!response.ok) {
-    throw new Error(`Dependencia respondió ${response.status}`);
+    throw new Error(`Dependencia respondió ${response.status}`)
   }
 
-  return response.json();
+  return response.json()
 }
 ```
 
@@ -50,25 +50,28 @@ export async function fetchJson(url: string, timeoutMs = 3_000) {
 Un retry es apropiado para pérdida temporal de red, `429 Too Many Requests` o algunos errores `5xx`. No arregla credenciales inválidas, permisos denegados ni un body incorrecto.
 
 ```ts
-const RETRYABLE = new Set([429, 502, 503, 504]);
+const RETRYABLE = new Set([429, 502, 503, 504])
 
-async function withRetry<T>(operation: () => Promise<T>, attempts = 3): Promise<T> {
-  let lastError: unknown;
+async function withRetry<T>(
+  operation: () => Promise<T>,
+  attempts = 3
+): Promise<T> {
+  let lastError: unknown
 
   for (let attempt = 0; attempt < attempts; attempt++) {
     try {
-      return await operation();
+      return await operation()
     } catch (error) {
-      lastError = error;
-      if (attempt === attempts - 1) break;
+      lastError = error
+      if (attempt === attempts - 1) break
 
-      const backoff = 200 * 2 ** attempt;
-      const jitter = Math.random() * 100;
-      await new Promise((resolve) => setTimeout(resolve, backoff + jitter));
+      const backoff = 200 * 2 ** attempt
+      const jitter = Math.random() * 100
+      await new Promise((resolve) => setTimeout(resolve, backoff + jitter))
     }
   }
 
-  throw lastError;
+  throw lastError
 }
 ```
 
@@ -112,4 +115,3 @@ Propaga un `requestId` para correlacionar logs, mide latencia p95/p99 y distingu
 - ¿Existe límite de concurrencia y tamaño de cola?
 - ¿Está definido qué funciones pueden degradarse?
 - ¿Métricas y logs indican qué dependencia falló?
-

@@ -18,11 +18,11 @@ Fuerte en dashboards internos y back-offices: `Table` con paginación/orden/filt
 Desde la v5 no requiere importar CSS aparte (usa CSS-in-JS): alcanza con instalar e importar componentes.
 
 ```tsx
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, theme } from "antd"
 
-<ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
+;<ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
   <App />
-</ConfigProvider>;
+</ConfigProvider>
 ```
 
 ## Tips

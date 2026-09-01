@@ -25,21 +25,24 @@ Abre `localhost:3000`: cada archivo en `emails/` se ve renderizado en vivo, con 
 ## Componentes básicos
 
 ```tsx title="emails/bienvenida.tsx"
-import { Html, Body, Container, Text, Button } from '@react-email/components';
+import { Body, Button, Container, Html, Text } from "@react-email/components"
 
 export default function EmailBienvenida({ nombre }: { nombre: string }) {
   return (
     <Html>
-      <Body style={{ fontFamily: 'sans-serif' }}>
+      <Body style={{ fontFamily: "sans-serif" }}>
         <Container>
           <Text>Hola {nombre}, gracias por sumarte.</Text>
-          <Button href="https://ejemplo.com/empezar" style={{ background: '#000', color: '#fff', padding: '12px 20px' }}>
+          <Button
+            href="https://ejemplo.com/empezar"
+            style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
+          >
             Empezar
           </Button>
         </Container>
       </Body>
     </Html>
-  );
+  )
 }
 ```
 
@@ -63,12 +66,12 @@ await resend.emails.send({
 
 ## Componentes de email en una mirada
 
-| API | Uso |
-| --- | --- |
-| `npx create-email@latest` | Scaffolding inicial con templates de ejemplo |
-| `npm run dev` | Preview local en `localhost:3000`, recarga en vivo |
+| API                                              | Uso                                                              |
+| ------------------------------------------------ | ---------------------------------------------------------------- |
+| `npx create-email@latest`                        | Scaffolding inicial con templates de ejemplo                     |
+| `npm run dev`                                    | Preview local en `localhost:3000`, recarga en vivo               |
 | `Html`, `Body`, `Container`, `Text`, `Button`... | Componentes que generan el HTML compatible con clientes de email |
-| `resend.emails.send({ react: <Componente /> })` | Enviar el email renderizado, vía Resend |
+| `resend.emails.send({ react: <Componente /> })`  | Enviar el email renderizado, vía Resend                          |
 
 ## Compatibilidad de clientes y entrega
 

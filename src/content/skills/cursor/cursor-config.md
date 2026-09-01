@@ -49,11 +49,11 @@ Un modo custom define: qué herramientas tiene disponibles, qué modelo usa, ins
 
 ## Resumen
 
-| Config | Dónde vive |
-| --- | --- |
-| Reglas, MCP, Marketplace (IDE) | Paneles de Cursor Settings |
-| Cursor CLI | `cli-config.json` |
-| Permisos del CLI por proyecto | Único campo scopeable a nivel proyecto |
+| Config                         | Dónde vive                             |
+| ------------------------------ | -------------------------------------- |
+| Reglas, MCP, Marketplace (IDE) | Paneles de Cursor Settings             |
+| Cursor CLI                     | `cli-config.json`                      |
+| Permisos del CLI por proyecto  | Único campo scopeable a nivel proyecto |
 
 ## Consideraciones
 

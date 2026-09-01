@@ -57,9 +57,9 @@ npx prisma migrate dev --name init
 **4. El client, como singleton:**
 
 ```ts title="src/libs/prisma.ts"
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client"
 
-export const prisma = new PrismaClient();
+export const prisma = new PrismaClient()
 ```
 
 Nada específico de Astro aquí — con `output: 'server'` sobre un adapter Node tradicional, el proceso vive igual que un servidor Express, así que el mismo singleton alcanza.
@@ -67,15 +67,15 @@ Nada específico de Astro aquí — con `output: 'server'` sobre un adapter Node
 **5. Un endpoint real:**
 
 ```ts title="src/pages/api/posts.ts"
-import type { APIRoute } from 'astro';
-import { prisma } from '../../lib/prisma';
+import type { APIRoute } from "astro"
+import { prisma } from "../../lib/prisma"
 
 export const GET: APIRoute = async () => {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany()
   return new Response(JSON.stringify(posts), {
-    headers: { 'Content-Type': 'application/json' },
-  });
-};
+    headers: { "Content-Type": "application/json" }
+  })
+}
 ```
 
 Requiere `output: 'server'` o mantener `output: 'static'` y marcar esta ruta con `export const prerender = false` — en una ruta prerenderizada no hay servidor corriendo para atender el endpoint en runtime. El antiguo modo `hybrid` se reemplazó por esta selección por ruta.
@@ -83,30 +83,38 @@ Requiere `output: 'server'` o mantener `output: 'static'` y marcar esta ruta con
 ## CRUD básico
 
 ```ts
-await prisma.post.create({ data: { title: 'Nuevo', authorId: userId } });
-await prisma.post.findUnique({ where: { id } });
-await prisma.post.findMany({ where: { authorId: userId } });
-await prisma.post.update({ where: { id }, data: { title: 'Editado' } });
-await prisma.post.delete({ where: { id } });
+await prisma.post.create({ data: { title: "Nuevo", authorId: userId } })
+await prisma.post.findUnique({ where: { id } })
+await prisma.post.findMany({ where: { authorId: userId } })
+await prisma.post.update({ where: { id }, data: { title: "Editado" } })
+await prisma.post.delete({ where: { id } })
 ```
 
 ## Métodos que se usan seguido y no son solo CRUD básico
 
 ```ts
-await prisma.post.findFirst({ where: { published: true }, orderBy: { createdAt: 'desc' } });
+await prisma.post.findFirst({
+  where: { published: true },
+  orderBy: { createdAt: "desc" }
+})
 
 await prisma.user.upsert({
-  where: { email: 'a@b.com' },
-  update: { name: 'Nombre actualizado' },
-  create: { email: 'a@b.com', name: 'Nombre nuevo' },
-});
+  where: { email: "a@b.com" },
+  update: { name: "Nombre actualizado" },
+  create: { email: "a@b.com", name: "Nombre nuevo" }
+})
 
-await prisma.post.createMany({ data: [{ title: 'Uno', authorId }, { title: 'Dos', authorId }] });
-await prisma.post.updateMany({ where: { authorId }, data: { published: true } });
-await prisma.post.deleteMany({ where: { authorId } });
+await prisma.post.createMany({
+  data: [
+    { title: "Uno", authorId },
+    { title: "Dos", authorId }
+  ]
+})
+await prisma.post.updateMany({ where: { authorId }, data: { published: true } })
+await prisma.post.deleteMany({ where: { authorId } })
 
-await prisma.post.count({ where: { published: true } });
-await prisma.post.groupBy({ by: ['authorId'], _count: { id: true } });
+await prisma.post.count({ where: { published: true } })
+await prisma.post.groupBy({ by: ["authorId"], _count: { id: true } })
 ```
 
 ## Relaciones: `include` y `select`
@@ -114,10 +122,10 @@ await prisma.post.groupBy({ by: ['authorId'], _count: { id: true } });
 ```ts
 const postConAutor = await prisma.post.findUnique({
   where: { id },
-  include: { author: true },
-});
+  include: { author: true }
+})
 
-const soloTitulos = await prisma.post.findMany({ select: { title: true } });
+const soloTitulos = await prisma.post.findMany({ select: { title: true } })
 ```
 
 ## Transacciones con `$transaction`
@@ -126,9 +134,12 @@ const soloTitulos = await prisma.post.findMany({ select: { title: true } });
 
 ```ts
 const [post, contador] = await prisma.$transaction([
-  prisma.post.create({ data: { title: 'Nuevo', authorId: userId } }),
-  prisma.user.update({ where: { id: userId }, data: { postsCount: { increment: 1 } } }),
-]);
+  prisma.post.create({ data: { title: "Nuevo", authorId: userId } }),
+  prisma.user.update({
+    where: { id: userId },
+    data: { postsCount: { increment: 1 } }
+  })
+])
 ```
 
 Si una operación del array falla, **todas** se revierten — ninguna queda aplicada a medias.
@@ -136,28 +147,32 @@ Si una operación del array falla, **todas** se revierten — ninguna queda apli
 ### Forma interactiva (callback), para lógica que depende de un paso anterior
 
 ```ts title="src/actions/posts.ts"
-import { defineAction } from 'astro:actions';
-import { z } from 'zod';
-import { prisma } from '../lib/prisma';
+import { defineAction } from "astro:actions"
+import { z } from "zod"
+import { prisma } from "../lib/prisma"
 
 export const posts = {
   crearConLimite: defineAction({
     input: z.object({ title: z.string().min(1) }),
     handler: async (input, context) => {
-      if (!context.locals.user) throw new Error('No autenticado');
+      if (!context.locals.user) throw new Error("No autenticado")
 
       return prisma.$transaction(async (tx) => {
-        const cantidad = await tx.post.count({ where: { authorId: context.locals.user!.id } });
+        const cantidad = await tx.post.count({
+          where: { authorId: context.locals.user!.id }
+        })
 
         if (cantidad >= 100) {
-          throw new Error('Límite de posts alcanzado'); // revierte toda la transacción
+          throw new Error("Límite de posts alcanzado") // revierte toda la transacción
         }
 
-        return tx.post.create({ data: { ...input, authorId: context.locals.user!.id } });
-      });
-    },
-  }),
-};
+        return tx.post.create({
+          data: { ...input, authorId: context.locals.user!.id }
+        })
+      })
+    }
+  })
+}
 ```
 
 Dentro del callback se usa `tx` (el client transaccional), **nunca** `prisma` directo — usar `prisma` por error adentro ejecutaría esa operación fuera de la transacción.
@@ -165,32 +180,34 @@ Dentro del callback se usa `tx` (el client transaccional), **nunca** `prisma` di
 ## Uso en una Server Action
 
 ```ts title="src/actions/posts.ts"
-import { defineAction } from 'astro:actions';
-import { z } from 'zod';
-import { prisma } from '../lib/prisma';
+import { defineAction } from "astro:actions"
+import { z } from "zod"
+import { prisma } from "../lib/prisma"
 
 export const posts = {
   crear: defineAction({
     input: z.object({ title: z.string().min(1) }),
     handler: async (input, context) => {
-      if (!context.locals.user) throw new Error('No autenticado');
-      return prisma.post.create({ data: { ...input, authorId: context.locals.user.id } });
-    },
-  }),
-};
+      if (!context.locals.user) throw new Error("No autenticado")
+      return prisma.post.create({
+        data: { ...input, authorId: context.locals.user.id }
+      })
+    }
+  })
+}
 ```
 
 Ver [Server Actions](/frontend/astro/astro-server-actions) para el resto del mecanismo (`input` con Zod integrado, cómo se llaman desde un formulario).
 
 ## Flujo de Prisma en Astro
 
-| API | Qué hace |
-| --- | --- |
-| `create` / `findUnique` / `findMany` / `update` / `delete` | CRUD básico |
-| `upsert`, `findFirst`, `createMany`/`updateMany`/`deleteMany` | Casos comunes fuera del CRUD básico |
-| `include` / `select` | Relaciones / campos específicos |
-| `$transaction([...])` | Operaciones independientes, atómicas |
-| `$transaction(async (tx) => {...})` | Operaciones que dependen de un paso anterior, atómicas |
+| API                                                           | Qué hace                                               |
+| ------------------------------------------------------------- | ------------------------------------------------------ |
+| `create` / `findUnique` / `findMany` / `update` / `delete`    | CRUD básico                                            |
+| `upsert`, `findFirst`, `createMany`/`updateMany`/`deleteMany` | Casos comunes fuera del CRUD básico                    |
+| `include` / `select`                                          | Relaciones / campos específicos                        |
+| `$transaction([...])`                                         | Operaciones independientes, atómicas                   |
+| `$transaction(async (tx) => {...})`                           | Operaciones que dependen de un paso anterior, atómicas |
 
 ## Conexiones y runtime del adapter
 

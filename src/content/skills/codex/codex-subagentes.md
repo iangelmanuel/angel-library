@@ -41,14 +41,14 @@ sandbox_mode = "read-only"
 
 ## Campos requeridos vs opcionales
 
-| Campo | Requerido |
-| --- | --- |
-| `name` | Sí |
-| `description` | Sí |
-| `developer_instructions` | Sí |
-| `model` | No — hereda el default si no se especifica |
-| `reasoning_effort` | No |
-| `sandbox_mode` | No |
+| Campo                    | Requerido                                  |
+| ------------------------ | ------------------------------------------ |
+| `name`                   | Sí                                         |
+| `description`            | Sí                                         |
+| `developer_instructions` | Sí                                         |
+| `model`                  | No — hereda el default si no se especifica |
+| `reasoning_effort`       | No                                         |
+| `sandbox_mode`           | No                                         |
 
 ## Controlar el fan-out
 
@@ -61,9 +61,9 @@ default_subagent_model = "gpt-5.1-codex"
 
 ## Resumen
 
-| Ubicación | Formato |
-| --- | --- |
-| `.codex/agents/*.toml` | Proyecto |
+| Ubicación                | Formato  |
+| ------------------------ | -------- |
+| `.codex/agents/*.toml`   | Proyecto |
 | `~/.codex/agents/*.toml` | Personal |
 
 ## Consideraciones

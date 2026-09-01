@@ -16,14 +16,14 @@ Cada archivo dentro de `src/pages/` crea una URL. `index.astro` representa la ra
 
 ## Consulta rápida
 
-| Quieres crear | Archivo |
-| --- | --- |
-| `/` | `src/pages/index.astro` |
-| `/about` | `src/pages/about.astro` o `about/index.astro` |
-| `/blog/astro` | `src/pages/blog/[slug].astro` |
-| `/docs/a/b` | `src/pages/docs/[...path].astro` |
-| `/api/posts` | `src/pages/api/posts.ts` |
-| varias rutas en build | ruta dinámica + `getStaticPaths()` |
+| Quieres crear         | Archivo                                       |
+| --------------------- | --------------------------------------------- |
+| `/`                   | `src/pages/index.astro`                       |
+| `/about`              | `src/pages/about.astro` o `about/index.astro` |
+| `/blog/astro`         | `src/pages/blog/[slug].astro`                 |
+| `/docs/a/b`           | `src/pages/docs/[...path].astro`              |
+| `/api/posts`          | `src/pages/api/posts.ts`                      |
+| varias rutas en build | ruta dinámica + `getStaticPaths()`            |
 
 ```text
 src/pages/
@@ -40,9 +40,10 @@ src/pages/
 
 ```astro title="src/pages/docs/[...path].astro"
 ---
-export const prerender = false;
-const path = Astro.params.path ?? 'inicio';
+export const prerender = false
+const path = Astro.params.path ?? "inicio"
 ---
+
 <h1>{path}</h1>
 ```
 
@@ -50,10 +51,10 @@ const path = Astro.params.path ?? 'inicio';
 
 ## Estático o bajo demanda
 
-| Modo | Cuándo se conoce la ruta dinámica | Consecuencia |
-| --- | --- | --- |
-| prerenderizado | durante `astro build` mediante `getStaticPaths()` | HTML rápido y fácil de distribuir en CDN |
-| bajo demanda | cuando llega la solicitud | admite URLs y datos no conocidos durante build |
+| Modo           | Cuándo se conoce la ruta dinámica                 | Consecuencia                                   |
+| -------------- | ------------------------------------------------- | ---------------------------------------------- |
+| prerenderizado | durante `astro build` mediante `getStaticPaths()` | HTML rápido y fácil de distribuir en CDN       |
+| bajo demanda   | cuando llega la solicitud                         | admite URLs y datos no conocidos durante build |
 
 En un proyecto estático, una ruta dinámica necesita enumerar sus variantes. Cuando existe un adapter y la ruta usa `prerender = false`, puede responder a cualquier parámetro válido durante la solicitud. La elección depende del origen y frecuencia de cambio de los datos, no solo de cuántas rutas existen.
 
@@ -81,10 +82,10 @@ Los redirects permanentes conocidos en build se declaran en `astro.config.mjs`. 
 ```js title="astro.config.mjs"
 export default defineConfig({
   redirects: {
-    '/inicio': '/',
-    '/docs/vieja': { destination: '/docs/nueva', status: 301 },
-  },
-});
+    "/inicio": "/",
+    "/docs/vieja": { destination: "/docs/nueva", status: 301 }
+  }
+})
 ```
 
 Usa un redirect permanente cuando la URL cambió de forma definitiva y uno temporal cuando la decisión pueda variar. Para una página eliminada sin reemplazo, una respuesta 404 o 410 comunica mejor la situación que enviar siempre al inicio.

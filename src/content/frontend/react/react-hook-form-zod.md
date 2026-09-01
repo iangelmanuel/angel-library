@@ -19,52 +19,63 @@ npm install react-hook-form zod @hookform/resolvers
 ## La conexión base
 
 ```tsx title="SignupForm.tsx"
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 const signupSchema = z
   .object({
-    email: z.email('Email no válido'),
-    password: z.string().min(8, 'Mínimo 8 caracteres'),
-    confirmPassword: z.string(),
+    email: z.email("Email no válido"),
+    password: z.string().min(8, "Mínimo 8 caracteres"),
+    confirmPassword: z.string()
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Las contraseñas no coinciden',
-    path: ['confirmPassword'],
-  });
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"]
+  })
 
-type SignupValues = z.infer<typeof signupSchema>;
+type SignupValues = z.infer<typeof signupSchema>
 
 export function SignupForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting }
   } = useForm<SignupValues>({
     resolver: zodResolver(signupSchema),
-    defaultValues: { email: '', password: '', confirmPassword: '' },
-    mode: 'onBlur',
-  });
+    defaultValues: { email: "", password: "", confirmPassword: "" },
+    mode: "onBlur"
+  })
 
   async function onSubmit(values: SignupValues) {
     // values ya pasó por signupSchema.safeParse() — está validado y tipado
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <input {...register('email')} />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
+      <input {...register("email")} />
       {errors.email && <p role="alert">{errors.email.message}</p>}
 
-      <input type="password" {...register('password')} />
+      <input
+        type="password"
+        {...register("password")}
+      />
       {errors.password && <p role="alert">{errors.password.message}</p>}
 
-      <input type="password" {...register('confirmPassword')} />
-      {errors.confirmPassword && <p role="alert">{errors.confirmPassword.message}</p>}
+      <input
+        type="password"
+        {...register("confirmPassword")}
+      />
+      {errors.confirmPassword && (
+        <p role="alert">{errors.confirmPassword.message}</p>
+      )}
 
       <button disabled={isSubmitting}>Crear cuenta</button>
     </form>
-  );
+  )
 }
 ```
 
@@ -83,39 +94,57 @@ const invoiceSchema = z.object({
   items: z
     .array(
       z.object({
-        description: z.string().min(1, 'Descripción requerida'),
-        quantity: z.coerce.number().int().positive(),
-      }),
+        description: z.string().min(1, "Descripción requerida"),
+        quantity: z.coerce.number().int().positive()
+      })
     )
-    .min(1, 'Agrega al menos un ítem'),
-});
+    .min(1, "Agrega al menos un ítem")
+})
 
-type InvoiceValues = z.infer<typeof invoiceSchema>;
+type InvoiceValues = z.infer<typeof invoiceSchema>
 
 function InvoiceForm() {
-  const { control, register, handleSubmit, formState: { errors } } = useForm<InvoiceValues>({
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<InvoiceValues>({
     resolver: zodResolver(invoiceSchema),
-    defaultValues: { items: [{ description: '', quantity: 1 }] },
-  });
+    defaultValues: { items: [{ description: "", quantity: 1 }] }
+  })
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'items' });
+  const { fields, append, remove } = useFieldArray({ control, name: "items" })
 
   return (
     <form onSubmit={handleSubmit(() => {})}>
       {fields.map((field, index) => (
         <div key={field.id}>
           <input {...register(`items.${index}.description`)} />
-          <input type="number" {...register(`items.${index}.quantity`)} />
-          {errors.items?.[index]?.description && <p>{errors.items[index]?.description?.message}</p>}
-          <button type="button" onClick={() => remove(index)}>Quitar</button>
+          <input
+            type="number"
+            {...register(`items.${index}.quantity`)}
+          />
+          {errors.items?.[index]?.description && (
+            <p>{errors.items[index]?.description?.message}</p>
+          )}
+          <button
+            type="button"
+            onClick={() => remove(index)}
+          >
+            Quitar
+          </button>
         </div>
       ))}
-      <button type="button" onClick={() => append({ description: '', quantity: 1 })}>
+      <button
+        type="button"
+        onClick={() => append({ description: "", quantity: 1 })}
+      >
         Agregar ítem
       </button>
       {errors.items?.root && <p>{errors.items.root.message}</p>}
     </form>
-  );
+  )
 }
 ```
 
@@ -127,10 +156,10 @@ Todo lo que sale del DOM llega como string (o, en checkboxes, como booleano real
 
 ```ts
 const profileSchema = z.object({
-  age: z.coerce.number().int().min(18),       // "25" → 25
-  birthDate: z.coerce.date(),                  // "2026-01-15" → Date
-  acceptsTerms: z.boolean().refine((v) => v, 'Tienes que aceptar los términos'),
-});
+  age: z.coerce.number().int().min(18), // "25" → 25
+  birthDate: z.coerce.date(), // "2026-01-15" → Date
+  acceptsTerms: z.boolean().refine((v) => v, "Tienes que aceptar los términos")
+})
 ```
 
 Los checkboxes son la excepción: `register('acceptsTerms')` en un `<input type="checkbox">` ya le da a RHF un `boolean` real (usa la prop `checked`, no `value`), así que ese campo no necesita `z.coerce`.
@@ -140,14 +169,19 @@ Los checkboxes son la excepción: `register('acceptsTerms')` en un `<input type=
 Zod valida forma y reglas declarativas (formato, longitud, comparación entre campos) — lo que **no** puede validar es algo que depende directamente consulta al backend, como "este email ya está registrado". Para eso, `setError` inyecta un error de servidor en un campo puntual después del submit, con el mismo aspecto que un error de Zod:
 
 ```tsx
-const { setError, handleSubmit } = useForm<SignupValues>({ resolver: zodResolver(signupSchema) });
+const { setError, handleSubmit } = useForm<SignupValues>({
+  resolver: zodResolver(signupSchema)
+})
 
 async function onSubmit(values: SignupValues) {
-  const res = await fetch('/api/signup', { method: 'POST', body: JSON.stringify(values) });
+  const res = await fetch("/api/signup", {
+    method: "POST",
+    body: JSON.stringify(values)
+  })
 
   if (res.status === 409) {
-    setError('email', { message: 'Ese email ya está registrado' });
-    return;
+    setError("email", { message: "Ese email ya está registrado" })
+    return
   }
 }
 ```
@@ -161,13 +195,13 @@ async function onSubmit(values: SignupValues) {
 
 ## Flujo de formulario en una mirada
 
-| Pieza | Rol |
-| --- | --- |
-| `zodResolver(schema)` | Traduce `safeParse()` de Zod al formato de errores de RHF |
-| `z.infer<typeof schema>` | Tipo único, compartido entre schema, `useForm` y `onSubmit` |
-| `useFieldArray` + `z.array()` | Listas dinámicas de campos, validadas item por item |
-| `z.coerce.*` | Convierte lo que manda el DOM (string) al tipo real antes de validar |
-| `setError('campo', { message })` | Inyecta un error del servidor con el mismo aspecto que uno de Zod |
+| Pieza                            | Rol                                                                  |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `zodResolver(schema)`            | Traduce `safeParse()` de Zod al formato de errores de RHF            |
+| `z.infer<typeof schema>`         | Tipo único, compartido entre schema, `useForm` y `onSubmit`          |
+| `useFieldArray` + `z.array()`    | Listas dinámicas de campos, validadas item por item                  |
+| `z.coerce.*`                     | Convierte lo que manda el DOM (string) al tipo real antes de validar |
+| `setError('campo', { message })` | Inyecta un error del servidor con el mismo aspecto que uno de Zod    |
 
 ## Errores comunes
 

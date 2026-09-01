@@ -39,11 +39,11 @@ Revisa el modelo cuando cambien autenticación, proveedores, datos sensibles o a
 
 Empieza con una tabla sencilla: activo, propietario, impacto, ubicación y controles actuales. Después dibuja cada salto entre navegador, CDN, API, workers, base de datos, almacenamiento, proveedor de pagos y panel administrativo. Un límite de confianza existe cuando cambia la identidad, el nivel de privilegio o la capacidad de controlar el dato.
 
-| Flujo | Activo | Riesgo si se altera | Control mínimo |
-| --- | --- | --- | --- |
-| Crear una orden | dinero e inventario | cobro duplicado o stock negativo | autorización, idempotencia y transacción |
-| Subir avatar | archivo y disponibilidad | malware o consumo de almacenamiento | límites, tipo real y storage no ejecutable |
-| Webhook de pago | estado de la orden | marcar como pagada una orden falsa | firma, replay protection y auditoría |
+| Flujo           | Activo                   | Riesgo si se altera                 | Control mínimo                             |
+| --------------- | ------------------------ | ----------------------------------- | ------------------------------------------ |
+| Crear una orden | dinero e inventario      | cobro duplicado o stock negativo    | autorización, idempotencia y transacción   |
+| Subir avatar    | archivo y disponibilidad | malware o consumo de almacenamiento | límites, tipo real y storage no ejecutable |
+| Webhook de pago | estado de la orden       | marcar como pagada una orden falsa  | firma, replay protection y auditoría       |
 
 ## Del riesgo al requisito
 

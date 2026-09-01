@@ -63,31 +63,31 @@ Esto crea la tabla `Post` en la base y genera el client con los tipos correspond
 ## Paso 5: el client como singleton
 
 ```ts title="lib/prisma.ts"
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client"
 
-export const prisma = new PrismaClient();
+export const prisma = new PrismaClient()
 ```
 
 ## Paso 6: un endpoint real
 
 ```ts title="app.ts"
-import express from 'express';
-import { prisma } from './lib/prisma';
+import express from "express"
+import { prisma } from "./lib/prisma"
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-app.get('/posts', async (req, res) => {
-  const posts = await prisma.post.findMany();
-  res.json(posts);
-});
+app.get("/posts", async (req, res) => {
+  const posts = await prisma.post.findMany()
+  res.json(posts)
+})
 
-app.post('/posts', async (req, res) => {
-  const post = await prisma.post.create({ data: req.body });
-  res.status(201).json(post);
-});
+app.post("/posts", async (req, res) => {
+  const post = await prisma.post.create({ data: req.body })
+  res.status(201).json(post)
+})
 
-app.listen(3000, () => console.log('http://localhost:3000'));
+app.listen(3000, () => console.log("http://localhost:3000"))
 ```
 
 ## Paso 7: probar

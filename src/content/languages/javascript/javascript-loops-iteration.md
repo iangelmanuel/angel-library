@@ -21,14 +21,14 @@ Usa `for...of` para valores iterables y `for...in` para claves enumerables de un
 
 Un ciclo repite un bloque mientras exista trabajo o se cumpla una condición. La elección depende de si conoces la cantidad de iteraciones, recorres un iterable, necesitas propiedades de un objeto o esperas valores asíncronos.
 
-| Estructura | Recorre o controla | Caso de uso |
-| --- | --- | --- |
-| `for` | contador y condición explícitos | índices, rangos y pasos |
-| `while` | condición evaluada antes | cantidad desconocida |
-| `do...while` | condición evaluada después | ejecutar al menos una vez |
-| `for...of` | valores de un iterable | Array, String, Map, Set, NodeList |
-| `for...in` | claves enumerables | objetos simples con comprobación propia |
-| `for await...of` | valores de iterable async o Promises | streams y paginación asíncrona |
+| Estructura       | Recorre o controla                   | Caso de uso                             |
+| ---------------- | ------------------------------------ | --------------------------------------- |
+| `for`            | contador y condición explícitos      | índices, rangos y pasos                 |
+| `while`          | condición evaluada antes             | cantidad desconocida                    |
+| `do...while`     | condición evaluada después           | ejecutar al menos una vez               |
+| `for...of`       | valores de un iterable               | Array, String, Map, Set, NodeList       |
+| `for...in`       | claves enumerables                   | objetos simples con comprobación propia |
+| `for await...of` | valores de iterable async o Promises | streams y paginación asíncrona          |
 
 Los ciclos son sentencias: no retornan una colección. Para transformar un array y obtener otro, `map` o `filter` suelen comunicar mejor el resultado.
 
@@ -67,7 +67,7 @@ for (let index = 0; index < 3; index += 1) {
   callbacks.push(() => index)
 }
 
-callbacks.map(callback => callback()) // [0, 1, 2]
+callbacks.map((callback) => callback()) // [0, 1, 2]
 ```
 
 ## `while`
@@ -84,7 +84,7 @@ while (remaining > 1) {
 }
 
 remaining // 1
-attempts  // 4
+attempts // 4
 ```
 
 Mantén visible qué hace que la condición llegue a ser falsa. Un `while (true)` necesita una salida clara con `break`, retorno o excepción.
@@ -111,8 +111,8 @@ Es útil para menús, reintentos o lectura inicial, siempre que la primera opera
 
 ```js
 const totalByTag = new Map([
-  ['javascript', 12],
-  ['css', 8],
+  ["javascript", 12],
+  ["css", 8]
 ])
 
 const rows = []
@@ -127,7 +127,7 @@ rows // ['javascript: 12', 'css: 8']
 Strings, arrays, typed arrays, Map, Set, NodeList, generators y muchos objetos del navegador son iterables. Un objeto simple no lo es automáticamente.
 
 ```js
-for (const character of 'A😀B') {
+for (const character of "A😀B") {
   console.log(character)
 }
 // 'A'
@@ -138,7 +138,7 @@ for (const character of 'A😀B') {
 ### Necesitar índice y valor
 
 ```js
-const names = ['Ana', 'Leo']
+const names = ["Ana", "Leo"]
 
 for (const [index, name] of names.entries()) {
   console.log(index, name)
@@ -152,7 +152,7 @@ for (const [index, name] of names.entries()) {
 `for...in` recorre nombres de propiedades enumerables, incluidas las heredadas. Para un objeto de datos, filtra con `Object.hasOwn`.
 
 ```js
-const settings = { theme: 'dark', compact: true }
+const settings = { theme: "dark", compact: true }
 const result = []
 
 for (const key in settings) {
@@ -210,26 +210,32 @@ function findPosition(matrix, expected) {
   return null
 }
 
-findPosition([[1, 2], [3, 4]], 3) // { row: 1, column: 0 }
+findPosition(
+  [
+    [1, 2],
+    [3, 4]
+  ],
+  3
+) // { row: 1, column: 0 }
 ```
 
 ## Métodos de Array o ciclo
 
-| Necesidad | Opción expresiva |
-| --- | --- |
-| transformar todos | `map` |
-| seleccionar algunos | `filter` |
-| encontrar uno | `find` |
-| comprobar alguno/todos | `some` / `every` |
-| producir un acumulador | `reduce` o `for...of` |
-| efectos síncronos simples | `forEach` |
-| salida temprana o varias reglas | `for...of` |
-| `await` secuencial | `for...of` |
+| Necesidad                       | Opción expresiva      |
+| ------------------------------- | --------------------- |
+| transformar todos               | `map`                 |
+| seleccionar algunos             | `filter`              |
+| encontrar uno                   | `find`                |
+| comprobar alguno/todos          | `some` / `every`      |
+| producir un acumulador          | `reduce` o `for...of` |
+| efectos síncronos simples       | `forEach`             |
+| salida temprana o varias reglas | `for...of`            |
+| `await` secuencial              | `for...of`            |
 
 ```js
 const prices = [10, 20, 30]
 
-prices.map(price => price * 2)
+prices.map((price) => price * 2)
 // [20, 40, 60]
 
 const doubled = []
@@ -256,9 +262,7 @@ saved // resultados en orden, una operación después de otra
 ### Concurrencia
 
 ```js
-const saved = await Promise.all(
-  items.map(item => saveItem(item)),
-)
+const saved = await Promise.all(items.map((item) => saveItem(item)))
 
 saved // resultados en orden de entrada; operaciones iniciadas juntas
 ```
@@ -269,8 +273,8 @@ saved // resultados en orden de entrada; operaciones iniciadas juntas
 
 ```js
 async function* pages() {
-  yield Promise.resolve(['a', 'b'])
-  yield Promise.resolve(['c'])
+  yield Promise.resolve(["a", "b"])
+  yield Promise.resolve(["c"])
 }
 
 const items = []
@@ -290,9 +294,9 @@ Eliminar o agregar elementos al mismo array durante la iteración puede saltar v
 
 ```js
 const original = [1, 2, 3, 4]
-const odd = original.filter(number => number % 2 !== 0)
+const odd = original.filter((number) => number % 2 !== 0)
 
-odd      // [1, 3]
+odd // [1, 3]
 original // [1, 2, 3, 4]
 ```
 
@@ -313,6 +317,6 @@ function findWithLimit(next, maximum = 1_000) {
     if (value.done) return value.value
   }
 
-  throw new RangeError('Se alcanzó el límite de iteraciones')
+  throw new RangeError("Se alcanzó el límite de iteraciones")
 }
 ```

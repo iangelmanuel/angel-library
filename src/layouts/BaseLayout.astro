@@ -1,77 +1,47 @@
 ---
 import "@/styles/global.css"
 import { ClientRouter } from "astro:transitions"
-import { getImage } from "astro:assets"
 import { TerminalDialog } from "@/features/terminal"
+import BaseHead from "@/components/seo/BaseHead.astro"
+import JsonLd from "@/components/seo/JsonLd.astro"
 import { SITE } from "@/config/site"
-import logo from "@/assets/logo/angel-library-logo.webp"
-import geistSans400 from "@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2?url"
-import geistMono400 from "@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2?url"
-import geistPixel400 from "@fontsource/geist-pixel/files/geist-pixel-latin-400-normal.woff2?url"
+import {
+  organizationLd,
+  webSiteLd,
+  type JsonLdBlock,
+  type SeoProps
+} from "@/lib/seo"
 
-interface Props {
-  title?: string
-  description?: string
+interface Props extends SeoProps {
+  jsonLd?: readonly JsonLdBlock[]
 }
 
-const { title, description = SITE.description } = Astro.props
-const pageTitle = title
-  ? `${title} · ${SITE.name}`
-  : `${SITE.name} — segundo cerebro técnico`
-
-const favicon = await getImage({ src: logo, width: 64, height: 64, format: "webp" })
+const { jsonLd = [], ...seoProps } = Astro.props
 ---
 
 <!doctype html>
 <html
-  lang="es"
+  lang={SITE.seo.lang}
   class="dark"
 >
   <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
+    <BaseHead {...seoProps} />
+    <JsonLd
+      id="ld-organization"
+      data={organizationLd()}
     />
-    <title>{pageTitle}</title>
-    <meta
-      name="description"
-      content={description}
+    <JsonLd
+      id="ld-website"
+      data={webSiteLd()}
     />
-    <meta
-      name="generator"
-      content={Astro.generator}
-    />
-    <meta
-      name="theme-color"
-      content="#000000"
-    />
-    <link
-      rel="icon"
-      type="image/webp"
-      href={favicon.src}
-    />
-    <link
-      rel="preload"
-      href={geistSans400}
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href={geistMono400}
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href={geistPixel400}
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
+    {
+      jsonLd.map((block) => (
+        <JsonLd
+          id={block.id}
+          data={block.data}
+        />
+      ))
+    }
     <ClientRouter />
   </head>
   <body>

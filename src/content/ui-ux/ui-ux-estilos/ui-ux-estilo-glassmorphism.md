@@ -38,12 +38,12 @@ Su momento fue macOS Big Sur y Windows 11, y hoy es la técnica base de la que p
 
 Cuatro piezas, todas necesarias:
 
-| Pieza | Por qué |
-| --- | --- |
-| `background` semitransparente | Sin él, el desenfoque no se ve como vidrio sino como niebla |
-| `backdrop-filter: blur()` | Es el efecto en sí: desenfoca lo que está **detrás** |
-| `border` claro | Define el canto del vidrio; sin borde, la superficie flota sin límite |
-| `box-shadow` | Separa la capa del fondo |
+| Pieza                         | Por qué                                                               |
+| ----------------------------- | --------------------------------------------------------------------- |
+| `background` semitransparente | Sin él, el desenfoque no se ve como vidrio sino como niebla           |
+| `backdrop-filter: blur()`     | Es el efecto en sí: desenfoca lo que está **detrás**                  |
+| `border` claro                | Define el canto del vidrio; sin borde, la superficie flota sin límite |
+| `box-shadow`                  | Separa la capa del fondo                                              |
 
 La confusión más común es usar `filter: blur()` en vez de `backdrop-filter`. `filter` desenfoca el elemento **y su contenido**, dejando el texto ilegible. `backdrop-filter` desenfoca solo lo que hay detrás.
 

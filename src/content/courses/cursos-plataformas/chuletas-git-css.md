@@ -14,10 +14,10 @@ updatedAt: 2026-08-30
 
 Dos hojas de referencia en PDF para tener a mano mientras se interiorizan los comandos y las propiedades.
 
-| Chuleta | Publica | Enlace |
-| --- | --- | --- |
-| Git y GitHub, en español | GitHub Training | [github-git-cheat-sheet.pdf](https://training.github.com/downloads/es_ES/github-git-cheat-sheet.pdf) |
-| Flexbox y Grid | Paradigma Digital | [cheat_sheet_flexbox.pdf](https://www.paradigmadigital.com/assets/cms/cheat_sheet_flexbox_6fb013edd1.pdf) |
+| Chuleta                  | Publica           | Enlace                                                                                                    |
+| ------------------------ | ----------------- | --------------------------------------------------------------------------------------------------------- |
+| Git y GitHub, en español | GitHub Training   | [github-git-cheat-sheet.pdf](https://training.github.com/downloads/es_ES/github-git-cheat-sheet.pdf)      |
+| Flexbox y Grid           | Paradigma Digital | [cheat_sheet_flexbox.pdf](https://www.paradigmadigital.com/assets/cms/cheat_sheet_flexbox_6fb013edd1.pdf) |
 
 ## Git y GitHub
 

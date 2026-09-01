@@ -12,12 +12,12 @@ Cursor tiene un marketplace (`cursor.com/marketplace`) con dos formatos de plugi
 
 ## Las dos specs
 
-| | Agent Plugins | Cursor Plugins |
-| --- | --- | --- |
-| Manifest | `plugin.json` en la raíz | `.cursor-plugin/plugin.json` |
-| Portabilidad | Sí — funciona también en Claude Code y otras herramientas | No, específico de Cursor |
-| Qué empaqueta | `skills/`, `mcp.json` | Reglas (.mdc), agentes, comandos, hooks, variables |
-| Cuándo usar | Si el plugin debe funcionar fuera de Cursor también | Si necesitas las piezas específicas de Cursor (hooks, .mdc) |
+|               | Agent Plugins                                             | Cursor Plugins                                              |
+| ------------- | --------------------------------------------------------- | ----------------------------------------------------------- |
+| Manifest      | `plugin.json` en la raíz                                  | `.cursor-plugin/plugin.json`                                |
+| Portabilidad  | Sí — funciona también en Claude Code y otras herramientas | No, específico de Cursor                                    |
+| Qué empaqueta | `skills/`, `mcp.json`                                     | Reglas (.mdc), agentes, comandos, hooks, variables          |
+| Cuándo usar   | Si el plugin debe funcionar fuera de Cursor también       | Si necesitas las piezas específicas de Cursor (hooks, .mdc) |
 
 ## Instalar uno
 
@@ -49,10 +49,10 @@ mi-plugin/
 
 ## Resumen
 
-| Escenario | Spec a usar |
-| --- | --- |
-| Compartir con Claude Code también | Agent Plugins |
-| Usar hooks o reglas `.mdc` | Cursor Plugins |
+| Escenario                         | Spec a usar    |
+| --------------------------------- | -------------- |
+| Compartir con Claude Code también | Agent Plugins  |
+| Usar hooks o reglas `.mdc`        | Cursor Plugins |
 
 ## Consideraciones
 

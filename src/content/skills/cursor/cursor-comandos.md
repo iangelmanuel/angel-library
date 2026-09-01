@@ -20,6 +20,7 @@ También hay una "librería global" de comandos a nivel usuario, configurable de
 
 ```md title=".cursor/commands/review.md"
 Revisa los cambios actuales con `git diff` y señala:
+
 1. Bugs potenciales
 2. Problemas de legibilidad
 3. Riesgos de seguridad
@@ -37,9 +38,9 @@ Cursor Settings → Rules → ## Slash Commands
 
 ## Resumen
 
-| Ubicación | Alcance |
-| --- | --- |
-| `.cursor/commands/*.md` | Proyecto, se commitea |
+| Ubicación                  | Alcance                       |
+| -------------------------- | ----------------------------- |
+| `.cursor/commands/*.md`    | Proyecto, se commitea         |
 | Librería global (Settings) | Personal, todos los proyectos |
 
 ## Consideraciones

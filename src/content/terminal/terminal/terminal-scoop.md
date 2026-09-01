@@ -13,11 +13,11 @@ updatedAt: 2026-08-17
 
 Un gestor de paquetes para Windows orientado a herramientas de línea de comandos y dev tools. La diferencia principal con Chocolatey es dónde y cómo instala:
 
-| | Chocolatey | Scoop |
-|---|---|---|
-| Requiere administrador | Sí (para instalar Chocolatey y, en general, para paquetes) | No |
-| Dónde instala | Rutas de sistema (`Program Files`) | Perfil del usuario (`~\scoop`) |
-| Enfoque | Software en general (apps de escritorio, runtimes, CLIs) | Principalmente CLIs y dev tools |
+|                        | Chocolatey                                                 | Scoop                           |
+| ---------------------- | ---------------------------------------------------------- | ------------------------------- |
+| Requiere administrador | Sí (para instalar Chocolatey y, en general, para paquetes) | No                              |
+| Dónde instala          | Rutas de sistema (`Program Files`)                         | Perfil del usuario (`~\scoop`)  |
+| Enfoque                | Software en general (apps de escritorio, runtimes, CLIs)   | Principalmente CLIs y dev tools |
 
 Ninguno es estrictamente "mejor" — Scoop conviene para herramientas de desarrollo que no necesitan quedar instaladas a nivel de todo el sistema, y evita tener que abrir la terminal como administrador cada vez. Chocolatey tiene un catálogo más amplio, incluyendo software de escritorio típico.
 
@@ -33,14 +33,14 @@ Este es el comando oficial publicado en [scoop.sh](https://scoop.sh). `irm` (`In
 
 ## Comandos básicos
 
-| Comando | Qué hace |
-|---|---|
-| `scoop install <paquete>` | Instala un paquete |
-| `scoop update <paquete>` | Actualiza un paquete específico |
-| `scoop update *` | Actualiza todos los paquetes instalados |
-| `scoop uninstall <paquete>` | Desinstala un paquete |
-| `scoop list` | Lista lo que ya está instalado |
-| `scoop search <paquete>` | Busca un paquete |
+| Comando                     | Qué hace                                |
+| --------------------------- | --------------------------------------- |
+| `scoop install <paquete>`   | Instala un paquete                      |
+| `scoop update <paquete>`    | Actualiza un paquete específico         |
+| `scoop update *`            | Actualiza todos los paquetes instalados |
+| `scoop uninstall <paquete>` | Desinstala un paquete                   |
+| `scoop list`                | Lista lo que ya está instalado          |
+| `scoop search <paquete>`    | Busca un paquete                        |
 
 ## Buckets
 

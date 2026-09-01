@@ -78,14 +78,14 @@ Sube el contenido de una carpeta ya compilada —por ejemplo, `dist/`— como un
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `wrangler login` | Autentica la CLI con tu cuenta de Cloudflare |
-| `wrangler dev` | Corre el Worker local con recarga en vivo |
-| `wrangler deploy` | Publica el Worker al edge |
-| `wrangler tail` | Logs en vivo de un Worker desplegado |
-| `wrangler d1 <subcomando>` | Crear, consultar y migrar bases D1 |
-| `wrangler pages deploy` | Desplegar una carpeta compilada en Pages |
+| Comando                    | Qué hace                                     |
+| -------------------------- | -------------------------------------------- |
+| `wrangler login`           | Autentica la CLI con tu cuenta de Cloudflare |
+| `wrangler dev`             | Corre el Worker local con recarga en vivo    |
+| `wrangler deploy`          | Publica el Worker al edge                    |
+| `wrangler tail`            | Logs en vivo de un Worker desplegado         |
+| `wrangler d1 <subcomando>` | Crear, consultar y migrar bases D1           |
+| `wrangler pages deploy`    | Desplegar una carpeta compilada en Pages     |
 
 ## Consideraciones
 

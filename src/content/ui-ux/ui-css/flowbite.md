@@ -18,9 +18,9 @@ Agregar el plugin y que Tailwind escanee las clases que usa Flowbite:
 
 ```js title="tailwind.config.js"
 module.exports = {
-  content: ['./node_modules/flowbite/**/*.js', /* ...resto del content */],
-  plugins: [require('flowbite/plugin')],
-};
+  content: ["./node_modules/flowbite/**/*.js" /* ...resto del content */],
+  plugins: [require("flowbite/plugin")]
+}
 ```
 
 Importar el JS (una sola vez, ej. en el layout base) para que dropdowns/modales funcionen:

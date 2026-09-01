@@ -16,10 +16,10 @@ Un `<a href>` normal recarga la página entera. `<Link>` extiende ese mismo elem
 ## Uso básico
 
 ```tsx
-import Link from 'next/link';
+import Link from "next/link"
 
 export default function Nav() {
-  return <Link href="/dashboard">Dashboard</Link>;
+  return <Link href="/dashboard">Dashboard</Link>
 }
 ```
 
@@ -28,15 +28,27 @@ export default function Nav() {
 Apenas un `<Link>` entra en el viewport (al cargar la página, o al hacer scroll hasta él), Next empieza a precargar esa ruta y sus datos en segundo plano — para cuando el usuario haga click, ya está lista. Esto **solo pasa en producción** (`next build && next start`), no en `next dev`.
 
 ```tsx
-<Link href="/dashboard" prefetch={false}>Sin precargar</Link>
+<Link
+  href="/dashboard"
+  prefetch={false}
+>
+  Sin precargar
+</Link>
 ```
 
 ## Link a una ruta dinámica
 
 ```tsx
-{posts.map((post) => (
-  <Link key={post.id} href={`/blog/${post.slug}`}>{post.title}</Link>
-))}
+{
+  posts.map((post) => (
+    <Link
+      key={post.id}
+      href={`/blog/${post.slug}`}
+    >
+      {post.title}
+    </Link>
+  ))
+}
 ```
 
 ## Marcar el link activo
@@ -44,20 +56,30 @@ Apenas un `<Link>` entra en el viewport (al cargar la página, o al hacer scroll
 `<Link>` no sabe por sí solo si es "la página actual" — se combina con [`usePathname`](/frontend/nextjs/nextjs-usepathname) en un Client Component.
 
 ```tsx title="app/ui/nav-links.tsx"
-'use client'
+"use client"
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function NavLinks() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <nav>
-      <Link href="/" className={pathname === '/' ? 'activo' : ''}>Inicio</Link>
-      <Link href="/blog" className={pathname === '/blog' ? 'activo' : ''}>Blog</Link>
+      <Link
+        href="/"
+        className={pathname === "/" ? "activo" : ""}
+      >
+        Inicio
+      </Link>
+      <Link
+        href="/blog"
+        className={pathname === "/blog" ? "activo" : ""}
+      >
+        Blog
+      </Link>
     </nav>
-  );
+  )
 }
 ```
 
@@ -70,12 +92,12 @@ export function NavLinks() {
 
 ## Props de navegación en una mirada
 
-| Prop | Uso |
-| --- | --- |
-| `href` | Obligatorio — ruta o URL de destino |
-| `prefetch` | `true`/`false`/`null` (auto) — precargar la ruta antes del click |
-| `replace` | No agrega entrada al historial del navegador |
-| `scroll` | Por defecto hace scroll al top si la página destino no está visible; `false` lo desactiva |
+| Prop         | Uso                                                                                               |
+| ------------ | ------------------------------------------------------------------------------------------------- |
+| `href`       | Obligatorio — ruta o URL de destino                                                               |
+| `prefetch`   | `true`/`false`/`null` (auto) — precargar la ruta antes del click                                  |
+| `replace`    | No agrega entrada al historial del navegador                                                      |
+| `scroll`     | Por defecto hace scroll al top si la página destino no está visible; `false` lo desactiva         |
 | `onNavigate` | Handler que corre solo en navegación de cliente (no en clicks con Ctrl/Cmd, ni en links externos) |
 
 ## Semántica, prefetch e historial

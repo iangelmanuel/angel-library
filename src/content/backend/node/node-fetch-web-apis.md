@@ -17,24 +17,24 @@ Node incorpora varias APIs basadas en estándares web. Compartir `fetch`, `Reque
 ## Consumir JSON correctamente
 
 ```ts
-const url = new URL('/v1/users', 'https://api.example.com');
-url.searchParams.set('role', 'admin');
-url.searchParams.set('limit', '20');
+const url = new URL("/v1/users", "https://api.example.com")
+url.searchParams.set("role", "admin")
+url.searchParams.set("limit", "20")
 
 const response = await fetch(url, {
   headers: {
-    accept: 'application/json',
-    authorization: `Bearer ${process.env.API_TOKEN}`,
+    accept: "application/json",
+    authorization: `Bearer ${process.env.API_TOKEN}`
   },
-  signal: AbortSignal.timeout(3_000),
-});
+  signal: AbortSignal.timeout(3_000)
+})
 
 if (!response.ok) {
-  const detail = await response.text();
-  throw new Error(`API ${response.status}: ${detail.slice(0, 200)}`);
+  const detail = await response.text()
+  throw new Error(`API ${response.status}: ${detail.slice(0, 200)}`)
 }
 
-const users = await response.json();
+const users = await response.json()
 ```
 
 `fetch` solo rechaza por errores de red o cancelación. Un `404` o `500` produce una respuesta normal con `ok === false`; por eso hay que comprobarla.
@@ -42,13 +42,13 @@ const users = await response.json();
 ## `URL` y `URLSearchParams`
 
 ```js
-const url = new URL('https://example.com/products?sort=price');
-url.pathname = '/products/featured';
-url.searchParams.append('tag', 'css');
-url.searchParams.append('tag', 'javascript');
+const url = new URL("https://example.com/products?sort=price")
+url.pathname = "/products/featured"
+url.searchParams.append("tag", "css")
+url.searchParams.append("tag", "javascript")
 
-console.log(url.searchParams.getAll('tag')); // ['css', 'javascript']
-console.log(url.toString());
+console.log(url.searchParams.getAll("tag")) // ['css', 'javascript']
+console.log(url.toString())
 ```
 
 Estas APIs codifican espacios y caracteres reservados. Concatenar query strings a mano puede producir URLs inválidas o permitir que un valor altere parámetros vecinos.
@@ -56,8 +56,8 @@ Estas APIs codifican espacios y caracteres reservados. Concatenar query strings 
 ## Headers y autenticación
 
 ```js
-const headers = new Headers({ accept: 'application/json' });
-headers.set('content-type', 'application/json');
+const headers = new Headers({ accept: "application/json" })
+headers.set("content-type", "application/json")
 ```
 
 Los nombres de headers no distinguen mayúsculas. `Authorization` transporta credenciales; `Content-Type` describe el body enviado y `Accept` expresa el formato esperado en la respuesta. No envíes un token del servidor al navegador ni lo incluyas en query params, logs o mensajes de error.
@@ -65,11 +65,11 @@ Los nombres de headers no distinguen mayúsculas. `Authorization` transporta cre
 ## Enviar datos
 
 ```ts
-await fetch('https://api.example.com/posts', {
-  method: 'POST',
-  headers: { 'content-type': 'application/json' },
-  body: JSON.stringify({ title: 'Event loop' }),
-});
+await fetch("https://api.example.com/posts", {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify({ title: "Event loop" })
+})
 ```
 
 Para archivos y campos usa `FormData`; deja que `fetch` construya el `Content-Type` con su boundary. Para un cuerpo en streaming, revisa el soporte y requisitos del runtime de destino.
@@ -81,4 +81,3 @@ Que una API tenga el mismo nombre no significa que todo el entorno sea navegador
 ## Caso de uso reusable
 
 Centraliza base URL, autenticación, timeout, validación y formato de error en un cliente pequeño. No crees un wrapper que oculte por completo `Request`/`Response`: conservar sus conceptos hace más fácil streaming, caché y cancelación.
-

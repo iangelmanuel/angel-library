@@ -19,19 +19,34 @@ updatedAt: 2026-08-17
 // ANTES: jerarquía de tres niveles
 class Person {
   constructor(public name: string) {}
-  greet() { return `Hola, soy ${this.name}`; }
+  greet() {
+    return `Hola, soy ${this.name}`
+  }
 }
 
 class User extends Person {
-  constructor(name: string, public email: string) { super(name); }
-  login() { /* ... */ }
+  constructor(
+    name: string,
+    public email: string
+  ) {
+    super(name)
+  }
+  login() {
+    /* ... */
+  }
 }
 
 class AdminUser extends User {
-  constructor(name: string, email: string, public permissions: string[]) {
-    super(name, email);
+  constructor(
+    name: string,
+    email: string,
+    public permissions: string[]
+  ) {
+    super(name, email)
   }
-  deleteUser(id: string) { /* ... */ }
+  deleteUser(id: string) {
+    /* ... */
+  }
 }
 ```
 
@@ -43,28 +58,35 @@ Y hay un problema más silencioso: cambiar `Person.greet()` afecta a `User` y a 
 
 ```ts
 // DESPUÉS: comportamiento como piezas independientes que se combinan
-type Person = { name: string };
-type Loginable = { email: string; login: () => void };
-type Admin = { permissions: string[]; deleteUser: (id: string) => void };
+type Person = { name: string }
+type Loginable = { email: string; login: () => void }
+type Admin = { permissions: string[]; deleteUser: (id: string) => void }
 
 function createUser(name: string, email: string): Person & Loginable {
   return {
     name,
     email,
-    login: () => { /* ... */ },
-  };
+    login: () => {
+      /* ... */
+    }
+  }
 }
 
-function withAdminPowers<T extends object>(base: T, permissions: string[]): T & Admin {
+function withAdminPowers<T extends object>(
+  base: T,
+  permissions: string[]
+): T & Admin {
   return {
     ...base,
     permissions,
-    deleteUser: (id: string) => { /* ... */ },
-  };
+    deleteUser: (id: string) => {
+      /* ... */
+    }
+  }
 }
 
-const user = createUser('Ana', 'ana@mail.com');
-const admin = withAdminPowers(user, ['users:delete']);
+const user = createUser("Ana", "ana@mail.com")
+const admin = withAdminPowers(user, ["users:delete"])
 ```
 
 Cada pieza (`Loginable`, `Admin`) es independiente. Combinar un usuario con permisos de admin no requiere una clase nueva en la jerarquía — es aplicar una función más. Agregar un tercer eje (por ejemplo, `Auditable`) no obliga a reescribir nada existente, solo a componer una pieza más donde haga falta.
@@ -73,11 +95,13 @@ Esto también se puede resolver con inyección de dependencias en vez de mixins,
 
 ```ts
 interface Notifier {
-  notify(message: string): void;
+  notify(message: string): void
 }
 
 class EmailNotifier implements Notifier {
-  notify(message: string) { /* enviar email */ }
+  notify(message: string) {
+    /* enviar email */
+  }
 }
 
 class OrderService {
@@ -85,7 +109,7 @@ class OrderService {
 
   placeOrder(order: Order) {
     // ...
-    this.notifier.notify(`Orden ${order.id} creada`);
+    this.notifier.notify(`Orden ${order.id} creada`)
   }
 }
 ```
@@ -102,21 +126,27 @@ Composición sobre herencia no significa "nunca heredar". La herencia tiene sent
 
 ```ts
 class ValidationError extends Error {
-  constructor(message: string, public field: string) {
-    super(message);
-    this.name = 'ValidationError';
+  constructor(
+    message: string,
+    public field: string
+  ) {
+    super(message)
+    this.name = "ValidationError"
   }
 }
 
 class NotFoundError extends Error {
-  constructor(public resource: string, public id: string) {
-    super(`${resource} con id ${id} no encontrado`);
-    this.name = 'NotFoundError';
+  constructor(
+    public resource: string,
+    public id: string
+  ) {
+    super(`${resource} con id ${id} no encontrado`)
+    this.name = "NotFoundError"
   }
 }
 ```
 
-`ValidationError` genuinamente *es un* `Error` — no hay ambigüedad, no hay combinaciones múltiples de "tipos de error" que necesiten mezclarse, y la jerarquía tiene un solo nivel. Este es el caso donde la herencia es la herramienta correcta, no un atajo.
+`ValidationError` genuinamente _es un_ `Error` — no hay ambigüedad, no hay combinaciones múltiples de "tipos de error" que necesiten mezclarse, y la jerarquía tiene un solo nivel. Este es el caso donde la herencia es la herramienta correcta, no un atajo.
 
 ## Consideraciones
 

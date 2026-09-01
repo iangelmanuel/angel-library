@@ -15,14 +15,14 @@ Redis es un servidor de estructuras de datos en memoria. Es muy útil para cach�
 
 ## Elegir la estructura
 
-| Tipo | Operaciones | Caso frecuente |
-| --- | --- | --- |
-| string | `SET`, `GET`, `INCR` | caché serializada, contador, flag |
-| hash | `HSET`, `HGET`, `HINCRBY` | objeto pequeño por campos |
-| list | `LPUSH`, `RPOP` | cola o pila sencilla |
-| set | `SADD`, `SISMEMBER` | pertenencia y valores únicos |
-| sorted set | `ZADD`, `ZRANGE` | ranking o agenda por puntuación |
-| stream | `XADD`, `XREADGROUP` | log de eventos con grupos de consumidores |
+| Tipo       | Operaciones               | Caso frecuente                            |
+| ---------- | ------------------------- | ----------------------------------------- |
+| string     | `SET`, `GET`, `INCR`      | caché serializada, contador, flag         |
+| hash       | `HSET`, `HGET`, `HINCRBY` | objeto pequeño por campos                 |
+| list       | `LPUSH`, `RPOP`           | cola o pila sencilla                      |
+| set        | `SADD`, `SISMEMBER`       | pertenencia y valores únicos              |
+| sorted set | `ZADD`, `ZRANGE`          | ranking o agenda por puntuación           |
+| stream     | `XADD`, `XREADGROUP`      | log de eventos con grupos de consumidores |
 
 Redis también ofrece estructuras especializadas. Elige según las operaciones que necesitas, no solo según la forma de los datos.
 
@@ -38,7 +38,7 @@ Un nombre suele incluir aplicación, entorno, entidad e identidad. Evita claves 
 
 ## TTL y expiración
 
-**TTL** (*Time To Live* o tiempo de vida) es cuánto queda antes de que una clave expire.
+**TTL** (_Time To Live_ o tiempo de vida) es cuánto queda antes de que una clave expire.
 
 ```text
 SET session:abc '{"userId":42}' EX 1800
@@ -70,21 +70,24 @@ return user;
 En **cache-aside**, la aplicación consulta caché, carga desde la fuente al fallar y guarda una copia. Al modificar, actualiza la base primero y luego invalida la clave.
 
 ```ts
-await db.query('UPDATE users SET display_name = $1 WHERE id = $2', [name, userId]);
-await redis.del(`app:prod:user:${userId}:profile`);
+await db.query("UPDATE users SET display_name = $1 WHERE id = $2", [
+  name,
+  userId
+])
+await redis.del(`app:prod:user:${userId}:profile`)
 ```
 
 Existe una pequeña ventana entre ambas operaciones. Decide si se tolera y cómo se repara. Para datos críticos, lee del origen o usa un diseño de eventos/versiones que haga visible la antigüedad.
 
 ## Problemas clásicos de caché
 
-| Problema | Qué ocurre | Mitigación posible |
-| --- | --- | --- |
-| penetration | se consulta repetidamente una clave inexistente | validar, cachear ausencia por poco tiempo |
-| stampede | muchas solicitudes regeneran la misma clave | bloqueo corto, single-flight, TTL con jitter |
-| avalancha | muchas claves expiran simultáneamente | añadir variación al TTL y escalonar cargas |
-| dato obsoleto | caché conserva versión anterior | invalidación, versión o TTL acorde al riesgo |
-| hot key | una clave concentra tráfico | réplica, caché local o rediseño de acceso |
+| Problema      | Qué ocurre                                      | Mitigación posible                           |
+| ------------- | ----------------------------------------------- | -------------------------------------------- |
+| penetration   | se consulta repetidamente una clave inexistente | validar, cachear ausencia por poco tiempo    |
+| stampede      | muchas solicitudes regeneran la misma clave     | bloqueo corto, single-flight, TTL con jitter |
+| avalancha     | muchas claves expiran simultáneamente           | añadir variación al TTL y escalonar cargas   |
+| dato obsoleto | caché conserva versión anterior                 | invalidación, versión o TTL acorde al riesgo |
+| hot key       | una clave concentra tráfico                     | réplica, caché local o rediseño de acceso    |
 
 El **jitter** añade una variación aleatoria pequeña al TTL para que las expiraciones no coincidan.
 

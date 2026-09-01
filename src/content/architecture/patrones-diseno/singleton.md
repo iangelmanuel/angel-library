@@ -18,18 +18,18 @@ Algunos recursos (una conexión a base de datos, un cliente de Redis, un pool de
 Node y los módulos ECMAScript (ESM) almacenan el módulo en caché la primera vez que se importa: se ejecuta una sola vez y todos los `import` posteriores reciben el mismo objeto exportado. No hace falta la ceremonia de una clase con `getInstance()` estático que se ve en lenguajes sin este comportamiento.
 
 ```ts title="lib/db.ts"
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client"
 
-export const db = new PrismaClient();
+export const db = new PrismaClient()
 ```
 
 ```ts title="lib/redis.ts"
-import { createClient } from 'redis';
+import { createClient } from "redis"
 
-const client = createClient({ url: process.env.REDIS_URL });
-await client.connect();
+const client = createClient({ url: process.env.REDIS_URL })
+await client.connect()
 
-export const redis = client;
+export const redis = client
 ```
 
 Cualquier archivo que haga `import { db } from '@/libs/db'` recibe la misma instancia, ya conectada. Eso es Singleton, gratis, por cómo funciona el sistema de módulos.
@@ -40,11 +40,11 @@ Cualquier archivo que haga `import { db } from '@/libs/db'` recibe la misma inst
 // Así se emula el patrón cuando el lenguaje no almacena módulos en caché.
 // En JS/TS casi nunca hace falta escribir esto:
 class Database {
-  private static instance: Database;
+  private static instance: Database
   private constructor() {}
   static getInstance(): Database {
-    if (!Database.instance) Database.instance = new Database();
-    return Database.instance;
+    if (!Database.instance) Database.instance = new Database()
+    return Database.instance
   }
 }
 ```

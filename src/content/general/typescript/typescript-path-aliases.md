@@ -36,10 +36,10 @@ Este mismo alias (`@/*` → `./src/*`) es el que usa este sitio — está declar
 
 ## Qué hace cada campo
 
-| Campo | Para qué |
-| --- | --- |
-| `baseUrl` | La carpeta base desde la que se resuelven las rutas de `paths`. `"."` significa la raíz del proyecto (donde está el `tsconfig.json`). |
-| `paths` | Mapa de patrones de alias a rutas reales, relativas a `baseUrl`. Cada valor es un **array** (TypeScript prueba las rutas en orden hasta encontrar una que exista). |
+| Campo     | Para qué                                                                                                                                                           |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `baseUrl` | La carpeta base desde la que se resuelven las rutas de `paths`. `"."` significa la raíz del proyecto (donde está el `tsconfig.json`).                              |
+| `paths`   | Mapa de patrones de alias a rutas reales, relativas a `baseUrl`. Cada valor es un **array** (TypeScript prueba las rutas en orden hasta encontrar una que exista). |
 
 `baseUrl` es obligatorio para que `paths` funcione — sin él, TypeScript ignora `paths` silenciosamente (no tira error, el alias simplemente no resuelve). **`baseUrl` está deprecado desde TypeScript 7.0** — verifica en la documentación oficial de TypeScript el reemplazo vigente antes de escribir un `tsconfig.json` nuevo en un proyecto con esa versión o superior.
 
@@ -49,14 +49,14 @@ Este mismo alias (`@/*` → `./src/*`) es el que usa este sitio — está declar
 
 Quién resuelve el alias en runtime depende del entorno:
 
-| Entorno | ¿Necesita configuración extra? |
-| --- | --- |
-| **Astro** (este proyecto) | No — Astro lee `paths` de `tsconfig.json` automáticamente y configura el alias en su Vite interno. |
-| **Next.js** | No — mismo comportamiento, soporte nativo desde hace varias versiones. |
-| **Vite "puro"** (sin Astro/Next encima) | Sí — Vite no lee `tsconfig.json` por su cuenta. Hace falta el plugin [`vite-tsconfig-paths`](https://www.npmjs.com/package/vite-tsconfig-paths), o declarar el alias a mano en `resolve.alias` dentro de `vite.config.ts`. |
-| **Webpack** | Sí — replicar el mismo mapeo en `resolve.alias` de `webpack.config.js`. |
-| **Jest** | Sí — replicar el mapeo en `moduleNameMapper` de la config de Jest (con regex, no glob). |
-| **Node.js directo / `ts-node`** | Sí — `tsc` tampoco reescribe los imports al compilar a JS plano. Para desarrollo, el paquete [`tsconfig-paths`](https://www.npmjs.com/package/tsconfig-paths) registra un resolver en runtime; para build de producción, [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) reescribe los imports compilados a rutas relativas reales como paso posterior a `tsc`. |
+| Entorno                                 | ¿Necesita configuración extra?                                                                                                                                                                                                                                                                                                                                         |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Astro** (este proyecto)               | No — Astro lee `paths` de `tsconfig.json` automáticamente y configura el alias en su Vite interno.                                                                                                                                                                                                                                                                     |
+| **Next.js**                             | No — mismo comportamiento, soporte nativo desde hace varias versiones.                                                                                                                                                                                                                                                                                                 |
+| **Vite "puro"** (sin Astro/Next encima) | Sí — Vite no lee `tsconfig.json` por su cuenta. Hace falta el plugin [`vite-tsconfig-paths`](https://www.npmjs.com/package/vite-tsconfig-paths), o declarar el alias a mano en `resolve.alias` dentro de `vite.config.ts`.                                                                                                                                             |
+| **Webpack**                             | Sí — replicar el mismo mapeo en `resolve.alias` de `webpack.config.js`.                                                                                                                                                                                                                                                                                                |
+| **Jest**                                | Sí — replicar el mapeo en `moduleNameMapper` de la config de Jest (con regex, no glob).                                                                                                                                                                                                                                                                                |
+| **Node.js directo / `ts-node`**         | Sí — `tsc` tampoco reescribe los imports al compilar a JS plano. Para desarrollo, el paquete [`tsconfig-paths`](https://www.npmjs.com/package/tsconfig-paths) registra un resolver en runtime; para build de producción, [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) reescribe los imports compilados a rutas relativas reales como paso posterior a `tsc`. |
 
 Moraleja: agregar el snippet de arriba y nada más funciona directamente en Astro y Next.js. En cualquier otro entorno, hay que replicar el mismo alias en la herramienta que arma el bundle o corre el código.
 
@@ -82,8 +82,8 @@ Además del alias general `@/*`, es común declarar uno específico por carpeta 
 ```
 
 ```ts
-import { Button } from '@components/Button';
-import { formatDate } from '@utils/date';
+import { Button } from "@components/Button"
+import { formatDate } from "@utils/date"
 ```
 
 ### Alias sin wildcard, apuntando a un archivo exacto
@@ -99,7 +99,7 @@ Sin `*`, el alias apunta a un único archivo — útil para un punto de entrada 
 ```
 
 ```ts
-import { SITE } from '@config';
+import { SITE } from "@config"
 ```
 
 ### Varias rutas candidatas para el mismo alias

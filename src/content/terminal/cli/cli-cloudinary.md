@@ -45,13 +45,13 @@ cld config
 
 ## Comandos esenciales
 
-| Comando | Qué hace |
-|---|---|
-| `cld uploader upload <archivo>` | Sube un archivo (imagen, video, etc.) a Cloudinary |
-| `cld upload_dir <carpeta>` | Sube una carpeta completa, manteniendo su estructura |
-| `cld search "<expresión>"` | Busca recursos con sintaxis tipo Lucene |
-| `cld url <public_id>` | Genera la URL de un recurso, con transformaciones opcionales |
-| `cld admin` | Operaciones de la Admin API (listar, borrar recursos, etc.) |
+| Comando                         | Qué hace                                                     |
+| ------------------------------- | ------------------------------------------------------------ |
+| `cld uploader upload <archivo>` | Sube un archivo (imagen, video, etc.) a Cloudinary           |
+| `cld upload_dir <carpeta>`      | Sube una carpeta completa, manteniendo su estructura         |
+| `cld search "<expresión>"`      | Busca recursos con sintaxis tipo Lucene                      |
+| `cld url <public_id>`           | Genera la URL de un recurso, con transformaciones opcionales |
+| `cld admin`                     | Operaciones de la Admin API (listar, borrar recursos, etc.)  |
 
 ```bash
 cld uploader upload ./foto.jpg

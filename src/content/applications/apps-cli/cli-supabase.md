@@ -115,17 +115,17 @@ Lee el esquema de Postgres y genera definiciones TypeScript — evita mantener l
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `supabase login` | Autentica la CLI con tu cuenta |
-| `supabase init` | Crea la configuración local del proyecto |
-| `supabase start` / `stop` | Levanta / detiene el stack local (Docker) |
-| `supabase status` | Muestra servicios, URLs y credenciales locales |
-| `supabase link --project-ref` | Vincula la carpeta local a un proyecto remoto |
-| `supabase migration new` | Crea un archivo de migración nuevo |
-| `supabase db reset` | Reconstruye la base local desde migraciones y seeds |
-| `supabase db push` / `db pull` | Sincroniza migraciones entre local y remoto |
-| `supabase gen types --lang typescript` | Genera tipos TS desde el esquema |
+| Comando                                | Qué hace                                            |
+| -------------------------------------- | --------------------------------------------------- |
+| `supabase login`                       | Autentica la CLI con tu cuenta                      |
+| `supabase init`                        | Crea la configuración local del proyecto            |
+| `supabase start` / `stop`              | Levanta / detiene el stack local (Docker)           |
+| `supabase status`                      | Muestra servicios, URLs y credenciales locales      |
+| `supabase link --project-ref`          | Vincula la carpeta local a un proyecto remoto       |
+| `supabase migration new`               | Crea un archivo de migración nuevo                  |
+| `supabase db reset`                    | Reconstruye la base local desde migraciones y seeds |
+| `supabase db push` / `db pull`         | Sincroniza migraciones entre local y remoto         |
+| `supabase gen types --lang typescript` | Genera tipos TS desde el esquema                    |
 
 ## Consideraciones
 

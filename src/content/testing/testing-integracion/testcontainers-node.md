@@ -29,51 +29,51 @@ No es necesario para una función pura ni para cada test de servicio. El tiempo 
 ## PostgreSQL con Vitest
 
 ```ts title="test/postgres.ts"
-import { PostgreSqlContainer } from '@testcontainers/postgresql';
+import { PostgreSqlContainer } from "@testcontainers/postgresql"
 
 export async function startPostgres() {
-  const container = await new PostgreSqlContainer('postgres:18-alpine')
-    .withDatabase('app_test')
-    .withUsername('test')
-    .withPassword('test')
-    .start();
+  const container = await new PostgreSqlContainer("postgres:18-alpine")
+    .withDatabase("app_test")
+    .withUsername("test")
+    .withPassword("test")
+    .start()
 
   return {
     container,
-    url: container.getConnectionUri(),
-  };
+    url: container.getConnectionUri()
+  }
 }
 ```
 
 Fija una versión compatible con producción. Una etiqueta flotante como `latest` puede cambiar el comportamiento de CI sin modificar el repositorio.
 
 ```ts title="test/repository.integration.test.ts"
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { startPostgres } from './postgres';
+import { afterAll, beforeAll, describe, expect, it } from "vitest"
+import { startPostgres } from "./postgres"
 
-let stop: () => Promise<void>;
-let repository: UserRepository;
+let stop: () => Promise<void>
+let repository: UserRepository
 
 beforeAll(async () => {
-  const { container, url } = await startPostgres();
-  stop = () => container.stop();
+  const { container, url } = await startPostgres()
+  stop = () => container.stop()
 
-  await runMigrations(url);
-  repository = createUserRepository(url);
-}, 60_000);
+  await runMigrations(url)
+  repository = createUserRepository(url)
+}, 60_000)
 
 afterAll(async () => {
-  await repository.close();
-  await stop();
-});
+  await repository.close()
+  await stop()
+})
 
-it('protege la unicidad del correo', async () => {
-  await repository.create({ email: 'same@example.test' });
+it("protege la unicidad del correo", async () => {
+  await repository.create({ email: "same@example.test" })
 
   await expect(
-    repository.create({ email: 'same@example.test' }),
-  ).rejects.toMatchObject({ code: 'EMAIL_ALREADY_EXISTS' });
-});
+    repository.create({ email: "same@example.test" })
+  ).rejects.toMatchObject({ code: "EMAIL_ALREADY_EXISTS" })
+})
 ```
 
 El timeout de arranque es diferente al timeout de una query. Si falla, conserva logs del contenedor para distinguir descarga, readiness, migración y prueba.
@@ -84,12 +84,12 @@ Testcontainers conoce estrategias de espera para muchos módulos. No uses un `sl
 
 ## Reutilización e aislamiento
 
-| Alcance | Costo | Aislamiento |
-| --- | --- | --- |
-| contenedor por test | alto | máximo |
-| por archivo/suite | medio | requiere cleanup entre casos |
-| por worker | bajo | schema o DB única por worker |
-| global | mínimo | mayor riesgo de estado compartido |
+| Alcance             | Costo  | Aislamiento                       |
+| ------------------- | ------ | --------------------------------- |
+| contenedor por test | alto   | máximo                            |
+| por archivo/suite   | medio  | requiere cleanup entre casos      |
+| por worker          | bajo   | schema o DB única por worker      |
+| global              | mínimo | mayor riesgo de estado compartido |
 
 Empieza por suite o worker. Cada test crea datos únicos y limpia, hace rollback o usa un schema propio. El contenedor aislado no evita colisiones dentro de la misma instancia.
 
@@ -102,13 +102,13 @@ Prueba también actualizar desde una versión anterior cuando el cambio sea ries
 ## Servicios genéricos
 
 ```ts
-import { GenericContainer } from 'testcontainers';
+import { GenericContainer } from "testcontainers"
 
-const redis = await new GenericContainer('redis:8-alpine')
+const redis = await new GenericContainer("redis:8-alpine")
   .withExposedPorts(6379)
-  .start();
+  .start()
 
-const url = `redis://${redis.getHost()}:${redis.getMappedPort(6379)}`;
+const url = `redis://${redis.getHost()}:${redis.getMappedPort(6379)}`
 ```
 
 Los puertos son dinámicos; nunca asumas `localhost:6379`. Obtén host y puerto del contenedor y pásalos al SUT.

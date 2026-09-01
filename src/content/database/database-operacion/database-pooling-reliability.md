@@ -15,14 +15,14 @@ Una conexión de base de datos consume memoria y estado tanto en la aplicación 
 
 ## Referencia rápida
 
-| Síntoma | Primera comprobación |
-| --- | --- |
-| espera antes de consultar | tiempo para adquirir conexión y cola del pool |
-| demasiadas conexiones | pools × instancias + jobs + administración |
-| `idle in transaction` | código que no hizo commit/rollback o espera red |
-| base con CPU alta | consultas, planes, N+1 y concurrencia real |
-| timeout intermitente | separar adquisición, ejecución y tiempo total |
-| lectura antigua | retraso de réplica y enrutamiento |
+| Síntoma                   | Primera comprobación                            |
+| ------------------------- | ----------------------------------------------- |
+| espera antes de consultar | tiempo para adquirir conexión y cola del pool   |
+| demasiadas conexiones     | pools × instancias + jobs + administración      |
+| `idle in transaction`     | código que no hizo commit/rollback o espera red |
+| base con CPU alta         | consultas, planes, N+1 y concurrencia real      |
+| timeout intermitente      | separar adquisición, ejecución y tiempo total   |
+| lectura antigua           | retraso de réplica y enrutamiento               |
 
 ## Modelo mental
 
@@ -47,18 +47,24 @@ Reserva margen para failover, consola y tareas operativas. Comienza pequeño, ej
 ## Ciclo correcto
 
 ```ts
-const client = await pool.connect();
+const client = await pool.connect()
 
 try {
-  await client.query('BEGIN');
-  await client.query('UPDATE accounts SET balance = balance - $1 WHERE id = $2', [amount, from]);
-  await client.query('UPDATE accounts SET balance = balance + $1 WHERE id = $2', [amount, to]);
-  await client.query('COMMIT');
+  await client.query("BEGIN")
+  await client.query(
+    "UPDATE accounts SET balance = balance - $1 WHERE id = $2",
+    [amount, from]
+  )
+  await client.query(
+    "UPDATE accounts SET balance = balance + $1 WHERE id = $2",
+    [amount, to]
+  )
+  await client.query("COMMIT")
 } catch (error) {
-  await client.query('ROLLBACK');
-  throw error;
+  await client.query("ROLLBACK")
+  throw error
 } finally {
-  client.release();
+  client.release()
 }
 ```
 
@@ -114,7 +120,7 @@ N+1 ocurre cuando una consulta inicial produce N consultas adicionales:
 1 consulta para 100 posts + 100 consultas para autores = 101 viajes
 ```
 
-Resuélvelo con join, carga por lotes (`WHERE id = ANY($1)`), un *data loader* o una consulta adaptada al contrato. No lo “soluciones” aumentando el pool: solo permite que el patrón ineficiente compita con más intensidad.
+Resuélvelo con join, carga por lotes (`WHERE id = ANY($1)`), un _data loader_ o una consulta adaptada al contrato. No lo “soluciones” aumentando el pool: solo permite que el patrón ineficiente compita con más intensidad.
 
 Toda lista debe tener límite y orden. Las exportaciones grandes usan streaming, cursores o lotes sin mantener una transacción innecesariamente larga.
 

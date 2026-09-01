@@ -11,18 +11,18 @@ related:
 updatedAt: 2026-08-28
 ---
 
-MongoDB almacena documentos BSON en colecciones. **BSON** (*Binary JSON*) es un formato binario con tipos adicionales como fechas, `ObjectId` y decimales. Un documento flexible sigue necesitando una forma entendida por productores y consumidores.
+MongoDB almacena documentos BSON en colecciones. **BSON** (_Binary JSON_) es un formato binario con tipos adicionales como fechas, `ObjectId` y decimales. Un documento flexible sigue necesitando una forma entendida por productores y consumidores.
 
 ## Traducción mental desde SQL
 
-| Relacional | MongoDB | Matiz |
-| --- | --- | --- |
-| tabla | colección | los documentos pueden variar de forma |
-| fila | documento | contiene campos y estructuras anidadas |
-| columna | campo | puede no existir en todos los documentos |
-| PK | `_id` | es único e indexado |
-| join | `$lookup` o modelado embebido | se usa con intención, no como base de todo el modelo |
-| `GROUP BY` | `$group` en aggregation | forma parte de un pipeline |
+| Relacional | MongoDB                       | Matiz                                                |
+| ---------- | ----------------------------- | ---------------------------------------------------- |
+| tabla      | colección                     | los documentos pueden variar de forma                |
+| fila       | documento                     | contiene campos y estructuras anidadas               |
+| columna    | campo                         | puede no existir en todos los documentos             |
+| PK         | `_id`                         | es único e indexado                                  |
+| join       | `$lookup` o modelado embebido | se usa con intención, no como base de todo el modelo |
+| `GROUP BY` | `$group` en aggregation       | forma parte de un pipeline                           |
 
 ## Diseñar un documento
 
@@ -91,7 +91,7 @@ db.createCollection("orders", {
       }
     }
   }
-});
+})
 ```
 
 La validación de la aplicación ofrece mensajes de dominio; la colección evita que otros procesos inserten formas imposibles. Evoluciona el validador junto con migraciones y versiones antiguas.
@@ -104,14 +104,15 @@ const order = await db.collection("orders").insertOne({
   status: "pending",
   items,
   createdAt: new Date()
-});
+})
 
-const recent = await db.collection("orders")
+const recent = await db
+  .collection("orders")
   .find({ customerId, status: "paid" })
   .project({ status: 1, createdAt: 1, totalCents: 1 })
   .sort({ createdAt: -1, _id: -1 })
   .limit(20)
-  .toArray();
+  .toArray()
 ```
 
 `find` define el filtro; `project` limita campos; `sort` necesita un desempate estable; `limit` acota el resultado. Nunca construyas operadores desde objetos externos sin validar: propiedades como `$where`, `$gt` o claves inesperadas pueden cambiar la consulta.
@@ -126,7 +127,7 @@ const result = await db.collection("products").findOneAndUpdate(
     $set: { updatedAt: new Date() }
   },
   { returnDocument: "after" }
-);
+)
 ```
 
 `$inc` modifica atómicamente el número en el documento. `$set` cambia campos concretos; `$unset` los elimina; `$push` añade a un arreglo y `$addToSet` evita repetir un valor exacto. Aun con operaciones atómicas, limita arreglos y comprueba si el filtro encontró documento.
@@ -137,12 +138,9 @@ const result = await db.collection("products").findOneAndUpdate(
 db.orders.createIndex(
   { customerId: 1, createdAt: -1, _id: -1 },
   { name: "orders_customer_recent" }
-);
+)
 
-db.users.createIndex(
-  { email: 1 },
-  { unique: true, name: "users_email_unique" }
-);
+db.users.createIndex({ email: 1 }, { unique: true, name: "users_email_unique" })
 ```
 
 Los índices compuestos respetan orden y prefijos. Un índice **multikey** indexa campos de arrays; tiene restricciones al combinar varios arrays. Un índice único protege integridad, pero revisa cómo trata documentos sin el campo y valores nulos. Usa `explain("executionStats")` para comparar claves y documentos examinados.
@@ -168,7 +166,7 @@ db.orders.aggregate([
   },
   { $sort: { revenueCents: -1 } },
   { $limit: 20 }
-]);
+])
 ```
 
 Un **pipeline** transforma documentos etapa por etapa. Coloca filtros selectivos temprano para reducir trabajo. `$project` cambia la forma, `$unwind` genera una salida por elemento de array, `$lookup` combina colecciones y `$facet` ejecuta varias ramas. Observa uso de memoria, disco e índices en pipelines grandes.

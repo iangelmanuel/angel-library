@@ -20,16 +20,16 @@ El patrón "`useState` para los datos + `useState` para loading + `useState` par
 Un `QueryClient` una vez, en la raíz de la app.
 
 ```tsx title="main.tsx"
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Rutas />
     </QueryClientProvider>
-  );
+  )
 }
 ```
 
@@ -38,19 +38,25 @@ function App() {
 `queryKey` identifica ese dato en la cache (si dos componentes usan la misma key, comparten el resultado sin pedirlo dos veces). `queryFn` es cualquier función que devuelva una promesa — con [Axios](/frontend/react/axios), con `fetch`, con lo que sea.
 
 ```tsx
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../lib/api';
+import { useQuery } from "@tanstack/react-query"
+import { api } from "../lib/api"
 
 function ListaUsuarios() {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['usuarios'],
-    queryFn: () => api.get('/usuarios').then((res) => res.data),
-  });
+    queryKey: ["usuarios"],
+    queryFn: () => api.get("/usuarios").then((res) => res.data)
+  })
 
-  if (isLoading) return <p>Cargando…</p>;
-  if (isError) return <p>Error al cargar</p>;
+  if (isLoading) return <p>Cargando…</p>
+  if (isError) return <p>Error al cargar</p>
 
-  return <ul>{data.map((u: Usuario) => <li key={u.id}>{u.nombre}</li>)}</ul>;
+  return (
+    <ul>
+      {data.map((u: Usuario) => (
+        <li key={u.id}>{u.nombre}</li>
+      ))}
+    </ul>
+  )
 }
 ```
 
@@ -59,33 +65,37 @@ function ListaUsuarios() {
 Para crear/actualizar/borrar. `onSuccess` es el lugar típico para invalidar la query relacionada, así la lista se refresca sola después de la mutación, sin recargar la página ni actualizar el estado local a mano.
 
 ```tsx
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 function FormularioUsuario() {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const mutacion = useMutation({
-    mutationFn: (nuevoUsuario: { nombre: string }) => api.post('/usuarios', nuevoUsuario),
+    mutationFn: (nuevoUsuario: { nombre: string }) =>
+      api.post("/usuarios", nuevoUsuario),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['usuarios'] }); // dispara un refetch de esa key
-    },
-  });
+      queryClient.invalidateQueries({ queryKey: ["usuarios"] }) // dispara un refetch de esa key
+    }
+  })
 
   return (
-    <button onClick={() => mutacion.mutate({ nombre: 'Nuevo' })} disabled={mutacion.isPending}>
-      {mutacion.isPending ? 'Guardando…' : 'Crear usuario'}
+    <button
+      onClick={() => mutacion.mutate({ nombre: "Nuevo" })}
+      disabled={mutacion.isPending}
+    >
+      {mutacion.isPending ? "Guardando…" : "Crear usuario"}
     </button>
-  );
+  )
 }
 ```
 
 ## API de consultas en una mirada
 
-| API | Uso |
-| --- | --- |
-| `<QueryClientProvider client={...}>` | Envuelve la app, una vez |
-| `useQuery({ queryKey, queryFn })` | Leer datos: cachea, da `data`/`isLoading`/`isError` |
-| `useMutation({ mutationFn, onSuccess })` | Escribir datos: crear/actualizar/borrar |
+| API                                           | Uso                                                                    |
+| --------------------------------------------- | ---------------------------------------------------------------------- |
+| `<QueryClientProvider client={...}>`          | Envuelve la app, una vez                                               |
+| `useQuery({ queryKey, queryFn })`             | Leer datos: cachea, da `data`/`isLoading`/`isError`                    |
+| `useMutation({ mutationFn, onSuccess })`      | Escribir datos: crear/actualizar/borrar                                |
 | `queryClient.invalidateQueries({ queryKey })` | Forzar otra consulta de esa clave, normalmente después de una mutación |
 
 ## Claves, frescura e invalidación

@@ -106,19 +106,19 @@ Muestra los logs de runtime de un deployment específico.
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `vercel login` | Autentica la CLI con tu cuenta |
-| `vercel whoami` | Confirma la cuenta activa |
-| `vercel` | Deploy a preview |
-| `vercel --prod` | Deploy a producción |
-| `vercel dev` | Corre el proyecto local con el entorno de Vercel |
-| `vercel link` | Vincula la carpeta local a un proyecto de Vercel |
-| `vercel pull` | Descarga configuración y variables para un entorno |
-| `vercel build` | Construye el proyecto con Vercel Build Output API |
-| `vercel deploy --prebuilt` | Publica un artefacto construido previamente |
-| `vercel env pull` | Trae las variables de entorno del proyecto a un archivo local |
-| `vercel logs` | Muestra logs de runtime de un deployment |
+| Comando                    | Qué hace                                                      |
+| -------------------------- | ------------------------------------------------------------- |
+| `vercel login`             | Autentica la CLI con tu cuenta                                |
+| `vercel whoami`            | Confirma la cuenta activa                                     |
+| `vercel`                   | Deploy a preview                                              |
+| `vercel --prod`            | Deploy a producción                                           |
+| `vercel dev`               | Corre el proyecto local con el entorno de Vercel              |
+| `vercel link`              | Vincula la carpeta local a un proyecto de Vercel              |
+| `vercel pull`              | Descarga configuración y variables para un entorno            |
+| `vercel build`             | Construye el proyecto con Vercel Build Output API             |
+| `vercel deploy --prebuilt` | Publica un artefacto construido previamente                   |
+| `vercel env pull`          | Trae las variables de entorno del proyecto a un archivo local |
+| `vercel logs`              | Muestra logs de runtime de un deployment                      |
 
 ## Consideraciones
 

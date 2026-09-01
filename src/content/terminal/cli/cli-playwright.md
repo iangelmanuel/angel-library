@@ -29,13 +29,13 @@ npx playwright install
 
 ## Comandos esenciales
 
-| Comando | Qué hace |
-|---|---|
-| `npx playwright test` | Corre la suite de tests |
-| `npx playwright test --ui` | Abre el modo UI interactivo (ver, pausar, inspeccionar cada paso) |
-| `npx playwright codegen <url>` | Graba acciones en el navegador y genera el código del test |
-| `npx playwright show-report` | Abre el reporte HTML de la última corrida |
-| `npx playwright install` | Instala o actualiza los navegadores (Chromium, Firefox, WebKit) |
+| Comando                        | Qué hace                                                          |
+| ------------------------------ | ----------------------------------------------------------------- |
+| `npx playwright test`          | Corre la suite de tests                                           |
+| `npx playwright test --ui`     | Abre el modo UI interactivo (ver, pausar, inspeccionar cada paso) |
+| `npx playwright codegen <url>` | Graba acciones en el navegador y genera el código del test        |
+| `npx playwright show-report`   | Abre el reporte HTML de la última corrida                         |
+| `npx playwright install`       | Instala o actualiza los navegadores (Chromium, Firefox, WebKit)   |
 
 ```bash
 npx playwright test --ui

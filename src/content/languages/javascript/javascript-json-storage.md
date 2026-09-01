@@ -20,26 +20,26 @@ JSON es un formato de texto, no un clon completo de JavaScript. Web Storage guar
 
 JSON solo representa null, booleanos, números finitos, strings, arrays y objetos con claves string. No conserva funciones, `undefined` en objetos, `Symbol`, `Map`, `Set`, prototipos ni instancias de clase. `Date` se convierte a ISO mediante `toJSON` y luego vuelve como string, no como `Date`.
 
-| API | Devuelve | ¿Muta? | Puede fallar |
-| --- | --- | --- | --- |
-| `JSON.stringify(value, replacer?, space?)` | string o `undefined` | no | ciclos y BigInt sin personalizar |
-| `JSON.parse(text, reviver?)` | valor reconstruido | no | JSON inválido o un reviver que lance |
+| API                                        | Devuelve             | ¿Muta? | Puede fallar                         |
+| ------------------------------------------ | -------------------- | ------ | ------------------------------------ |
+| `JSON.stringify(value, replacer?, space?)` | string o `undefined` | no     | ciclos y BigInt sin personalizar     |
+| `JSON.parse(text, reviver?)`               | valor reconstruido   | no     | JSON inválido o un reviver que lance |
 
 ```js
-const payload = JSON.stringify({ name: 'Ana', tags: ['web'] })
+const payload = JSON.stringify({ name: "Ana", tags: ["web"] })
 const data = JSON.parse(payload)
 
 payload // '{"name":"Ana","tags":["web"]}'
-data    // { name: 'Ana', tags: ['web'] }
+data // { name: 'Ana', tags: ['web'] }
 ```
 
 `JSON.parse` puede lanzar `SyntaxError`; úsalo dentro de una frontera controlada. El tercer argumento de `JSON.stringify(value, replacer, space)` sirve para seleccionar campos o formatear salida, no para ocultar un secreto de manera accidental.
 
 ```js
-const safe = JSON.stringify(user, ['id', 'name', 'role'])
+const safe = JSON.stringify(user, ["id", "name", "role"])
 const pretty = JSON.stringify(config, null, 2)
 
-safe   // solo incluye id, name y role
+safe // solo incluye id, name y role
 pretty // string con indentación de 2 espacios
 ```
 
@@ -50,8 +50,8 @@ const value = {
   missing: undefined,
   invalidNumber: NaN,
   infinite: Infinity,
-  createdAt: new Date('2026-08-18T00:00:00Z'),
-  items: [undefined],
+  createdAt: new Date("2026-08-18T00:00:00Z"),
+  items: [undefined]
 }
 
 JSON.stringify(value)
@@ -64,15 +64,15 @@ El `undefined` de un objeto desaparece; dentro de un array se convierte en `null
 
 ```js
 const json = JSON.stringify(
-  { id: 7, password: 'secret', role: 'admin' },
-  (key, value) => key === 'password' ? undefined : value,
+  { id: 7, password: "secret", role: "admin" },
+  (key, value) => (key === "password" ? undefined : value)
 )
 
 json // '{"id":7,"role":"admin"}'
 
 const restored = JSON.parse(
   '{"createdAt":"2026-08-18T00:00:00.000Z"}',
-  (key, value) => key === 'createdAt' ? new Date(value) : value,
+  (key, value) => (key === "createdAt" ? new Date(value) : value)
 )
 
 restored.createdAt instanceof Date // true
@@ -89,9 +89,9 @@ Desde ECMAScript 2026, el `reviver` recibe un tercer argumento `context` al proc
 const record = JSON.parse(
   '{"id":900719925474099312345}',
   (key, value, context) => {
-    if (key === 'id') return BigInt(context.source)
+    if (key === "id") return BigInt(context.source)
     return value
-  },
+  }
 )
 
 record.id // 900719925474099312345n
@@ -104,7 +104,7 @@ El objeto `context` solo incluye `source` para primitivos; al revivir objetos o 
 `JSON.rawJSON(text)` crea un marcador para que `JSON.stringify` inserte un texto JSON primitivo ya validado. `JSON.isRawJSON(value)` permite reconocer ese marcador. Esto complementa `context.source` al transportar enteros que JavaScript no puede representar como `Number`.
 
 ```js
-const exactId = JSON.rawJSON('900719925474099312345')
+const exactId = JSON.rawJSON("900719925474099312345")
 const payload = JSON.stringify({ id: exactId })
 
 JSON.isRawJSON(exactId) // true
@@ -119,23 +119,23 @@ No hagas `JSON.parse` de una respuesta HTTP sin comprobar que el status y el `Co
 
 Ambos guardan strings y exponen `getItem`, `setItem`, `removeItem`, `clear`, `key` y `length`. Convierte explícitamente:
 
-| Miembro | Devuelve | ¿Muta el storage? |
-| --- | --- | --- |
-| `length` | cantidad de claves | no |
-| `getItem(key)` | string o `null` | no |
-| `setItem(key, value)` | `undefined` | **sí** |
-| `removeItem(key)` | `undefined` | **sí** |
-| `clear()` | `undefined` | **sí, elimina todo el origen** |
-| `key(index)` | nombre de clave o `null` | no |
+| Miembro               | Devuelve                 | ¿Muta el storage?              |
+| --------------------- | ------------------------ | ------------------------------ |
+| `length`              | cantidad de claves       | no                             |
+| `getItem(key)`        | string o `null`          | no                             |
+| `setItem(key, value)` | `undefined`              | **sí**                         |
+| `removeItem(key)`     | `undefined`              | **sí**                         |
+| `clear()`             | `undefined`              | **sí, elimina todo el origen** |
+| `key(index)`          | nombre de clave o `null` | no                             |
 
 ```js
-const raw = localStorage.getItem('settings')
-const settings = raw ? JSON.parse(raw) : { theme: 'system' }
-localStorage.setItem('settings', JSON.stringify(settings))
+const raw = localStorage.getItem("settings")
+const settings = raw ? JSON.parse(raw) : { theme: "system" }
+localStorage.setItem("settings", JSON.stringify(settings))
 
-raw      // string o null
+raw // string o null
 settings // objeto JavaScript
-localStorage.getItem('settings') // JSON como string
+localStorage.getItem("settings") // JSON como string
 ```
 
 Maneja cuotas llenas, JSON corrupto, modo privado y storage bloqueado. No guardes contraseñas, tokens de alto impacto o PII innecesaria: un script inyectado en el origen puede leer `localStorage`.
@@ -143,8 +143,8 @@ Maneja cuotas llenas, JSON corrupto, modo privado y storage bloqueado. No guarde
 El evento `storage` se dispara en otros documentos del mismo origen cuando una pestaña cambia `localStorage`; no se dispara en la misma pestaña que realizó el cambio.
 
 ```js
-window.addEventListener('storage', (event) => {
-  if (event.key !== 'settings' || !event.newValue) return
+window.addEventListener("storage", (event) => {
+  if (event.key !== "settings" || !event.newValue) return
   const nextSettings = JSON.parse(event.newValue)
   applySettings(nextSettings)
 })
@@ -175,10 +175,11 @@ function parseJSON(text, fallback = null) {
   }
 }
 
-const stored = parseJSON(localStorage.getItem('prefs') ?? 'null')
-const prefs = stored?.version === 2
-  ? stored
-  : { version: 2, theme: stored?.theme ?? 'system' }
+const stored = parseJSON(localStorage.getItem("prefs") ?? "null")
+const prefs =
+  stored?.version === 2
+    ? stored
+    : { version: 2, theme: stored?.theme ?? "system" }
 
 prefs // siempre tiene la versión y el tema esperados
 ```

@@ -17,39 +17,39 @@ updatedAt: 2026-08-16
 ## El orden de las capas importa
 
 ```ts title="routes/admin.routes.ts"
-import { Router } from 'express';
-import rateLimit from 'express-rate-limit';
-import { z } from 'zod';
-import { requireAuth } from '../middlewares/requireAuth';
-import { requireRole } from '../middlewares/requireRole';
-import { asyncHandler } from '../utils/asyncHandler';
-import { prisma } from '../lib/prisma';
+import { Router } from "express"
+import rateLimit from "express-rate-limit"
+import { z } from "zod"
+import { prisma } from "../lib/prisma"
+import { requireAuth } from "../middlewares/requireAuth"
+import { requireRole } from "../middlewares/requireRole"
+import { asyncHandler } from "../utils/asyncHandler"
 
-export const adminRouter = Router();
+export const adminRouter = Router()
 
-const limiterEscritura = rateLimit({ windowMs: 15 * 60 * 1000, max: 30 });
+const limiterEscritura = rateLimit({ windowMs: 15 * 60 * 1000, max: 30 })
 
 const actualizarUsuarioSchema = z.object({
-  rol: z.enum(['user', 'moderador', 'admin']).optional(),
-  activo: z.boolean().optional(),
-});
+  rol: z.enum(["user", "moderador", "admin"]).optional(),
+  activo: z.boolean().optional()
+})
 
 adminRouter.patch(
-  '/usuarios/:id',
-  requireAuth,                 // 1. ¿quién eres? (401 si no hay token válido)
-  requireRole('admin'),        // 2. ¿puedes hacer esto? (403 si no eres admin)
-  limiterEscritura,            // 3. ¿estás abusando de este endpoint? (429 si sí)
+  "/usuarios/:id",
+  requireAuth, // 1. ¿quién eres? (401 si no hay token válido)
+  requireRole("admin"), // 2. ¿puedes hacer esto? (403 si no eres admin)
+  limiterEscritura, // 3. ¿estás abusando de este endpoint? (429 si sí)
   asyncHandler(async (req, res) => {
-    const datos = actualizarUsuarioSchema.parse(req.body); // 4. ¿el body tiene forma válida? (400 si no)
+    const datos = actualizarUsuarioSchema.parse(req.body) // 4. ¿el body tiene forma válida? (400 si no)
 
     const usuario = await prisma.user.update({
       where: { id: req.params.id },
-      data: datos,
-    });
+      data: datos
+    })
 
-    res.json(usuario);
-  }),
-);
+    res.json(usuario)
+  })
+)
 ```
 
 ## Por qué ese orden específico
@@ -67,20 +67,20 @@ Chequear lo más barato y más determinante primero evita trabajo innecesario �
 ## CORS a nivel de la app, no de esta ruta puntual
 
 ```ts title="app.ts"
-import cors from 'cors';
-import { adminRouter } from './routes/admin.routes';
+import cors from "cors"
+import { adminRouter } from "./routes/admin.routes"
 
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
-    credentials: true,
-  }),
-);
-app.use(helmet());
-app.use(express.json({ limit: '1mb' }));
+    credentials: true
+  })
+)
+app.use(helmet())
+app.use(express.json({ limit: "1mb" }))
 
-app.use('/admin', adminRouter);
-app.use(errorHandler);
+app.use("/admin", adminRouter)
+app.use(errorHandler)
 ```
 
 [CORS](/backend/express/express-cors) y [helmet](/backend/express/express-seguridad) van a nivel de toda la app (una vez), no repetidos por ruta — son protecciones transversales, a diferencia de auth/rol/rate-limit que sí varían según qué tan sensible es cada endpoint puntual.
@@ -90,26 +90,34 @@ app.use(errorHandler);
 ```ts title="middlewares/error-handler.ts"
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof ZodError) {
-    return res.status(400).json({ error: { code: 'VALIDATION_ERROR', fields: err.flatten().fieldErrors } });
+    return res
+      .status(400)
+      .json({
+        error: { code: "VALIDATION_ERROR", fields: err.flatten().fieldErrors }
+      })
   }
   if (err instanceof AppError) {
-    return res.status(err.status).json({ error: { code: err.code, message: err.message } });
+    return res
+      .status(err.status)
+      .json({ error: { code: err.code, message: err.message } })
   }
-  console.error(err);
-  res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Error interno' } });
-};
+  console.error(err)
+  res
+    .status(500)
+    .json({ error: { code: "INTERNAL_ERROR", message: "Error interno" } })
+}
 ```
 
 (`express-rate-limit` responde `429` por sí solo antes de que la request llegue al error handler — no necesita manejo especial ahí.)
 
 ## Checklist de una ruta bien protegida
 
-| Capa | Protege contra |
-| --- | --- |
-| `requireAuth` | Acceso sin autenticar |
-| `requireRole` / ownership | Acceso autenticado pero sin permiso suficiente |
-| Rate limiting | Abuso por volumen, fuerza bruta |
-| Validación (Zod) | Datos con forma inesperada o maliciosa |
+| Capa                      | Protege contra                                       |
+| ------------------------- | ---------------------------------------------------- |
+| `requireAuth`             | Acceso sin autenticar                                |
+| `requireRole` / ownership | Acceso autenticado pero sin permiso suficiente       |
+| Rate limiting             | Abuso por volumen, fuerza bruta                      |
+| Validación (Zod)          | Datos con forma inesperada o maliciosa               |
 | CORS + Helmet (nivel app) | Exposición del lado del navegador, headers faltantes |
 
 ## Consideraciones

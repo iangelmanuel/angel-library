@@ -44,11 +44,11 @@ Una mejora local que no aparece en campo puede estar atacando el cuello equivoca
 
 ## Ejemplo de presupuesto
 
-| Ruta | JS inicial | CSS | Imágenes iniciales | Terceros |
-| --- | ---: | ---: | ---: | ---: |
-| Landing | 120 KB gzip | 40 KB gzip | 400 KB | 2 orígenes |
-| Catálogo | 180 KB gzip | 60 KB gzip | 700 KB | 3 orígenes |
-| Panel autenticado | 220 KB gzip | 80 KB gzip | 300 KB | 2 orígenes |
+| Ruta              |  JS inicial |        CSS | Imágenes iniciales |   Terceros |
+| ----------------- | ----------: | ---------: | -----------------: | ---------: |
+| Landing           | 120 KB gzip | 40 KB gzip |             400 KB | 2 orígenes |
+| Catálogo          | 180 KB gzip | 60 KB gzip |             700 KB | 3 orígenes |
+| Panel autenticado | 220 KB gzip | 80 KB gzip |             300 KB | 2 orígenes |
 
 Son valores de partida, no una norma. Ajústalos según el producto y registra por qué una excepción es necesaria. Un budget que no distingue la ruta o el formato comprimido produce falsos positivos; uno demasiado permisivo deja pasar regresiones.
 

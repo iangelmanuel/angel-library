@@ -4,7 +4,8 @@ description: Esconder varios pasos o servicios que siempre se usan juntos detrá
 type: patterns
 order: 5
 tags: [arquitectura, patrones-diseno, facade]
-related: [architecture/patrones-diseno/adapter, backend/express/backend-mvc-structure]
+related:
+  [architecture/patrones-diseno/adapter, backend/express/backend-mvc-structure]
 problem: Cada lugar que hace checkout tiene que acordarse de validar stock, cobrar, crear la orden y mandar el email, en ese orden.
 updatedAt: 2026-08-17
 ---
@@ -16,21 +17,24 @@ Algunas operaciones no son un solo paso: son varios servicios que siempre se eje
 ## Ejemplo: checkout
 
 ```ts title="services/checkout.ts"
-import { validarStock } from './inventory';
-import { cobrar } from './payments';
-import { crearOrden } from './orders';
-import { enviarConfirmacion } from './notifications';
+import { validarStock } from "./inventory"
+import { enviarConfirmacion } from "./notifications"
+import { crearOrden } from "./orders"
+import { cobrar } from "./payments"
 
 interface CheckoutResult {
-  orderId: string;
+  orderId: string
 }
 
-export async function checkout(cart: Cart, usuario: Usuario): Promise<CheckoutResult> {
-  await validarStock(cart.items);
-  const cobro = await cobrar(usuario.metodoPago, cart.total);
-  const orden = await crearOrden(usuario.id, cart.items, cobro.id);
-  await enviarConfirmacion(usuario.email, orden);
-  return { orderId: orden.id };
+export async function checkout(
+  cart: Cart,
+  usuario: Usuario
+): Promise<CheckoutResult> {
+  await validarStock(cart.items)
+  const cobro = await cobrar(usuario.metodoPago, cart.total)
+  const orden = await crearOrden(usuario.id, cart.items, cobro.id)
+  await enviarConfirmacion(usuario.email, orden)
+  return { orderId: orden.id }
 }
 ```
 

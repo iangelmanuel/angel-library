@@ -24,18 +24,18 @@ JavaScript ejecuta cada agente mediante una pila. Cuando una operación del runt
 - **Cola de tasks:** eventos, timers y mensajes.
 - **Render:** el navegador pinta entre tareas cuando la pila y las microtasks lo permiten.
 
-| Origen | Cola o lugar | Ejemplos | Prioridad práctica |
-| --- | --- | --- | --- |
-| código síncrono | call stack | llamadas normales | termina primero |
-| microtasks | cola de microtasks | `then`, `await`, `queueMicrotask` | se vacían antes de la siguiente task |
-| tasks | cola de tasks | timers, eventos, mensajes | una nueva vuelta del event loop |
-| render del navegador | oportunidad de render | layout, paint, `requestAnimationFrame` | entre tareas cuando es posible |
+| Origen               | Cola o lugar          | Ejemplos                               | Prioridad práctica                   |
+| -------------------- | --------------------- | -------------------------------------- | ------------------------------------ |
+| código síncrono      | call stack            | llamadas normales                      | termina primero                      |
+| microtasks           | cola de microtasks    | `then`, `await`, `queueMicrotask`      | se vacían antes de la siguiente task |
+| tasks                | cola de tasks         | timers, eventos, mensajes              | una nueva vuelta del event loop      |
+| render del navegador | oportunidad de render | layout, paint, `requestAnimationFrame` | entre tareas cuando es posible       |
 
 ```js
-console.log('A')
-setTimeout(() => console.log('task'), 0)
-Promise.resolve().then(() => console.log('microtask'))
-console.log('B')
+console.log("A")
+setTimeout(() => console.log("task"), 0)
+Promise.resolve().then(() => console.log("microtask"))
+console.log("B")
 
 // A, B, microtask, task
 ```
@@ -79,14 +79,14 @@ La expresión anterior a `await` se evalúa de inmediato. La continuación de la
 
 ```js
 async function example() {
-  console.log('B')
+  console.log("B")
   await null
-  console.log('D')
+  console.log("D")
 }
 
-console.log('A')
+console.log("A")
 example()
-console.log('C')
+console.log("C")
 
 // A, B, C, D
 ```
@@ -95,21 +95,21 @@ console.log('C')
 
 ## `queueMicrotask`, timers y animación
 
-| API | Devuelve | Ejecuta aproximadamente | Caso de uso |
-| --- | --- | --- | --- |
-| `queueMicrotask(callback)` | `undefined` | al terminar el stack, antes de otra task | finalizar un estado síncrono |
-| `setTimeout(callback, delay)` | id del timer | en una task, no antes del retraso | espera no exacta o trabajo diferido |
-| `requestAnimationFrame(callback)` | id numérico | antes de una pintura | animación y escritura visual |
-| `requestIdleCallback(callback)` | id numérico | cuando hay tiempo libre; compatibilidad limitada | trabajo opcional de baja prioridad |
+| API                               | Devuelve     | Ejecuta aproximadamente                          | Caso de uso                         |
+| --------------------------------- | ------------ | ------------------------------------------------ | ----------------------------------- |
+| `queueMicrotask(callback)`        | `undefined`  | al terminar el stack, antes de otra task         | finalizar un estado síncrono        |
+| `setTimeout(callback, delay)`     | id del timer | en una task, no antes del retraso                | espera no exacta o trabajo diferido |
+| `requestAnimationFrame(callback)` | id numérico  | antes de una pintura                             | animación y escritura visual        |
+| `requestIdleCallback(callback)`   | id numérico  | cuando hay tiempo libre; compatibilidad limitada | trabajo opcional de baja prioridad  |
 
 ```js
-console.log('inicio')
+console.log("inicio")
 
-queueMicrotask(() => console.log('microtask'))
-requestAnimationFrame(() => console.log('frame'))
-setTimeout(() => console.log('timer'), 0)
+queueMicrotask(() => console.log("microtask"))
+requestAnimationFrame(() => console.log("frame"))
+setTimeout(() => console.log("timer"), 0)
 
-console.log('fin')
+console.log("fin")
 
 // Siempre primero: 'inicio', 'fin', 'microtask'.
 // El orden relativo de frame y timer depende de la oportunidad de render.
@@ -126,7 +126,7 @@ async function processInBatches(items, batchSize = 100) {
     for (const item of batch) processItem(item)
 
     // Cede a una task para permitir input y render entre lotes.
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
   }
 }
 

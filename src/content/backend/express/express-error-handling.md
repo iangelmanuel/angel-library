@@ -14,26 +14,26 @@ Express reconoce un tipo especial de middleware — uno con **4** argumentos en 
 ## El middleware de error
 
 ```ts title="middlewares/error-handler.ts"
-import type { ErrorRequestHandler } from 'express';
+import type { ErrorRequestHandler } from "express"
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  console.error(err);
+  console.error(err)
 
-  const status = err.status ?? 500;
+  const status = err.status ?? 500
   res.status(status).json({
-    error: status === 500 ? 'Error interno del servidor' : err.message,
-  });
-};
+    error: status === 500 ? "Error interno del servidor" : err.message
+  })
+}
 ```
 
 Se registra **al final**, después de todas las rutas — Express identifica un middleware de error por su cantidad de argumentos (4), no por su nombre ni dónde se importa:
 
 ```ts title="app.ts"
-app.get('/usuarios', handler);
-app.post('/usuarios', handler);
+app.get("/usuarios", handler)
+app.post("/usuarios", handler)
 // ... el resto de las rutas ...
 
-app.use(errorHandler); // último, siempre
+app.use(errorHandler) // último, siempre
 ```
 
 ## Cómo llegan los errores hasta aquí
@@ -41,24 +41,24 @@ app.use(errorHandler); // último, siempre
 Express captura los errores lanzados de forma síncrona. En Express 5, un handler que devuelve una promesa también propaga automáticamente un rechazo o un `throw` hasta el middleware de errores:
 
 ```ts
-app.get('/usuarios/:id', async (req, res) => {
-  const usuario = await buscarUsuario(req.params.id);
-  if (!usuario) throw new AppError(404, 'Usuario no encontrado');
-  res.json(usuario);
-});
+app.get("/usuarios/:id", async (req, res) => {
+  const usuario = await buscarUsuario(req.params.id)
+  if (!usuario) throw new AppError(404, "Usuario no encontrado")
+  res.json(usuario)
+})
 ```
 
 `next(error)` sigue siendo necesario cuando el fallo nace en una API de callbacks o en trabajo asíncrono que el handler no devuelve como promesa:
 
 ```ts
-import { readFile } from 'node:fs';
+import { readFile } from "node:fs"
 
-app.get('/reporte', (_req, res, next) => {
-  readFile('./reporte.json', 'utf8', (error, data) => {
-    if (error) return next(error);
-    res.type('json').send(data);
-  });
-});
+app.get("/reporte", (_req, res, next) => {
+  readFile("./reporte.json", "utf8", (error, data) => {
+    if (error) return next(error)
+    res.type("json").send(data)
+  })
+})
 ```
 
 Llamar a `next()` sin argumentos continúa la cadena normal. Llamarlo con un error omite los handlers normales restantes y busca el siguiente middleware de error. En Express 4, los rechazos de handlers `async` no se propagaban automáticamente y requerían wrapper o `try/catch`; revisa la versión del proyecto antes de copiar una estrategia heredada.
@@ -69,34 +69,37 @@ Repetir `(error as any).status = 404` en cada lugar es incómodo — una clase p
 
 ```ts title="errors/AppError.ts"
 export class AppError extends Error {
-  constructor(public status: number, message: string) {
-    super(message);
-    this.name = 'AppError';
+  constructor(
+    public status: number,
+    message: string
+  ) {
+    super(message)
+    this.name = "AppError"
   }
 }
 ```
 
 ```ts
-import { AppError } from './errors/AppError';
+import { AppError } from "./errors/AppError"
 
-app.get('/usuarios/:id', async (req, res) => {
-  const usuario = await buscarUsuario(req.params.id);
-  if (!usuario) throw new AppError(404, 'Usuario no encontrado');
-  res.json(usuario);
-});
+app.get("/usuarios/:id", async (req, res) => {
+  const usuario = await buscarUsuario(req.params.id)
+  if (!usuario) throw new AppError(404, "Usuario no encontrado")
+  res.json(usuario)
+})
 ```
 
 ```ts title="middlewares/error-handler.ts"
-import { AppError } from '../errors/AppError';
+import { AppError } from "../errors/AppError"
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof AppError) {
-    return res.status(err.status).json({ error: err.message });
+    return res.status(err.status).json({ error: err.message })
   }
 
-  console.error(err); // error inesperado: registrarlo, sin exponer detalles internos
-  res.status(500).json({ error: 'Error interno del servidor' });
-};
+  console.error(err) // error inesperado: registrarlo, sin exponer detalles internos
+  res.status(500).json({ error: "Error interno del servidor" })
+}
 ```
 
 ## Wrapper para proyectos que todavía usan Express 4
@@ -104,34 +107,37 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 En Express 4, escribir `try/catch` + `next(error)` en cada handler async es repetitivo. Un wrapper devuelve una función que conecta el rechazo con Express. En Express 5 este patrón ya no es necesario para handlers que retornan su promesa.
 
 ```ts title="utils/asyncHandler.ts"
-import type { Request, Response, NextFunction, RequestHandler } from 'express';
+import type { NextFunction, Request, RequestHandler, Response } from "express"
 
 export function asyncHandler(fn: RequestHandler) {
   return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
-  };
+    Promise.resolve(fn(req, res, next)).catch(next)
+  }
 }
 ```
 
 ```ts
-import { asyncHandler } from './utils/asyncHandler';
+import { asyncHandler } from "./utils/asyncHandler"
 
-app.get('/usuarios/:id', asyncHandler(async (req, res) => {
-  const usuario = await buscarUsuario(req.params.id);
-  if (!usuario) throw new AppError(404, 'Usuario no encontrado');
-  res.json(usuario); // si algo lanza aquí arriba, asyncHandler lo atrapa y lo manda a next()
-}));
+app.get(
+  "/usuarios/:id",
+  asyncHandler(async (req, res) => {
+    const usuario = await buscarUsuario(req.params.id)
+    if (!usuario) throw new AppError(404, "Usuario no encontrado")
+    res.json(usuario) // si algo lanza aquí arriba, asyncHandler lo atrapa y lo manda a next()
+  })
+)
 ```
 
 ## Flujo de un error
 
-| Pieza | Rol |
-| --- | --- |
-| `(err, req, res, next) => {...}` | Firma que Express reconoce como middleware de error |
-| `app.use(errorHandler)` | Se registra al final, después de todas las rutas |
-| `next(error)` | Propaga errores de callbacks o trabajo fuera de la promesa retornada |
-| `class AppError extends Error` | Errores con `status` propio, tipados |
-| `asyncHandler(fn)` | Compatibilidad para handlers async en Express 4 |
+| Pieza                            | Rol                                                                  |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `(err, req, res, next) => {...}` | Firma que Express reconoce como middleware de error                  |
+| `app.use(errorHandler)`          | Se registra al final, después de todas las rutas                     |
+| `next(error)`                    | Propaga errores de callbacks o trabajo fuera de la promesa retornada |
+| `class AppError extends Error`   | Errores con `status` propio, tipados                                 |
+| `asyncHandler(fn)`               | Compatibilidad para handlers async en Express 4                      |
 
 ## Frontera y exposición segura
 

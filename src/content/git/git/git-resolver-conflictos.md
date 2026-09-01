@@ -61,12 +61,12 @@ git show :3:archivo.ts  # versión "de ellos" completa del archivo
 
 ## Resumen
 
-| Paso | Comando |
-| --- | --- |
-| Ver qué está en conflicto | `git status` |
-| Marcar un archivo como resuelto | `git add <archivo>` |
-| Terminar el merge | `git commit` |
-| Terminar el rebase | `git rebase --continue` |
+| Paso                                     | Comando                                    |
+| ---------------------------------------- | ------------------------------------------ |
+| Ver qué está en conflicto                | `git status`                               |
+| Marcar un archivo como resuelto          | `git add <archivo>`                        |
+| Terminar el merge                        | `git commit`                               |
+| Terminar el rebase                       | `git rebase --continue`                    |
 | Cancelar todo, volver al estado anterior | `git merge --abort` / `git rebase --abort` |
 
 ## Consideraciones

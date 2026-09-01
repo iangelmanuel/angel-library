@@ -7,7 +7,7 @@ order: 1
 updatedAt: 2026-08-25
 ---
 
-**UI** significa *User Interface* o interfaz de usuario: los elementos visibles y operables de un producto. **UX** significa *User Experience* o experiencia de usuario: la percepción completa antes, durante y después de usarlo.
+**UI** significa _User Interface_ o interfaz de usuario: los elementos visibles y operables de un producto. **UX** significa _User Experience_ o experiencia de usuario: la percepción completa antes, durante y después de usarlo.
 
 Una interfaz visualmente atractiva puede tener mala UX si oculta acciones, pierde datos o responde tarde. Del mismo modo, un flujo lógico puede necesitar una UI más clara para que la persona descubra cómo usarlo.
 
@@ -15,15 +15,15 @@ Una interfaz visualmente atractiva puede tener mala UX si oculta acciones, pierd
 
 La progresión recomendada es: objetivo y flujo → jerarquía → layout responsive → estados → formularios/feedback → accesibilidad → tokens/componentes → sistema de diseño → evaluación con usuarios. Una librería acelera implementación, pero no decide el flujo ni corrige una jerarquía débil.
 
-| Necesito recordar | Documento |
-| --- | --- |
-| tipografía, espacio y énfasis | [Jerarquía visual](/ui-ux/ui-ux-design-systems/ui-ux-jerarquia-visual) |
-| adaptar por contenido, no dispositivo concreto | [Layout responsive](/ui-ux/ui-ux-interaccion/ui-ux-responsive-layout) |
-| loading, vacío, error y éxito | [Estados de interfaz](/ui-ux/ui-ux-interaccion/ui-ux-estados-interfaz) |
-| labels, validación y confirmación | [Formularios y feedback](/ui-ux/ui-ux-interaccion/ui-ux-forms-feedback) |
-| tokens y componentes compartidos | [Design systems](/ui-ux/ui-ux-design-systems/ui-ux-design-systems) |
-| elegir una biblioteca UI | [Guía de selección](/ui-ux/ui-ux-design-systems/ui-library-selection) |
-| revisar un componente completo | [Anatomía de componentes](/ui-ux/ui-ux-interaccion/ui-ux-component-anatomy) |
+| Necesito recordar                              | Documento                                                                   |
+| ---------------------------------------------- | --------------------------------------------------------------------------- |
+| tipografía, espacio y énfasis                  | [Jerarquía visual](/ui-ux/ui-ux-design-systems/ui-ux-jerarquia-visual)      |
+| adaptar por contenido, no dispositivo concreto | [Layout responsive](/ui-ux/ui-ux-interaccion/ui-ux-responsive-layout)       |
+| loading, vacío, error y éxito                  | [Estados de interfaz](/ui-ux/ui-ux-interaccion/ui-ux-estados-interfaz)      |
+| labels, validación y confirmación              | [Formularios y feedback](/ui-ux/ui-ux-interaccion/ui-ux-forms-feedback)     |
+| tokens y componentes compartidos               | [Design systems](/ui-ux/ui-ux-design-systems/ui-ux-design-systems)          |
+| elegir una biblioteca UI                       | [Guía de selección](/ui-ux/ui-ux-design-systems/ui-library-selection)       |
+| revisar un componente completo                 | [Anatomía de componentes](/ui-ux/ui-ux-interaccion/ui-ux-component-anatomy) |
 
 Quien aprende debe diseñar también errores, espera, permisos y contenido extremo. Quien recuerda puede usar las tablas y checklists, pero debe validar el flujo completo con teclado, zoom y datos reales.
 

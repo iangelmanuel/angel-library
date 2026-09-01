@@ -22,22 +22,22 @@ npm install better-auth
 **1. Configurar el core** (adapter de base de datos + providers):
 
 ```ts title="lib/auth.ts"
-import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { prisma } from './prisma';
+import { betterAuth } from "better-auth"
+import { prismaAdapter } from "better-auth/adapters/prisma"
+import { prisma } from "./prisma"
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, { provider: 'postgresql' }),
+  database: prismaAdapter(prisma, { provider: "postgresql" }),
   emailAndPassword: {
-    enabled: true,
+    enabled: true
   },
   socialProviders: {
     github: {
       clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-    },
-  },
-});
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!
+    }
+  }
+})
 ```
 
 El `database` usa un **adapter** — better-auth no impone un ORM: hay adapters para Prisma, Drizzle, Kysely y SQL directo. `prismaAdapter` es el más común si el proyecto ya usa [Prisma](/backend/express/express-prisma).
@@ -52,16 +52,16 @@ npx @better-auth/cli migrate    # aplica la migración
 **3. Montar el handler — sí necesita una ruta, un catch-all para toda `/api/auth/*`:**
 
 ```ts title="app.ts"
-import express from 'express';
-import { toNodeHandler } from 'better-auth/node';
-import { auth } from './lib/auth';
+import { toNodeHandler } from "better-auth/node"
+import express from "express"
+import { auth } from "./lib/auth"
 
-const app = express();
+const app = express()
 
 // Tiene que ir ANTES de express.json() — better-auth necesita el body sin parsear
-app.all('/api/auth/*', toNodeHandler(auth));
+app.all("/api/auth/*", toNodeHandler(auth))
 
-app.use(express.json());
+app.use(express.json())
 // ... el resto de las rutas ...
 ```
 
@@ -74,34 +74,40 @@ better-auth emite una cookie de sesión httpOnly al hacer login — no un JWT qu
 ## Leer la sesión en un middleware propio
 
 ```ts title="middlewares/requireAuth.ts"
-import type { Request, Response, NextFunction } from 'express';
-import { auth } from '../lib/auth';
-import { fromNodeHeaders } from 'better-auth/node';
+import { fromNodeHeaders } from "better-auth/node"
+import type { NextFunction, Request, Response } from "express"
+import { auth } from "../lib/auth"
 
 declare global {
   namespace Express {
     interface Request {
-      user?: { id: string; email: string };
+      user?: { id: string; email: string }
     }
   }
 }
 
-export async function requireAuth(req: Request, res: Response, next: NextFunction) {
-  const session = await auth.api.getSession({ headers: fromNodeHeaders(req.headers) });
+export async function requireAuth(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(req.headers)
+  })
 
   if (!session) {
-    return res.status(401).json({ error: 'No autenticado' });
+    return res.status(401).json({ error: "No autenticado" })
   }
 
-  req.user = session.user;
-  next();
+  req.user = session.user
+  next()
 }
 ```
 
 ```ts
-app.get('/perfil', requireAuth, (req, res) => {
-  res.json({ userId: req.user!.id });
-});
+app.get("/perfil", requireAuth, (req, res) => {
+  res.json({ userId: req.user!.id })
+})
 ```
 
 Mismo shape de resultado (`req.user` poblado) que el [middleware de auth manual](/backend/express/express-auth-middleware) — el resto de las rutas protegidas no necesita saber si la sesión viene de JWT manual o de better-auth.
@@ -111,15 +117,15 @@ Mismo shape de resultado (`req.user` poblado) que el [middleware de auth manual]
 better-auth también expone un client (`better-auth/client`) para no armar el `fetch` a mano contra `/api/auth/sign-in`:
 
 ```ts title="lib/auth-client.ts"
-import { createAuthClient } from 'better-auth/client';
+import { createAuthClient } from "better-auth/client"
 
-export const authClient = createAuthClient({ baseURL: 'http://localhost:3000' });
+export const authClient = createAuthClient({ baseURL: "http://localhost:3000" })
 ```
 
 ```ts
-await authClient.signIn.email({ email, password });
-await authClient.signUp.email({ email, password, name });
-await authClient.signOut();
+await authClient.signIn.email({ email, password })
+await authClient.signUp.email({ email, password, name })
+await authClient.signOut()
 ```
 
 ## Roles y datos custom del usuario
@@ -131,23 +137,23 @@ export const auth = betterAuth({
   // ...
   user: {
     additionalFields: {
-      rol: { type: 'string', defaultValue: 'user' },
-    },
-  },
-});
+      rol: { type: "string", defaultValue: "user" }
+    }
+  }
+})
 ```
 
 Después de correr `npx @better-auth/cli generate` de nuevo (para que la migración incluya el campo nuevo), `session.user.rol` queda disponible donde sea que se lea la sesión.
 
 ## Piezas de la integración
 
-| Pieza | Rol |
-| --- | --- |
-| `betterAuth({ database, ...providers })` | Configuración central |
-| `@better-auth/cli generate` / `migrate` | Genera y aplica el schema de auth |
-| `toNodeHandler(auth)` en `/api/auth/*` | Expone todos los endpoints de auth, sin rutas propias |
-| `auth.api.getSession({ headers })` | Leer la sesión actual dentro de un middleware/ruta propia |
-| `user.additionalFields` | Agregar campos custom (como `rol`) al usuario |
+| Pieza                                    | Rol                                                       |
+| ---------------------------------------- | --------------------------------------------------------- |
+| `betterAuth({ database, ...providers })` | Configuración central                                     |
+| `@better-auth/cli generate` / `migrate`  | Genera y aplica el schema de auth                         |
+| `toNodeHandler(auth)` en `/api/auth/*`   | Expone todos los endpoints de auth, sin rutas propias     |
+| `auth.api.getSession({ headers })`       | Leer la sesión actual dentro de un middleware/ruta propia |
+| `user.additionalFields`                  | Agregar campos custom (como `rol`) al usuario             |
 
 ## Cuándo adoptar Better Auth
 

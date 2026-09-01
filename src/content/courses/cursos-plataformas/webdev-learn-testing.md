@@ -14,13 +14,13 @@ updatedAt: 2026-08-30
 
 Curso de **testing para la web** publicado por el equipo de Chrome en web.dev.
 
-| | |
-| --- | --- |
-| Publica | Google, equipo de Chrome |
-| Precio | Gratis |
-| Idioma | Inglés, con más de 18 traducciones |
+|                       |                                      |
+| --------------------- | ------------------------------------ |
+| Publica               | Google, equipo de Chrome             |
+| Precio                | Gratis                               |
+| Idioma                | Inglés, con más de 18 traducciones   |
 | Herramienta principal | Vitest, con menciones a Jest y otras |
-| Requisitos | Base de JavaScript y algo de Node.js |
+| Requisitos            | Base de JavaScript y algo de Node.js |
 
 ## Qué cubre hoy
 

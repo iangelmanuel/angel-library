@@ -24,8 +24,14 @@ updatedAt: 2026-08-18
 
 ```html
 <picture>
-  <source type="image/avif" srcset="hero-640.avif 640w, hero-1280.avif 1280w" />
-  <source type="image/webp" srcset="hero-640.webp 640w, hero-1280.webp 1280w" />
+  <source
+    type="image/avif"
+    srcset="hero-640.avif 640w, hero-1280.avif 1280w"
+  />
+  <source
+    type="image/webp"
+    srcset="hero-640.webp 640w, hero-1280.webp 1280w"
+  />
   <img
     src="hero-1280.jpg"
     srcset="hero-640.jpg 640w, hero-1280.jpg 1280w"

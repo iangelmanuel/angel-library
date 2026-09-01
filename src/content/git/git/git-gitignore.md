@@ -71,12 +71,12 @@ Muestra qué línea de qué `.gitignore` es la responsable — útil cuando un p
 
 ## Resumen
 
-| Comando / patrón | Qué hace |
-| --- | --- |
-| `carpeta/` | Ignora una carpeta completa |
-| `*.ext` | Ignora por extensión |
-| `!patrón` | Excepción a un patrón anterior |
-| `git rm --cached <archivo>` | Destrackea un archivo que ya estaba en el repo |
+| Comando / patrón                | Qué hace                                          |
+| ------------------------------- | ------------------------------------------------- |
+| `carpeta/`                      | Ignora una carpeta completa                       |
+| `*.ext`                         | Ignora por extensión                              |
+| `!patrón`                       | Excepción a un patrón anterior                    |
+| `git rm --cached <archivo>`     | Destrackea un archivo que ya estaba en el repo    |
 | `git check-ignore -v <archivo>` | Diagnostica por qué (o por qué no) se ignora algo |
 
 ## Errores comunes

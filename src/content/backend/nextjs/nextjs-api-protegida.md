@@ -17,49 +17,69 @@ updatedAt: 2026-08-16
 [API protegida (Express)](/backend/express/express-api-protegida) documenta el checklist completo: auth → rol → rate limit → validación. En Next.js, sin cadena de middlewares específica por Route Handler, esas capas se resuelven dentro del handler (además de `proxy.ts` para protección amplia, ver [Backend en Next.js](/backend/nextjs/nextjs-backend-arquitectura)).
 
 ```ts title="app/api/admin/usuarios/[id]/route.ts"
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { auth } from '@/libs/auth';
-import { checarRateLimit } from '@/libs/rate-limit';
-import { prisma } from '@/libs/prisma';
+import { NextRequest, NextResponse } from "next/server"
+import { z } from "zod"
+import { auth } from "@/libs/auth"
+import { prisma } from "@/libs/prisma"
+import { checarRateLimit } from "@/libs/rate-limit"
 
 const actualizarUsuarioSchema = z.object({
-  rol: z.enum(['user', 'moderador', 'admin']).optional(),
-  activo: z.boolean().optional(),
-});
+  rol: z.enum(["user", "moderador", "admin"]).optional(),
+  activo: z.boolean().optional()
+})
 
-export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   // 1. ¿quién eres?
-  const session = await auth();
+  const session = await auth()
   if (!session?.user) {
-    return NextResponse.json({ error: { code: 'NO_AUTENTICADO' } }, { status: 401 });
+    return NextResponse.json(
+      { error: { code: "NO_AUTENTICADO" } },
+      { status: 401 }
+    )
   }
 
   // 2. ¿puedes hacer esto?
-  if (session.user.rol !== 'admin') {
-    return NextResponse.json({ error: { code: 'SIN_PERMISO' } }, { status: 403 });
+  if (session.user.rol !== "admin") {
+    return NextResponse.json(
+      { error: { code: "SIN_PERMISO" } },
+      { status: 403 }
+    )
   }
 
   // 3. ¿estás abusando de este endpoint?
-  const ip = request.headers.get('x-forwarded-for') ?? 'desconocida';
-  const dentroDelLimite = await checarRateLimit(ip, { max: 30, windowMs: 15 * 60 * 1000 });
+  const ip = request.headers.get("x-forwarded-for") ?? "desconocida"
+  const dentroDelLimite = await checarRateLimit(ip, {
+    max: 30,
+    windowMs: 15 * 60 * 1000
+  })
   if (!dentroDelLimite) {
-    return NextResponse.json({ error: { code: 'RATE_LIMIT' } }, { status: 429 });
+    return NextResponse.json({ error: { code: "RATE_LIMIT" } }, { status: 429 })
   }
 
   // 4. ¿el body tiene forma válida?
-  const body = await request.json();
-  const resultado = actualizarUsuarioSchema.safeParse(body);
+  const body = await request.json()
+  const resultado = actualizarUsuarioSchema.safeParse(body)
   if (!resultado.success) {
     return NextResponse.json(
-      { error: { code: 'VALIDATION_ERROR', fields: resultado.error.flatten().fieldErrors } },
-      { status: 400 },
-    );
+      {
+        error: {
+          code: "VALIDATION_ERROR",
+          fields: resultado.error.flatten().fieldErrors
+        }
+      },
+      { status: 400 }
+    )
   }
 
-  const { id } = await params;
-  const usuario = await prisma.user.update({ where: { id }, data: resultado.data });
-  return NextResponse.json(usuario);
+  const { id } = await params
+  const usuario = await prisma.user.update({
+    where: { id },
+    data: resultado.data
+  })
+  return NextResponse.json(usuario)
 }
 ```
 
@@ -72,28 +92,28 @@ npm install @upstash/ratelimit @upstash/redis
 ```
 
 ```ts title="lib/rate-limit.ts"
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { Ratelimit } from "@upstash/ratelimit"
+import { Redis } from "@upstash/redis"
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(30, '15 m'),
-});
+  limiter: Ratelimit.slidingWindow(30, "15 m")
+})
 
 export async function checarRateLimit(ip: string) {
-  const { success } = await ratelimit.limit(ip);
-  return success;
+  const { success } = await ratelimit.limit(ip)
+  return success
 }
 ```
 
 ## Resumen
 
-| Capa | Dónde vive en Next.js |
-| --- | --- |
-| Auth | `proxy.ts` (protección amplia) + `auth()` dentro del handler |
-| Rol/permisos | `if` dentro del handler |
+| Capa          | Dónde vive en Next.js                                                   |
+| ------------- | ----------------------------------------------------------------------- |
+| Auth          | `proxy.ts` (protección amplia) + `auth()` dentro del handler            |
+| Rol/permisos  | `if` dentro del handler                                                 |
 | Rate limiting | Store compartido (Upstash) — no memoria local, por el modelo serverless |
-| Validación | Zod, `safeParse` dentro del handler |
+| Validación    | Zod, `safeParse` dentro del handler                                     |
 
 ## Consideraciones
 

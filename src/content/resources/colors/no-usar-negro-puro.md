@@ -25,13 +25,13 @@ Hay además un argumento perceptivo: el negro absoluto no existe en la naturalez
 
 La recomendación principal, la misma que da el equipo de diseño de Google para Material Design:
 
-| Color | Valor | Nota |
-| --- | --- | --- |
-| Cod Gray | `#121212` | La opción por defecto para fondos oscuros |
-| Dark Gunmetal | `#222428` | Alternativa algo más clara |
-| Jet | `#2A2A2A` | Para superficies elevadas |
-| Black Olive | `#242526` | Con un matiz cálido |
-| Midnight Blue | `#212121` | Neutro |
+| Color         | Valor     | Nota                                      |
+| ------------- | --------- | ----------------------------------------- |
+| Cod Gray      | `#121212` | La opción por defecto para fondos oscuros |
+| Dark Gunmetal | `#222428` | Alternativa algo más clara                |
+| Jet           | `#2A2A2A` | Para superficies elevadas                 |
+| Black Olive   | `#242526` | Con un matiz cálido                       |
+| Midnight Blue | `#212121` | Neutro                                    |
 
 `#121212` no es un capricho: deja margen para representar **elevación**. En una interfaz oscura, una tarjeta por encima del fondo se indica aclarando la superficie, y desde el negro puro no se puede aclarar sin saltar de golpe.
 

@@ -49,16 +49,16 @@ La **ventana de contexto** es el máximo de tokens que el modelo puede procesar 
 Cuando otro programa consume la respuesta, define un esquema y valida el resultado. Pedir “devuelve JSON” no garantiza campos, tipos ni valores permitidos.
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod"
 
 const Ticket = z.object({
-  category: z.enum(['billing', 'bug', 'question']),
-  priority: z.enum(['low', 'medium', 'high']),
+  category: z.enum(["billing", "bug", "question"]),
+  priority: z.enum(["low", "medium", "high"]),
   reply: z.string().min(1),
-  requiresHumanReview: z.boolean(),
-});
+  requiresHumanReview: z.boolean()
+})
 
-const parsed = Ticket.safeParse(modelOutput);
+const parsed = Ticket.safeParse(modelOutput)
 if (!parsed.success) {
   // Reintentar con límite, reparar de forma controlada o escalar.
 }
@@ -83,4 +83,3 @@ Si el proveedor ofrece salidas estructuradas basadas en JSON Schema, úsalo y co
 
 - [OpenAI: prompt engineering](https://platform.openai.com/docs/guides/prompt-engineering)
 - [OpenAI: structured outputs](https://platform.openai.com/docs/guides/structured-outputs)
-

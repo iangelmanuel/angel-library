@@ -14,11 +14,11 @@ updatedAt: 2026-08-18
 
 ## Las tres métricas
 
-| Métrica | Pregunta | Objetivo orientativo |
-| --- | --- | --- |
-| LCP | ¿cuándo aparece el contenido principal? | ≤ 2.5 s |
-| INP | ¿qué tan rápido responde a interacciones? | ≤ 200 ms |
-| CLS | ¿cuánto salta el layout? | ≤ 0.1 |
+| Métrica | Pregunta                                  | Objetivo orientativo |
+| ------- | ----------------------------------------- | -------------------- |
+| LCP     | ¿cuándo aparece el contenido principal?   | ≤ 2.5 s              |
+| INP     | ¿qué tan rápido responde a interacciones? | ≤ 200 ms             |
+| CLS     | ¿cuánto salta el layout?                  | ≤ 0.1                |
 
 Evalúa percentil 75 y separa móvil/escritorio. Un promedio puede ocultar usuarios con una experiencia muy mala.
 
@@ -54,11 +54,11 @@ No persigas una puntuación aislada: mide rutas importantes, regresiones por ver
 
 La cifra sola no explica la causa. Para LCP separa TTFB, descubrimiento del recurso, descarga y renderizado; para INP identifica la interacción concreta y la tarea que bloqueó el hilo principal; para CLS registra qué elemento cambió de posición y qué lo provocó. Guarda la URL, versión, dispositivo, conexión y plantilla junto a la medición.
 
-| Síntoma | Causa frecuente | Primera comprobación |
-| --- | --- | --- |
-| LCP alto con servidor rápido | imagen o fuente crítica descubierta tarde | waterfall y prioridad del recurso |
-| INP alto en búsqueda | filtrado o renderizado grande en el handler | Performance panel y tareas largas |
-| CLS después de cargar | imagen, fuente, anuncio o contenido sin reserva | Layout Shifts y dimensiones iniciales |
+| Síntoma                      | Causa frecuente                                 | Primera comprobación                  |
+| ---------------------------- | ----------------------------------------------- | ------------------------------------- |
+| LCP alto con servidor rápido | imagen o fuente crítica descubierta tarde       | waterfall y prioridad del recurso     |
+| INP alto en búsqueda         | filtrado o renderizado grande en el handler     | Performance panel y tareas largas     |
+| CLS después de cargar        | imagen, fuente, anuncio o contenido sin reserva | Layout Shifts y dimensiones iniciales |
 
 ## Laboratorio reproducible
 

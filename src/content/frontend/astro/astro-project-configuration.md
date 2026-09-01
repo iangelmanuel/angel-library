@@ -21,35 +21,35 @@ updatedAt: 2026-08-25
 ## Configuración mínima tipada
 
 ```ts title="astro.config.ts"
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config"
 
 export default defineConfig({
-  site: 'https://docs.example.com',
-  trailingSlash: 'never',
-  output: 'static',
-});
+  site: "https://docs.example.com",
+  trailingSlash: "never",
+  output: "static"
+})
 ```
 
 `defineConfig()` ofrece autocompletado y validación. La configuración se evalúa en Node.js al iniciar Astro; no forma parte del código enviado al navegador.
 
-| Opción | Decide | Pregunta útil |
-| --- | --- | --- |
-| `site` | URL absoluta del sitio | ¿sitemap y URLs canónicas conocen el dominio? |
-| `base` | prefijo donde vive la aplicación | ¿se publica en `/` o en `/docs/`? |
-| `output` | estático o servidor por defecto | ¿la mayoría de rutas depende de la request? |
-| `adapter` | runtime de render bajo demanda | ¿dónde se ejecutará el servidor? |
-| `integrations` | extensiones de Astro | ¿necesito MDX, React, sitemap u otra capacidad? |
-| `image` | servicio y dominios de imágenes | ¿qué orígenes remotos puedo optimizar? |
-| `i18n` | locales y routing internacional | ¿cómo se representa el idioma en la URL? |
-| `vite` | configuración de bajo nivel | ¿una necesidad real no tiene opción propia en Astro? |
+| Opción         | Decide                           | Pregunta útil                                        |
+| -------------- | -------------------------------- | ---------------------------------------------------- |
+| `site`         | URL absoluta del sitio           | ¿sitemap y URLs canónicas conocen el dominio?        |
+| `base`         | prefijo donde vive la aplicación | ¿se publica en `/` o en `/docs/`?                    |
+| `output`       | estático o servidor por defecto  | ¿la mayoría de rutas depende de la request?          |
+| `adapter`      | runtime de render bajo demanda   | ¿dónde se ejecutará el servidor?                     |
+| `integrations` | extensiones de Astro             | ¿necesito MDX, React, sitemap u otra capacidad?      |
+| `image`        | servicio y dominios de imágenes  | ¿qué orígenes remotos puedo optimizar?               |
+| `i18n`         | locales y routing internacional  | ¿cómo se representa el idioma en la URL?             |
+| `vite`         | configuración de bajo nivel      | ¿una necesidad real no tiene opción propia en Astro? |
 
 ## `site` no es lo mismo que `base`
 
 ```ts
 export default defineConfig({
-  site: 'https://example.com',
-  base: '/library',
-});
+  site: "https://example.com",
+  base: "/library"
+})
 ```
 
 En este caso, el origen es `https://example.com` y el proyecto se publica bajo `/library`. Para construir enlaces respetando el prefijo puedes usar `import.meta.env.BASE_URL` o helpers basados en `Astro.site`, según necesites una ruta o una URL absoluta.
@@ -74,19 +74,26 @@ Astro no exige esta estructura completa. Créala cuando aparezca una responsabil
 
 ## `src/assets` frente a `public`
 
-| Ubicación | Tratamiento | Úsala para |
-| --- | --- | --- |
-| `src/assets` | import, hash, optimización y análisis | imágenes que usa un componente, SVG importado, assets versionados |
-| `public` | copia directa con nombre estable | `robots.txt`, favicon especial, archivo descargable o recurso que no debe transformarse |
+| Ubicación    | Tratamiento                           | Úsala para                                                                              |
+| ------------ | ------------------------------------- | --------------------------------------------------------------------------------------- |
+| `src/assets` | import, hash, optimización y análisis | imágenes que usa un componente, SVG importado, assets versionados                       |
+| `public`     | copia directa con nombre estable      | `robots.txt`, favicon especial, archivo descargable o recurso que no debe transformarse |
 
 ```astro
 ---
-import cover from '../assets/cover.png';
-import { Image } from 'astro:assets';
+import cover from "../assets/cover.png"
+import { Image } from "astro:assets"
 ---
 
-<Image src={cover} alt="Portada del manual" />
-<a href="/manual.pdf" download>Descargar PDF sin procesar</a>
+<Image
+  src={cover}
+  alt="Portada del manual"
+/>
+<a
+  href="/manual.pdf"
+  download
+  >Descargar PDF sin procesar</a
+>
 ```
 
 ## Aliases de TypeScript
@@ -104,7 +111,7 @@ import { Image } from 'astro:assets';
 ```
 
 ```ts
-import { getPosts } from '@/libs/posts';
+import { getPosts } from "@/libs/posts"
 ```
 
 El alias debe ser entendido por TypeScript y por el bundler. Astro integra Vite y suele resolver `paths`, pero una herramienta externa de pruebas o scripts puede necesitar su propia configuración.
@@ -112,17 +119,17 @@ El alias debe ser entendido por TypeScript y por el bundler. Astro integra Vite 
 ## Integraciones y Vite
 
 ```ts title="astro.config.ts"
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+import { defineConfig } from "astro/config"
+import react from "@astrojs/react"
 
 export default defineConfig({
   integrations: [react()],
   vite: {
     server: {
-      strictPort: true,
-    },
-  },
-});
+      strictPort: true
+    }
+  }
+})
 ```
 
 Una **integración de Astro** participa en el ciclo del framework. Un **plugin de Vite** transforma módulos o modifica el bundler. No los coloques en el mismo array ni copies configuración sin saber qué sistema la consume.
@@ -133,12 +140,12 @@ Usa configuración para decisiones de build y plataforma. Usa módulos de aplica
 
 ```ts title="src/config/site.ts"
 export const site = {
-  name: 'Angel Library',
+  name: "Angel Library",
   navigation: [
-    { label: 'Inicio', href: '/' },
-    { label: 'Guías', href: '/guides' },
-  ],
-} as const;
+    { label: "Inicio", href: "/" },
+    { label: "Guías", href: "/guides" }
+  ]
+} as const
 ```
 
 Así puedes probar y reutilizar estos datos sin acoplarlos al proceso que carga `astro.config`.
@@ -152,4 +159,3 @@ Así puedes probar y reutilizar estos datos sin acoplarlos al proceso que carga 
 - ¿las variables secretas permanecen fuera del cliente y del repositorio?
 - ¿cada integración tiene una razón y aparece una sola vez?
 - ¿`astro check` y `astro build` pasan con la configuración de producción?
-

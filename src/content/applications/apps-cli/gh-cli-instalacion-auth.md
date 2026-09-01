@@ -14,7 +14,7 @@ related:
 updatedAt: 2026-08-28
 ---
 
-`gh` es la CLI oficial de GitHub — hace desde la terminal casi todo lo que hoy haces clickeando en la web: crear repos, abrir Pull Requests, revisar issues, disparar workflows de Actions. No reemplaza a `git` (sigue siendo el que maneja commits, ramas, push/pull); `gh` cubre la parte de GitHub *como plataforma*, no la de Git como sistema de control de versiones.
+`gh` es la CLI oficial de GitHub — hace desde la terminal casi todo lo que hoy haces clickeando en la web: crear repos, abrir Pull Requests, revisar issues, disparar workflows de Actions. No reemplaza a `git` (sigue siendo el que maneja commits, ramas, push/pull); `gh` cubre la parte de GitHub _como plataforma_, no la de Git como sistema de control de versiones.
 
 ## Instalación
 
@@ -106,17 +106,17 @@ La primera orden crea un repositorio privado desde la carpeta actual y publica l
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `gh auth login` | Autentica la CLI con tu cuenta de GitHub |
-| `gh auth status` | Muestra la cuenta activa y el método de autenticación |
-| `gh auth logout` | Cierra la sesión actual |
-| `gh auth switch` | Cambia entre cuentas ya autenticadas |
-| `gh auth setup-git` | Conecta la autenticación HTTPS de Git con `gh` |
-| `gh repo view` / `clone` / `create` | Consulta, clona o crea repositorios |
-| `gh issue list` / `create` | Consulta o crea Issues |
-| `gh pr create` / `status` / `checks` | Trabaja con Pull Requests |
-| `gh run list` / `watch` | Consulta o sigue ejecuciones de Actions |
+| Comando                              | Qué hace                                              |
+| ------------------------------------ | ----------------------------------------------------- |
+| `gh auth login`                      | Autentica la CLI con tu cuenta de GitHub              |
+| `gh auth status`                     | Muestra la cuenta activa y el método de autenticación |
+| `gh auth logout`                     | Cierra la sesión actual                               |
+| `gh auth switch`                     | Cambia entre cuentas ya autenticadas                  |
+| `gh auth setup-git`                  | Conecta la autenticación HTTPS de Git con `gh`        |
+| `gh repo view` / `clone` / `create`  | Consulta, clona o crea repositorios                   |
+| `gh issue list` / `create`           | Consulta o crea Issues                                |
+| `gh pr create` / `status` / `checks` | Trabaja con Pull Requests                             |
+| `gh run list` / `watch`              | Consulta o sigue ejecuciones de Actions               |
 
 ## Consideraciones
 

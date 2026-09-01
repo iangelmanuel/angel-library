@@ -33,36 +33,36 @@ La Permissions API permite **consultar** algunos estados, pero no concede permis
 ## `navigator.permissions.query()`
 
 ```js
-const status = await navigator.permissions.query({ name: 'geolocation' })
+const status = await navigator.permissions.query({ name: "geolocation" })
 
 status.state // 'granted', 'denied' o 'prompt'
 
-status.addEventListener('change', () => {
+status.addEventListener("change", () => {
   console.log(status.state)
 })
 ```
 
-| Estado | Significado |
-| --- | --- |
+| Estado    | Significado                                               |
+| --------- | --------------------------------------------------------- |
 | `granted` | la capacidad puede usarse bajo las restricciones actuales |
-| `denied` | está bloqueada; no repitas solicitudes continuamente |
-| `prompt` | usar la API podría mostrar una decisión al usuario |
+| `denied`  | está bloqueada; no repitas solicitudes continuamente      |
+| `prompt`  | usar la API podría mostrar una decisión al usuario        |
 
 Los nombres consultables y su compatibilidad varían. Envuelve la consulta en detección y no la conviertas en requisito si puedes intentar la operación directamente y manejar su error.
 
 ```js
 async function readPermission(name) {
-  if (!navigator.permissions?.query) return 'unsupported'
+  if (!navigator.permissions?.query) return "unsupported"
 
   try {
     const result = await navigator.permissions.query({ name })
     return result.state
   } catch {
-    return 'unsupported'
+    return "unsupported"
   }
 }
 
-await readPermission('geolocation')
+await readPermission("geolocation")
 // 'granted', 'denied', 'prompt' o 'unsupported'
 ```
 
@@ -82,7 +82,7 @@ Un permiso concedido puede revocarse y no equivale a consentimiento ilimitado pa
 ### Detectar soporte y estado
 
 ```js
-const supportsNotifications = 'Notification' in window
+const supportsNotifications = "Notification" in window
 
 supportsNotifications // true o false
 Notification.permission
@@ -96,9 +96,9 @@ Notification.permission
 Hazlo desde un clic o acción explícita, no al cargar la página.
 
 ```js
-enableNotificationsButton.addEventListener('click', async () => {
-  if (!('Notification' in window)) {
-    showMessage('Este navegador no ofrece notificaciones web.')
+enableNotificationsButton.addEventListener("click", async () => {
+  if (!("Notification" in window)) {
+    showMessage("Este navegador no ofrece notificaciones web.")
     return
   }
 
@@ -117,16 +117,16 @@ Para una página abierta en un entorno compatible:
 
 ```js
 function showLocalNotification() {
-  if (Notification.permission !== 'granted') return null
+  if (Notification.permission !== "granted") return null
 
-  const notification = new Notification('Compilación terminada', {
-    body: 'El proyecto está listo para revisar.',
-    icon: '/icons/app-192.png',
-    tag: 'build-status',
-    data: { url: '/builds/42' },
+  const notification = new Notification("Compilación terminada", {
+    body: "El proyecto está listo para revisar.",
+    icon: "/icons/app-192.png",
+    tag: "build-status",
+    data: { url: "/builds/42" }
   })
 
-  notification.addEventListener('click', () => {
+  notification.addEventListener("click", () => {
     window.focus()
     window.location.assign(notification.data.url)
     notification.close()
@@ -139,16 +139,16 @@ const notification = showLocalNotification()
 notification instanceof Notification // true si se creó
 ```
 
-| Opción | Propósito |
-| --- | --- |
-| `body` | contenido breve |
-| `icon` | ícono principal |
-| `badge` | ícono monocromático pequeño en plataformas compatibles |
-| `tag` | agrupar o reemplazar una notificación relacionada |
-| `renotify` | volver a alertar al reemplazar; requiere `tag` |
-| `silent` | pedir que no emita sonido/vibración |
-| `requireInteraction` | sugerir que permanezca; soporte variable |
-| `data` | datos clonables para manejar el clic |
+| Opción               | Propósito                                              |
+| -------------------- | ------------------------------------------------------ |
+| `body`               | contenido breve                                        |
+| `icon`               | ícono principal                                        |
+| `badge`              | ícono monocromático pequeño en plataformas compatibles |
+| `tag`                | agrupar o reemplazar una notificación relacionada      |
+| `renotify`           | volver a alertar al reemplazar; requiere `tag`         |
+| `silent`             | pedir que no emita sonido/vibración                    |
+| `requireInteraction` | sugerir que permanezca; soporte variable               |
+| `data`               | datos clonables para manejar el clic                   |
 
 No coloques secretos en `data` ni información sensible visible en una pantalla bloqueada. El sistema puede recortar texto, ignorar opciones o presentar la notificación de forma distinta.
 
@@ -158,16 +158,16 @@ Para una PWA, notificaciones en segundo plano o mejor soporte móvil, usa `Servi
 
 ```js
 async function showPersistentNotification() {
-  if (Notification.permission !== 'granted') return false
+  if (Notification.permission !== "granted") return false
 
   const registration = await navigator.serviceWorker.ready
 
-  await registration.showNotification('Nuevo mensaje', {
-    body: 'Tienes una respuesta pendiente.',
-    icon: '/icons/app-192.png',
-    badge: '/icons/badge-96.png',
-    tag: 'messages',
-    data: { url: '/messages' },
+  await registration.showNotification("Nuevo mensaje", {
+    body: "Tienes una respuesta pendiente.",
+    icon: "/icons/app-192.png",
+    badge: "/icons/badge-96.png",
+    tag: "messages",
+    data: { url: "/messages" }
   })
 
   return true
@@ -179,18 +179,19 @@ await showPersistentNotification() // true si se solicitó correctamente
 En el service worker:
 
 ```js
-self.addEventListener('notificationclick', event => {
+self.addEventListener("notificationclick", (event) => {
   event.notification.close()
 
-  const url = event.notification.data?.url ?? '/'
+  const url = event.notification.data?.url ?? "/"
 
   event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true })
-      .then(async windows => {
-        const existing = windows.find(client => client.url.includes(url))
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then(async (windows) => {
+        const existing = windows.find((client) => client.url.includes(url))
         if (existing) return existing.focus()
         return clients.openWindow(url)
-      }),
+      })
   )
 })
 ```
@@ -209,12 +210,12 @@ function getCurrentPosition(options = {}) {
 const position = await getCurrentPosition({
   enableHighAccuracy: false,
   timeout: 8_000,
-  maximumAge: 60_000,
+  maximumAge: 60_000
 })
 
-position.coords.latitude  // número
+position.coords.latitude // número
 position.coords.longitude // número
-position.coords.accuracy  // precisión estimada en metros
+position.coords.accuracy // precisión estimada en metros
 ```
 
 `enableHighAccuracy` puede consumir más batería y tardar más. Solicita ubicación aproximada cuando sea suficiente. Para seguimiento continuo usa `watchPosition` y guarda el id para detenerlo.
@@ -232,12 +233,12 @@ No conserves historial de ubicación sin necesidad, una política clara y contro
 La Clipboard API moderna requiere HTTPS y normalmente activación del usuario.
 
 ```js
-copyButton.addEventListener('click', async () => {
+copyButton.addEventListener("click", async () => {
   try {
-    await navigator.clipboard.writeText('npm run build')
-    showMessage('Comando copiado')
+    await navigator.clipboard.writeText("npm run build")
+    showMessage("Comando copiado")
   } catch {
-    showMessage('No fue posible copiar automáticamente')
+    showMessage("No fue posible copiar automáticamente")
   }
 })
 ```
@@ -245,7 +246,7 @@ copyButton.addEventListener('click', async () => {
 Leer el portapapeles es más sensible y tiene restricciones mayores:
 
 ```js
-pasteButton.addEventListener('click', async () => {
+pasteButton.addEventListener("click", async () => {
   const text = await navigator.clipboard.readText()
   preview.textContent = text
 })
@@ -262,7 +263,7 @@ let wakeLock
 
 async function keepScreenAwake() {
   if (!navigator.wakeLock) return false
-  wakeLock = await navigator.wakeLock.request('screen')
+  wakeLock = await navigator.wakeLock.request("screen")
   return true
 }
 
@@ -277,11 +278,11 @@ El lock puede liberarse al ocultar la página, bloquear el dispositivo o por dec
 ## Web Share
 
 ```js
-shareButton.addEventListener('click', async () => {
+shareButton.addEventListener("click", async () => {
   const data = {
-    title: 'Guía de JavaScript',
-    text: 'Referencia de Web APIs',
-    url: location.href,
+    title: "Guía de JavaScript",
+    text: "Referencia de Web APIs",
+    url: location.href
   }
 
   if (navigator.share && navigator.canShare?.(data) !== false) {
@@ -296,16 +297,16 @@ El usuario puede cancelar el diálogo; esa cancelación no siempre debe mostrars
 
 ## Capacidades relacionadas
 
-| API | Entrada principal | Consideración |
-| --- | --- | --- |
-| cámara/micrófono | `getUserMedia()` | permiso, indicador y pistas activas |
-| compartir pantalla | `getDisplayMedia()` | selección explícita por sesión |
-| MIDI | `requestMIDIAccess()` | hardware y permiso, soporte variable |
-| Bluetooth | `navigator.bluetooth.requestDevice()` | gesto, filtro y soporte variable |
-| USB | `navigator.usb.requestDevice()` | acceso potente y específico |
-| serial | `navigator.serial.requestPort()` | hardware y soporte variable |
-| archivos | `showOpenFilePicker()` | gesto y soporte variable |
-| pantalla activa | `wakeLock.request()` | batería y visibilidad |
+| API                | Entrada principal                     | Consideración                        |
+| ------------------ | ------------------------------------- | ------------------------------------ |
+| cámara/micrófono   | `getUserMedia()`                      | permiso, indicador y pistas activas  |
+| compartir pantalla | `getDisplayMedia()`                   | selección explícita por sesión       |
+| MIDI               | `requestMIDIAccess()`                 | hardware y permiso, soporte variable |
+| Bluetooth          | `navigator.bluetooth.requestDevice()` | gesto, filtro y soporte variable     |
+| USB                | `navigator.usb.requestDevice()`       | acceso potente y específico          |
+| serial             | `navigator.serial.requestPort()`      | hardware y soporte variable          |
+| archivos           | `showOpenFilePicker()`                | gesto y soporte variable             |
+| pantalla activa    | `wakeLock.request()`                  | batería y visibilidad                |
 
 Estas APIs deben ser mejoras progresivas. Verifica compatibilidad y ofrece una ruta alternativa.
 

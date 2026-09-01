@@ -24,10 +24,10 @@ Muchas colas ofrecen entrega **al menos una vez**: un mensaje puede reaparecer s
 
 ```ts
 async function processEmail(job: EmailJob) {
-  if (await processedJobs.exists(job.id)) return;
+  if (await processedJobs.exists(job.id)) return
 
-  await emailProvider.send(job.payload);
-  await processedJobs.mark(job.id);
+  await emailProvider.send(job.payload)
+  await processedJobs.mark(job.id)
 }
 ```
 
@@ -38,11 +38,10 @@ Para efectos críticos, el registro de procesamiento requiere una transacción o
 - Reintenta errores transitorios: timeout, `429` o indisponibilidad.
 - No reintentes indefinidamente datos inválidos o permisos denegados.
 - Usa **exponential backoff** con jitter para no golpear al proveedor al mismo tiempo.
-- Envía fallos agotados a una **DLQ** (*Dead-Letter Queue* o cola de mensajes no procesados) para inspección y reproceso controlado.
+- Envía fallos agotados a una **DLQ** (_Dead-Letter Queue_ o cola de mensajes no procesados) para inspección y reproceso controlado.
 
 ## Operación
 
 Mide profundidad de cola, edad del mensaje más antiguo, tasa de éxito, reintentos y duración. Escalar workers por cantidad de mensajes puede ser insuficiente si la dependencia externa tiene límites; aplica concurrencia y rate limiting.
 
 Cada job debe incluir identificador, versión de payload, fecha, tenant y correlación, pero no secretos innecesarios. Define también cancelación, prioridad y cuánto tiempo conserva sentido ejecutarlo.
-

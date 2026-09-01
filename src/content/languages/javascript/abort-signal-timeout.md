@@ -17,28 +17,25 @@ Los runtimes modernos incluyen `AbortSignal.timeout()` y `AbortSignal.any()`. La
 ```js
 const controller = new AbortController()
 const timeoutSignal = AbortSignal.timeout(8_000)
-const signal = AbortSignal.any([
-  controller.signal,
-  timeoutSignal,
-])
+const signal = AbortSignal.any([controller.signal, timeoutSignal])
 
 try {
-  const response = await fetch('/api/reporte', { signal })
+  const response = await fetch("/api/reporte", { signal })
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
 } catch (error) {
   if (!signal.aborted) throw error
 
-  if (signal.reason?.name === 'TimeoutError') {
-    console.log('La petición superó el tiempo máximo')
-  } else if (signal.reason?.name === 'AbortError') {
-    console.log('La persona canceló la petición')
+  if (signal.reason?.name === "TimeoutError") {
+    console.log("La petición superó el tiempo máximo")
+  } else if (signal.reason?.name === "AbortError") {
+    console.log("La persona canceló la petición")
   } else {
-    console.log('Petición detenida', signal.reason)
+    console.log("Petición detenida", signal.reason)
   }
 }
 
 // Cancelación explícita, por ejemplo al cerrar un modal:
-controller.abort(new DOMException('Modal cerrado', 'AbortError'))
+controller.abort(new DOMException("Modal cerrado", "AbortError"))
 ```
 
 No compruebes únicamente el error capturado: inspecciona `signal.aborted` y `signal.reason` para diferenciar timeout, navegación y acción manual. La operación también puede fallar por red o HTTP sin que la señal se haya abortado.

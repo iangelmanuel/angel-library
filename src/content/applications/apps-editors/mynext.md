@@ -2,7 +2,20 @@
 title: Configuración inicial de Next.js
 description: Paso a paso privado para iniciar un proyecto Next.js con Tailwind CSS, configuración base, GitHub Actions, Prettier, ESLint, SITE, SEO y archivos de repositorio.
 type: commands
-tags: [nextjs, react, configuración, setup, tailwind, typescript, prettier, eslint, github-actions, seo, privado]
+tags:
+  [
+    nextjs,
+    react,
+    configuración,
+    setup,
+    tailwind,
+    typescript,
+    prettier,
+    eslint,
+    github-actions,
+    seo,
+    privado
+  ]
 command: /mynext
 whenToUse: Ejecuta /mynext en la terminal interna cuando quieras iniciar un proyecto Next.js con esta configuración.
 warnings:
@@ -38,28 +51,28 @@ Crear una aplicación con el App Router y todas las decisiones base definidas
 desde el instalador. De esta manera no hay que instalar Tailwind ni configurar
 el alias manualmente después.
 
-~~~bash
+```bash
 pnpm create next-app@latest mi-proyecto --ts --eslint --tailwind --app --src-dir --import-alias "@/*" --turbopack --yes
-~~~
+```
 
 El comando deja preparadas estas decisiones:
 
-| Opción | Resultado |
-| --- | --- |
-| `--ts` | TypeScript y tipos del proyecto |
-| `--eslint` | ESLint con la configuración de Next.js |
-| `--tailwind` | Tailwind CSS integrado desde la creación |
-| `--app` | App Router en lugar del Pages Router |
-| `--src-dir` | Código de la aplicación dentro de `src/` |
-| `--import-alias "@/*"` | Imports absolutos desde `src/` |
-| `--turbopack` | Turbopack como bundler de desarrollo |
-| `--yes` | Usa las opciones indicadas sin abrir el asistente |
+| Opción                 | Resultado                                         |
+| ---------------------- | ------------------------------------------------- |
+| `--ts`                 | TypeScript y tipos del proyecto                   |
+| `--eslint`             | ESLint con la configuración de Next.js            |
+| `--tailwind`           | Tailwind CSS integrado desde la creación          |
+| `--app`                | App Router en lugar del Pages Router              |
+| `--src-dir`            | Código de la aplicación dentro de `src/`          |
+| `--import-alias "@/*"` | Imports absolutos desde `src/`                    |
+| `--turbopack`          | Turbopack como bundler de desarrollo              |
+| `--yes`                | Usa las opciones indicadas sin abrir el asistente |
 
 Entra al proyecto:
 
-~~~bash
+```bash
 cd mi-proyecto
-~~~
+```
 
 No mezcles `pnpm-lock.yaml`, `package-lock.json` y `bun.lock`. El lockfile
 identifica el gestor seleccionado y debe versionarse en Git.
@@ -72,7 +85,7 @@ Convertir `package.json` en la ficha técnica del repositorio. Conserva las
 dependencias y versiones creadas por `create-next-app`; agrega o ajusta los
 campos de identidad y los scripts del siguiente ejemplo.
 
-~~~json title="package.json"
+```json title="package.json"
 {
   "name": "mi-proyecto-next",
   "version": "0.1.0",
@@ -81,13 +94,7 @@ campos de identidad y los scripts del siguiente ejemplo.
   "license": "...",
   "packageManager": "pnpm@...",
   "homepage": "https://github.com/usuario/mi-proyecto-next",
-  "keywords": [
-    "nextjs",
-    "react",
-    "typescript",
-    "tailwindcss",
-    "app-router"
-  ],
+  "keywords": ["nextjs", "react", "typescript", "tailwindcss", "app-router"],
   "author": {
     "name": "Tu nombre",
     "email": "tu@correo.com",
@@ -117,7 +124,7 @@ campos de identidad y los scripts del siguiente ejemplo.
     "prettier:check": "prettier . --check"
   }
 }
-~~~
+```
 
 Los `"..."` (`license`, `packageManager`, `engines`) dependen del proyecto y del
 gestor elegido — reemplázalos antes de continuar, no dejes el literal `"..."`
@@ -142,7 +149,7 @@ paralelo —son independientes entre sí, así que no hay razón para serializar
 y `build` espera a que los tres pasen. Es el paso más lento; no vale la pena
 pagarlo sobre código que ya se sabe roto por tipos o lint.
 
-~~~yaml title=".github/workflows/ci.yml"
+```yaml title=".github/workflows/ci.yml"
 name: CI
 
 on:
@@ -194,14 +201,14 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm build
-~~~
+```
 
-| Clave | Qué hace |
-| --- | --- |
-| `strategy.matrix.task` | Crea un job por verificación; los tres arrancan a la vez |
-| `fail-fast: false` | Sin esto, el primer job que falla cancela a los otros dos — perderías la visibilidad de si además tenías errores de ESLint o de formato |
-| `needs: quality` | `build` espera a que los tres terminen en verde; si uno falla, se salta |
-| `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista |
+| Clave                     | Qué hace                                                                                                                                |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `strategy.matrix.task`    | Crea un job por verificación; los tres arrancan a la vez                                                                                |
+| `fail-fast: false`        | Sin esto, el primer job que falla cancela a los otros dos — perderías la visibilidad de si además tenías errores de ESLint o de formato |
+| `needs: quality`          | `build` espera a que los tres terminen en verde; si uno falla, se salta                                                                 |
+| `pnpm ${{ matrix.task }}` | El nombre del script sale de la matriz — agregar una verificación es agregar un elemento a la lista                                     |
 
 `--frozen-lockfile` hace fallar el job si el lockfile no coincide con
 `package.json`, en vez de resolver versiones nuevas silenciosamente en CI —
@@ -239,7 +246,7 @@ No vuelvas a instalar Tailwind ni dupliques la configuración del alias.
 
 La hoja global debe comenzar con la importación de Tailwind CSS:
 
-~~~css title="src/app/globals.css"
+```css title="src/app/globals.css"
 @import "tailwindcss";
 
 :root {
@@ -251,14 +258,14 @@ body {
   background: #050505;
   color: #f5f5f5;
 }
-~~~
+```
 
 El `layout.tsx` generado ya importa `./globals.css`. Mantén esa importación una
 sola vez en el layout raíz; cada página recibe los estilos por herencia.
 
 Revisa también el alias en `tsconfig.json`:
 
-~~~json title="tsconfig.json"
+```json title="tsconfig.json"
 {
   "compilerOptions": {
     "strict": true,
@@ -284,7 +291,7 @@ Revisa también el alias en `tsconfig.json`:
   ],
   "exclude": ["node_modules"]
 }
-~~~
+```
 
 Con ese alias, `@/config/site` resuelve `src/config/site.ts`. No agregues
 `baseUrl` si el archivo generado no lo necesita.
@@ -297,7 +304,7 @@ Definir solo decisiones globales que realmente necesita la aplicación. Next.js
 funciona sin opciones obligatorias, por eso esta base evita flags experimentales
 y configuraciones que pertenecen a un caso de despliegue específico.
 
-~~~ts title="next.config.ts"
+```ts title="next.config.ts"
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
@@ -310,14 +317,14 @@ const nextConfig: NextConfig = {
 }
 
 export default nextConfig
-~~~
+```
 
-| Opción | Qué controla |
-| --- | --- |
+| Opción            | Qué controla                                                  |
+| ----------------- | ------------------------------------------------------------- |
 | `reactStrictMode` | Activa comprobaciones adicionales de React durante desarrollo |
-| `poweredByHeader` | Evita enviar el header informativo `X-Powered-By` |
-| `typedRoutes` | Comprueba rutas literales usadas por `Link` y navegación |
-| `images.formats` | Permite que `next/image` negocie AVIF y WebP |
+| `poweredByHeader` | Evita enviar el header informativo `X-Powered-By`             |
+| `typedRoutes`     | Comprueba rutas literales usadas por `Link` y navegación      |
+| `images.formats`  | Permite que `next/image` negocie AVIF y WebP                  |
 
 Eliminar `X-Powered-By` reduce información innecesaria, pero no reemplaza
 headers de seguridad, validación, autenticación ni protección contra abuso.
@@ -325,7 +332,7 @@ headers de seguridad, validación, autenticación ni protección contra abuso.
 Si `next/image` debe cargar imágenes de un CDN externo, agrega únicamente el
 origen real y limita su ruta:
 
-~~~ts title="next.config.ts (images opcional)"
+```ts title="next.config.ts (images opcional)"
 images: {
   formats: ["image/avif", "image/webp"],
   remotePatterns: [
@@ -336,7 +343,7 @@ images: {
     }
   ]
 }
-~~~
+```
 
 No agregues `output: "standalone"` para un despliegue normal en Vercel. Esa
 salida se usa principalmente cuando la aplicación se empaqueta en un contenedor
@@ -350,13 +357,13 @@ Formatear TypeScript, JSX y CSS; ordenar imports; y ordenar las clases de
 Tailwind. El plugin de imports se declara explícitamente para que las opciones
 `importOrder` no sean campos sin efecto.
 
-~~~bash
+```bash
 pnpm add -D prettier @trivago/prettier-plugin-sort-imports prettier-plugin-tailwindcss
-~~~
+```
 
 Crea `.prettierrc` en la raíz:
 
-~~~json title=".prettierrc"
+```json title=".prettierrc"
 {
   "arrowParens": "always",
   "bracketSameLine": false,
@@ -395,7 +402,7 @@ Crea `.prettierrc` en la raíz:
   "importOrderSortSpecifiers": true,
   "tailwindStylesheet": "..."
 }
-~~~
+```
 
 El orden resultante es React, Next.js, paquetes externos, alias internos,
 imports relativos y estilos. `prettier-plugin-tailwindcss` debe permanecer al
@@ -404,7 +411,7 @@ ruta real del CSS creado en el paso 4 (`./src/app/globals.css`).
 
 Crea el archivo de exclusiones:
 
-~~~text title=".prettierignore"
+```text title=".prettierignore"
 .next
 build
 coverage
@@ -415,21 +422,21 @@ bun.lock
 bun.lockb
 package-lock.json
 pnpm-lock.yaml
-~~~
+```
 
 Los lockfiles son artefactos del gestor y no deben ser reformateados. Mantén en
 el repositorio solo el que corresponda al gestor elegido.
 
 Confirma que `package.json` ya tiene los scripts para ejecutar Prettier (paso 2):
 
-~~~json title="package.json (scripts)"
+```json title="package.json (scripts)"
 {
   "scripts": {
     "prettier": "prettier --write .",
     "prettier:check": "prettier . --check"
   }
 }
-~~~
+```
 
 `prettier` reescribe los archivos; `prettier:check` solo falla si algo no está
 formateado, útil para CI.
@@ -450,15 +457,15 @@ esto todavía no soporta TypeScript 7. Si `create-next-app` instaló un
 TypeScript 7.x, `pnpm eslint` y `pnpm check` fallarán con errores que no tienen
 que ver con tu código. Revisa la versión que quedó:
 
-~~~bash
+```bash
 pnpm list typescript
-~~~
+```
 
 Si es 7.x, fíjala explícitamente:
 
-~~~bash
+```bash
 pnpm add -D typescript@^6
-~~~
+```
 
 Antes de escribir un `tsconfig.json` nuevo o actualizar dependencias, confirma
 en la documentación oficial de `typescript-eslint` si ya soporta TypeScript 7
@@ -478,17 +485,17 @@ Next recomienda `eslint-config-prettier` para que las reglas de formato que
 llegan vía `eslint-plugin-react` no discutan con Prettier. Es lo único que hay
 que instalar:
 
-~~~bash
+```bash
 pnpm add -D eslint-config-prettier
-~~~
+```
 
 Revisa el archivo que creó el CLI y déjalo así:
 
-~~~js title="eslint.config.mjs"
-import { defineConfig, globalIgnores } from "eslint/config"
+```js title="eslint.config.mjs"
 import nextVitals from "eslint-config-next/core-web-vitals"
 import nextTs from "eslint-config-next/typescript"
 import prettier from "eslint-config-prettier/flat"
+import { defineConfig, globalIgnores } from "eslint/config"
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -498,13 +505,13 @@ const eslintConfig = defineConfig([
 ])
 
 export default eslintConfig
-~~~
+```
 
-| Configuración | Qué aporta |
-| --- | --- |
-| `eslint-config-next/core-web-vitals` | Reglas de Next.js, React y React Hooks; sube a error las que afectan Core Web Vitals |
-| `eslint-config-next/typescript` | Reglas de `typescript-eslint` (`recommended`) para los archivos `.ts`/`.tsx` |
-| `eslint-config-prettier/flat` | Apaga las reglas de formato que chocarían con Prettier — va **después** de las anteriores para poder desactivarlas |
+| Configuración                        | Qué aporta                                                                                                         |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `eslint-config-next/core-web-vitals` | Reglas de Next.js, React y React Hooks; sube a error las que afectan Core Web Vitals                               |
+| `eslint-config-next/typescript`      | Reglas de `typescript-eslint` (`recommended`) para los archivos `.ts`/`.tsx`                                       |
+| `eslint-config-prettier/flat`        | Apaga las reglas de formato que chocarían con Prettier — va **después** de las anteriores para poder desactivarlas |
 
 `eslint-config-next` exporta configuración plana nativa: se importa directo,
 sin el puente `FlatCompat` que hacía falta cuando estas configs solo existían
@@ -518,10 +525,10 @@ configuración.
 
 Comprueba que corre:
 
-~~~bash
+```bash
 pnpm install
 pnpm eslint
-~~~
+```
 
 Desde Next.js 16 el comando `next lint` ya no existe: se invoca al CLI de
 ESLint directamente, que es justamente lo que hace el script `eslint` del
@@ -535,15 +542,15 @@ Separar el dominio por entorno sin escribir una URL distinta en cada helper de
 SEO. Las variables con prefijo `NEXT_PUBLIC_` pueden llegar al navegador; nunca
 coloques secretos en ellas.
 
-~~~dotenv title=".env.local"
+```dotenv title=".env.local"
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-~~~
+```
 
 Versiona únicamente una plantilla sin credenciales:
 
-~~~dotenv title=".env.example"
+```dotenv title=".env.example"
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-~~~
+```
 
 En producción configura `NEXT_PUBLIC_SITE_URL` con el origen definitivo, por
 ejemplo `https://example.com`, sin una barra final. Tokens, claves privadas y
@@ -558,7 +565,7 @@ Centralizar la identidad y los datos que consumen la metadata, el manifest y
 JSON-LD. El ejemplo usa la misma empresa ficticia de la documentación SEO del
 proyecto para que Astro y Next.js compartan la misma fuente conceptual.
 
-~~~ts title="src/config/site.ts"
+```ts title="src/config/site.ts"
 const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
 ).replace(/\/$/, "")
@@ -572,7 +579,7 @@ export const SITE = {
     slogan: "Construimos lo que tu negocio necesita, no lo que sobra.",
     founded: 2025,
     founders: [{ name: "Jane Doe", role: "Cofundadora" }],
-    teams: [] as Array<{ name: string; lead: string }>,
+    teams: [] as Array<{ name: string; lead: string }>
   },
 
   site: {
@@ -580,7 +587,7 @@ export const SITE = {
     locale: "es-CO",
     lang: "es",
     timezone: "America/Bogota",
-    currency: "COP",
+    currency: "COP"
   },
 
   location: {
@@ -591,7 +598,7 @@ export const SITE = {
     countryCode: "CO",
     postalCode: "110111",
     timezone: "America/Bogota",
-    display: "Bogotá, Colombia",
+    display: "Bogotá, Colombia"
   },
 
   contact: {
@@ -601,14 +608,14 @@ export const SITE = {
     phoneDisplay: () => `${SITE.contact.countryCode} ${SITE.contact.phone}`,
     whatsapp: () =>
       `${SITE.contact.countryCode}${SITE.contact.phone.replace(/\s/g, "")}`,
-    landline: null as string | null,
+    landline: null as string | null
   },
 
   whatsAppMessage: {
     general: "Hola, quiero conocer más sobre los servicios.",
     service: (service: string) =>
       `Hola, estoy interesado en el servicio de ${service}. ¿Podrías darme más información?`,
-    appointment: "Hola, quiero agendar una reunión.",
+    appointment: "Hola, quiero agendar una reunión."
   },
 
   social: {
@@ -617,7 +624,7 @@ export const SITE = {
     x: "https://x.com/acmestudio",
     github: "https://github.com/acmestudio",
     tiktok: null as string | null,
-    youtube: "https://youtube.com/@acmestudio",
+    youtube: "https://youtube.com/@acmestudio"
   },
 
   businessHours: [
@@ -627,13 +634,21 @@ export const SITE = {
     { day: "Jueves", open: "09:00", close: "18:00" },
     { day: "Viernes", open: "09:00", close: "18:00" },
     { day: "Sábado", open: "10:00", close: "14:00" },
-    { day: "Domingo", open: null, close: null },
+    { day: "Domingo", open: null, close: null }
   ],
 
   legal: [
-    { slug: "privacidad", title: "Política de Privacidad", updatedAt: "2025-02-15" },
-    { slug: "terminos", title: "Términos y Condiciones", updatedAt: "2025-02-15" },
-    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" },
+    {
+      slug: "privacidad",
+      title: "Política de Privacidad",
+      updatedAt: "2025-02-15"
+    },
+    {
+      slug: "terminos",
+      title: "Términos y Condiciones",
+      updatedAt: "2025-02-15"
+    },
+    { slug: "cookies", title: "Política de Cookies", updatedAt: "2025-02-15" }
   ],
 
   navigation: {
@@ -642,14 +657,18 @@ export const SITE = {
       { name: "Servicios", href: "/servicios" },
       { name: "Portafolio", href: "/portafolio" },
       { name: "Blog", href: "/blog" },
-      { name: "Contacto", href: "/contacto" },
+      { name: "Contacto", href: "/contacto" }
     ],
-    cta: { label: "Catálogo", href: "/catalogo" },
+    cta: { label: "Catálogo", href: "/catalogo" }
   },
 
   stats: [
     { value: "+120", label: "Proyectos entregados", sublabel: "Desde 2025" },
-    { value: "98%", label: "Clientes que renuevan", sublabel: "Retención anual" },
+    {
+      value: "98%",
+      label: "Clientes que renuevan",
+      sublabel: "Retención anual"
+    }
   ],
 
   seo: {
@@ -668,7 +687,7 @@ export const SITE = {
       "landing pages",
       "Bogotá",
       "Colombia",
-      "software boutique",
+      "software boutique"
     ],
 
     author: "Jane Doe",
@@ -694,10 +713,7 @@ export const SITE = {
     twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
     twitterCard: "summary_large_image" as
-      | "summary"
-      | "summary_large_image"
-      | "app"
-      | "player",
+      "summary" | "summary_large_image" | "app" | "player",
     noindex: false,
 
     category: "technology",
@@ -709,15 +725,15 @@ export const SITE = {
 
     areaServed: [
       { type: "Country", name: "Colombia" },
-      { type: "Place", name: "Latin America" },
-    ],
-  },
+      { type: "Place", name: "Latin America" }
+    ]
+  }
 } as const
 
 export function whatsAppMessage(message: string) {
   return `https://wa.me/${SITE.contact.whatsapp()}?text=${encodeURIComponent(message)}`
 }
-~~~
+```
 
 Antes de continuar reemplaza todos los datos de Acme. `SITE.seo.url` se obtiene
 de la variable de entorno, y el fallback local permite ejecutar el proyecto sin
@@ -732,9 +748,8 @@ Construir la Metadata API y los datos estructurados desde una sola fuente. La
 función `buildMetadata` sirve para páginas estáticas y para
 `generateMetadata`; los builders de Schema.org alimentan JSON-LD.
 
-~~~ts title="src/libs/seo.ts"
+```ts title="src/libs/seo.ts"
 import type { Metadata } from "next"
-
 import { SITE } from "@/config/site"
 
 export interface SeoOptions {
@@ -961,7 +976,7 @@ export function buildBreadcrumbSchema(
     }))
   }
 }
-~~~
+```
 
 `metadataBase`, que se configura en el layout raíz más adelante, permite que
 Next.js resuelva canonical y otras rutas relativas contra el dominio de
@@ -974,7 +989,7 @@ Next.js resuelva canonical y otras rutas relativas contra el dominio de
 Insertar uno o varios schemas de Schema.org en el HTML inicial. El reemplazo de
 `<` evita que un valor no confiable cierre la etiqueta `script` antes de tiempo.
 
-~~~tsx title="src/components/seo/JsonLd.tsx"
+```tsx title="src/components/seo/JsonLd.tsx"
 type Schema = Record<string, unknown>
 
 interface JsonLdProps {
@@ -994,7 +1009,7 @@ export function JsonLd({ schema }: JsonLdProps) {
     />
   ))
 }
-~~~
+```
 
 Los valores del schema deben salir de datos controlados o validados. Escapar el
 carácter `<` protege la frontera HTML, pero no convierte contenido falso o
@@ -1007,9 +1022,8 @@ incorrecto en datos estructurados válidos.
 `src/app/manifest.ts` genera `/manifest.webmanifest` mediante una convención del
 App Router.
 
-~~~ts title="src/app/manifest.ts"
+```ts title="src/app/manifest.ts"
 import type { MetadataRoute } from "next"
-
 import { SITE } from "@/config/site"
 
 export default function manifest(): MetadataRoute.Manifest {
@@ -1037,16 +1051,15 @@ export default function manifest(): MetadataRoute.Manifest {
     ]
   }
 }
-~~~
+```
 
 ### 12.2 Robots
 
 `src/app/robots.ts` genera `/robots.txt`. El flag `noindex` permite bloquear un
 entorno completo de staging sin modificar varias páginas.
 
-~~~ts title="src/app/robots.ts"
+```ts title="src/app/robots.ts"
 import type { MetadataRoute } from "next"
-
 import { SITE } from "@/config/site"
 
 export default function robots(): MetadataRoute.Robots {
@@ -1066,7 +1079,7 @@ export default function robots(): MetadataRoute.Robots {
     host: SITE.seo.url
   }
 }
-~~~
+```
 
 `robots.txt` expresa preferencias de rastreo; no protege rutas privadas. Una
 ruta sensible sigue necesitando autenticación y autorización en el servidor.
@@ -1076,9 +1089,8 @@ ruta sensible sigue necesitando autenticación y autorización en el servidor.
 `src/app/sitemap.ts` genera `/sitemap.xml`. Comienza con rutas reales y agrega
 las dinámicas cuando exista una fuente de contenido.
 
-~~~ts title="src/app/sitemap.ts"
+```ts title="src/app/sitemap.ts"
 import type { MetadataRoute } from "next"
-
 import { SITE } from "@/config/site"
 
 const STATIC_ROUTES: Array<{
@@ -1101,7 +1113,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority
   }))
 }
-~~~
+```
 
 No incluyas rutas inexistentes, páginas con `noindex`, resultados internos de
 búsqueda ni URLs privadas.
@@ -1113,9 +1125,8 @@ búsqueda ni URLs privadas.
 Definir la metadata global, el title template, el viewport, el idioma y los dos
 schemas que representan al negocio y al sitio completo.
 
-~~~tsx title="src/app/layout.tsx"
+```tsx title="src/app/layout.tsx"
 import type { Metadata, Viewport } from "next"
-
 import { JsonLd } from "@/components/seo/JsonLd"
 import { SITE } from "@/config/site"
 import {
@@ -1123,7 +1134,6 @@ import {
   buildMetadata,
   buildWebsiteSchema
 } from "@/libs/seo"
-
 import "./globals.css"
 
 const baseMetadata = buildMetadata({ path: "/" })
@@ -1169,7 +1179,7 @@ export default function RootLayout({
     </html>
   )
 }
-~~~
+```
 
 La metadata está disponible solo en Server Components. No agregues
 `"use client"` al layout raíz para resolver una interacción; mueve esa
@@ -1181,7 +1191,7 @@ interacción a un componente cliente pequeño.
 
 Una página estática puede exportar el resultado de `buildMetadata` directamente.
 
-~~~tsx title="src/app/servicios/page.tsx"
+```tsx title="src/app/servicios/page.tsx"
 import { buildMetadata } from "@/libs/seo"
 
 export const metadata = buildMetadata({
@@ -1198,7 +1208,7 @@ export default function ServicesPage() {
     </main>
   )
 }
-~~~
+```
 
 El título final será `Servicios | Acme` porque el layout aplica
 `SITE.seo.titleTemplate`.
@@ -1208,9 +1218,8 @@ El título final será `Servicios | Acme` porque el layout aplica
 Cuando la metadata depende de un registro, usa `generateMetadata`. El mismo
 `slug` debe cargar tanto la metadata como el contenido visible.
 
-~~~tsx title="src/app/blog/[slug]/page.tsx"
+```tsx title="src/app/blog/[slug]/page.tsx"
 import { notFound } from "next/navigation"
-
 import { JsonLd } from "@/components/seo/JsonLd"
 import { getPostBySlug } from "@/libs/posts"
 import { buildBreadcrumbSchema, buildMetadata } from "@/libs/seo"
@@ -1259,7 +1268,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     </>
   )
 }
-~~~
+```
 
 Este ejemplo se agrega cuando el proyecto ya tenga un blog y una implementación
 real de `getPostBySlug`. No crees datos estructurados de artículos, productos o
@@ -1271,7 +1280,7 @@ servicios que no existan como contenido visible.
 
 Completar las rutas utilizadas por metadata, manifest y JSON-LD.
 
-~~~text
+```text
 src/app/
 ├── favicon.ico
 └── opengraph-image.png
@@ -1283,7 +1292,7 @@ public/
 └── icons/
     ├── icon-192.png
     └── icon-512.png
-~~~
+```
 
 La imagen Open Graph debe medir `1200 × 630`, coincidir con la descripción de
 `SITE.seo.imageAlt` y verse correctamente sobre fondos claros y oscuros. Los
@@ -1297,7 +1306,7 @@ mantener legibilidad.
 Presentar el proyecto correctamente en GitHub sin crear documentos vacíos que
 nadie mantendrá.
 
-~~~text
+```text
 .
 ├── .editorconfig
 ├── .env.example
@@ -1316,20 +1325,20 @@ nadie mantendrá.
     ├── ISSUE_TEMPLATE/
     ├── PULL_REQUEST_TEMPLATE.md
     └── workflows/ci.yml
-~~~
+```
 
-| Archivo | Contenido mínimo |
-| --- | --- |
-| `README.md` | Propósito, requisitos, instalación, variables, scripts y despliegue |
-| `LICENSE` | Licencia del código, por ejemplo MIT |
-| `LICENSE-CONTENT.md` | Condiciones del contenido, textos y recursos visuales |
-| `CHANGELOG.md` | Cambios agrupados por versión |
-| `CONTRIBUTING.md` | Ramas, commits, comprobaciones y pull requests |
-| `SECURITY.md` | Canal privado para reportes y versiones soportadas |
-| `.env.example` | Variables requeridas sin secretos |
-| `.gitignore` | `.next`, `node_modules`, `.env*` y artefactos locales |
-| `.editorconfig` | UTF-8, LF, espacios y tamaño de indentación |
-| `eslint.config.mjs` | Configuración de ESLint (paso 7) |
+| Archivo              | Contenido mínimo                                                    |
+| -------------------- | ------------------------------------------------------------------- |
+| `README.md`          | Propósito, requisitos, instalación, variables, scripts y despliegue |
+| `LICENSE`            | Licencia del código, por ejemplo MIT                                |
+| `LICENSE-CONTENT.md` | Condiciones del contenido, textos y recursos visuales               |
+| `CHANGELOG.md`       | Cambios agrupados por versión                                       |
+| `CONTRIBUTING.md`    | Ramas, commits, comprobaciones y pull requests                      |
+| `SECURITY.md`        | Canal privado para reportes y versiones soportadas                  |
+| `.env.example`       | Variables requeridas sin secretos                                   |
+| `.gitignore`         | `.next`, `node_modules`, `.env*` y artefactos locales               |
+| `.editorconfig`      | UTF-8, LF, espacios y tamaño de indentación                         |
+| `eslint.config.mjs`  | Configuración de ESLint (paso 7)                                    |
 
 `.github/workflows/ci.yml` ya existe desde el paso 3 — aquí solo aparece para
 que el árbol muestre el repositorio completo. `CODEOWNERS`, plantillas y
@@ -1339,7 +1348,7 @@ Issues, logs de CI o capturas de pantalla.
 
 ## 17. Estructura final recomendada
 
-~~~text
+```text
 mi-proyecto/
 ├── .github/
 │   └── workflows/
@@ -1368,7 +1377,7 @@ mi-proyecto/
 ├── next.config.ts
 ├── package.json
 └── tsconfig.json
-~~~
+```
 
 Coloca componentes compartidos en `src/components`, acceso a datos y helpers en
 `src/lib`, y decisiones de identidad en `src/config`. Las carpetas internas de
@@ -1379,13 +1388,13 @@ una ruta pueden vivir junto a esa ruta cuando no se reutilizan fuera de ella.
 Ejecuta las comprobaciones en el mismo orden que el CI del paso 3, para que un
 fallo local sea exactamente el mismo fallo que verías en el pull request:
 
-~~~bash
+```bash
 pnpm check
 pnpm eslint
 pnpm prettier:check
 pnpm build
 pnpm start
-~~~
+```
 
 Si `prettier:check` falla, corre `pnpm prettier` para reescribir los archivos y
 vuelve a verificar.

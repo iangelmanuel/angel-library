@@ -70,21 +70,29 @@ export const busquedaCommands: CommandMap = {
 
   mdn: externalSearch({
     description: "buscar una tecnología web en MDN",
-    usage: ["uso: /mdn <API, elemento o propiedad>", "ejemplo: /mdn AbortController"],
-    url: (query) => `https://developer.mozilla.org/es/search?q=${encodeURIComponent(query)}`,
+    usage: [
+      "uso: /mdn <API, elemento o propiedad>",
+      "ejemplo: /mdn AbortController"
+    ],
+    url: (query) =>
+      `https://developer.mozilla.org/es/search?q=${encodeURIComponent(query)}`,
     running: (query) => `buscando “${query}” en MDN Web Docs…`
   }),
 
   npm: externalSearch({
     description: "buscar un paquete en npm",
     usage: ["uso: /npm <paquete o término>"],
-    url: (query) => `https://www.npmjs.com/search?q=${encodeURIComponent(query)}`,
+    url: (query) =>
+      `https://www.npmjs.com/search?q=${encodeURIComponent(query)}`,
     running: (query) => `buscando “${query}” en npm…`
   }),
 
   caniuse: externalSearch({
     description: "consultar compatibilidad entre navegadores",
-    usage: ["uso: /caniuse <funcionalidad web>", "ejemplo: /caniuse container queries"],
+    usage: [
+      "uso: /caniuse <funcionalidad web>",
+      "ejemplo: /caniuse container queries"
+    ],
     url: (query) => `https://caniuse.com/?search=${encodeURIComponent(query)}`,
     running: (query) => `consultando la compatibilidad de “${query}”…`
   })

@@ -15,14 +15,14 @@ Una buena arquitectura no elimina el cambio. Hace que los cambios previsibles se
 
 Para aprender, comienza por módulos, dependencias, cohesión y acoplamiento. Después estudia principios y patrones; al final compara arquitecturas completas. Un patrón sin problema concreto es vocabulario, no una decisión.
 
-| Pregunta | Documento |
-| --- | --- |
-| ¿cómo delimito módulos? | [Módulos y límites](/architecture/principios/architecture-modulos-limites) |
-| ¿qué fuerzas debo comparar? | [Guía de decisión](/architecture/principios/architecture-decision-guide) |
-| ¿cómo documento el porqué? | [ADR](/architecture/principios/adr) |
-| ¿cómo priorizo disponibilidad, seguridad o rendimiento? | [Atributos de calidad](/architecture/principios/architecture-quality-attributes) |
-| ¿cuándo usar capas o puertos? | [Arquitectura en capas](/architecture/patrones-arquitectonicos/layered-architecture) y [hexagonal](/architecture/patrones-arquitectonicos/hexagonal-architecture) |
-| ¿monolito o microservicios? | [Comparación](/architecture/patrones-arquitectonicos/monolith-vs-microservices) |
+| Pregunta                                                | Documento                                                                                                                                                         |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ¿cómo delimito módulos?                                 | [Módulos y límites](/architecture/principios/architecture-modulos-limites)                                                                                        |
+| ¿qué fuerzas debo comparar?                             | [Guía de decisión](/architecture/principios/architecture-decision-guide)                                                                                          |
+| ¿cómo documento el porqué?                              | [ADR](/architecture/principios/adr)                                                                                                                               |
+| ¿cómo priorizo disponibilidad, seguridad o rendimiento? | [Atributos de calidad](/architecture/principios/architecture-quality-attributes)                                                                                  |
+| ¿cuándo usar capas o puertos?                           | [Arquitectura en capas](/architecture/patrones-arquitectonicos/layered-architecture) y [hexagonal](/architecture/patrones-arquitectonicos/hexagonal-architecture) |
+| ¿monolito o microservicios?                             | [Comparación](/architecture/patrones-arquitectonicos/monolith-vs-microservices)                                                                                   |
 
 Quien viene a recordar puede entrar por la fuerza que intenta resolver. Quien aprende debe implementar primero una versión simple y observar qué cambio se vuelve costoso antes de añadir abstracciones.
 
@@ -46,7 +46,7 @@ Se busca alta cohesión y acoplamiento controlado. “Bajo acoplamiento” no si
 
 ```ts
 interface PaymentGateway {
-  charge(input: ChargeInput): Promise<ChargeResult>;
+  charge(input: ChargeInput): Promise<ChargeResult>
 }
 
 class CompleteOrder {
@@ -111,15 +111,15 @@ Un **monolito modular** suele ser un buen punto de partida: conserva límites de
 
 ## DDD, CQRS y eventos
 
-**DDD** significa *Domain-Driven Design* o diseño guiado por el dominio. Busca modelar el lenguaje y las reglas del negocio junto con expertos. No equivale a crear carpetas llamadas `domain`.
+**DDD** significa _Domain-Driven Design_ o diseño guiado por el dominio. Busca modelar el lenguaje y las reglas del negocio junto con expertos. No equivale a crear carpetas llamadas `domain`.
 
-**CQRS** significa *Command Query Responsibility Segregation*: separar modelos de escritura y lectura cuando tienen necesidades diferentes. No requiere obligatoriamente dos bases de datos.
+**CQRS** significa _Command Query Responsibility Segregation_: separar modelos de escritura y lectura cuando tienen necesidades diferentes. No requiere obligatoriamente dos bases de datos.
 
 Una arquitectura **event-driven** o dirigida por eventos comunica hechos ocurridos. Introduce entrega duplicada, orden parcial y consistencia eventual; los consumidores deben diseñarse para esas condiciones.
 
 ## ADR y documentación
 
-Un **ADR** (*Architecture Decision Record* o registro de decisión arquitectónica) conserva contexto, opciones, decisión y consecuencias.
+Un **ADR** (_Architecture Decision Record_ o registro de decisión arquitectónica) conserva contexto, opciones, decisión y consecuencias.
 
 ```text
 Título: Almacenar archivos fuera de la base relacional

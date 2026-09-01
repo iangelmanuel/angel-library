@@ -34,13 +34,13 @@ Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas 
 
 ## Campos que más se usan
 
-| Campo | Para qué |
-| --- | --- |
-| `name` | Requerido |
-| `description` | Requerido — usado para delegación automática |
-| `model` | `inherit` (default, usa el de la sesión) u otro específico |
-| `readonly` | No puede editar archivos |
-| `is_background` | Corre sin bloquear, en paralelo |
+| Campo           | Para qué                                                   |
+| --------------- | ---------------------------------------------------------- |
+| `name`          | Requerido                                                  |
+| `description`   | Requerido — usado para delegación automática               |
+| `model`         | `inherit` (default, usa el de la sesión) u otro específico |
+| `readonly`      | No puede editar archivos                                   |
+| `is_background` | Corre sin bloquear, en paralelo                            |
 
 ## Invocar
 

@@ -38,13 +38,13 @@ Esto tiene una consecuencia práctica: en Windows, los contenedores corren dentr
 
 ## La interfaz
 
-| Sección | Para qué sirve |
-| --- | --- |
-| **Containers** | Ver contenedores corriendo o detenidos, sus puertos, logs y estado; iniciar, detener o eliminar sin recordar el ID |
-| **Images** | Imágenes descargadas o construidas localmente, su tamaño y capas |
-| **Volumes** | Volúmenes con nombre y cuánto espacio ocupan — el lugar donde vive la persistencia de una base de datos en contenedor |
-| **Builds** | Historial de `docker build`, con el cache de cada capa |
-| **Dashboard** de un contenedor | Botón directo a sus logs, una terminal dentro del contenedor y sus variables de entorno, sin `docker exec` manual |
+| Sección                        | Para qué sirve                                                                                                        |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| **Containers**                 | Ver contenedores corriendo o detenidos, sus puertos, logs y estado; iniciar, detener o eliminar sin recordar el ID    |
+| **Images**                     | Imágenes descargadas o construidas localmente, su tamaño y capas                                                      |
+| **Volumes**                    | Volúmenes con nombre y cuánto espacio ocupan — el lugar donde vive la persistencia de una base de datos en contenedor |
+| **Builds**                     | Historial de `docker build`, con el cache de cada capa                                                                |
+| **Dashboard** de un contenedor | Botón directo a sus logs, una terminal dentro del contenedor y sus variables de entorno, sin `docker exec` manual     |
 
 La pestaña **Containers** con clic en un contenedor abre sus logs en vivo — el equivalente visual de `docker logs -f <id>`, útil cuando estás probando algo y no quieres tener una terminal aparte solo para eso.
 

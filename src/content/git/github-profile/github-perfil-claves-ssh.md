@@ -26,11 +26,11 @@ ssh-keygen -t ed25519 -C "tu@correo.com"
 
 El comando hace tres preguntas:
 
-| Pregunta | Qué responder |
-| --- | --- |
+| Pregunta         | Qué responder                                                                                               |
+| ---------------- | ----------------------------------------------------------------------------------------------------------- |
 | Ruta del archivo | Enter para aceptar `~/.ssh/id_ed25519`. Cambia el nombre solo si ya tienes otra clave y quieres conservarla |
-| Passphrase | Escribe una. Es lo que protege la clave si alguien copia el archivo |
-| Confirmación | La misma passphrase |
+| Passphrase       | Escribe una. Es lo que protege la clave si alguien copia el archivo                                         |
+| Confirmación     | La misma passphrase                                                                                         |
 
 El comentario `-C` es solo una etiqueta dentro del archivo público; sirve para reconocer la clave más adelante y no se usa para autenticar.
 
@@ -128,10 +128,10 @@ git remote -v
 
 La diferencia está en el formato de la URL:
 
-| Protocolo | URL |
-| --- | --- |
-| HTTPS | `https://github.com/usuario/repositorio.git` |
-| SSH | `git@github.com:usuario/repositorio.git` |
+| Protocolo | URL                                          |
+| --------- | -------------------------------------------- |
+| HTTPS     | `https://github.com/usuario/repositorio.git` |
+| SSH       | `git@github.com:usuario/repositorio.git`     |
 
 Fíjate en los dos puntos de la URL SSH, donde HTTPS lleva una barra. Es el error de tipeo más frecuente al escribirla a mano.
 
@@ -156,11 +156,11 @@ Cuando algo falla, `-v` muestra qué clave se está ofreciendo y por qué se rec
 ssh -vT git@github.com
 ```
 
-| Síntoma | Causa habitual |
-| --- | --- |
-| `Permission denied (publickey)` | La clave no está cargada en el agente, o la pública no está registrada en GitHub |
-| Sigue pidiendo usuario y contraseña | El remoto continúa en HTTPS: revisa `git remote -v` |
-| Funciona en una terminal y en otra no | Cada terminal ve un agente distinto; frecuente al mezclar Git Bash y PowerShell en Windows |
-| `Bad owner or permissions on ~/.ssh/config` | Permisos demasiado abiertos: `chmod 600 ~/.ssh/config` y `chmod 700 ~/.ssh` |
+| Síntoma                                     | Causa habitual                                                                             |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `Permission denied (publickey)`             | La clave no está cargada en el agente, o la pública no está registrada en GitHub           |
+| Sigue pidiendo usuario y contraseña         | El remoto continúa en HTTPS: revisa `git remote -v`                                        |
+| Funciona en una terminal y en otra no       | Cada terminal ve un agente distinto; frecuente al mezclar Git Bash y PowerShell en Windows |
+| `Bad owner or permissions on ~/.ssh/config` | Permisos demasiado abiertos: `chmod 600 ~/.ssh/config` y `chmod 700 ~/.ssh`                |
 
 Una clave por equipo, nunca la misma copiada entre máquinas: así, cuando pierdes uno, revocas esa clave desde GitHub y el resto sigue funcionando.

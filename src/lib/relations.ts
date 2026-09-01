@@ -1,10 +1,6 @@
-import {
-  CATEGORY_IDS,
-  CONTENT_TYPE_IDS,
-  getSubcategoriesForCategory,
-  type CategoryId,
-  type ContentTypeId
-} from "@/config/site"
+import { CATEGORY_IDS, type CategoryId } from "@/config/categories"
+import { CONTENT_TYPE_IDS, type ContentTypeId } from "@/config/content-types"
+import { getSubcategoriesForCategory } from "@/config/subcategories"
 import type { AnyEntry } from "./content"
 
 /** Relaciones entre entradas y validaciones de build. */
@@ -53,12 +49,14 @@ export function validateContentRelations(all: AnyEntry[]): void {
   }
 }
 
-/** Falla si la carpeta no está declarada en site.ts. */
+/** Falla si la carpeta no está declarada en la configuración editorial. */
 export function validateContentStructure(all: AnyEntry[]): void {
   const errors = all.flatMap((entry) => {
     const segments = entry.id.split("/")
     if (segments.length < 2 || segments.length > 3) {
-      return [`  ${entry.id} → se esperaba <categoría>/<subcategoría>/<archivo>`]
+      return [
+        `  ${entry.id} → se esperaba <categoría>/<subcategoría>/<archivo>`
+      ]
     }
 
     const [category, subcategory] = segments
@@ -69,7 +67,9 @@ export function validateContentStructure(all: AnyEntry[]): void {
     if (segments.length === 3) {
       const valid = getSubcategoriesForCategory(category as CategoryId)
       if (!valid.some((group) => group.id === subcategory)) {
-        return [`  ${entry.id} → "${subcategory}" no es una subcategoría de "${category}"`]
+        return [
+          `  ${entry.id} → "${subcategory}" no es una subcategoría de "${category}"`
+        ]
       }
     }
 
@@ -78,7 +78,7 @@ export function validateContentStructure(all: AnyEntry[]): void {
 
   if (errors.length > 0) {
     throw new Error(
-      `[contenido] Carpetas desconocidas (declara la categoría o la subcategoría en src/config/site.ts):\n${errors.join("\n")}`
+      `[contenido] Carpetas desconocidas (declara la categoría o la subcategoría en src/config/):\n${errors.join("\n")}`
     )
   }
 }
@@ -101,10 +101,13 @@ export function validateInternalLinks(all: AnyEntry[]): void {
         target === "search" ||
         first === "tags" ||
         ids.has(target) ||
-        (first === "categories" && CATEGORY_IDS.includes(second as CategoryId)) ||
-        (first === "tipos" && CONTENT_TYPE_IDS.includes(second as ContentTypeId))
+        (first === "categories" &&
+          CATEGORY_IDS.includes(second as CategoryId)) ||
+        (first === "tipos" &&
+          CONTENT_TYPE_IDS.includes(second as ContentTypeId))
 
-      if (!exists) errors.push(`  ${entry.id} → "${href}" no lleva a ninguna parte`)
+      if (!exists)
+        errors.push(`  ${entry.id} → "${href}" no lleva a ninguna parte`)
     }
   }
 

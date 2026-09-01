@@ -18,13 +18,13 @@ Streaming permite empezar a enviar HTML antes de que termine toda la ruta. El us
 
 ## En una mirada
 
-| Necesidad | Herramienta |
-| --- | --- |
-| fallback de todo un segmento | `loading.tsx` |
-| fallback de una sección lenta | `<Suspense fallback={...}>` |
-| errores del segmento | `error.tsx` |
-| consultas independientes | componentes hermanos o `Promise.all` |
-| mantener una shell estática | Cache Components + límites de Suspense |
+| Necesidad                     | Herramienta                            |
+| ----------------------------- | -------------------------------------- |
+| fallback de todo un segmento  | `loading.tsx`                          |
+| fallback de una sección lenta | `<Suspense fallback={...}>`            |
+| errores del segmento          | `error.tsx`                            |
+| consultas independientes      | componentes hermanos o `Promise.all`   |
+| mantener una shell estática   | Cache Components + límites de Suspense |
 
 ## Límite automático con `loading.tsx`
 
@@ -32,7 +32,7 @@ Un `loading.tsx` envuelve el segmento en Suspense y se muestra durante navegaci�
 
 ```tsx title="app/dashboard/loading.tsx"
 export default function Loading() {
-  return <div aria-busy="true">Cargando dashboard…</div>;
+  return <div aria-busy="true">Cargando dashboard…</div>
 }
 ```
 
@@ -41,15 +41,22 @@ El archivo permite mostrar feedback inmediato mientras se prepara la nueva ruta 
 ## Límite granular con `<Suspense>`
 
 ```tsx title="app/dashboard/page.tsx"
-import { Suspense } from 'react';
+import { Suspense } from "react"
 
 export default function Page() {
-  return <main><h1>Dashboard</h1><Suspense fallback={<p>Cargando ventas…</p>}><Ventas /></Suspense></main>;
+  return (
+    <main>
+      <h1>Dashboard</h1>
+      <Suspense fallback={<p>Cargando ventas…</p>}>
+        <Ventas />
+      </Suspense>
+    </main>
+  )
 }
 
 async function Ventas() {
-  const ventas = await obtenerVentas();
-  return <pre>{JSON.stringify(ventas)}</pre>;
+  const ventas = await obtenerVentas()
+  return <pre>{JSON.stringify(ventas)}</pre>
 }
 ```
 
@@ -62,9 +69,9 @@ Puedes crear varios límites para que cada región aparezca cuando esté lista. 
 Si dos operaciones son independientes, inicia ambas antes de esperarlas o sepáralas en componentes hermanos suspendidos.
 
 ```ts
-const usuarioPromise = getUsuario();
-const pedidosPromise = getPedidos();
-const [usuario, pedidos] = await Promise.all([usuarioPromise, pedidosPromise]);
+const usuarioPromise = getUsuario()
+const pedidosPromise = getPedidos()
+const [usuario, pedidos] = await Promise.all([usuarioPromise, pedidosPromise])
 ```
 
 ## Diseñar buenos fallbacks

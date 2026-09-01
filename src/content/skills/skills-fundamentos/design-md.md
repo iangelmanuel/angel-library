@@ -20,10 +20,10 @@ updatedAt: 2026-08-30
 
 Un archivo `DESIGN.md` combina dos cosas en un solo documento:
 
-| Parte | Formato | Para quién |
-| --- | --- | --- |
-| Tokens de diseño | Encabezado YAML | Legible por máquina: valores exactos |
-| Justificación | Texto en Markdown | Legible por humanos: por qué y cómo aplicarlos |
+| Parte            | Formato           | Para quién                                     |
+| ---------------- | ----------------- | ---------------------------------------------- |
+| Tokens de diseño | Encabezado YAML   | Legible por máquina: valores exactos           |
+| Justificación    | Texto en Markdown | Legible por humanos: por qué y cómo aplicarlos |
 
 Los tokens le dan al agente los **valores exactos**. El texto le explica **por qué existen** y **cómo aplicarlos**.
 

@@ -13,16 +13,16 @@ Git es un sistema de **control de versiones distribuido**. Registra instantánea
 
 Para aprender: zonas de trabajo → commit → rama → remoto → merge → conflictos → colaboración → recuperación. Antes de ejecutar un comando para “deshacer”, identifica qué zona quieres modificar y si el commit ya se compartió.
 
-| Situación | Documento |
-| --- | --- |
-| preparar y confirmar cambios | [Flujo básico](/git/git/git-flujo-basico) |
-| crear o mover ramas | [Ramas](/git/git/git-ramas) |
-| sincronizar sin confundir fetch/pull | [Remotos](/git/git/git-remotos) |
-| elegir merge o rebase | [Merge vs rebase](/git/git/git-merge-vs-rebase) |
-| resolver marcadores de conflicto | [Conflictos](/git/git/git-resolver-conflictos) |
-| recuperar un commit “perdido” | [Reflog](/git/git/git-reflog) |
-| organizar trabajo en equipo | [Workflow colaborativo](/git/git/git-workflow-colaborativo) |
-| usar PR e issues desde terminal | [GitHub CLI](/git/github/gh-cli-workflow-completo) |
+| Situación                            | Documento                                                   |
+| ------------------------------------ | ----------------------------------------------------------- |
+| preparar y confirmar cambios         | [Flujo básico](/git/git/git-flujo-basico)                   |
+| crear o mover ramas                  | [Ramas](/git/git/git-ramas)                                 |
+| sincronizar sin confundir fetch/pull | [Remotos](/git/git/git-remotos)                             |
+| elegir merge o rebase                | [Merge vs rebase](/git/git/git-merge-vs-rebase)             |
+| resolver marcadores de conflicto     | [Conflictos](/git/git/git-resolver-conflictos)              |
+| recuperar un commit “perdido”        | [Reflog](/git/git/git-reflog)                               |
+| organizar trabajo en equipo          | [Workflow colaborativo](/git/git/git-workflow-colaborativo) |
+| usar PR e issues desde terminal      | [GitHub CLI](/git/github/gh-cli-workflow-completo)          |
 
 Quien viene a recordar debe poder anticipar qué referencias y archivos cambiará el comando. Quien aprende debe usar `status`, `log --graph` y `diff` después de cada paso para observar el modelo.
 
@@ -44,13 +44,13 @@ Working tree  --git add-->  Index o staging  --git commit-->  Repositorio
 
 Un **commit** identifica una instantánea, autoría, mensaje, fecha y uno o más padres. Un **tree** representa directorios y nombres. Un **blob** almacena contenido de archivo sin su nombre de ruta.
 
-Git identifica objetos mediante un hash. La abreviatura **SHA** suele usarse informalmente para el identificador del commit porque Git utilizó algoritmos de la familia *Secure Hash Algorithm*. Un hash corto funciona mientras siga siendo inequívoco en ese repositorio.
+Git identifica objetos mediante un hash. La abreviatura **SHA** suele usarse informalmente para el identificador del commit porque Git utilizó algoritmos de la familia _Secure Hash Algorithm_. Un hash corto funciona mientras siga siendo inequívoco en ese repositorio.
 
 Un commit no es solo “los cambios”: apunta a una instantánea completa y Git calcula diferencias al compararla con otra.
 
 ## Referencias, ramas y HEAD
 
-Una **referencia** o *ref* es un nombre que apunta a un objeto. Una rama es una referencia móvil al commit más reciente de esa línea.
+Una **referencia** o _ref_ es un nombre que apunta a un objeto. Una rama es una referencia móvil al commit más reciente de esa línea.
 
 `HEAD` indica la posición actual. Normalmente apunta a una rama, y esa rama avanza al crear un commit. En **detached HEAD**, `HEAD` apunta directamente a un commit; se puede explorar o crear commits, pero conviene crear una rama para conservarlos con un nombre estable.
 

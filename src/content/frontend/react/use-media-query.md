@@ -20,29 +20,29 @@ Si el cambio es puramente visual (ocultar/mostrar, reordenar), prefiere CSS (`@m
 ## Código
 
 ```ts title="hooks/useMediaQuery.ts"
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
 
 export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia(query).matches;
-  });
+    if (typeof window === "undefined") return false
+    return window.matchMedia(query).matches
+  })
 
   useEffect(() => {
-    const mediaQueryList = window.matchMedia(query);
+    const mediaQueryList = window.matchMedia(query)
 
     // Re-sincroniza al montar: el query pudo cambiar entre el render inicial y el efecto
-    setMatches(mediaQueryList.matches);
+    setMatches(mediaQueryList.matches)
 
     function handleChange(event: MediaQueryListEvent) {
-      setMatches(event.matches);
+      setMatches(event.matches)
     }
 
-    mediaQueryList.addEventListener('change', handleChange);
-    return () => mediaQueryList.removeEventListener('change', handleChange);
-  }, [query]);
+    mediaQueryList.addEventListener("change", handleChange)
+    return () => mediaQueryList.removeEventListener("change", handleChange)
+  }, [query])
 
-  return matches;
+  return matches
 }
 ```
 

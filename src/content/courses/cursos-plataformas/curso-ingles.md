@@ -22,11 +22,11 @@ Es un recurso **de consulta**, no una ruta guiada. Su punto fuerte es que las ex
 
 Frente a la [certificación A2 de freeCodeCamp](/courses/cursos-plataformas/freecodecamp-a2-english), la diferencia es clara:
 
-| | curso-ingles.com | A2 for Developers |
-| --- | --- | --- |
-| Formato | Referencia por temas | Ruta guiada con examen |
-| Contexto | Inglés general | Situaciones de desarrollo |
-| Certificado | No | Sí |
-| Uso típico | Resolver una duda | Recorrer un nivel completo |
+|             | curso-ingles.com     | A2 for Developers          |
+| ----------- | -------------------- | -------------------------- |
+| Formato     | Referencia por temas | Ruta guiada con examen     |
+| Contexto    | Inglés general       | Situaciones de desarrollo  |
+| Certificado | No                   | Sí                         |
+| Uso típico  | Resolver una duda    | Recorrer un nivel completo |
 
 Se complementan: uno da la estructura del idioma, el otro la práctica y la acreditación.

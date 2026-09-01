@@ -19,10 +19,10 @@ La abstracción no vuelve idénticos a los modelos. Cada uno conserva ventanas d
 
 OpenRouter admite tres caminos principales:
 
-| Camino | Cuándo usarlo |
-|---|---|
-| `@openrouter/sdk` | Proyecto TypeScript que busca tipos generados y acceso directo a OpenRouter |
-| API HTTP | Entorno sin SDK o necesidad de controlar el protocolo exactamente |
+| Camino                    | Cuándo usarlo                                                                 |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| `@openrouter/sdk`         | Proyecto TypeScript que busca tipos generados y acceso directo a OpenRouter   |
+| API HTTP                  | Entorno sin SDK o necesidad de controlar el protocolo exactamente             |
 | SDK compatible con OpenAI | Aplicación existente que ya usa Chat Completions y quiere cambiar la URL base |
 
 También existe un Agent SDK para ciclos de herramientas y estado. Conviene comenzar por el cliente normal: un agente añade decisiones y efectos que necesitan límites, trazabilidad y autorización.
@@ -44,40 +44,40 @@ El identificador del modelo es ilustrativo; se debe verificar en el catálogo. P
 
 ```ts
 // src/libs/openrouter.ts
-import { OpenRouter } from '@openrouter/sdk';
+import { OpenRouter } from "@openrouter/sdk"
 
 export const openrouter = new OpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
   httpReferer: process.env.APP_URL,
-  appTitle: process.env.APP_NAME,
-});
+  appTitle: process.env.APP_NAME
+})
 ```
 
 `httpReferer` y `appTitle` son opcionales y atribuyen las solicitudes a la aplicación. No autentican: la credencial real continúa siendo `apiKey`.
 
-El paquete es ESM (*ECMAScript Modules*) y se importa con `import`. Un proyecto Node.js nuevo debe usar módulos ES o una herramienta de compilación compatible.
+El paquete es ESM (_ECMAScript Modules_) y se importa con `import`. Un proyecto Node.js nuevo debe usar módulos ES o una herramienta de compilación compatible.
 
 ## Primera solicitud con el SDK
 
 ```ts
-import { openrouter } from './lib/openrouter';
+import { openrouter } from "./lib/openrouter"
 
 const completion = await openrouter.chat.send({
-  model: process.env.OPENROUTER_MODEL ?? '~openai/gpt-latest',
+  model: process.env.OPENROUTER_MODEL ?? "~openai/gpt-latest",
   messages: [
     {
-      role: 'system',
-      content: 'Responde en español latinoamericano con ejemplos concretos.',
+      role: "system",
+      content: "Responde en español latinoamericano con ejemplos concretos."
     },
     {
-      role: 'user',
-      content: '¿Qué problema resuelve un circuit breaker?',
-    },
+      role: "user",
+      content: "¿Qué problema resuelve un circuit breaker?"
+    }
   ],
-  maxCompletionTokens: 800,
-});
+  maxCompletionTokens: 800
+})
 
-console.log(completion.choices[0]?.message.content);
+console.log(completion.choices[0]?.message.content)
 ```
 
 Un **circuit breaker** o interruptor de circuito detiene temporalmente llamadas a una dependencia que está fallando. En este ejemplo:
@@ -92,30 +92,27 @@ Los nombres exactos de propiedades del SDK pueden seguir convención `camelCase`
 ## Solicitud HTTP y significado de los headers
 
 ```ts
-const response = await fetch(
-  'https://openrouter.ai/api/v1/chat/completions',
-  {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': process.env.APP_URL ?? '',
-      'X-OpenRouter-Title': process.env.APP_NAME ?? '',
-    },
-    body: JSON.stringify({
-      model: process.env.OPENROUTER_MODEL,
-      messages: [{ role: 'user', content: 'Explica una caché LRU.' }],
-    }),
+const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+    "Content-Type": "application/json",
+    "HTTP-Referer": process.env.APP_URL ?? "",
+    "X-OpenRouter-Title": process.env.APP_NAME ?? ""
   },
-);
+  body: JSON.stringify({
+    model: process.env.OPENROUTER_MODEL,
+    messages: [{ role: "user", content: "Explica una caché LRU." }]
+  })
+})
 ```
 
-| Header | Obligatorio | Función |
-|---|---:|---|
-| `Authorization: Bearer` | Sí | Autentica y asigna el consumo a la cuenta |
-| `Content-Type: application/json` | Sí cuando se envía JSON | Declara el formato del cuerpo |
-| `HTTP-Referer` | No | Identifica la URL de la aplicación para atribución |
-| `X-OpenRouter-Title` | No | Muestra el nombre de la aplicación en la atribución |
+| Header                           |             Obligatorio | Función                                             |
+| -------------------------------- | ----------------------: | --------------------------------------------------- |
+| `Authorization: Bearer`          |                      Sí | Autentica y asigna el consumo a la cuenta           |
+| `Content-Type: application/json` | Sí cuando se envía JSON | Declara el formato del cuerpo                       |
+| `HTTP-Referer`                   |                      No | Identifica la URL de la aplicación para atribución  |
+| `X-OpenRouter-Title`             |                      No | Muestra el nombre de la aplicación en la atribución |
 
 Estos headers salen del backend. Poner `OPENROUTER_API_KEY` en React permitiría que cualquier persona copie la clave, consuma saldo y evada los límites de la aplicación.
 
@@ -124,38 +121,38 @@ Estos headers salen del backend. Poner `OPENROUTER_API_KEY` en React permitiría
 La API de OpenRouter es compatible con el formato de OpenAI para varias operaciones. Una aplicación que ya usa Chat Completions puede cambiar `baseURL`:
 
 ```ts
-import OpenAI from 'openai';
+import OpenAI from "openai"
 
 const client = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: 'https://openrouter.ai/api/v1',
+  baseURL: "https://openrouter.ai/api/v1",
   defaultHeaders: {
-    'HTTP-Referer': process.env.APP_URL,
-    'X-OpenRouter-Title': process.env.APP_NAME,
-  },
-});
+    "HTTP-Referer": process.env.APP_URL,
+    "X-OpenRouter-Title": process.env.APP_NAME
+  }
+})
 
 const completion = await client.chat.completions.create({
-  model: process.env.OPENROUTER_MODEL ?? '~openai/gpt-latest',
-  messages: [{ role: 'user', content: 'Explica el patrón Adapter.' }],
-});
+  model: process.env.OPENROUTER_MODEL ?? "~openai/gpt-latest",
+  messages: [{ role: "user", content: "Explica el patrón Adapter." }]
+})
 ```
 
 Compatibilidad no significa paridad total. Una propiedad nueva de OpenAI puede no estar implementada por OpenRouter o por el proveedor elegido. También existen extensiones de routing que no forman parte del SDK de OpenAI.
 
 ## Parámetros y compatibilidad entre proveedores
 
-| Propiedad | Uso |
-|---|---|
-| `model` | Modelo principal |
-| `models` | Lista ordenada de modelos alternativos |
-| `messages` | Historial que se enviará en esta solicitud |
-| `temperature` y `top_p` | Muestreo, si la ruta los admite |
-| `max_tokens` | Límite de salida para Chat Completions |
-| `response_format` | Formato estructurado cuando existe soporte |
+| Propiedad               | Uso                                        |
+| ----------------------- | ------------------------------------------ |
+| `model`                 | Modelo principal                           |
+| `models`                | Lista ordenada de modelos alternativos     |
+| `messages`              | Historial que se enviará en esta solicitud |
+| `temperature` y `top_p` | Muestreo, si la ruta los admite            |
+| `max_tokens`            | Límite de salida para Chat Completions     |
+| `response_format`       | Formato estructurado cuando existe soporte |
 | `tools` y `tool_choice` | Herramientas que el modelo puede solicitar |
-| `stream` | Entrega incremental |
-| `provider` | Preferencias y restricciones de routing |
+| `stream`                | Entrega incremental                        |
+| `provider`              | Preferencias y restricciones de routing    |
 
 Cuando una propiedad es esencial, `provider.require_parameters` ayuda a descartar rutas que no la soportan. Sin esa restricción, un proveedor puede ignorar o transformar una opción para mantener disponibilidad.
 
@@ -166,9 +163,7 @@ OpenRouter balancea entre proveedores disponibles de forma predeterminada. La pr
 ```json
 {
   "model": "openai/gpt-5.4",
-  "messages": [
-    { "role": "user", "content": "Analiza esta consulta SQL." }
-  ],
+  "messages": [{ "role": "user", "content": "Analiza esta consulta SQL." }],
   "provider": {
     "order": ["OpenAI", "Azure"],
     "only": ["OpenAI", "Azure"],
@@ -195,13 +190,8 @@ Una lista de modelos permite continuar si el principal falla por disponibilidad,
 
 ```json
 {
-  "models": [
-    "openai/gpt-5.4",
-    "anthropic/claude-sonnet-4.6"
-  ],
-  "messages": [
-    { "role": "user", "content": "Resume este incidente." }
-  ]
+  "models": ["openai/gpt-5.4", "anthropic/claude-sonnet-4.6"],
+  "messages": [{ "role": "user", "content": "Resume este incidente." }]
 }
 ```
 
@@ -211,14 +201,14 @@ Los IDs son ejemplos. Un fallback debe aceptar el mismo contrato de herramientas
 
 ```ts
 const stream = await openrouter.chat.send({
-  model: process.env.OPENROUTER_MODEL ?? '~openai/gpt-latest',
-  messages: [{ role: 'user', content: 'Explica la consistencia eventual.' }],
-  stream: true,
-});
+  model: process.env.OPENROUTER_MODEL ?? "~openai/gpt-latest",
+  messages: [{ role: "user", content: "Explica la consistencia eventual." }],
+  stream: true
+})
 
 for await (const chunk of stream) {
-  const delta = chunk.choices[0]?.delta?.content;
-  if (delta) process.stdout.write(delta);
+  const delta = chunk.choices[0]?.delta?.content
+  if (delta) process.stdout.write(delta)
 }
 ```
 
@@ -229,72 +219,75 @@ Cada `chunk` contiene un cambio parcial. `delta.content` puede faltar porque alg
 OpenRouter Chat Completions es **stateless**: no conserva por sí sola una sesión que el modelo recupere en la siguiente solicitud. El backend carga los mensajes guardados y los vuelve a enviar en orden.
 
 ```ts
-import type { Request, Response } from 'express';
-import { z } from 'zod';
-import { openrouter } from './lib/openrouter';
+import type { Request, Response } from "express"
+import { z } from "zod"
+import { openrouter } from "./lib/openrouter"
 
 const requestSchema = z.object({
   sessionId: z.string().uuid(),
-  message: z.string().trim().min(1).max(4_000),
-});
+  message: z.string().trim().min(1).max(4_000)
+})
 
 export async function streamOpenRouter(request: Request, response: Response) {
-  const user = requireAuthenticatedUser(request);
-  const input = requestSchema.parse(request.body);
-  const session = await getOwnedSession(input.sessionId, user.id);
-  const history = await loadModelMessages(session.id, { limit: 30 });
-  const assistantMessageId = crypto.randomUUID();
-  let assistantText = '';
+  const user = requireAuthenticatedUser(request)
+  const input = requestSchema.parse(request.body)
+  const session = await getOwnedSession(input.sessionId, user.id)
+  const history = await loadModelMessages(session.id, { limit: 30 })
+  const assistantMessageId = crypto.randomUUID()
+  let assistantText = ""
 
-  response.status(200);
-  response.setHeader('Content-Type', 'application/x-ndjson; charset=utf-8');
-  response.setHeader('Cache-Control', 'no-cache, no-transform');
-  response.setHeader('X-Accel-Buffering', 'no');
-  response.flushHeaders();
+  response.status(200)
+  response.setHeader("Content-Type", "application/x-ndjson; charset=utf-8")
+  response.setHeader("Cache-Control", "no-cache, no-transform")
+  response.setHeader("X-Accel-Buffering", "no")
+  response.flushHeaders()
 
   const send = (event: unknown) => {
-    response.write(`${JSON.stringify(event)}\n`);
-  };
+    response.write(`${JSON.stringify(event)}\n`)
+  }
 
   await saveMessage({
     sessionId: session.id,
-    role: 'user',
-    content: input.message,
-  });
+    role: "user",
+    content: input.message
+  })
 
   try {
     const stream = await openrouter.chat.send({
-      model: process.env.OPENROUTER_MODEL ?? '~openai/gpt-latest',
+      model: process.env.OPENROUTER_MODEL ?? "~openai/gpt-latest",
       messages: [
-        { role: 'system', content: 'Explica con precisión y reconoce incertidumbre.' },
+        {
+          role: "system",
+          content: "Explica con precisión y reconoce incertidumbre."
+        },
         ...history,
-        { role: 'user', content: input.message },
+        { role: "user", content: input.message }
       ],
       stream: true,
-      maxCompletionTokens: 1_500,
-    });
+      maxCompletionTokens: 1_500
+    })
 
-    send({ type: 'start', messageId: assistantMessageId });
+    send({ type: "start", messageId: assistantMessageId })
 
     for await (const chunk of stream) {
-      const delta = chunk.choices[0]?.delta?.content;
-      if (!delta) continue;
+      const delta = chunk.choices[0]?.delta?.content
+      if (!delta) continue
 
-      assistantText += delta;
-      send({ type: 'text-delta', delta });
+      assistantText += delta
+      send({ type: "text-delta", delta })
     }
 
     await saveMessage({
       id: assistantMessageId,
       sessionId: session.id,
-      role: 'assistant',
-      content: assistantText,
-    });
-    send({ type: 'done', messageId: assistantMessageId });
+      role: "assistant",
+      content: assistantText
+    })
+    send({ type: "done", messageId: assistantMessageId })
   } catch (error) {
-    send({ type: 'error', message: 'No se pudo generar la respuesta.' });
+    send({ type: "error", message: "No se pudo generar la respuesta." })
   } finally {
-    response.end();
+    response.end()
   }
 }
 ```

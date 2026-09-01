@@ -19,12 +19,13 @@ Lo que le pasaron a este componente desde afuera. Tipalo con una interfaz `Props
 ```astro
 ---
 interface Props {
-  titulo: string;
-  destacado?: boolean;
+  titulo: string
+  destacado?: boolean
 }
-const { titulo, destacado = false } = Astro.props;
+const { titulo, destacado = false } = Astro.props
 ---
-<h2 class:list={['titulo', { destacado }]}>{titulo}</h2>
+
+<h2 class:list={["titulo", { destacado }]}>{titulo}</h2>
 ```
 
 ## `Astro.params` — Segmentos dinámicos
@@ -33,7 +34,7 @@ En una ruta `[id].astro`, el valor de `[id]` para el render actual.
 
 ```astro title="pages/blog/[slug].astro"
 ---
-const { slug } = Astro.params;
+const { slug } = Astro.params
 ---
 ```
 
@@ -43,10 +44,14 @@ const { slug } = Astro.params;
 
 ```astro
 ---
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const metodo = Astro.request.method;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const metodo = Astro.request.method
 ---
-<link rel="canonical" href={canonicalURL} />
+
+<link
+  rel="canonical"
+  href={canonicalURL}
+/>
 ```
 
 ## `Astro.redirect()` — Redirigir
@@ -56,7 +61,7 @@ Solo funciona en rutas on-demand (no prerenderizadas) — hay que hacer `return`
 ```astro
 ---
 if (!sesionActiva) {
-  return Astro.redirect('/login');
+  return Astro.redirect("/login")
 }
 ---
 ```
@@ -67,8 +72,8 @@ También requiere renderizado on-demand. `get`, `set`, `has`, `delete`.
 
 ```astro
 ---
-const tema = Astro.cookies.get('tema')?.value ?? 'oscuro';
-Astro.cookies.set('visitas', '1', { maxAge: 60 * 60 * 24 });
+const tema = Astro.cookies.get("tema")?.value ?? "oscuro"
+Astro.cookies.set("visitas", "1", { maxAge: 60 * 60 * 24 })
 ---
 ```
 
@@ -78,23 +83,24 @@ Lee lo que un [middleware](/frontend/astro/astro-middleware) haya guardado en `c
 
 ```astro
 ---
-const usuario = Astro.locals.usuario;
-if (!usuario) return Astro.redirect('/login');
+const usuario = Astro.locals.usuario
+if (!usuario) return Astro.redirect("/login")
 ---
+
 <p>Hola, {usuario.nombre}</p>
 ```
 
 ## Propiedades de `Astro` en una mirada
 
-| Propiedad | Qué da |
-| --- | --- |
-| `Astro.props` | Props pasadas al componente |
-| `Astro.params` | Segmentos dinámicos de la URL (`[slug]`) |
-| `Astro.url` | `URL` normalizada de la request actual |
-| `Astro.request` | `Request` estándar completo |
-| `Astro.redirect(ruta)` | Redirigir (solo en rutas on-demand) |
-| `Astro.cookies` | Leer/escribir cookies (solo en rutas on-demand) |
-| `Astro.locals` | Datos dejados por el middleware para esta request |
+| Propiedad              | Qué da                                            |
+| ---------------------- | ------------------------------------------------- |
+| `Astro.props`          | Props pasadas al componente                       |
+| `Astro.params`         | Segmentos dinámicos de la URL (`[slug]`)          |
+| `Astro.url`            | `URL` normalizada de la request actual            |
+| `Astro.request`        | `Request` estándar completo                       |
+| `Astro.redirect(ruta)` | Redirigir (solo en rutas on-demand)               |
+| `Astro.cookies`        | Leer/escribir cookies (solo en rutas on-demand)   |
+| `Astro.locals`         | Datos dejados por el middleware para esta request |
 
 ## Disponibilidad y límites de seguridad
 

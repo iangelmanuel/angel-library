@@ -47,7 +47,9 @@ export const sesionCommands: CommandMap = {
 
       const entries = [...ctx.history, ctx.command]
       ctx.print(
-        entries.map((entry, index) => `${String(index + 1).padStart(2, "0")}  ${entry}`)
+        entries.map(
+          (entry, index) => `${String(index + 1).padStart(2, "0")}  ${entry}`
+        )
       )
     }
   },

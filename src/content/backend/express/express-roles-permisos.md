@@ -15,8 +15,8 @@ El [middleware de autorización](/backend/express/express-auth-middleware) que c
 
 ```ts
 enum Rol {
-  USER = 'user',
-  ADMIN = 'admin',
+  USER = "user",
+  ADMIN = "admin"
 }
 ```
 
@@ -43,10 +43,13 @@ model UserRole {
 ```ts
 function requireRole(...rolesPermitidos: string[]) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const tieneAlgunRol = req.user!.roles.some((r) => rolesPermitidos.includes(r));
-    if (!tieneAlgunRol) return res.status(403).json({ error: 'No tienes permiso' });
-    next();
-  };
+    const tieneAlgunRol = req.user!.roles.some((r) =>
+      rolesPermitidos.includes(r)
+    )
+    if (!tieneAlgunRol)
+      return res.status(403).json({ error: "No tienes permiso" })
+    next()
+  }
 }
 ```
 
@@ -56,25 +59,36 @@ Cuando “el administrador puede hacer todo y el usuario puede hacer poco” ya 
 
 ```ts title="lib/permisos.ts"
 const PERMISOS_POR_ROL: Record<string, string[]> = {
-  admin: ['usuarios:leer', 'usuarios:escribir', 'usuarios:eliminar', 'posts:leer', 'posts:escribir'],
-  moderador: ['posts:leer', 'posts:escribir'],
-  user: ['posts:leer'],
-};
+  admin: [
+    "usuarios:leer",
+    "usuarios:escribir",
+    "usuarios:eliminar",
+    "posts:leer",
+    "posts:escribir"
+  ],
+  moderador: ["posts:leer", "posts:escribir"],
+  user: ["posts:leer"]
+}
 
 function requierePermiso(permiso: string) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const permisosDelUsuario = PERMISOS_POR_ROL[req.user!.rol] ?? [];
+    const permisosDelUsuario = PERMISOS_POR_ROL[req.user!.rol] ?? []
     if (!permisosDelUsuario.includes(permiso)) {
-      return res.status(403).json({ error: 'No tienes permiso' });
+      return res.status(403).json({ error: "No tienes permiso" })
     }
-    next();
-  };
+    next()
+  }
 }
 ```
 
 ```ts
-app.delete('/usuarios/:id', requireAuth, requierePermiso('usuarios:eliminar'), handler);
-app.put('/posts/:id', requireAuth, requierePermiso('posts:escribir'), handler);
+app.delete(
+  "/usuarios/:id",
+  requireAuth,
+  requierePermiso("usuarios:eliminar"),
+  handler
+)
+app.put("/posts/:id", requireAuth, requierePermiso("posts:escribir"), handler)
 ```
 
 Este nivel permite agregar un rol nuevo ("moderador junior", lo que sea) definiendo qué permisos tiene, sin tocar el código de cada ruta protegida — las rutas siguen chequeando el mismo permiso (`'posts:escribir'`), solo cambia qué roles lo incluyen.
@@ -84,32 +98,32 @@ Este nivel permite agregar un rol nuevo ("moderador junior", lo que sea) definie
 Ni siquiera un permiso granular resuelve "un usuario puede editar **sus propios** posts, pero no los de otros" — eso no es un permiso de rol, es una comparación contra el dato específico:
 
 ```ts
-app.put('/posts/:id', requireAuth, async (req, res) => {
-  const post = await buscarPost(req.params.id);
+app.put("/posts/:id", requireAuth, async (req, res) => {
+  const post = await buscarPost(req.params.id)
 
-  const esDueño = post.authorId === req.user!.id;
-  const esAdmin = req.user!.rol === 'admin';
+  const esDueño = post.authorId === req.user!.id
+  const esAdmin = req.user!.rol === "admin"
 
   if (!esDueño && !esAdmin) {
-    return res.status(403).json({ error: 'No puedes editar este post' });
+    return res.status(403).json({ error: "No puedes editar este post" })
   }
 
   // ... actualizar el post ...
-});
+})
 ```
 
 Este chequeo no puede ser un middleware genérico reusable de la misma forma que los anteriores — necesita cargar el recurso primero para saber quién es el dueño, así que típicamente vive dentro del handler o en un middleware que sabe específicamente qué recurso está protegiendo.
 
 ## Mapa de autorización
 
-| Nivel | Cuándo alcanza |
-| --- | --- |
-| Rol único (`user.rol`) | Casos simples, dos o tres niveles de acceso |
-| Varios roles por usuario | Un usuario necesita más de un "sombrero" a la vez |
+| Nivel                                  | Cuándo alcanza                                                            |
+| -------------------------------------- | ------------------------------------------------------------------------- |
+| Rol único (`user.rol`)                 | Casos simples, dos o tres niveles de acceso                               |
+| Varios roles por usuario               | Un usuario necesita más de un "sombrero" a la vez                         |
 | RBAC con permisos (`'recurso:accion'`) | Muchos roles, o roles que cambian seguido — agregar uno no toca las rutas |
-| Ownership (dueño del recurso) | "Tus propios datos" — no es un permiso de rol, depende del dato puntual |
+| Ownership (dueño del recurso)          | "Tus propios datos" — no es un permiso de rol, depende del dato puntual   |
 
 ## Permisos por recurso y tenant
 
 - Empezar por el nivel más simple que resuelve el problema real — RBAC con tabla de permisos para una app con dos roles fijos es complejidad sin beneficio.
-- Los niveles no son excluyentes: un sistema real típicamente combina RBAC (¿este rol puede editar posts en general?) con ownership (¿es *su* post?) en la misma ruta.
+- Los niveles no son excluyentes: un sistema real típicamente combina RBAC (¿este rol puede editar posts en general?) con ownership (¿es _su_ post?) en la misma ruta.

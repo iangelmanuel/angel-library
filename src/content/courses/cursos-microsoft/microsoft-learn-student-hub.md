@@ -18,15 +18,15 @@ El **Centro de estudiantes** de Microsoft Learn no es un curso, sino un portal q
 
 Microsoft publica varios cursos completos como repositorios de GitHub, gratuitos y sin registro. Son la parte con más valor del portal:
 
-| Curso | Duración | Contenido |
-| --- | --- | --- |
-| [IA para principiantes](https://github.com/microsoft/ai-for-beginners) | 12 semanas | Redes neuronales, deep learning, TensorFlow y PyTorch |
-| [Ciencia de datos para principiantes](https://github.com/microsoft/Data-Science-For-Beginners) | 12 semanas | Ética, preparación, análisis y visualización |
-| [Machine learning para principiantes](https://github.com/microsoft/ML-For-Beginners) | 12 semanas | Métodos clásicos con Scikit-learn |
-| [Ciberseguridad para principiantes](https://github.com/microsoft/Security-101) | Lecciones cortas | Conceptos clave de seguridad |
-| [Agentes de IA para principiantes](https://github.com/microsoft/ai-agents-for-beginners) | 10 lecciones | Fundamentos de agentes, en varios idiomas |
-| [IA generativa para principiantes](https://github.com/microsoft/generative-ai-for-beginners) | 21 lecciones | Aplicaciones de IA generativa en Python y TypeScript |
-| [Dominando GitHub Copilot](https://github.com/microsoft/Mastering-GitHub-Copilot-for-Paired-Programming) | — | Programación asistida en VS Code |
+| Curso                                                                                                    | Duración         | Contenido                                             |
+| -------------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------------------------- |
+| [IA para principiantes](https://github.com/microsoft/ai-for-beginners)                                   | 12 semanas       | Redes neuronales, deep learning, TensorFlow y PyTorch |
+| [Ciencia de datos para principiantes](https://github.com/microsoft/Data-Science-For-Beginners)           | 12 semanas       | Ética, preparación, análisis y visualización          |
+| [Machine learning para principiantes](https://github.com/microsoft/ML-For-Beginners)                     | 12 semanas       | Métodos clásicos con Scikit-learn                     |
+| [Ciberseguridad para principiantes](https://github.com/microsoft/Security-101)                           | Lecciones cortas | Conceptos clave de seguridad                          |
+| [Agentes de IA para principiantes](https://github.com/microsoft/ai-agents-for-beginners)                 | 10 lecciones     | Fundamentos de agentes, en varios idiomas             |
+| [IA generativa para principiantes](https://github.com/microsoft/generative-ai-for-beginners)             | 21 lecciones     | Aplicaciones de IA generativa en Python y TypeScript  |
+| [Dominando GitHub Copilot](https://github.com/microsoft/Mastering-GitHub-Copilot-for-Paired-Programming) | —                | Programación asistida en VS Code                      |
 
 Varios están traducidos al español dentro del propio repositorio.
 

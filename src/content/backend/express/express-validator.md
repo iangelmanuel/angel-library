@@ -15,24 +15,24 @@ updatedAt: 2026-08-16
 ## Uso básico
 
 ```ts
-import { body, validationResult } from 'express-validator';
+import { body, validationResult } from "express-validator"
 
 app.post(
-  '/usuarios',
-  body('email').isEmail().withMessage('Email no válido'),
-  body('password').isLength({ min: 8 }).withMessage('Mínimo 8 caracteres'),
-  body('edad').isInt({ min: 18 }).withMessage('Debes ser mayor de edad'),
+  "/usuarios",
+  body("email").isEmail().withMessage("Email no válido"),
+  body("password").isLength({ min: 8 }).withMessage("Mínimo 8 caracteres"),
+  body("edad").isInt({ min: 18 }).withMessage("Debes ser mayor de edad"),
   (req, res) => {
-    const errores = validationResult(req);
+    const errores = validationResult(req)
     if (!errores.isEmpty()) {
-      return res.status(400).json({ errors: errores.array() });
+      return res.status(400).json({ errors: errores.array() })
     }
 
     // req.body ya pasó las validaciones de arriba
-    crearUsuario(req.body);
-    res.status(201).json({ ok: true });
-  },
-);
+    crearUsuario(req.body)
+    res.status(201).json({ ok: true })
+  }
+)
 ```
 
 Cada `body('campo').regla()` es un middleware que se agrega a la cadena — corren todos antes del handler final, acumulando errores en vez de cortar en el primero.
@@ -40,14 +40,14 @@ Cada `body('campo').regla()` es un middleware que se agrega a la cadena — corr
 ## Validar distintas fuentes
 
 ```ts
-import { body, param, query } from 'express-validator';
+import { body, param, query } from "express-validator"
 
 app.get(
-  '/posts/:id',
-  param('id').isUUID().withMessage('Id inválido'),
-  query('incluirComentarios').optional().isBoolean(),
-  handler,
-);
+  "/posts/:id",
+  param("id").isUUID().withMessage("Id inválido"),
+  query("incluirComentarios").optional().isBoolean(),
+  handler
+)
 ```
 
 `body` valida el body, `param` los parámetros de ruta (`:id`), `query` el query string — cada uno apunta a una parte distinta de la request.
@@ -66,30 +66,38 @@ body('nombre').trim().escape(),              // recorta espacios, escapa HTML
 Repetir `validationResult(req)` en cada ruta es innecesario — un middleware lo centraliza:
 
 ```ts title="middlewares/validar.ts"
-import { validationResult } from 'express-validator';
-import type { Request, Response, NextFunction } from 'express';
+import type { NextFunction, Request, Response } from "express"
+import { validationResult } from "express-validator"
 
 export function validar(req: Request, res: Response, next: NextFunction) {
-  const errores = validationResult(req);
+  const errores = validationResult(req)
   if (!errores.isEmpty()) {
-    return res.status(400).json({ error: { code: 'VALIDATION_ERROR', fields: errores.array() } });
+    return res
+      .status(400)
+      .json({ error: { code: "VALIDATION_ERROR", fields: errores.array() } })
   }
-  next();
+  next()
 }
 ```
 
 ```ts
-app.post('/usuarios', body('email').isEmail(), body('password').isLength({ min: 8 }), validar, handler);
+app.post(
+  "/usuarios",
+  body("email").isEmail(),
+  body("password").isLength({ min: 8 }),
+  validar,
+  handler
+)
 ```
 
 ## Resumen
 
-| API | Qué hace |
-| --- | --- |
-| `body()` / `param()` / `query()` | Apuntan a qué parte de la request validar |
-| `.isEmail()`, `.isLength()`, `.isInt()`, etc. | Reglas encadenables |
-| `.withMessage(msg)` | Mensaje de error custom por regla |
-| `validationResult(req)` | Junta los errores acumulados de todas las reglas |
+| API                                           | Qué hace                                         |
+| --------------------------------------------- | ------------------------------------------------ |
+| `body()` / `param()` / `query()`              | Apuntan a qué parte de la request validar        |
+| `.isEmail()`, `.isLength()`, `.isInt()`, etc. | Reglas encadenables                              |
+| `.withMessage(msg)`                           | Mensaje de error custom por regla                |
+| `validationResult(req)`                       | Junta los errores acumulados de todas las reglas |
 
 ## Consideraciones — express-validator vs Zod
 

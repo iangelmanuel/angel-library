@@ -15,11 +15,11 @@ Una carpeta entre paréntesis organiza rutas sin aparecer en la URL. `app/(marke
 
 ## En una mirada
 
-| Convención | Cambia la URL | Cambia el layout |
-| --- | --- | --- |
-| carpeta `dashboard/` | sí | puede hacerlo |
-| grupo `(dashboard)/` | no | puede hacerlo |
-| carpeta privada `_components/` | no crea una ruta | no por sí sola |
+| Convención                     | Cambia la URL    | Cambia el layout |
+| ------------------------------ | ---------------- | ---------------- |
+| carpeta `dashboard/`           | sí               | puede hacerlo    |
+| grupo `(dashboard)/`           | no               | puede hacerlo    |
+| carpeta privada `_components/` | no crea una ruta | no por sí sola   |
 
 Un grupo es una herramienta de organización del **árbol de layouts**, no un parámetro ni una autorización. Nombrar un grupo `(private)` no protege sus páginas; la sesión y los permisos todavía deben verificarse en el servidor.
 

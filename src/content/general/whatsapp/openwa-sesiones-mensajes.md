@@ -17,7 +17,7 @@ La documentación interactiva de Swagger está en `/api/docs` mientras no estés
 
 ## El ciclo de una sesión
 
-Una *sesión* es una cuenta de WhatsApp vinculada. El ciclo mínimo son tres llamadas.
+Una _sesión_ es una cuenta de WhatsApp vinculada. El ciclo mínimo son tres llamadas.
 
 ### 1. Crear la sesión
 
@@ -60,34 +60,34 @@ curl -X POST http://localhost:2785/api/sessions/{sessionId}/messages/send-text \
 
 Es el punto donde más se tropieza al empezar:
 
-| Destino | Formato | Ejemplo |
-| --- | --- | --- |
-| Contacto | `<indicativo><número>@c.us` | `573001112233@c.us` |
-| Grupo | `<id-del-grupo>@g.us` | `120363000000000000@g.us` |
+| Destino  | Formato                     | Ejemplo                   |
+| -------- | --------------------------- | ------------------------- |
+| Contacto | `<indicativo><número>@c.us` | `573001112233@c.us`       |
+| Grupo    | `<id-del-grupo>@g.us`       | `120363000000000000@g.us` |
 
 El número va con indicativo de país, sin `+`, sin espacios y sin guiones.
 
 ## Qué más se puede enviar
 
-| Categoría | Incluye |
-| --- | --- |
-| Mensajes | Texto, imagen, video, documento, audio |
+| Categoría   | Incluye                                               |
+| ----------- | ----------------------------------------------------- |
+| Mensajes    | Texto, imagen, video, documento, audio                |
 | Interacción | Reacciones con emoji, edición de mensajes ya enviados |
-| Volumen | Envío masivo a varios destinatarios |
-| Seguimiento | Estado de entrega y confirmaciones de lectura |
+| Volumen     | Envío masivo a varios destinatarios                   |
+| Seguimiento | Estado de entrega y confirmaciones de lectura         |
 
 La edición de mensajes emite además un evento `message.edited` en vivo, y funciona en los dos motores.
 
 ## Más allá de los mensajes
 
-| Área | Qué permite |
-| --- | --- |
-| Grupos | Crear, administrar, unirse con código de invitación y configurar |
-| Perfil | Cambiar nombre visible, texto de estado y foto |
-| Llamadas | Evento `call.received`, rechazar llamadas, rechazo automático por sesión |
-| Canales | Soporte de Canales de WhatsApp |
-| Etiquetas | Organizar chats con etiquetas |
-| Proxy | Configuración de proxy por sesión |
+| Área      | Qué permite                                                              |
+| --------- | ------------------------------------------------------------------------ |
+| Grupos    | Crear, administrar, unirse con código de invitación y configurar         |
+| Perfil    | Cambiar nombre visible, texto de estado y foto                           |
+| Llamadas  | Evento `call.received`, rechazar llamadas, rechazo automático por sesión |
+| Canales   | Soporte de Canales de WhatsApp                                           |
+| Etiquetas | Organizar chats con etiquetas                                            |
+| Proxy     | Configuración de proxy por sesión                                        |
 
 ## Control de acceso
 

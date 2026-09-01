@@ -40,11 +40,11 @@ notify = "scripts/notificar.sh"          # comando que recibe eventos como JSON
 
 ## Sandbox y aprobación — la parte más importante para seguridad
 
-| Opción | Valores | Qué controla |
-| --- | --- | --- |
-| `sandbox_mode` | `read-only` / `workspace-write` / `danger-full-access` | Qué puede tocar el sistema de archivos |
-| `approval_policy` | `untrusted` / `on-request` / `never` | Cuándo pide confirmación antes de actuar |
-| `default_permissions` | `:read-only` / `:workspace` / `:danger-full-access` / custom | Perfil de permisos nombrado |
+| Opción                | Valores                                                      | Qué controla                             |
+| --------------------- | ------------------------------------------------------------ | ---------------------------------------- |
+| `sandbox_mode`        | `read-only` / `workspace-write` / `danger-full-access`       | Qué puede tocar el sistema de archivos   |
+| `approval_policy`     | `untrusted` / `on-request` / `never`                         | Cuándo pide confirmación antes de actuar |
+| `default_permissions` | `:read-only` / `:workspace` / `:danger-full-access` / custom | Perfil de permisos nombrado              |
 
 ## Otras secciones documentadas
 
@@ -57,13 +57,13 @@ history.persistence              → save-all | none
 
 ## Resumen
 
-| Sección | Para qué |
-| --- | --- |
-| `model` / `model_reasoning_effort` | Qué modelo y cuánto razona |
-| `sandbox_mode` / `approval_policy` | Seguridad — qué puede hacer sin preguntar |
-| `[features]` | Prender/apagar funcionalidades (multi_agent, hooks, web_search...) |
-| `[mcp_servers.*]` | Ver [MCP](/skills/codex/codex-mcp) |
-| `notify` | Comando externo que recibe eventos de la sesión |
+| Sección                            | Para qué                                                           |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| `model` / `model_reasoning_effort` | Qué modelo y cuánto razona                                         |
+| `sandbox_mode` / `approval_policy` | Seguridad — qué puede hacer sin preguntar                          |
+| `[features]`                       | Prender/apagar funcionalidades (multi_agent, hooks, web_search...) |
+| `[mcp_servers.*]`                  | Ver [MCP](/skills/codex/codex-mcp)                                 |
+| `notify`                           | Comando externo que recibe eventos de la sesión                    |
 
 ## Consideraciones
 

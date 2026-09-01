@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">angel.library</title>
+  <desc id="desc">Segundo cerebro técnico para desarrollo web</desc>
+  <rect width="1200" height="630" fill="#000" />
+  <rect x="54" y="54" width="1092" height="522" fill="none" stroke="#303030" stroke-width="2" />
+  <text x="94" y="150" fill="#a5ffb5" font-family="monospace" font-size="24">$ cat ~/angel.library</text>
+  <text x="94" y="290" fill="#f4f4f5" font-family="monospace" font-size="76" font-weight="700">angel.library</text>
+  <text x="98" y="354" fill="#b7b7c0" font-family="Arial, sans-serif" font-size="30">Segundo cerebro técnico para desarrollo web</text>
+  <path d="M98 430h220" stroke="#f0b429" stroke-width="6" />
+  <text x="98" y="492" fill="#8b8b96" font-family="monospace" font-size="22">Astro · JavaScript · TypeScript · Git</text>
+</svg>

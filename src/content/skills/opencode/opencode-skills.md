@@ -34,11 +34,11 @@ Revisa el PR actual con `gh pr diff` y señala bugs, riesgos de seguridad y prob
 
 ## Frontmatter: más chico que el de Claude Code
 
-| Campo | Requerido |
-| --- | --- |
-| `name` | Sí — en minúsculas con guiones, debe matchear el nombre de la carpeta |
-| `description` | Sí — entre 1 y 1024 caracteres |
-| `license` / `compatibility` / `metadata` | No |
+| Campo                                    | Requerido                                                             |
+| ---------------------------------------- | --------------------------------------------------------------------- |
+| `name`                                   | Sí — en minúsculas con guiones, debe matchear el nombre de la carpeta |
+| `description`                            | Sí — entre 1 y 1024 caracteres                                        |
+| `license` / `compatibility` / `metadata` | No                                                                    |
 
 No existen aquí campos propios de Claude Code como `disable-model-invocation`, `context: fork` o `paths` — el control de acceso se maneja aparte, a nivel de `opencode.json` (ver Resumen).
 

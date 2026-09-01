@@ -17,30 +17,39 @@ La actualización optimista es una predicción visual, no una confirmación. Acc
 Recibe el valor real (`name`) y devuelve un valor optimista que, cuando no hay una acción en curso, coincide con ese valor real. `setOptimisticName` se usa dentro de una Action, como una función pasada a `startTransition` o al prop `action` de un `<form>`.
 
 ```tsx
-import { useOptimistic, startTransition } from 'react';
-import { actualizarNombre } from './api';
+import { startTransition, useOptimistic } from "react"
+import { actualizarNombre } from "./api"
 
-function EditarNombre({ nombre, onActualizado }: { nombre: string; onActualizado: (n: string) => void }) {
-  const [nombreOptimista, setNombreOptimista] = useOptimistic(nombre);
+function EditarNombre({
+  nombre,
+  onActualizado
+}: {
+  nombre: string
+  onActualizado: (n: string) => void
+}) {
+  const [nombreOptimista, setNombreOptimista] = useOptimistic(nombre)
 
   async function enviar(formData: FormData) {
-    const nuevoNombre = formData.get('nombre') as string;
-    setNombreOptimista(nuevoNombre); // se muestra ya, antes de la respuesta
+    const nuevoNombre = formData.get("nombre") as string
+    setNombreOptimista(nuevoNombre) // se muestra ya, antes de la respuesta
 
-    const confirmado = await actualizarNombre(nuevoNombre);
+    const confirmado = await actualizarNombre(nuevoNombre)
 
     startTransition(() => {
-      onActualizado(confirmado); // el estado real se actualiza; si falló, nombreOptimista vuelve a "nombre"
-    });
+      onActualizado(confirmado) // el estado real se actualiza; si falló, nombreOptimista vuelve a "nombre"
+    })
   }
 
   return (
     <form action={enviar}>
       <p>Nombre: {nombreOptimista}</p>
-      <input name="nombre" disabled={nombre !== nombreOptimista} />
+      <input
+        name="nombre"
+        disabled={nombre !== nombreOptimista}
+      />
       <button>Guardar</button>
     </form>
-  );
+  )
 }
 ```
 
@@ -53,17 +62,20 @@ El segundo argumento opcional es un reducer, para cuando el valor optimista no e
 ```tsx
 const [mensajesOptimistas, agregarMensajeOptimista] = useOptimistic(
   mensajes,
-  (estado, nuevoMensaje: string) => [...estado, { texto: nuevoMensaje, enviando: true }],
-);
+  (estado, nuevoMensaje: string) => [
+    ...estado,
+    { texto: nuevoMensaje, enviando: true }
+  ]
+)
 ```
 
 ## Referencia rápida
 
-| API | Uso |
-| --- | --- |
-| `useOptimistic(valorReal)` | Valor optimista simple: igual al real, salvo durante una Action |
-| `useOptimistic(valorReal, reducer)` | Valor optimista derivado (agregar a una lista, etc.) |
-| `setOptimista(nuevoValor)` | actualiza la proyección optimista dentro de una Action |
+| API                                 | Uso                                                             |
+| ----------------------------------- | --------------------------------------------------------------- |
+| `useOptimistic(valorReal)`          | Valor optimista simple: igual al real, salvo durante una Action |
+| `useOptimistic(valorReal, reducer)` | Valor optimista derivado (agregar a una lista, etc.)            |
+| `setOptimista(nuevoValor)`          | actualiza la proyección optimista dentro de una Action          |
 
 ## Límites y decisiones
 

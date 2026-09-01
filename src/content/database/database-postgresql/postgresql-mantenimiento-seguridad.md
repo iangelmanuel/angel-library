@@ -16,16 +16,16 @@ Una base correcta puede degradarse si acumula versiones antiguas, pierde estadí
 
 ## Referencia rápida
 
-| Necesidad | Herramienta o vista |
-| --- | --- |
-| actualizar estadísticas | `ANALYZE` |
-| recuperar espacio reutilizable y mantener MVCC | `VACUUM` / autovacuum |
-| ver sesiones y consultas | `pg_stat_activity` |
-| revisar uso de tablas e índices | `pg_stat_user_tables`, `pg_stat_user_indexes` |
-| encontrar bloqueos | `pg_locks` + `pg_stat_activity` |
-| controlar privilegios | roles, `GRANT`, `REVOKE` |
-| aislar filas por tenant | RLS con políticas bien probadas |
-| medir consultas agregadas | `pg_stat_statements` si está disponible |
+| Necesidad                                      | Herramienta o vista                           |
+| ---------------------------------------------- | --------------------------------------------- |
+| actualizar estadísticas                        | `ANALYZE`                                     |
+| recuperar espacio reutilizable y mantener MVCC | `VACUUM` / autovacuum                         |
+| ver sesiones y consultas                       | `pg_stat_activity`                            |
+| revisar uso de tablas e índices                | `pg_stat_user_tables`, `pg_stat_user_indexes` |
+| encontrar bloqueos                             | `pg_locks` + `pg_stat_activity`               |
+| controlar privilegios                          | roles, `GRANT`, `REVOKE`                      |
+| aislar filas por tenant                        | RLS con políticas bien probadas               |
+| medir consultas agregadas                      | `pg_stat_statements` si está disponible       |
 
 No ejecutes comandos de mantenimiento destructivos o cambios globales sin conocer versión, proveedor, tamaño y carga. En servicios administrados algunas tareas y parámetros pertenecen al proveedor.
 
@@ -100,7 +100,7 @@ Los privilegios sobre tablas existentes no garantizan los de objetos futuros. Co
 
 ## Seguridad por fila con RLS
 
-**RLS** (*Row-Level Security* o seguridad por fila) aplica políticas dentro de la base.
+**RLS** (_Row-Level Security_ o seguridad por fila) aplica políticas dentro de la base.
 
 ```sql
 ALTER TABLE projects ENABLE ROW LEVEL SECURITY;

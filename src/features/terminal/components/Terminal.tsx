@@ -1,16 +1,24 @@
-import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { navigate } from "astro:transitions/client"
 import {
-  PUBLIC_COMMANDS,
-  findCommand,
-  type TerminalContext
-} from "../commands"
+  type KeyboardEvent,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState
+} from "react"
+import { PUBLIC_COMMANDS, type TerminalContext, findCommand } from "../commands"
 import { useAppearance } from "../hooks/useAppearance"
 import { useCommandHistory } from "../hooks/useCommandHistory"
 import { useOutput } from "../hooks/useOutput"
 import { useSearchIndex } from "../hooks/useSearchIndex"
 import { itemUrl, parseInput } from "../parse"
-import { MAX_RESULTS, type MenuItem, type QuizQuestion, type TerminalProps } from "../types"
+import {
+  MAX_RESULTS,
+  type MenuItem,
+  type QuizQuestion,
+  type TerminalProps
+} from "../types"
 import { CommandOptions } from "./CommandOptions"
 import { Footer } from "./Footer"
 import { Messages } from "./Messages"
@@ -78,7 +86,8 @@ export function Terminal({
     commandSuggestions.length > 0
       ? Math.min(activeCommandIndex, commandSuggestions.length - 1)
       : 0
-  const knownCommand = inputMode.kind === "command" && Boolean(findCommand(inputMode.name))
+  const knownCommand =
+    inputMode.kind === "command" && Boolean(findCommand(inputMode.name))
 
   const menuItems = useMemo<MenuItem[]>(() => {
     if (!index.docs || !trimmedInput || inputMode.kind === "command") return []
@@ -86,7 +95,9 @@ export function Terminal({
     if (inputMode.kind === "tags") {
       const needle = inputMode.needle.toLocaleLowerCase("es")
       return index.tags
-        .filter(({ tag }) => !needle || tag.toLocaleLowerCase("es").includes(needle))
+        .filter(
+          ({ tag }) => !needle || tag.toLocaleLowerCase("es").includes(needle)
+        )
         .slice(0, MAX_RESULTS)
         .map((tag) => ({ kind: "tag" as const, tag }))
     }
@@ -179,7 +190,11 @@ export function Terminal({
 
     if (inputMode.kind !== "command") {
       if (menuItems.length === 0 && index.docs !== null) {
-        output.print(trimmedInput, [`sin coincidencias para “${inputMode.needle}”`], "error")
+        output.print(
+          trimmedInput,
+          [`sin coincidencias para “${inputMode.needle}”`],
+          "error"
+        )
         setInput("")
       }
       return
@@ -187,7 +202,11 @@ export function Terminal({
 
     const { name, args } = inputMode
     if (!name) {
-      output.print(trimmedInput, ["escribe /help o usa Tab para completar un comando"], "error")
+      output.print(
+        trimmedInput,
+        ["escribe /help o usa Tab para completar un comando"],
+        "error"
+      )
       setInput("")
       return
     }
@@ -198,7 +217,10 @@ export function Terminal({
     if (!command) {
       output.print(
         trimmedInput,
-        [`comando no encontrado: /${name}`, "ejecuta /help para ver los comandos disponibles"],
+        [
+          `comando no encontrado: /${name}`,
+          "ejecuta /help para ver los comandos disponibles"
+        ],
         "error"
       )
       setInput("")
@@ -237,17 +259,22 @@ export function Terminal({
       if (commandSuggestions.length > 0) {
         stop()
         setActiveCommandIndex(
-          (current) => (current + step + commandSuggestions.length) % commandSuggestions.length
+          (current) =>
+            (current + step + commandSuggestions.length) %
+            commandSuggestions.length
         )
         return
       }
       if (menuItems.length > 0) {
         stop()
-        setActiveIndex((current) => (current + step + menuItems.length) % menuItems.length)
+        setActiveIndex(
+          (current) => (current + step + menuItems.length) % menuItems.length
+        )
         return
       }
 
-      const recalled = key === "ArrowUp" ? history.previous(input) : history.next()
+      const recalled =
+        key === "ArrowUp" ? history.previous(input) : history.next()
       if (recalled !== null) {
         stop()
         setInput(recalled)
@@ -288,7 +315,10 @@ export function Terminal({
       data-scanlines={appearance.scanlines ? "on" : "off"}
       data-terminal-effect={appearance.effect}
     >
-      <div className="search-terminal__bar" aria-hidden="true">
+      <div
+        className="search-terminal__bar"
+        aria-hidden="true"
+      >
         <span className="terminal-window__lights">
           <i></i>
           <i></i>
@@ -299,20 +329,29 @@ export function Terminal({
       </div>
 
       <div className="search-terminal__screen">
-        <div className="search-terminal__boot" aria-hidden="true">
+        <div
+          className="search-terminal__boot"
+          aria-hidden="true"
+        >
           <p>
             <span>[ok]</span> angel.shell v2.0 · sesión local de solo lectura
           </p>
           <p>
-            <span>[ok]</span> índice {index.docs === null ? "montando…" : "montado"} · escribe
-            /help
+            <span>[ok]</span> índice{" "}
+            {index.docs === null ? "montando…" : "montado"} · escribe /help
           </p>
         </div>
 
-        <div ref={output.outputRef} className="search-terminal__output" aria-live="polite">
+        <div
+          ref={output.outputRef}
+          className="search-terminal__output"
+          aria-live="polite"
+        >
           <Messages messages={output.messages} />
 
-          {!trimmedInput && output.messages.length === 0 && index.docs !== null && <Welcome />}
+          {!trimmedInput &&
+            output.messages.length === 0 &&
+            index.docs !== null && <Welcome />}
 
           {commandSuggestions.length > 0 && (
             <CommandOptions
@@ -325,20 +364,29 @@ export function Terminal({
             />
           )}
 
-          {inputMode.kind === "command" && trimmedInput && commandSuggestions.length === 0 && (
-            <div className="search-terminal__command-preview" data-known={knownCommand}>
-              <span>{knownCommand ? "command" : "unknown"}</span>
-              <strong>/{inputMode.name || "…"}</strong>
-              <small>presiona Enter para ejecutar</small>
-            </div>
-          )}
+          {inputMode.kind === "command" &&
+            trimmedInput &&
+            commandSuggestions.length === 0 && (
+              <div
+                className="search-terminal__command-preview"
+                data-known={knownCommand}
+              >
+                <span>{knownCommand ? "command" : "unknown"}</span>
+                <strong>/{inputMode.name || "…"}</strong>
+                <small>presiona Enter para ejecutar</small>
+              </div>
+            )}
 
           {trimmedInput && menuItems.length > 0 && (
             <ResultOptions
               items={menuItems}
               activeIndex={activeIndex}
               listboxId={listboxId}
-              label={inputMode.kind === "tags" ? "Tags encontrados" : "Documentos encontrados"}
+              label={
+                inputMode.kind === "tags"
+                  ? "Tags encontrados"
+                  : "Documentos encontrados"
+              }
               optionId={optionId}
               onHover={setActiveIndex}
               onSelect={() => onRequestClose?.()}
@@ -356,14 +404,23 @@ export function Terminal({
         </div>
 
         <div className="search-terminal__prompt-line">
-          <span className="search-terminal__user" aria-hidden="true">
+          <span
+            className="search-terminal__user"
+            aria-hidden="true"
+          >
             dev@workspace
           </span>
           <span aria-hidden="true">:</span>
-          <span className="search-terminal__cwd" aria-hidden="true">
+          <span
+            className="search-terminal__cwd"
+            aria-hidden="true"
+          >
             ~/angel.library
           </span>
-          <span className="search-terminal__prompt" aria-hidden="true">
+          <span
+            className="search-terminal__prompt"
+            aria-hidden="true"
+          >
             $
           </span>
           <input
@@ -390,7 +447,10 @@ export function Terminal({
         </div>
       </div>
 
-      <Footer status={status} statusId={statusId} />
+      <Footer
+        status={status}
+        statusId={statusId}
+      />
     </div>
   )
 }

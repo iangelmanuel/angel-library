@@ -30,68 +30,70 @@ src/
 ## `repositories/posts.repository.ts` — solo acceso a datos
 
 ```ts
-import { prisma } from '../lib/prisma';
+import { prisma } from "../lib/prisma"
 
 export const postsRepository = {
   findAll: () => prisma.post.findMany(),
   findById: (id: string) => prisma.post.findUnique({ where: { id } }),
-  create: (data: { title: string; content?: string }) => prisma.post.create({ data }),
-  delete: (id: string) => prisma.post.delete({ where: { id } }),
-};
+  create: (data: { title: string; content?: string }) =>
+    prisma.post.create({ data }),
+  delete: (id: string) => prisma.post.delete({ where: { id } })
+}
 ```
 
 ## `services/posts.service.ts` — reglas de negocio
 
 ```ts
-import { postsRepository } from '../repositories/posts.repository';
-import { AppError } from '../errors/AppError';
+import { AppError } from "../errors/AppError"
+import { postsRepository } from "../repositories/posts.repository"
 
 export const postsService = {
   async obtenerPost(id: string) {
-    const post = await postsRepository.findById(id);
-    if (!post) throw new AppError(404, 'POST_NO_ENCONTRADO', 'Post no encontrado');
-    return post;
+    const post = await postsRepository.findById(id)
+    if (!post)
+      throw new AppError(404, "POST_NO_ENCONTRADO", "Post no encontrado")
+    return post
   },
 
   async crearPost(datos: { title: string; content?: string }) {
     if (datos.title.trim().length === 0) {
-      throw new AppError(400, 'TITULO_VACIO', 'El título no puede estar vacío');
+      throw new AppError(400, "TITULO_VACIO", "El título no puede estar vacío")
     }
-    return postsRepository.create(datos);
-  },
-};
+    return postsRepository.create(datos)
+  }
+}
 ```
 
 ## `controllers/posts.controller.ts` — única capa que conoce `req`/`res`
 
 ```ts
-import type { Request, Response } from 'express';
-import { postsService } from '../services/posts.service';
+import type { Request, Response } from "express"
+import { postsService } from "../services/posts.service"
 
 export const postsController = {
   async getPost(req: Request, res: Response) {
-    const post = await postsService.obtenerPost(req.params.id);
-    res.json(post);
+    const post = await postsService.obtenerPost(req.params.id)
+    res.json(post)
   },
 
   async createPost(req: Request, res: Response) {
-    const post = await postsService.crearPost(req.body);
-    res.status(201).json(post);
-  },
-};
+    const post = await postsService.crearPost(req.body)
+    res.status(201).json(post)
+  }
+}
 ```
 
 ## `routes/posts.routes.ts` — solo mapeo ruta → controller
 
 ```ts
-import { Router } from 'express';
-import { postsController } from '../controllers/posts.controller';
-import { asyncHandler } from '../utils/asyncHandler';
+import { Router } from "express"
+import { postsController } from "../controllers/posts.controller"
+import { asyncHandler } from "../utils/asyncHandler"
 
-export const postsRouter = Router();
+export const postsRouter = Router()
 
-postsRouter.get('/:id', asyncHandler(postsController.getPost));
-postsRouter.post('/', asyncHandler(postsController.createPost));
+postsRouter.get("/:id", asyncHandler(postsController.getPost))
+postsRouter.post("/", asyncHandler(postsController.createPost))
 ```
 
 ## Por qué separar así (recordatorio del patrón)

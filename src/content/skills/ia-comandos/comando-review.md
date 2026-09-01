@@ -28,11 +28,11 @@ Don't make any changes, just report. Prioritize findings: breaking issues first,
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
-| Claude Code | `.claude/commands/review.md` |
-| Cursor | `.cursor/commands/review.md` |
-| OpenCode | `.opencode/commands/review.md` (+ `template:`) |
+| Dónde       | Archivo                                        |
+| ----------- | ---------------------------------------------- |
+| Claude Code | `.claude/commands/review.md`                   |
+| Cursor      | `.cursor/commands/review.md`                   |
+| OpenCode    | `.opencode/commands/review.md` (+ `template:`) |
 
 ## Consideraciones
 

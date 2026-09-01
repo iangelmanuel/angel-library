@@ -43,14 +43,14 @@ updatedAt: 2026-08-17
 
 ## Resumen
 
-| Comando | Para qué |
-| --- | --- |
-| `/clear` | Contexto limpio |
-| `/compact` | Resumir para ahorrar contexto |
-| `/config` | Ver/editar settings |
-| `/doctor` | Diagnóstico |
+| Comando                             | Para qué                         |
+| ----------------------------------- | -------------------------------- |
+| `/clear`                            | Contexto limpio                  |
+| `/compact`                          | Resumir para ahorrar contexto    |
+| `/config`                           | Ver/editar settings              |
+| `/doctor`                           | Diagnóstico                      |
 | `/agents` `/hooks` `/mcp` `/plugin` | Gestionar cada tipo de extensión |
-| `/plan` | Modo solo-lectura para diseñar |
+| `/plan`                             | Modo solo-lectura para diseñar   |
 
 ## Consideraciones
 

@@ -49,10 +49,10 @@ railway login --browserless
 
 La automatización utiliza uno de dos secretos, según el alcance:
 
-| Variable | Alcance | Uso apropiado |
-| --- | --- | --- |
-| `RAILWAY_TOKEN` | Un proyecto | Desplegar o administrar un proyecto concreto desde CI |
-| `RAILWAY_API_TOKEN` | Cuenta o workspace | Operaciones que abarcan varios proyectos o entornos |
+| Variable            | Alcance            | Uso apropiado                                         |
+| ------------------- | ------------------ | ----------------------------------------------------- |
+| `RAILWAY_TOKEN`     | Un proyecto        | Desplegar o administrar un proyecto concreto desde CI |
+| `RAILWAY_API_TOKEN` | Cuenta o workspace | Operaciones que abarcan varios proyectos o entornos   |
 
 No definas ambas al mismo tiempo: Railway considera la combinación ambigua. Prefiere el token de proyecto cuando sea suficiente y almacénalo como secreto de CI.
 
@@ -122,18 +122,18 @@ Evita pasar secretos directamente en una terminal compartida o grabada: el coman
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `railway login` | Autentica la CLI con tu cuenta |
-| `railway whoami` | Confirma la cuenta activa |
-| `railway init` | Crea un proyecto nuevo en Railway |
-| `railway link` | Vincula la carpeta local a un proyecto existente |
-| `railway status` | Muestra proyecto, entorno y servicio seleccionados |
-| `railway up` | Deploy del directorio actual |
+| Comando                 | Qué hace                                                         |
+| ----------------------- | ---------------------------------------------------------------- |
+| `railway login`         | Autentica la CLI con tu cuenta                                   |
+| `railway whoami`        | Confirma la cuenta activa                                        |
+| `railway init`          | Crea un proyecto nuevo en Railway                                |
+| `railway link`          | Vincula la carpeta local a un proyecto existente                 |
+| `railway status`        | Muestra proyecto, entorno y servicio seleccionados               |
+| `railway up`            | Deploy del directorio actual                                     |
 | `railway run <comando>` | Corre un comando local con las variables del proyecto inyectadas |
-| `railway logs` | Logs del deployment activo |
-| `railway variables` | Lista las variables de entorno del servicio |
-| `railway open` | Abre el proyecto vinculado en el navegador |
+| `railway logs`          | Logs del deployment activo                                       |
+| `railway variables`     | Lista las variables de entorno del servicio                      |
+| `railway open`          | Abre el proyecto vinculado en el navegador                       |
 
 ## Consideraciones
 

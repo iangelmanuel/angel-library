@@ -52,4 +52,3 @@ Revisa si detección, contención y recuperación cumplieron objetivos. Un postm
 - procedimiento de restauración probado.
 
 Realiza ejercicios de mesa y game days controlados. El objetivo no es sorprender al equipo, sino comprobar accesos, alertas, decisiones y rollback antes de una emergencia real.
-

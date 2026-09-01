@@ -37,22 +37,22 @@ pnpm dev
 ## Punto de entrada
 
 ```tsx title="src/main.tsx"
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { App } from './App';
-import './index.css';
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import { App } from "./App"
+import "./index.css"
 
-const container = document.getElementById('root');
+const container = document.getElementById("root")
 
 if (!container) {
-  throw new Error('No existe #root');
+  throw new Error("No existe #root")
 }
 
 createRoot(container).render(
   <StrictMode>
     <App />
-  </StrictMode>,
-);
+  </StrictMode>
+)
 ```
 
 `createRoot` conecta React con un nodo DOM. En frameworks como Next.js esta entrada ya está administrada por el framework y no se escribe manualmente.
@@ -63,9 +63,9 @@ createRoot(container).render(
 
 ```tsx title="src/App.tsx"
 type WelcomeProps = {
-  name: string;
-  topics: string[];
-};
+  name: string
+  topics: string[]
+}
 
 function Welcome({ name, topics }: WelcomeProps) {
   return (
@@ -77,11 +77,16 @@ function Welcome({ name, topics }: WelcomeProps) {
         ))}
       </ul>
     </section>
-  );
+  )
 }
 
 export function App() {
-  return <Welcome name="Angel" topics={['componentes', 'estado', 'efectos']} />;
+  return (
+    <Welcome
+      name="Angel"
+      topics={["componentes", "estado", "efectos"]}
+    />
+  )
 }
 ```
 
@@ -89,16 +94,16 @@ Un componente es una función que recibe props y devuelve nodos de React. Debe c
 
 ## JSX que debes reconocer
 
-| Necesidad | Sintaxis |
-| --- | --- |
-| insertar expresión | `{value}` |
-| atributo dinámico | `<img src={url} alt={description} />` |
-| clase CSS | `className="card"` |
-| fragmento sin wrapper | `<>...</>` |
-| condicional corto | `{ready ? <Result /> : <Loading />}` |
-| render opcional | `{error && <Alert />}` |
-| lista | `{items.map(item => <Row key={item.id} />)}` |
-| evento | `<button onClick={handleClick}>` |
+| Necesidad             | Sintaxis                                     |
+| --------------------- | -------------------------------------------- |
+| insertar expresión    | `{value}`                                    |
+| atributo dinámico     | `<img src={url} alt={description} />`        |
+| clase CSS             | `className="card"`                           |
+| fragmento sin wrapper | `<>...</>`                                   |
+| condicional corto     | `{ready ? <Result /> : <Loading />}`         |
+| render opcional       | `{error && <Alert />}`                       |
+| lista                 | `{items.map(item => <Row key={item.id} />)}` |
+| evento                | `<button onClick={handleClick}>`             |
 
 Los nombres de eventos usan camelCase y reciben funciones. `onClick={save()}` ejecuta `save` durante el render; normalmente necesitas `onClick={save}` o `onClick={() => save(id)}`.
 
@@ -120,12 +125,12 @@ Un render no equivale a reemplazar todo el DOM. Tampoco significa que “la func
 
 ```tsx
 function Price({ cents }: { cents: number }) {
-  const formatted = new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-  }).format(cents / 100);
+  const formatted = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP"
+  }).format(cents / 100)
 
-  return <output>{formatted}</output>;
+  return <output>{formatted}</output>
 }
 ```
 
@@ -158,4 +163,3 @@ Este ejercicio practica props, estado local, flujo descendente y datos derivados
 - Guardar en estado un valor que se puede calcular desde otras entradas.
 - Confundir una comprobación extra de Strict Mode con un error de producción.
 - comenzar por memoización o una librería global antes de comprender el flujo local.
-

@@ -64,4 +64,3 @@ No cambies una fecha sin revisar el cuerpo. Comprueba ejemplos, versiones, enlac
 
 - [Google Search: estructura de URLs](https://developers.google.com/search/docs/crawling-indexing/url-structure)
 - [Google Search: contenido útil](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
-

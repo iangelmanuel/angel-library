@@ -32,8 +32,8 @@ Revisa el PR actual con `gh pr diff` y señala bugs, riesgos de seguridad y prob
 ## Frontmatter mínimo requerido
 
 ```yaml
-name: revisar-pr           # requerido
-description: ...            # requerido
+name: revisar-pr # requerido
+description: ... # requerido
 ```
 
 Opcional, junto al `SKILL.md`: `agents/openai.yaml` (política de invocación, dependencias de tools), `scripts/`, `references/`, `assets/` — mismo modelo de progressive disclosure que en Claude Code.
@@ -53,9 +53,9 @@ O activación automática si el pedido matchea la `description`.
 
 ## Resumen
 
-| Mecanismo | Estado |
-| --- | --- |
-| Skills (`SKILL.md`) | Recomendado, activo |
+| Mecanismo                            | Estado                      |
+| ------------------------------------ | --------------------------- |
+| Skills (`SKILL.md`)                  | Recomendado, activo         |
 | Custom Prompts (`~/.codex/prompts/`) | Deprecado — no crear nuevos |
 
 ## Consideraciones

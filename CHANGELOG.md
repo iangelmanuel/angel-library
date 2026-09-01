@@ -8,6 +8,66 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.21.1] — 2026-09-01
+
+Corrección del espaciado en los bloques de terminal y sincronización completa
+del patrón `SITE` con la documentación de inicialización de Astro.
+
+### Cambiado
+
+- `src/config/site.ts` conserva una única configuración `SITE` con todos los
+  campos del patrón documentado: identidad, sitio, ubicación, contacto,
+  WhatsApp, redes sociales, horarios, legales, navegación, estadísticas y SEO.
+- Los campos que no aplican a `angel.library` quedan definidos explícitamente
+  como `null`, sin inventar datos comerciales o de contacto.
+- El bloque `SITE` de `/myastro` coincide línea por línea con
+  `src/config/site.ts`, incluyendo la URL derivada de `import.meta.env.SITE`.
+- `SERVICES`, `FAQ_ITEMS` y `whatsAppMessage()` se mantienen compatibles con
+  la estructura documentada sin agregar datos ficticios.
+
+### Corregido
+
+- Los bloques de comandos e instalaciones ya no reciben espacios literales por
+  la indentación del template dentro de `<pre>`.
+- `set:text` conserva el contenido escapado y evita que Prettier vuelva a
+  introducir saltos de línea visibles en la terminal.
+- El prefijo visual `$` continúa aplicándose directamente sobre el bloque de
+  comando.
+- La documentación dejó de referenciar datos ficticios de Acme y hace segura
+  la lectura de `areaServed` cuando su valor es `null`.
+
+### Verificado
+
+- `pnpm check`: 0 errores.
+- `pnpm build`: 1.630 páginas generadas correctamente.
+
+## [0.21.0] — 2026-09-01
+
+Reestructuración interna del sitio para separar configuración, contenido, SEO y
+validaciones sin cambiar las rutas ni la salida visual existente.
+
+### Añadido
+
+- Configuración separada para tipos, categorías, subcategorías y recursos en
+  `src/config/`, manteniendo sus ids como fuente de verdad.
+- Validaciones de estructura, relaciones y enlaces internos durante el build.
+- Base SEO con `BaseHead`, JSON-LD, manifest, `robots.txt`, sitemap y recursos
+  sociales reutilizables.
+- Configuración de ESLint, Prettier, `.editorconfig`, variables de entorno de
+  ejemplo y workflow de calidad para GitHub Actions.
+
+### Cambiado
+
+- `package.json` sigue el orden documentado en `/myastro` y declara los scripts
+  de Astro, comprobación, sincronización, ESLint y Prettier.
+- Los layouts y rutas consumen la configuración modular sin duplicar reglas de
+  navegación o metadatos SEO.
+
+### Verificado
+
+- `pnpm sync` completado correctamente.
+- `pnpm check` y `pnpm build` sin errores de contenido o rutas.
+
 ## [0.20.2] — 2026-09-01
 
 Mejoras visuales centradas en la legibilidad del contenido y en la jerarquía
@@ -320,7 +380,7 @@ que ya usaban Aplicaciones y otras categorías.
   Excalidraw.
 - El descriptor se mantiene corto, entre tres y siete palabras, para que la
   barra lateral siga siendo legible: `Squoosh — comprimir y convertir imágenes
-  en el navegador`, `Buzz — espacio de trabajo para personas y agentes`.
+en el navegador`, `Buzz — espacio de trabajo para personas y agentes`.
 
 ### Verificado
 
@@ -579,7 +639,7 @@ enlace por enlace.
   realidad playlists completas (SQL, CSS, TypeScript) o directos grabados
   (Docker), lo que cambia por completo el tiempo que requieren.
 - El enlace que circula como "certificado de SQL de midudev" lleva a la
-  certificación *SQL Associate* de DataCamp, que es de pago y ajena a
+  certificación _SQL Associate_ de DataCamp, que es de pago y ajena a
   midudev; queda advertido en la entrada correspondiente.
 - Las dos series de Microsoft Reactor estaban cruzadas: `S-1567` es el MCP
   Bootcamp LATAM y `S-1633` es Python + Agentes, no dos ediciones de lo mismo.

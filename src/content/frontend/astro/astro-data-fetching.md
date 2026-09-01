@@ -16,20 +16,27 @@ Un `await fetch()` en el frontmatter corre donde se renderiza la página: durant
 
 ## Consulta rápida
 
-| El dato cambia... | Lugar habitual |
-| --- | --- |
-| solo al publicar | build estático |
-| por solicitud, usuario o cookie | ruta bajo demanda |
-| después de una interacción frecuente | navegador o isla |
-| dentro del mismo servidor | función de la capa de datos, sin HTTP interno |
+| El dato cambia...                    | Lugar habitual                                |
+| ------------------------------------ | --------------------------------------------- |
+| solo al publicar                     | build estático                                |
+| por solicitud, usuario o cookie      | ruta bajo demanda                             |
+| después de una interacción frecuente | navegador o isla                              |
+| dentro del mismo servidor            | función de la capa de datos, sin HTTP interno |
 
 ```astro
 ---
-const response = await fetch('https://api.example.com/posts');
-if (!response.ok) throw new Error(`Posts: ${response.status}`);
-const posts: Array<{ id: string; title: string }> = await response.json();
+const response = await fetch("https://api.example.com/posts")
+if (!response.ok) throw new Error(`Posts: ${response.status}`)
+const posts: Array<{ id: string; title: string }> = await response.json()
 ---
-{posts.map((post) => <article><h2>{post.title}</h2></article>)}
+
+{
+  posts.map((post) => (
+    <article>
+      <h2>{post.title}</h2>
+    </article>
+  ))
+}
 ```
 
 `fetch()` solo rechaza la promesa por errores de red. Un HTTP 404 o 500 sigue siendo una respuesta válida, por eso hay que comprobar `response.ok`. El tipo escrito después de `response.json()` ayuda al editor, pero no demuestra que el servidor haya enviado esa forma.
@@ -47,8 +54,8 @@ Un mismo sitio puede combinar los tres modelos. Por ejemplo, una página de prod
 ```ts
 const [posts, authors] = await Promise.all([
   fetch(postsUrl).then((r) => r.json()),
-  fetch(authorsUrl).then((r) => r.json()),
-]);
+  fetch(authorsUrl).then((r) => r.json())
+])
 ```
 
 Una **waterfall** o cascada ocurre cuando una solicitud independiente espera a que termine otra. Si `authors` no necesita el resultado de `posts`, inicia ambas juntas. Si sí lo necesita, la secuencia es correcta y conviene hacer explícita esa dependencia.
@@ -59,9 +66,10 @@ Desde una ruta bajo demanda puedes construir una URL absoluta con `new URL('/api
 
 ```ts title="src/libs/posts.ts"
 export async function getPosts() {
-  const response = await fetch('https://api.example.com/posts');
-  if (!response.ok) throw new Error(`No se pudieron cargar posts: ${response.status}`);
-  return response.json();
+  const response = await fetch("https://api.example.com/posts")
+  if (!response.ok)
+    throw new Error(`No se pudieron cargar posts: ${response.status}`)
+  return response.json()
 }
 ```
 

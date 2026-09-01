@@ -19,81 +19,104 @@ updatedAt: 2026-08-16
 ## Router completo
 
 ```ts title="routes/posts.routes.ts"
-import { Router } from 'express';
-import { z } from 'zod';
-import { prisma } from '../lib/prisma';
-import { AppError } from '../errors/AppError';
-import { asyncHandler } from '../utils/asyncHandler';
+import { Router } from "express"
+import { z } from "zod"
+import { AppError } from "../errors/AppError"
+import { prisma } from "../lib/prisma"
+import { asyncHandler } from "../utils/asyncHandler"
 
-export const postsRouter = Router();
+export const postsRouter = Router()
 
 const crearPostSchema = z.object({
   title: z.string().min(1),
   content: z.string().optional(),
-  published: z.boolean().default(false),
-});
+  published: z.boolean().default(false)
+})
 
 // GET /posts — listar
-postsRouter.get('/', asyncHandler(async (req, res) => {
-  const posts = await prisma.post.findMany();
-  res.json(posts);
-}));
+postsRouter.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const posts = await prisma.post.findMany()
+    res.json(posts)
+  })
+)
 
 // GET /posts/:id — uno
-postsRouter.get('/:id', asyncHandler(async (req, res) => {
-  const post = await prisma.post.findUnique({ where: { id: req.params.id } });
-  if (!post) throw new AppError(404, 'POST_NO_ENCONTRADO', 'Post no encontrado');
-  res.json(post);
-}));
+postsRouter.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const post = await prisma.post.findUnique({ where: { id: req.params.id } })
+    if (!post)
+      throw new AppError(404, "POST_NO_ENCONTRADO", "Post no encontrado")
+    res.json(post)
+  })
+)
 
 // POST /posts — crear
-postsRouter.post('/', asyncHandler(async (req, res) => {
-  const datos = crearPostSchema.parse(req.body); // lanza si es inválido, lo atrapa asyncHandler
-  const post = await prisma.post.create({ data: datos });
-  res.status(201).json(post);
-}));
+postsRouter.post(
+  "/",
+  asyncHandler(async (req, res) => {
+    const datos = crearPostSchema.parse(req.body) // lanza si es inválido, lo atrapa asyncHandler
+    const post = await prisma.post.create({ data: datos })
+    res.status(201).json(post)
+  })
+)
 
 // PATCH /posts/:id — actualizar parcial
-postsRouter.patch('/:id', asyncHandler(async (req, res) => {
-  const datos = crearPostSchema.partial().parse(req.body); // todos los campos opcionales aquí
-  const post = await prisma.post.update({ where: { id: req.params.id }, data: datos });
-  res.json(post);
-}));
+postsRouter.patch(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const datos = crearPostSchema.partial().parse(req.body) // todos los campos opcionales aquí
+    const post = await prisma.post.update({
+      where: { id: req.params.id },
+      data: datos
+    })
+    res.json(post)
+  })
+)
 
 // DELETE /posts/:id — eliminar
-postsRouter.delete('/:id', asyncHandler(async (req, res) => {
-  await prisma.post.delete({ where: { id: req.params.id } });
-  res.status(204).end();
-}));
+postsRouter.delete(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    await prisma.post.delete({ where: { id: req.params.id } })
+    res.status(204).end()
+  })
+)
 ```
 
 ```ts title="app.ts"
-import { postsRouter } from './routes/posts.routes';
+import { postsRouter } from "./routes/posts.routes"
 
-app.use('/posts', postsRouter);
-app.use(errorHandler); // al final, atrapa el ZodError y cualquier AppError lanzado arriba
+app.use("/posts", postsRouter)
+app.use(errorHandler) // al final, atrapa el ZodError y cualquier AppError lanzado arriba
 ```
 
 ## Manejar el error de Zod en el error handler
 
 ```ts title="middlewares/error-handler.ts"
-import { ZodError } from 'zod';
-import { AppError } from '../errors/AppError';
+import { ZodError } from "zod"
+import { AppError } from "../errors/AppError"
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof ZodError) {
     return res.status(400).json({
-      error: { code: 'VALIDATION_ERROR', fields: err.flatten().fieldErrors },
-    });
+      error: { code: "VALIDATION_ERROR", fields: err.flatten().fieldErrors }
+    })
   }
 
   if (err instanceof AppError) {
-    return res.status(err.status).json({ error: { code: err.code, message: err.message } });
+    return res
+      .status(err.status)
+      .json({ error: { code: err.code, message: err.message } })
   }
 
-  console.error(err);
-  res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Error interno' } });
-};
+  console.error(err)
+  res
+    .status(500)
+    .json({ error: { code: "INTERNAL_ERROR", message: "Error interno" } })
+}
 ```
 
 ## Consideraciones

@@ -46,24 +46,24 @@ En cada ejercicio:
 
 ### Ya uso Express y quiero recordar
 
-| Necesito | Documento |
-| --- | --- |
-| proyecto mínimo y flujo de request | [Primeros pasos](/backend/express/express-primeros-pasos) |
+| Necesito                            | Documento                                                                        |
+| ----------------------------------- | -------------------------------------------------------------------------------- |
+| proyecto mínimo y flujo de request  | [Primeros pasos](/backend/express/express-primeros-pasos)                        |
 | rutas, params, query, body y Router | [Routing, Request y Response](/backend/express/express-routing-request-response) |
-| `app.use`, `next` y orden | [Middlewares](/backend/express/express-middlewares) |
-| validar y transformar entradas | [Contratos de entrada](/backend/express/express-validacion-contratos) |
-| errores async y handler final | [Manejo de errores](/backend/express/express-error-handling) |
-| logs estructurados y correlación | [Logging](/backend/express/express-logging) |
-| headers, límites y endurecimiento | [Seguridad](/backend/express/express-seguridad) |
-| orígenes, preflight y credenciales | [CORS](/backend/express/express-cors) |
-| recursos, verbos y status | [REST y CRUD](/backend/express/express-rest-crud) |
-| listas grandes | [Paginación y filtrado](/backend/express/express-api-paginacion) |
-| envelope estable de errores | [Respuestas de error](/backend/express/express-api-error-responses) |
-| tokens | [JWT](/backend/express/express-jwt) |
-| sesión server-side | [Cookies y sesiones](/backend/express/express-cookies-sesiones) |
-| proteger rutas | [Middleware de autenticación](/backend/express/express-auth-middleware) |
-| autorización | [Roles y permisos](/backend/express/express-roles-permisos) |
-| estructura por capas | [MVC y capas](/backend/express/backend-mvc-structure) |
+| `app.use`, `next` y orden           | [Middlewares](/backend/express/express-middlewares)                              |
+| validar y transformar entradas      | [Contratos de entrada](/backend/express/express-validacion-contratos)            |
+| errores async y handler final       | [Manejo de errores](/backend/express/express-error-handling)                     |
+| logs estructurados y correlación    | [Logging](/backend/express/express-logging)                                      |
+| headers, límites y endurecimiento   | [Seguridad](/backend/express/express-seguridad)                                  |
+| orígenes, preflight y credenciales  | [CORS](/backend/express/express-cors)                                            |
+| recursos, verbos y status           | [REST y CRUD](/backend/express/express-rest-crud)                                |
+| listas grandes                      | [Paginación y filtrado](/backend/express/express-api-paginacion)                 |
+| envelope estable de errores         | [Respuestas de error](/backend/express/express-api-error-responses)              |
+| tokens                              | [JWT](/backend/express/express-jwt)                                              |
+| sesión server-side                  | [Cookies y sesiones](/backend/express/express-cookies-sesiones)                  |
+| proteger rutas                      | [Middleware de autenticación](/backend/express/express-auth-middleware)          |
+| autorización                        | [Roles y permisos](/backend/express/express-roles-permisos)                      |
+| estructura por capas                | [MVC y capas](/backend/express/backend-mvc-structure)                            |
 
 ## Curva de aprendizaje
 
@@ -109,16 +109,16 @@ Al terminar debes construir una API en memoria y predecir exactamente qué handl
 
 ## Glosario mínimo
 
-| Término | Significado |
-| --- | --- |
-| handler | función que participa en el procesamiento de una request |
-| middleware | handler que observa, transforma, responde o delega con `next()` |
-| router | miniaplicación que agrupa rutas y middleware |
-| parser | transforma bytes del body a un valor JavaScript |
-| validación | comprueba que un valor cumple el contrato |
-| controller | adapta HTTP a una operación de aplicación |
-| service/caso de uso | coordina reglas de negocio |
-| repository | encapsula acceso y consultas a datos |
+| Término             | Significado                                                     |
+| ------------------- | --------------------------------------------------------------- |
+| handler             | función que participa en el procesamiento de una request        |
+| middleware          | handler que observa, transforma, responde o delega con `next()` |
+| router              | miniaplicación que agrupa rutas y middleware                    |
+| parser              | transforma bytes del body a un valor JavaScript                 |
+| validación          | comprueba que un valor cumple el contrato                       |
+| controller          | adapta HTTP a una operación de aplicación                       |
+| service/caso de uso | coordina reglas de negocio                                      |
+| repository          | encapsula acceso y consultas a datos                            |
 
 ## Cuándo elegir Express
 

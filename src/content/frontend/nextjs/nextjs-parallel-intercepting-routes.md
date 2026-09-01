@@ -17,11 +17,11 @@ Son routing avanzado. Antes de aplicarlas, confirma que el problema no se resuel
 
 ## Diferencia rápida
 
-| Convención | Resuelve |
-| --- | --- |
-| `@slot` | varias ramas renderizadas simultáneamente por un layout |
-| `(.)`, `(..)`, `(...)` | mostrar una ruta desde otro contexto de navegación |
-| `default.tsx` | reconstruir un slot cuando no se conoce su rama activa |
+| Convención             | Resuelve                                                |
+| ---------------------- | ------------------------------------------------------- |
+| `@slot`                | varias ramas renderizadas simultáneamente por un layout |
+| `(.)`, `(..)`, `(...)` | mostrar una ruta desde otro contexto de navegación      |
+| `default.tsx`          | reconstruir un slot cuando no se conoce su rama activa  |
 
 ## Parallel Routes — carpetas `@slot`
 
@@ -38,9 +38,21 @@ app/dashboard/
 export default function Layout({
   children,
   analytics,
-  team,
-}: Readonly<{ children: React.ReactNode; analytics: React.ReactNode; team: React.ReactNode }>) {
-  return <><main>{children}</main><aside>{analytics}{team}</aside></>;
+  team
+}: Readonly<{
+  children: React.ReactNode
+  analytics: React.ReactNode
+  team: React.ReactNode
+}>) {
+  return (
+    <>
+      <main>{children}</main>
+      <aside>
+        {analytics}
+        {team}
+      </aside>
+    </>
+  )
 }
 ```
 

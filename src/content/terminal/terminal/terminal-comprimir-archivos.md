@@ -5,7 +5,11 @@ type: guides
 order: 6
 tags: [terminal, compresion, zip, tar, cli]
 scope: zip / tar / Compress-Archive
-related: [terminal/terminal/terminal-navegacion, terminal/terminal/terminal-archivos-carpetas]
+related:
+  [
+    terminal/terminal/terminal-navegacion,
+    terminal/terminal/terminal-archivos-carpetas
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -62,12 +66,12 @@ Flags usados: `-c` crear, `-x` extraer, `-z` comprimir/descomprimir con gzip, `-
 
 ## Resumen
 
-| Formato | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Comprimir a `.zip` | `Compress-Archive` | `zip -r` |
-| Descomprimir `.zip` | `Expand-Archive` | `unzip` |
-| Comprimir a `.tar.gz` | `tar -czvf` | `tar -czvf` |
-| Descomprimir `.tar.gz` | `tar -xzvf` | `tar -xzvf` |
+| Formato                | Windows (PowerShell) | macOS / Linux |
+| ---------------------- | -------------------- | ------------- |
+| Comprimir a `.zip`     | `Compress-Archive`   | `zip -r`      |
+| Descomprimir `.zip`    | `Expand-Archive`     | `unzip`       |
+| Comprimir a `.tar.gz`  | `tar -czvf`          | `tar -czvf`   |
+| Descomprimir `.tar.gz` | `tar -xzvf`          | `tar -xzvf`   |
 
 ## Consideraciones
 

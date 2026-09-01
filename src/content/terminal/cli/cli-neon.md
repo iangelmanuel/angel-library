@@ -37,12 +37,12 @@ neon projects list --api-key <api-key>
 
 ## Comandos esenciales
 
-| Comando | Qué hace |
-|---|---|
-| `neon projects create` | Crea un proyecto nuevo (una instancia de Postgres) |
-| `neon projects list` | Lista los proyectos de la cuenta |
-| `neon branches create` | Crea una rama de la base de datos |
-| `neon connection-string` | Devuelve el string de conexión a Postgres |
+| Comando                  | Qué hace                                           |
+| ------------------------ | -------------------------------------------------- |
+| `neon projects create`   | Crea un proyecto nuevo (una instancia de Postgres) |
+| `neon projects list`     | Lista los proyectos de la cuenta                   |
+| `neon branches create`   | Crea una rama de la base de datos                  |
+| `neon connection-string` | Devuelve el string de conexión a Postgres          |
 
 ## Branching: la feature distintiva de Neon
 

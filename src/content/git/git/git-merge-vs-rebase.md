@@ -60,7 +60,7 @@ Muchos equipos usan `--no-ff` a propósito, para que quede registro explícito d
 ## Cuándo usar cada uno
 
 - **`merge`** cuando el historial real (dónde se ramificó, cuándo se juntó) importa para el proyecto, o cuando la rama ya se compartió con otras personas (rebasear algo público reescribe hashes que otros ya tienen, y les rompe el historial local).
-- **`rebase`** para limpiar tu propia rama de trabajo *antes* de abrir un Pull Request — un historial lineal, sin commits de merge intermedios, es más fácil de leer en la revisión.
+- **`rebase`** para limpiar tu propia rama de trabajo _antes_ de abrir un Pull Request — un historial lineal, sin commits de merge intermedios, es más fácil de leer en la revisión.
 
 ## La regla de oro
 
@@ -72,10 +72,10 @@ Rebase cambia los hashes de cada commit reescrito. Si alguien más tiene esos co
 
 ## Resumen
 
-| | `merge` | `rebase` |
-| --- | --- | --- |
-| Historial resultante | Con ramificaciones visibles | Lineal |
-| Crea commit nuevo | Sí (el de merge) | No — reescribe los existentes |
-| Hashes de commits | Se conservan | Cambian (son commits nuevos) |
-| Seguro en ramas compartidas | Sí | No |
-| Uso típico | Integrar a `main` | Limpiar tu rama antes de un PR |
+|                             | `merge`                     | `rebase`                       |
+| --------------------------- | --------------------------- | ------------------------------ |
+| Historial resultante        | Con ramificaciones visibles | Lineal                         |
+| Crea commit nuevo           | Sí (el de merge)            | No — reescribe los existentes  |
+| Hashes de commits           | Se conservan                | Cambian (son commits nuevos)   |
+| Seguro en ramas compartidas | Sí                          | No                             |
+| Uso típico                  | Integrar a `main`           | Limpiar tu rama antes de un PR |

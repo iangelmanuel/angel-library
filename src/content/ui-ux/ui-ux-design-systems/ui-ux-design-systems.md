@@ -28,7 +28,7 @@ Tokens semánticos (`color-text-danger`) sobreviven mejor que nombres visuales (
   --space-control-inline: 0.875rem;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --color-action-primary: #facc15;
 }
 ```

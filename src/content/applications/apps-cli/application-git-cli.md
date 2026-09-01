@@ -151,29 +151,29 @@ git push
 
 Las operaciones locales no. La autenticación aparece al leer o escribir un remoto privado, o al publicar cambios.
 
-| Protocolo | Cómo se autentica | Cuándo conviene |
-| --- | --- | --- |
-| HTTPS | Administrador de credenciales, token o sesión configurada por `gh auth setup-git` | Inicio rápido y equipos con políticas HTTPS |
-| SSH | Par de claves pública/privada registrado en la plataforma | Uso frecuente y varias operaciones sin pedir credenciales |
+| Protocolo | Cómo se autentica                                                                 | Cuándo conviene                                           |
+| --------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| HTTPS     | Administrador de credenciales, token o sesión configurada por `gh auth setup-git` | Inicio rápido y equipos con políticas HTTPS               |
+| SSH       | Par de claves pública/privada registrado en la plataforma                         | Uso frecuente y varias operaciones sin pedir credenciales |
 
 Nunca coloques un token dentro de la URL del remoto ni lo guardes en el repositorio. En GitHub, la contraseña de la cuenta no reemplaza un token para operaciones Git por HTTPS. La [guía de perfil y claves SSH](/git/github-profile/github-perfil-claves-ssh) y la [instalación de GitHub CLI](/applications/apps-cli/gh-cli-instalacion-auth) cubren ambos caminos.
 
 ## Comandos para recordar
 
-| Comando | Resultado |
-| --- | --- |
-| `git init` | Convierte la carpeta actual en un repositorio |
-| `git clone <url>` | Crea una copia local de un repositorio remoto |
-| `git status` | Explica qué cambió y qué está preparado |
-| `git add <ruta>` | Prepara contenido para el próximo commit |
-| `git diff` | Compara cambios todavía no preparados |
-| `git diff --staged` | Compara lo preparado contra el último commit |
-| `git commit -m "mensaje"` | Guarda un commit local |
-| `git switch -c <rama>` | Crea una rama y cambia hacia ella |
-| `git log --oneline --graph --all` | Muestra un historial compacto con ramas |
-| `git fetch` | Actualiza referencias remotas sin integrar cambios |
-| `git pull --ff-only` | Actualiza la rama solo si admite avance rápido |
-| `git push` | Publica commits en el remoto configurado |
+| Comando                           | Resultado                                          |
+| --------------------------------- | -------------------------------------------------- |
+| `git init`                        | Convierte la carpeta actual en un repositorio      |
+| `git clone <url>`                 | Crea una copia local de un repositorio remoto      |
+| `git status`                      | Explica qué cambió y qué está preparado            |
+| `git add <ruta>`                  | Prepara contenido para el próximo commit           |
+| `git diff`                        | Compara cambios todavía no preparados              |
+| `git diff --staged`               | Compara lo preparado contra el último commit       |
+| `git commit -m "mensaje"`         | Guarda un commit local                             |
+| `git switch -c <rama>`            | Crea una rama y cambia hacia ella                  |
+| `git log --oneline --graph --all` | Muestra un historial compacto con ramas            |
+| `git fetch`                       | Actualiza referencias remotas sin integrar cambios |
+| `git pull --ff-only`              | Actualiza la rama solo si admite avance rápido     |
+| `git push`                        | Publica commits en el remoto configurado           |
 
 ## Errores habituales
 

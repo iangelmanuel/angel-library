@@ -20,22 +20,29 @@ Usa `URL` y `URLSearchParams` como primitivas; estas utilidades solo encapsulan 
 Agrega o actualiza parámetros de consulta en una URL (string o `URL`) sin concatenar strings a mano. Un valor `null`, `undefined` o string vacío elimina ese parámetro en vez de agregarlo como `key=undefined`.
 
 ```ts title="lib/url.ts"
-type QueryValue = string | number | boolean | null | undefined;
+type QueryValue = string | number | boolean | null | undefined
 
-export function withQuery(input: string | URL, query: Record<string, QueryValue>) {
-  const url = new URL(input, typeof window === 'undefined' ? 'http://local' : window.location.origin);
+export function withQuery(
+  input: string | URL,
+  query: Record<string, QueryValue>
+) {
+  const url = new URL(
+    input,
+    typeof window === "undefined" ? "http://local" : window.location.origin
+  )
   for (const [key, value] of Object.entries(query)) {
-    if (value === null || value === undefined || value === '') url.searchParams.delete(key);
-    else url.searchParams.set(key, String(value));
+    if (value === null || value === undefined || value === "")
+      url.searchParams.delete(key)
+    else url.searchParams.set(key, String(value))
   }
   return input instanceof URL || /^https?:\/\//.test(String(input))
     ? url.toString()
-    : `${url.pathname}${url.search}${url.hash}`;
+    : `${url.pathname}${url.search}${url.hash}`
 }
 ```
 
 ```ts
-withQuery('/productos', { page: 2, search: 'café', draft: false });
+withQuery("/productos", { page: 2, search: "café", draft: false })
 // /productos?page=2&search=caf%C3%A9&draft=false
 ```
 
@@ -47,8 +54,10 @@ Une varios segmentos de ruta en un solo path, normalizando las barras repetidas 
 export function joinUrlPath(...parts: string[]) {
   return parts
     .filter(Boolean)
-    .map((part, index) => index === 0 ? part.replace(/\/$/, '') : part.replace(/^\/+|\/+$/g, ''))
-    .join('/');
+    .map((part, index) =>
+      index === 0 ? part.replace(/\/$/, "") : part.replace(/^\/+|\/+$/g, "")
+    )
+    .join("/")
 }
 ```
 
@@ -56,10 +65,10 @@ No uses `path.join()` de Node para URLs: en Windows puede producir backslashes. 
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `withQuery()` | Agrega, actualiza o quita query params de una URL |
-| `joinUrlPath()` | Une segmentos de path normalizando las barras |
+| Función         | Qué hace                                          |
+| --------------- | ------------------------------------------------- |
+| `withQuery()`   | Agrega, actualiza o quita query params de una URL |
+| `joinUrlPath()` | Une segmentos de path normalizando las barras     |
 
 ## Seguridad
 

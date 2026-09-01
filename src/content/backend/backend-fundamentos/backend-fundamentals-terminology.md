@@ -9,7 +9,7 @@ updatedAt: 2026-08-25
 
 El **backend** procesa reglas de negocio, identidad, permisos, persistencia e integración con otros sistemas. Puede ejecutarse como un servidor HTTP, una función, un proceso en segundo plano o varios servicios coordinados.
 
-Una **API** (*Application Programming Interface* o interfaz de programación de aplicaciones) define cómo otro software solicita capacidades. Una API web suele usar HTTP, pero también puede usar colas, RPC u otros protocolos.
+Una **API** (_Application Programming Interface_ o interfaz de programación de aplicaciones) define cómo otro software solicita capacidades. Una API web suele usar HTTP, pero también puede usar colas, RPC u otros protocolos.
 
 ## Cómo usar esta subcategoría
 
@@ -28,14 +28,14 @@ Luego aprende Node.js y un framework. Estos fundamentos no dependen de la sintax
 
 ### Si vienes a recordar
 
-| Pregunta | Documento |
-| --- | --- |
-| ¿cómo estructuro contrato, status y validación? | [Diseño de APIs](/backend/backend-fundamentos/backend-api-design) |
-| ¿cómo evito pagos u órdenes duplicadas? | [Idempotencia](/backend/backend-fundamentos/backend-idempotencia-cache) |
-| ¿cómo manejo timeouts y retries? | [Resiliencia](/backend/backend-fundamentos/backend-resiliencia-dependencias) |
-| ¿cuándo saco trabajo de HTTP? | [Colas y jobs](/backend/backend-fundamentos/backend-colas-jobs) |
-| ¿webhook, SSE o WebSocket? | [Tiempo real](/backend/backend-fundamentos/backend-webhooks-tiempo-real) |
-| ¿cómo subo archivos sin agotar memoria? | [Object storage](/backend/backend-fundamentos/backend-archivos-object-storage) |
+| Pregunta                                        | Documento                                                                      |
+| ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| ¿cómo estructuro contrato, status y validación? | [Diseño de APIs](/backend/backend-fundamentos/backend-api-design)              |
+| ¿cómo evito pagos u órdenes duplicadas?         | [Idempotencia](/backend/backend-fundamentos/backend-idempotencia-cache)        |
+| ¿cómo manejo timeouts y retries?                | [Resiliencia](/backend/backend-fundamentos/backend-resiliencia-dependencias)   |
+| ¿cuándo saco trabajo de HTTP?                   | [Colas y jobs](/backend/backend-fundamentos/backend-colas-jobs)                |
+| ¿webhook, SSE o WebSocket?                      | [Tiempo real](/backend/backend-fundamentos/backend-webhooks-tiempo-real)       |
+| ¿cómo subo archivos sin agotar memoria?         | [Object storage](/backend/backend-fundamentos/backend-archivos-object-storage) |
 
 La ruta guiada enseña conceptos en orden; la tabla sirve como índice operativo. Ambas llegan al mismo contenido.
 
@@ -60,20 +60,20 @@ Estos nombres no son obligatorios, pero expresan responsabilidades comunes:
 - **Adaptador:** conecta un contrato interno con una tecnología externa.
 
 ```ts
-app.post('/orders', async (request, response) => {
-  const input = createOrderSchema.parse(request.body);
-  const actor = await requireUser(request);
-  const result = await createOrder.execute({ actor, input });
+app.post("/orders", async (request, response) => {
+  const input = createOrderSchema.parse(request.body)
+  const actor = await requireUser(request)
+  const result = await createOrder.execute({ actor, input })
 
-  response.status(201).json(result);
-});
+  response.status(201).json(result)
+})
 ```
 
 La ruta valida la forma, obtiene identidad y delega la regla. `201 Created` comunica que se creó un recurso. El caso de uso no necesita conocer objetos específicos del framework HTTP.
 
 ## REST, RPC y recursos
 
-**REST** significa *Representational State Transfer*. Modela recursos identificados por URLs y utiliza semántica HTTP. **RPC** significa *Remote Procedure Call* o llamada a procedimiento remoto; modela acciones que se invocan a distancia.
+**REST** significa _Representational State Transfer_. Modela recursos identificados por URLs y utiliza semántica HTTP. **RPC** significa _Remote Procedure Call_ o llamada a procedimiento remoto; modela acciones que se invocan a distancia.
 
 ```text
 REST: POST /orders
@@ -109,7 +109,7 @@ El servidor guarda el resultado asociado y evita duplicar el efecto si el client
 
 ## I/O, CPU y concurrencia
 
-**I/O** significa *Input/Output* o entrada y salida: red, archivos y base de datos. Esperar I/O no consume CPU de la misma forma que comprimir video o calcular un informe.
+**I/O** significa _Input/Output_ o entrada y salida: red, archivos y base de datos. Esperar I/O no consume CPU de la misma forma que comprimir video o calcular un informe.
 
 Un **proceso** es una instancia aislada del programa. Un **hilo** es una secuencia de ejecución dentro de un proceso. Un **event loop** coordina tareas y operaciones asíncronas. El modelo exacto depende del runtime.
 
@@ -130,13 +130,13 @@ await cache.set(key, JSON.stringify(product), { ttl: 300 });
 return product;
 ```
 
-**TTL** significa *Time To Live* o tiempo de vida. Versionar la clave ayuda cuando cambia la forma del dato. La invalidación debe contemplar actualizaciones; servir información rápida pero incorrecta no siempre es aceptable.
+**TTL** significa _Time To Live_ o tiempo de vida. Versionar la clave ayuda cuando cambia la forma del dato. La invalidación debe contemplar actualizaciones; servir información rápida pero incorrecta no siempre es aceptable.
 
 ## Colas y trabajo en segundo plano
 
 Una **cola** desacopla la recepción de una tarea de su procesamiento. Es útil para correos, conversiones, sincronizaciones o trabajo que puede reintentarse.
 
-Un **worker** consume mensajes. Debe manejar duplicados, reintentos y una cola de mensajes fallidos, conocida como **DLQ** (*Dead-Letter Queue*). Entrega “al menos una vez” significa que un mensaje podría procesarse más de una vez; el manejador debe ser idempotente cuando el efecto lo requiera.
+Un **worker** consume mensajes. Debe manejar duplicados, reintentos y una cola de mensajes fallidos, conocida como **DLQ** (_Dead-Letter Queue_). Entrega “al menos una vez” significa que un mensaje podría procesarse más de una vez; el manejador debe ser idempotente cuando el efecto lo requiera.
 
 ## Tiempo de espera, reintentos y circuit breaker
 

@@ -19,22 +19,22 @@ Se renombró de NextUI a HeroUI en 2024 (mismo equipo, mismo proyecto). A difere
 1. Agregar el plugin de Tailwind en `tailwind.config`:
 
 ```ts title="tailwind.config.ts"
-import { heroui } from '@heroui/react';
+import { heroui } from "@heroui/react"
 
 export default {
-  content: ['./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}'],
-  plugins: [heroui()],
-};
+  content: ["./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"],
+  plugins: [heroui()]
+}
 ```
 
 2. Envolver la app en el provider:
 
 ```tsx title="main.tsx"
-import { HeroUIProvider } from '@heroui/react';
+import { HeroUIProvider } from "@heroui/react"
 
-<HeroUIProvider>
+;<HeroUIProvider>
   <App />
-</HeroUIProvider>;
+</HeroUIProvider>
 ```
 
 ## Tips

@@ -48,11 +48,11 @@ Añade los scripts al `package.json`:
 
 Prettier por sí solo no ordena imports ni entiende `.astro`. Cada capacidad extra llega como plugin declarado en el campo `plugins`.
 
-| Plugin | Qué aporta | Obligatorio para |
-| --- | --- | --- |
-| `@trivago/prettier-plugin-sort-imports` | Ordena y agrupa los `import` según patrones que tú defines | Que `importOrder` tenga efecto |
-| `prettier-plugin-tailwindcss` | Ordena las clases de Tailwind en el orden canónico del framework | Diffs estables en componentes |
-| `prettier-plugin-astro` | Enseña a Prettier a leer y formatear archivos `.astro` | Proyectos Astro |
+| Plugin                                  | Qué aporta                                                       | Obligatorio para               |
+| --------------------------------------- | ---------------------------------------------------------------- | ------------------------------ |
+| `@trivago/prettier-plugin-sort-imports` | Ordena y agrupa los `import` según patrones que tú defines       | Que `importOrder` tenga efecto |
+| `prettier-plugin-tailwindcss`           | Ordena las clases de Tailwind en el orden canónico del framework | Diffs estables en componentes  |
+| `prettier-plugin-astro`                 | Enseña a Prettier a leer y formatear archivos `.astro`           | Proyectos Astro                |
 
 ### Ordenar los imports
 
@@ -77,14 +77,14 @@ Este es el plugin que resuelve el desorden real de un proyecto: sin él, cada ar
 }
 ```
 
-| Patrón | Qué captura | Ejemplo |
-| --- | --- | --- |
-| `^react$` | El paquete exacto, sin subrutas | `import React from "react"` |
-| `^react/(.*)$` | Solo las subrutas del paquete | `import { createRoot } from "react-dom/client"` |
-| `<THIRD_PARTY_MODULES>` | Comodín del plugin: todo lo de `node_modules` que no coincidió antes | `import clsx from "clsx"` |
-| `^@/(.*)$` | El alias interno del proyecto | `import { SITE } from "@/config/site"` |
-| `^(?!.*\\.css$)[./]` | Rutas relativas que **no** terminan en `.css` | `import { Card } from "./Card"` |
-| `^.+\\.css$` | Cualquier import de hoja de estilos | `import "./globals.css"` |
+| Patrón                  | Qué captura                                                          | Ejemplo                                         |
+| ----------------------- | -------------------------------------------------------------------- | ----------------------------------------------- |
+| `^react$`               | El paquete exacto, sin subrutas                                      | `import React from "react"`                     |
+| `^react/(.*)$`          | Solo las subrutas del paquete                                        | `import { createRoot } from "react-dom/client"` |
+| `<THIRD_PARTY_MODULES>` | Comodín del plugin: todo lo de `node_modules` que no coincidió antes | `import clsx from "clsx"`                       |
+| `^@/(.*)$`              | El alias interno del proyecto                                        | `import { SITE } from "@/config/site"`          |
+| `^(?!.*\\.css$)[./]`    | Rutas relativas que **no** terminan en `.css`                        | `import { Card } from "./Card"`                 |
+| `^.+\\.css$`            | Cualquier import de hoja de estilos                                  | `import "./globals.css"`                        |
 
 El resultado es un orden que va **de lo más externo a lo más local**: framework, paquetes de terceros, código propio por alias, código propio relativo y estilos al final.
 
@@ -95,10 +95,10 @@ Dos detalles que se pasan por alto:
 
 Los otros dos campos del plugin:
 
-| Campo | Valor usado | Qué hace |
-| --- | --- | --- |
-| `importOrderSeparation` | `false` | No inserta una línea en blanco entre cada grupo. Con `true`, cada grupo queda separado visualmente |
-| `importOrderSortSpecifiers` | `true` | Ordena alfabéticamente lo que va **dentro** de las llaves: `import { a, b, c }` |
+| Campo                       | Valor usado | Qué hace                                                                                           |
+| --------------------------- | ----------- | -------------------------------------------------------------------------------------------------- |
+| `importOrderSeparation`     | `false`     | No inserta una línea en blanco entre cada grupo. Con `true`, cada grupo queda separado visualmente |
+| `importOrderSortSpecifiers` | `true`      | Ordena alfabéticamente lo que va **dentro** de las llaves: `import { a, b, c }`                    |
 
 ### Ordenar las clases de Tailwind
 
@@ -110,7 +110,10 @@ En Tailwind CSS 4 la configuración vive en el propio CSS, así que el plugin ne
 
 ```json title=".prettierrc"
 {
-  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
   "tailwindStylesheet": "./src/styles/global.css"
 }
 ```
@@ -123,44 +126,44 @@ Estos son los campos nativos de Prettier. La columna **Por defecto** indica el v
 
 ### Puntuación y comillas
 
-| Campo | Por defecto | Qué hace |
-| --- | --- | --- |
-| `semi` | `true` | Termina cada sentencia con punto y coma. Con `false`, Prettier los omite y añade un `;` inicial solo en las líneas que serían ambiguas |
-| `singleQuote` | `false` | Comillas simples en JavaScript y TypeScript. `false` mantiene dobles |
-| `jsxSingleQuote` | `false` | Lo mismo para los atributos JSX, que se configura por separado |
-| `quoteProps` | `"as-needed"` | Cuándo poner comillas en las claves de objeto. `"preserve"` respeta lo que ya escribiste; `"as-needed"` las quita cuando no hacen falta |
-| `trailingComma` | `"all"` | Coma final en listas multilínea. `"none"` no la pone; `"all"` la incluye incluso en parámetros de función |
+| Campo            | Por defecto   | Qué hace                                                                                                                                |
+| ---------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `semi`           | `true`        | Termina cada sentencia con punto y coma. Con `false`, Prettier los omite y añade un `;` inicial solo en las líneas que serían ambiguas  |
+| `singleQuote`    | `false`       | Comillas simples en JavaScript y TypeScript. `false` mantiene dobles                                                                    |
+| `jsxSingleQuote` | `false`       | Lo mismo para los atributos JSX, que se configura por separado                                                                          |
+| `quoteProps`     | `"as-needed"` | Cuándo poner comillas en las claves de objeto. `"preserve"` respeta lo que ya escribiste; `"as-needed"` las quita cuando no hacen falta |
+| `trailingComma`  | `"all"`       | Coma final en listas multilínea. `"none"` no la pone; `"all"` la incluye incluso en parámetros de función                               |
 
 `trailingComma: "all"` produce diffs más limpios (agregar un elemento toca una sola línea), pero `"none"` genera archivos visualmente más sobrios. Es una elección de equipo, no técnica.
 
 ### Espaciado y ancho
 
-| Campo | Por defecto | Qué hace |
-| --- | --- | --- |
-| `printWidth` | `80` | Ancho objetivo de línea. **Es una guía, no un límite**: una cadena larga o una URL lo superan sin romperse |
-| `tabWidth` | `2` | Espacios por nivel de indentación. Debe coincidir con `editor.tabSize` y con `.editorconfig` |
-| `useTabs` | `false` | Indenta con espacios. Con `true` usa tabulaciones reales |
-| `bracketSpacing` | `true` | Espacios dentro de las llaves de objeto: `{ name }` frente a `{name}` |
-| `arrowParens` | `"always"` | Paréntesis en el parámetro único de una función flecha: `(x) => x` frente a `x => x` |
+| Campo            | Por defecto | Qué hace                                                                                                   |
+| ---------------- | ----------- | ---------------------------------------------------------------------------------------------------------- |
+| `printWidth`     | `80`        | Ancho objetivo de línea. **Es una guía, no un límite**: una cadena larga o una URL lo superan sin romperse |
+| `tabWidth`       | `2`         | Espacios por nivel de indentación. Debe coincidir con `editor.tabSize` y con `.editorconfig`               |
+| `useTabs`        | `false`     | Indenta con espacios. Con `true` usa tabulaciones reales                                                   |
+| `bracketSpacing` | `true`      | Espacios dentro de las llaves de objeto: `{ name }` frente a `{name}`                                      |
+| `arrowParens`    | `"always"`  | Paréntesis en el parámetro único de una función flecha: `(x) => x` frente a `x => x`                       |
 
 ### JSX, HTML y marcado
 
-| Campo | Por defecto | Qué hace |
-| --- | --- | --- |
-| `bracketSameLine` | `false` | Coloca el `>` de una etiqueta multilínea en su propia línea |
-| `singleAttributePerLine` | `false` | Un atributo por línea cuando el elemento se parte. Con `true`, los componentes con muchas props quedan en columna y los diffs señalan el atributo exacto que cambió |
-| `htmlWhitespaceSensitivity` | `"css"` | Respeta el `display` que CSS aplicaría al decidir dónde puede insertar saltos. Evita cambiar el renderizado de texto en línea |
-| `vueIndentScriptAndStyle` | `false` | Indenta el contenido de `<script>` y `<style>` en archivos Vue |
-| `embeddedLanguageFormatting` | `"auto"` | Formatea el código incrustado en otro lenguaje (CSS dentro de HTML, SQL en template literals) cuando lo reconoce |
+| Campo                        | Por defecto | Qué hace                                                                                                                                                            |
+| ---------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bracketSameLine`            | `false`     | Coloca el `>` de una etiqueta multilínea en su propia línea                                                                                                         |
+| `singleAttributePerLine`     | `false`     | Un atributo por línea cuando el elemento se parte. Con `true`, los componentes con muchas props quedan en columna y los diffs señalan el atributo exacto que cambió |
+| `htmlWhitespaceSensitivity`  | `"css"`     | Respeta el `display` que CSS aplicaría al decidir dónde puede insertar saltos. Evita cambiar el renderizado de texto en línea                                       |
+| `vueIndentScriptAndStyle`    | `false`     | Indenta el contenido de `<script>` y `<style>` en archivos Vue                                                                                                      |
+| `embeddedLanguageFormatting` | `"auto"`    | Formatea el código incrustado en otro lenguaje (CSS dentro de HTML, SQL en template literals) cuando lo reconoce                                                    |
 
 ### Texto y pragmas
 
-| Campo | Por defecto | Qué hace |
-| --- | --- | --- |
-| `proseWrap` | `"preserve"` | Conserva los saltos de línea que escribiste en Markdown. `"always"` los reajusta a `printWidth` |
-| `insertPragma` | `false` | Añade un comentario `@format` en los archivos que formatea |
-| `requirePragma` | `false` | Formatea únicamente archivos que ya tengan el comentario `@format`. Sirve para adoptar Prettier gradualmente en un proyecto grande |
-| `experimentalTernaries` | `false` | Formato experimental para ternarios anidados |
+| Campo                   | Por defecto  | Qué hace                                                                                                                           |
+| ----------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `proseWrap`             | `"preserve"` | Conserva los saltos de línea que escribiste en Markdown. `"always"` los reajusta a `printWidth`                                    |
+| `insertPragma`          | `false`      | Añade un comentario `@format` en los archivos que formatea                                                                         |
+| `requirePragma`         | `false`      | Formatea únicamente archivos que ya tengan el comentario `@format`. Sirve para adoptar Prettier gradualmente en un proyecto grande |
+| `experimentalTernaries` | `false`      | Formato experimental para ternarios anidados                                                                                       |
 
 En Markdown, `proseWrap: "preserve"` es casi siempre la opción correcta: los saltos de línea de un texto suelen ser una decisión editorial, y `"always"` los reescribiría.
 
@@ -211,12 +214,12 @@ pnpm-lock.yaml
 
 Qué se excluye y por qué:
 
-| Entrada | Motivo |
-| --- | --- |
-| `node_modules` | Código de terceros. Formatearlo no aporta nada y se pierde en la siguiente instalación |
-| `.next`, `.astro`, `.vercel`, `dist`, `build`, `out` | Artefactos de compilación. Se regeneran en cada build |
-| `coverage` | Reportes generados por el runner de tests |
-| Lockfiles | Los genera el gestor de paquetes con su propio formato. Reformatearlos produce diffs enormes y puede confundir a la herramienta |
+| Entrada                                              | Motivo                                                                                                                          |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `node_modules`                                       | Código de terceros. Formatearlo no aporta nada y se pierde en la siguiente instalación                                          |
+| `.next`, `.astro`, `.vercel`, `dist`, `build`, `out` | Artefactos de compilación. Se regeneran en cada build                                                                           |
+| `coverage`                                           | Reportes generados por el runner de tests                                                                                       |
+| Lockfiles                                            | Los genera el gestor de paquetes con su propio formato. Reformatearlos produce diffs enormes y puede confundir a la herramienta |
 
 Del bloque de lockfiles, **solo debería existir en el repositorio el del gestor que realmente usas**. Listarlos todos en `.prettierignore` es una precaución barata; tener los tres archivos versionados sí es un problema.
 

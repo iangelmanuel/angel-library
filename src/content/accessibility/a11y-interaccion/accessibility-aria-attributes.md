@@ -13,7 +13,7 @@ related:
 updatedAt: 2026-08-19
 ---
 
-**ARIA** significa *Accessible Rich Internet Applications* o aplicaciones de internet enriquecidas accesibles. Sus atributos comunican al **árbol de accesibilidad** el nombre, rol, estado o relación de un elemento cuando HTML no puede expresarlos por sí solo.
+**ARIA** significa _Accessible Rich Internet Applications_ o aplicaciones de internet enriquecidas accesibles. Sus atributos comunican al **árbol de accesibilidad** el nombre, rol, estado o relación de un elemento cuando HTML no puede expresarlos por sí solo.
 
 ARIA no agrega comportamiento, foco, teclado, estilos ni validación. Escribir `<div role="button">` hace una promesa: el código todavía debe implementar activación con teclado, foco, estado deshabilitado y todos los comportamientos de un botón. Por eso, `<button>` sigue siendo la primera opción.
 
@@ -24,7 +24,12 @@ ARIA no agrega comportamiento, foco, teclado, estilos ni validación. Escribir `
 <button type="button">Guardar</button>
 
 <!-- Evitar: obliga a reconstruir el comportamiento nativo. -->
-<div role="button" tabindex="0">Guardar</div>
+<div
+  role="button"
+  tabindex="0"
+>
+  Guardar
+</div>
 ```
 
 Antes de agregar ARIA, sigue este orden:
@@ -41,22 +46,30 @@ ARIA incorrecto puede comunicar una interfaz distinta de la que aparece en panta
 
 El **nombre accesible** identifica un elemento de forma breve. La **descripción accesible** proporciona ayuda o contexto adicional. No son intercambiables.
 
-| Técnica | Cuándo usarla | Ejemplo |
-| --- | --- | --- |
-| Texto interno | Botón o enlace con texto visible | `<button>Guardar</button>` |
-| `<label for>` | Nombre visible de un control de formulario | `<label for="email">Correo</label>` |
-| `<legend>` | Nombre de un grupo dentro de `fieldset` | Métodos de pago |
-| `alt` | Alternativa de una imagen informativa | `<img alt="Ventas por trimestre">` |
-| `aria-labelledby` | El texto visible ya existe en otro elemento | Diálogo nombrado por su título |
-| `aria-label` | No existe texto visible apropiado para nombrar el control | Botón que solo muestra un icono |
-| `aria-describedby` | Ayuda, formato, requisito o error adicional | Instrucciones de contraseña |
-| `aria-details` | Explicación extensa o estructurada que debe poder recorrerse | Descripción detallada de un gráfico |
+| Técnica            | Cuándo usarla                                                | Ejemplo                             |
+| ------------------ | ------------------------------------------------------------ | ----------------------------------- |
+| Texto interno      | Botón o enlace con texto visible                             | `<button>Guardar</button>`          |
+| `<label for>`      | Nombre visible de un control de formulario                   | `<label for="email">Correo</label>` |
+| `<legend>`         | Nombre de un grupo dentro de `fieldset`                      | Métodos de pago                     |
+| `alt`              | Alternativa de una imagen informativa                        | `<img alt="Ventas por trimestre">`  |
+| `aria-labelledby`  | El texto visible ya existe en otro elemento                  | Diálogo nombrado por su título      |
+| `aria-label`       | No existe texto visible apropiado para nombrar el control    | Botón que solo muestra un icono     |
+| `aria-describedby` | Ayuda, formato, requisito o error adicional                  | Instrucciones de contraseña         |
+| `aria-details`     | Explicación extensa o estructurada que debe poder recorrerse | Descripción detallada de un gráfico |
 
 ### `aria-label`: nombre escrito directamente
 
 ```html
-<button type="button" aria-label="Cerrar diálogo">
-  <svg aria-hidden="true" focusable="false"><!-- icono X --></svg>
+<button
+  type="button"
+  aria-label="Cerrar diálogo"
+>
+  <svg
+    aria-hidden="true"
+    focusable="false"
+  >
+    <!-- icono X -->
+  </svg>
 </button>
 ```
 
@@ -81,7 +94,11 @@ No uses `aria-label` para agregar explicaciones a párrafos, `div`, listas o enc
 `aria-labelledby` recibe uno o varios identificadores separados por espacios. El texto de esos elementos forma el nombre en el mismo orden.
 
 ```html
-<section role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+<section
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="dialog-title"
+>
   <h2 id="dialog-title">Eliminar proyecto</h2>
   <p>Esta acción no se puede deshacer.</p>
 </section>
@@ -92,7 +109,10 @@ Es preferible a repetir el título dentro de `aria-label`: el texto visible y el
 ```html
 <span id="billing-label">Dirección</span>
 <span id="billing-context">de facturación</span>
-<div role="group" aria-labelledby="billing-label billing-context">
+<div
+  role="group"
+  aria-labelledby="billing-label billing-context"
+>
   <!-- campos -->
 </div>
 ```
@@ -129,14 +149,14 @@ El atributo `role` cambia cómo se presenta un elemento a tecnologías asistivas
 <button>Comprar</button>
 ```
 
-| Necesidad | HTML preferido | Evita reemplazarlo por |
-| --- | --- | --- |
-| Acción | `<button>` | `<div role="button">` |
-| Navegación | `<a href="…">` | `<span role="link">` |
-| Casilla | `<input type="checkbox">` | `<div role="checkbox">` |
-| Encabezado | `<h1>`–`<h6>` | `<div role="heading" aria-level="2">` |
-| Navegación principal | `<nav>` | `<div role="navigation">` |
-| Contenido principal | `<main>` | `<div role="main">` |
+| Necesidad            | HTML preferido            | Evita reemplazarlo por                |
+| -------------------- | ------------------------- | ------------------------------------- |
+| Acción               | `<button>`                | `<div role="button">`                 |
+| Navegación           | `<a href="…">`            | `<span role="link">`                  |
+| Casilla              | `<input type="checkbox">` | `<div role="checkbox">`               |
+| Encabezado           | `<h1>`–`<h6>`             | `<div role="heading" aria-level="2">` |
+| Navegación principal | `<nav>`                   | `<div role="navigation">`             |
+| Contenido principal  | `<main>`                  | `<div role="main">`                   |
 
 Roles como `tab`, `menu`, `tree`, `grid` o `combobox` representan widgets completos. Cada patrón tiene estructura, relaciones y comportamiento de teclado propios. Un menú ARIA no es cualquier lista de enlaces y unas pestañas no son solo botones alineados.
 
@@ -144,22 +164,22 @@ Roles como `tab`, `menu`, `tree`, `grid` o `combobox` representan widgets comple
 
 El estado ARIA debe reflejar la interfaz **en este momento**. Si el panel se cierra, `aria-expanded` debe cambiar a `false`; si un error se corrige, `aria-invalid` debe retirarse o volver a `false`.
 
-| Atributo | Qué comunica | Se coloca en |
-| --- | --- | --- |
-| `aria-expanded` | El contenido controlado está abierto o cerrado | Botón o control que expande |
-| `aria-controls` | Identificador del elemento controlado | Control disparador |
-| `aria-current` | Elemento actual dentro de un conjunto | Enlace, paso, fecha o página actual |
-| `aria-selected` | Opción seleccionada en un widget compuesto | `tab`, `option`, `row`, `gridcell` compatibles |
-| `aria-checked` | Estado de casilla, radio o switch | Elemento con rol compatible |
-| `aria-pressed` | Estado de un botón conmutador | Botón que permanece activo o inactivo |
-| `aria-disabled` | El elemento se presenta como no disponible | Elemento que debe seguir perceptible |
-| `aria-readonly` | El valor se puede leer, pero no editar | Campo o widget compatible |
-| `aria-required` | El valor es obligatorio | Control de formulario compatible |
-| `aria-invalid` | El valor actual no cumple las reglas | Control que contiene el error |
-| `aria-errormessage` | Identificador del mensaje de error | Control inválido |
-| `aria-haspopup` | El control abre un menú, listbox, árbol, grid o diálogo | Botón disparador |
-| `aria-modal` | El diálogo bloquea la interacción exterior | Contenedor con rol `dialog` o `alertdialog` |
-| `aria-busy` | Una región todavía está actualizándose | Contenedor que recibe cambios |
+| Atributo            | Qué comunica                                            | Se coloca en                                   |
+| ------------------- | ------------------------------------------------------- | ---------------------------------------------- |
+| `aria-expanded`     | El contenido controlado está abierto o cerrado          | Botón o control que expande                    |
+| `aria-controls`     | Identificador del elemento controlado                   | Control disparador                             |
+| `aria-current`      | Elemento actual dentro de un conjunto                   | Enlace, paso, fecha o página actual            |
+| `aria-selected`     | Opción seleccionada en un widget compuesto              | `tab`, `option`, `row`, `gridcell` compatibles |
+| `aria-checked`      | Estado de casilla, radio o switch                       | Elemento con rol compatible                    |
+| `aria-pressed`      | Estado de un botón conmutador                           | Botón que permanece activo o inactivo          |
+| `aria-disabled`     | El elemento se presenta como no disponible              | Elemento que debe seguir perceptible           |
+| `aria-readonly`     | El valor se puede leer, pero no editar                  | Campo o widget compatible                      |
+| `aria-required`     | El valor es obligatorio                                 | Control de formulario compatible               |
+| `aria-invalid`      | El valor actual no cumple las reglas                    | Control que contiene el error                  |
+| `aria-errormessage` | Identificador del mensaje de error                      | Control inválido                               |
+| `aria-haspopup`     | El control abre un menú, listbox, árbol, grid o diálogo | Botón disparador                               |
+| `aria-modal`        | El diálogo bloquea la interacción exterior              | Contenedor con rol `dialog` o `alertdialog`    |
+| `aria-busy`         | Una región todavía está actualizándose                  | Contenedor que recibe cambios                  |
 
 ### Expandir y contraer
 
@@ -173,15 +193,18 @@ El estado ARIA debe reflejar la interfaz **en este momento**. Si el panel se cie
   ¿Cómo cambio mi contraseña?
 </button>
 
-<div id="faq-panel" hidden>
+<div
+  id="faq-panel"
+  hidden
+>
   <!-- respuesta -->
 </div>
 ```
 
 ```js
-const expanded = button.getAttribute('aria-expanded') === 'true';
-button.setAttribute('aria-expanded', String(!expanded));
-panel.hidden = expanded;
+const expanded = button.getAttribute("aria-expanded") === "true"
+button.setAttribute("aria-expanded", String(!expanded))
+panel.hidden = expanded
 ```
 
 `aria-expanded` describe el estado; `hidden` controla la visibilidad. `aria-controls` expresa la relación, pero no abre el panel ni mueve el foco.
@@ -197,11 +220,20 @@ Estos estados se parecen, pero representan conceptos diferentes:
 
 ```html
 <nav aria-label="Cuenta">
-  <a href="/profile" aria-current="page">Perfil</a>
+  <a
+    href="/profile"
+    aria-current="page"
+    >Perfil</a
+  >
   <a href="/security">Seguridad</a>
 </nav>
 
-<button type="button" aria-pressed="false">Silenciar</button>
+<button
+  type="button"
+  aria-pressed="false"
+>
+  Silenciar
+</button>
 ```
 
 En un botón con `aria-pressed`, conserva un nombre estable como “Silenciar” y deja que el estado anuncie si está presionado. Si cambias el texto a “Activar sonido”, normalmente se trata como una acción diferente y puede no necesitar `aria-pressed`.
@@ -215,7 +247,11 @@ En un botón con `aria-pressed`, conserva un nombre estable como “Silenciar”
 `disabled` impide activación y elimina controles de formulario del orden de foco. Es la opción preferida cuando está disponible.
 
 ```html
-<a href="/next" aria-disabled="true">Siguiente</a>
+<a
+  href="/next"
+  aria-disabled="true"
+  >Siguiente</a
+>
 ```
 
 `aria-disabled="true"` solo comunica el estado. El código todavía debe impedir la acción, ajustar el estilo y decidir si el elemento permanece en el orden de foco. No lo uses como una protección de permisos: el servidor debe autorizar la operación.
@@ -244,22 +280,26 @@ No marques `aria-invalid="true"` antes de que la persona tenga oportunidad de co
 
 Una **región en vivo** permite anunciar contenido que cambia sin mover el foco.
 
-| Técnica | Uso |
-| --- | --- |
-| `role="status"` | Resultado o confirmación no urgente; equivale normalmente a un anuncio `polite` |
-| `role="alert"` | Mensaje urgente que requiere atención inmediata |
-| `aria-live="polite"` | Espera una pausa razonable antes de anunciar |
-| `aria-live="assertive"` | Interrumpe; reservar para situaciones críticas |
-| `aria-atomic="true"` | Anuncia la región completa, no solo el nodo modificado |
-| `aria-relevant` | Define qué tipos de cambios importan; rara vez necesita cambiarse |
-| `aria-busy="true"` | Indica que la actualización todavía no terminó |
+| Técnica                 | Uso                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------- |
+| `role="status"`         | Resultado o confirmación no urgente; equivale normalmente a un anuncio `polite` |
+| `role="alert"`          | Mensaje urgente que requiere atención inmediata                                 |
+| `aria-live="polite"`    | Espera una pausa razonable antes de anunciar                                    |
+| `aria-live="assertive"` | Interrumpe; reservar para situaciones críticas                                  |
+| `aria-atomic="true"`    | Anuncia la región completa, no solo el nodo modificado                          |
+| `aria-relevant`         | Define qué tipos de cambios importan; rara vez necesita cambiarse               |
+| `aria-busy="true"`      | Indica que la actualización todavía no terminó                                  |
 
 ```html
-<p id="save-status" role="status" aria-atomic="true"></p>
+<p
+  id="save-status"
+  role="status"
+  aria-atomic="true"
+></p>
 ```
 
 ```js
-saveStatus.textContent = 'Cambios guardados';
+saveStatus.textContent = "Cambios guardados"
 ```
 
 Mantén el contenedor en el DOM antes de insertar el mensaje. Si creas la región y su texto al mismo tiempo, algunas combinaciones de navegador y lector pueden no anunciarlo. No envuelvas toda la aplicación en `aria-live`: produciría anuncios extensos y repetidos.
@@ -269,7 +309,12 @@ Mantén el contenedor en el DOM antes de insertar el mensaje. Si creas la regió
 ## Ocultar contenido del árbol de accesibilidad
 
 ```html
-<svg aria-hidden="true" focusable="false"><!-- decorativo --></svg>
+<svg
+  aria-hidden="true"
+  focusable="false"
+>
+  <!-- decorativo -->
+</svg>
 ```
 
 `aria-hidden="true"` oculta el elemento y todos sus descendientes a tecnologías asistivas, pero puede continuar visible en pantalla. Úsalo para decoración o contenido duplicado que ya tiene una alternativa accesible.
@@ -289,21 +334,24 @@ Si el contenido debe desaparecer para todas las personas, usa `hidden`, `display
 
 ## Relaciones y widgets avanzados
 
-| Atributo | Propósito | Precaución |
-| --- | --- | --- |
-| `aria-controls` | Relaciona control y contenido controlado | El `id` debe existir; no implementa comportamiento |
-| `aria-owns` | Cambia la relación lógica cuando el DOM no puede representarla | También altera el orden accesible; evitar salvo necesidad real |
-| `aria-activedescendant` | Mantiene foco en el contenedor e indica el descendiente activo | Requiere teclado, scroll y estilos sincronizados |
-| `aria-orientation` | Indica orientación no predeterminada | Solo en roles compatibles |
-| `aria-posinset` / `aria-setsize` | Posición y tamaño total de una colección parcial | Útil en listas virtualizadas |
-| `aria-multiselectable` | El widget permite seleccionar varias opciones | Solo en roles compatibles como listbox o grid |
+| Atributo                         | Propósito                                                      | Precaución                                                     |
+| -------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `aria-controls`                  | Relaciona control y contenido controlado                       | El `id` debe existir; no implementa comportamiento             |
+| `aria-owns`                      | Cambia la relación lógica cuando el DOM no puede representarla | También altera el orden accesible; evitar salvo necesidad real |
+| `aria-activedescendant`          | Mantiene foco en el contenedor e indica el descendiente activo | Requiere teclado, scroll y estilos sincronizados               |
+| `aria-orientation`               | Indica orientación no predeterminada                           | Solo en roles compatibles                                      |
+| `aria-posinset` / `aria-setsize` | Posición y tamaño total de una colección parcial               | Útil en listas virtualizadas                                   |
+| `aria-multiselectable`           | El widget permite seleccionar varias opciones                  | Solo en roles compatibles como listbox o grid                  |
 
 No copies estos atributos de un ejemplo aislado. Implementa el patrón completo de la guía APG y confirma que la visualización, el foco y el árbol accesible expresan el mismo estado.
 
 ## Pestañas: ejemplo de un patrón completo
 
 ```html
-<div role="tablist" aria-label="Configuración de cuenta">
+<div
+  role="tablist"
+  aria-label="Configuración de cuenta"
+>
   <button
     type="button"
     role="tab"
@@ -351,19 +399,22 @@ Los atributos no completan el componente. El código también debe gestionar fle
 Los IDs deben ser estables y únicos. `useId()` ayuda a relacionar etiqueta, ayuda y error entre varias instancias:
 
 ```tsx
-import { useId } from 'react';
+import { useId } from "react"
 
 function TextField({ label, help }: { label: string; help: string }) {
-  const inputId = useId();
-  const helpId = `${inputId}-help`;
+  const inputId = useId()
+  const helpId = `${inputId}-help`
 
   return (
     <div>
       <label htmlFor={inputId}>{label}</label>
-      <input id={inputId} aria-describedby={helpId} />
+      <input
+        id={inputId}
+        aria-describedby={helpId}
+      />
       <p id={helpId}>{help}</p>
     </div>
-  );
+  )
 }
 ```
 
@@ -412,4 +463,3 @@ React genera `"true"` o `"false"`. El estado visual y el contenido deben derivar
 - [W3C APG: nombres y descripciones accesibles](https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/)
 - [W3C APG: patrones de widgets](https://www.w3.org/WAI/ARIA/apg/patterns/)
 - [W3C APG: antes de usar ARIA](https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/)
-

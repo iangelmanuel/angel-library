@@ -30,17 +30,21 @@ Antes de añadir un `z-index`, `!important`, altura fija o media query, identifi
 
 ## La cascada es un algoritmo
 
-**CSS** significa *Cascading Style Sheets* u hojas de estilo en cascada. “Cascada” no significa simplemente que la última regla gana. El navegador considera origen, importancia, contexto de encapsulación, capa, especificidad, proximidad de ámbito y orden de aparición.
+**CSS** significa _Cascading Style Sheets_ u hojas de estilo en cascada. “Cascada” no significa simplemente que la última regla gana. El navegador considera origen, importancia, contexto de encapsulación, capa, especificidad, proximidad de ámbito y orden de aparición.
 
 ```css
 @layer reset, base, components, utilities;
 
 @layer components {
-  .button { background: var(--color-action); }
+  .button {
+    background: var(--color-action);
+  }
 }
 
 @layer utilities {
-  .bg-transparent { background: transparent; }
+  .bg-transparent {
+    background: transparent;
+  }
 }
 ```
 
@@ -96,7 +100,10 @@ La regla mantiene el énfasis al inicio de la línea aunque cambie la dirección
 `@supports` detecta si el navegador comprende una declaración. Permite ofrecer una base y mejorarla de forma localizada:
 
 ```css
-.gallery { display: flex; flex-wrap: wrap; }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 @supports (grid-template-columns: subgrid) {
   .gallery {

@@ -26,10 +26,10 @@ La exportación a **SVG** es la que más conviene para un sitio propio: escala s
 
 ## Planes
 
-| Plan | Qué incluye |
-| --- | --- |
-| Gratis | Créditos de IA semanales, edición ilimitada, importación de archivos, exportación ilimitada a PNG y PDF |
-| Plus y Pro | Más créditos, exportación a PPT y SVG, marca propia y más opciones de diseño |
+| Plan       | Qué incluye                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------- |
+| Gratis     | Créditos de IA semanales, edición ilimitada, importación de archivos, exportación ilimitada a PNG y PDF |
+| Plus y Pro | Más créditos, exportación a PPT y SVG, marca propia y más opciones de diseño                            |
 
 Requiere cuenta. Soporta más de 60 idiomas para el contenido.
 
@@ -38,4 +38,4 @@ Requiere cuenta. Soporta más de 60 idiomas para el contenido.
 - **Revisa el diagrama, no lo publiques a ciegas.** La IA interpreta el texto; en un flujo con condiciones o excepciones puede simplificar de más y dejar un diagrama que dice algo distinto a la prosa.
 - **Si necesitas SVG, cuenta con el plan de pago.** El gratuito llega hasta PNG y PDF, que para documentación web significa imágenes que no escalan bien.
 - **No pegues información sensible.** El texto se procesa en su servicio; para diagramas de arquitectura interna, revisa antes su política de datos.
-- **Para diagramas versionables, Mermaid sigue ganando.** Napkin brilla cuando el destino es una presentación o un documento; para algo que vive en un repositorio y cambia con el código, el texto plano de Mermaid se revisa en un *pull request* y Napkin no.
+- **Para diagramas versionables, Mermaid sigue ganando.** Napkin brilla cuando el destino es una presentación o un documento; para algo que vive en un repositorio y cambia con el código, el texto plano de Mermaid se revisa en un _pull request_ y Napkin no.

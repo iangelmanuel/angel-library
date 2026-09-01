@@ -36,15 +36,18 @@ El paquete incluye el envoltorio de React, así que no hace falta instalar nada 
 
 ```tsx title="src/components/Panel.tsx"
 import { GridStack } from "gridstack"
-import "gridstack/dist/gridstack.min.css"
 import { useEffect, useRef } from "react"
+import "gridstack/dist/gridstack.min.css"
 
 export function Panel() {
   const contenedor = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!contenedor.current) return
-    const rejilla = GridStack.init({ column: 12, cellHeight: 80 }, contenedor.current)
+    const rejilla = GridStack.init(
+      { column: 12, cellHeight: 80 },
+      contenedor.current
+    )
 
     // La disposición se guarda como datos, no como CSS.
     rejilla.on("change", () => {
@@ -54,7 +57,12 @@ export function Panel() {
     return () => rejilla.destroy(false)
   }, [])
 
-  return <div ref={contenedor} className="grid-stack" />
+  return (
+    <div
+      ref={contenedor}
+      className="grid-stack"
+    />
+  )
 }
 ```
 

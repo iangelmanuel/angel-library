@@ -26,10 +26,10 @@ Cada trío de letras es un nivel: `rwx` (dueño) `r-x` (grupo) `r--` (otros).
 
 La notación octal suma los valores de cada permiso: lectura = 4, escritura = 2, ejecución = 1.
 
-| Notación | Significado |
-| --- | --- |
-| `755` | dueño: rwx (7), grupo: r-x (5), otros: r-x (5) — típico para scripts/ejecutables |
-| `644` | dueño: rw- (6), grupo: r-- (4), otros: r-- (4) — típico para archivos normales |
+| Notación | Significado                                                                      |
+| -------- | -------------------------------------------------------------------------------- |
+| `755`    | dueño: rwx (7), grupo: r-x (5), otros: r-x (5) — típico para scripts/ejecutables |
+| `644`    | dueño: rw- (6), grupo: r-- (4), otros: r-- (4) — típico para archivos normales   |
 
 ```bash title="macOS / Linux"
 chmod 755 script.sh        # hacerlo ejecutable para todos, editable solo por el dueño
@@ -88,12 +88,12 @@ En la práctica, para tareas administrativas cotidianas se suele abrir directame
 
 ## La diferencia de fondo
 
-| | macOS / Linux | Windows |
-| --- | --- | --- |
-| Unidad de permiso | dueño / grupo / otros × (r, w, x) | ACL por usuario o grupo, permisos granulares |
-| Cambiar permisos | `chmod` | `icacls` |
-| Cambiar dueño | `chown` | `takeown` / `icacls` |
-| Elevar privilegios | `sudo` (por comando) | Ejecutar como administrador (por sesión o proceso) |
+|                    | macOS / Linux                     | Windows                                            |
+| ------------------ | --------------------------------- | -------------------------------------------------- |
+| Unidad de permiso  | dueño / grupo / otros × (r, w, x) | ACL por usuario o grupo, permisos granulares       |
+| Cambiar permisos   | `chmod`                           | `icacls`                                           |
+| Cambiar dueño      | `chown`                           | `takeown` / `icacls`                               |
+| Elevar privilegios | `sudo` (por comando)              | Ejecutar como administrador (por sesión o proceso) |
 
 ## Consideraciones
 

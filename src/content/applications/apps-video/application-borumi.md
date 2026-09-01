@@ -14,16 +14,16 @@ No es un generador de video por IA: graba lo que tú haces y facilita el montaje
 
 ## Funcionalidad principal
 
-| Función | Qué resuelve |
-| --- | --- |
-| Grabación por escenas | Grabas por partes, así un error no arruina la toma completa |
-| Repeticiones | Guarda todas las tomas anteriores para elegir después cuál queda |
-| Captura de pantalla en 4K | Movimiento de cursor suavizado y zooms automáticos sobre lo importante |
-| Edición por transcripción | Borras texto del transcript y desaparece el trozo de video correspondiente |
-| Línea de tiempo automática | Sincroniza varias fuentes sin alinearlas a mano |
-| Eliminación de ruido | Limpieza del audio |
-| Formatos verticales | Salida para TikTok e Instagram |
-| Plantillas de composición | Disposiciones ya armadas para pantalla más cámara |
+| Función                    | Qué resuelve                                                               |
+| -------------------------- | -------------------------------------------------------------------------- |
+| Grabación por escenas      | Grabas por partes, así un error no arruina la toma completa                |
+| Repeticiones               | Guarda todas las tomas anteriores para elegir después cuál queda           |
+| Captura de pantalla en 4K  | Movimiento de cursor suavizado y zooms automáticos sobre lo importante     |
+| Edición por transcripción  | Borras texto del transcript y desaparece el trozo de video correspondiente |
+| Línea de tiempo automática | Sincroniza varias fuentes sin alinearlas a mano                            |
+| Eliminación de ruido       | Limpieza del audio                                                         |
+| Formatos verticales        | Salida para TikTok e Instagram                                             |
+| Plantillas de composición  | Disposiciones ya armadas para pantalla más cámara                          |
 
 Las dos que más cambian el flujo son **grabación por escenas** y **edición por transcripción**: la primera evita repetir un video entero por un tropiezo al minuto ocho; la segunda convierte el corte de silencios y muletillas en editar un documento de texto.
 

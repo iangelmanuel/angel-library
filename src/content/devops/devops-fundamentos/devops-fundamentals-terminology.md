@@ -13,16 +13,16 @@ updatedAt: 2026-08-25
 
 Si empiezas, sigue el flujo real del cambio: Git → CI → artefacto → contenedor → entorno → despliegue → health checks → logs/métricas/trazas → incidente y recuperación. Docker es una pieza del recorrido, no su objetivo.
 
-| Necesito recordar | Documento |
-| --- | --- |
-| etapas y gates de una pipeline | [Fundamentos de CI/CD](/devops/ci-cd/cicd-pipeline-fundamentals) |
-| workflow de GitHub Actions | [Pipeline Node.js](/git/github-actions/cicd-github-actions-node) |
-| rolling, canary, blue/green y rollback | [Estrategias de despliegue](/devops/ci-cd/cicd-deployment-strategies) |
-| separar config y promociones | [Entornos y releases](/devops/devops-fundamentos/devops-environments-releases) |
-| imagen, contenedor, red y volumen | [Qué es Docker](/devops/docker-conceptos/docker-que-es) |
-| servicios locales reproducibles | [Docker Compose](/devops/docker-compose/docker-compose-basico) |
-| logs, métricas y trazas | [Observabilidad](/devops/observabilidad/observability-fundamentals) |
-| responder y aprender de fallos | [Incidentes](/devops/observabilidad/observability-incident-response) |
+| Necesito recordar                      | Documento                                                                      |
+| -------------------------------------- | ------------------------------------------------------------------------------ |
+| etapas y gates de una pipeline         | [Fundamentos de CI/CD](/devops/ci-cd/cicd-pipeline-fundamentals)               |
+| workflow de GitHub Actions             | [Pipeline Node.js](/git/github-actions/cicd-github-actions-node)               |
+| rolling, canary, blue/green y rollback | [Estrategias de despliegue](/devops/ci-cd/cicd-deployment-strategies)          |
+| separar config y promociones           | [Entornos y releases](/devops/devops-fundamentos/devops-environments-releases) |
+| imagen, contenedor, red y volumen      | [Qué es Docker](/devops/docker-conceptos/docker-que-es)                        |
+| servicios locales reproducibles        | [Docker Compose](/devops/docker-compose/docker-compose-basico)                 |
+| logs, métricas y trazas                | [Observabilidad](/devops/observabilidad/observability-fundamentals)            |
+| responder y aprender de fallos         | [Incidentes](/devops/observabilidad/observability-incident-response)           |
 
 Una guía de comandos enseña a operar una herramienta; una ruta DevOps debe explicar qué garantía obtiene el producto y cómo se revierte cuando esa garantía falla.
 
@@ -33,7 +33,7 @@ Commit → revisión → CI → artefacto → entorno → despliegue
        → verificación → observabilidad → aprendizaje
 ```
 
-**CI** significa *Continuous Integration* o integración continua: integrar cambios con frecuencia y verificarlos automáticamente. **CD** puede significar *Continuous Delivery* —entrega continua con aprobación para publicar— o *Continuous Deployment* —despliegue automático de cada cambio aprobado—. El equipo debe aclarar cuál usa.
+**CI** significa _Continuous Integration_ o integración continua: integrar cambios con frecuencia y verificarlos automáticamente. **CD** puede significar _Continuous Delivery_ —entrega continua con aprobación para publicar— o _Continuous Deployment_ —despliegue automático de cada cambio aprobado—. El equipo debe aclarar cuál usa.
 
 ## Pipeline, job y step
 
@@ -55,13 +55,13 @@ Una etapa rápida debe fallar pronto para no gastar minutos en un build que ya t
 
 ## Artefacto, entorno y promoción
 
-Un **artefacto** es una salida versionada e inmutable: imagen de contenedor, paquete o carpeta compilada. Un **entorno** es un conjunto de configuración y servicios, como desarrollo, pruebas, *staging* y producción.
+Un **artefacto** es una salida versionada e inmutable: imagen de contenedor, paquete o carpeta compilada. Un **entorno** es un conjunto de configuración y servicios, como desarrollo, pruebas, _staging_ y producción.
 
 La **promoción** mueve el mismo artefacto verificado entre entornos. Recompilar por entorno puede producir resultados diferentes. La configuración específica se inyecta al ejecutar, sin incluir secretos en el artefacto.
 
 ## Release y deploy
 
-**Deploy** o despliegue instala una versión en un entorno. **Release** o publicación la habilita para usuarios. Se pueden separar con una bandera de funcionalidad, conocida como *feature flag*.
+**Deploy** o despliegue instala una versión en un entorno. **Release** o publicación la habilita para usuarios. Se pueden separar con una bandera de funcionalidad, conocida como _feature flag_.
 
 Estrategias comunes:
 
@@ -74,7 +74,7 @@ Un rollback de código no siempre revierte datos. Las migraciones deben ser comp
 
 ## Infraestructura como código
 
-**IaC** significa *Infrastructure as Code* o infraestructura como código. Redes, permisos y servicios se declaran en archivos versionados para revisar y reproducir cambios.
+**IaC** significa _Infrastructure as Code_ o infraestructura como código. Redes, permisos y servicios se declaran en archivos versionados para revisar y reproducir cambios.
 
 La declaración no elimina riesgos: un cambio de permisos o un borrado sigue necesitando revisión, plan y respaldo. El **drift** o desviación ocurre cuando el estado real ya no coincide con lo declarado, normalmente por cambios manuales.
 
@@ -97,9 +97,9 @@ Una métrica sin contexto dice que algo cambió; una traza puede mostrar dónde;
 
 ## SLI, SLO y SLA
 
-- **SLI** (*Service Level Indicator*): indicador medido, como porcentaje de solicitudes exitosas.
-- **SLO** (*Service Level Objective*): objetivo interno para ese indicador.
-- **SLA** (*Service Level Agreement*): compromiso contractual con consecuencias acordadas.
+- **SLI** (_Service Level Indicator_): indicador medido, como porcentaje de solicitudes exitosas.
+- **SLO** (_Service Level Objective_): objetivo interno para ese indicador.
+- **SLA** (_Service Level Agreement_): compromiso contractual con consecuencias acordadas.
 
 El **error budget** o presupuesto de error es la cantidad de incumplimiento permitida por el SLO. Ayuda a equilibrar velocidad de cambio y confiabilidad con una medida compartida.
 
@@ -113,7 +113,7 @@ La disponibilidad también requiere límites, caché, redundancia y degradación
 
 Un **incidente** es una interrupción o degradación que requiere coordinación. Durante el incidente se prioriza estabilizar y comunicar; el análisis profundo llega después.
 
-**RTO** (*Recovery Time Objective*) define cuánto puede tardar la recuperación. **RPO** (*Recovery Point Objective*) define cuánto dato se acepta perder. Ambos orientan arquitectura, copias y simulacros.
+**RTO** (_Recovery Time Objective_) define cuánto puede tardar la recuperación. **RPO** (_Recovery Point Objective_) define cuánto dato se acepta perder. Ambos orientan arquitectura, copias y simulacros.
 
 Un **postmortem** documenta impacto, línea de tiempo, causas y acciones sin buscar culpables individuales. Las acciones útiles cambian el sistema: alerta, automatización, límite, prueba o procedimiento verificable.
 

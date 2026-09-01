@@ -15,26 +15,26 @@ updatedAt: 2026-08-25
 ## Validar dentro de `queryFn`
 
 ```tsx title="hooks/useUsuarios.ts"
-import { useQuery } from '@tanstack/react-query';
-import { z } from 'zod';
+import { useQuery } from "@tanstack/react-query"
+import { z } from "zod"
 
 const usuarioSchema = z.object({
   id: z.string(),
   nombre: z.string(),
-  email: z.email(),
-});
+  email: z.email()
+})
 
-const usuariosSchema = z.array(usuarioSchema);
+const usuariosSchema = z.array(usuarioSchema)
 
 export function useUsuarios() {
   return useQuery({
-    queryKey: ['usuarios'],
+    queryKey: ["usuarios"],
     queryFn: async () => {
-      const res = await fetch('/api/usuarios');
-      const raw = await res.json();
-      return usuariosSchema.parse(raw); // lanza si la forma no coincide
-    },
-  });
+      const res = await fetch("/api/usuarios")
+      const raw = await res.json()
+      return usuariosSchema.parse(raw) // lanza si la forma no coincide
+    }
+  })
 }
 ```
 
@@ -46,12 +46,18 @@ Fuera de `queryFn`, `safeParse()` es casi siempre mejor porque no lanza. Dentro 
 
 ```tsx
 function ListaUsuarios() {
-  const { data, isLoading, isError, error } = useUsuarios();
+  const { data, isLoading, isError, error } = useUsuarios()
 
-  if (isLoading) return <p>Cargando…</p>;
-  if (isError) return <p>Error: {error.message}</p>; // network Y forma inválida caen aquí
+  if (isLoading) return <p>Cargando…</p>
+  if (isError) return <p>Error: {error.message}</p> // network Y forma inválida caen aquí
 
-  return <ul>{data.map((u) => <li key={u.id}>{u.nombre}</li>)}</ul>;
+  return (
+    <ul>
+      {data.map((u) => (
+        <li key={u.id}>{u.nombre}</li>
+      ))}
+    </ul>
+  )
 }
 ```
 
@@ -62,17 +68,20 @@ Para el componente, un 500 del servidor y una respuesta con forma inesperada se 
 El mismo patrón, del otro lado: parsear el payload antes de mandarlo evita una petición condenada a fallar en el servidor por datos con forma incorrecta armados en el cliente (un bug local, no input de usuario ya validado por un formulario).
 
 ```tsx
-const crearUsuarioSchema = z.object({ nombre: z.string().min(1), email: z.email() });
+const crearUsuarioSchema = z.object({
+  nombre: z.string().min(1),
+  email: z.email()
+})
 
 const mutacion = useMutation({
   mutationFn: async (input: unknown) => {
-    const payload = crearUsuarioSchema.parse(input);
-    return fetch('/api/usuarios', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    });
-  },
-});
+    const payload = crearUsuarioSchema.parse(input)
+    return fetch("/api/usuarios", {
+      method: "POST",
+      body: JSON.stringify(payload)
+    })
+  }
+})
 ```
 
 ## Particularidades
@@ -83,9 +92,9 @@ const mutacion = useMutation({
 
 ## Flujo validado en una mirada
 
-| Patrón | Dónde |
-| --- | --- |
-| `schema.parse(raw)` | Dentro de `queryFn`, para que un error de forma se propague como `isError` |
-| `z.infer<typeof schema>` | Tipa `data` sin poner un genérico manual en `useQuery` |
-| `schema.parse(input)` en `mutationFn` | Valida el payload antes de mandarlo, no la respuesta |
-| `safeParse()` | Se queda para código de UI (formularios) — no para dentro de `queryFn`/`mutationFn` |
+| Patrón                                | Dónde                                                                               |
+| ------------------------------------- | ----------------------------------------------------------------------------------- |
+| `schema.parse(raw)`                   | Dentro de `queryFn`, para que un error de forma se propague como `isError`          |
+| `z.infer<typeof schema>`              | Tipa `data` sin poner un genérico manual en `useQuery`                              |
+| `schema.parse(input)` en `mutationFn` | Valida el payload antes de mandarlo, no la respuesta                                |
+| `safeParse()`                         | Se queda para código de UI (formularios) — no para dentro de `queryFn`/`mutationFn` |

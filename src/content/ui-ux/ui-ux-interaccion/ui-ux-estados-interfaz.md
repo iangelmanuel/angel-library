@@ -62,4 +62,3 @@ La confirmación debe ser proporcional. Un cambio pequeño puede usar texto cerc
 ## Accesibilidad
 
 Mueve el foco solo cuando el contexto realmente cambia. Usa regiones en vivo para mensajes breves sin interrumpir y conserva texto visible. Respeta movimiento reducido y evita spinners sin nombre accesible.
-

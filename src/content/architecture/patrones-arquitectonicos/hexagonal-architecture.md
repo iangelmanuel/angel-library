@@ -3,9 +3,15 @@ title: Arquitectura hexagonal (Ports & Adapters)
 description: Aislar el dominio de la infraestructura para que la base de datos, el framework HTTP o el proveedor de email sean detalles intercambiables.
 type: patterns
 order: 3
-tags: [arquitectura, patrones-arquitectonicos, hexagonal, ports-and-adapters, ddd]
+tags:
+  [arquitectura, patrones-arquitectonicos, hexagonal, ports-and-adapters, ddd]
 problem: La lógica de negocio termina acoplada a detalles de infraestructura (el ORM, el framework HTTP) que deberían poder cambiarse sin tocarla.
-related: [architecture/patrones-arquitectonicos/layered-architecture, architecture/patrones-arquitectonicos/repository-pattern, architecture/patrones-arquitectonicos/dependency-injection]
+related:
+  [
+    architecture/patrones-arquitectonicos/layered-architecture,
+    architecture/patrones-arquitectonicos/repository-pattern,
+    architecture/patrones-arquitectonicos/dependency-injection
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -39,31 +45,31 @@ El dominio nunca importa `PrismaUserRepository`. Solo conoce `UserRepository`.
 
 ```ts title="domain/ports/user-repository.ts"
 export interface UserRepository {
-  findById(id: string): Promise<User | null>;
-  save(user: User): Promise<void>;
+  findById(id: string): Promise<User | null>
+  save(user: User): Promise<void>
 }
 ```
 
 ```ts title="domain/use-cases/deactivate-user.ts"
-import type { UserRepository } from '../ports/user-repository';
+import type { UserRepository } from "../ports/user-repository"
 
 export async function deactivateUser(repo: UserRepository, userId: string) {
-  const user = await repo.findById(userId);
-  if (!user) throw new Error('Usuario no encontrado');
+  const user = await repo.findById(userId)
+  if (!user) throw new Error("Usuario no encontrado")
 
-  user.deactivate(); // regla de negocio, vive en la entidad
-  await repo.save(user);
+  user.deactivate() // regla de negocio, vive en la entidad
+  await repo.save(user)
 }
 ```
 
 El caso de uso recibe el repositorio por parámetro, tipado por la interfaz — no importa `@prisma/client` en ningún lado. Eso permite testearlo así:
 
 ```ts title="domain/use-cases/deactivate-user.test.ts"
-const repo = new InMemoryUserRepository([existingUser]);
+const repo = new InMemoryUserRepository([existingUser])
 
-await deactivateUser(repo, existingUser.id);
+await deactivateUser(repo, existingUser.id)
 
-expect(repo.findById(existingUser.id)).resolves.toMatchObject({ active: false });
+expect(repo.findById(existingUser.id)).resolves.toMatchObject({ active: false })
 ```
 
 Sin base de datos real, sin mocks de framework, sin levantar nada — solo el dominio y una implementación en memoria del puerto.

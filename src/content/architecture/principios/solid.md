@@ -21,18 +21,18 @@ Una clase o función debería tener una sola razón para cambiar. No es "una fun
 // ANTES: mezcla validación, persistencia y notificación
 class UserService {
   async createUser(data: { email: string; password: string }) {
-    if (!data.email.includes('@')) throw new Error('Email inválido');
-    if (data.password.length < 8) throw new Error('Password muy corta');
+    if (!data.email.includes("@")) throw new Error("Email inválido")
+    if (data.password.length < 8) throw new Error("Password muy corta")
 
-    const user = await db.users.insert(data);
+    const user = await db.users.insert(data)
 
     await smtpClient.send({
       to: data.email,
-      subject: 'Bienvenido',
-      body: `Hola, tu cuenta fue creada`,
-    });
+      subject: "Bienvenido",
+      body: `Hola, tu cuenta fue creada`
+    })
 
-    return user;
+    return user
   }
 }
 ```
@@ -42,33 +42,37 @@ Si cambia la regla de validación, si cambia el proveedor de email, o si cambia 
 ```ts
 // DESPUÉS: cada responsabilidad en su propio módulo
 function validateNewUser(data: { email: string; password: string }) {
-  if (!data.email.includes('@')) throw new Error('Email inválido');
-  if (data.password.length < 8) throw new Error('Password muy corta');
+  if (!data.email.includes("@")) throw new Error("Email inválido")
+  if (data.password.length < 8) throw new Error("Password muy corta")
 }
 
 class UserRepository {
   create(data: { email: string; password: string }) {
-    return db.users.insert(data);
+    return db.users.insert(data)
   }
 }
 
 class WelcomeEmailer {
   send(email: string) {
-    return smtpClient.send({ to: email, subject: 'Bienvenido', body: 'Hola, tu cuenta fue creada' });
+    return smtpClient.send({
+      to: email,
+      subject: "Bienvenido",
+      body: "Hola, tu cuenta fue creada"
+    })
   }
 }
 
 class UserService {
   constructor(
     private repo: UserRepository,
-    private emailer: WelcomeEmailer,
+    private emailer: WelcomeEmailer
   ) {}
 
   async createUser(data: { email: string; password: string }) {
-    validateNewUser(data);
-    const user = await this.repo.create(data);
-    await this.emailer.send(data.email);
-    return user;
+    validateNewUser(data)
+    const user = await this.repo.create(data)
+    await this.emailer.send(data.email)
+    return user
   }
 }
 ```
@@ -79,38 +83,41 @@ Un módulo debería estar abierto a extensión pero cerrado a modificación: agr
 
 ```ts
 // ANTES: cada método de pago nuevo obliga a tocar este switch
-function calculateFee(method: 'card' | 'paypal' | 'crypto', amount: number): number {
+function calculateFee(
+  method: "card" | "paypal" | "crypto",
+  amount: number
+): number {
   switch (method) {
-    case 'card':
-      return amount * 0.029 + 0.3;
-    case 'paypal':
-      return amount * 0.034 + 0.49;
-    case 'crypto':
-      return amount * 0.01;
+    case "card":
+      return amount * 0.029 + 0.3
+    case "paypal":
+      return amount * 0.034 + 0.49
+    case "crypto":
+      return amount * 0.01
     default:
-      throw new Error(`Método desconocido: ${method}`);
+      throw new Error(`Método desconocido: ${method}`)
   }
 }
 ```
 
 ```ts
 // DESPUÉS: agregar un método nuevo es agregar una entrada, no tocar la función
-type FeeStrategy = (amount: number) => number;
+type FeeStrategy = (amount: number) => number
 
 const feeStrategies: Record<string, FeeStrategy> = {
   card: (amount) => amount * 0.029 + 0.3,
   paypal: (amount) => amount * 0.034 + 0.49,
-  crypto: (amount) => amount * 0.01,
-};
+  crypto: (amount) => amount * 0.01
+}
 
 function calculateFee(method: string, amount: number): number {
-  const strategy = feeStrategies[method];
-  if (!strategy) throw new Error(`Método desconocido: ${method}`);
-  return strategy(amount);
+  const strategy = feeStrategies[method]
+  if (!strategy) throw new Error(`Método desconocido: ${method}`)
+  return strategy(amount)
 }
 
 // agregar Apple Pay no toca calculateFee:
-feeStrategies.applepay = (amount) => amount * 0.025;
+feeStrategies.applepay = (amount) => amount * 0.025
 ```
 
 ## L — Liskov Substitution (sustitución de Liskov)
@@ -120,47 +127,63 @@ Cualquier código que use un tipo base debería poder usar una subclase sin dars
 ```ts
 // ANTES: Square rompe el contrato de Rectangle
 class Rectangle {
-  constructor(protected width: number, protected height: number) {}
+  constructor(
+    protected width: number,
+    protected height: number
+  ) {}
 
-  setWidth(w: number) { this.width = w; }
-  setHeight(h: number) { this.height = h; }
-  area() { return this.width * this.height; }
+  setWidth(w: number) {
+    this.width = w
+  }
+  setHeight(h: number) {
+    this.height = h
+  }
+  area() {
+    return this.width * this.height
+  }
 }
 
 class Square extends Rectangle {
   setWidth(w: number) {
-    this.width = w;
-    this.height = w; // efecto secundario inesperado
+    this.width = w
+    this.height = w // efecto secundario inesperado
   }
   setHeight(h: number) {
-    this.width = h;
-    this.height = h;
+    this.width = h
+    this.height = h
   }
 }
 
 function resizeAndCheck(rect: Rectangle) {
-  rect.setWidth(4);
-  rect.setHeight(5);
-  console.log(rect.area()); // se espera 20, Square da 25
+  rect.setWidth(4)
+  rect.setHeight(5)
+  console.log(rect.area()) // se espera 20, Square da 25
 }
 ```
 
-Matemáticamente un cuadrado "es un" rectángulo, pero el *comportamiento* de `Rectangle` (ancho y alto independientes) no se sostiene en `Square`. La jerarquía está mal elegida.
+Matemáticamente un cuadrado "es un" rectángulo, pero el _comportamiento_ de `Rectangle` (ancho y alto independientes) no se sostiene en `Square`. La jerarquía está mal elegida.
 
 ```ts
 // DESPUÉS: no forzar una relación "es un" que no se cumple en comportamiento
 interface Shape {
-  area(): number;
+  area(): number
 }
 
 class Rectangle implements Shape {
-  constructor(private width: number, private height: number) {}
-  area() { return this.width * this.height; }
+  constructor(
+    private width: number,
+    private height: number
+  ) {}
+  area() {
+    return this.width * this.height
+  }
 }
 
 class Square implements Shape {
   constructor(private side: number) {}
-  area() { return this.side ** 2; }
+  area() {
+    return this.side ** 2
+  }
 }
 ```
 
@@ -171,37 +194,65 @@ Es mejor tener varias interfaces chicas y específicas que una gigante que oblig
 ```ts
 // ANTES: interfaz gorda, casi ningún worker necesita todo
 interface Worker {
-  code(): void;
-  writeDocs(): void;
-  attendStandup(): void;
-  deployToProd(): void;
+  code(): void
+  writeDocs(): void
+  attendStandup(): void
+  deployToProd(): void
 }
 
 class JuniorDev implements Worker {
-  code() { /* ... */ }
-  writeDocs() { throw new Error('No aplica'); }
-  attendStandup() { /* ... */ }
-  deployToProd() { throw new Error('No tiene permisos'); }
+  code() {
+    /* ... */
+  }
+  writeDocs() {
+    throw new Error("No aplica")
+  }
+  attendStandup() {
+    /* ... */
+  }
+  deployToProd() {
+    throw new Error("No tiene permisos")
+  }
 }
 ```
 
 ```ts
 // DESPUÉS: interfaces chicas, cada clase implementa solo lo que le corresponde
-interface Coder { code(): void; }
-interface DocWriter { writeDocs(): void; }
-interface StandupAttendee { attendStandup(): void; }
-interface Deployer { deployToProd(): void; }
+interface Coder {
+  code(): void
+}
+interface DocWriter {
+  writeDocs(): void
+}
+interface StandupAttendee {
+  attendStandup(): void
+}
+interface Deployer {
+  deployToProd(): void
+}
 
 class JuniorDev implements Coder, StandupAttendee {
-  code() { /* ... */ }
-  attendStandup() { /* ... */ }
+  code() {
+    /* ... */
+  }
+  attendStandup() {
+    /* ... */
+  }
 }
 
 class TechLead implements Coder, DocWriter, StandupAttendee, Deployer {
-  code() { /* ... */ }
-  writeDocs() { /* ... */ }
-  attendStandup() { /* ... */ }
-  deployToProd() { /* ... */ }
+  code() {
+    /* ... */
+  }
+  writeDocs() {
+    /* ... */
+  }
+  attendStandup() {
+    /* ... */
+  }
+  deployToProd() {
+    /* ... */
+  }
 }
 ```
 
@@ -215,7 +266,7 @@ Los módulos de alto nivel no deberían depender de módulos de bajo nivel concr
 // ANTES: OrderService depende directamente de console y de un logger concreto
 class OrderService {
   createOrder(id: string) {
-    console.log(`[orders] creando orden ${id}`);
+    console.log(`[orders] creando orden ${id}`)
     // ...
   }
 }
@@ -226,26 +277,30 @@ Si mañana el logging pasa a un servicio externo (Datadog, Sentry), hay que toca
 ```ts
 // DESPUÉS: OrderService depende de una abstracción, no de una implementación
 interface Logger {
-  info(message: string): void;
-  error(message: string, err?: unknown): void;
+  info(message: string): void
+  error(message: string, err?: unknown): void
 }
 
 class ConsoleLogger implements Logger {
-  info(message: string) { console.log(message); }
-  error(message: string, err?: unknown) { console.error(message, err); }
+  info(message: string) {
+    console.log(message)
+  }
+  error(message: string, err?: unknown) {
+    console.error(message, err)
+  }
 }
 
 class OrderService {
   constructor(private logger: Logger) {}
 
   createOrder(id: string) {
-    this.logger.info(`[orders] creando orden ${id}`);
+    this.logger.info(`[orders] creando orden ${id}`)
     // ...
   }
 }
 
 // en producción se puede inyectar un DatadogLogger sin tocar OrderService
-const service = new OrderService(new ConsoleLogger());
+const service = new OrderService(new ConsoleLogger())
 ```
 
 ## Cuándo NO aplica (o aplica distinto)

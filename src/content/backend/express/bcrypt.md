@@ -16,11 +16,11 @@ Guardar contraseñas en texto plano significa que cualquiera con acceso a la bas
 ## Hashear al registrar
 
 ```ts
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt"
 
 async function registrarUsuario(email: string, password: string) {
-  const passwordHash = await bcrypt.hash(password, 10);
-  return crearUsuarioEnDB({ email, passwordHash });
+  const passwordHash = await bcrypt.hash(password, 10)
+  return crearUsuarioEnDB({ email, passwordHash })
 }
 ```
 
@@ -29,22 +29,25 @@ El segundo argumento (`10`) son los **rounds** de costo — cuánto trabajo comp
 ## Comparar al hacer login
 
 ```ts
-async function verificarPassword(passwordIngresada: string, passwordHash: string) {
-  return bcrypt.compare(passwordIngresada, passwordHash);
+async function verificarPassword(
+  passwordIngresada: string,
+  passwordHash: string
+) {
+  return bcrypt.compare(passwordIngresada, passwordHash)
 }
 ```
 
 ```ts
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const usuario = await buscarUsuarioPorEmail(email);
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body
+  const usuario = await buscarUsuarioPorEmail(email)
 
   if (!usuario || !(await verificarPassword(password, usuario.passwordHash))) {
-    return res.status(401).json({ error: 'Credenciales inválidas' });
+    return res.status(401).json({ error: "Credenciales inválidas" })
   }
 
   // credenciales correctas, emitir JWT o crear sesión
-});
+})
 ```
 
 `bcrypt.compare()` es la única forma correcta de verificar — **nunca** se hashea la contraseña ingresada y se compara el string resultante con `===`, aunque parezca equivalente (ver por qué, abajo).
@@ -63,11 +66,11 @@ $2b$10$N9qo8uLOickgx2ZMRZoMye.IjPeKgAcXHqJqNz3z8WQvOc7q8vJZa
 
 ## Resumen
 
-| API | Qué hace |
-| --- | --- |
-| `bcrypt.hash(password, rounds)` | Genera un hash (con salt incluido) |
-| `bcrypt.compare(password, hash)` | Compara un intento contra el hash guardado |
-| Rounds (típico: 10-12) | Costo computacional — más alto, más lento y más resistente |
+| API                              | Qué hace                                                   |
+| -------------------------------- | ---------------------------------------------------------- |
+| `bcrypt.hash(password, rounds)`  | Genera un hash (con salt incluido)                         |
+| `bcrypt.compare(password, hash)` | Compara un intento contra el hash guardado                 |
+| Rounds (típico: 10-12)           | Costo computacional — más alto, más lento y más resistente |
 
 ## Consideraciones — por qué NO comparar con `===`
 

@@ -22,12 +22,12 @@ npx astro add react tailwind sitemap
 ## Cómo queda en `astro.config.mjs`
 
 ```ts title="astro.config.mjs"
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+import { defineConfig } from "astro/config"
+import react from "@astrojs/react"
 
 export default defineConfig({
-  integrations: [react()],
-});
+  integrations: [react()]
+})
 ```
 
 Este mismo sitio tiene una sola: `react()`, para las islas de `CommandPalette`/`MobileNav`/`SearchResults` — Tailwind aquí va aparte, como plugin de Vite (`@tailwindcss/vite`), no como integration.
@@ -37,22 +37,22 @@ Este mismo sitio tiene una sola: `react()`, para las islas de `CommandPalette`/`
 Cuando `astro add` no cubre el caso (una integration local, algo sin paquete de Astro oficial), se agrega a mano.
 
 ```ts title="astro.config.mjs"
-import { defineConfig } from 'astro/config';
-import miIntegracionLocal from './integrations/mi-integracion.js';
+import { defineConfig } from "astro/config"
+import miIntegracionLocal from "./integrations/mi-integracion.js"
 
 export default defineConfig({
-  integrations: [miIntegracionLocal()],
-});
+  integrations: [miIntegracionLocal()]
+})
 ```
 
 ## Integraciones habituales
 
-| Comando / config | Uso |
-| --- | --- |
-| `npx astro add <nombre>` | Instala y configura en un paso |
-| `npx astro add <a> <b> <c>` | Varias integrations directamente |
-| `integrations: [...]` en `astro.config.mjs` | Dónde quedan declaradas, siempre |
-| Instalación manual | Para integrations locales o sin soporte de `astro add` |
+| Comando / config                            | Uso                                                    |
+| ------------------------------------------- | ------------------------------------------------------ |
+| `npx astro add <nombre>`                    | Instala y configura en un paso                         |
+| `npx astro add <a> <b> <c>`                 | Varias integrations directamente                       |
+| `integrations: [...]` en `astro.config.mjs` | Dónde quedan declaradas, siempre                       |
+| Instalación manual                          | Para integrations locales o sin soporte de `astro add` |
 
 ## Compatibilidad y mantenimiento
 

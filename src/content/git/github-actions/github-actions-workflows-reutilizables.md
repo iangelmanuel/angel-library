@@ -45,7 +45,7 @@ jobs:
   verify:
     uses: ./.github/workflows/reusable-check.yml
     with:
-      node-version: '22'
+      node-version: "22"
     permissions:
       contents: read
 ```

@@ -73,9 +73,9 @@ npx prisma migrate dev --name init
 **4. El client, como singleton:**
 
 ```ts title="lib/prisma.ts"
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client"
 
-export const prisma = new PrismaClient();
+export const prisma = new PrismaClient()
 ```
 
 En una app Express de proceso largo (no serverless), esto alcanza tal cual — el proceso vive mientras el servidor corre, así que una instancia global no se recrea en cada request.
@@ -83,61 +83,70 @@ En una app Express de proceso largo (no serverless), esto alcanza tal cual — e
 **5. Un endpoint real, para confirmar que anda:**
 
 ```ts title="app.ts"
-import express from 'express';
-import { prisma } from './lib/prisma';
+import express from "express"
+import { prisma } from "./lib/prisma"
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-app.get('/posts', async (req, res) => {
-  const posts = await prisma.post.findMany();
-  res.json(posts);
-});
+app.get("/posts", async (req, res) => {
+  const posts = await prisma.post.findMany()
+  res.json(posts)
+})
 
-app.post('/posts', async (req, res) => {
-  const post = await prisma.post.create({ data: req.body });
-  res.status(201).json(post);
-});
+app.post("/posts", async (req, res) => {
+  const post = await prisma.post.create({ data: req.body })
+  res.status(201).json(post)
+})
 
-app.listen(3000);
+app.listen(3000)
 ```
 
 ## CRUD básico
 
 ```ts
-await prisma.user.create({ data: { email: 'a@b.com', name: 'Angel' } });
-await prisma.user.findUnique({ where: { id: '...' } });
-await prisma.user.findMany({ where: { name: { contains: 'an' } } });
-await prisma.user.update({ where: { id: '...' }, data: { name: 'Nuevo nombre' } });
-await prisma.user.delete({ where: { id: '...' } });
+await prisma.user.create({ data: { email: "a@b.com", name: "Angel" } })
+await prisma.user.findUnique({ where: { id: "..." } })
+await prisma.user.findMany({ where: { name: { contains: "an" } } })
+await prisma.user.update({
+  where: { id: "..." },
+  data: { name: "Nuevo nombre" }
+})
+await prisma.user.delete({ where: { id: "..." } })
 ```
 
 ## Métodos que se usan seguido y no son solo CRUD básico
 
 ```ts
 // findFirst: el primero que matchea, sin buscar por un campo único
-await prisma.post.findFirst({ where: { published: true }, orderBy: { createdAt: 'desc' } });
+await prisma.post.findFirst({
+  where: { published: true },
+  orderBy: { createdAt: "desc" }
+})
 
 // upsert: actualiza si existe, crea si no — un solo viaje a la base en vez de find + if + create/update
 await prisma.user.upsert({
-  where: { email: 'a@b.com' },
-  update: { name: 'Nombre actualizado' },
-  create: { email: 'a@b.com', name: 'Nombre nuevo' },
-});
+  where: { email: "a@b.com" },
+  update: { name: "Nombre actualizado" },
+  create: { email: "a@b.com", name: "Nombre nuevo" }
+})
 
 // createMany / updateMany / deleteMany: operan sobre varios registros en una sola query
-await prisma.post.createMany({ data: [{ title: 'Uno' }, { title: 'Dos' }] });
-await prisma.post.updateMany({ where: { published: false }, data: { published: true } });
-await prisma.post.deleteMany({ where: { authorId: '...' } });
+await prisma.post.createMany({ data: [{ title: "Uno" }, { title: "Dos" }] })
+await prisma.post.updateMany({
+  where: { published: false },
+  data: { published: true }
+})
+await prisma.post.deleteMany({ where: { authorId: "..." } })
 
 // count: contar sin traer los registros
-await prisma.post.count({ where: { published: true } });
+await prisma.post.count({ where: { published: true } })
 
 // aggregate: min/max/avg/sum sobre un campo numérico
-await prisma.post.aggregate({ _count: true, _avg: { views: true } });
+await prisma.post.aggregate({ _count: true, _avg: { views: true } })
 
 // groupBy: agrupar y agregar, el equivalente a GROUP BY de SQL
-await prisma.post.groupBy({ by: ['authorId'], _count: { id: true } });
+await prisma.post.groupBy({ by: ["authorId"], _count: { id: true } })
 ```
 
 `createMany`/`updateMany`/`deleteMany` no devuelven los registros afectados, solo `{ count: number }` — si hace falta el resultado completo de cada uno, la alternativa es un `$transaction` con varias operaciones individuales (ver abajo).
@@ -148,15 +157,15 @@ Por defecto, una consulta **no** trae las relaciones — hay que pedirlas explí
 
 ```ts
 const userConPosts = await prisma.user.findUnique({
-  where: { id: '...' },
-  include: { posts: true },
-});
+  where: { id: "..." },
+  include: { posts: true }
+})
 ```
 
 `select` hace lo opuesto: en vez de traer el modelo completo, eliges exactamente qué campos quieres.
 
 ```ts
-const soloEmail = await prisma.user.findMany({ select: { email: true } });
+const soloEmail = await prisma.user.findMany({ select: { email: true } })
 ```
 
 ## Transacciones con `$transaction`
@@ -169,9 +178,12 @@ La más simple — un array de operaciones independientes entre sí, que Prisma 
 
 ```ts
 const [post, contador] = await prisma.$transaction([
-  prisma.post.create({ data: { title: 'Nuevo post', authorId: userId } }),
-  prisma.user.update({ where: { id: userId }, data: { postsCount: { increment: 1 } } }),
-]);
+  prisma.post.create({ data: { title: "Nuevo post", authorId: userId } }),
+  prisma.user.update({
+    where: { id: userId },
+    data: { postsCount: { increment: 1 } }
+  })
+])
 ```
 
 Si `prisma.user.update` falla (por ejemplo, el usuario no existe), el `create` del post **también se revierte** — no queda un post huérfano sin su contador actualizado.
@@ -182,17 +194,23 @@ Para cuando una operación depende del **resultado** de la anterior — el array
 
 ```ts
 const resultado = await prisma.$transaction(async (tx) => {
-  const cuentaOrigen = await tx.account.findUnique({ where: { id: origenId } });
+  const cuentaOrigen = await tx.account.findUnique({ where: { id: origenId } })
 
   if (!cuentaOrigen || cuentaOrigen.balance < monto) {
-    throw new Error('Fondos insuficientes'); // esto revierte TODA la transacción
+    throw new Error("Fondos insuficientes") // esto revierte TODA la transacción
   }
 
-  await tx.account.update({ where: { id: origenId }, data: { balance: { decrement: monto } } });
-  await tx.account.update({ where: { id: destinoId }, data: { balance: { increment: monto } } });
+  await tx.account.update({
+    where: { id: origenId },
+    data: { balance: { decrement: monto } }
+  })
+  await tx.account.update({
+    where: { id: destinoId },
+    data: { balance: { increment: monto } }
+  })
 
-  return { ok: true };
-});
+  return { ok: true }
+})
 ```
 
 Dentro del callback se usa `tx` (el client transaccional que Prisma pasa como argumento), **no** `prisma` directo — usar `prisma.account.update(...)` por error adentro del callback ejecutaría esa operación **fuera** de la transacción, sin las garantías de atomicidad.
@@ -204,25 +222,26 @@ Un `throw` dentro del callback revierte automáticamente todo lo que la transacc
 Siguiendo la [estructura MVC](/backend/express/backend-mvc-structure): el repository es la única capa que importa `prisma` directamente.
 
 ```ts title="repositories/users.repository.ts"
-import { prisma } from '../lib/prisma';
+import { prisma } from "../lib/prisma"
 
 export const usersRepository = {
   findById: (id: string) => prisma.user.findUnique({ where: { id } }),
   findAll: () => prisma.user.findMany(),
-  create: (data: { email: string; name?: string }) => prisma.user.create({ data }),
-};
+  create: (data: { email: string; name?: string }) =>
+    prisma.user.create({ data })
+}
 ```
 
 ```ts title="services/users.service.ts"
-import { usersRepository } from '../repositories/users.repository';
+import { usersRepository } from "../repositories/users.repository"
 
 export const usersService = {
   async obtenerUsuario(id: string) {
-    const usuario = await usersRepository.findById(id);
-    if (!usuario) throw new AppError(404, 'Usuario no encontrado');
-    return usuario;
-  },
-};
+    const usuario = await usersRepository.findById(id)
+    if (!usuario) throw new AppError(404, "Usuario no encontrado")
+    return usuario
+  }
+}
 ```
 
 El controller nunca importa `prisma` directamente — pasa por service → repository, así que cambiar de ORM en el futuro solo toca la capa de repository.
@@ -230,26 +249,26 @@ El controller nunca importa `prisma` directamente — pasa por service → repos
 ## Cierre limpio al apagar el servidor
 
 ```ts title="server.ts"
-process.on('SIGTERM', async () => {
-  await prisma.$disconnect();
-  process.exit(0);
-});
+process.on("SIGTERM", async () => {
+  await prisma.$disconnect()
+  process.exit(0)
+})
 ```
 
 Ver [process y señales](/backend/node/node-process) para el patrón completo de shutdown limpio.
 
 ## Flujo de Prisma
 
-| API | Qué hace |
-| --- | --- |
-| `create` / `findUnique` / `findMany` / `update` / `delete` | CRUD básico |
-| `findFirst` | Primer match, sin depender de un campo único |
-| `upsert` | Update si existe, create si no, en un solo viaje |
-| `createMany` / `updateMany` / `deleteMany` | Operan sobre varios registros, devuelven solo `{ count }` |
-| `count` / `aggregate` / `groupBy` | Conteos y agregaciones sin traer los registros completos |
-| `include` / `select` | Traer relaciones / elegir campos específicos |
-| `$transaction([...])` | Varias operaciones independientes, atómicas, secuenciales |
-| `$transaction(async (tx) => {...})` | Operaciones que dependen del resultado de la anterior, atómicas |
+| API                                                        | Qué hace                                                        |
+| ---------------------------------------------------------- | --------------------------------------------------------------- |
+| `create` / `findUnique` / `findMany` / `update` / `delete` | CRUD básico                                                     |
+| `findFirst`                                                | Primer match, sin depender de un campo único                    |
+| `upsert`                                                   | Update si existe, create si no, en un solo viaje                |
+| `createMany` / `updateMany` / `deleteMany`                 | Operan sobre varios registros, devuelven solo `{ count }`       |
+| `count` / `aggregate` / `groupBy`                          | Conteos y agregaciones sin traer los registros completos        |
+| `include` / `select`                                       | Traer relaciones / elegir campos específicos                    |
+| `$transaction([...])`                                      | Varias operaciones independientes, atómicas, secuenciales       |
+| `$transaction(async (tx) => {...})`                        | Operaciones que dependen del resultado de la anterior, atómicas |
 
 ## Conexiones, transacciones y capas
 

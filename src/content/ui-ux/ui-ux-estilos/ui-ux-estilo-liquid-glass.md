@@ -19,13 +19,13 @@ La idea es un material dinámico que imita el vidrio real: translucidez, **refra
 
 Es la pregunta obligada, porque a primera vista se parecen:
 
-| | Glassmorphism | Liquid Glass |
-| --- | --- | --- |
-| Qué hace con el fondo | Lo desenfoca | Lo desenfoca **y lo refracta**, como un cristal grueso |
-| Reacción | Estático | Responde al movimiento y a la interacción |
-| Adaptación | Opacidad fija | Se ajusta al contenido y a la luz de debajo |
-| Origen | Técnica de CSS | Sistema definido por un fabricante, con APIs propias |
-| Bordes | Línea clara de 1 px | Cantos que concentran y curvan la luz |
+|                       | Glassmorphism       | Liquid Glass                                           |
+| --------------------- | ------------------- | ------------------------------------------------------ |
+| Qué hace con el fondo | Lo desenfoca        | Lo desenfoca **y lo refracta**, como un cristal grueso |
+| Reacción              | Estático            | Responde al movimiento y a la interacción              |
+| Adaptación            | Opacidad fija       | Se ajusta al contenido y a la luz de debajo            |
+| Origen                | Técnica de CSS      | Sistema definido por un fabricante, con APIs propias   |
+| Bordes                | Línea clara de 1 px | Cantos que concentran y curvan la luz                  |
 
 En resumen: glassmorphism simula una **lámina**; Liquid Glass simula un **volumen** de vidrio.
 

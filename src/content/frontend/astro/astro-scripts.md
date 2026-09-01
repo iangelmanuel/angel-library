@@ -16,13 +16,13 @@ El frontmatter corre en servidor; un `<script>` en la plantilla corre en navegad
 
 ## Elegir la herramienta
 
-| Interacción | Opción |
-| --- | --- |
-| evento sencillo sobre HTML | `<script>` procesado |
-| varias instancias con ciclo de vida propio | Web Component |
-| estado complejo o UI reactiva | isla de React, Vue o Svelte |
-| script externo que debe conservarse intacto | `is:inline` con `src` |
-| valor calculado en servidor | atributo `data-*` o `define:vars` |
+| Interacción                                 | Opción                            |
+| ------------------------------------------- | --------------------------------- |
+| evento sencillo sobre HTML                  | `<script>` procesado              |
+| varias instancias con ciclo de vida propio  | Web Component                     |
+| estado complejo o UI reactiva               | isla de React, Vue o Svelte       |
+| script externo que debe conservarse intacto | `is:inline` con `src`             |
+| valor calculado en servidor                 | atributo `data-*` o `define:vars` |
 
 ## Script procesado
 
@@ -32,9 +32,13 @@ Un `<script>` sin atributos extra obtiene TypeScript, bundling, imports, `type="
 <button data-copy>Copiar</button>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
-    button.addEventListener('click', () => navigator.clipboard.writeText('texto'));
-  });
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-copy]")
+    .forEach((button) => {
+      button.addEventListener("click", () =>
+        navigator.clipboard.writeText("texto")
+      )
+    })
 </script>
 ```
 
@@ -47,7 +51,10 @@ El script se procesa como módulo. Sus variables no se agregan a `window`, los i
 `<script is:inline>` se emite exactamente como está: no resuelve imports, no transforma TypeScript y se repite por cada instancia del componente. Es útil para un script externo o cuando necesitas interpolar HTML de forma muy controlada, no como default.
 
 ```astro
-<script is:inline src="https://example.com/widget.js"></script>
+<script
+  is:inline
+  src="https://example.com/widget.js"
+></script>
 ```
 
 Un tercero puede afectar privacidad, seguridad y rendimiento. Cárgalo solo en las rutas necesarias, revisa su política de datos y evita bloquear el contenido principal mientras descarga.
@@ -58,16 +65,20 @@ Usa atributos `data-*` o `define:vars`. Para componentes repetidos, un custom el
 
 ```astro
 ---
-const { message } = Astro.props;
+const { message } = Astro.props
 ---
+
 <astro-alert data-message={message}><button>Mostrar</button></astro-alert>
 <script>
   class AstroAlert extends HTMLElement {
     connectedCallback() {
-      this.querySelector('button')?.addEventListener('click', () => alert(this.dataset.message));
+      this.querySelector("button")?.addEventListener("click", () =>
+        alert(this.dataset.message)
+      )
     }
   }
-  if (!customElements.get('astro-alert')) customElements.define('astro-alert', AstroAlert);
+  if (!customElements.get("astro-alert"))
+    customElements.define("astro-alert", AstroAlert)
 </script>
 ```
 
@@ -78,11 +89,13 @@ Los atributos convierten valores a texto. Para datos estructurados, serializa de
 Para elementos que aparecen dinámicamente, la delegación evita registrar un listener por nodo:
 
 ```ts
-document.addEventListener('click', (event) => {
-  const button = (event.target as Element).closest<HTMLButtonElement>('[data-copy]');
-  if (!button) return;
-  navigator.clipboard.writeText(button.dataset.copy ?? '');
-});
+document.addEventListener("click", (event) => {
+  const button = (event.target as Element).closest<HTMLButtonElement>(
+    "[data-copy]"
+  )
+  if (!button) return
+  navigator.clipboard.writeText(button.dataset.copy ?? "")
+})
 ```
 
 Cuando registras listeners en `window`, timers u observadores desde un componente que puede desmontarse, conserva una referencia y elimínalos. Los Web Components ofrecen `disconnectedCallback()` para esa limpieza.
@@ -90,9 +103,9 @@ Cuando registras listeners en `window`, timers u observadores desde un component
 Con `<ClientRouter />`, los módulos no se vuelven a ejecutar en cada navegación. Inicializa el comportamiento de la página en `astro:page-load` o diseña custom elements cuyo `connectedCallback()` responda al nuevo DOM.
 
 ```ts
-document.addEventListener('astro:page-load', () => {
-  document.querySelector<HTMLInputElement>('[autofocus]')?.focus();
-});
+document.addEventListener("astro:page-load", () => {
+  document.querySelector<HTMLInputElement>("[autofocus]")?.focus()
+})
 ```
 
 Evita volver a registrar listeners globales en cada evento. Una función de inicialización debe ser idempotente —ejecutarla dos veces produce el mismo resultado— o debe limpiar el registro anterior.

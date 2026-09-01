@@ -29,22 +29,22 @@ La directiva no significa “guardar para siempre”. `cacheLife()` define fresc
 ## Activar
 
 ```ts title="next.config.ts"
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next"
 
-const nextConfig: NextConfig = { cacheComponents: true };
-export default nextConfig;
+const nextConfig: NextConfig = { cacheComponents: true }
+export default nextConfig
 ```
 
 ## Cachear una consulta
 
 ```ts title="app/lib/products.ts"
-import { cacheLife, cacheTag } from 'next/cache';
+import { cacheLife, cacheTag } from "next/cache"
 
 export async function getProducts() {
-  'use cache';
-  cacheLife('hours');
-  cacheTag('products');
-  return db.product.findMany();
+  "use cache"
+  cacheLife("hours")
+  cacheTag("products")
+  return db.product.findMany()
 }
 ```
 
@@ -61,16 +61,17 @@ Los argumentos serializables y valores cerrados sobre el scope participan en la 
 ## Invalidación
 
 ```ts title="app/actions.ts"
-'use server';
-import { updateTag } from 'next/cache';
+"use server"
+
+import { updateTag } from "next/cache"
 
 export async function crearProducto(formData: FormData) {
-  await db.product.create({ data: { name: String(formData.get('name')) } });
-  updateTag('products');
+  await db.product.create({ data: { name: String(formData.get("name")) } })
+  updateTag("products")
 }
 ```
 
-`updateTag()` expira y obtiene el dato actualizado dentro del flujo de la mutación — útil para leer las escrituras propias (*read your own writes*). `revalidateTag(tag, 'max')` sirve cuando toleras *stale-while-revalidate*.
+`updateTag()` expira y obtiene el dato actualizado dentro del flujo de la mutación — útil para leer las escrituras propias (_read your own writes_). `revalidateTag(tag, 'max')` sirve cuando toleras _stale-while-revalidate_.
 
 ## Datos de request
 

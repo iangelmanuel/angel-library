@@ -36,7 +36,11 @@ En Node, la verificación es esta:
 ```ts title="src/webhooks/verificar-firma.ts"
 import { createHmac, timingSafeEqual } from "node:crypto"
 
-export function firmaValida(cuerpo: string, firmaRecibida: string, secreto: string) {
+export function firmaValida(
+  cuerpo: string,
+  firmaRecibida: string,
+  secreto: string
+) {
   const esperada = createHmac("sha256", secreto).update(cuerpo).digest("hex")
 
   const a = Buffer.from(esperada)
@@ -69,16 +73,16 @@ Un webhook sin filtros dispara con todo. Si solo te interesa una parte, puedes a
 
 Las condiciones se combinan con Y lógico. Los campos disponibles:
 
-| Campo | Sirve para |
-| --- | --- |
-| `sender` | Quién envía |
-| `recipient` | Quién recibe |
-| `body` | El texto del mensaje |
-| `type` | Tipo de mensaje |
-| `mentions` | Menciones dentro del mensaje |
-| `fromMe` | Distinguir lo que envía la propia sesión |
-| `hasMedia` | Si trae adjunto |
-| `isGroup` | Si viene de un grupo |
+| Campo       | Sirve para                               |
+| ----------- | ---------------------------------------- |
+| `sender`    | Quién envía                              |
+| `recipient` | Quién recibe                             |
+| `body`      | El texto del mensaje                     |
+| `type`      | Tipo de mensaje                          |
+| `mentions`  | Menciones dentro del mensaje             |
+| `fromMe`    | Distinguir lo que envía la propia sesión |
+| `hasMedia`  | Si trae adjunto                          |
+| `isGroup`   | Si viene de un grupo                     |
 
 Un webhook sin `filters` se comporta como siempre, así que se pueden añadir después sin romper nada.
 
@@ -86,12 +90,12 @@ Filtrar en el origen no es solo comodidad: en una sesión con grupos activos, la
 
 ## Eventos útiles
 
-| Evento | Cuándo llega |
-| --- | --- |
-| `message.received` | Entra un mensaje |
-| `message.edited` | Se edita un mensaje |
-| `session.status` | La sesión cambia de estado: conectada, desconectada, esperando QR |
-| `call.received` | Entra una llamada |
+| Evento             | Cuándo llega                                                      |
+| ------------------ | ----------------------------------------------------------------- |
+| `message.received` | Entra un mensaje                                                  |
+| `message.edited`   | Se edita un mensaje                                               |
+| `session.status`   | La sesión cambia de estado: conectada, desconectada, esperando QR |
+| `call.received`    | Entra una llamada                                                 |
 
 `session.status` es el que conviene vigilar en producción: es el que avisa cuando la sesión se cae y hay que volver a escanear el QR.
 

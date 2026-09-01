@@ -9,7 +9,7 @@ related: [git/git/git-undo-commit-keep-changes]
 updatedAt: 2026-08-16
 ---
 
-Git casi nunca borra un commit inmediatamente después de dejar de referenciarlo — lo mantiene un tiempo (por defecto 90 días) aunque ninguna rama apunte a él, esperando que se ejecute la recolección de basura (*garbage collection*). El **reflog** es el registro de cada lugar donde estuvo `HEAD` — cada commit, cada `reset`, cada `checkout`, cada `rebase` — y es la puerta para recuperar casi cualquier cosa que "se perdió".
+Git casi nunca borra un commit inmediatamente después de dejar de referenciarlo — lo mantiene un tiempo (por defecto 90 días) aunque ninguna rama apunte a él, esperando que se ejecute la recolección de basura (_garbage collection_). El **reflog** es el registro de cada lugar donde estuvo `HEAD` — cada commit, cada `reset`, cada `checkout`, cada `rebase` — y es la puerta para recuperar casi cualquier cosa que "se perdió".
 
 ## Ver el reflog
 
@@ -54,11 +54,11 @@ Más simple todavía si el rebase sigue en curso: `git rebase --abort` (ver [Reb
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `git reflog` | Lista cada lugar donde estuvo `HEAD`, más reciente primero |
-| `git reset --hard <hash-del-reflog>` | Vuelve el repo exactamente a ese momento |
-| `git branch <nombre> <hash>` | Recrea una rama borrada, apuntando a un commit del reflog |
+| Comando                              | Qué hace                                                   |
+| ------------------------------------ | ---------------------------------------------------------- |
+| `git reflog`                         | Lista cada lugar donde estuvo `HEAD`, más reciente primero |
+| `git reset --hard <hash-del-reflog>` | Vuelve el repo exactamente a ese momento                   |
+| `git branch <nombre> <hash>`         | Recrea una rama borrada, apuntando a un commit del reflog  |
 
 ## Consideraciones
 

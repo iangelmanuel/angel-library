@@ -37,23 +37,25 @@ npm install --save-dev typescript tsx @types/node @types/express
 ## Aplicación mínima
 
 ```ts title="src/app.ts"
-import express from 'express';
+import express from "express"
 
-export const app = express();
+export const app = express()
 
-app.disable('x-powered-by');
-app.use(express.json({ limit: '100kb' }));
+app.disable("x-powered-by")
+app.use(express.json({ limit: "100kb" }))
 
-app.get('/health', (_request, response) => {
-  response.status(200).json({ status: 'ok' });
-});
+app.get("/health", (_request, response) => {
+  response.status(200).json({ status: "ok" })
+})
 ```
 
 ```ts title="src/server.ts"
-import { app } from './app.js';
+import { app } from "./app.js"
 
-const port = Number(process.env.PORT ?? 3000);
-app.listen(port, () => console.log(`API disponible en http://localhost:${port}`));
+const port = Number(process.env.PORT ?? 3000)
+app.listen(port, () =>
+  console.log(`API disponible en http://localhost:${port}`)
+)
 ```
 
 Separar `app` de `server` permite importar la aplicación en tests sin abrir un puerto. `express.json()` parsea bodies JSON, pero su límite no sustituye la validación del contenido.
@@ -97,4 +99,3 @@ Una ruta que no responde ni llama a `next()` queda pendiente. Una ruta que respo
 ## Qué Express no crea por ti
 
 No incluye ORM, validación de esquemas, autenticación, permisos, colas ni arquitectura de carpetas. Esa libertad es útil, pero cada dependencia debe responder a un problema visible. Domina primero `Request`, `Response`, Router y middleware.
-

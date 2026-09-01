@@ -66,12 +66,12 @@ git push origin --delete v1.2.0      # también en el remoto
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
+| Comando                      | Qué hace                                 |
+| ---------------------------- | ---------------------------------------- |
 | `git tag -a v1.0.0 -m "..."` | Crear un tag anotado en el commit actual |
-| `git push origin --tags` | Publicar todos los tags nuevos |
-| `git tag -l "patrón"` | Listar tags que matchean un patrón |
-| `git tag -d <tag>` | Eliminar un tag local |
+| `git push origin --tags`     | Publicar todos los tags nuevos           |
+| `git tag -l "patrón"`        | Listar tags que matchean un patrón       |
+| `git tag -d <tag>`           | Eliminar un tag local                    |
 
 ## Consideraciones
 

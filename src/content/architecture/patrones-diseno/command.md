@@ -16,41 +16,45 @@ Ejecutar una acción directo (`editor.insertar(texto)`) funciona hasta que neces
 
 ```ts title="lib/editor/commands.ts"
 interface Command {
-  execute(): void;
-  undo(): void;
+  execute(): void
+  undo(): void
 }
 
-function createAddTextCommand(editor: Editor, texto: string, posicion: number): Command {
+function createAddTextCommand(
+  editor: Editor,
+  texto: string,
+  posicion: number
+): Command {
   return {
     execute: () => editor.insertar(texto, posicion),
-    undo: () => editor.eliminar(posicion, texto.length),
-  };
+    undo: () => editor.eliminar(posicion, texto.length)
+  }
 }
 ```
 
 ```ts title="lib/editor/history.ts"
 class HistorialComandos {
-  private hechos: Command[] = [];
-  private deshechos: Command[] = [];
+  private hechos: Command[] = []
+  private deshechos: Command[] = []
 
   ejecutar(comando: Command) {
-    comando.execute();
-    this.hechos.push(comando);
-    this.deshechos = [];
+    comando.execute()
+    this.hechos.push(comando)
+    this.deshechos = []
   }
 
   deshacer() {
-    const comando = this.hechos.pop();
-    if (!comando) return;
-    comando.undo();
-    this.deshechos.push(comando);
+    const comando = this.hechos.pop()
+    if (!comando) return
+    comando.undo()
+    this.deshechos.push(comando)
   }
 
   rehacer() {
-    const comando = this.deshechos.pop();
-    if (!comando) return;
-    comando.execute();
-    this.hechos.push(comando);
+    const comando = this.deshechos.pop()
+    if (!comando) return
+    comando.execute()
+    this.hechos.push(comando)
   }
 }
 ```
@@ -61,22 +65,25 @@ El historial no sabe qué hace cada comando por dentro — solo sabe que puede `
 
 ```ts title="lib/jobs/send-email-job.ts"
 interface Job<T = unknown> {
-  type: string;
-  payload: T;
+  type: string
+  payload: T
 }
 
 function encolarEnvioEmail(
   destinatario: string,
-  plantilla: string,
+  plantilla: string
 ): Job<{ destinatario: string; plantilla: string }> {
-  return { type: 'send-email', payload: { destinatario, plantilla } };
+  return { type: "send-email", payload: { destinatario, plantilla } }
 }
 
 // El worker, en otro proceso, deserializa el job y lo ejecuta:
 async function procesarJob(job: Job) {
-  if (job.type === 'send-email') {
-    const { destinatario, plantilla } = job.payload as { destinatario: string; plantilla: string };
-    await enviarEmail(destinatario, plantilla);
+  if (job.type === "send-email") {
+    const { destinatario, plantilla } = job.payload as {
+      destinatario: string
+      plantilla: string
+    }
+    await enviarEmail(destinatario, plantilla)
   }
 }
 ```

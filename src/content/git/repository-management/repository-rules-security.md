@@ -68,7 +68,7 @@ Declara `permissions` explícitos. No entregues escritura a contenidos, paquetes
 - rota cualquier secreto expuesto, aunque se elimine en el commit siguiente;
 - activa detección de secretos y alertas de dependencias cuando estén disponibles.
 
-**OIDC** significa *OpenID Connect*. En CI permite obtener credenciales temporales del proveedor de nube sin almacenar una clave permanente en GitHub.
+**OIDC** significa _OpenID Connect_. En CI permite obtener credenciales temporales del proveedor de nube sin almacenar una clave permanente en GitHub.
 
 ## Dependencias
 
@@ -79,4 +79,3 @@ Versiona el lockfile, revisa actualizaciones automáticas y agrupa cambios solo 
 Protege tags de release, genera artefactos desde un commit identificable y conserva checksums cuando distribuyas binarios. Una release debe indicar cambios, migraciones, incompatibilidades y ruta de reversión. No reconstruyas silenciosamente el mismo tag con contenido diferente.
 
 Fuentes oficiales: [Rulesets de GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets), [ramas protegidas](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches) y [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
-

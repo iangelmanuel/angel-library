@@ -6,7 +6,12 @@ order: 5
 tags: [terminal, bun, node, gestor-de-paquetes, runtime]
 scope: bun
 website: https://bun.sh
-related: [terminal/terminal/terminal-npm, applications/apps-cli/terminal-pnpm, applications/apps-cli/terminal-nvm]
+related:
+  [
+    terminal/terminal/terminal-npm,
+    applications/apps-cli/terminal-pnpm,
+    applications/apps-cli/terminal-nvm
+  ]
 updatedAt: 2026-08-28
 ---
 
@@ -57,19 +62,19 @@ Si la instalación existe pero el comando no aparece, revisa que `~/.bun/bin` en
 
 ## Comandos básicos
 
-| Comando | Qué hace |
-|---|---|
-| `bun install` | Instala las dependencias del `package.json` |
-| `bun add <paquete>` | Agrega una dependencia |
-| `bun add -d <paquete>` | Agrega una devDependency |
-| `bun run <script>` | Corre un script del `package.json` |
-| `bun <archivo>.ts` | Ejecuta TypeScript directo, sin compilar aparte |
-| `bunx <paquete>` | Ejecuta un paquete sin instalarlo — equivalente a `npx` |
-| `bun test` | Ejecuta pruebas con el test runner integrado |
-| `bun build <entrada>` | Empaqueta uno o más puntos de entrada |
-| `bun outdated` | Muestra dependencias desactualizadas |
-| `bun update` | Actualiza dependencias |
-| `bun upgrade` | Actualiza el propio binario de Bun |
+| Comando                | Qué hace                                                |
+| ---------------------- | ------------------------------------------------------- |
+| `bun install`          | Instala las dependencias del `package.json`             |
+| `bun add <paquete>`    | Agrega una dependencia                                  |
+| `bun add -d <paquete>` | Agrega una devDependency                                |
+| `bun run <script>`     | Corre un script del `package.json`                      |
+| `bun <archivo>.ts`     | Ejecuta TypeScript directo, sin compilar aparte         |
+| `bunx <paquete>`       | Ejecuta un paquete sin instalarlo — equivalente a `npx` |
+| `bun test`             | Ejecuta pruebas con el test runner integrado            |
+| `bun build <entrada>`  | Empaqueta uno o más puntos de entrada                   |
+| `bun outdated`         | Muestra dependencias desactualizadas                    |
+| `bun update`           | Actualiza dependencias                                  |
+| `bun upgrade`          | Actualiza el propio binario de Bun                      |
 
 ## Ejemplo: correr TypeScript sin transpilar
 

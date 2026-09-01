@@ -20,12 +20,12 @@ Astro genera sitios estáticos por defecto: cada ruta tiene que existir como arc
 ---
 export async function getStaticPaths() {
   return [
-    { params: { slug: 'primer-post' } },
-    { params: { slug: 'segundo-post' } },
-  ];
+    { params: { slug: "primer-post" } },
+    { params: { slug: "segundo-post" } }
+  ]
 }
 
-const { slug } = Astro.params;
+const { slug } = Astro.params
 ---
 ```
 
@@ -35,17 +35,17 @@ Lo que no forma parte de la URL va en `props`, no en `params`. Evita tener que v
 
 ```astro
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content"
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection("blog")
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
-  }));
+    props: { post }
+  }))
 }
 
-const { post } = Astro.props;
+const { post } = Astro.props
 ---
 ```
 
@@ -56,12 +56,13 @@ const { post } = Astro.props;
 ```astro title="pages/blog/[...page].astro"
 ---
 export async function getStaticPaths({ paginate }) {
-  const posts = await getCollection('blog');
-  return paginate(posts, { pageSize: 10 });
+  const posts = await getCollection("blog")
+  return paginate(posts, { pageSize: 10 })
 }
 
-const { page } = Astro.props;
+const { page } = Astro.props
 ---
+
 <p>Página {page.currentPage} de {page.lastPage}</p>
 {page.data.map((post) => <a href={`/blog/${post.id}`}>{post.data.title}</a>)}
 {page.url.prev && <a href={page.url.prev}>Anterior</a>}
@@ -70,12 +71,12 @@ const { page } = Astro.props;
 
 ## API en una mirada
 
-| Campo | Qué es |
-| --- | --- |
-| `params` | Valores de los segmentos dinámicos del nombre de archivo (deben coincidir exacto) |
-| `props` | Cualquier otro dato que la página necesite, fuera de la URL |
-| `paginate(items, { pageSize })` | Divide un array en páginas, requiere `[...page].astro` |
-| `page.data` / `page.currentPage` / `page.url.prev` / `page.url.next` | Lo que devuelve `paginate()`, disponible en `Astro.props.page` |
+| Campo                                                                | Qué es                                                                            |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `params`                                                             | Valores de los segmentos dinámicos del nombre de archivo (deben coincidir exacto) |
+| `props`                                                              | Cualquier otro dato que la página necesite, fuera de la URL                       |
+| `paginate(items, { pageSize })`                                      | Divide un array en páginas, requiere `[...page].astro`                            |
+| `page.data` / `page.currentPage` / `page.url.prev` / `page.url.next` | Lo que devuelve `paginate()`, disponible en `Astro.props.page`                    |
 
 ## Escala, cobertura y errores
 

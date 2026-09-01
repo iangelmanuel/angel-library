@@ -68,13 +68,13 @@ git checkout main             # equivalente a switch (cambiar de rama)
 
 ## Resumen
 
-| Comando | Qué deshace | ¿Reescribe historial? |
-| --- | --- | --- |
-| `git restore --staged <archivo>` | Saca del staging (no toca el working tree) | No |
-| `git restore <archivo>` | Descarta cambios locales no commiteados | No aplica (nunca se commitearon) |
-| `git reset --soft/--mixed HEAD~1` | Deshace el último commit, conserva los cambios | Sí (local) |
-| `git reset --hard HEAD~1` | Deshace el último commit y borra los cambios | Sí (local), y se pierde el trabajo |
-| `git revert <hash>` | Aplica el cambio inverso en un commit nuevo | No — es seguro después de un push |
+| Comando                           | Qué deshace                                    | ¿Reescribe historial?              |
+| --------------------------------- | ---------------------------------------------- | ---------------------------------- |
+| `git restore --staged <archivo>`  | Saca del staging (no toca el working tree)     | No                                 |
+| `git restore <archivo>`           | Descarta cambios locales no commiteados        | No aplica (nunca se commitearon)   |
+| `git reset --soft/--mixed HEAD~1` | Deshace el último commit, conserva los cambios | Sí (local)                         |
+| `git reset --hard HEAD~1`         | Deshace el último commit y borra los cambios   | Sí (local), y se pierde el trabajo |
+| `git revert <hash>`               | Aplica el cambio inverso en un commit nuevo    | No — es seguro después de un push  |
 
 ## Consideraciones
 

@@ -14,10 +14,10 @@ updatedAt: 2026-08-30
 
 Una lista mantenida por la comunidad de **libros de programación en español que se pueden descargar legalmente gratis**, publicados así por sus autores o editoriales.
 
-| Formato | Enlace | Para qué sirve |
-| --- | --- | --- |
+| Formato     | Enlace                                                                                      | Para qué sirve                                             |
+| ----------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | Repositorio | [midudev/libros-programacion-gratis](https://github.com/midudev/libros-programacion-gratis) | Ver el historial, proponer un libro nuevo por pull request |
-| Web | [librosgratis.dev](https://librosgratis.dev/) | Buscar y filtrar con comodidad |
+| Web         | [librosgratis.dev](https://librosgratis.dev/)                                               | Buscar y filtrar con comodidad                             |
 
 El repositorio ronda las 5.800 estrellas y sigue recibiendo cambios, que es la señal que importa en una lista de enlaces: los catálogos abandonados acumulan descargas rotas.
 

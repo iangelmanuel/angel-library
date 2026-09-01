@@ -28,6 +28,7 @@ allowed-tools: Bash(gh pr diff:*), Read
 ---
 
 Revisa el PR $ARGUMENTS con `gh pr diff $ARGUMENTS` y señala:
+
 1. Bugs potenciales
 2. Problemas de legibilidad
 3. Riesgos de seguridad
@@ -37,28 +38,28 @@ No hagas cambios, solo deja los comentarios.
 
 ## Campos de frontmatter que más se usan
 
-| Campo | Para qué |
-| --- | --- |
-| `description` | Qué hace — Claude lo usa para decidir cuándo activarlo solo |
-| `argument-hint` | Se muestra en el menú `/`, documenta qué argumento espera |
-| `allowed-tools` | Restringe qué herramientas puede usar (útil para skills de solo lectura) |
-| `disable-model-invocation` | `true` = solo se activa si el usuario escribe `/nombre`, nunca solo |
-| `context: fork` | Corre el skill en un subagente aislado en vez del hilo principal |
+| Campo                      | Para qué                                                                 |
+| -------------------------- | ------------------------------------------------------------------------ |
+| `description`              | Qué hace — Claude lo usa para decidir cuándo activarlo solo              |
+| `argument-hint`            | Se muestra en el menú `/`, documenta qué argumento espera                |
+| `allowed-tools`            | Restringe qué herramientas puede usar (útil para skills de solo lectura) |
+| `disable-model-invocation` | `true` = solo se activa si el usuario escribe `/nombre`, nunca solo      |
+| `context: fork`            | Corre el skill en un subagente aislado en vez del hilo principal         |
 
 ## Activación automática vs manual
 
 ```yaml
-disable-model-invocation: true    # solo /nombre-del-skill, nunca automático
-user-invocable: false              # nunca aparece en el menú /, solo Claude lo activa
+disable-model-invocation: true # solo /nombre-del-skill, nunca automático
+user-invocable: false # nunca aparece en el menú /, solo Claude lo activa
 ```
 
 Sin ninguno de los dos, el skill puede activarse **ambas** formas — Claude lo dispara solo si la descripción matchea lo que el usuario pidió, o el usuario lo tipea a mano.
 
 ## Resumen
 
-| Ubicación | Alcance |
-| --- | --- |
-| `.claude/skills/` | Proyecto, se commitea |
+| Ubicación           | Alcance                       |
+| ------------------- | ----------------------------- |
+| `.claude/skills/`   | Proyecto, se commitea         |
 | `~/.claude/skills/` | Personal, todos los proyectos |
 
 ## Consideraciones

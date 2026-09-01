@@ -8,40 +8,43 @@ scope: react (useReducer)
 updatedAt: 2026-08-25
 ---
 
-Cuando el estado de un componente tiene varios campos que cambian juntos, o la lógica de "cómo cambia" es más compleja que un `setState`, tener 5 `useState` sueltos empieza a sentirse desordenado — es fácil actualizar uno y olvidarse de otro relacionado. `useReducer` centraliza esa lógica en una sola función pura: dado el estado actual y una acción, devuelve el estado siguiente. El componente ya no decide *cómo* cambia el estado, solo *qué pasó* (`dispatch({ type: '...' })`).
+Cuando el estado de un componente tiene varios campos que cambian juntos, o la lógica de "cómo cambia" es más compleja que un `setState`, tener 5 `useState` sueltos empieza a sentirse desordenado — es fácil actualizar uno y olvidarse de otro relacionado. `useReducer` centraliza esa lógica en una sola función pura: dado el estado actual y una acción, devuelve el estado siguiente. El componente ya no decide _cómo_ cambia el estado, solo _qué pasó_ (`dispatch({ type: '...' })`).
 
 ## Integración básica
 
 ```tsx
-import { useReducer } from 'react';
+import { useReducer } from "react"
 
 interface State {
-  nombre: string;
-  edad: number;
+  nombre: string
+  edad: number
 }
 
 type Action =
-  | { type: 'incrementar_edad' }
-  | { type: 'cambiar_nombre'; nombre: string };
+  { type: "incrementar_edad" } | { type: "cambiar_nombre"; nombre: string }
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'incrementar_edad':
-      return { ...state, edad: state.edad + 1 };
-    case 'cambiar_nombre':
-      return { ...state, nombre: action.nombre };
+    case "incrementar_edad":
+      return { ...state, edad: state.edad + 1 }
+    case "cambiar_nombre":
+      return { ...state, nombre: action.nombre }
   }
 }
 
 function Perfil() {
-  const [state, dispatch] = useReducer(reducer, { nombre: 'Ana', edad: 30 });
+  const [state, dispatch] = useReducer(reducer, { nombre: "Ana", edad: 30 })
 
   return (
     <>
-      <p>{state.nombre}, {state.edad} años</p>
-      <button onClick={() => dispatch({ type: 'incrementar_edad' })}>Cumplir años</button>
+      <p>
+        {state.nombre}, {state.edad} años
+      </p>
+      <button onClick={() => dispatch({ type: "incrementar_edad" })}>
+        Cumplir años
+      </button>
     </>
-  );
+  )
 }
 ```
 
@@ -51,25 +54,27 @@ El truco está en el tipo `Action`: cada variante tiene su propio `type` como va
 
 ```ts
 type Action =
-  | { type: 'agregar_item'; item: string }
-  | { type: 'quitar_item'; id: string }
-  | { type: 'actualizar_cantidad'; id: string; cantidad: number }
-  | { type: 'vaciar_carrito' };
+  | { type: "agregar_item"; item: string }
+  | { type: "quitar_item"; id: string }
+  | { type: "actualizar_cantidad"; id: string; cantidad: number }
+  | { type: "vaciar_carrito" }
 
 function reducer(state: CarritoState, action: Action): CarritoState {
   switch (action.type) {
-    case 'agregar_item':
+    case "agregar_item":
       // aquí action.item existe y está tipado — action.id no existiría
-      return { ...state, items: [...state.items, action.item] };
-    case 'quitar_item':
-      return { ...state, items: state.items.filter((i) => i.id !== action.id) };
-    case 'actualizar_cantidad':
+      return { ...state, items: [...state.items, action.item] }
+    case "quitar_item":
+      return { ...state, items: state.items.filter((i) => i.id !== action.id) }
+    case "actualizar_cantidad":
       return {
         ...state,
-        items: state.items.map((i) => (i.id === action.id ? { ...i, cantidad: action.cantidad } : i)),
-      };
-    case 'vaciar_carrito':
-      return { ...state, items: [] };
+        items: state.items.map((i) =>
+          i.id === action.id ? { ...i, cantidad: action.cantidad } : i
+        )
+      }
+    case "vaciar_carrito":
+      return { ...state, items: [] }
   }
 }
 ```
@@ -82,20 +87,20 @@ Si el estado inicial es costoso de calcular, un tercer argumento (`init`) evita 
 
 ```ts
 function crearEstadoInicial(nombreUsuario: string): State {
-  return { nombre: nombreUsuario, edad: 0 /* ... cálculo costoso ... */ };
+  return { nombre: nombreUsuario, edad: 0 /* ... cálculo costoso ... */ }
 }
 
-const [state, dispatch] = useReducer(reducer, nombreUsuario, crearEstadoInicial);
+const [state, dispatch] = useReducer(reducer, nombreUsuario, crearEstadoInicial)
 ```
 
 ## Contrato del reducer en una mirada
 
-| Pieza | Qué es |
-| --- | --- |
-| `reducer(state, action)` | Función pura: recibe estado + acción, devuelve el estado siguiente |
-| `dispatch({ type, ...payload })` | Como se "pide" un cambio, nunca se muta el estado directo |
-| `type Action = {...} \| {...}` | Discriminated union: cada acción con su propio `type` y payload tipado |
-| Tercer argumento de `useReducer` | Función de inicialización perezosa, para estado inicial costoso |
+| Pieza                            | Qué es                                                                 |
+| -------------------------------- | ---------------------------------------------------------------------- |
+| `reducer(state, action)`         | Función pura: recibe estado + acción, devuelve el estado siguiente     |
+| `dispatch({ type, ...payload })` | Como se "pide" un cambio, nunca se muta el estado directo              |
+| `type Action = {...} \| {...}`   | Discriminated union: cada acción con su propio `type` y payload tipado |
+| Tercer argumento de `useReducer` | Función de inicialización perezosa, para estado inicial costoso        |
 
 ## Modelado de acciones y estado
 

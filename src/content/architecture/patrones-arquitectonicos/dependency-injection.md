@@ -5,7 +5,11 @@ type: patterns
 order: 5
 tags: [arquitectura, patrones-arquitectonicos, dependency-injection, testing]
 problem: Un módulo que construye sus propias dependencias (`new PrismaClient()` dentro de una función) no se puede reemplazar por un doble en las pruebas ni por otra implementación en otro contexto.
-related: [architecture/patrones-arquitectonicos/hexagonal-architecture, architecture/patrones-arquitectonicos/repository-pattern]
+related:
+  [
+    architecture/patrones-arquitectonicos/hexagonal-architecture,
+    architecture/patrones-arquitectonicos/repository-pattern
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -13,8 +17,8 @@ updatedAt: 2026-08-17
 
 ```ts title="antes: dependencia construida adentro"
 export async function getActiveUsers() {
-  const prisma = new PrismaClient(); // construida aquí adentro
-  return prisma.user.findMany({ where: { active: true } });
+  const prisma = new PrismaClient() // construida aquí adentro
+  return prisma.user.findMany({ where: { active: true } })
 }
 ```
 
@@ -42,11 +46,11 @@ O más simple todavía, inyección por parámetro de función, sin siquiera una 
 
 ```ts title="alternativa: inyección por parámetro"
 export function getActiveUsers(repo: UserRepository) {
-  return repo.findActiveUsers();
+  return repo.findActiveUsers()
 }
 
 // test
-getActiveUsers(new InMemoryUserRepository([user1, user2]));
+getActiveUsers(new InMemoryUserRepository([user1, user2]))
 ```
 
 En ambos casos, `UserService` (o `getActiveUsers`) ya no decide qué implementación de `UserRepository` usar — solo declara que necesita una. Quien lo llama decide cuál.

@@ -37,27 +37,22 @@ Managed (org)              → política de la empresa, no editable por el usuar
 
 ## Campos que más se usan
 
-| Campo | Para qué |
-| --- | --- |
-| `permissions.allow` / `.deny` | Qué comandos/herramientas corren sin preguntar / nunca |
-| `model` | Modelo por defecto de la sesión |
-| `hooks` | Ver [Hooks](/skills/claude-code/claude-code-hooks) |
-| `statusLine` | Comando que genera la barra de estado custom |
-| `env` | Variables de entorno inyectadas en cada sesión |
-| `enabledPlugins` | Plugins auto-instalados (ver [Plugins](/skills/claude-code/claude-code-plugins)) |
-| `outputStyle` | Estilo de respuesta |
+| Campo                         | Para qué                                                                         |
+| ----------------------------- | -------------------------------------------------------------------------------- |
+| `permissions.allow` / `.deny` | Qué comandos/herramientas corren sin preguntar / nunca                           |
+| `model`                       | Modelo por defecto de la sesión                                                  |
+| `hooks`                       | Ver [Hooks](/skills/claude-code/claude-code-hooks)                               |
+| `statusLine`                  | Comando que genera la barra de estado custom                                     |
+| `env`                         | Variables de entorno inyectadas en cada sesión                                   |
+| `enabledPlugins`              | Plugins auto-instalados (ver [Plugins](/skills/claude-code/claude-code-plugins)) |
+| `outputStyle`                 | Estilo de respuesta                                                              |
 
 ## Patrones de permisos
 
 ```json
 {
   "permissions": {
-    "allow": [
-      "Bash(git diff:*)",
-      "Bash(npm run *)",
-      "Read",
-      "Edit(src/**)"
-    ],
+    "allow": ["Bash(git diff:*)", "Bash(npm run *)", "Read", "Edit(src/**)"],
     "deny": ["Bash(curl:*)", "Edit(.env*)"]
   }
 }

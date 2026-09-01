@@ -29,81 +29,85 @@ La API `use(resource)` es una excepción deliberada: puede utilizarse en condici
 
 ## Estado y acciones
 
-| API | Firma abreviada | Devuelve | Úsala para |
-| --- | --- | --- | --- |
-| `useState` | `useState(initial)` | `[state, setState]` | estado local independiente |
-| `useReducer` | `useReducer(reducer, initial)` | `[state, dispatch]` | transiciones complejas y centralizadas |
-| `useActionState` | `useActionState(action, initial)` | `[state, action, pending]` | resultado y estado de una Action |
-| `useOptimistic` | `useOptimistic(value, update?)` | `[optimistic, add]` | respuesta visual antes de confirmación |
+| API              | Firma abreviada                   | Devuelve                   | Úsala para                             |
+| ---------------- | --------------------------------- | -------------------------- | -------------------------------------- |
+| `useState`       | `useState(initial)`               | `[state, setState]`        | estado local independiente             |
+| `useReducer`     | `useReducer(reducer, initial)`    | `[state, dispatch]`        | transiciones complejas y centralizadas |
+| `useActionState` | `useActionState(action, initial)` | `[state, action, pending]` | resultado y estado de una Action       |
+| `useOptimistic`  | `useOptimistic(value, update?)`   | `[optimistic, add]`        | respuesta visual antes de confirmación |
 
 ```tsx
-const [open, setOpen] = useState(false);
-const [cart, dispatch] = useReducer(cartReducer, initialCart);
-const [result, submit, pending] = useActionState(saveProfile, initialResult);
+const [open, setOpen] = useState(false)
+const [cart, dispatch] = useReducer(cartReducer, initialCart)
+const [result, submit, pending] = useActionState(saveProfile, initialResult)
 ```
 
 `useState` y `useReducer` son alternativas para modelar estado. `useActionState` y `useOptimistic` coordinan trabajo asíncrono iniciado por una acción; no sustituyen toda la lógica local.
 
 ## Contexto y recursos
 
-| API | Devuelve | Uso |
-| --- | --- | --- |
+| API                   | Devuelve                       | Uso                                    |
+| --------------------- | ------------------------------ | -------------------------------------- |
 | `useContext(Context)` | valor del provider más cercano | tema, sesión o dependencia transversal |
-| `use(resource)` | valor de Promise o Context | recursos compatibles con Suspense |
+| `use(resource)`       | valor de Promise o Context     | recursos compatibles con Suspense      |
 
 ```tsx
-const theme = useContext(ThemeContext);
-const comments = use(commentsPromise);
+const theme = useContext(ThemeContext)
+const comments = use(commentsPromise)
 ```
 
 Context distribuye un valor; no proporciona por sí solo reducers, persistencia ni selección granular. `use(Promise)` necesita una estrategia compatible con Suspense, normalmente proporcionada por un framework.
 
 ## Refs y DOM
 
-| API | Devuelve | Uso |
-| --- | --- | --- |
-| `useRef(initial)` | objeto estable `{ current }` | nodo DOM o valor mutable no visual |
-| `useImperativeHandle(ref, createHandle, deps)` | `undefined` | exponer una API imperativa limitada |
+| API                                            | Devuelve                     | Uso                                 |
+| ---------------------------------------------- | ---------------------------- | ----------------------------------- |
+| `useRef(initial)`                              | objeto estable `{ current }` | nodo DOM o valor mutable no visual  |
+| `useImperativeHandle(ref, createHandle, deps)` | `undefined`                  | exponer una API imperativa limitada |
 
 ```tsx
-useImperativeHandle(ref, () => ({
-  focus() {
-    inputRef.current?.focus();
-  },
-}), []);
+useImperativeHandle(
+  ref,
+  () => ({
+    focus() {
+      inputRef.current?.focus()
+    }
+  }),
+  []
+)
 ```
 
 En React moderno, una referencia puede recibirse como prop en componentes compatibles. Expón la menor superficie posible; una prop declarativa suele ser más fácil de mantener que una API imperativa.
 
 ## Efectos y sincronización
 
-| API | Momento | Uso |
-| --- | --- | --- |
-| `useEffect` | después del commit y normalmente después de pintar | red, suscripciones, widgets y APIs externas |
-| `useLayoutEffect` | después del DOM, antes de pintar | medir layout y corregir posición sin parpadeo |
-| `useInsertionEffect` | antes de efectos de layout | motores CSS-in-JS; principalmente librerías |
-| `useEffectEvent` | evento no reactivo invocable desde un efecto | leer valores recientes sin reconectar |
+| API                  | Momento                                            | Uso                                           |
+| -------------------- | -------------------------------------------------- | --------------------------------------------- |
+| `useEffect`          | después del commit y normalmente después de pintar | red, suscripciones, widgets y APIs externas   |
+| `useLayoutEffect`    | después del DOM, antes de pintar                   | medir layout y corregir posición sin parpadeo |
+| `useInsertionEffect` | antes de efectos de layout                         | motores CSS-in-JS; principalmente librerías   |
+| `useEffectEvent`     | evento no reactivo invocable desde un efecto       | leer valores recientes sin reconectar         |
 
 No cambies `useEffect` por `useLayoutEffect` para ocultar un problema visual: la segunda bloquea el pintado. `useInsertionEffect` rara vez pertenece al código normal de una aplicación.
 
 ## Rendimiento y prioridad
 
-| API | Devuelve | Uso |
-| --- | --- | --- |
-| `useMemo(calculate, deps)` | resultado memorizado | cálculo costoso medido o identidad necesaria |
-| `useCallback(fn, deps)` | función memorizada | prop hacia un hijo optimizado o dependencia estable |
-| `useTransition()` | `[pending, startTransition]` | actualización no urgente controlada por el componente |
-| `useDeferredValue(value)` | valor diferido | mantener urgente la entrada y postergar una vista costosa |
+| API                        | Devuelve                     | Uso                                                       |
+| -------------------------- | ---------------------------- | --------------------------------------------------------- |
+| `useMemo(calculate, deps)` | resultado memorizado         | cálculo costoso medido o identidad necesaria              |
+| `useCallback(fn, deps)`    | función memorizada           | prop hacia un hijo optimizado o dependencia estable       |
+| `useTransition()`          | `[pending, startTransition]` | actualización no urgente controlada por el componente     |
+| `useDeferredValue(value)`  | valor diferido               | mantener urgente la entrada y postergar una vista costosa |
 
 Memoizar no arregla lógica impura y también cuesta comparaciones y memoria. React Compiler puede automatizar gran parte de esta optimización cuando está configurado; primero mide el problema.
 
 ## Integración con sistemas externos
 
-| API | Uso principal |
-| --- | --- |
+| API                                                                | Uso principal                                                   |
+| ------------------------------------------------------------------ | --------------------------------------------------------------- |
 | `useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?)` | stores y APIs externas compatibles con render concurrente y SSR |
-| `useId()` | IDs estables para relaciones accesibles |
-| `useDebugValue(value, format?)` | etiqueta de un Hook propio en React DevTools |
+| `useId()`                                                          | IDs estables para relaciones accesibles                         |
+| `useDebugValue(value, format?)`                                    | etiqueta de un Hook propio en React DevTools                    |
 
 ```tsx
 const id = useId();
@@ -120,14 +124,14 @@ return (
 
 ## Componentes y APIs relacionadas
 
-| API | Problema |
-| --- | --- |
-| `<Suspense fallback>` | límite de espera para código o recurso compatible |
-| `lazy(load)` | carga diferida de un componente |
-| `memo(Component)` | omitir render cuando props son iguales |
-| `startTransition(action)` | transición fuera de un Hook o sin indicador local |
-| `createContext(defaultValue)` | crear un canal de contexto |
-| `createPortal(children, node)` | renderizar físicamente en otro nodo DOM |
+| API                            | Problema                                          |
+| ------------------------------ | ------------------------------------------------- |
+| `<Suspense fallback>`          | límite de espera para código o recurso compatible |
+| `lazy(load)`                   | carga diferida de un componente                   |
+| `memo(Component)`              | omitir render cuando props son iguales            |
+| `startTransition(action)`      | transición fuera de un Hook o sin indicador local |
+| `createContext(defaultValue)`  | crear un canal de contexto                        |
+| `createPortal(children, node)` | renderizar físicamente en otro nodo DOM           |
 
 ## Árbol de decisión
 
@@ -154,4 +158,3 @@ return (
 - Crear un Hook propio que solo envuelve una línea sin añadir una intención reutilizable.
 - Ignorar el linter de dependencias en vez de reestructurar el efecto.
 - tratar `useSyncExternalStore` como una store completa: solo define cómo suscribirse de forma segura.
-

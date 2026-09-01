@@ -18,18 +18,23 @@ updatedAt: 2026-08-25
 ## Implementación
 
 ```ts title="hooks/useInterval.ts"
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react"
 
-export function useInterval(callback: () => void, delayMs: number | null): void {
-  const callbackRef = useRef(callback);
-
-  useEffect(() => { callbackRef.current = callback; }, [callback]);
+export function useInterval(
+  callback: () => void,
+  delayMs: number | null
+): void {
+  const callbackRef = useRef(callback)
 
   useEffect(() => {
-    if (delayMs === null) return;
-    const id = window.setInterval(() => callbackRef.current(), delayMs);
-    return () => window.clearInterval(id);
-  }, [delayMs]);
+    callbackRef.current = callback
+  }, [callback])
+
+  useEffect(() => {
+    if (delayMs === null) return
+    const id = window.setInterval(() => callbackRef.current(), delayMs)
+    return () => window.clearInterval(id)
+  }, [delayMs])
 }
 ```
 
@@ -38,7 +43,7 @@ El ref siempre apunta al callback reciente, por lo que el intervalo no captura p
 ## Caso de uso
 
 ```tsx
-useInterval(() => setSeconds((value) => value + 1), paused ? null : 1000);
+useInterval(() => setSeconds((value) => value + 1), paused ? null : 1000)
 ```
 
 La actualización funcional evita cerrar sobre un valor antiguo de `seconds`. Para un cronómetro real, no sumes uno suponiendo precisión: conserva una marca de tiempo inicial y calcula la diferencia con `performance.now()` o `Date.now()`.
@@ -51,12 +56,12 @@ Pausa las consultas periódicas cuando la pestaña está oculta si el dato no ne
 
 ## Cuándo elegir otra herramienta
 
-| Necesidad | Alternativa |
-| --- | --- |
-| ejecutar una sola vez | `useTimeout` |
-| esperar inactividad al escribir | `useDebounce` |
-| refrescar datos remotos | TanStack Query/SWR con política de refetch |
-| animar cada frame | `requestAnimationFrame` |
-| ejecutar aunque la página esté cerrada | tarea del servidor, no un hook |
+| Necesidad                              | Alternativa                                |
+| -------------------------------------- | ------------------------------------------ |
+| ejecutar una sola vez                  | `useTimeout`                               |
+| esperar inactividad al escribir        | `useDebounce`                              |
+| refrescar datos remotos                | TanStack Query/SWR con política de refetch |
+| animar cada frame                      | `requestAnimationFrame`                    |
+| ejecutar aunque la página esté cerrada | tarea del servidor, no un hook             |
 
 Un intervalo cliente no garantiza ejecución en segundo plano ni entrega. No lo uses para facturación, expiraciones de seguridad o trabajos que deban ocurrir aunque la persona cierre la pestaña.

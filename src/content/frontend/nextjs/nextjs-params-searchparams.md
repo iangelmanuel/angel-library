@@ -14,31 +14,35 @@ updatedAt: 2026-08-25
 
 ```tsx title="app/blog/[slug]/page.tsx"
 export default async function Page({
-  params,
+  params
 }: {
   params: Promise<{ slug: string }>
 }) {
-  const { slug } = await params;
-  return <h1>Post: {slug}</h1>;
+  const { slug } = await params
+  return <h1>Post: {slug}</h1>
 }
 ```
 
-| Ruta | URL | `params` |
-| --- | --- | --- |
-| `app/shop/[slug]/page.tsx` | `/shop/1` | `Promise<{ slug: '1' }>` |
+| Ruta                             | URL         | `params`                           |
+| -------------------------------- | ----------- | ---------------------------------- |
+| `app/shop/[slug]/page.tsx`       | `/shop/1`   | `Promise<{ slug: '1' }>`           |
 | `app/shop/[cat]/[item]/page.tsx` | `/shop/1/2` | `Promise<{ cat: '1', item: '2' }>` |
-| `app/shop/[...slug]/page.tsx` | `/shop/1/2` | `Promise<{ slug: ['1', '2'] }>` |
+| `app/shop/[...slug]/page.tsx`    | `/shop/1/2` | `Promise<{ slug: ['1', '2'] }>`    |
 
 ## `searchParams` — Query string
 
 ```tsx title="app/shop/page.tsx"
 export default async function Page({
-  searchParams,
+  searchParams
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const { pagina = '1', orden = 'asc' } = await searchParams;
-  return <p>Página {pagina}, orden {orden}</p>;
+  const { pagina = "1", orden = "asc" } = await searchParams
+  return (
+    <p>
+      Página {pagina}, orden {orden}
+    </p>
+  )
 }
 ```
 
@@ -49,10 +53,10 @@ A diferencia de `params`, leer `searchParams` opta la página a renderizado din�
 En vez de escribir el tipo de `params`/`searchParams` a mano en cada página, `PageProps<'/ruta/literal'>` los infiere de la ruta real, con autocompletado incluido.
 
 ```tsx title="app/blog/[slug]/page.tsx"
-export default async function Page(props: PageProps<'/blog/[slug]'>) {
-  const { slug } = await props.params;
-  const query = await props.searchParams;
-  return <h1>Post: {slug}</h1>;
+export default async function Page(props: PageProps<"/blog/[slug]">) {
+  const { slug } = await props.params
+  const query = await props.searchParams
+  return <h1>Post: {slug}</h1>
 }
 ```
 
@@ -61,28 +65,28 @@ export default async function Page(props: PageProps<'/blog/[slug]'>) {
 Un Client Component no puede ser `async`, así que para leer esas promesas se usa el `use()` de React en vez de `await`.
 
 ```tsx title="app/shop/page.tsx"
-'use client'
+"use client"
 
-import { use } from 'react';
+import { use } from "react"
 
 export default function Page({
-  searchParams,
+  searchParams
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const { orden } = use(searchParams);
-  return <p>Orden: {orden}</p>;
+  const { orden } = use(searchParams)
+  return <p>Orden: {orden}</p>
 }
 ```
 
 ## Acceso a parámetros en una mirada
 
-| Prop | Qué contiene | Estático u opta dinámico |
-| --- | --- | --- |
-| `params` | Segmentos dinámicos (`[slug]`) | Puede ser estático con `generateStaticParams` |
-| `searchParams` | Query string | Siempre dinámico (no se conoce en build) |
-| `PageProps<'/ruta'>` | Tipa ambos automáticamente según la ruta literal | — |
-| `use(promesa)` | Leer cualquiera de los dos en un Client Component | — |
+| Prop                 | Qué contiene                                      | Estático u opta dinámico                      |
+| -------------------- | ------------------------------------------------- | --------------------------------------------- |
+| `params`             | Segmentos dinámicos (`[slug]`)                    | Puede ser estático con `generateStaticParams` |
+| `searchParams`       | Query string                                      | Siempre dinámico (no se conoce en build)      |
+| `PageProps<'/ruta'>` | Tipa ambos automáticamente según la ruta literal  | —                                             |
+| `use(promesa)`       | Leer cualquiera de los dos en un Client Component | —                                             |
 
 ## Validación, identidad y caché
 

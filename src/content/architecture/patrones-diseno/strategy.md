@@ -16,16 +16,19 @@ Cuando el mismo cálculo tiene varias variantes intercambiables (tipos de descue
 ## Ejemplo: estrategias de descuento
 
 ```ts title="lib/discounts.ts"
-type DiscountStrategy = (precio: number) => number;
+type DiscountStrategy = (precio: number) => number
 
 const estrategiasDescuento: Record<string, DiscountStrategy> = {
   percentage: (precio) => precio * 0.9,
   fixed: (precio) => Math.max(precio - 500, 0),
-  none: (precio) => precio,
-};
+  none: (precio) => precio
+}
 
-export function aplicarDescuento(precio: number, tipo: keyof typeof estrategiasDescuento) {
-  return estrategiasDescuento[tipo](precio);
+export function aplicarDescuento(
+  precio: number,
+  tipo: keyof typeof estrategiasDescuento
+) {
+  return estrategiasDescuento[tipo](precio)
 }
 ```
 
@@ -35,12 +38,12 @@ Comparado con la alternativa:
 // Lo que Strategy evita: crece un caso más cada vez que se agrega un tipo.
 function aplicarDescuento(precio: number, tipo: string) {
   switch (tipo) {
-    case 'percentage':
-      return precio * 0.9;
-    case 'fixed':
-      return Math.max(precio - 500, 0);
-    case 'none':
-      return precio;
+    case "percentage":
+      return precio * 0.9
+    case "fixed":
+      return Math.max(precio - 500, 0)
+    case "none":
+      return precio
     // ...cinco casos más
   }
 }
@@ -49,16 +52,19 @@ function aplicarDescuento(precio: number, tipo: string) {
 ## Ejemplo: validación de contraseña según tipo de cuenta
 
 ```ts title="lib/password-validation.ts"
-type Validador = (password: string) => boolean;
+type Validador = (password: string) => boolean
 
 const validadores = new Map<string, Validador>([
-  ['personal', (pw) => pw.length >= 8],
-  ['empresarial', (pw) => pw.length >= 12 && /[A-Z]/.test(pw) && /\d/.test(pw)],
-]);
+  ["personal", (pw) => pw.length >= 8],
+  ["empresarial", (pw) => pw.length >= 12 && /[A-Z]/.test(pw) && /\d/.test(pw)]
+])
 
-export function esPasswordValida(tipoCuenta: string, password: string): boolean {
-  const validar = validadores.get(tipoCuenta) ?? validadores.get('personal')!;
-  return validar(password);
+export function esPasswordValida(
+  tipoCuenta: string,
+  password: string
+): boolean {
+  const validar = validadores.get(tipoCuenta) ?? validadores.get("personal")!
+  return validar(password)
 }
 ```
 

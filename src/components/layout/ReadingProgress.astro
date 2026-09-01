@@ -2,25 +2,35 @@
 /** Barra de progreso; solo en la página de una entrada. */
 ---
 
-<div class="reading-progress" aria-hidden="true">
-  <div class="reading-progress__bar" id="reading-progress-bar"></div>
+<div
+  class="reading-progress"
+  aria-hidden="true"
+>
+  <div
+    class="reading-progress__bar"
+    id="reading-progress-bar"
+  >
+  </div>
 </div>
 
 <script>
   function updateReadingProgress(): void {
-    const bar = document.getElementById('reading-progress-bar');
+    const bar = document.getElementById("reading-progress-bar")
     // Se mide el <article> entero: medir solo .markdown se siente atrasado.
-    const article = document.querySelector<HTMLElement>('article');
-    if (!bar || !article) return;
+    const article = document.querySelector<HTMLElement>("article")
+    if (!bar || !article) return
 
-    const articleTop = article.getBoundingClientRect().top + window.scrollY;
-    const scrollable = Math.max(article.offsetHeight - window.innerHeight, 1);
-    const progress = Math.min(Math.max((window.scrollY - articleTop) / scrollable, 0), 1);
-    bar.style.width = `${progress * 100}%`;
+    const articleTop = article.getBoundingClientRect().top + window.scrollY
+    const scrollable = Math.max(article.offsetHeight - window.innerHeight, 1)
+    const progress = Math.min(
+      Math.max((window.scrollY - articleTop) / scrollable, 0),
+      1
+    )
+    bar.style.width = `${progress * 100}%`
   }
 
-  window.addEventListener('scroll', updateReadingProgress, { passive: true });
+  window.addEventListener("scroll", updateReadingProgress, { passive: true })
   // astro:page-load recalcula tras cada View Transition.
-  document.addEventListener('astro:page-load', updateReadingProgress);
-  updateReadingProgress();
+  document.addEventListener("astro:page-load", updateReadingProgress)
+  updateReadingProgress()
 </script>

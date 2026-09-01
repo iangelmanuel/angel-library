@@ -34,13 +34,13 @@ Eres un revisor de código senior. Busca bugs, riesgos de seguridad y problemas 
 
 ## Campos que más se usan
 
-| Campo | Para qué |
-| --- | --- |
-| `description` | Requerido — usado para delegación automática |
-| `mode` | `primary` / `subagent` / `all` |
-| `model` | Formato `provider/model-id` |
-| `permission` | `allow`/`ask`/`deny` por acción (edit, bash, etc.) |
-| `prompt` | Path a un archivo de system prompt externo |
+| Campo         | Para qué                                           |
+| ------------- | -------------------------------------------------- |
+| `description` | Requerido — usado para delegación automática       |
+| `mode`        | `primary` / `subagent` / `all`                     |
+| `model`       | Formato `provider/model-id`                        |
+| `permission`  | `allow`/`ask`/`deny` por acción (edit, bash, etc.) |
+| `prompt`      | Path a un archivo de system prompt externo         |
 
 ## Invocar
 
@@ -52,10 +52,10 @@ Para agentes `primary`, `Tab` cicla entre los disponibles en la sesión activa.
 
 ## Resumen
 
-| Categoría | Cómo se usa |
-| --- | --- |
-| `primary` | `Tab` para cambiar, conduce la sesión |
-| `subagent` | `@nombre` o delegación automática |
+| Categoría  | Cómo se usa                           |
+| ---------- | ------------------------------------- |
+| `primary`  | `Tab` para cambiar, conduce la sesión |
+| `subagent` | `@nombre` o delegación automática     |
 
 ## Consideraciones
 

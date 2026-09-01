@@ -18,8 +18,13 @@ Utilidades mínimas para transformar objetos sin mutar el original. Importa siem
 Selecciona un subconjunto de propiedades de un objeto, devolviendo un nuevo objeto tipado con solo esas claves. Las claves pedidas que no existen en el objeto original se omiten en vez de aparecer como `undefined`.
 
 ```ts title="lib/object.ts"
-export function pick<T extends object, K extends keyof T>(object: T, keys: readonly K[]): Pick<T, K> {
-  return Object.fromEntries(keys.filter((key) => key in object).map((key) => [key, object[key]])) as Pick<T, K>;
+export function pick<T extends object, K extends keyof T>(
+  object: T,
+  keys: readonly K[]
+): Pick<T, K> {
+  return Object.fromEntries(
+    keys.filter((key) => key in object).map((key) => [key, object[key]])
+  ) as Pick<T, K>
 }
 ```
 
@@ -28,9 +33,14 @@ export function pick<T extends object, K extends keyof T>(object: T, keys: reado
 Devuelve un nuevo objeto con todas las propiedades del original salvo las claves indicadas — el complemento de `pick()`: en vez de listar qué conservar, listás qué excluir.
 
 ```ts
-export function omit<T extends object, K extends keyof T>(object: T, keys: readonly K[]): Omit<T, K> {
-  const blocked = new Set<PropertyKey>(keys);
-  return Object.fromEntries(Object.entries(object).filter(([key]) => !blocked.has(key))) as Omit<T, K>;
+export function omit<T extends object, K extends keyof T>(
+  object: T,
+  keys: readonly K[]
+): Omit<T, K> {
+  const blocked = new Set<PropertyKey>(keys)
+  return Object.fromEntries(
+    Object.entries(object).filter(([key]) => !blocked.has(key))
+  ) as Omit<T, K>
 }
 ```
 
@@ -42,7 +52,11 @@ Elimina las propiedades cuyo valor es `null` o `undefined`, dejando el resto int
 
 ```ts
 export function compactObject<T extends Record<string, unknown>>(object: T) {
-  return Object.fromEntries(Object.entries(object).filter(([, value]) => value !== null && value !== undefined));
+  return Object.fromEntries(
+    Object.entries(object).filter(
+      ([, value]) => value !== null && value !== undefined
+    )
+  )
 }
 ```
 
@@ -50,11 +64,11 @@ export function compactObject<T extends Record<string, unknown>>(object: T) {
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `pick()` | Nuevo objeto con solo las claves indicadas |
-| `omit()` | Nuevo objeto con todas las claves salvo las indicadas |
-| `compactObject()` | Quita propiedades `null` o `undefined` |
+| Función           | Qué hace                                              |
+| ----------------- | ----------------------------------------------------- |
+| `pick()`          | Nuevo objeto con solo las claves indicadas            |
+| `omit()`          | Nuevo objeto con todas las claves salvo las indicadas |
+| `compactObject()` | Quita propiedades `null` o `undefined`                |
 
 ## Consideraciones
 

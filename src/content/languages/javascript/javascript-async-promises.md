@@ -24,18 +24,18 @@ updatedAt: 2026-08-25
 
 Una Promise tiene estado pendiente, cumplida o rechazada. `then` transforma el resultado, `catch` maneja un rechazo y `finally` ejecuta limpieza. `async` hace que una función devuelva Promise; `await` pausa esa función, no bloquea el hilo completo.
 
-| Método | Devuelve | ¿Muta la Promise original? | Caso de uso |
-| --- | --- | --- | --- |
-| `promise.then(onFulfilled, onRejected?)` | Promise nueva | no | transformar o encadenar |
-| `promise.catch(onRejected)` | Promise nueva | no | recuperar o volver a lanzar un error |
-| `promise.finally(onFinally)` | Promise nueva | no | liberar recursos sin cambiar el valor |
-| `Promise.resolve(value)` | Promise cumplida o normalizada | no | aceptar valor o Promise |
-| `Promise.reject(reason)` | Promise rechazada | no | representar un fallo inmediato |
+| Método                                   | Devuelve                       | ¿Muta la Promise original? | Caso de uso                           |
+| ---------------------------------------- | ------------------------------ | -------------------------- | ------------------------------------- |
+| `promise.then(onFulfilled, onRejected?)` | Promise nueva                  | no                         | transformar o encadenar               |
+| `promise.catch(onRejected)`              | Promise nueva                  | no                         | recuperar o volver a lanzar un error  |
+| `promise.finally(onFinally)`             | Promise nueva                  | no                         | liberar recursos sin cambiar el valor |
+| `Promise.resolve(value)`                 | Promise cumplida o normalizada | no                         | aceptar valor o Promise               |
+| `Promise.reject(reason)`                 | Promise rechazada              | no                         | representar un fallo inmediato        |
 
 ```js
 const result = await Promise.resolve(5)
-  .then(value => value * 2)
-  .then(value => ({ value }))
+  .then((value) => value * 2)
+  .then((value) => ({ value }))
 
 result // { value: 10 }
 ```
@@ -45,14 +45,14 @@ result // { value: 10 }
 ```js
 const messages = []
 
-const value = await Promise.reject(new Error('Falló'))
-  .catch(error => {
+const value = await Promise.reject(new Error("Falló"))
+  .catch((error) => {
     messages.push(error.message)
-    return 'recuperado'
+    return "recuperado"
   })
-  .finally(() => messages.push('limpieza'))
+  .finally(() => messages.push("limpieza"))
 
-value    // 'recuperado'
+value // 'recuperado'
 messages // ['Falló', 'limpieza']
 ```
 
@@ -77,29 +77,29 @@ const userPromise = getUser()
 const settingsPromise = getSettings()
 const [user, settings] = await Promise.all([userPromise, settingsPromise])
 
-user     // resultado de getUser()
+user // resultado de getUser()
 settings // resultado de getSettings()
 ```
 
 `Promise.all` falla al primer rechazo; `Promise.allSettled` espera todo y devuelve el resultado individual; `Promise.race` devuelve la primera settled; `Promise.any` devuelve la primera fulfilled y rechaza con `AggregateError` si todas fallan.
 
-| Combinador | Cuándo se resuelve | Cuándo rechaza | Resultado |
-| --- | --- | --- | --- |
-| `Promise.all` | todas cumplen | la primera que rechaza | array ordenado como la entrada |
-| `Promise.allSettled` | todas terminan | nunca por una Promise de entrada | array de `{ status, value/reason }` |
-| `Promise.race` | la primera termina | si la primera termina rechazada | valor o error de la primera |
-| `Promise.any` | la primera cumple | todas rechazan | primer valor o `AggregateError` |
+| Combinador           | Cuándo se resuelve | Cuándo rechaza                   | Resultado                           |
+| -------------------- | ------------------ | -------------------------------- | ----------------------------------- |
+| `Promise.all`        | todas cumplen      | la primera que rechaza           | array ordenado como la entrada      |
+| `Promise.allSettled` | todas terminan     | nunca por una Promise de entrada | array de `{ status, value/reason }` |
+| `Promise.race`       | la primera termina | si la primera termina rechazada  | valor o error de la primera         |
+| `Promise.any`        | la primera cumple  | todas rechazan                   | primer valor o `AggregateError`     |
 
 ```js
 await Promise.all([
-  Promise.resolve('usuario'),
-  Promise.resolve('configuración'),
+  Promise.resolve("usuario"),
+  Promise.resolve("configuración")
 ])
 // ['usuario', 'configuración']
 
 await Promise.allSettled([
   Promise.resolve(10),
-  Promise.reject(new Error('Sin conexión')),
+  Promise.reject(new Error("Sin conexión"))
 ])
 // [
 //   { status: 'fulfilled', value: 10 },
@@ -107,8 +107,8 @@ await Promise.allSettled([
 // ]
 
 await Promise.any([
-  Promise.reject(new Error('Proveedor A falló')),
-  Promise.resolve('respuesta B'),
+  Promise.reject(new Error("Proveedor A falló")),
+  Promise.resolve("respuesta B")
 ])
 // 'respuesta B'
 ```
@@ -127,7 +127,7 @@ function once(target, eventName, signal) {
 
   function cleanup() {
     target.removeEventListener(eventName, handleEvent)
-    signal?.removeEventListener('abort', handleAbort)
+    signal?.removeEventListener("abort", handleAbort)
   }
 
   function handleEvent(event) {
@@ -146,12 +146,12 @@ function once(target, eventName, signal) {
   }
 
   target.addEventListener(eventName, handleEvent, { once: true })
-  signal?.addEventListener('abort', handleAbort, { once: true })
+  signal?.addEventListener("abort", handleAbort, { once: true })
 
   return promise
 }
 
-const event = await once(button, 'click', controller.signal)
+const event = await once(button, "click", controller.signal)
 event.type // 'click'
 ```
 
@@ -165,11 +165,11 @@ function loadMaybeAsync(loader) {
 await loadMaybeAsync(() => 42)
 // 42
 
-await loadMaybeAsync(async () => fetch('/api/config'))
+await loadMaybeAsync(async () => fetch("/api/config"))
 // Response
 
 await loadMaybeAsync(() => {
-  throw new Error('Configuración inválida')
+  throw new Error("Configuración inválida")
 })
 // Promise rechazada con ese Error
 ```
@@ -188,7 +188,7 @@ for (const item of items) {
 }
 
 // Concurrencia: todas se inician antes de esperar.
-const results = await Promise.all(items.map(item => saveItem(item)))
+const results = await Promise.all(items.map((item) => saveItem(item)))
 ```
 
 La secuencia sirve cuando hay dependencia, límite estricto o importa el orden de efectos. La concurrencia reduce el tiempo total, pero debe respetar límites del servicio; para cientos de tareas usa un pool con concurrencia limitada.
@@ -200,8 +200,9 @@ No reintentes cualquier excepción. Un `400` por input inválido no se arregla r
 ```js
 async function retry(fn, attempts = 3) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
-    try { return await fn() }
-    catch (error) {
+    try {
+      return await fn()
+    } catch (error) {
       if (attempt === attempts) throw error
       await new Promise((resolve) => setTimeout(resolve, 2 ** attempt * 100))
     }
@@ -220,11 +221,11 @@ En producción añade una clasificación de errores y una señal para no ocultar
 
 ```js
 const controller = new AbortController()
-const request = fetch('/api/search', { signal: controller.signal })
-controller.abort(new Error('Consulta reemplazada'))
+const request = fetch("/api/search", { signal: controller.signal })
+controller.abort(new Error("Consulta reemplazada"))
 
 controller.signal.aborted // true
-await request              // rechaza con el motivo de cancelación del runtime
+await request // rechaza con el motivo de cancelación del runtime
 ```
 
 Cancelar la espera del cliente no garantiza que el servidor deje de trabajar. El backend también necesita timeout, cancelación de DB, límites de recursos y una operación idempotente.
@@ -243,7 +244,7 @@ async function search(query) {
 
   try {
     const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
-      signal,
+      signal
     })
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
 

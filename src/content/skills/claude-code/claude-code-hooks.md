@@ -16,7 +16,12 @@ updatedAt: 2026-08-17
     "PostToolUse": [
       {
         "matcher": "Edit|Write",
-        "hooks": [{ "type": "command", "command": "npx prettier --write \"$CLAUDE_FILE_PATH\"" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
+          }
+        ]
       }
     ]
   }
@@ -25,14 +30,14 @@ updatedAt: 2026-08-17
 
 ## Eventos más usados
 
-| Evento | Cuándo corre |
-| --- | --- |
-| `SessionStart` | Al arrancar una sesión |
-| `UserPromptSubmit` | Justo antes de mandar tu prompt al modelo |
-| `PreToolUse` | Antes de que una herramienta se ejecute (puede bloquearla) |
-| `PostToolUse` | Después de que una herramienta terminó |
-| `Stop` | Cuando Claude termina de responder |
-| `SubagentStart` / `SubagentStop` | Al arrancar/terminar un subagente |
+| Evento                           | Cuándo corre                                               |
+| -------------------------------- | ---------------------------------------------------------- |
+| `SessionStart`                   | Al arrancar una sesión                                     |
+| `UserPromptSubmit`               | Justo antes de mandar tu prompt al modelo                  |
+| `PreToolUse`                     | Antes de que una herramienta se ejecute (puede bloquearla) |
+| `PostToolUse`                    | Después de que una herramienta terminó                     |
+| `Stop`                           | Cuando Claude termina de responder                         |
+| `SubagentStart` / `SubagentStop` | Al arrancar/terminar un subagente                          |
 
 ## Ejemplo: bloquear un comando peligroso
 
@@ -66,13 +71,13 @@ El hook recibe JSON por stdin (`tool_input`, etc.) y puede devolver JSON por std
 
 ## Resumen
 
-| Tipo de handler | Qué ejecuta |
-| --- | --- |
-| `command` | Un shell script |
-| `http` | POST a una URL |
-| `mcp_tool` | Invoca una tool de un servidor MCP |
-| `prompt` | Evaluación de un turno con el modelo |
-| `agent` | Dispara un subagente (experimental) |
+| Tipo de handler | Qué ejecuta                          |
+| --------------- | ------------------------------------ |
+| `command`       | Un shell script                      |
+| `http`          | POST a una URL                       |
+| `mcp_tool`      | Invoca una tool de un servidor MCP   |
+| `prompt`        | Evaluación de un turno con el modelo |
+| `agent`         | Dispara un subagente (experimental)  |
 
 ## Consideraciones
 

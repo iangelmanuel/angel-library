@@ -12,53 +12,55 @@ updatedAt: 2026-08-16
 ## El repository (compartido)
 
 ```ts title="repositories/posts.repository.ts"
-import { prisma } from '@/libs/prisma';
+import { prisma } from "@/libs/prisma"
 
 export const postsRepository = {
   findAll: () => prisma.post.findMany(),
   findById: (id: string) => prisma.post.findUnique({ where: { id } }),
-  create: (data: { title: string; authorId: string }) => prisma.post.create({ data }),
-  update: (id: string, data: { title?: string }) => prisma.post.update({ where: { id }, data }),
-  delete: (id: string) => prisma.post.delete({ where: { id } }),
-};
+  create: (data: { title: string; authorId: string }) =>
+    prisma.post.create({ data }),
+  update: (id: string, data: { title?: string }) =>
+    prisma.post.update({ where: { id }, data }),
+  delete: (id: string) => prisma.post.delete({ where: { id } })
+}
 ```
 
 ## Leer (GET): Route Handler
 
 ```ts title="app/api/posts/route.ts"
-import { NextResponse } from 'next/server';
-import { postsRepository } from '@/repositories/posts.repository';
+import { NextResponse } from "next/server"
+import { postsRepository } from "@/repositories/posts.repository"
 
 export async function GET() {
-  const posts = await postsRepository.findAll();
-  return NextResponse.json(posts);
+  const posts = await postsRepository.findAll()
+  return NextResponse.json(posts)
 }
 ```
 
 ## Crear/actualizar/borrar: Server Actions con `revalidatePath`
 
 ```ts title="app/actions/posts.ts"
-'use server';
+"use server"
 
-import { revalidatePath } from 'next/cache';
-import { auth } from '@/libs/auth';
-import { postsRepository } from '@/repositories/posts.repository';
+import { revalidatePath } from "next/cache"
+import { auth } from "@/libs/auth"
+import { postsRepository } from "@/repositories/posts.repository"
 
 export async function crearPost(formData: FormData) {
-  const session = await auth();
-  if (!session?.user) throw new Error('No autenticado');
+  const session = await auth()
+  if (!session?.user) throw new Error("No autenticado")
 
   await postsRepository.create({
-    title: formData.get('title') as string,
-    authorId: session.user.id,
-  });
+    title: formData.get("title") as string,
+    authorId: session.user.id
+  })
 
-  revalidatePath('/posts'); // la página de listado se refresca con el dato nuevo
+  revalidatePath("/posts") // la página de listado se refresca con el dato nuevo
 }
 
 export async function eliminarPost(id: string) {
-  await postsRepository.delete(id);
-  revalidatePath('/posts');
+  await postsRepository.delete(id)
+  revalidatePath("/posts")
 }
 ```
 
@@ -67,16 +69,20 @@ export async function eliminarPost(id: string) {
 ## Consumir desde un Server Component + formulario
 
 ```tsx title="app/posts/page.tsx"
-import { postsRepository } from '@/repositories/posts.repository';
-import { crearPost, eliminarPost } from '@/app/actions/posts';
+import { crearPost, eliminarPost } from "@/app/actions/posts"
+import { postsRepository } from "@/repositories/posts.repository"
 
 export default async function PostsPage() {
-  const posts = await postsRepository.findAll();
+  const posts = await postsRepository.findAll()
 
   return (
     <>
       <form action={crearPost}>
-        <input name="title" placeholder="Título" required />
+        <input
+          name="title"
+          placeholder="Título"
+          required
+        />
         <button type="submit">Crear</button>
       </form>
 
@@ -91,7 +97,7 @@ export default async function PostsPage() {
         ))}
       </ul>
     </>
-  );
+  )
 }
 ```
 

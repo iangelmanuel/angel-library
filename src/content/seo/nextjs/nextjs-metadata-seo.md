@@ -15,15 +15,15 @@ Next genera las etiquetas `<head>` (title, description, Open Graph, etc.) a part
 Un objeto exportado desde `layout.tsx` o `page.tsx`, cuando el contenido no depende de datos que haya que buscar.
 
 ```tsx title="app/blog/layout.tsx"
-import type { Metadata } from 'next';
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: 'Mi Blog',
-  description: 'Notas sobre desarrollo web',
-};
+  title: "Mi Blog",
+  description: "Notas sobre desarrollo web"
+}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return children
 }
 ```
 
@@ -32,24 +32,30 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 Cuando el título/descripción dependen de datos (el título de un post específico), se usa una función en vez del objeto estático. Recibe los mismos `params`/`searchParams` que la página.
 
 ```tsx title="app/blog/[slug]/page.tsx"
-import type { Metadata } from 'next';
+import type { Metadata } from "next"
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await fetch(`https://api.ejemplo.com/blog/${slug}`).then((r) => r.json());
+  const { slug } = await params
+  const post = await fetch(`https://api.ejemplo.com/blog/${slug}`).then((r) =>
+    r.json()
+  )
 
   return {
     title: post.title,
-    description: post.description,
-  };
+    description: post.description
+  }
 }
 
-export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function Page({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
   // ...
 }
 ```
@@ -59,11 +65,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 Si `generateMetadata` y el componente de la página necesitan el mismo dato, envolver la función de fetch en `cache` de React memoiza el resultado — se ejecuta una sola vez aunque se llame desde los dos lugares.
 
 ```ts title="lib/data.ts"
-import { cache } from 'react';
+import { cache } from "react"
 
 export const getPost = cache(async (slug: string) => {
-  return fetch(`https://api.ejemplo.com/blog/${slug}`).then((r) => r.json());
-});
+  return fetch(`https://api.ejemplo.com/blog/${slug}`).then((r) => r.json())
+})
 ```
 
 ## Metadata por archivo
@@ -73,31 +79,42 @@ Ciertos archivos especiales generan metadata automáticamente sin tocar el objet
 Para una imagen OG que depende de datos (una por post de blog), `opengraph-image.tsx` con el constructor `ImageResponse` la genera con JSX y CSS, no con una herramienta de diseño aparte.
 
 ```tsx title="app/blog/[slug]/opengraph-image.tsx"
-import { ImageResponse } from 'next/og';
+import { ImageResponse } from "next/og"
 
-export const size = { width: 1200, height: 630 };
-export const contentType = 'image/png';
+export const size = { width: 1200, height: 630 }
+export const contentType = "image/png"
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = await getPost(slug);
+export default async function Image({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const post = await getPost(slug)
 
   return new ImageResponse(
-    <div style={{ fontSize: 64, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div
+      style={{
+        fontSize: 64,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
       {post.title}
-    </div>,
-  );
+    </div>
+  )
 }
 ```
 
 ## Resumen
 
-| API | Uso |
-| --- | --- |
-| `export const metadata: Metadata` | SEO estático, no depende de datos |
-| `generateMetadata({ params })` | SEO dinámico, puede hacer fetch |
-| `favicon.ico`, `opengraph-image.png`, `robots.txt`, `sitemap.xml` | Metadata por convención de archivo |
-| `ImageResponse` (`next/og`) | Generar imágenes OG dinámicas con JSX/CSS |
+| API                                                               | Uso                                       |
+| ----------------------------------------------------------------- | ----------------------------------------- |
+| `export const metadata: Metadata`                                 | SEO estático, no depende de datos         |
+| `generateMetadata({ params })`                                    | SEO dinámico, puede hacer fetch           |
+| `favicon.ico`, `opengraph-image.png`, `robots.txt`, `sitemap.xml` | Metadata por convención de archivo        |
+| `ImageResponse` (`next/og`)                                       | Generar imágenes OG dinámicas con JSX/CSS |
 
 ## Consideraciones
 

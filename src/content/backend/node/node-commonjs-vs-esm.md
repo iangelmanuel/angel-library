@@ -16,14 +16,14 @@ El sistema original de Node, todavía el default salvo que se indique lo contrar
 
 ```js title="math.cjs"
 function sumar(a, b) {
-  return a + b;
+  return a + b
 }
 
-module.exports = { sumar };
+module.exports = { sumar }
 ```
 
 ```js
-const { sumar } = require('./math.cjs');
+const { sumar } = require("./math.cjs")
 ```
 
 - Síncrono: `require()` carga y ejecuta el módulo en el momento, bloqueando hasta terminar.
@@ -35,12 +35,12 @@ El estándar del lenguaje JavaScript (no específico de Node), soportado nativam
 
 ```js title="math.mjs"
 export function sumar(a, b) {
-  return a + b;
+  return a + b
 }
 ```
 
 ```js
-import { sumar } from './math.mjs';
+import { sumar } from "./math.mjs"
 ```
 
 - Asíncrono por diseño (aunque en la práctica top-level `await` lo hace sentir síncrono) — permite optimizaciones que CommonJS no puede (tree-shaking real, análisis estático de qué se importa).
@@ -64,13 +64,15 @@ Tres formas, en este orden de precedencia:
 
 ```js
 // Desde ESM, importar un paquete CommonJS: funciona directo
-import express from 'express'; // ESM puede importar este paquete CommonJS
+import express from "express"
+
+// ESM puede importar este paquete CommonJS
 
 // Desde CommonJS, importar un módulo ESM: NO funciona con require()
 // require('paquete-esm-only'); // TypeError: no soporta require de ESM síncronamente
 
 // Alternativa desde CommonJS: import() dinámico (siempre devuelve una promesa)
-const paqueteEsm = await import('paquete-esm-only');
+const paqueteEsm = await import("paquete-esm-only")
 ```
 
 ESM puede consumir CommonJS casi siempre sin fricción; CommonJS **no puede** hacer `require()` de un paquete que solo publica ESM — necesita `import()` dinámico, que es asíncrono.
@@ -78,22 +80,26 @@ ESM puede consumir CommonJS casi siempre sin fricción; CommonJS **no puede** ha
 ## Cómo Node resuelve un `import`/`require`
 
 ```js
-import './archivo.js';        // ruta relativa, extensión obligatoria en ESM
-import 'express';              // busca en node_modules/express, sube por el árbol de carpetas
-import 'node:fs';              // módulo nativo de Node, el prefijo "node:" es explícito y recomendado
+// ruta relativa, extensión obligatoria en ESM
+import "express"
+// busca en node_modules/express, sube por el árbol de carpetas
+import "node:fs"
+import "./archivo.js"
+
+// módulo nativo de Node, el prefijo "node:" es explícito y recomendado
 ```
 
 Para paquetes (no rutas relativas), Node busca `node_modules/` en la carpeta actual, y si no está, sube un nivel y repite, hasta la raíz del sistema de archivos — así funciona que un paquete instalado en la raíz del proyecto sea visible desde cualquier archivo más adentro.
 
 ## Comparación rápida
 
-| | CommonJS | ES Modules |
-| --- | --- | --- |
-| Sintaxis | `require()` / `module.exports` | `import` / `export` |
-| Carga | Síncrona | Asíncrona (pero `import` estático se siente síncrono) |
-| Activar con | Default, o `.cjs`, o sin `"type"` en package.json | `"type": "module"` en package.json, o `.mjs` |
-| ESM → CJS | Funciona directo | — |
-| CJS → ESM | Necesita `import()` dinámico | — |
+|             | CommonJS                                          | ES Modules                                            |
+| ----------- | ------------------------------------------------- | ----------------------------------------------------- |
+| Sintaxis    | `require()` / `module.exports`                    | `import` / `export`                                   |
+| Carga       | Síncrona                                          | Asíncrona (pero `import` estático se siente síncrono) |
+| Activar con | Default, o `.cjs`, o sin `"type"` en package.json | `"type": "module"` en package.json, o `.mjs`          |
+| ESM → CJS   | Funciona directo                                  | —                                                     |
+| CJS → ESM   | Necesita `import()` dinámico                      | —                                                     |
 
 ## Errores comunes
 

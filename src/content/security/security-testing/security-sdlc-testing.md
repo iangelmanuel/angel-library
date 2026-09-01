@@ -11,18 +11,18 @@ related:
 updatedAt: 2026-08-25
 ---
 
-**SDLC** significa *Software Development Life Cycle* o ciclo de vida del desarrollo. Un SDLC seguro coloca controles donde son más baratos y efectivos: requisitos, diseño, implementación, CI, despliegue y operación.
+**SDLC** significa _Software Development Life Cycle_ o ciclo de vida del desarrollo. Un SDLC seguro coloca controles donde son más baratos y efectivos: requisitos, diseño, implementación, CI, despliegue y operación.
 
 ## Controles por etapa
 
-| Etapa | Pregunta y evidencia |
-| --- | --- |
-| requisito | ¿qué datos y abuso deben considerarse? |
-| diseño | modelo de amenazas y fronteras |
-| código | validación, permisos y revisión |
-| CI | tests, SAST, secretos y dependencias |
-| deploy | configuración, mínimo privilegio y rollback |
-| producción | logs, alertas, rate limits e incidentes |
+| Etapa      | Pregunta y evidencia                        |
+| ---------- | ------------------------------------------- |
+| requisito  | ¿qué datos y abuso deben considerarse?      |
+| diseño     | modelo de amenazas y fronteras              |
+| código     | validación, permisos y revisión             |
+| CI         | tests, SAST, secretos y dependencias        |
+| deploy     | configuración, mínimo privilegio y rollback |
+| producción | logs, alertas, rate limits e incidentes     |
 
 **SAST** analiza código sin ejecutarlo. **DAST** prueba una aplicación en ejecución desde fuera. Ninguna herramienta demuestra seguridad completa; detectan clases distintas y producen falsos positivos y negativos.
 
@@ -37,10 +37,12 @@ Una PR que toca autenticación, parser, upload, redirect, consulta, webhook o pe
 - ¿cómo se prueba un intento no autorizado?
 
 ```ts
-it('impide leer una orden de otro tenant', async () => {
-  const response = await apiAs(userFromTenantA).get('/orders/order-from-tenant-b');
-  expect(response.status).toBe(404);
-});
+it("impide leer una orden de otro tenant", async () => {
+  const response = await apiAs(userFromTenantA).get(
+    "/orders/order-from-tenant-b"
+  )
+  expect(response.status).toBe(404)
+})
 ```
 
 Responder `404` puede evitar confirmar que el recurso existe; la política debe ser consistente.

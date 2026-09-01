@@ -49,14 +49,14 @@ Request
 ## Error handler central
 
 ```ts title="middlewares/error-handler.ts"
-import type { ErrorRequestHandler } from 'express';
+import type { ErrorRequestHandler } from "express"
 
 export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
-  const status = err.status ?? 500;
+  const status = err.status ?? 500
   res.status(status).json({
-    error: status === 500 ? 'Error interno' : err.message,
-  });
-};
+    error: status === 500 ? "Error interno" : err.message
+  })
+}
 ```
 
 Se registra **al final**, después de todas las rutas: `app.use(errorHandler)`.

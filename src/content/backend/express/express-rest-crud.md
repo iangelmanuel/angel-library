@@ -27,22 +27,26 @@ El **recurso** (`posts`) es siempre un sustantivo en plural, nunca un verbo — 
 
 ```ts
 // PUT: reemplaza el recurso ENTERO — si falta un campo, se pierde/resetea
-app.put('/posts/:id', async (req, res) => {
+app.put("/posts/:id", async (req, res) => {
   const post = await prisma.post.update({
     where: { id: req.params.id },
-    data: { title: req.body.title, content: req.body.content, published: req.body.published },
-  });
-  res.json(post);
-});
+    data: {
+      title: req.body.title,
+      content: req.body.content,
+      published: req.body.published
+    }
+  })
+  res.json(post)
+})
 
 // PATCH: actualiza SOLO los campos que vienen en el body
-app.patch('/posts/:id', async (req, res) => {
+app.patch("/posts/:id", async (req, res) => {
   const post = await prisma.post.update({
     where: { id: req.params.id },
-    data: req.body, // solo lo que el cliente mandó
-  });
-  res.json(post);
-});
+    data: req.body // solo lo que el cliente mandó
+  })
+  res.json(post)
+})
 ```
 
 En la práctica, muchas APIs usan `PATCH` para casi todo (es más flexible) y reservan `PUT` para reemplazos completos explícitos — pero la distinción conceptual vale la pena conocerla.
@@ -70,26 +74,26 @@ Autenticado, sin permiso → 403 Forbidden
 ```
 
 ```ts
-app.post('/posts', async (req, res) => {
-  const post = await prisma.post.create({ data: req.body });
-  res.status(201).json(post); // 201, no 200 — se creó algo nuevo
-});
+app.post("/posts", async (req, res) => {
+  const post = await prisma.post.create({ data: req.body })
+  res.status(201).json(post) // 201, no 200 — se creó algo nuevo
+})
 
-app.delete('/posts/:id', async (req, res) => {
-  await prisma.post.delete({ where: { id: req.params.id } });
-  res.status(204).end(); // sin body — no hay nada que devolver sobre "lo borrado"
-});
+app.delete("/posts/:id", async (req, res) => {
+  await prisma.post.delete({ where: { id: req.params.id } })
+  res.status(204).end() // sin body — no hay nada que devolver sobre "lo borrado"
+})
 ```
 
 ## Mapa CRUD
 
-| Verbo | Uso |
-| --- | --- |
-| `GET` | Leer, nunca modifica nada |
-| `POST` | Crear |
-| `PUT` | Reemplazar completo |
-| `PATCH` | Actualizar parcial |
-| `DELETE` | Eliminar |
+| Verbo    | Uso                       |
+| -------- | ------------------------- |
+| `GET`    | Leer, nunca modifica nada |
+| `POST`   | Crear                     |
+| `PUT`    | Reemplazar completo       |
+| `PATCH`  | Actualizar parcial        |
+| `DELETE` | Eliminar                  |
 
 ## Errores comunes
 

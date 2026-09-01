@@ -49,13 +49,17 @@ export const navegacionCommands: CommandMap = {
       if (raw === "/" || raw === "~" || raw === "..") return ctx.go("/")
 
       const destination = raw.replace(/^\.\//, "").replace(/\/$/, "")
-      if (destination === "search" || destination === "/search") return ctx.go("/search")
-      if (destination === "tags" || destination === "/tags") return ctx.go("/tags")
+      if (destination === "search" || destination === "/search")
+        return ctx.go("/search")
+      if (destination === "tags" || destination === "/tags")
+        return ctx.go("/tags")
 
       const category = ctx.categories.find(({ id }) => id === destination)
       if (category) return ctx.go(`/categories/${category.id}`)
 
-      ctx.fail(["directorio no encontrado; ejecuta /ls para ver las categorías"])
+      ctx.fail([
+        "directorio no encontrado; ejecuta /ls para ver las categorías"
+      ])
       ctx.setInput("")
     }
   },
@@ -66,9 +70,10 @@ export const navegacionCommands: CommandMap = {
     keepInput: true,
     run: (ctx) => {
       const position = Number.parseInt(ctx.args, 10)
-      const selected = /^\d+$/.test(ctx.args) && position > 0
-        ? ctx.results[position - 1]
-        : undefined
+      const selected =
+        /^\d+$/.test(ctx.args) && position > 0
+          ? ctx.results[position - 1]
+          : undefined
       if (selected) return ctx.go(itemUrl(selected))
       if (ctx.args.startsWith("/")) return ctx.go(ctx.args)
 

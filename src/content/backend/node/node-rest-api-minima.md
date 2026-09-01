@@ -16,85 +16,101 @@ Un CRUD de tareas (`GET /tareas`, `GET /tareas/:id`, `POST /tareas`, `PUT /tarea
 ## Código completo
 
 ```ts title="server.ts"
-import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
-import { randomUUID } from 'node:crypto';
+import { randomUUID } from "node:crypto"
+import {
+  type IncomingMessage,
+  type ServerResponse,
+  createServer
+} from "node:http"
 
 interface Tarea {
-  id: string;
-  titulo: string;
-  completada: boolean;
+  id: string
+  titulo: string
+  completada: boolean
 }
 
-const tareas: Tarea[] = [];
+const tareas: Tarea[] = []
 
 function leerBody(req: IncomingMessage): Promise<unknown> {
   return new Promise((resolve, reject) => {
-    let data = '';
-    req.on('data', (chunk) => (data += chunk));
-    req.on('end', () => resolve(data ? JSON.parse(data) : {}));
-    req.on('error', reject);
-  });
+    let data = ""
+    req.on("data", (chunk) => (data += chunk))
+    req.on("end", () => resolve(data ? JSON.parse(data) : {}))
+    req.on("error", reject)
+  })
 }
 
 function enviarJSON(res: ServerResponse, status: number, body: unknown) {
-  res.writeHead(status, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(body));
+  res.writeHead(status, { "Content-Type": "application/json" })
+  res.end(JSON.stringify(body))
 }
 
 const server = createServer(async (req, res) => {
-  const url = new URL(req.url!, `http://${req.headers.host}`);
-  const partes = url.pathname.split('/').filter(Boolean); // '/tareas/123' → ['tareas', '123']
+  const url = new URL(req.url!, `http://${req.headers.host}`)
+  const partes = url.pathname.split("/").filter(Boolean) // '/tareas/123' → ['tareas', '123']
 
   try {
     // GET /tareas
-    if (req.method === 'GET' && partes.length === 1 && partes[0] === 'tareas') {
-      return enviarJSON(res, 200, tareas);
+    if (req.method === "GET" && partes.length === 1 && partes[0] === "tareas") {
+      return enviarJSON(res, 200, tareas)
     }
 
     // GET /tareas/:id
-    if (req.method === 'GET' && partes.length === 2 && partes[0] === 'tareas') {
-      const tarea = tareas.find((t) => t.id === partes[1]);
-      if (!tarea) return enviarJSON(res, 404, { error: 'No encontrada' });
-      return enviarJSON(res, 200, tarea);
+    if (req.method === "GET" && partes.length === 2 && partes[0] === "tareas") {
+      const tarea = tareas.find((t) => t.id === partes[1])
+      if (!tarea) return enviarJSON(res, 404, { error: "No encontrada" })
+      return enviarJSON(res, 200, tarea)
     }
 
     // POST /tareas
-    if (req.method === 'POST' && partes.length === 1 && partes[0] === 'tareas') {
-      const body = (await leerBody(req)) as { titulo?: string };
-      if (!body.titulo) return enviarJSON(res, 400, { error: 'Falta "titulo"' });
+    if (
+      req.method === "POST" &&
+      partes.length === 1 &&
+      partes[0] === "tareas"
+    ) {
+      const body = (await leerBody(req)) as { titulo?: string }
+      if (!body.titulo) return enviarJSON(res, 400, { error: 'Falta "titulo"' })
 
-      const nueva: Tarea = { id: randomUUID(), titulo: body.titulo, completada: false };
-      tareas.push(nueva);
-      return enviarJSON(res, 201, nueva);
+      const nueva: Tarea = {
+        id: randomUUID(),
+        titulo: body.titulo,
+        completada: false
+      }
+      tareas.push(nueva)
+      return enviarJSON(res, 201, nueva)
     }
 
     // PUT /tareas/:id
-    if (req.method === 'PUT' && partes.length === 2 && partes[0] === 'tareas') {
-      const tarea = tareas.find((t) => t.id === partes[1]);
-      if (!tarea) return enviarJSON(res, 404, { error: 'No encontrada' });
+    if (req.method === "PUT" && partes.length === 2 && partes[0] === "tareas") {
+      const tarea = tareas.find((t) => t.id === partes[1])
+      if (!tarea) return enviarJSON(res, 404, { error: "No encontrada" })
 
-      const body = (await leerBody(req)) as Partial<Tarea>;
-      Object.assign(tarea, body);
-      return enviarJSON(res, 200, tarea);
+      const body = (await leerBody(req)) as Partial<Tarea>
+      Object.assign(tarea, body)
+      return enviarJSON(res, 200, tarea)
     }
 
     // DELETE /tareas/:id
-    if (req.method === 'DELETE' && partes.length === 2 && partes[0] === 'tareas') {
-      const index = tareas.findIndex((t) => t.id === partes[1]);
-      if (index === -1) return enviarJSON(res, 404, { error: 'No encontrada' });
+    if (
+      req.method === "DELETE" &&
+      partes.length === 2 &&
+      partes[0] === "tareas"
+    ) {
+      const index = tareas.findIndex((t) => t.id === partes[1])
+      if (index === -1) return enviarJSON(res, 404, { error: "No encontrada" })
 
-      tareas.splice(index, 1);
-      res.writeHead(204);
-      return res.end();
+      tareas.splice(index, 1)
+      res.writeHead(204)
+      return res.end()
     }
 
-    enviarJSON(res, 404, { error: 'Ruta no encontrada' });
+    enviarJSON(res, 404, { error: "Ruta no encontrada" })
   } catch {
-    enviarJSON(res, 400, { error: 'JSON inválido' });
+    enviarJSON(res, 400, { error: "JSON inválido" })
   }
-});
+})
 
-server.listen(3000, () => console.log('http://localhost:3000'));
+server.listen(3000, () => console.log("http://localhost:3000"))
 ```
 
 ## Qué resolvió esto a mano

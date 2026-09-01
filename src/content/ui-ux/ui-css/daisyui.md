@@ -17,14 +17,14 @@ En vez de armar un botón a golpe de `px-4 py-2 rounded bg-blue-600...`, daisyUI
 Tailwind v4 (CSS-first, sin `tailwind.config`):
 
 ```css title="global.css"
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "daisyui";
 ```
 
 Tailwind v3:
 
 ```js title="tailwind.config.js"
-module.exports = { plugins: [require('daisyui')] };
+module.exports = { plugins: [require("daisyui")] }
 ```
 
 ## Tips

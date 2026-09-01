@@ -15,21 +15,21 @@ La diferencia importante no es solo qué modelo usan, sino qué contexto reciben
 
 Para aprender, domina primero instrucciones de proyecto y contexto; después comandos, skills, subagentes, hooks, MCP y plugins. Cada capa aumenta capacidad y también superficie de confianza.
 
-| Necesidad | Empieza por |
-| --- | --- |
-| reglas persistentes del repositorio | `AGENTS.md`, `CLAUDE.md` o Rules del agente |
-| procedimiento repetible | skill |
-| atajo con prompt conocido | comando personalizado |
-| integración con servicio externo | MCP o plugin, tras revisar permisos |
-| trabajo independiente en paralelo | subagente con alcance y criterio de salida |
-| automatización por evento | hook determinista y auditable |
-| flujo completo con revisión | [Workflow seguro](/skills/skills-fundamentos/ai-tools-safe-workflow) |
+| Necesidad                           | Empieza por                                                          |
+| ----------------------------------- | -------------------------------------------------------------------- |
+| reglas persistentes del repositorio | `AGENTS.md`, `CLAUDE.md` o Rules del agente                          |
+| procedimiento repetible             | skill                                                                |
+| atajo con prompt conocido           | comando personalizado                                                |
+| integración con servicio externo    | MCP o plugin, tras revisar permisos                                  |
+| trabajo independiente en paralelo   | subagente con alcance y criterio de salida                           |
+| automatización por evento           | hook determinista y auditable                                        |
+| flujo completo con revisión         | [Workflow seguro](/skills/skills-fundamentos/ai-tools-safe-workflow) |
 
 Las fichas de cada herramienta sirven para recordar ubicación y sintaxis. Esta página explica el modelo compartido para que los nombres comerciales no oculten las mismas decisiones: autoridad, contexto, permisos, efectos y validación.
 
 ## Modelo, prompt y contexto
 
-Un **LLM** (*Large Language Model* o modelo de lenguaje de gran tamaño) genera una respuesta a partir de tokens. El **prompt** es el conjunto de instrucciones y datos enviados. El **contexto** incluye archivos, mensajes, resultados de comandos, documentación y reglas disponibles durante esa ejecución.
+Un **LLM** (_Large Language Model_ o modelo de lenguaje de gran tamaño) genera una respuesta a partir de tokens. El **prompt** es el conjunto de instrucciones y datos enviados. El **contexto** incluye archivos, mensajes, resultados de comandos, documentación y reglas disponibles durante esa ejecución.
 
 Una ventana de contexto grande no significa memoria perfecta. Incluir archivos irrelevantes añade ruido y costo. La mejor instrucción identifica objetivo, alcance, restricciones y criterio de finalización.
 
@@ -64,19 +64,19 @@ Delegar no elimina responsabilidad. El agente principal debe integrar resultados
 
 Los productos pueden usar nombres distintos, pero esta distinción es práctica:
 
-| Concepto | Propósito habitual |
-| --- | --- |
-| Prompt | Instrucción para una ejecución |
-| Comando | Atajo explícito que inicia un flujo |
-| Skill | Instrucciones y recursos especializados reutilizables |
-| Plugin | Paquete instalable que agrega skills, herramientas o conexiones |
-| Agente | Ejecutor que decide pasos y usa herramientas |
+| Concepto | Propósito habitual                                              |
+| -------- | --------------------------------------------------------------- |
+| Prompt   | Instrucción para una ejecución                                  |
+| Comando  | Atajo explícito que inicia un flujo                             |
+| Skill    | Instrucciones y recursos especializados reutilizables           |
+| Plugin   | Paquete instalable que agrega skills, herramientas o conexiones |
+| Agente   | Ejecutor que decide pasos y usa herramientas                    |
 
 Una **skill** no es conocimiento mágico: codifica un procedimiento, criterios y referencias. Debe revisarse cuando cambian las herramientas o el flujo del proyecto.
 
 ## MCP
 
-**MCP** significa *Model Context Protocol* o protocolo de contexto de modelos. Permite que una aplicación de IA descubra herramientas y recursos ofrecidos por un servidor compatible.
+**MCP** significa _Model Context Protocol_ o protocolo de contexto de modelos. Permite que una aplicación de IA descubra herramientas y recursos ofrecidos por un servidor compatible.
 
 Un servidor MCP puede exponer datos internos, repositorios o acciones externas. Antes de conectarlo se revisan:
 

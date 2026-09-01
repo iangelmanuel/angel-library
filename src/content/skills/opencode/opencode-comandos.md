@@ -22,12 +22,14 @@ updatedAt: 2026-08-17
 description: Revisa el diff actual
 agent: build
 ---
-template: |
-  Revisa los cambios actuales con `git diff` y señala:
-  1. Bugs potenciales
-  2. Problemas de legibilidad
 
-  Argumentos: $ARGUMENTS
+template: |
+Revisa los cambios actuales con `git diff` y señala:
+
+1. Bugs potenciales
+2. Problemas de legibilidad
+
+Argumentos: $ARGUMENTS
 ```
 
 A diferencia de Claude Code (donde el cuerpo entero del archivo **es** el prompt), OpenCode requiere el campo `template:` explícito con el texto que se manda al modelo — el resto del frontmatter es metadata.
@@ -59,12 +61,12 @@ Misma sintaxis que Claude Code para esto — solo cambia dónde vive el prompt (
 
 ## Resumen
 
-| Campo | Para qué |
-| --- | --- |
-| `template` | El prompt en sí (requerido) |
-| `agent` | Qué agente ejecuta el comando |
-| `model` | Override del modelo para este comando puntual |
-| `subtask` | Fuerza que corra como subagente aunque el agente activo sea primario |
+| Campo      | Para qué                                                             |
+| ---------- | -------------------------------------------------------------------- |
+| `template` | El prompt en sí (requerido)                                          |
+| `agent`    | Qué agente ejecuta el comando                                        |
+| `model`    | Override del modelo para este comando puntual                        |
+| `subtask`  | Fuerza que corra como subagente aunque el agente activo sea primario |
 
 ## Consideraciones
 

@@ -50,16 +50,16 @@ npm install
 
 ## Flags principales
 
-| Flag | Qué hace |
-| --- | --- |
-| `-u`, `--upgrade` | Escribe las versiones nuevas en `package.json` (sin esto, `ncu` solo informa) |
-| `-i`, `--interactive` | Elegir paquete por paquete con el teclado (flechas, espacio, `a` para todos, Enter para confirmar) |
-| `-t`, `--target <valor>` | Estrategia de actualización: `latest` (default), `newest`, `greatest`, `minor`, `patch`, `semver`, o `@tag` |
-| `-f`, `--filter <patrón>` | Solo revisa los paquetes que matchean el patrón |
-| `-x`, `--reject <patrón>` | Excluye paquetes que matchean el patrón |
-| `--peer` | Filtra las actualizaciones a versiones compatibles con las `peerDependencies` ya instaladas |
-| `-g`, `--global` | Revisa paquetes globales en vez de las dependencias del proyecto |
-| `--pre` | Incluye versiones prerelease (por defecto se ignoran) |
+| Flag                      | Qué hace                                                                                                    |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `-u`, `--upgrade`         | Escribe las versiones nuevas en `package.json` (sin esto, `ncu` solo informa)                               |
+| `-i`, `--interactive`     | Elegir paquete por paquete con el teclado (flechas, espacio, `a` para todos, Enter para confirmar)          |
+| `-t`, `--target <valor>`  | Estrategia de actualización: `latest` (default), `newest`, `greatest`, `minor`, `patch`, `semver`, o `@tag` |
+| `-f`, `--filter <patrón>` | Solo revisa los paquetes que matchean el patrón                                                             |
+| `-x`, `--reject <patrón>` | Excluye paquetes que matchean el patrón                                                                     |
+| `--peer`                  | Filtra las actualizaciones a versiones compatibles con las `peerDependencies` ya instaladas                 |
+| `-g`, `--global`          | Revisa paquetes globales en vez de las dependencias del proyecto                                            |
+| `--pre`                   | Incluye versiones prerelease (por defecto se ignoran)                                                       |
 
 ### `--target`, en detalle
 
@@ -92,11 +92,11 @@ ncu --doctor -u
 ncu -u --workspaces
 ```
 
-| Flag | Qué hace |
-| --- | --- |
-| `-w`, `--workspaces` | Corre sobre todos los workspaces declarados |
-| `--workspace <nombre>` | Corre solo sobre un workspace puntual |
-| `--root` | Incluye también el `package.json` raíz (`true` por defecto) |
+| Flag                   | Qué hace                                                    |
+| ---------------------- | ----------------------------------------------------------- |
+| `-w`, `--workspaces`   | Corre sobre todos los workspaces declarados                 |
+| `--workspace <nombre>` | Corre solo sobre un workspace puntual                       |
+| `--root`               | Incluye también el `package.json` raíz (`true` por defecto) |
 
 ## Archivo de configuración `.ncurc.json`
 
@@ -113,10 +113,10 @@ Las claves son los mismos nombres largos de los flags (`upgrade`, `filter`, `rej
 
 ## CI: `--errorLevel`
 
-| Nivel | Comportamiento |
-| --- | --- |
-| `1` (default) | Sale con código `0` salvo que ocurra un error real |
-| `2` | Sale con código `0` solo si no hay ningún paquete para actualizar — falla el pipeline en cuanto algo queda desactualizado |
+| Nivel         | Comportamiento                                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `1` (default) | Sale con código `0` salvo que ocurra un error real                                                                        |
+| `2`           | Sale con código `0` solo si no hay ningún paquete para actualizar — falla el pipeline en cuanto algo queda desactualizado |
 
 ```bash
 ncu --errorLevel 2

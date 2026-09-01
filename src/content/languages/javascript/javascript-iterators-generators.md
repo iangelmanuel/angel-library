@@ -26,7 +26,7 @@ updatedAt: 2026-08-25
 Arrays, strings, `Map`, `Set`, typed arrays y muchos objetos del navegador son iterables. Por eso funcionan con `for...of`, spread, desestructuración y `Array.from`.
 
 ```js
-const tags = new Set(['js', 'web'])
+const tags = new Set(["js", "web"])
 
 for (const tag of tags) {
   console.log(tag)
@@ -34,15 +34,15 @@ for (const tag of tags) {
 // 'js'
 // 'web'
 
-[...tags]               // ['js', 'web']
-const [first] = tags    // first = 'js'
-Array.from(tags)        // ['js', 'web']
+;[...tags] // ['js', 'web']
+const [first] = tags // first = 'js'
+Array.from(tags) // ['js', 'web']
 ```
 
 Un objeto normal no es iterable por defecto:
 
 ```js
-const user = { name: 'Ana', role: 'editor' }
+const user = { name: "Ana", role: "editor" }
 
 // [...user] // TypeError: user is not iterable
 Object.entries(user)
@@ -54,7 +54,7 @@ Object.entries(user)
 `next()` devuelve un **iteration result**. Mientras `done` sea `false`, `value` contiene el siguiente dato.
 
 ```js
-const iterator = ['a', 'b'].values()
+const iterator = ["a", "b"].values()
 
 iterator.next() // { value: 'a', done: false }
 iterator.next() // { value: 'b', done: false }
@@ -64,7 +64,7 @@ iterator.next() // { value: undefined, done: true }
 Un iterador es consumible: después de avanzar no vuelve al inicio. El iterable puede crear un iterador nuevo cada vez.
 
 ```js
-const values = ['a', 'b']
+const values = ["a", "b"]
 
 values[Symbol.iterator]() !== values[Symbol.iterator]() // true
 ```
@@ -86,13 +86,13 @@ function createRange(start, end, step = 1) {
           const value = current
           current += step
           return { value, done: false }
-        },
+        }
       }
-    },
+    }
   }
 }
 
-[...createRange(2, 8, 2)] // [2, 4, 6, 8]
+;[...createRange(2, 8, 2)] // [2, 4, 6, 8]
 ```
 
 El estado `current` queda encapsulado en cada iterador. Para la mayoría de casos, un generator expresa este protocolo con menos código.
@@ -112,7 +112,7 @@ const numbers = range(2, 8, 2)
 
 numbers.next() // { value: 2, done: false }
 numbers.next() // { value: 4, done: false }
-;[...numbers]  // [6, 8]: continúa desde su estado actual
+;[...numbers] // [6, 8]: continúa desde su estado actual
 ```
 
 `yield` entrega un valor y pausa. `return` termina el generator y su valor final aparece en `next()`, pero `for...of` no incluye ese valor final.
@@ -121,12 +121,12 @@ numbers.next() // { value: 4, done: false }
 
 ```js
 function* navigation() {
-  yield 'home'
-  yield* ['docs', 'search']
-  yield 'settings'
+  yield "home"
+  yield* ["docs", "search"]
+  yield "settings"
 }
 
-[...navigation()]
+;[...navigation()]
 // ['home', 'docs', 'search', 'settings']
 ```
 
@@ -138,14 +138,14 @@ El argumento de `next(value)` se convierte en el resultado de la expresión `yie
 
 ```js
 function* conversation() {
-  const name = yield '¿Cómo te llamas?'
+  const name = yield "¿Cómo te llamas?"
   return `Hola, ${name}`
 }
 
 const chat = conversation()
 
-chat.next()      // { value: '¿Cómo te llamas?', done: false }
-chat.next('Ana') // { value: 'Hola, Ana', done: true }
+chat.next() // { value: '¿Cómo te llamas?', done: false }
+chat.next("Ana") // { value: 'Hola, Ana', done: true }
 ```
 
 Esta capacidad sirve para coordinadores y máquinas de estado, pero puede ser difícil de seguir. Para producir secuencias, el flujo de una sola dirección suele bastar.
@@ -154,20 +154,20 @@ Esta capacidad sirve para coordinadores y máquinas de estado, pero puede ser di
 
 Los helpers de iteradores de ECMAScript 2025 permiten transformar sin consumir toda la fuente al inicio. Verifica compatibilidad del runtime objetivo.
 
-| Helper | Devuelve | Detiene temprano |
-| --- | --- | --- |
-| `Iterator.from(value)` | iterador estándar | no aplica |
+| Helper                          | Devuelve                                  | Detiene temprano     |
+| ------------------------------- | ----------------------------------------- | -------------------- |
+| `Iterator.from(value)`          | iterador estándar                         | no aplica            |
 | `Iterator.concat(...iterables)` | iterador que recorre cada fuente en orden | sí, según consumidor |
-| `.map(fn)` | iterador transformado | sí, según consumidor |
-| `.filter(fn)` | iterador filtrado | sí |
-| `.take(n)` | primeros `n` valores | sí |
-| `.drop(n)` | omite `n` valores | no por sí solo |
-| `.flatMap(fn)` | iterador aplanado | sí |
-| `.find(fn)` | valor o `undefined` | sí |
-| `.some(fn)` | booleano | sí |
-| `.every(fn)` | booleano | sí |
-| `.reduce(fn, initial)` | acumulador | no |
-| `.toArray()` | array | consume el iterador |
+| `.map(fn)`                      | iterador transformado                     | sí, según consumidor |
+| `.filter(fn)`                   | iterador filtrado                         | sí                   |
+| `.take(n)`                      | primeros `n` valores                      | sí                   |
+| `.drop(n)`                      | omite `n` valores                         | no por sí solo       |
+| `.flatMap(fn)`                  | iterador aplanado                         | sí                   |
+| `.find(fn)`                     | valor o `undefined`                       | sí                   |
+| `.some(fn)`                     | booleano                                  | sí                   |
+| `.every(fn)`                    | booleano                                  | sí                   |
+| `.reduce(fn, initial)`          | acumulador                                | no                   |
+| `.toArray()`                    | array                                     | consume el iterador  |
 
 ```js
 function* ids() {
@@ -176,8 +176,8 @@ function* ids() {
 }
 
 const result = ids()
-  .filter(id => id % 2 === 0)
-  .map(id => ({ id }))
+  .filter((id) => id % 2 === 0)
+  .map((id) => ({ id }))
   .take(3)
   .toArray()
 
@@ -191,11 +191,11 @@ La fuente es infinita, pero `take(3)` detiene el consumo. Convertir primero con 
 ECMAScript 2026 añadió `Iterator.concat`. Recibe cero o más iterables y los recorre uno después de otro de forma lazy. A diferencia de `[...a, ...b]`, no materializa todas las entradas antes de comenzar a consumirlas.
 
 ```js
-const local = ['html', 'css']
-const remote = new Set(['javascript', 'http'])
+const local = ["html", "css"]
+const remote = new Set(["javascript", "http"])
 
 const topics = Iterator.concat(local, remote)
-  .map(topic => topic.toUpperCase())
+  .map((topic) => topic.toUpperCase())
   .take(3)
   .toArray()
 
@@ -222,7 +222,7 @@ async function* paginate(firstURL) {
   }
 }
 
-for await (const items of paginate('/api/projects')) {
+for await (const items of paginate("/api/projects")) {
   renderProjects(items)
 }
 ```
@@ -238,10 +238,10 @@ Los iteradores pueden implementar `return()` para limpiar recursos cuando el con
 ```js
 function* session() {
   try {
-    yield 'connected'
-    yield 'working'
+    yield "connected"
+    yield "working"
   } finally {
-    console.log('session closed')
+    console.log("session closed")
   }
 }
 
@@ -257,12 +257,12 @@ No dependas del recolector de basura para liberar un recurso externo en un momen
 
 ## Elegir la herramienta
 
-| Necesidad | Herramienta |
-| --- | --- |
-| ya tienes todos los datos y son pocos | métodos de Array |
-| quieres producir valores bajo demanda | generator |
-| fuente grande o infinita | iterador lazy |
-| cada valor llega de forma asíncrona | async generator |
+| Necesidad                                        | Herramienta                      |
+| ------------------------------------------------ | -------------------------------- |
+| ya tienes todos los datos y son pocos            | métodos de Array                 |
+| quieres producir valores bajo demanda            | generator                        |
+| fuente grande o infinita                         | iterador lazy                    |
+| cada valor llega de forma asíncrona              | async generator                  |
 | necesitas emitir eventos en momentos arbitrarios | EventTarget, stream u observable |
 
 ## Errores frecuentes
@@ -279,7 +279,7 @@ No dependas del recolector de basura para liberar un recurso externo en un momen
 ```js
 function* chunks(values, size) {
   if (!Number.isInteger(size) || size < 1) {
-    throw new RangeError('size debe ser un entero positivo')
+    throw new RangeError("size debe ser un entero positivo")
   }
 
   for (let index = 0; index < values.length; index += size) {
@@ -287,7 +287,7 @@ function* chunks(values, size) {
   }
 }
 
-[...chunks([1, 2, 3, 4, 5], 2)]
+;[...chunks([1, 2, 3, 4, 5], 2)]
 // [[1, 2], [3, 4], [5]]
 ```
 

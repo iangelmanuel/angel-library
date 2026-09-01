@@ -42,16 +42,16 @@ Para cada ejemplo pregunta: ¿quién consume esta operación?, ¿qué dato es ex
 
 ### Ya uso Next.js y quiero recordar
 
-| Necesito | Documento |
-| --- | --- |
-| endpoint, webhook o API pública | [API REST](/backend/nextjs/nextjs-api-rest) |
-| sintaxis y métodos de `route.ts` | [Route Handlers](/frontend/nextjs/nextjs-endpoints) |
-| formulario o mutación de la propia UI | [Server Actions](/frontend/nextjs/nextjs-server-actions) |
-| leer/escribir cookies o inspeccionar headers | [Request APIs](/backend/nextjs/nextjs-cookies-headers) |
-| redirects o filtro temprano por ruta | [Proxy](/frontend/nextjs/nextjs-proxy) |
-| inicializar SDK y capturar errores globales | [Instrumentation](/backend/nextjs/nextjs-instrumentation) |
-| autenticación | [Auth.js](/backend/nextjs/nextjs-auth-js) o [Better Auth](/backend/nextjs/nextjs-better-auth) |
-| persistencia | [Prisma](/backend/nextjs/nextjs-prisma) o [Supabase](/backend/nextjs/nextjs-supabase) |
+| Necesito                                     | Documento                                                                                     |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| endpoint, webhook o API pública              | [API REST](/backend/nextjs/nextjs-api-rest)                                                   |
+| sintaxis y métodos de `route.ts`             | [Route Handlers](/frontend/nextjs/nextjs-endpoints)                                           |
+| formulario o mutación de la propia UI        | [Server Actions](/frontend/nextjs/nextjs-server-actions)                                      |
+| leer/escribir cookies o inspeccionar headers | [Request APIs](/backend/nextjs/nextjs-cookies-headers)                                        |
+| redirects o filtro temprano por ruta         | [Proxy](/frontend/nextjs/nextjs-proxy)                                                        |
+| inicializar SDK y capturar errores globales  | [Instrumentation](/backend/nextjs/nextjs-instrumentation)                                     |
+| autenticación                                | [Auth.js](/backend/nextjs/nextjs-auth-js) o [Better Auth](/backend/nextjs/nextjs-better-auth) |
+| persistencia                                 | [Prisma](/backend/nextjs/nextjs-prisma) o [Supabase](/backend/nextjs/nextjs-supabase)         |
 
 ## Route Handler, Action o lectura directa
 
@@ -90,15 +90,15 @@ src/
 Route Handlers y Actions adaptan entradas. Los casos de uso reciben valores validados e identidad explícita. El repository encapsula persistencia. No toda función merece tres capas, pero el dominio no debería depender de `NextRequest`, `FormData` o `NextResponse`.
 
 ```ts title="src/app/api/posts/route.ts"
-import { NextResponse } from 'next/server';
-import { listPosts } from '@/modules/posts/posts.service';
-import { requireUser } from '@/libs/auth';
+import { NextResponse } from "next/server"
+import { requireUser } from "@/libs/auth"
+import { listPosts } from "@/modules/posts/posts.service"
 
 export async function GET(request: Request) {
-  const actor = await requireUser();
-  const cursor = new URL(request.url).searchParams.get('cursor');
-  const result = await listPosts({ actor, cursor });
-  return NextResponse.json(result);
+  const actor = await requireUser()
+  const cursor = new URL(request.url).searchParams.get("cursor")
+  const result = await listPosts({ actor, cursor })
+  return NextResponse.json(result)
 }
 ```
 

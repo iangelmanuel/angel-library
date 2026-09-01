@@ -18,9 +18,9 @@ updatedAt: 2026-08-30
 
 En la mayoría de sitios de retos, terminar significa que los tests pasan. Aquí hay dos modos:
 
-| Modo | Cómo funciona |
-| --- | --- |
-| Práctica | Resuelves y avanzas por tu cuenta |
+| Modo     | Cómo funciona                                                        |
+| -------- | -------------------------------------------------------------------- |
+| Práctica | Resuelves y avanzas por tu cuenta                                    |
 | Mentoría | Una persona voluntaria revisa tu solución y comenta enfoque y estilo |
 
 La mentoría es la parte valiosa: pasar los tests demuestra que funciona, no que esté bien escrito. Es de las pocas formas gratuitas de que alguien con experiencia lea tu código y te diga qué haría distinto.

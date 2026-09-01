@@ -27,7 +27,7 @@ export class HttpError extends Error {
     public body: unknown
   ) {
     super(`HTTP ${status}: ${statusText}`)
-    this.name = 'HttpError'
+    this.name = "HttpError"
   }
 }
 ```
@@ -37,7 +37,10 @@ export class HttpError extends Error {
 Hace el `fetch`, lanza `HttpError` si la respuesta no es `ok`, y parsea el body como JSON tipado con el genérico `T`. Evita repetir el `if (!res.ok) throw` en cada llamada.
 
 ```ts title="lib/fetch.ts"
-export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
+export async function fetchJson<T>(
+  url: string,
+  init?: RequestInit
+): Promise<T> {
   const response = await fetch(url, init)
   if (!response.ok) {
     const body = await response.text().catch(() => undefined)
@@ -48,15 +51,15 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
 ```
 
 ```ts
-import { fetchJson, HttpError } from '@/libs/fetch';
+import { HttpError, fetchJson } from "@/libs/fetch"
 
 interface Usuario {
-  id: string;
-  email: string;
+  id: string
+  email: string
 }
 
 try {
-  const usuario = await fetchJson<Usuario>('/api/usuario');
+  const usuario = await fetchJson<Usuario>("/api/usuario")
 } catch (error) {
   if (error instanceof HttpError && error.status === 404) {
     // usuario no encontrado
@@ -88,9 +91,9 @@ export async function fetchWithTimeout(
 ```
 
 ```ts
-import { fetchWithTimeout } from '@/libs/fetch';
+import { fetchWithTimeout } from "@/libs/fetch"
 
-const respuesta = await fetchWithTimeout('/api/lento', {}, 5000);
+const respuesta = await fetchWithTimeout("/api/lento", {}, 5000)
 ```
 
 ### `withRetry()` — Reintentar una función async
@@ -121,19 +124,19 @@ export async function withRetry<T>(
 ```
 
 ```ts
-import { fetchJson, withRetry } from '@/libs/fetch';
+import { fetchJson, withRetry } from "@/libs/fetch"
 
-const datos = await withRetry(() => fetchJson('/api/datos'));
+const datos = await withRetry(() => fetchJson("/api/datos"))
 ```
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `HttpError` | Error tipado con status, statusText y body |
-| `fetchJson()` | Fetch + parseo JSON tipado, lanza `HttpError` si falla |
-| `fetchWithTimeout()` | Fetch que se cancela solo si tarda demasiado |
-| `withRetry()` | Reintentar cualquier función async con espera entre intentos |
+| Función              | Qué hace                                                     |
+| -------------------- | ------------------------------------------------------------ |
+| `HttpError`          | Error tipado con status, statusText y body                   |
+| `fetchJson()`        | Fetch + parseo JSON tipado, lanza `HttpError` si falla       |
+| `fetchWithTimeout()` | Fetch que se cancela solo si tarda demasiado                 |
+| `withRetry()`        | Reintentar cualquier función async con espera entre intentos |
 
 ## Consideraciones
 

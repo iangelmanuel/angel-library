@@ -25,51 +25,51 @@ Un evento comunica que algo ocurrió: una interacción, un cambio de estado, una
 button instanceof EventTarget // true
 
 function handleClick(event) {
-  event.type          // 'click'
-  event.target        // nodo donde se originó
+  event.type // 'click'
+  event.target // nodo donde se originó
   event.currentTarget // button mientras corre este listener
 }
 
-button.addEventListener('click', handleClick)    // undefined
-button.removeEventListener('click', handleClick) // undefined
+button.addEventListener("click", handleClick) // undefined
+button.removeEventListener("click", handleClick) // undefined
 ```
 
 ## Formas de escuchar
 
-| Forma | Cantidad de handlers | Recomendación |
-| --- | ---: | --- |
-| `addEventListener()` | varios por tipo | opción habitual |
-| propiedad `onclick` | uno | integración simple o legado |
-| atributo `onclick="..."` | uno y código mezclado con HTML | evitar |
+| Forma                    |           Cantidad de handlers | Recomendación               |
+| ------------------------ | -----------------------------: | --------------------------- |
+| `addEventListener()`     |                varios por tipo | opción habitual             |
+| propiedad `onclick`      |                            uno | integración simple o legado |
+| atributo `onclick="..."` | uno y código mezclado con HTML | evitar                      |
 
 Para retirar un listener manualmente necesitas la misma función y el mismo valor de `capture`.
 
 ```js
-const handle = event => console.log(event.type)
+const handle = (event) => console.log(event.type)
 
-button.addEventListener('click', handle)
-button.removeEventListener('click', handle) // sí lo elimina
+button.addEventListener("click", handle)
+button.removeEventListener("click", handle) // sí lo elimina
 
-button.addEventListener('click', () => console.log('otro'))
-button.removeEventListener('click', () => console.log('otro'))
+button.addEventListener("click", () => console.log("otro"))
+button.removeEventListener("click", () => console.log("otro"))
 // no lo elimina: es una función distinta
 ```
 
 ## Opciones de `addEventListener`
 
-| Opción | Efecto | Caso de uso |
-| --- | --- | --- |
-| `capture: true` | escucha al bajar hacia el target | infraestructura o interceptación temprana |
-| `once: true` | se elimina después de ejecutarse | inicialización única |
-| `passive: true` | promete no cancelar la acción | eventos de scroll/touch observados |
-| `signal` | se elimina cuando la señal se aborta | ciclo de vida de componentes |
+| Opción          | Efecto                               | Caso de uso                               |
+| --------------- | ------------------------------------ | ----------------------------------------- |
+| `capture: true` | escucha al bajar hacia el target     | infraestructura o interceptación temprana |
+| `once: true`    | se elimina después de ejecutarse     | inicialización única                      |
+| `passive: true` | promete no cancelar la acción        | eventos de scroll/touch observados        |
+| `signal`        | se elimina cuando la señal se aborta | ciclo de vida de componentes              |
 
 ```js
 const controller = new AbortController()
 
-window.addEventListener('resize', updateLayout, {
+window.addEventListener("resize", updateLayout, {
   passive: true,
-  signal: controller.signal,
+  signal: controller.signal
 })
 
 controller.abort()
@@ -95,11 +95,11 @@ Los listeners normales escuchan durante el burbujeo. No todos los eventos burbuj
 ```js
 const log = []
 
-card.addEventListener('click', () => log.push('card capture'), {
-  capture: true,
+card.addEventListener("click", () => log.push("card capture"), {
+  capture: true
 })
-save.addEventListener('click', () => log.push('button'))
-card.addEventListener('click', () => log.push('card bubble'))
+save.addEventListener("click", () => log.push("button"))
+card.addEventListener("click", () => log.push("card bubble"))
 
 save.click()
 
@@ -107,16 +107,16 @@ log
 // ['card capture', 'button', 'card bubble']
 ```
 
-| Propiedad | Significado |
-| --- | --- |
-| `target` | objeto donde comenzó el evento |
-| `currentTarget` | objeto cuyo listener se está ejecutando |
-| `eventPhase` | captura, target o burbujeo |
-| `bubbles` | si puede subir por ancestros |
-| `cancelable` | si `preventDefault` puede cancelar la acción |
-| `defaultPrevented` | si la acción ya fue cancelada |
-| `composed` | si puede cruzar un límite de Shadow DOM |
-| `composedPath()` | ruta real de propagación permitida |
+| Propiedad          | Significado                                  |
+| ------------------ | -------------------------------------------- |
+| `target`           | objeto donde comenzó el evento               |
+| `currentTarget`    | objeto cuyo listener se está ejecutando      |
+| `eventPhase`       | captura, target o burbujeo                   |
+| `bubbles`          | si puede subir por ancestros                 |
+| `cancelable`       | si `preventDefault` puede cancelar la acción |
+| `defaultPrevented` | si la acción ya fue cancelada                |
+| `composed`         | si puede cruzar un límite de Shadow DOM      |
+| `composedPath()`   | ruta real de propagación permitida           |
 
 ## Acción predeterminada y propagación
 
@@ -125,7 +125,7 @@ log
 `stopPropagation()` impide continuar hacia otros elementos. `stopImmediatePropagation()` también evita los listeners restantes del mismo elemento. Úsalos solo cuando el componente realmente deba aislar el evento; pueden romper delegación, analítica y accesibilidad.
 
 ```js
-link.addEventListener('click', event => {
+link.addEventListener("click", (event) => {
   if (!canNavigate()) {
     event.preventDefault()
   }
@@ -141,11 +141,11 @@ Un listener pasivo no puede cancelar la acción. El navegador puede ignorar `pre
 La delegación instala un listener en un ancestro y aprovecha el burbujeo. Funciona también para descendientes agregados después.
 
 ```js
-list.addEventListener('click', event => {
+list.addEventListener("click", (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
 
-  const button = target.closest('button[data-delete]')
+  const button = target.closest("button[data-delete]")
   if (!button || !list.contains(button)) return
 
   const id = button.dataset.delete
@@ -157,21 +157,21 @@ list.addEventListener('click', event => {
 
 ## Familias de eventos
 
-| Familia | Eventos comunes | Cuándo usarlos |
-| --- | --- | --- |
-| activación | `click`, `dblclick`, `contextmenu` | acciones de controles |
-| pointer | `pointerdown/up/move/enter/leave/cancel` | mouse, táctil y lápiz con una API |
-| teclado | `keydown`, `keyup` | atajos y controles accesibles |
-| texto | `beforeinput`, `input`, `change` | edición y cambios de controles |
-| composición | `compositionstart/update/end` | IME, dictado y texto compuesto |
-| foco | `focus`, `blur`, `focusin`, `focusout` | entrada o salida de una zona |
-| formularios | `submit`, `reset`, `invalid`, `formdata` | validación y envío |
-| drag and drop | `dragstart`, `dragover`, `drop`, `dragend` | arrastre como mejora adicional |
-| portapapeles | `copy`, `cut`, `paste` | transformar o validar pegado |
-| carga | `DOMContentLoaded`, `load`, `error`, `pageshow`, `pagehide` | ciclo del documento y recursos |
-| visibilidad/red | `visibilitychange`, `online`, `offline` | pausar o reintentar con cautela |
-| media | `play`, `pause`, `timeupdate`, `ended`, `volumechange` | audio y video |
-| CSS | `transitionend`, `animationend`, `animationcancel` | sincronizar tras una animación |
+| Familia         | Eventos comunes                                             | Cuándo usarlos                    |
+| --------------- | ----------------------------------------------------------- | --------------------------------- |
+| activación      | `click`, `dblclick`, `contextmenu`                          | acciones de controles             |
+| pointer         | `pointerdown/up/move/enter/leave/cancel`                    | mouse, táctil y lápiz con una API |
+| teclado         | `keydown`, `keyup`                                          | atajos y controles accesibles     |
+| texto           | `beforeinput`, `input`, `change`                            | edición y cambios de controles    |
+| composición     | `compositionstart/update/end`                               | IME, dictado y texto compuesto    |
+| foco            | `focus`, `blur`, `focusin`, `focusout`                      | entrada o salida de una zona      |
+| formularios     | `submit`, `reset`, `invalid`, `formdata`                    | validación y envío                |
+| drag and drop   | `dragstart`, `dragover`, `drop`, `dragend`                  | arrastre como mejora adicional    |
+| portapapeles    | `copy`, `cut`, `paste`                                      | transformar o validar pegado      |
+| carga           | `DOMContentLoaded`, `load`, `error`, `pageshow`, `pagehide` | ciclo del documento y recursos    |
+| visibilidad/red | `visibilitychange`, `online`, `offline`                     | pausar o reintentar con cautela   |
+| media           | `play`, `pause`, `timeupdate`, `ended`, `volumechange`      | audio y video                     |
+| CSS             | `transitionend`, `animationend`, `animationcancel`          | sincronizar tras una animación    |
 
 No todos los eventos están disponibles en todos los objetos. Consulta la interfaz del elemento o API que los emite.
 
@@ -180,16 +180,16 @@ No todos los eventos están disponibles en todos los objetos. Consulta la interf
 Pointer Events unifica mouse, toque y lápiz. `pointerType` indica `mouse`, `touch` o `pen`; `pointerId` identifica el contacto; `pressure` representa presión cuando el dispositivo la ofrece.
 
 ```js
-canvas.addEventListener('pointerdown', event => {
+canvas.addEventListener("pointerdown", (event) => {
   canvas.setPointerCapture(event.pointerId)
 
   event.pointerType // 'mouse', 'touch' o 'pen'
-  event.button      // 0 para botón principal habitual
-  event.clientX     // posición horizontal en viewport
-  event.clientY     // posición vertical en viewport
+  event.button // 0 para botón principal habitual
+  event.clientX // posición horizontal en viewport
+  event.clientY // posición vertical en viewport
 })
 
-canvas.addEventListener('pointerup', event => {
+canvas.addEventListener("pointerup", (event) => {
   canvas.releasePointerCapture(event.pointerId)
 })
 ```
@@ -198,23 +198,23 @@ La captura mantiene los eventos asociados al elemento aunque el puntero salga mi
 
 ## Teclado
 
-| Propiedad | Representa | Ejemplo |
-| --- | --- | --- |
-| `key` | valor interpretado según layout | `'a'`, `'Enter'`, `'Escape'` |
-| `code` | posición física de la tecla | `'KeyA'`, `'Space'` |
-| `repeat` | pulsación sostenida | `true` o `false` |
-| `ctrlKey`, `altKey`, `shiftKey`, `metaKey` | modificadores | booleanos |
+| Propiedad                                  | Representa                      | Ejemplo                      |
+| ------------------------------------------ | ------------------------------- | ---------------------------- |
+| `key`                                      | valor interpretado según layout | `'a'`, `'Enter'`, `'Escape'` |
+| `code`                                     | posición física de la tecla     | `'KeyA'`, `'Space'`          |
+| `repeat`                                   | pulsación sostenida             | `true` o `false`             |
+| `ctrlKey`, `altKey`, `shiftKey`, `metaKey` | modificadores                   | booleanos                    |
 
 ```js
-document.addEventListener('keydown', event => {
+document.addEventListener("keydown", (event) => {
   const commandKey = event.ctrlKey || event.metaKey
 
-  if (commandKey && event.key.toLowerCase() === 'k') {
+  if (commandKey && event.key.toLowerCase() === "k") {
     event.preventDefault()
     openSearch()
   }
 
-  if (event.key === 'Escape') closeActiveOverlay()
+  if (event.key === "Escape") closeActiveOverlay()
 })
 ```
 
@@ -225,7 +225,7 @@ No recrees con `div` el comportamiento que ya ofrece un `<button>`: el elemento 
 `input` se dispara mientras cambia el valor. `change` suele hacerlo al confirmar o perder foco, según el control. `beforeinput` ocurre antes de la edición y puede ser cancelable. Los eventos de composición evitan procesar prematuramente texto escrito con IME.
 
 ```js
-searchInput.addEventListener('input', event => {
+searchInput.addEventListener("input", (event) => {
   const input = event.currentTarget
   if (!(input instanceof HTMLInputElement)) return
 
@@ -233,11 +233,11 @@ searchInput.addEventListener('input', event => {
   updatePreview(input.value)
 })
 
-searchInput.addEventListener('compositionstart', () => {
+searchInput.addEventListener("compositionstart", () => {
   isComposing = true
 })
 
-searchInput.addEventListener('compositionend', event => {
+searchInput.addEventListener("compositionend", (event) => {
   isComposing = false
   updatePreview(event.currentTarget.value)
 })
@@ -248,7 +248,7 @@ searchInput.addEventListener('compositionend', event => {
 Escucha `submit` en el formulario, no solo `click` en el botón: el envío también puede ocurrir con Enter o desde otros controles.
 
 ```js
-form.addEventListener('submit', async event => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault()
 
   if (!form.reportValidity()) return
@@ -257,7 +257,7 @@ form.addEventListener('submit', async event => {
   const data = new FormData(form, submitter)
 
   submitter // botón que inició el envío o null
-  data.get('email') // valor enviado
+  data.get("email") // valor enviado
 
   await save(data)
 })
@@ -270,7 +270,7 @@ El evento `invalid` no burbujea. Puedes escucharlo en captura desde el formulari
 `focus` y `blur` no burbujean; `focusin` y `focusout` sí. Para saber si el foco salió de todo un componente, revisa `relatedTarget`.
 
 ```js
-menu.addEventListener('focusout', event => {
+menu.addEventListener("focusout", (event) => {
   const next = event.relatedTarget
   const focusStayedInside = next instanceof Node && menu.contains(next)
 
@@ -283,11 +283,11 @@ menu.addEventListener('focusout', event => {
 `CustomEvent` transporta datos en `detail`. Define nombres específicos del dominio y documenta la forma del detalle.
 
 ```js
-const event = new CustomEvent('cart:item-added', {
+const event = new CustomEvent("cart:item-added", {
   detail: { id: 42, quantity: 1 },
   bubbles: true,
   composed: true,
-  cancelable: true,
+  cancelable: true
 })
 
 const accepted = cart.dispatchEvent(event)
@@ -297,7 +297,7 @@ event.detail // { id: 42, quantity: 1 }
 ```
 
 ```js
-document.addEventListener('cart:item-added', event => {
+document.addEventListener("cart:item-added", (event) => {
   updateCartCounter(event.detail.quantity)
 })
 ```
@@ -312,14 +312,14 @@ Los eventos nativos de interacción suelen estar compuestos; un `CustomEvent` no
 
 ## Eventos del ciclo de la página
 
-| Evento | Momento | Nota |
-| --- | --- | --- |
-| `DOMContentLoaded` | HTML parseado y scripts diferidos ejecutados | no espera todas las imágenes |
-| `load` | documento y recursos dependientes cargados | suele ser demasiado tarde para iniciar la app |
-| `pageshow` | página visible, incluso restaurada de bfcache | revisa `event.persisted` |
-| `pagehide` | página deja de mostrarse | compatible con bfcache |
-| `visibilitychange` | cambia visibilidad de la pestaña | pausar media o telemetría |
-| `beforeunload` | intento de abandonar | usar solo con cambios realmente sin guardar |
+| Evento             | Momento                                       | Nota                                          |
+| ------------------ | --------------------------------------------- | --------------------------------------------- |
+| `DOMContentLoaded` | HTML parseado y scripts diferidos ejecutados  | no espera todas las imágenes                  |
+| `load`             | documento y recursos dependientes cargados    | suele ser demasiado tarde para iniciar la app |
+| `pageshow`         | página visible, incluso restaurada de bfcache | revisa `event.persisted`                      |
+| `pagehide`         | página deja de mostrarse                      | compatible con bfcache                        |
+| `visibilitychange` | cambia visibilidad de la pestaña              | pausar media o telemetría                     |
+| `beforeunload`     | intento de abandonar                          | usar solo con cambios realmente sin guardar   |
 
 Evita listeners permanentes de `beforeunload`: molestan al usuario y pueden afectar optimizaciones de navegación.
 
@@ -340,13 +340,21 @@ function mountSearchDialog(dialog) {
   const controller = new AbortController()
   const { signal } = controller
 
-  dialog.addEventListener('click', event => {
-    if (event.target === dialog) dialog.close()
-  }, { signal })
+  dialog.addEventListener(
+    "click",
+    (event) => {
+      if (event.target === dialog) dialog.close()
+    },
+    { signal }
+  )
 
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && dialog.open) dialog.close()
-  }, { signal })
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key === "Escape" && dialog.open) dialog.close()
+    },
+    { signal }
+  )
 
   return () => controller.abort()
 }

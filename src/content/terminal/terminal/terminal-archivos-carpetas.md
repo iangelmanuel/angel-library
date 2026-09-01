@@ -5,7 +5,8 @@ type: guides
 order: 3
 tags: [terminal, archivos, carpetas, cli]
 scope: mkdir / cp / mv / rm
-related: [terminal/terminal/terminal-navegacion, terminal/terminal/terminal-permisos]
+related:
+  [terminal/terminal/terminal-navegacion, terminal/terminal/terminal-permisos]
 updatedAt: 2026-08-17
 ---
 
@@ -13,10 +14,10 @@ Los comandos para crear, mover y borrar cosas son de los que más se escriben en
 
 ## Crear carpetas
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Crear una carpeta | `New-Item -ItemType Directory nombre` (alias `mkdir`) | `mkdir nombre` |
-| Crear carpetas anidadas directamente | `New-Item -ItemType Directory -Path a\b\c -Force` | `mkdir -p a/b/c` |
+| Acción                               | Windows (PowerShell)                                  | macOS / Linux    |
+| ------------------------------------ | ----------------------------------------------------- | ---------------- |
+| Crear una carpeta                    | `New-Item -ItemType Directory nombre` (alias `mkdir`) | `mkdir nombre`   |
+| Crear carpetas anidadas directamente | `New-Item -ItemType Directory -Path a\b\c -Force`     | `mkdir -p a/b/c` |
 
 ```powershell title="PowerShell"
 mkdir proyectos
@@ -42,10 +43,10 @@ touch notas.md
 
 ## Copiar
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Copiar un archivo | `Copy-Item origen.txt destino.txt` (alias `copy`) | `cp origen.txt destino.txt` |
-| Copiar una carpeta completa | `Copy-Item carpeta destino -Recurse` | `cp -r carpeta destino` |
+| Acción                      | Windows (PowerShell)                              | macOS / Linux               |
+| --------------------------- | ------------------------------------------------- | --------------------------- |
+| Copiar un archivo           | `Copy-Item origen.txt destino.txt` (alias `copy`) | `cp origen.txt destino.txt` |
+| Copiar una carpeta completa | `Copy-Item carpeta destino -Recurse`              | `cp -r carpeta destino`     |
 
 ```powershell title="PowerShell"
 Copy-Item config.json config.backup.json
@@ -61,8 +62,8 @@ cp -r src dist
 
 En ambos mundos, "mover" y "renombrar" son la misma operación — mover un archivo a un nombre distinto en el mismo directorio equivale a renombrarlo.
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
+| Acción            | Windows (PowerShell)                             | macOS / Linux       |
+| ----------------- | ------------------------------------------------ | ------------------- |
 | Mover / renombrar | `Move-Item origen destino` (alias `move`, `ren`) | `mv origen destino` |
 
 ```powershell title="PowerShell"
@@ -77,11 +78,11 @@ mv archivo.txt ../otra-carpeta/
 
 ## Eliminar
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Eliminar un archivo | `Remove-Item archivo.txt` (alias `del`, `rm`) | `rm archivo.txt` |
-| Eliminar una carpeta con contenido | `Remove-Item carpeta -Recurse` | `rm -r carpeta` |
-| Eliminar sin confirmación (forzado) | `Remove-Item carpeta -Recurse -Force` | `rm -rf carpeta` |
+| Acción                              | Windows (PowerShell)                          | macOS / Linux    |
+| ----------------------------------- | --------------------------------------------- | ---------------- |
+| Eliminar un archivo                 | `Remove-Item archivo.txt` (alias `del`, `rm`) | `rm archivo.txt` |
+| Eliminar una carpeta con contenido  | `Remove-Item carpeta -Recurse`                | `rm -r carpeta`  |
+| Eliminar sin confirmación (forzado) | `Remove-Item carpeta -Recurse -Force`         | `rm -rf carpeta` |
 
 ```powershell title="PowerShell"
 Remove-Item notas-viejas.md

@@ -14,16 +14,16 @@ El módulo `http` de Node es la base sobre la que está construido Express (y pr
 ## Un servidor mínimo
 
 ```ts title="server.ts"
-import { createServer } from 'node:http';
+import { createServer } from "node:http"
 
 const server = createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hola mundo');
-});
+  res.writeHead(200, { "Content-Type": "text/plain" })
+  res.end("Hola mundo")
+})
 
 server.listen(3000, () => {
-  console.log('Escuchando en http://localhost:3000');
-});
+  console.log("Escuchando en http://localhost:3000")
+})
 ```
 
 `createServer` recibe una función que Node llama por **cada** request entrante, con dos objetos: `req` (la request: método, URL, headers, body) y `res` (la respuesta: lo que se manda de vuelta).
@@ -32,26 +32,26 @@ server.listen(3000, () => {
 
 ```ts
 const server = createServer((req, res) => {
-  console.log(req.method);  // 'GET', 'POST', etc.
-  console.log(req.url);      // '/usuarios?activo=true' (ruta + query string, sin parsear)
-  console.log(req.headers);  // objeto con todos los headers
+  console.log(req.method) // 'GET', 'POST', etc.
+  console.log(req.url) // '/usuarios?activo=true' (ruta + query string, sin parsear)
+  console.log(req.headers) // objeto con todos los headers
 
-  res.end('ok');
-});
+  res.end("ok")
+})
 ```
 
 `req.url` llega como un string crudo: Node no separa automáticamente la ruta del query string.
 
 ```ts
-import { createServer } from 'node:http';
+import { createServer } from "node:http"
 
 const server = createServer((req, res) => {
-  const url = new URL(req.url!, `http://${req.headers.host}`);
-  console.log(url.pathname);           // '/usuarios'
-  console.log(url.searchParams.get('activo')); // 'true'
+  const url = new URL(req.url!, `http://${req.headers.host}`)
+  console.log(url.pathname) // '/usuarios'
+  console.log(url.searchParams.get("activo")) // 'true'
 
-  res.end('ok');
-});
+  res.end("ok")
+})
 ```
 
 ## Leer el body (POST/PUT)
@@ -61,20 +61,20 @@ A diferencia de `req`, el body **no** llega ya armado — `req` es en realidad u
 ```ts
 function leerBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
-    let data = '';
-    req.on('data', (chunk) => (data += chunk));
-    req.on('end', () => resolve(data));
-    req.on('error', reject);
-  });
+    let data = ""
+    req.on("data", (chunk) => (data += chunk))
+    req.on("end", () => resolve(data))
+    req.on("error", reject)
+  })
 }
 
 const server = createServer(async (req, res) => {
-  if (req.method === 'POST') {
-    const body = await leerBody(req);
-    const json = JSON.parse(body);
-    res.end(JSON.stringify({ recibido: json }));
+  if (req.method === "POST") {
+    const body = await leerBody(req)
+    const json = JSON.parse(body)
+    res.end(JSON.stringify({ recibido: json }))
   }
-});
+})
 ```
 
 Parsear el body y exponer `req.body` es una de las tareas que Express resuelve mediante middleware, en lugar de repetir esta función en cada proyecto.
@@ -82,13 +82,13 @@ Parsear el body y exponer `req.body` es una de las tareas que Express resuelve m
 ## `res`: mandar la respuesta
 
 ```ts
-res.writeHead(200, { 'Content-Type': 'application/json' });
-res.end(JSON.stringify({ ok: true }));
+res.writeHead(200, { "Content-Type": "application/json" })
+res.end(JSON.stringify({ ok: true }))
 
 // Atajo equivalente para JSON:
-res.setHeader('Content-Type', 'application/json');
-res.statusCode = 200;
-res.end(JSON.stringify({ ok: true }));
+res.setHeader("Content-Type", "application/json")
+res.statusCode = 200
+res.end(JSON.stringify({ ok: true }))
 ```
 
 `res.end()` es obligatorio — sin llamarlo, la respuesta nunca se envía y la request queda colgada hasta el timeout.
@@ -99,30 +99,30 @@ Node no tiene concepto de "rutas" — cada request pasa por la misma función, y
 
 ```ts
 const server = createServer((req, res) => {
-  const url = new URL(req.url!, `http://${req.headers.host}`);
+  const url = new URL(req.url!, `http://${req.headers.host}`)
 
-  if (req.method === 'GET' && url.pathname === '/usuarios') {
-    res.end('lista de usuarios');
-  } else if (req.method === 'POST' && url.pathname === '/usuarios') {
-    res.end('usuario creado');
+  if (req.method === "GET" && url.pathname === "/usuarios") {
+    res.end("lista de usuarios")
+  } else if (req.method === "POST" && url.pathname === "/usuarios") {
+    res.end("usuario creado")
   } else {
-    res.writeHead(404);
-    res.end('No encontrado');
+    res.writeHead(404)
+    res.end("No encontrado")
   }
-});
+})
 ```
 
 Esto deja de escalar rápidamente: treinta rutas formarían una cadena difícil de mantener. Un router de framework resuelve ese problema. Consulta [API REST mínima con Node puro](/backend/node/node-rest-api-minima) para una versión más organizada, todavía sin framework.
 
 ## Referencia de HTTP nativo
 
-| API | Qué es |
-| --- | --- |
-| `createServer((req, res) => {...})` | Crea el servidor, una función por cada request |
-| `req.method` / `req.url` | Método y ruta+query cruda (sin parsear) |
-| `new URL(req.url, base)` | Parsea `req.url` en `pathname` + `searchParams` |
-| `req.on('data'/'end')` | El body llega como stream, hay que juntarlo a mano |
-| `res.writeHead(status, headers)` / `res.end(body)` | Mandar la respuesta |
+| API                                                | Qué es                                             |
+| -------------------------------------------------- | -------------------------------------------------- |
+| `createServer((req, res) => {...})`                | Crea el servidor, una función por cada request     |
+| `req.method` / `req.url`                           | Método y ruta+query cruda (sin parsear)            |
+| `new URL(req.url, base)`                           | Parsea `req.url` en `pathname` + `searchParams`    |
+| `req.on('data'/'end')`                             | El body llega como stream, hay que juntarlo a mano |
+| `res.writeHead(status, headers)` / `res.end(body)` | Mandar la respuesta                                |
 
 ## Qué añade un framework
 

@@ -19,26 +19,28 @@ updatedAt: 2026-08-25
 ## Implementación
 
 ```ts title="hooks/useTimeout.ts"
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from "react"
 
 export function useTimeout(callback: () => void, delayMs: number | null) {
-  const callbackRef = useRef(callback);
-  const timeoutRef = useRef<number | null>(null);
-
-  useEffect(() => { callbackRef.current = callback; }, [callback]);
-
-  const cancel = useCallback(() => {
-    if (timeoutRef.current !== null) window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = null;
-  }, []);
+  const callbackRef = useRef(callback)
+  const timeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (delayMs === null) return;
-    timeoutRef.current = window.setTimeout(() => callbackRef.current(), delayMs);
-    return cancel;
-  }, [delayMs, cancel]);
+    callbackRef.current = callback
+  }, [callback])
 
-  return cancel;
+  const cancel = useCallback(() => {
+    if (timeoutRef.current !== null) window.clearTimeout(timeoutRef.current)
+    timeoutRef.current = null
+  }, [])
+
+  useEffect(() => {
+    if (delayMs === null) return
+    timeoutRef.current = window.setTimeout(() => callbackRef.current(), delayMs)
+    return cancel
+  }, [delayMs, cancel])
+
+  return cancel
 }
 ```
 
@@ -55,12 +57,12 @@ return <button onClick={cancel}>Mantener visible</button>;
 
 ## Semántica de la API
 
-| Entrada | Significado |
-| --- | --- |
-| `callback` | función más reciente que se ejecutará |
-| número en `delayMs` | milisegundos mínimos antes de ejecutar |
-| `null` | no programar el temporizador |
-| retorno `cancel` | cancelar manualmente la ejecución pendiente |
+| Entrada             | Significado                                 |
+| ------------------- | ------------------------------------------- |
+| `callback`          | función más reciente que se ejecutará       |
+| número en `delayMs` | milisegundos mínimos antes de ejecutar      |
+| `null`              | no programar el temporizador                |
+| retorno `cancel`    | cancelar manualmente la ejecución pendiente |
 
 El tiempo es mínimo, no exacto. El navegador puede retrasar timers por trabajo en el hilo principal, pestañas en segundo plano o ahorro de energía.
 

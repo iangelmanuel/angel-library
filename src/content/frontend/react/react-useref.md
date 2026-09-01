@@ -15,13 +15,13 @@ updatedAt: 2026-08-25
 Pasarle el ref a la prop `ref` de un elemento hace que React ponga el nodo real en `.current` después de montarlo. Útil para enfocar un input, medir un tamaño o integrar una librería que necesita el DOM directo (un canvas, un mapa).
 
 ```tsx
-import { useRef } from 'react';
+import { useRef } from "react"
 
 function BuscadorConFoco() {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null)
 
   function enfocar() {
-    inputRef.current?.focus();
+    inputRef.current?.focus()
   }
 
   return (
@@ -29,7 +29,7 @@ function BuscadorConFoco() {
       <input ref={inputRef} />
       <button onClick={enfocar}>Buscar</button>
     </>
-  );
+  )
 }
 ```
 
@@ -39,18 +39,18 @@ A diferencia de `setState`, escribir en `ref.current` **no** vuelve a renderizar
 
 ```tsx
 function Cronometro() {
-  const [segundos, setSegundos] = useState(0);
-  const intervaloRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [segundos, setSegundos] = useState(0)
+  const intervaloRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   function iniciar() {
-    if (intervaloRef.current) return; // ya está corriendo
-    intervaloRef.current = setInterval(() => setSegundos((s) => s + 1), 1000);
+    if (intervaloRef.current) return // ya está corriendo
+    intervaloRef.current = setInterval(() => setSegundos((s) => s + 1), 1000)
   }
 
   function detener() {
     if (intervaloRef.current) {
-      clearInterval(intervaloRef.current);
-      intervaloRef.current = null;
+      clearInterval(intervaloRef.current)
+      intervaloRef.current = null
     }
   }
 
@@ -60,20 +60,20 @@ function Cronometro() {
       <button onClick={iniciar}>Iniciar</button>
       <button onClick={detener}>Detener</button>
     </>
-  );
+  )
 }
 ```
 
 ## API de refs en una mirada
 
-| Uso | Ejemplo |
-| --- | --- |
-| Referenciar un nodo del DOM | `<input ref={inputRef} />`, después `inputRef.current.focus()` |
+| Uso                                    | Ejemplo                                                        |
+| -------------------------------------- | -------------------------------------------------------------- |
+| Referenciar un nodo del DOM            | `<input ref={inputRef} />`, después `inputRef.current.focus()` |
 | Guardar un valor mutable sin re-render | Id de un timer, un flag "ya corrió", el valor anterior de algo |
-| `useRef(valorInicial)` | Devuelve `{ current: valorInicial }`, estable entre renders |
+| `useRef(valorInicial)`                 | Devuelve `{ current: valorInicial }`, estable entre renders    |
 
 ## DOM, mutabilidad y renderizado
 
-- Leer o escribir `ref.current` durante el render (no en un handler o efecto) rompe el modelo de React — los refs son para código que corre *después* del render, en respuesta a un evento o efecto.
+- Leer o escribir `ref.current` durante el render (no en un handler o efecto) rompe el modelo de React — los refs son para código que corre _después_ del render, en respuesta a un evento o efecto.
 - Cambiar `ref.current` no dispara re-render — si el componente necesita mostrar ese valor en pantalla, es `useState`, no `useRef`.
 - El ref del DOM es `null` en el primer render (antes de montar) — por eso siempre hay que chequear `inputRef.current?.algo`, nunca asumir que existe.

@@ -17,12 +17,12 @@ npm install morgan
 ```
 
 ```ts title="app.ts"
-import express from 'express';
-import morgan from 'morgan';
+import express from "express"
+import morgan from "morgan"
 
-const app = express();
+const app = express()
 
-app.use(morgan('dev')); // formato compacto y coloreado, pensado para desarrollo
+app.use(morgan("dev")) // formato compacto y coloreado, pensado para desarrollo
 ```
 
 ```text
@@ -34,28 +34,29 @@ GET /usuarios/xyz 404 3.210 ms - 28
 ## Formatos predefinidos
 
 ```ts
-app.use(morgan('tiny'));    // el más compacto
-app.use(morgan('dev'));     // compacto + colores, para desarrollo
-app.use(morgan('combined')); // formato estilo Apache, más completo, para producción
+app.use(morgan("tiny")) // el más compacto
+app.use(morgan("dev")) // compacto + colores, para desarrollo
+app.use(morgan("combined")) // formato estilo Apache, más completo, para producción
 ```
 
 ## Formato custom
 
 ```ts
-app.use(
-  morgan(':method :url :status :response-time ms - :res[content-length]'),
-);
+app.use(morgan(":method :url :status :response-time ms - :res[content-length]"))
 ```
 
 ## Loguear a un archivo en vez de la consola
 
 ```ts
-import { createWriteStream } from 'node:fs';
-import path from 'node:path';
+import { createWriteStream } from "node:fs"
+import path from "node:path"
 
-const accessLogStream = createWriteStream(path.join(process.cwd(), 'access.log'), { flags: 'a' });
+const accessLogStream = createWriteStream(
+  path.join(process.cwd(), "access.log"),
+  { flags: "a" }
+)
 
-app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan("combined", { stream: accessLogStream }))
 ```
 
 `{ flags: 'a' }` (append) es importante — sin eso, el stream sobrescribiría el archivo en cada reinicio del servidor en vez de agregar al final.
@@ -69,13 +70,19 @@ npm install pino pino-http
 ```
 
 ```ts
-import pinoHttp from 'pino-http';
+import pinoHttp from "pino-http"
 
-app.use(pinoHttp());
+app.use(pinoHttp())
 ```
 
 ```json
-{"level":30,"time":1723800000,"req":{"method":"GET","url":"/usuarios"},"res":{"statusCode":200},"responseTime":12}
+{
+  "level": 30,
+  "time": 1723800000,
+  "req": { "method": "GET", "url": "/usuarios" },
+  "res": { "statusCode": 200 },
+  "responseTime": 12
+}
 ```
 
 `pino` es uno de los loggers más rápidos del ecosistema Node (diseñado para agregar el mínimo overhead posible) y emite JSON por defecto — el formato que la mayoría de las plataformas de observabilidad esperan.
@@ -85,22 +92,24 @@ app.use(pinoHttp());
 `morgan`/`pino-http` loguean automáticamente cada request — pero eventos de negocio (un pago procesado, un usuario eliminado) necesitan su propio log explícito, en el lugar donde pasan:
 
 ```ts
-import { logger } from './lib/logger'; // instancia de pino, configurada una vez
+import { logger } from "./lib/logger"
+
+// instancia de pino, configurada una vez
 
 async function eliminarUsuario(id: string) {
-  await prisma.user.delete({ where: { id } });
-  logger.info({ userId: id }, 'Usuario eliminado');
+  await prisma.user.delete({ where: { id } })
+  logger.info({ userId: id }, "Usuario eliminado")
 }
 ```
 
 ## Herramientas por entorno
 
-| Herramienta | Para qué |
-| --- | --- |
-| `morgan('dev')` | Log de cada request, formato legible, desarrollo |
-| `morgan('combined')` | Formato más completo, estilo Apache, producción |
-| `pino` + `pino-http` | JSON estructurado, alto rendimiento, para observabilidad real |
-| Logs propios en la lógica de negocio | Eventos que importan más allá de "llegó una request" |
+| Herramienta                          | Para qué                                                      |
+| ------------------------------------ | ------------------------------------------------------------- |
+| `morgan('dev')`                      | Log de cada request, formato legible, desarrollo              |
+| `morgan('combined')`                 | Formato más completo, estilo Apache, producción               |
+| `pino` + `pino-http`                 | JSON estructurado, alto rendimiento, para observabilidad real |
+| Logs propios en la lógica de negocio | Eventos que importan más allá de "llegó una request"          |
 
 ## Datos que no deben registrarse
 

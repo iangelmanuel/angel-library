@@ -15,16 +15,16 @@ Un tipo no es solo almacenamiento: expresa qué valores tienen sentido y qué op
 
 ## Referencia rápida
 
-| Necesidad | Elección habitual | Evita |
-| --- | --- | --- |
-| contador o cantidad | `integer` o `bigint` | texto numérico |
-| importe exacto | entero en unidad mínima o `numeric(p, s)` | `float` |
-| instante universal | `timestamptz` | fecha sin zona guardada como texto |
-| fecha sin hora | `date` | medianoche artificial |
-| valor sí/no obligatorio | `boolean NOT NULL` | `0`, `1`, `sí`, `no` mezclados |
-| estado con conjunto pequeño | `CHECK`, tabla catálogo o enum | texto sin restricción |
-| estructura variable secundaria | `jsonb` | ocultar entidades centrales en JSON |
-| identificador | `bigint identity` o `uuid` | dato mutable como PK |
+| Necesidad                      | Elección habitual                         | Evita                               |
+| ------------------------------ | ----------------------------------------- | ----------------------------------- |
+| contador o cantidad            | `integer` o `bigint`                      | texto numérico                      |
+| importe exacto                 | entero en unidad mínima o `numeric(p, s)` | `float`                             |
+| instante universal             | `timestamptz`                             | fecha sin zona guardada como texto  |
+| fecha sin hora                 | `date`                                    | medianoche artificial               |
+| valor sí/no obligatorio        | `boolean NOT NULL`                        | `0`, `1`, `sí`, `no` mezclados      |
+| estado con conjunto pequeño    | `CHECK`, tabla catálogo o enum            | texto sin restricción               |
+| estructura variable secundaria | `jsonb`                                   | ocultar entidades centrales en JSON |
+| identificador                  | `bigint identity` o `uuid`                | dato mutable como PK                |
 
 La elección exacta cambia según el gestor. Revisa rango, precisión, zona horaria, ordenación y compatibilidad del driver antes de publicar un contrato.
 
@@ -65,12 +65,12 @@ Guarda instantes en `timestamptz` y convierte para presentación. Conserva la zo
 
 Una expresión SQL puede resultar `TRUE`, `FALSE` o `UNKNOWN`. `WHERE` conserva únicamente las filas cuyo resultado es `TRUE`.
 
-| Expresión | Resultado conceptual |
-| --- | --- |
-| `10 > 5` | `TRUE` |
-| `10 < 5` | `FALSE` |
-| `10 = NULL` | `UNKNOWN` |
-| `NULL IS NULL` | `TRUE` |
+| Expresión      | Resultado conceptual |
+| -------------- | -------------------- |
+| `10 > 5`       | `TRUE`               |
+| `10 < 5`       | `FALSE`              |
+| `10 = NULL`    | `UNKNOWN`            |
+| `NULL IS NULL` | `TRUE`               |
 
 ```sql
 SELECT id, COALESCE(nickname, full_name, 'Sin nombre') AS display_name
@@ -104,11 +104,11 @@ CREATE TABLE memberships (
 
 Nombrar constraints mejora los errores y las migraciones. Una restricción protege cualquier vía de escritura: API, job, consola u otro servicio.
 
-| Capa | Responsabilidad |
-| --- | --- |
-| Interfaz | respuesta inmediata y mensajes comprensibles |
-| API o dominio | permisos, flujo y reglas entre casos de uso |
-| Base de datos | integridad estructural y concurrencia |
+| Capa          | Responsabilidad                              |
+| ------------- | -------------------------------------------- |
+| Interfaz      | respuesta inmediata y mensajes comprensibles |
+| API o dominio | permisos, flujo y reglas entre casos de uso  |
+| Base de datos | integridad estructural y concurrencia        |
 
 No son validaciones duplicadas: cada capa cubre un riesgo distinto.
 

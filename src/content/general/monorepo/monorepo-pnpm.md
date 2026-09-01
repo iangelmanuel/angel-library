@@ -114,12 +114,12 @@ pnpm --filter web... build
 pnpm -r test
 ```
 
-| Sintaxis | Selecciona |
-| --- | --- |
-| `--filter web` | Solo el paquete `web` |
-| `--filter web...` | `web` y todas sus dependencias (útil para build en orden) |
-| `--filter ...web` | `web` y todo lo que depende de `web` |
-| `-r` / `--recursive` | Todos los paquetes del workspace |
+| Sintaxis             | Selecciona                                                |
+| -------------------- | --------------------------------------------------------- |
+| `--filter web`       | Solo el paquete `web`                                     |
+| `--filter web...`    | `web` y todas sus dependencias (útil para build en orden) |
+| `--filter ...web`    | `web` y todo lo que depende de `web`                      |
+| `-r` / `--recursive` | Todos los paquetes del workspace                          |
 
 Esto resuelve el problema real de un monorepo sin necesitar Turborepo ni Nx para lo básico: `pnpm --filter web... build` construye `packages/ui` antes que `apps/web` automáticamente, porque pnpm conoce el grafo de dependencias declarado en cada `package.json`.
 

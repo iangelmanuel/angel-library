@@ -5,7 +5,11 @@ type: guides
 order: 4
 tags: [docker, compose, redes, multi-servicio]
 scope: Compose multi-servicio
-related: [devops/docker-compose/docker-compose-basico, devops/docker-redes-volumenes/docker-redes]
+related:
+  [
+    devops/docker-compose/docker-compose-basico,
+    devops/docker-redes-volumenes/docker-redes
+  ]
 updatedAt: 2026-08-17
 ---
 

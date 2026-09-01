@@ -18,12 +18,12 @@ Una sesión guarda los datos en servidor y envía al navegador solo un identific
 
 ## Cuándo usarla
 
-| Necesidad | Opción |
-| --- | --- |
-| preferencia pequeña y no sensible | cookie directa |
-| estado privado revocable | sesión server-side |
+| Necesidad                               | Opción                              |
+| --------------------------------------- | ----------------------------------- |
+| preferencia pequeña y no sensible       | cookie directa                      |
+| estado privado revocable                | sesión server-side                  |
 | dato que debe estar siempre actualizado | base de datos, no copiarlo a sesión |
-| estado temporal de una sola navegación | flash message en sesión |
+| estado temporal de una sola navegación  | flash message en sesión             |
 
 Una sesión no debe convertirse en una segunda base de datos. Guarda identificadores y estado pequeño; consulta perfiles, permisos, precios o inventario desde su fuente cuando la actualidad sea importante.
 
@@ -31,27 +31,29 @@ Una sesión no debe convertirse en una segunda base de datos. Guarda identificad
 
 ```astro
 ---
-export const prerender = false;
-const cart = (await Astro.session?.get('cart')) ?? [];
-await Astro.session?.set('lastVisit', new Date());
+export const prerender = false
+const cart = (await Astro.session?.get("cart")) ?? []
+await Astro.session?.set("lastVisit", new Date())
 ---
+
 <a href="/cart">Carrito: {cart.length}</a>
 ```
 
 En endpoints, middleware y Actions se usa `context.session`. La sesión es `undefined` si no hay driver configurado o si la ruta está prerenderizada.
 
 ```ts title="src/pages/api/cart.ts"
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ request, session }) => {
-  if (!session) return Response.json({ error: 'Sesión no disponible' }, { status: 500 });
+  if (!session)
+    return Response.json({ error: "Sesión no disponible" }, { status: 500 })
 
-  const { productId } = await request.json();
-  const cart = (await session.get('cart')) ?? [];
-  await session.set('cart', [...cart, productId]);
+  const { productId } = await request.json()
+  const cart = (await session.get("cart")) ?? []
+  await session.set("cart", [...cart, productId])
 
-  return Response.json({ count: cart.length + 1 }, { status: 201 });
-};
+  return Response.json({ count: cart.length + 1 }, { status: 201 })
+}
 ```
 
 La ruta debe ejecutarse on-demand. Una página prerenderizada no tiene una request de usuario durante el build y, por tanto, no puede tener una sesión individual.
@@ -61,9 +63,9 @@ La ruta debe ejecutarse on-demand. Una página prerenderizada no tiene una reque
 ```ts title="src/env.d.ts"
 declare namespace App {
   interface SessionData {
-    user: { id: string; name: string };
-    cart: string[];
-    flash: string;
+    user: { id: string; name: string }
+    cart: string[]
+    flash: string
   }
 }
 ```
@@ -78,8 +80,8 @@ declare namespace App {
 `regenerate()` es importante después de cambiar el nivel de confianza, por ejemplo tras iniciar sesión. Cambiar el identificador reduce **session fixation**, un ataque donde una persona intenta hacer que la víctima use un id que el atacante ya conoce.
 
 ```ts
-await context.session.regenerate();
-await context.session.set('user', { id: user.id, name: user.name });
+await context.session.regenerate()
+await context.session.set("user", { id: user.id, name: user.name })
 ```
 
 Al cerrar sesión, destruye el estado en servidor y no solo la cookie visible en el cliente.
@@ -89,20 +91,20 @@ Al cerrar sesión, destruye el estado en servidor y no solo la cookie visible en
 Node, Cloudflare y Netlify pueden aportar defaults; otros adapters requieren configurar un driver. En múltiples instancias necesitas almacenamiento compartido como Redis, no memoria local del proceso.
 
 ```js title="astro.config.mjs"
-import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import { defineConfig } from "astro/config"
+import node from "@astrojs/node"
 
 export default defineConfig({
-  output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  output: "server",
+  adapter: node({ mode: "standalone" }),
   session: {
-    driver: 'redis',
-    options: { url: process.env.REDIS_URL },
-  },
-});
+    driver: "redis",
+    options: { url: process.env.REDIS_URL }
+  }
+})
 ```
 
-La configuración exacta del driver depende del adapter y del paquete instalado. Comprueba persistencia, TTL (*Time To Live* o tiempo de vida), cifrado en tránsito y comportamiento cuando el store no está disponible.
+La configuración exacta del driver depende del adapter y del paquete instalado. Comprueba persistencia, TTL (_Time To Live_ o tiempo de vida), cifrado en tránsito y comportamiento cuando el store no está disponible.
 
 ## Seguridad
 
@@ -110,7 +112,7 @@ La sesión facilita persistencia, pero no reemplaza la autorización. Comprueba 
 
 - Regenera después de login y destruye al cerrar sesión.
 - Usa cookies `HttpOnly`, `Secure` en producción y `SameSite` acorde al flujo.
-- Protege mutaciones basadas en cookies contra CSRF (*Cross-Site Request Forgery*).
+- Protege mutaciones basadas en cookies contra CSRF (_Cross-Site Request Forgery_).
 - Evita guardar tokens de terceros si basta una referencia cifrada en base de datos.
 - Define comportamiento ante robo, revocación, inactividad y cierre en todos los dispositivos.
 

@@ -45,10 +45,10 @@ Si el repo ya usa otro nombre de convención, Codex puede buscar esos en vez de 
 
 ## Resumen
 
-| Mecanismo | Alcance |
-| --- | --- |
-| `AGENTS.md` en la raíz | Todo el repo |
-| `AGENTS.md` anidado | Esa carpeta y subcarpetas |
+| Mecanismo                               | Alcance                                     |
+| --------------------------------------- | ------------------------------------------- |
+| `AGENTS.md` en la raíz                  | Todo el repo                                |
+| `AGENTS.md` anidado                     | Esa carpeta y subcarpetas                   |
 | `model_instructions_file` (config.toml) | Instrucciones globales, todos los proyectos |
 
 ## Consideraciones

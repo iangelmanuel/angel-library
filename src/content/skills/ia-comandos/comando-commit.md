@@ -19,6 +19,7 @@ allowed-tools: Bash(git diff:*), Bash(git status:*), Bash(git commit:*)
 Analyze the staged diff with `git diff --staged` and create a commit following Conventional Commits (`feat:`, `fix:`, `refactor:`, `docs:`, etc.).
 
 Rules:
+
 - One commit, one purpose — if the diff mixes unrelated changes, flag it before committing
 - Short first line (≤72 characters), optional body for the "why"
 - Don't invent context that isn't in the diff
@@ -30,11 +31,11 @@ Mismo archivo funciona como comando (`.claude/commands/`) o skill (`.claude/skil
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
-| Claude Code | `.claude/commands/commit.md` |
-| OpenCode | `.opencode/commands/commit.md` (+ `template:`) |
-| Cursor | `.cursor/commands/commit.md` |
+| Dónde       | Archivo                                        |
+| ----------- | ---------------------------------------------- |
+| Claude Code | `.claude/commands/commit.md`                   |
+| OpenCode    | `.opencode/commands/commit.md` (+ `template:`) |
+| Cursor      | `.cursor/commands/commit.md`                   |
 
 ## Consideraciones
 

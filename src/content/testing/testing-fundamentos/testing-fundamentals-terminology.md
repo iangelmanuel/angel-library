@@ -15,50 +15,50 @@ Una **prueba automatizada** ejecuta un comportamiento y comprueba un resultado e
 
 La ruta recomendada es: comportamiento y aserción → prueba unitaria → integración → dobles → componentes → E2E → contratos → estrategia en CI. Escribe primero casos pequeños y deterministas; añade niveles más costosos donde exista una frontera real.
 
-| Necesito recordar | Documento |
-| --- | --- |
-| qué nivel usar | [Estrategia de testing](/testing/testing-fundamentos/testing-strategy) |
-| sintaxis, async, mocks y cobertura | [Vitest práctico](/testing/testing-unitario/testing-vitest-practico) |
-| mock, stub, fake o contrato | [Dobles y contratos](/testing/testing-integracion/testing-doubles-contracts) |
-| API + base de datos real | [Integración backend](/testing/testing-integracion/testing-backend-database) |
-| UI React por comportamiento | [React Testing Library](/testing/react/testing-react-testing-library) |
-| navegador confiable en CI | [E2E](/testing/testing-e2e/testing-e2e-reliable-ci) |
-| Playwright, locators y fixtures | [Playwright práctico](/testing/testing-e2e/testing-playwright-practico) |
-| regresión visual y accesibilidad | [Pruebas visuales y accesibles](/testing/testing-e2e/testing-visual-accessibility) |
+| Necesito recordar                  | Documento                                                                                    |
+| ---------------------------------- | -------------------------------------------------------------------------------------------- |
+| qué nivel usar                     | [Estrategia de testing](/testing/testing-fundamentos/testing-strategy)                       |
+| sintaxis, async, mocks y cobertura | [Vitest práctico](/testing/testing-unitario/testing-vitest-practico)                         |
+| mock, stub, fake o contrato        | [Dobles y contratos](/testing/testing-integracion/testing-doubles-contracts)                 |
+| API + base de datos real           | [Integración backend](/testing/testing-integracion/testing-backend-database)                 |
+| UI React por comportamiento        | [React Testing Library](/testing/react/testing-react-testing-library)                        |
+| navegador confiable en CI          | [E2E](/testing/testing-e2e/testing-e2e-reliable-ci)                                          |
+| Playwright, locators y fixtures    | [Playwright práctico](/testing/testing-e2e/testing-playwright-practico)                      |
+| regresión visual y accesibilidad   | [Pruebas visuales y accesibles](/testing/testing-e2e/testing-visual-accessibility)           |
 | plan, smoke y calidad no funcional | [Plan de pruebas y calidad](/testing/testing-fundamentos/testing-quality-plan-nonfunctional) |
-| datos, builders y snapshots | [Datos de prueba y snapshots](/testing/testing-unitario/testing-fixtures-snapshots) |
-| evaluar una aplicación con IA | [Evals para aplicaciones con IA](/testing/testing-ai/testing-ai-evals) |
-| particularidades del framework | [Astro](/testing/astro/astro-testing) o [Next.js](/testing/nextjs/nextjs-testing) |
+| datos, builders y snapshots        | [Datos de prueba y snapshots](/testing/testing-unitario/testing-fixtures-snapshots)          |
+| evaluar una aplicación con IA      | [Evals para aplicaciones con IA](/testing/testing-ai/testing-ai-evals)                       |
+| particularidades del framework     | [Astro](/testing/astro/astro-testing) o [Next.js](/testing/nextjs/nextjs-testing)            |
 
 Quien aprende debe poder explicar por qué falla la prueba. Quien recuerda necesita una plantilla rápida, pero debe comprobar que la aserción observa conducta pública y no una implementación accidental.
 
 ## Vocabulario básico
 
-| Término | Significado |
-| --- | --- |
-| Caso de prueba | Un escenario con preparación, acción y resultado esperado |
-| Suite | Grupo de casos relacionados |
-| Runner | Programa que descubre y ejecuta pruebas |
-| Aserción | Comprobación que puede aprobar o fallar |
-| SUT | *System Under Test*, sistema bajo prueba |
-| Fixture | Datos o estado preparados para una prueba |
-| Oráculo | Fuente que determina cuál es el resultado correcto |
-| Regresión | Comportamiento que funcionaba y se rompe tras un cambio |
-| Oráculo | Regla o fuente que decide cuál resultado es correcto |
-| Flaky test | Prueba que cambia de resultado sin cambiar el comportamiento relevante |
-| Test harness | Infraestructura que prepara, ejecuta y observa las pruebas |
-| Testability | Facilidad con la que un sistema puede controlarse y observarse al probar |
+| Término        | Significado                                                              |
+| -------------- | ------------------------------------------------------------------------ |
+| Caso de prueba | Un escenario con preparación, acción y resultado esperado                |
+| Suite          | Grupo de casos relacionados                                              |
+| Runner         | Programa que descubre y ejecuta pruebas                                  |
+| Aserción       | Comprobación que puede aprobar o fallar                                  |
+| SUT            | _System Under Test_, sistema bajo prueba                                 |
+| Fixture        | Datos o estado preparados para una prueba                                |
+| Oráculo        | Fuente que determina cuál es el resultado correcto                       |
+| Regresión      | Comportamiento que funcionaba y se rompe tras un cambio                  |
+| Oráculo        | Regla o fuente que decide cuál resultado es correcto                     |
+| Flaky test     | Prueba que cambia de resultado sin cambiar el comportamiento relevante   |
+| Test harness   | Infraestructura que prepara, ejecuta y observa las pruebas               |
+| Testability    | Facilidad con la que un sistema puede controlarse y observarse al probar |
 
 Un nombre de prueba debe describir el comportamiento y la condición, no repetir el nombre de la función.
 
 ```ts
-it('rechaza el descuento cuando la fecha de la promoción venció', () => {
-  const promotion = { percent: 20, expiresAt: new Date('2026-01-01') };
+it("rechaza el descuento cuando la fecha de la promoción venció", () => {
+  const promotion = { percent: 20, expiresAt: new Date("2026-01-01") }
 
-  const result = applyPromotion(10_000, promotion, new Date('2026-02-01'));
+  const result = applyPromotion(10_000, promotion, new Date("2026-02-01"))
 
-  expect(result).toEqual({ ok: false, reason: 'expired' });
-});
+  expect(result).toEqual({ ok: false, reason: "expired" })
+})
 ```
 
 La prueba fija el reloj mediante un argumento, ejecuta una conducta y observa una salida pública. Evita depender de la fecha real del equipo.
@@ -71,17 +71,17 @@ La calidad no es sinónimo de “los tests están verdes”. Incluye corrección
 
 ## AAA y Given–When–Then
 
-**AAA** significa *Arrange, Act, Assert*: preparar, actuar y comprobar. **Given–When–Then** expresa lo mismo como dado, cuando y entonces. Ambos patrones ayudan a separar intención de detalles.
+**AAA** significa _Arrange, Act, Assert_: preparar, actuar y comprobar. **Given–When–Then** expresa lo mismo como dado, cuando y entonces. Ambos patrones ayudan a separar intención de detalles.
 
 ```ts
 // Arrange: prepara entradas y dependencias.
-const cart = [{ priceCents: 2_000, quantity: 2 }];
+const cart = [{ priceCents: 2_000, quantity: 2 }]
 
 // Act: ejecuta una única acción principal.
-const total = calculateTotal(cart);
+const total = calculateTotal(cart)
 
 // Assert: comprueba el resultado observable.
-expect(total).toBe(4_000);
+expect(total).toBe(4_000)
 ```
 
 No es obligatorio añadir comentarios AAA en cada prueba; la estructura debe ser legible incluso sin ellos.
@@ -90,15 +90,15 @@ No es obligatorio añadir comentarios AAA en cada prueba; la estructura debe ser
 
 Los niveles describen alcance, no herramientas:
 
-| Nivel | Qué integra | Ejemplo |
-| --- | --- | --- |
-| Unitario | Una unidad pequeña con dependencias controladas | Cálculo de impuestos |
-| Integración | Varias piezas o una frontera real | Repositorio contra una base de prueba |
-| Componente | Renderizado y conducta de un componente | Formulario muestra errores y permite corregirlos |
-| Contrato | Acuerdo entre productor y consumidor | Forma y estados de una API |
-| E2E | Flujo completo desde una interfaz externa | Usuario compra y recibe confirmación |
+| Nivel       | Qué integra                                     | Ejemplo                                          |
+| ----------- | ----------------------------------------------- | ------------------------------------------------ |
+| Unitario    | Una unidad pequeña con dependencias controladas | Cálculo de impuestos                             |
+| Integración | Varias piezas o una frontera real               | Repositorio contra una base de prueba            |
+| Componente  | Renderizado y conducta de un componente         | Formulario muestra errores y permite corregirlos |
+| Contrato    | Acuerdo entre productor y consumidor            | Forma y estados de una API                       |
+| E2E         | Flujo completo desde una interfaz externa       | Usuario compra y recibe confirmación             |
 
-**E2E** significa *End to End* o extremo a extremo. Estas pruebas dan alta confianza en rutas críticas, pero son más lentas y tienen más puntos de fallo. No conviene usarlas para cada combinación de una función matemática.
+**E2E** significa _End to End_ o extremo a extremo. Estas pruebas dan alta confianza en rutas críticas, pero son más lentas y tienen más puntos de fallo. No conviene usarlas para cada combinación de una función matemática.
 
 La **pirámide de pruebas** propone muchas comprobaciones rápidas en la base y menos pruebas amplias en la parte superior. No fija porcentajes universales: la distribución depende de los riesgos y de la arquitectura.
 
@@ -106,16 +106,16 @@ También existe el **trofeo de testing**, que resalta pruebas de integración co
 
 ## Clasificaciones que no son niveles
 
-| Tipo | Qué significa |
-| --- | --- |
-| Smoke | recorrido pequeño que confirma que el sistema básico está vivo |
-| Sanity | comprobación enfocada después de un cambio concreto |
-| Regresión | conjunto que detecta comportamientos rotos anteriormente válidos |
-| Aceptación | ejemplos que confirman una necesidad del producto o negocio |
-| Exploratoria | aprendizaje y diseño de pruebas mientras se usa el sistema |
-| Visual | comparación de apariencia o geometría |
-| Rendimiento | latencia, capacidad, estabilidad y uso de recursos |
-| Seguridad | controles, abuso y vulnerabilidades |
+| Tipo         | Qué significa                                                    |
+| ------------ | ---------------------------------------------------------------- |
+| Smoke        | recorrido pequeño que confirma que el sistema básico está vivo   |
+| Sanity       | comprobación enfocada después de un cambio concreto              |
+| Regresión    | conjunto que detecta comportamientos rotos anteriormente válidos |
+| Aceptación   | ejemplos que confirman una necesidad del producto o negocio      |
+| Exploratoria | aprendizaje y diseño de pruebas mientras se usa el sistema       |
+| Visual       | comparación de apariencia o geometría                            |
+| Rendimiento  | latencia, capacidad, estabilidad y uso de recursos               |
+| Seguridad    | controles, abuso y vulnerabilidades                              |
 
 Una prueba puede ser simultáneamente E2E, de regresión y de aceptación. Estas palabras describen propósito, no una herramienta diferente.
 
@@ -131,14 +131,14 @@ Un **doble** sustituye una dependencia durante una prueba:
 
 ```ts
 const emailGateway = {
-  sendReceipt: vi.fn().mockResolvedValue({ messageId: 'msg-1' }),
-};
+  sendReceipt: vi.fn().mockResolvedValue({ messageId: "msg-1" })
+}
 
-await completeOrder(order, emailGateway);
+await completeOrder(order, emailGateway)
 
 expect(emailGateway.sendReceipt).toHaveBeenCalledWith(
-  expect.objectContaining({ orderId: order.id }),
-);
+  expect.objectContaining({ orderId: order.id })
+)
 ```
 
 Esta prueba comprueba una interacción que forma parte del contrato del caso de uso. Espiar cada llamada interna vuelve la prueba frágil ante refactorizaciones que no cambian conducta.
@@ -164,10 +164,10 @@ Para probar necesitas **controlar** entradas y dependencias y **observar** resul
 
 ```ts
 const service = createSubscriptionService({
-  clock: () => new Date('2026-08-28T12:00:00Z'),
-  idGenerator: () => 'sub_test_1',
-  repository,
-});
+  clock: () => new Date("2026-08-28T12:00:00Z"),
+  idGenerator: () => "sub_test_1",
+  repository
+})
 ```
 
 Esto no existe “solo para el test”: hace explícitas dependencias que antes eran globales y mejora el diseño. No abras métodos privados únicamente para probarlos; observa la interfaz pública o extrae una responsabilidad con significado propio.
@@ -182,13 +182,13 @@ La cobertura sirve como señal para encontrar zonas no recorridas, no como objet
 
 ## TDD y BDD
 
-**TDD** significa *Test-Driven Development* o desarrollo guiado por pruebas. Su ciclo habitual es:
+**TDD** significa _Test-Driven Development_ o desarrollo guiado por pruebas. Su ciclo habitual es:
 
 1. rojo: escribir una prueba que falla por la razón esperada;
 2. verde: implementar lo mínimo para que pase;
 3. refactorizar: mejorar diseño manteniendo las pruebas verdes.
 
-**BDD** significa *Behavior-Driven Development* o desarrollo guiado por comportamiento. Destaca ejemplos expresados en lenguaje del dominio y colaboración entre negocio, producto y desarrollo.
+**BDD** significa _Behavior-Driven Development_ o desarrollo guiado por comportamiento. Destaca ejemplos expresados en lenguaje del dominio y colaboración entre negocio, producto y desarrollo.
 
 Ninguno garantiza buen diseño automáticamente. Son herramientas para obtener retroalimentación temprana y aclarar expectativas.
 

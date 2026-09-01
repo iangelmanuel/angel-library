@@ -15,13 +15,13 @@ La jerarquía visual indica qué mirar primero, qué elementos pertenecen juntos
 
 ## Palancas principales
 
-| Palanca | Comunica | Riesgo |
-| --- | --- | --- |
-| Tamaño y peso | Nivel de importancia | Demasiados niveles compiten |
-| Contraste | Énfasis o estado | Contraste bajo reduce legibilidad |
-| Espacio | Agrupación y separación | Escala arbitraria pierde ritmo |
-| Alineación | Relación y orden | Excepciones generan ruido |
-| Color | Marca, estado o categoría | No debe ser la única señal |
+| Palanca       | Comunica                  | Riesgo                            |
+| ------------- | ------------------------- | --------------------------------- |
+| Tamaño y peso | Nivel de importancia      | Demasiados niveles compiten       |
+| Contraste     | Énfasis o estado          | Contraste bajo reduce legibilidad |
+| Espacio       | Agrupación y separación   | Escala arbitraria pierde ritmo    |
+| Alineación    | Relación y orden          | Excepciones generan ruido         |
+| Color         | Marca, estado o categoría | No debe ser la única señal        |
 
 ## Tipografía
 
@@ -36,7 +36,9 @@ Define una escala pequeña y roles semánticos: título, encabezado, cuerpo, eti
   --measure: 68ch;
 }
 
-.prose { max-inline-size: var(--measure); }
+.prose {
+  max-inline-size: var(--measure);
+}
 ```
 
 No reduzcas texto secundario hasta volverlo ilegible. La menor importancia puede expresarse también con posición, espacio y peso.
@@ -65,4 +67,3 @@ Define tokens por intención —`surface`, `text-muted`, `danger`—, no por un 
 ## Revisión práctica
 
 Entrecierra los ojos o observa en escala de grises: ¿la acción principal sigue clara? Después prueba zoom, contenido largo, error, traducción y alto contraste. La composición debe sobrevivir a datos reales.
-

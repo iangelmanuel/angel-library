@@ -27,15 +27,15 @@ Un **threat model** o modelo de amenazas enumera activos, actores, vías de acce
 
 ## Formas comunes de ataque o fallo
 
-| Riesgo | Cómo ocurre | Defensa principal |
-| --- | --- | --- |
-| inyección SQL/NoSQL | entrada se mezcla con sintaxis | parámetros, allowlists y permisos mínimos |
-| credencial filtrada | secreto en Git, log o cliente | secret manager, rotación, red privada |
-| cuenta excesiva | aplicación usa rol administrador | separar roles y privilegios mínimos |
-| exfiltración | endpoint devuelve datos sin autorización o límite | autorización por objeto, paginación, auditoría |
-| borrado/ransomware | identidad comprometida modifica primario y réplicas | backups aislados, retención y restauración probada |
-| DoS de consultas | filtros costosos o concurrencia sin límite | timeouts, límites, rate limiting, índices y backpressure |
-| copia insegura | producción se descarga a desarrollo | anonimización y entornos con acceso controlado |
+| Riesgo              | Cómo ocurre                                         | Defensa principal                                        |
+| ------------------- | --------------------------------------------------- | -------------------------------------------------------- |
+| inyección SQL/NoSQL | entrada se mezcla con sintaxis                      | parámetros, allowlists y permisos mínimos                |
+| credencial filtrada | secreto en Git, log o cliente                       | secret manager, rotación, red privada                    |
+| cuenta excesiva     | aplicación usa rol administrador                    | separar roles y privilegios mínimos                      |
+| exfiltración        | endpoint devuelve datos sin autorización o límite   | autorización por objeto, paginación, auditoría           |
+| borrado/ransomware  | identidad comprometida modifica primario y réplicas | backups aislados, retención y restauración probada       |
+| DoS de consultas    | filtros costosos o concurrencia sin límite          | timeouts, límites, rate limiting, índices y backpressure |
+| copia insegura      | producción se descarga a desarrollo                 | anonimización y entornos con acceso controlado           |
 
 Los parámetros protegen valores, no nombres de tabla, columnas u operadores dinámicos. Esos fragmentos se eligen desde una lista permitida. En MongoDB, tampoco aceptes directamente un objeto de filtro del cliente.
 
@@ -109,14 +109,14 @@ Añade un identificador de solicitud o traza para relacionar endpoint y consulta
 
 ## Alertas útiles
 
-| Alerta | Condición orientativa | Acción inicial |
-| --- | --- | --- |
-| pool saturado | espera alta durante varios minutos | revisar consultas, carga e instancias |
-| almacenamiento | tendencia agotará capacidad antes del margen | identificar crecimiento y ampliar con plan |
-| réplica atrasada | supera tolerancia de lectura/failover | revisar red, carga y WAL |
-| backup fallido | no existe copia dentro del RPO | corregir y ejecutar/verificar copia |
-| locks prolongados | bloquean una ruta crítica | identificar bloqueador y migración/query |
-| error rate | aumenta sobre línea base | segmentar por operación y código |
+| Alerta            | Condición orientativa                        | Acción inicial                             |
+| ----------------- | -------------------------------------------- | ------------------------------------------ |
+| pool saturado     | espera alta durante varios minutos           | revisar consultas, carga e instancias      |
+| almacenamiento    | tendencia agotará capacidad antes del margen | identificar crecimiento y ampliar con plan |
+| réplica atrasada  | supera tolerancia de lectura/failover        | revisar red, carga y WAL                   |
+| backup fallido    | no existe copia dentro del RPO               | corregir y ejecutar/verificar copia        |
+| locks prolongados | bloquean una ruta crítica                    | identificar bloqueador y migración/query   |
+| error rate        | aumenta sobre línea base                     | segmentar por operación y código           |
 
 Evita alertar por un pico de segundos que se resuelve solo. Tampoco esperes al 100 % de disco: la tendencia y el tiempo hasta el límite son más accionables.
 

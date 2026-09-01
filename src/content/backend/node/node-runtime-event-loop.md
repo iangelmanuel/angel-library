@@ -30,13 +30,13 @@ código JavaScript
 ## Microtareas y timers
 
 ```js
-console.log('A');
+console.log("A")
 
-setTimeout(() => console.log('timer'), 0);
-Promise.resolve().then(() => console.log('promise'));
-queueMicrotask(() => console.log('microtask'));
+setTimeout(() => console.log("timer"), 0)
+Promise.resolve().then(() => console.log("promise"))
+queueMicrotask(() => console.log("microtask"))
 
-console.log('B');
+console.log("B")
 ```
 
 ```text
@@ -54,10 +54,10 @@ Node también tiene `process.nextTick()`. Su cola se atiende con prioridad espec
 ## Qué bloquea
 
 ```js
-app.get('/report', (_req, res) => {
-  const result = calcularDuranteDosSegundos();
-  res.json(result);
-});
+app.get("/report", (_req, res) => {
+  const result = calcularDuranteDosSegundos()
+  res.json(result)
+})
 ```
 
 Mientras `calcularDuranteDosSegundos()` ocupa JavaScript, ese proceso no puede ejecutar handlers de otras requests. También bloquean una expresión regular catastrófica, `JSON.parse()` de entradas enormes y variantes síncronas de filesystem usadas en una ruta.
@@ -70,13 +70,13 @@ Parte del filesystem, DNS, compresión y criptografía utiliza un pool de hilos 
 
 ## Elegir una estrategia
 
-| Trabajo | Estrategia habitual |
-| --- | --- |
-| HTTP, base de datos, archivos | API asíncrona y límites de concurrencia |
-| transformar imagen o calcular CPU | `worker_threads` o servicio especializado |
-| ejecutar un programa externo | `child_process` |
-| trabajo lento que no debe retener HTTP | cola + worker de aplicación |
-| archivo grande | stream con backpressure |
+| Trabajo                                | Estrategia habitual                       |
+| -------------------------------------- | ----------------------------------------- |
+| HTTP, base de datos, archivos          | API asíncrona y límites de concurrencia   |
+| transformar imagen o calcular CPU      | `worker_threads` o servicio especializado |
+| ejecutar un programa externo           | `child_process`                           |
+| trabajo lento que no debe retener HTTP | cola + worker de aplicación               |
+| archivo grande                         | stream con backpressure                   |
 
 ## Observar el loop
 

@@ -56,14 +56,14 @@ npx prisma migrate dev --name init
 **4. El client — singleton con `globalThis`:**
 
 ```ts title="lib/prisma.ts"
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client"
 
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
+const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient }
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient();
+export const prisma = globalForPrisma.prisma ?? new PrismaClient()
 
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma
 }
 ```
 
@@ -72,49 +72,60 @@ if (process.env.NODE_ENV !== 'production') {
 **5. Un Route Handler real:**
 
 ```ts title="app/api/posts/route.ts"
-import { NextResponse } from 'next/server';
-import { prisma } from '@/libs/prisma';
+import { NextResponse } from "next/server"
+import { prisma } from "@/libs/prisma"
 
 export async function GET() {
-  const posts = await prisma.post.findMany();
-  return NextResponse.json(posts);
+  const posts = await prisma.post.findMany()
+  return NextResponse.json(posts)
 }
 ```
 
 ## CRUD básico
 
 ```ts
-await prisma.post.create({ data: { title: 'Nuevo', authorId: userId } });
-await prisma.post.findUnique({ where: { id } });
-await prisma.post.findMany({ where: { authorId: userId } });
-await prisma.post.update({ where: { id }, data: { title: 'Editado' } });
-await prisma.post.delete({ where: { id } });
+await prisma.post.create({ data: { title: "Nuevo", authorId: userId } })
+await prisma.post.findUnique({ where: { id } })
+await prisma.post.findMany({ where: { authorId: userId } })
+await prisma.post.update({ where: { id }, data: { title: "Editado" } })
+await prisma.post.delete({ where: { id } })
 ```
 
 ## Métodos que se usan seguido y no son solo CRUD básico
 
 ```ts
-await prisma.post.findFirst({ where: { published: true }, orderBy: { createdAt: 'desc' } });
+await prisma.post.findFirst({
+  where: { published: true },
+  orderBy: { createdAt: "desc" }
+})
 
 await prisma.user.upsert({
-  where: { email: 'a@b.com' },
-  update: { name: 'Nombre actualizado' },
-  create: { email: 'a@b.com', name: 'Nombre nuevo' },
-});
+  where: { email: "a@b.com" },
+  update: { name: "Nombre actualizado" },
+  create: { email: "a@b.com", name: "Nombre nuevo" }
+})
 
-await prisma.post.createMany({ data: [{ title: 'Uno', authorId }, { title: 'Dos', authorId }] });
-await prisma.post.updateMany({ where: { authorId }, data: { published: true } });
-await prisma.post.deleteMany({ where: { authorId } });
+await prisma.post.createMany({
+  data: [
+    { title: "Uno", authorId },
+    { title: "Dos", authorId }
+  ]
+})
+await prisma.post.updateMany({ where: { authorId }, data: { published: true } })
+await prisma.post.deleteMany({ where: { authorId } })
 
-await prisma.post.count({ where: { published: true } });
-await prisma.post.groupBy({ by: ['authorId'], _count: { id: true } });
+await prisma.post.count({ where: { published: true } })
+await prisma.post.groupBy({ by: ["authorId"], _count: { id: true } })
 ```
 
 ## Relaciones: `include` y `select`
 
 ```ts
-const postConAutor = await prisma.post.findUnique({ where: { id }, include: { author: true } });
-const soloTitulos = await prisma.post.findMany({ select: { title: true } });
+const postConAutor = await prisma.post.findUnique({
+  where: { id },
+  include: { author: true }
+})
+const soloTitulos = await prisma.post.findMany({ select: { title: true } })
 ```
 
 ## Transacciones con `$transaction`
@@ -123,9 +134,12 @@ const soloTitulos = await prisma.post.findMany({ select: { title: true } });
 
 ```ts
 const [post, contador] = await prisma.$transaction([
-  prisma.post.create({ data: { title: 'Nuevo', authorId: userId } }),
-  prisma.user.update({ where: { id: userId }, data: { postsCount: { increment: 1 } } }),
-]);
+  prisma.post.create({ data: { title: "Nuevo", authorId: userId } }),
+  prisma.user.update({
+    where: { id: userId },
+    data: { postsCount: { increment: 1 } }
+  })
+])
 ```
 
 Si una operación del array falla, todas se revierten.
@@ -133,27 +147,34 @@ Si una operación del array falla, todas se revierten.
 ### Forma interactiva (callback), en una Server Action
 
 ```ts title="app/actions/posts.ts"
-'use server';
+"use server"
 
-import { prisma } from '@/libs/prisma';
-import { auth } from '@/libs/auth';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath } from "next/cache"
+import { auth } from "@/libs/auth"
+import { prisma } from "@/libs/prisma"
 
 export async function crearPostConLimite(formData: FormData) {
-  const session = await auth();
-  if (!session?.user) throw new Error('No autenticado');
+  const session = await auth()
+  if (!session?.user) throw new Error("No autenticado")
 
   await prisma.$transaction(async (tx) => {
-    const cantidad = await tx.post.count({ where: { authorId: session.user.id } });
+    const cantidad = await tx.post.count({
+      where: { authorId: session.user.id }
+    })
 
     if (cantidad >= 100) {
-      throw new Error('Límite de posts alcanzado'); // revierte toda la transacción
+      throw new Error("Límite de posts alcanzado") // revierte toda la transacción
     }
 
-    await tx.post.create({ data: { title: formData.get('title') as string, authorId: session.user.id } });
-  });
+    await tx.post.create({
+      data: {
+        title: formData.get("title") as string,
+        authorId: session.user.id
+      }
+    })
+  })
 
-  revalidatePath('/posts');
+  revalidatePath("/posts")
 }
 ```
 
@@ -161,13 +182,13 @@ Dentro del callback se usa `tx`, nunca `prisma` directo — usarlo por error eje
 
 ## Flujo de Prisma en Next.js
 
-| API | Qué hace |
-| --- | --- |
-| Singleton con `globalThis` | Evita múltiples instancias del client durante hot-reload |
-| `create` / `findUnique` / `findMany` / `update` / `delete` | CRUD básico |
-| `upsert`, `findFirst`, `createMany`/`updateMany`/`deleteMany` | Casos comunes fuera del CRUD básico |
-| `$transaction([...])` | Operaciones independientes, atómicas |
-| `$transaction(async (tx) => {...})` | Operaciones que dependen de un paso anterior, atómicas |
+| API                                                           | Qué hace                                                 |
+| ------------------------------------------------------------- | -------------------------------------------------------- |
+| Singleton con `globalThis`                                    | Evita múltiples instancias del client durante hot-reload |
+| `create` / `findUnique` / `findMany` / `update` / `delete`    | CRUD básico                                              |
+| `upsert`, `findFirst`, `createMany`/`updateMany`/`deleteMany` | Casos comunes fuera del CRUD básico                      |
+| `$transaction([...])`                                         | Operaciones independientes, atómicas                     |
+| `$transaction(async (tx) => {...})`                           | Operaciones que dependen de un paso anterior, atómicas   |
 
 ## Hot reload, conexiones y runtime
 

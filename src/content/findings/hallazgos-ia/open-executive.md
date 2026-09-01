@@ -16,16 +16,16 @@ updatedAt: 2026-08-30
 
 ## Los ocho especialistas
 
-| Rol | Área |
-| --- | --- |
-| Director de Estrategia | Análisis competitivo, fusiones y adquisiciones, posicionamiento, OKR |
-| Director Financiero | Modelado financiero, captación de fondos, economía unitaria, flujo de caja |
-| Director de Recursos Humanos | Contratación, compensación, desempeño, cultura |
-| Asesor Jurídico | Contratos, propiedad intelectual, derecho laboral, cumplimiento |
-| Director de Operaciones | Diseño de procesos, gestión de proveedores, escalabilidad |
-| Director de Marketing | Estrategia de comercialización, marca, comunicación, relaciones públicas |
-| Director de Producto | Hoja de ruta, priorización, estrategia de producto |
-| Director de Comunicación del Consejo | Presentaciones al consejo, relaciones con inversores, gobernanza |
+| Rol                                  | Área                                                                       |
+| ------------------------------------ | -------------------------------------------------------------------------- |
+| Director de Estrategia               | Análisis competitivo, fusiones y adquisiciones, posicionamiento, OKR       |
+| Director Financiero                  | Modelado financiero, captación de fondos, economía unitaria, flujo de caja |
+| Director de Recursos Humanos         | Contratación, compensación, desempeño, cultura                             |
+| Asesor Jurídico                      | Contratos, propiedad intelectual, derecho laboral, cumplimiento            |
+| Director de Operaciones              | Diseño de procesos, gestión de proveedores, escalabilidad                  |
+| Director de Marketing                | Estrategia de comercialización, marca, comunicación, relaciones públicas   |
+| Director de Producto                 | Hoja de ruta, priorización, estrategia de producto                         |
+| Director de Comunicación del Consejo | Presentaciones al consejo, relaciones con inversores, gobernanza           |
 
 ## La decisión de diseño interesante
 

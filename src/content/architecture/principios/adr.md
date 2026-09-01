@@ -1,5 +1,5 @@
 ---
-title: 'ADR: Architectural Decision Records'
+title: "ADR: Architectural Decision Records"
 description: Un documento corto que registra una decisión de arquitectura, su contexto, las alternativas consideradas y por qué se eligió — para no perder el "por qué" con el tiempo.
 type: practices
 order: 11
@@ -14,7 +14,7 @@ Un Architectural Decision Record (ADR) es un documento corto que registra **una*
 
 ## Por qué importa
 
-El código muestra *qué* se construyó, no *por qué* se construyó así. Seis meses después de elegir PostgreSQL sobre MongoDB, o de organizar las carpetas de una forma particular, nadie recuerda las razones — y la persona que tomó la decisión puede haber cambiado de equipo o de empresa. Sin un registro, cada "¿por qué está así?" se convierte en arqueología de código o en volver a discutir una decisión que ya se tomó, con la mitad de la información que se tenía la primera vez.
+El código muestra _qué_ se construyó, no _por qué_ se construyó así. Seis meses después de elegir PostgreSQL sobre MongoDB, o de organizar las carpetas de una forma particular, nadie recuerda las razones — y la persona que tomó la decisión puede haber cambiado de equipo o de empresa. Sin un registro, cada "¿por qué está así?" se convierte en arqueología de código o en volver a discutir una decisión que ya se tomó, con la mitad de la información que se tenía la primera vez.
 
 Un ADR responde esa pregunta sin depender de la memoria de nadie.
 
@@ -24,19 +24,24 @@ Un ADR responde esa pregunta sin depender de la memoria de nadie.
 # ADR 0001: Usar PostgreSQL como base de datos principal
 
 ## Estado
+
 Aceptado
 
 ## Contexto
+
 [qué problema/decisión había que resolver]
 
 ## Decisión
+
 [qué se decidió]
 
 ## Alternativas consideradas
+
 - [opción A] — descartada porque...
 - [opción B] — descartada porque...
 
 ## Consecuencias
+
 [qué implica esta decisión, positivo y negativo]
 ```
 
@@ -46,20 +51,24 @@ Un ejemplo real relleno, para un caso concreto:
 # ADR 0003: Organizar el backend por feature, no por capa técnica
 
 ## Estado
+
 Aceptado
 
 ## Contexto
+
 El proyecto empezó con carpetas por capa técnica (`controllers/`, `services/`,
 `repositories/`), pero con más de 15 endpoints ya cuesta encontrar todos los
 archivos relacionados a una misma feature — cambiar "checkout" implica tocar
 archivos en cuatro carpetas distintas sin relación visible entre sí.
 
 ## Decisión
+
 Reorganizar por feature: cada carpeta de primer nivel (`checkout/`, `users/`,
 `inventory/`) contiene su propio controller, service y repository. El código
 compartido entre features vive en `shared/`.
 
 ## Alternativas consideradas
+
 - Mantener la organización por capa técnica — descartada porque no escala:
   cuanto más crece el proyecto, más difícil es ver qué archivos pertenecen
   juntos.
@@ -68,6 +77,7 @@ compartido entre features vive en `shared/`.
   el costo de esa ceremonia no se justifica todavía.
 
 ## Consecuencias
+
 Positivo: cambiar una funcionalidad completa se hace dentro de una sola carpeta.
 Onboarding más simple para gente nueva.
 Negativo: hay que definir con cuidado qué va en `shared/` para no terminar
@@ -77,15 +87,17 @@ con un cajón de sastre. Requiere migrar el código existente.
 ## Reglas de uso
 
 - **Se numeran secuencialmente** (`0001`, `0002`, `0003`...) y viven en el repo, típicamente en `docs/adr/`, versionados junto con el código que documentan.
-- **Nunca se editan retroactivamente.** Si una decisión cambia, no se reescribe el ADR original — se escribe uno nuevo que referencia al viejo como *superseded* (reemplazado). El historial de decisiones, incluidas las que después resultaron equivocadas, es parte del valor del ADR.
+- **Nunca se editan retroactivamente.** Si una decisión cambia, no se reescribe el ADR original — se escribe uno nuevo que referencia al viejo como _superseded_ (reemplazado). El historial de decisiones, incluidas las que después resultaron equivocadas, es parte del valor del ADR.
 
 ```md title="docs/adr/0007-migrar-a-mongo.md"
 # ADR 0007: Migrar de PostgreSQL a MongoDB para el catálogo de productos
 
 ## Estado
+
 Aceptado — reemplaza a ADR 0001
 
 ## Contexto
+
 ...
 ```
 

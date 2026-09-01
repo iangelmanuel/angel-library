@@ -13,17 +13,17 @@ Elegir estilo es una decisión de producto, no de gusto: condiciona legibilidad,
 
 ## Los nueve, en una tabla
 
-| Estilo | Idea central | Fuerte en | Riesgo principal |
-| --- | --- | --- | --- |
-| [Skeuomorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-skeuomorphism) | Imitar objetos reales | Enseñar una interfaz nueva | Envejece rápido, pesa mucho |
-| [Neumorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-neumorphism) | Elementos extruidos del fondo | Paneles suaves, sensación táctil | Contraste casi siempre insuficiente |
-| [Glassmorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-glassmorphism) | Vidrio esmerilado sobre el fondo | Jerarquía de capas | Texto ilegible según el fondo |
-| [Claymorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-claymorphism) | Formas infladas tipo plastilina | Productos amables, ilustrados | Se percibe como poco serio |
-| [Minimalism](/ui-ux/ui-ux-estilos/ui-ux-estilo-minimalism) | Quitar hasta lo esencial | Lectura, foco, rendimiento | Ambigüedad: se pierde el qué es cliqueable |
-| [Maximalism](/ui-ux/ui-ux-estilos/ui-ux-estilo-maximalism) | Abundancia deliberada | Marca, memorabilidad | Ruido y carga cognitiva |
-| [Brutalism](/ui-ux/ui-ux-estilos/ui-ux-estilo-brutalism) | Mostrar el material crudo | Portafolios, identidad fuerte | Se confunde descuido con estilo |
-| [Liquid Glass](/ui-ux/ui-ux-estilos/ui-ux-estilo-liquid-glass) | Vidrio con refracción y movimiento | Apps del ecosistema Apple | Costo de GPU, dependencia de plataforma |
-| [Spatial UI](/ui-ux/ui-ux-estilos/ui-ux-estilo-spatial-ui) | Interfaz en un espacio 3D | Visores y realidad mixta | Fatiga, ergonomía, público reducido |
+| Estilo                                                           | Idea central                       | Fuerte en                        | Riesgo principal                           |
+| ---------------------------------------------------------------- | ---------------------------------- | -------------------------------- | ------------------------------------------ |
+| [Skeuomorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-skeuomorphism) | Imitar objetos reales              | Enseñar una interfaz nueva       | Envejece rápido, pesa mucho                |
+| [Neumorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-neumorphism)     | Elementos extruidos del fondo      | Paneles suaves, sensación táctil | Contraste casi siempre insuficiente        |
+| [Glassmorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-glassmorphism) | Vidrio esmerilado sobre el fondo   | Jerarquía de capas               | Texto ilegible según el fondo              |
+| [Claymorphism](/ui-ux/ui-ux-estilos/ui-ux-estilo-claymorphism)   | Formas infladas tipo plastilina    | Productos amables, ilustrados    | Se percibe como poco serio                 |
+| [Minimalism](/ui-ux/ui-ux-estilos/ui-ux-estilo-minimalism)       | Quitar hasta lo esencial           | Lectura, foco, rendimiento       | Ambigüedad: se pierde el qué es cliqueable |
+| [Maximalism](/ui-ux/ui-ux-estilos/ui-ux-estilo-maximalism)       | Abundancia deliberada              | Marca, memorabilidad             | Ruido y carga cognitiva                    |
+| [Brutalism](/ui-ux/ui-ux-estilos/ui-ux-estilo-brutalism)         | Mostrar el material crudo          | Portafolios, identidad fuerte    | Se confunde descuido con estilo            |
+| [Liquid Glass](/ui-ux/ui-ux-estilos/ui-ux-estilo-liquid-glass)   | Vidrio con refracción y movimiento | Apps del ecosistema Apple        | Costo de GPU, dependencia de plataforma    |
+| [Spatial UI](/ui-ux/ui-ux-estilos/ui-ux-estilo-spatial-ui)       | Interfaz en un espacio 3D          | Visores y realidad mixta         | Fatiga, ergonomía, público reducido        |
 
 ## Cómo se relacionan
 

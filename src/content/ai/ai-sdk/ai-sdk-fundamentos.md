@@ -11,16 +11,16 @@ related:
 updatedAt: 2026-08-19
 ---
 
-Un **SDK** (*Software Development Kit* o kit de desarrollo de software) reúne clientes, tipos y utilidades para consumir una plataforma sin construir manualmente cada solicitud HTTP. Un SDK de inteligencia artificial no ejecuta el modelo dentro de la aplicación: prepara una solicitud, la envía a una API y transforma la respuesta en objetos que el lenguaje puede manejar.
+Un **SDK** (_Software Development Kit_ o kit de desarrollo de software) reúne clientes, tipos y utilidades para consumir una plataforma sin construir manualmente cada solicitud HTTP. Un SDK de inteligencia artificial no ejecuta el modelo dentro de la aplicación: prepara una solicitud, la envía a una API y transforma la respuesta en objetos que el lenguaje puede manejar.
 
 Antes de elegir una biblioteca conviene separar cuatro conceptos:
 
-| Concepto | Responsabilidad | Ejemplo |
-|---|---|---|
-| Modelo | Genera o analiza contenido | Un modelo de texto, visión o audio |
-| Proveedor | Opera modelos y expone una API | OpenAI |
-| Gateway | Ofrece una entrada común y decide cómo enrutar | Vercel AI Gateway u OpenRouter |
-| SDK | Facilita el consumo desde el código | `openai`, `ai`, `@openrouter/sdk` |
+| Concepto  | Responsabilidad                                | Ejemplo                            |
+| --------- | ---------------------------------------------- | ---------------------------------- |
+| Modelo    | Genera o analiza contenido                     | Un modelo de texto, visión o audio |
+| Proveedor | Opera modelos y expone una API                 | OpenAI                             |
+| Gateway   | Ofrece una entrada común y decide cómo enrutar | Vercel AI Gateway u OpenRouter     |
+| SDK       | Facilita el consumo desde el código            | `openai`, `ai`, `@openrouter/sdk`  |
 
 Un gateway puede simplificar la autenticación, los cambios de modelo, los límites, las métricas y los fallbacks. También añade una dependencia entre la aplicación y el proveedor final. Para una integración pequeña con un solo proveedor suele bastar su SDK oficial; para varios proveedores, un gateway puede reducir código operativo.
 
@@ -87,35 +87,35 @@ Authorization: Bearer <api-key-privada>
 
 Hay varios protocolos posibles:
 
-| Transporte | `Content-Type` habitual | Cuándo usarlo |
-|---|---|---|
-| Texto por fragmentos | `text/plain` | Prototipos donde solo importa texto |
-| NDJSON | `application/x-ndjson` | Texto más eventos estructurados, una línea JSON por evento |
-| SSE | `text/event-stream` | Eventos con nombre, reconexión y protocolo ampliamente soportado |
-| WebSocket | Protocolo propio tras el *upgrade* | Comunicación bidireccional continua, audio o tiempo real |
+| Transporte           | `Content-Type` habitual            | Cuándo usarlo                                                    |
+| -------------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| Texto por fragmentos | `text/plain`                       | Prototipos donde solo importa texto                              |
+| NDJSON               | `application/x-ndjson`             | Texto más eventos estructurados, una línea JSON por evento       |
+| SSE                  | `text/event-stream`                | Eventos con nombre, reconexión y protocolo ampliamente soportado |
+| WebSocket            | Protocolo propio tras el _upgrade_ | Comunicación bidireccional continua, audio o tiempo real         |
 
-**SSE** significa *Server-Sent Events* o eventos enviados por el servidor. Aunque funciona sobre HTTP, no es lo mismo que WebSocket: SSE fluye principalmente del servidor al cliente. Para un chat de texto, `fetch` con un `ReadableStream`, NDJSON o SSE suelen ser suficientes.
+**SSE** significa _Server-Sent Events_ o eventos enviados por el servidor. Aunque funciona sobre HTTP, no es lo mismo que WebSocket: SSE fluye principalmente del servidor al cliente. Para un chat de texto, `fetch` con un `ReadableStream`, NDJSON o SSE suelen ser suficientes.
 
 ## Parámetros de generación
 
 Los nombres y la compatibilidad cambian por modelo. Esta tabla expresa la intención común; siempre se debe verificar la documentación del modelo seleccionado.
 
-| Propiedad | Qué controla | Decisión práctica |
-|---|---|---|
-| `model` | Modelo que atenderá la solicitud | Usar una lista permitida en el servidor |
-| `input`, `prompt` o `messages` | Contenido y conversación | Validar tamaño, roles y archivos |
-| `instructions` o `system` | Reglas generales del asistente | Construirlas en el backend |
-| `temperature` | Variación del muestreo | Menor para extracción; mayor para ideación |
-| `top_p` | Porción acumulada de probabilidad considerada | Alternativa a `temperature`, no ajuste simultáneo por rutina |
-| `max_output_tokens` | Límite máximo de salida | Controlar costo, latencia y respuestas desbordadas |
-| `stop` | Secuencias que detienen la generación | Útil para formatos delimitados si el modelo lo admite |
-| `reasoning` | Esfuerzo de razonamiento | Reservar niveles altos para tareas que lo justifican |
-| `tools` | Acciones que el modelo puede solicitar | Validar autorización y argumentos en el servidor |
-| `tool_choice` | Si una herramienta es opcional, obligatoria o específica | Forzar solo cuando el flujo lo necesita |
-| `response_format` o `text.format` | Forma esperada, por ejemplo JSON con esquema | Preferir salida estructurada sobre analizar texto libre |
-| `stream` | Entrega incremental | Mejora el tiempo percibido hasta el primer fragmento |
-| `metadata` | Datos de trazabilidad | No incluir secretos ni información sensible innecesaria |
-| `store` | Persistencia administrada por el proveedor | Decidir según privacidad y continuidad |
+| Propiedad                         | Qué controla                                             | Decisión práctica                                            |
+| --------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| `model`                           | Modelo que atenderá la solicitud                         | Usar una lista permitida en el servidor                      |
+| `input`, `prompt` o `messages`    | Contenido y conversación                                 | Validar tamaño, roles y archivos                             |
+| `instructions` o `system`         | Reglas generales del asistente                           | Construirlas en el backend                                   |
+| `temperature`                     | Variación del muestreo                                   | Menor para extracción; mayor para ideación                   |
+| `top_p`                           | Porción acumulada de probabilidad considerada            | Alternativa a `temperature`, no ajuste simultáneo por rutina |
+| `max_output_tokens`               | Límite máximo de salida                                  | Controlar costo, latencia y respuestas desbordadas           |
+| `stop`                            | Secuencias que detienen la generación                    | Útil para formatos delimitados si el modelo lo admite        |
+| `reasoning`                       | Esfuerzo de razonamiento                                 | Reservar niveles altos para tareas que lo justifican         |
+| `tools`                           | Acciones que el modelo puede solicitar                   | Validar autorización y argumentos en el servidor             |
+| `tool_choice`                     | Si una herramienta es opcional, obligatoria o específica | Forzar solo cuando el flujo lo necesita                      |
+| `response_format` o `text.format` | Forma esperada, por ejemplo JSON con esquema             | Preferir salida estructurada sobre analizar texto libre      |
+| `stream`                          | Entrega incremental                                      | Mejora el tiempo percibido hasta el primer fragmento         |
+| `metadata`                        | Datos de trazabilidad                                    | No incluir secretos ni información sensible innecesaria      |
+| `store`                           | Persistencia administrada por el proveedor               | Decidir según privacidad y continuidad                       |
 
 ### `temperature` no significa creatividad exacta
 
@@ -125,14 +125,14 @@ El modelo produce una distribución de probabilidades para el siguiente token, e
 // Clasificación o extracción: se busca consistencia.
 const extraction = {
   temperature: 0.1,
-  maxOutputTokens: 300,
-};
+  maxOutputTokens: 300
+}
 
 // Lluvia de ideas: se tolera mayor diversidad.
 const brainstorming = {
   temperature: 0.8,
-  maxOutputTokens: 900,
-};
+  maxOutputTokens: 900
+}
 ```
 
 No garantiza determinismo: el proveedor puede cambiar infraestructura, versiones o estrategias internas. Algunos modelos de razonamiento ignoran o restringen `temperature`. Además, `temperature` y `top_p` alteran el muestreo de formas relacionadas; normalmente se ajusta uno y se deja el otro en su valor predeterminado.
@@ -145,11 +145,11 @@ El flujo correcto conserva la presión de lectura: el backend consume cada event
 
 ```ts
 type ChatStreamEvent =
-  | { type: 'start'; messageId: string }
-  | { type: 'text-delta'; delta: string }
-  | { type: 'usage'; inputTokens: number; outputTokens: number }
-  | { type: 'done'; responseId?: string }
-  | { type: 'error'; message: string };
+  | { type: "start"; messageId: string }
+  | { type: "text-delta"; delta: string }
+  | { type: "usage"; inputTokens: number; outputTokens: number }
+  | { type: "done"; responseId?: string }
+  | { type: "error"; message: string }
 ```
 
 Un contrato propio como este permite cambiar de SDK sin reescribir React. El navegador añade cada `delta` al mensaje que se está construyendo. Los identificadores, el uso y los errores viajan como eventos separados en lugar de mezclarse con el texto visible.
@@ -208,14 +208,14 @@ La descripción de una herramienta no es un permiso. Antes de ejecutarla, el ser
 
 ## Cómo elegir la integración
 
-| Necesidad | Camino inicial |
-|---|---|
-| Usar principalmente modelos y capacidades de OpenAI | SDK oficial de OpenAI |
-| Una API de aplicación y componentes React con protocolo de chat integrado | Vercel AI SDK |
-| Enrutar por Vercel, usar OIDC/BYOK y controlar presupuestos | Vercel AI Gateway |
-| Comparar o enrutar muchos proveedores mediante una API compatible | OpenRouter |
+| Necesidad                                                                 | Camino inicial        |
+| ------------------------------------------------------------------------- | --------------------- |
+| Usar principalmente modelos y capacidades de OpenAI                       | SDK oficial de OpenAI |
+| Una API de aplicación y componentes React con protocolo de chat integrado | Vercel AI SDK         |
+| Enrutar por Vercel, usar OIDC/BYOK y controlar presupuestos               | Vercel AI Gateway     |
+| Comparar o enrutar muchos proveedores mediante una API compatible         | OpenRouter            |
 
-**OIDC** significa *OpenID Connect*, un mecanismo de identidad que permite obtener credenciales de corta duración. **BYOK** significa *Bring Your Own Key* o usar una clave propia del proveedor detrás de un gateway.
+**OIDC** significa _OpenID Connect_, un mecanismo de identidad que permite obtener credenciales de corta duración. **BYOK** significa _Bring Your Own Key_ o usar una clave propia del proveedor detrás de un gateway.
 
 La elección no elimina el diseño de aplicación. En todos los casos siguen siendo responsabilidad del backend la identidad, los permisos, la persistencia, el contrato con React y el control de costos.
 

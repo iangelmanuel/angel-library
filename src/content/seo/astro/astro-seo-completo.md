@@ -109,10 +109,7 @@ export const SITE = {
     twitterAuthor: "@acmestudio" as string | null,
     twitterHandle: "@acmestudio" as string | null,
     twitterCard: "summary_large_image" as
-      | "summary"
-      | "summary_large_image"
-      | "app"
-      | "player",
+      "summary" | "summary_large_image" | "app" | "player",
     noindex: false,
 
     /** meta name="category" / "classification" — clasificación de industria, no cambia seguido. */
@@ -166,18 +163,23 @@ Componente genérico y reutilizable — no tiene datos de la empresa adentro, so
 ```astro title="src/components/seo/JsonLd.astro"
 ---
 interface Props {
-  id: string;
-  data: object | object[];
+  id: string
+  data: object | object[]
 }
 
-const { id, data } = Astro.props;
+const { id, data } = Astro.props
 
 // Se escapa `<` para que el payload nunca pueda cerrar la etiqueta <script> antes de tiempo
 // (protección contra inyección si algún dato llegara a incluir texto no confiable).
-const json = JSON.stringify(data).replace(/</g, "\\u003c");
+const json = JSON.stringify(data).replace(/</g, "\\u003c")
 ---
 
-<script id={id} type="application/ld+json" is:inline set:html={json} />
+<script
+  id={id}
+  type="application/ld+json"
+  is:inline
+  set:html={json}
+/>
 ```
 
 - **`is:inline`** le dice a Astro que no procese ni empaquete este `<script>` — tiene que quedar literal en el HTML final, porque un JSON-LD que termina en un `.js` externo bundleado no lo leen los crawlers de la misma forma confiable.
@@ -326,16 +328,16 @@ Reordenado respecto al original: `<title>` va primero (antes que `charset` y `vi
 
 ```astro title="src/components/seo/BaseHead.astro"
 ---
-import { SITE } from "@/config/site";
+import { SITE } from "@/config/site"
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonical?: string;
-  keywords?: readonly string[];
-  ogType?: "website" | "article";
-  noindex?: boolean;
+  title?: string
+  description?: string
+  image?: string
+  canonical?: string
+  keywords?: readonly string[]
+  ogType?: "website" | "article"
+  noindex?: boolean
 }
 
 const {
@@ -345,79 +347,223 @@ const {
   canonical = new URL(Astro.url.pathname, SITE.seo.url).href,
   keywords = SITE.seo.keywords,
   ogType = SITE.seo.ogType,
-  noindex = SITE.seo.noindex,
-} = Astro.props;
+  noindex = SITE.seo.noindex
+} = Astro.props
 
 // Sin título propio: se usa el default tal cual (la home no queda "Acme — ... — Acme").
 // Con título propio: se le agrega el sufijo de marca.
-const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title;
+const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title
 
-const ogImage = new URL(image, SITE.seo.url).href;
-const ogLocale = SITE.seo.locale.replace("-", "_");
-const robots = noindex ? "noindex, nofollow" : "index, follow";
+const ogImage = new URL(image, SITE.seo.url).href
+const ogLocale = SITE.seo.locale.replace("-", "_")
+const robots = noindex ? "noindex, nofollow" : "index, follow"
 const googlebot = noindex
   ? robots
-  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
+  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
 ---
 
 <title>{pageTitle}</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=5"
+/>
 
 <!-- <link rel="preload" as="font" href="/fonts/mi-fuente.woff2" type="font/woff2" crossorigin /> -->
 
-<meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
-{SITE.seo.locales.map((locale) => <link rel="alternate" hreflang={locale.hreflang} href={canonical} />)}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+<meta
+  name="description"
+  content={description}
+/>
+<link
+  rel="canonical"
+  href={canonical}
+/>
+{
+  SITE.seo.locales.map((locale) => (
+    <link
+      rel="alternate"
+      hreflang={locale.hreflang}
+      href={canonical}
+    />
+  ))
+}
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={canonical}
+/>
 
-<meta name="robots" content={robots} />
-<meta name="googlebot" content={googlebot} />
+<meta
+  name="robots"
+  content={robots}
+/>
+<meta
+  name="googlebot"
+  content={googlebot}
+/>
 
-<meta property="og:type" content={ogType} />
-<meta property="og:site_name" content={SITE.info.name} />
-<meta property="og:title" content={pageTitle} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
-<meta property="og:locale" content={ogLocale} />
-<meta property="og:image" content={ogImage} />
-<meta property="og:image:width" content={String(SITE.seo.imageWidth)} />
-<meta property="og:image:height" content={String(SITE.seo.imageHeight)} />
-<meta property="og:image:alt" content={SITE.seo.imageAlt} />
+<meta
+  property="og:type"
+  content={ogType}
+/>
+<meta
+  property="og:site_name"
+  content={SITE.info.name}
+/>
+<meta
+  property="og:title"
+  content={pageTitle}
+/>
+<meta
+  property="og:description"
+  content={description}
+/>
+<meta
+  property="og:url"
+  content={canonical}
+/>
+<meta
+  property="og:locale"
+  content={ogLocale}
+/>
+<meta
+  property="og:image"
+  content={ogImage}
+/>
+<meta
+  property="og:image:width"
+  content={String(SITE.seo.imageWidth)}
+/>
+<meta
+  property="og:image:height"
+  content={String(SITE.seo.imageHeight)}
+/>
+<meta
+  property="og:image:alt"
+  content={SITE.seo.imageAlt}
+/>
 
-<meta name="twitter:card" content={SITE.seo.twitterCard} />
-<meta name="twitter:site" content={SITE.seo.twitterHandle} />
-<meta name="twitter:creator" content={SITE.seo.twitterAuthor} />
-<meta name="twitter:title" content={pageTitle} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta
+  name="twitter:card"
+  content={SITE.seo.twitterCard}
+/>
+<meta
+  name="twitter:site"
+  content={SITE.seo.twitterHandle}
+/>
+<meta
+  name="twitter:creator"
+  content={SITE.seo.twitterAuthor}
+/>
+<meta
+  name="twitter:title"
+  content={pageTitle}
+/>
+<meta
+  name="twitter:description"
+  content={description}
+/>
+<meta
+  name="twitter:image"
+  content={ogImage}
+/>
 
-<meta name="keywords" content={keywords.join(", ")} />
-<meta name="author" content={SITE.seo.author} />
-<meta name="creator" content={SITE.seo.creator} />
-<meta name="publisher" content={SITE.seo.publisher} />
-<meta name="application-name" content={SITE.info.name} />
-<meta name="category" content={SITE.seo.category} />
-<meta name="classification" content={SITE.seo.classification} />
-<meta name="generator" content={Astro.generator} />
-<meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="format-detection" content="telephone=no, address=no, email=no" />
+<meta
+  name="keywords"
+  content={keywords.join(", ")}
+/>
+<meta
+  name="author"
+  content={SITE.seo.author}
+/>
+<meta
+  name="creator"
+  content={SITE.seo.creator}
+/>
+<meta
+  name="publisher"
+  content={SITE.seo.publisher}
+/>
+<meta
+  name="application-name"
+  content={SITE.info.name}
+/>
+<meta
+  name="category"
+  content={SITE.seo.category}
+/>
+<meta
+  name="classification"
+  content={SITE.seo.classification}
+/>
+<meta
+  name="generator"
+  content={Astro.generator}
+/>
+<meta
+  name="referrer"
+  content="strict-origin-when-cross-origin"
+/>
+<meta
+  name="format-detection"
+  content="telephone=no, address=no, email=no"
+/>
 
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content={SITE.info.name} />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+/>
+<meta
+  name="apple-mobile-web-app-title"
+  content={SITE.info.name}
+/>
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+/>
 
-<meta name="geo.region" content={`${SITE.location.countryCode}-${SITE.seo.geo.region}`} />
-<meta name="geo.placename" content={SITE.location.city} />
-<meta name="geo.position" content={`${SITE.seo.geo.latitude};${SITE.seo.geo.longitude}`} />
-<meta name="ICBM" content={`${SITE.seo.geo.latitude}, ${SITE.seo.geo.longitude}`} />
+<meta
+  name="geo.region"
+  content={`${SITE.location.countryCode}-${SITE.seo.geo.region}`}
+/>
+<meta
+  name="geo.placename"
+  content={SITE.location.city}
+/>
+<meta
+  name="geo.position"
+  content={`${SITE.seo.geo.latitude};${SITE.seo.geo.longitude}`}
+/>
+<meta
+  name="ICBM"
+  content={`${SITE.seo.geo.latitude}, ${SITE.seo.geo.longitude}`}
+/>
 
-<meta name="color-scheme" content="dark light" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content={SITE.seo.themeColor.light} />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content={SITE.seo.themeColor.dark} />
+<meta
+  name="color-scheme"
+  content="dark light"
+/>
+<meta
+  name="theme-color"
+  media="(prefers-color-scheme: light)"
+  content={SITE.seo.themeColor.light}
+/>
+<meta
+  name="theme-color"
+  media="(prefers-color-scheme: dark)"
+  content={SITE.seo.themeColor.dark}
+/>
 
-<link rel="icon" href="/icon.svg" type="image/svg+xml" />
-<link rel="manifest" href="/manifest.webmanifest" />
+<link
+  rel="icon"
+  href="/icon.svg"
+  type="image/svg+xml"
+/>
+<link
+  rel="manifest"
+  href="/manifest.webmanifest"
+/>
 ```
 
 Tres bugs reales que tenía la versión original, arreglados aquí:
@@ -430,23 +576,30 @@ Tres bugs reales que tenía la versión original, arreglados aquí:
 
 ```astro title="src/layouts/Layout.astro"
 ---
-import BaseHead from "@/components/seo/BaseHead.astro";
-import JsonLd from "@/components/seo/JsonLd.astro";
-import { SITE } from "@/config/site";
-import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } from "@/libs/seo";
-import "@/styles/globals.css";
+import BaseHead from "@/components/seo/BaseHead.astro"
+import JsonLd from "@/components/seo/JsonLd.astro"
+import { SITE } from "@/config/site"
+import {
+  faqLd,
+  organizationLd,
+  professionalServiceLd,
+  servicesLd,
+  webSiteLd
+} from "@/libs/seo"
+import "@/styles/globals.css"
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonical?: string;
-  keywords?: readonly string[];
-  ogType?: "website" | "article";
-  noindex?: boolean;
+  title?: string
+  description?: string
+  image?: string
+  canonical?: string
+  keywords?: readonly string[]
+  ogType?: "website" | "article"
+  noindex?: boolean
 }
 
-const { title, description, image, canonical, keywords, ogType, noindex } = Astro.props;
+const { title, description, image, canonical, keywords, ogType, noindex } =
+  Astro.props
 ---
 
 <html lang={SITE.seo.locale}>
@@ -461,11 +614,26 @@ const { title, description, image, canonical, keywords, ogType, noindex } = Astr
       noindex={noindex}
     />
 
-    <JsonLd id="ld-organization" data={organizationLd()} />
-    <JsonLd id="ld-website" data={webSiteLd()} />
-    <JsonLd id="ld-business" data={professionalServiceLd()} />
-    <JsonLd id="ld-services" data={servicesLd()} />
-    <JsonLd id="ld-faq" data={faqLd()} />
+    <JsonLd
+      id="ld-organization"
+      data={organizationLd()}
+    />
+    <JsonLd
+      id="ld-website"
+      data={webSiteLd()}
+    />
+    <JsonLd
+      id="ld-business"
+      data={professionalServiceLd()}
+    />
+    <JsonLd
+      id="ld-services"
+      data={servicesLd()}
+    />
+    <JsonLd
+      id="ld-faq"
+      data={faqLd()}
+    />
   </head>
 
   <body class="antialiased">
@@ -570,8 +738,8 @@ ${urls}
 
 ```astro title="src/pages/servicios.astro"
 ---
-import Layout from "@/layouts/Layout.astro";
-import { SERVICES, SITE } from "@/config/site";
+import Layout from "@/layouts/Layout.astro"
+import { SERVICES, SITE } from "@/config/site"
 ---
 
 <Layout
@@ -593,7 +761,10 @@ Esta página pisa `title`, `description` y `canonical` — todo lo demás (`imag
 Para una página que no debería indexarse (una de "gracias" después de un formulario, por ejemplo), el mismo patrón con un flag más:
 
 ```astro
-<Layout title="Gracias" noindex={true}>
+<Layout
+  title="Gracias"
+  noindex={true}
+/>
 ```
 
 ## Consideraciones

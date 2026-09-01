@@ -11,10 +11,10 @@ updatedAt: 2026-08-17
 
 ## Definir una variable para la sesión actual
 
-| Acción | Windows (PowerShell) | macOS / Linux (bash/zsh) |
-|---|---|---|
-| Definir | `$env:VAR = "valor"` | `export VAR=valor` |
-| Ver una variable | `echo $env:VAR` | `echo $VAR` |
+| Acción           | Windows (PowerShell) | macOS / Linux (bash/zsh) |
+| ---------------- | -------------------- | ------------------------ |
+| Definir          | `$env:VAR = "valor"` | `export VAR=valor`       |
+| Ver una variable | `echo $env:VAR`      | `echo $VAR`              |
 
 `cmd.exe` usa su propia sintaxis, distinta de PowerShell: `set VAR=valor` para definir, `echo %VAR%` para verla.
 
@@ -61,9 +61,9 @@ Una variable definida así no aparece en una terminal ya abierta — hay que abr
 
 ## Ver el `PATH` completo
 
-| Windows (PowerShell) | macOS / Linux |
-|---|---|
-| `$env:Path` | `echo $PATH` |
+| Windows (PowerShell)                           | macOS / Linux                                       |
+| ---------------------------------------------- | --------------------------------------------------- |
+| `$env:Path`                                    | `echo $PATH`                                        |
 | `$env:Path -split ';'` (una entrada por línea) | `echo $PATH \| tr ':' '\n'` (una entrada por línea) |
 
 En Windows el `PATH` usa `;` como separador entre entradas; en macOS/Linux usa `:`.

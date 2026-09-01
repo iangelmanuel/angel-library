@@ -16,19 +16,19 @@ Alternativa a Flowbite con más componentes de tipo "aplicación" (sidebars, ste
 
 ```js title="tailwind.config.js"
 module.exports = {
-  content: ['./node_modules/preline/dist/*.js', /* ...resto del content */],
-  plugins: [require('preline/plugin')],
-};
+  content: ["./node_modules/preline/dist/*.js" /* ...resto del content */],
+  plugins: [require("preline/plugin")]
+}
 ```
 
 ```ts title="main.ts"
-import 'preline/preline.js';
+import "preline/preline.js"
 ```
 
 Con navegación tipo SPA (Astro view transitions, React Router) hay que re-inicializar los componentes tras cada cambio de página:
 
 ```ts
-window.HSStaticMethods.autoInit();
+window.HSStaticMethods.autoInit()
 ```
 
 ## Tips

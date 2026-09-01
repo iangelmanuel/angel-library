@@ -21,53 +21,53 @@ Alta cohesión significa que todo lo que está en un mismo módulo o archivo per
 // BAJA COHESIÓN: users.ts mezcla persistencia de usuarios con envío de emails
 // src/users.ts
 export async function createUser(data: NewUser) {
-  const user = await db.users.insert(data);
+  const user = await db.users.insert(data)
 
   await smtpClient.send({
     to: user.email,
-    subject: 'Bienvenido',
-    body: 'Gracias por registrarte',
-  });
+    subject: "Bienvenido",
+    body: "Gracias por registrarte"
+  })
 
-  await analytics.track('user_created', { userId: user.id });
+  await analytics.track("user_created", { userId: user.id })
 
-  return user;
+  return user
 }
 
 export function getUserById(id: string) {
-  return db.users.findById(id);
+  return db.users.findById(id)
 }
 
 export function updateUserEmail(id: string, email: string) {
-  return db.users.update(id, { email });
+  return db.users.update(id, { email })
 }
 ```
 
 `users.ts` ahora tiene tres razones para cambiar: la lógica de persistencia, el proveedor de email, y el sistema de analytics. Un cambio en la plantilla del email de bienvenida obliga a tocar el mismo archivo que maneja el modelo de usuario.
 
 ```ts
+// src/users/onboarding.ts
+import { trackEvent } from "../analytics"
+import { sendWelcomeEmail } from "../email/welcome"
+import { createUser } from "./repository"
+
 // ALTA COHESIÓN: cada módulo tiene una sola responsabilidad
 // src/users/repository.ts
 export function createUser(data: NewUser) {
-  return db.users.insert(data);
+  return db.users.insert(data)
 }
 export function getUserById(id: string) {
-  return db.users.findById(id);
+  return db.users.findById(id)
 }
 export function updateUserEmail(id: string, email: string) {
-  return db.users.update(id, { email });
+  return db.users.update(id, { email })
 }
 
-// src/users/onboarding.ts
-import { createUser } from './repository';
-import { sendWelcomeEmail } from '../email/welcome';
-import { trackEvent } from '../analytics';
-
 export async function registerUser(data: NewUser) {
-  const user = await createUser(data);
-  await sendWelcomeEmail(user.email);
-  await trackEvent('user_created', { userId: user.id });
-  return user;
+  const user = await createUser(data)
+  await sendWelcomeEmail(user.email)
+  await trackEvent("user_created", { userId: user.id })
+  return user
 }
 ```
 
@@ -80,17 +80,17 @@ Bajo acoplamiento significa que un módulo puede cambiar su implementación inte
 ```ts
 // ALTO ACOPLAMIENTO: onboarding conoce la estructura interna de la tabla de email logs
 export async function registerUser(data: NewUser) {
-  const user = await createUser(data);
+  const user = await createUser(data)
 
   await db.emailLogs.insert({
     to: user.email,
-    template: 'welcome',
-    status: 'pending',
-    provider: 'sendgrid',
-  });
-  await sendgridClient.send({ to: user.email, templateId: 'd-abc123' });
+    template: "welcome",
+    status: "pending",
+    provider: "sendgrid"
+  })
+  await sendgridClient.send({ to: user.email, templateId: "d-abc123" })
 
-  return user;
+  return user
 }
 ```
 
@@ -98,12 +98,12 @@ Si mañana se cambia de SendGrid a otro proveedor, o cambia el esquema de `email
 
 ```ts
 // BAJO ACOPLAMIENTO: onboarding solo conoce una función, no los detalles de cómo se envía
-import { sendWelcomeEmail } from '../email/welcome';
+import { sendWelcomeEmail } from "../email/welcome"
 
 export async function registerUser(data: NewUser) {
-  const user = await createUser(data);
-  await sendWelcomeEmail(user.email); // no le importa si es SendGrid, Postmark o SMTP
-  return user;
+  const user = await createUser(data)
+  await sendWelcomeEmail(user.email) // no le importa si es SendGrid, Postmark o SMTP
+  return user
 }
 ```
 
@@ -111,9 +111,9 @@ Cambiar de proveedor de email ahora es un cambio contenido dentro de `email/welc
 
 ## Por qué esto predice el dolor mejor que las métricas de código
 
-Un archivo de 400 líneas con alta cohesión (todo relacionado a una sola responsabilidad) es más fácil de mantener que uno de 100 líneas con baja cohesión (tres responsabilidades sin relación mezcladas). La complejidad ciclomática mide ramas de un algoritmo, no si esas ramas *pertenecen* juntas. Las líneas de código no distinguen entre "código denso pero enfocado" y "código disperso y mezclado".
+Un archivo de 400 líneas con alta cohesión (todo relacionado a una sola responsabilidad) es más fácil de mantener que uno de 100 líneas con baja cohesión (tres responsabilidades sin relación mezcladas). La complejidad ciclomática mide ramas de un algoritmo, no si esas ramas _pertenecen_ juntas. Las líneas de código no distinguen entre "código denso pero enfocado" y "código disperso y mezclado".
 
-Lo que sí predice el dolor es cuántos módulos hay que tocar para hacer un cambio de negocio y cuántos módulos *no relacionados* se rompen cuando cambia uno. Eso revela la cohesión (¿lo relacionado vive junto?) y el acoplamiento (¿lo no relacionado depende entre sí?).
+Lo que sí predice el dolor es cuántos módulos hay que tocar para hacer un cambio de negocio y cuántos módulos _no relacionados_ se rompen cuando cambia uno. Eso revela la cohesión (¿lo relacionado vive junto?) y el acoplamiento (¿lo no relacionado depende entre sí?).
 
 ## Cuándo el bajo acoplamiento se lleva al extremo
 

@@ -5,7 +5,11 @@ type: guides
 order: 1
 tags: [docker, run, contenedores]
 scope: docker run
-related: [devops/docker-contenedores/docker-lifecycle, devops/docker-redes-volumenes/docker-volumenes]
+related:
+  [
+    devops/docker-contenedores/docker-lifecycle,
+    devops/docker-redes-volumenes/docker-volumenes
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -19,15 +23,15 @@ Esto crea un contenedor nuevo a partir de la imagen `nginx` y lo arranca en prim
 
 ## Flags del día a día
 
-| Flag | Qué hace |
-|---|---|
-| `-d` | Detached — corre en segundo plano, devuelve el control a la terminal |
-| `-p <host>:<contenedor>` | Publica un puerto: mapea un puerto de la máquina host a un puerto del contenedor |
-| `--name <nombre>` | Nombre fijo para el contenedor (si no, Docker genera uno random tipo `festive_curie`) |
-| `--rm` | Borra el contenedor automáticamente al detenerse (útil para pruebas rápidas descartables) |
-| `-e VAR=valor` | Variable de entorno |
-| `-v <origen>:<destino>` | Monta un volumen o bind mount (ver [Volúmenes](/devops/docker-redes-volumenes/docker-volumenes)) |
-| `-it` | Interactivo + tty — necesario para una sesión de shell interactiva dentro del contenedor |
+| Flag                     | Qué hace                                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------------------------ |
+| `-d`                     | Detached — corre en segundo plano, devuelve el control a la terminal                             |
+| `-p <host>:<contenedor>` | Publica un puerto: mapea un puerto de la máquina host a un puerto del contenedor                 |
+| `--name <nombre>`        | Nombre fijo para el contenedor (si no, Docker genera uno random tipo `festive_curie`)            |
+| `--rm`                   | Borra el contenedor automáticamente al detenerse (útil para pruebas rápidas descartables)        |
+| `-e VAR=valor`           | Variable de entorno                                                                              |
+| `-v <origen>:<destino>`  | Monta un volumen o bind mount (ver [Volúmenes](/devops/docker-redes-volumenes/docker-volumenes)) |
+| `-it`                    | Interactivo + tty — necesario para una sesión de shell interactiva dentro del contenedor         |
 
 ## Ejemplo combinado
 

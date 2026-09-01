@@ -15,14 +15,14 @@ Escribir datos exige más cuidado que leerlos: una condición ausente puede modi
 
 ## Referencia rápida
 
-| Necesidad | Forma habitual |
-| --- | --- |
-| crear una fila | `INSERT ... VALUES ... RETURNING` |
-| crear varias | `INSERT ... VALUES (...), (...)` o carga por lotes |
-| modificar filas conocidas | `UPDATE ... SET ... WHERE ... RETURNING` |
-| eliminar | `DELETE ... WHERE ... RETURNING` |
-| crear o actualizar por conflicto | `INSERT ... ON CONFLICT ...` |
-| agrupar cambios | `BEGIN ... COMMIT`, con `ROLLBACK` al fallar |
+| Necesidad                        | Forma habitual                                     |
+| -------------------------------- | -------------------------------------------------- |
+| crear una fila                   | `INSERT ... VALUES ... RETURNING`                  |
+| crear varias                     | `INSERT ... VALUES (...), (...)` o carga por lotes |
+| modificar filas conocidas        | `UPDATE ... SET ... WHERE ... RETURNING`           |
+| eliminar                         | `DELETE ... WHERE ... RETURNING`                   |
+| crear o actualizar por conflicto | `INSERT ... ON CONFLICT ...`                       |
+| agrupar cambios                  | `BEGIN ... COMMIT`, con `ROLLBACK` al fallar       |
 
 Ejecuta escrituras con una identidad de base que tenga solamente los permisos necesarios. Una cuenta de aplicación no debería poder eliminar esquemas ni administrar roles.
 
@@ -114,24 +114,24 @@ RETURNING user_id, theme;
 ## Transacciones en código
 
 ```ts
-const client = await pool.connect();
+const client = await pool.connect()
 
 try {
-  await client.query('BEGIN');
+  await client.query("BEGIN")
   const order = await client.query(
-    'INSERT INTO orders (user_id) VALUES ($1) RETURNING id',
-    [userId],
-  );
+    "INSERT INTO orders (user_id) VALUES ($1) RETURNING id",
+    [userId]
+  )
   await client.query(
-    'INSERT INTO order_items (order_id, product_id, quantity) VALUES ($1, $2, $3)',
-    [order.rows[0].id, productId, quantity],
-  );
-  await client.query('COMMIT');
+    "INSERT INTO order_items (order_id, product_id, quantity) VALUES ($1, $2, $3)",
+    [order.rows[0].id, productId, quantity]
+  )
+  await client.query("COMMIT")
 } catch (error) {
-  await client.query('ROLLBACK');
-  throw error;
+  await client.query("ROLLBACK")
+  throw error
 } finally {
-  client.release();
+  client.release()
 }
 ```
 

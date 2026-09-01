@@ -1,4 +1,4 @@
-import { visit, SKIP } from "unist-util-visit"
+import { SKIP, visit } from "unist-util-visit"
 
 /** Traduce instalaciones entre npm, pnpm y Bun y crea sus pestañas Markdown. */
 
@@ -41,8 +41,18 @@ function translateLine(line) {
     const npmFlags = [dev && "-D", global && "-g"].filter(Boolean)
 
     return {
-      pnpm: ["pnpm", hasPackages ? "add" : "install", ...pnpmFlags, ...packages].join(" "),
-      bun: ["bun", hasPackages ? "add" : "install", ...bunFlags, ...packages].join(" "),
+      pnpm: [
+        "pnpm",
+        hasPackages ? "add" : "install",
+        ...pnpmFlags,
+        ...packages
+      ].join(" "),
+      bun: [
+        "bun",
+        hasPackages ? "add" : "install",
+        ...bunFlags,
+        ...packages
+      ].join(" "),
       npm: ["npm", "install", ...npmFlags, ...packages].join(" ")
     }
   }

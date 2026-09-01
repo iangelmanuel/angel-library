@@ -23,9 +23,9 @@ Imprime el body de la respuesta en la terminal.
 
 ## Ver headers
 
-| Flag | Qué hace |
-|---|---|
-| `-i` | Incluye los headers de respuesta junto con el body |
+| Flag | Qué hace                                                    |
+| ---- | ----------------------------------------------------------- |
+| `-i` | Incluye los headers de respuesta junto con el body          |
 | `-I` | Solo headers (hace un `HEAD` en vez de `GET`, no trae body) |
 
 ```bash
@@ -41,11 +41,11 @@ curl -X POST https://api.ejemplo.com/usuarios \
   -d '{"nombre":"Ana"}'
 ```
 
-| Flag | Qué hace |
-|---|---|
-| `-X POST` | Método HTTP (default es `GET`) |
-| `-H "<header>"` | Agrega un header |
-| `-d '<body>'` | Body del request (con `-X POST` implícito si no se especifica método) |
+| Flag            | Qué hace                                                              |
+| --------------- | --------------------------------------------------------------------- |
+| `-X POST`       | Método HTTP (default es `GET`)                                        |
+| `-H "<header>"` | Agrega un header                                                      |
+| `-d '<body>'`   | Body del request (con `-X POST` implícito si no se especifica método) |
 
 ## Guardar la respuesta en un archivo
 

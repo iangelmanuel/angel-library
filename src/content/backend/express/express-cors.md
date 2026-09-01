@@ -23,12 +23,12 @@ npm install cors
 ```
 
 ```ts title="app.ts"
-import express from 'express';
-import cors from 'cors';
+import cors from "cors"
+import express from "express"
 
-const app = express();
+const app = express()
 
-app.use(cors()); // permite CUALQUIER origen — cómodo en desarrollo, rara vez correcto en producción
+app.use(cors()) // permite CUALQUIER origen — cómodo en desarrollo, rara vez correcto en producción
 ```
 
 ## Restringir a orígenes específicos
@@ -36,54 +36,54 @@ app.use(cors()); // permite CUALQUIER origen — cómodo en desarrollo, rara vez
 ```ts
 app.use(
   cors({
-    origin: 'https://mi-frontend.com',
-    credentials: true, // necesario si el frontend manda cookies (ver Cookies vs sesiones)
-  }),
-);
+    origin: "https://mi-frontend.com",
+    credentials: true // necesario si el frontend manda cookies (ver Cookies vs sesiones)
+  })
+)
 ```
 
 ```ts
 // Varios orígenes permitidos (ej: producción + preview de Vercel)
 app.use(
   cors({
-    origin: ['https://mi-frontend.com', 'https://staging.mi-frontend.com'],
-  }),
-);
+    origin: ["https://mi-frontend.com", "https://staging.mi-frontend.com"]
+  })
+)
 ```
 
 ## Origen dinámico (validado a mano)
 
 ```ts
-const origenesPermitidos = ['https://mi-frontend.com', 'http://localhost:5173'];
+const origenesPermitidos = ["https://mi-frontend.com", "http://localhost:5173"]
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin || origenesPermitidos.includes(origin)) {
-        callback(null, true);
+        callback(null, true)
       } else {
-        callback(new Error('Origen no permitido por CORS'));
+        callback(new Error("Origen no permitido por CORS"))
       }
-    },
-  }),
-);
+    }
+  })
+)
 ```
 
 ## CORS por ruta, no global
 
 ```ts
-app.get('/publico', cors(), handler);           // esta ruta sí permite cross-origin
-app.get('/interno', handler);                    // esta no (sin el middleware cors())
+app.get("/publico", cors(), handler) // esta ruta sí permite cross-origin
+app.get("/interno", handler) // esta no (sin el middleware cors())
 ```
 
 ## Configuración rápida
 
-| Opción de `cors({...})` | Qué controla |
-| --- | --- |
-| `origin` | Qué origen(es) puede leer la respuesta |
-| `credentials: true` | Permite mandar cookies/auth headers en la request cross-origin |
-| `methods` | Qué verbos HTTP permite (`GET`, `POST`, etc.) |
-| `allowedHeaders` | Qué headers custom puede mandar el cliente |
+| Opción de `cors({...})` | Qué controla                                                   |
+| ----------------------- | -------------------------------------------------------------- |
+| `origin`                | Qué origen(es) puede leer la respuesta                         |
+| `credentials: true`     | Permite mandar cookies/auth headers en la request cross-origin |
+| `methods`               | Qué verbos HTTP permite (`GET`, `POST`, etc.)                  |
+| `allowedHeaders`        | Qué headers custom puede mandar el cliente                     |
 
 ## Lo que CORS no resuelve
 

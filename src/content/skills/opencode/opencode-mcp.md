@@ -30,10 +30,10 @@ updatedAt: 2026-08-17
 
 ## Dos tipos de servidor
 
-| Tipo | Campos |
-| --- | --- |
-| `local` | `command` (array), `cwd`, `environment`, `timeout` |
-| `remote` | `url`, `headers`, `oauth`, `timeout` |
+| Tipo     | Campos                                             |
+| -------- | -------------------------------------------------- |
+| `local`  | `command` (array), `cwd`, `environment`, `timeout` |
+| `remote` | `url`, `headers`, `oauth`, `timeout`               |
 
 Más simple que Claude Code (que distingue `stdio`/`http`/`sse`/`ws`) — aquí solo local vs remote.
 
@@ -51,10 +51,10 @@ Apaga todas las tools que empiecen con `github` sin sacar el servidor entero —
 
 ## Resumen
 
-| Config | Qué hace |
-| --- | --- |
-| `mcp.<nombre>.type: "local"` | Servidor por comando (stdio) |
-| `mcp.<nombre>.type: "remote"` | Servidor por URL |
+| Config                        | Qué hace                                      |
+| ----------------------------- | --------------------------------------------- |
+| `mcp.<nombre>.type: "local"`  | Servidor por comando (stdio)                  |
+| `mcp.<nombre>.type: "remote"` | Servidor por URL                              |
 | `tools: {"servidor*": false}` | Apaga tools específicas sin sacar el servidor |
 
 ## Consideraciones

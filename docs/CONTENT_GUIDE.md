@@ -15,14 +15,14 @@ Categoría  →  Subcategoría  →  Módulo  →  Secciones
 frontend   →  react         →  react-context-api.md  →  ## Cuándo usarlo
 ```
 
-| Pieza | Dónde vive | Qué decide |
-| --- | --- | --- |
-| **Categoría** | 1.ª carpeta de `src/content/` | Área de conocimiento. Su página `/categories/<id>` y su bloque en la sidebar |
-| **Subcategoría** | 2.ª carpeta | El grupo dentro de la categoría |
-| **Módulo** | el archivo `.md` | Una página. Su URL es su ruta |
-| **Sección** | los `##` dentro del `.md` | El índice lateral (TOC) de esa página |
-| **Tipo** (`type`) | frontmatter | Insignia, icono, color y sitio en el orden de lectura |
-| **Tags** | frontmatter | Conexiones entre categorías. No afectan la ubicación |
+| Pieza             | Dónde vive                    | Qué decide                                                                   |
+| ----------------- | ----------------------------- | ---------------------------------------------------------------------------- |
+| **Categoría**     | 1.ª carpeta de `src/content/` | Área de conocimiento. Su página `/categories/<id>` y su bloque en la sidebar |
+| **Subcategoría**  | 2.ª carpeta                   | El grupo dentro de la categoría                                              |
+| **Módulo**        | el archivo `.md`              | Una página. Su URL es su ruta                                                |
+| **Sección**       | los `##` dentro del `.md`     | El índice lateral (TOC) de esa página                                        |
+| **Tipo** (`type`) | frontmatter                   | Insignia, icono, color y sitio en el orden de lectura                        |
+| **Tags**          | frontmatter                   | Conexiones entre categorías. No afectan la ubicación                         |
 
 **La carpeta manda.** La ruta del archivo es su id y su URL:
 
@@ -72,22 +72,22 @@ Borra el `.md` y ejecuta `pnpm build`: si alguien lo referenciaba, el build fall
 
 ### Campos propios por tipo
 
-| `type` | Úsalo para | Campos propios |
-| --- | --- | --- |
-| `technologies` | Fundamento de una tecnología o lenguaje | `website`, `github` |
-| `libraries` | API e instalación de un paquete | `install`, `technologies`, `website`, `github` |
-| `integrations` | Combinar dos o más tecnologías | `technologies` (mínimo 2) |
-| `recipes` | Solución completa a un problema | `problem`, `technologies` |
-| `snippets` | Fragmento corto de código | `language` |
-| `hooks` | Hook reutilizable | `framework`, `language`, `parameters`, `returns` |
-| `utilities` | Función auxiliar pequeña | `runtime`, `language` |
-| `resources` | Enlace externo recomendado | `url`, `resourceCategory`, `official`, `personalNote` |
-| `skills` | Flujo de una herramienta de IA | `tool` |
-| `commands` | Comando de terminal y sus riesgos | `command`, `whenToUse`, `warnings` |
-| `patterns` | Solución estructural reutilizable | `problem` |
-| `practices` | Regla de calidad o mantenimiento | `practice`, `why` |
-| `guides` | Explicación práctica con varios pasos | `scope`, `technologies`, `libraries`, `website`, `github` |
-| `tricks` | Atajo o solución puntual | `problem` |
+| `type`         | Úsalo para                              | Campos propios                                            |
+| -------------- | --------------------------------------- | --------------------------------------------------------- |
+| `technologies` | Fundamento de una tecnología o lenguaje | `website`, `github`                                       |
+| `libraries`    | API e instalación de un paquete         | `install`, `technologies`, `website`, `github`            |
+| `integrations` | Combinar dos o más tecnologías          | `technologies` (mínimo 2)                                 |
+| `recipes`      | Solución completa a un problema         | `problem`, `technologies`                                 |
+| `snippets`     | Fragmento corto de código               | `language`                                                |
+| `hooks`        | Hook reutilizable                       | `framework`, `language`, `parameters`, `returns`          |
+| `utilities`    | Función auxiliar pequeña                | `runtime`, `language`                                     |
+| `resources`    | Enlace externo recomendado              | `url`, `resourceCategory`, `official`, `personalNote`     |
+| `skills`       | Flujo de una herramienta de IA          | `tool`                                                    |
+| `commands`     | Comando de terminal y sus riesgos       | `command`, `whenToUse`, `warnings`                        |
+| `patterns`     | Solución estructural reutilizable       | `problem`                                                 |
+| `practices`    | Regla de calidad o mantenimiento        | `practice`, `why`                                         |
+| `guides`       | Explicación práctica con varios pasos   | `scope`, `technologies`, `libraries`, `website`, `github` |
+| `tricks`       | Atajo o solución puntual                | `problem`                                                 |
 
 Si enseña un proceso, suele ser `guides`. Si resuelve un caso concreto con código listo para adaptar, `recipes`. Si solo guarda una orden de terminal, `commands`.
 
@@ -98,9 +98,11 @@ Si enseña un proceso, suele ser `guides`. Si resuelve un caso concreto con cód
 Las secciones son los encabezados del cuerpo. `Toc.astro` construye el índice lateral con los `##` y `###`, y el scroll-spy marca la que se está leyendo.
 
 ```markdown
-## Cuándo usarlo        ← sección (entra en el índice)
-### Con formularios     ← apartado (entra en el índice)
-#### Detalle            ← no entra en el índice
+## Cuándo usarlo ← sección (entra en el índice)
+
+### Con formularios ← apartado (entra en el índice)
+
+#### Detalle ← no entra en el índice
 ```
 
 - El `#` de nivel 1 no se escribe: el título sale del frontmatter.
@@ -182,7 +184,8 @@ const CATEGORY_DEFINITIONS = {
   mobile: {
     label: "Mobile",
     icon: "smartphone",
-    description: "Aplicaciones móviles: React Native, Expo y publicación en tiendas.",
+    description:
+      "Aplicaciones móviles: React Native, Expo y publicación en tiendas.",
     color: "--accent-cyan"
   }
 }
@@ -255,29 +258,29 @@ Un nombre que no exista en lucide ni en esa tabla rompe el build.
 
 ## Qué archivo tocar según el objetivo
 
-| Objetivo | Archivo |
-| --- | --- |
-| Crear un módulo | `src/content/<categoría>/<subcategoría>/` |
-| Mover un módulo | mueve el `.md` de carpeta |
-| Cambiar campos permitidos del frontmatter | `src/content.config.ts` |
-| Añadir o reordenar categorías y subcategorías | `src/config/site.ts` |
-| Cambiar cómo se agrupa una categoría | `src/lib/content.ts` (`getCategoryEntries`) |
-| Cambiar el orden de lectura | `src/lib/content.ts` (`LEARNING_TYPE_ORDER`) |
-| Cambiar las relaciones automáticas | `src/lib/relations.ts` |
-| Añadir un icono | `src/config/icons.ts` |
-| Cambiar un color | `src/styles/tokens.css` |
+| Objetivo                                      | Archivo                                      |
+| --------------------------------------------- | -------------------------------------------- |
+| Crear un módulo                               | `src/content/<categoría>/<subcategoría>/`    |
+| Mover un módulo                               | mueve el `.md` de carpeta                    |
+| Cambiar campos permitidos del frontmatter     | `src/content.config.ts`                      |
+| Añadir o reordenar categorías y subcategorías | `src/config/site.ts`                         |
+| Cambiar cómo se agrupa una categoría          | `src/lib/content.ts` (`getCategoryEntries`)  |
+| Cambiar el orden de lectura                   | `src/lib/content.ts` (`LEARNING_TYPE_ORDER`) |
+| Cambiar las relaciones automáticas            | `src/lib/relations.ts`                       |
+| Añadir un icono                               | `src/config/icons.ts`                        |
+| Cambiar un color                              | `src/styles/tokens.css`                      |
 
 ---
 
 ## Lo que valida el build
 
-| Validación | Falla cuando |
-| --- | --- |
-| `validateContentStructure` | Una carpeta no es una categoría o subcategoría declarada |
+| Validación                 | Falla cuando                                                          |
+| -------------------------- | --------------------------------------------------------------------- |
+| `validateContentStructure` | Una carpeta no es una categoría o subcategoría declarada              |
 | `validateContentRelations` | `related`, `technologies` o `libraries` apuntan a un id que no existe |
-| `validateInternalLinks` | Un enlace `](/…)` del cuerpo no lleva a ninguna parte |
-| `CATEGORY_GROUPS` | Una categoría no está en ningún bloque de la sidebar |
-| `PUBLIC_COMMANDS` | Un comando de la terminal con descripción no está listado |
+| `validateInternalLinks`    | Un enlace `](/…)` del cuerpo no lleva a ninguna parte                 |
+| `CATEGORY_GROUPS`          | Una categoría no está en ningún bloque de la sidebar                  |
+| `PUBLIC_COMMANDS`          | Un comando de la terminal con descripción no está listado             |
 
 ## Errores habituales
 
@@ -288,6 +291,7 @@ Un nombre que no exista en lucide ni en esa tabla rompe el build.
   ```
 
   Pasa sobre todo en `title`, `description` y `personalNote`.
+
 - **`Invalid discriminator value`:** falta `type:` o su id no existe.
 - **No aparece en producción:** sigue con `draft: true` o `private: true`.
 - **No aparece en el grupo esperado:** está en otra subcarpeta, o esa subcarpeta no está en `CATEGORY_SUBCATEGORY_ORDER[categoría]`.

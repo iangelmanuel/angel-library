@@ -114,12 +114,12 @@ npm run build --workspace=web --workspace=ui
 npm run test --workspaces --if-present
 ```
 
-| Flag | Selecciona |
-| --- | --- |
-| `--workspace=web` / `-w web` | Solo el workspace `web` |
-| `--workspace=web --workspace=ui` | Varios workspaces nombrados |
-| `--workspaces` | Todos los workspaces |
-| `--if-present` | No falla si algún workspace no tiene ese script definido |
+| Flag                             | Selecciona                                               |
+| -------------------------------- | -------------------------------------------------------- |
+| `--workspace=web` / `-w web`     | Solo el workspace `web`                                  |
+| `--workspace=web --workspace=ui` | Varios workspaces nombrados                              |
+| `--workspaces`                   | Todos los workspaces                                     |
+| `--if-present`                   | No falla si algún workspace no tiene ese script definido |
 
 `--if-present` importa en la práctica: sin él, `npm run test --workspaces` falla en cuanto un solo paquete no tiene script `test`, incluso si el resto sí lo tiene.
 

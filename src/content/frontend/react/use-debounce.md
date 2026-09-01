@@ -27,29 +27,29 @@ Cada cambio cancela el timeout anterior. Solo el último valor sobrevive cuando 
 ## Código
 
 ```ts title="hooks/useDebounce.ts"
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
 
 export function useDebounce<T>(value: T, delayMs = 300): T {
-  const [debounced, setDebounced] = useState(value);
+  const [debounced, setDebounced] = useState(value)
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => setDebounced(value), delayMs);
-    return () => window.clearTimeout(timeout);
-  }, [value, delayMs]);
+    const timeout = window.setTimeout(() => setDebounced(value), delayMs)
+    return () => window.clearTimeout(timeout)
+  }, [value, delayMs])
 
-  return debounced;
+  return debounced
 }
 ```
 
 ## Uso
 
 ```tsx
-const [query, setQuery] = useState('');
-const debouncedQuery = useDebounce(query, 350);
+const [query, setQuery] = useState("")
+const debouncedQuery = useDebounce(query, 350)
 
 useEffect(() => {
-  if (debouncedQuery.trim()) buscar(debouncedQuery);
-}, [debouncedQuery]);
+  if (debouncedQuery.trim()) buscar(debouncedQuery)
+}, [debouncedQuery])
 ```
 
 Esto retrasa **el valor**, no una función. Para guardar inmediatamente pero limitar una operación, esta forma mantiene el flujo declarativo: el input usa `query`; el efecto costoso usa `debouncedQuery`.
@@ -58,21 +58,21 @@ Esto retrasa **el valor**, no una función. Para guardar inmediatamente pero lim
 
 ```tsx
 useEffect(() => {
-  if (!debouncedQuery.trim()) return;
+  if (!debouncedQuery.trim()) return
 
-  const controller = new AbortController();
+  const controller = new AbortController()
 
   fetch(`/api/search?q=${encodeURIComponent(debouncedQuery)}`, {
-    signal: controller.signal,
+    signal: controller.signal
   })
     .then((response) => response.json())
     .then(setResults)
     .catch((error) => {
-      if (error.name !== 'AbortError') setError('No se pudo buscar');
-    });
+      if (error.name !== "AbortError") setError("No se pudo buscar")
+    })
 
-  return () => controller.abort();
-}, [debouncedQuery]);
+  return () => controller.abort()
+}, [debouncedQuery])
 ```
 
 Debounce reduce el número de solicitudes. `AbortController` resuelve otro problema: evita que una solicitud anterior continúe o que su respuesta obsoleta gane la carrera.

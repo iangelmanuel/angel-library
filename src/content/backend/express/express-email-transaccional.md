@@ -16,9 +16,9 @@ npm install resend jsonwebtoken
 ```
 
 ```ts title="lib/resend.ts"
-import { Resend } from 'resend';
+import { Resend } from "resend"
 
-export const resend = new Resend(process.env.RESEND_API_KEY);
+export const resend = new Resend(process.env.RESEND_API_KEY)
 ```
 
 ## Flujo 1: confirmar email al registrarse
@@ -26,51 +26,57 @@ export const resend = new Resend(process.env.RESEND_API_KEY);
 Un token de un solo uso, firmado igual que un JWT de sesión pero con un propósito distinto (`type: 'email-confirmation'`) y expiración corta:
 
 ```ts title="routes/auth.routes.ts"
-import jwt from 'jsonwebtoken';
-import { resend } from '../lib/resend';
+import jwt from "jsonwebtoken"
+import { resend } from "../lib/resend"
 
-authRouter.post('/registro', async (req, res, next) => {
+authRouter.post("/registro", async (req, res, next) => {
   try {
-    const usuario = await crearUsuario(req.body); // ver Auth completa
+    const usuario = await crearUsuario(req.body) // ver Auth completa
 
     const tokenConfirmacion = jwt.sign(
-      { sub: usuario.id, type: 'email-confirmation' },
+      { sub: usuario.id, type: "email-confirmation" },
       process.env.JWT_SECRET!,
-      { expiresIn: '24h' },
-    );
+      { expiresIn: "24h" }
+    )
 
-    const urlConfirmacion = `${process.env.APP_URL}/confirmar-email?token=${tokenConfirmacion}`;
+    const urlConfirmacion = `${process.env.APP_URL}/confirmar-email?token=${tokenConfirmacion}`
 
     await resend.emails.send({
-      from: 'App <noreply@midominio.com>',
+      from: "App <noreply@midominio.com>",
       to: usuario.email,
-      subject: 'Confirma tu cuenta',
-      html: `<p>Haz click <a href="${urlConfirmacion}">aquí</a> para confirmar tu cuenta. Expira en 24 horas.</p>`,
-    });
+      subject: "Confirma tu cuenta",
+      html: `<p>Haz click <a href="${urlConfirmacion}">aquí</a> para confirmar tu cuenta. Expira en 24 horas.</p>`
+    })
 
-    res.status(201).json({ ok: true });
+    res.status(201).json({ ok: true })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-authRouter.get('/confirmar-email', async (req, res) => {
+authRouter.get("/confirmar-email", async (req, res) => {
   try {
-    const payload = jwt.verify(req.query.token as string, process.env.JWT_SECRET!) as {
-      sub: string;
-      type: string;
-    };
-
-    if (payload.type !== 'email-confirmation') {
-      return res.status(400).json({ error: 'Token inválido' });
+    const payload = jwt.verify(
+      req.query.token as string,
+      process.env.JWT_SECRET!
+    ) as {
+      sub: string
+      type: string
     }
 
-    await prisma.user.update({ where: { id: payload.sub }, data: { emailConfirmado: true } });
-    res.json({ ok: true });
+    if (payload.type !== "email-confirmation") {
+      return res.status(400).json({ error: "Token inválido" })
+    }
+
+    await prisma.user.update({
+      where: { id: payload.sub },
+      data: { emailConfirmado: true }
+    })
+    res.json({ ok: true })
   } catch {
-    res.status(400).json({ error: 'Token inválido o expirado' });
+    res.status(400).json({ error: "Token inválido o expirado" })
   }
-});
+})
 ```
 
 ## Flujo 2: recuperar contraseña
@@ -78,39 +84,51 @@ authRouter.get('/confirmar-email', async (req, res) => {
 Mismo patrón de token, distinto `type`, y esta vez de un solo uso real (no solo por expiración):
 
 ```ts
-authRouter.post('/olvide-password', async (req, res) => {
-  const usuario = await prisma.user.findUnique({ where: { email: req.body.email } });
+authRouter.post("/olvide-password", async (req, res) => {
+  const usuario = await prisma.user.findUnique({
+    where: { email: req.body.email }
+  })
 
   // Responder igual exista o no el usuario — no revelar si un email está registrado
   if (usuario) {
-    const token = jwt.sign({ sub: usuario.id, type: 'password-reset' }, process.env.JWT_SECRET!, {
-      expiresIn: '1h',
-    });
+    const token = jwt.sign(
+      { sub: usuario.id, type: "password-reset" },
+      process.env.JWT_SECRET!,
+      {
+        expiresIn: "1h"
+      }
+    )
 
     await resend.emails.send({
-      from: 'App <noreply@midominio.com>',
+      from: "App <noreply@midominio.com>",
       to: usuario.email,
-      subject: 'Recuperar contraseña',
-      html: `<p>Cambia tu contraseña <a href="${process.env.APP_URL}/reset-password?token=${token}">aquí</a>. Expira en 1 hora.</p>`,
-    });
+      subject: "Recuperar contraseña",
+      html: `<p>Cambia tu contraseña <a href="${process.env.APP_URL}/reset-password?token=${token}">aquí</a>. Expira en 1 hora.</p>`
+    })
   }
 
-  res.json({ ok: true });
-});
+  res.json({ ok: true })
+})
 
-authRouter.post('/reset-password', async (req, res) => {
+authRouter.post("/reset-password", async (req, res) => {
   try {
-    const payload = jwt.verify(req.body.token, process.env.JWT_SECRET!) as { sub: string; type: string };
-    if (payload.type !== 'password-reset') throw new Error();
+    const payload = jwt.verify(req.body.token, process.env.JWT_SECRET!) as {
+      sub: string
+      type: string
+    }
+    if (payload.type !== "password-reset") throw new Error()
 
-    const passwordHash = await bcrypt.hash(req.body.password, 10);
-    await prisma.user.update({ where: { id: payload.sub }, data: { passwordHash } });
+    const passwordHash = await bcrypt.hash(req.body.password, 10)
+    await prisma.user.update({
+      where: { id: payload.sub },
+      data: { passwordHash }
+    })
 
-    res.json({ ok: true });
+    res.json({ ok: true })
   } catch {
-    res.status(400).json({ error: 'Token inválido o expirado' });
+    res.status(400).json({ error: "Token inválido o expirado" })
   }
-});
+})
 ```
 
 ## Por qué responder igual exista o no el email

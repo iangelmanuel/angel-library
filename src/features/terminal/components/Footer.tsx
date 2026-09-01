@@ -1,5 +1,11 @@
 /** Atajos de teclado y el estado del índice. */
-export function Footer({ status, statusId }: { status: string; statusId: string }) {
+export function Footer({
+  status,
+  statusId
+}: {
+  status: string
+  statusId: string
+}) {
   return (
     <div className="search-terminal__footer">
       <span>
@@ -20,7 +26,11 @@ export function Footer({ status, statusId }: { status: string; statusId: string 
       <span>
         <kbd className="kbd">/help</kbd> comandos
       </span>
-      <span id={statusId} className="search-terminal__status" aria-live="polite">
+      <span
+        id={statusId}
+        className="search-terminal__status"
+        aria-live="polite"
+      >
         {status}
       </span>
     </div>

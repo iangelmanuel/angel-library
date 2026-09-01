@@ -20,7 +20,10 @@ function filterByTopic<T extends { topic: string }>(
     : [...items]
 
   if (matches.length === 0) {
-    ctx.fail([`tema desconocido: ${ctx.args}`, `disponibles: ${topics.join(", ")}`])
+    ctx.fail([
+      `tema desconocido: ${ctx.args}`,
+      `disponibles: ${topics.join(", ")}`
+    ])
     return null
   }
 
@@ -66,13 +69,20 @@ export const aprendizajeCommands: CommandMap = {
 
       const correct = quiz.choices[quiz.answer]
       if (["ver", "rendirse", "skip"].includes(normalizeKeyword(ctx.args))) {
-        ctx.print([`respuesta: ${quiz.answer + 1}. ${correct}`, quiz.explanation])
+        ctx.print([
+          `respuesta: ${quiz.answer + 1}. ${correct}`,
+          quiz.explanation
+        ])
         ctx.setQuiz(null)
         return
       }
 
       const chosen = Number.parseInt(ctx.args, 10) - 1
-      if (!/^\d+$/.test(ctx.args) || chosen < 0 || chosen >= quiz.choices.length) {
+      if (
+        !/^\d+$/.test(ctx.args) ||
+        chosen < 0 ||
+        chosen >= quiz.choices.length
+      ) {
         ctx.fail(["uso: /respuesta <número> o /respuesta ver"])
         return
       }

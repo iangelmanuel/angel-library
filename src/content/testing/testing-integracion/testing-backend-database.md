@@ -15,29 +15,30 @@ Una prueba de integración verifica que varias piezas reales colaboran: router, 
 
 ## Define el alcance
 
-| Alcance | Conserva real | Puede sustituir |
-| --- | --- | --- |
-| repositorio | driver/ORM + base | HTTP y proveedores |
-| caso de uso | servicio + repositorio + base | correo, pagos, reloj |
-| API | middleware + ruta + servicio + base | terceros externos |
+| Alcance     | Conserva real                       | Puede sustituir      |
+| ----------- | ----------------------------------- | -------------------- |
+| repositorio | driver/ORM + base                   | HTTP y proveedores   |
+| caso de uso | servicio + repositorio + base       | correo, pagos, reloj |
+| API         | middleware + ruta + servicio + base | terceros externos    |
 
 Escribe en el nombre o carpeta qué frontera prueba. “Integración” sin alcance produce setups enormes y aserciones poco claras.
 
 ## Caso representativo
 
 ```ts
-it('crea una orden y descuenta inventario de forma atómica', async () => {
-  const product = await factory.product({ stock: 2 });
+it("crea una orden y descuenta inventario de forma atómica", async () => {
+  const product = await factory.product({ stock: 2 })
 
   const response = await request(app)
-    .post('/orders')
-    .set('Authorization', await tokenFor(user))
-    .send({ productId: product.id, quantity: 2 });
+    .post("/orders")
+    .set("Authorization", await tokenFor(user))
+    .send({ productId: product.id, quantity: 2 })
 
-  expect(response.status).toBe(201);
-  await expect(db.product.findUnique({ where: { id: product.id } }))
-    .resolves.toMatchObject({ stock: 0 });
-});
+  expect(response.status).toBe(201)
+  await expect(
+    db.product.findUnique({ where: { id: product.id } })
+  ).resolves.toMatchObject({ stock: 0 })
+})
 ```
 
 La aserción cruza HTTP y estado persistido. Añade un caso donde una segunda escritura falla para demostrar rollback, no solo éxito.
@@ -57,9 +58,9 @@ No permitas que tests apunten a producción. La URL debe validarse y los permiso
 
 ```ts
 function assertSafeTestDatabase(url: string) {
-  const parsed = new URL(url);
-  if (!parsed.pathname.endsWith('_test') || process.env.NODE_ENV !== 'test') {
-    throw new Error('La base de pruebas no es segura');
+  const parsed = new URL(url)
+  if (!parsed.pathname.endsWith("_test") || process.env.NODE_ENV !== "test") {
+    throw new Error("La base de pruebas no es segura")
   }
 }
 ```
@@ -70,12 +71,12 @@ El sufijo no es una garantía completa, pero añade una barrera. Usa credenciale
 
 Un contenedor efímero entrega versión y configuración reproducibles. Un servicio compartido arranca más rápido, pero puede filtrar datos entre suites. Consulta [Testcontainers](/testing/testing-integracion/testcontainers-node) para un ejemplo con PostgreSQL.
 
-| Opción | Inicio | Aislamiento | Fidelidad |
-| --- | --- | --- | --- |
-| fake/in-memory | muy rápido | alto | baja para SQL real |
-| SQLite sustituto | rápido | alto | distinta semántica si producción usa PostgreSQL |
-| base compartida | rápido | depende del cleanup | alta, estado variable |
-| contenedor | medio | alto | alta y versionada |
+| Opción           | Inicio     | Aislamiento         | Fidelidad                                       |
+| ---------------- | ---------- | ------------------- | ----------------------------------------------- |
+| fake/in-memory   | muy rápido | alto                | baja para SQL real                              |
+| SQLite sustituto | rápido     | alto                | distinta semántica si producción usa PostgreSQL |
+| base compartida  | rápido     | depende del cleanup | alta, estado variable                           |
+| contenedor       | medio      | alto                | alta y versionada                               |
 
 ## Datos deterministas
 
@@ -99,16 +100,24 @@ Prepara por API de soporte o directamente por repositorio según el objetivo. Si
 Una operación es atómica cuando confirma todos sus cambios o ninguno. Fuerza un error después de la primera escritura y comprueba que no queda estado parcial. Para endpoints reintentables, envía dos veces la misma clave de idempotencia y verifica que existe un solo efecto.
 
 ```ts
-it('no duplica una orden al repetir la misma solicitud', async () => {
-  const key = crypto.randomUUID();
-  const payload = { productId: product.id, quantity: 1 };
+it("no duplica una orden al repetir la misma solicitud", async () => {
+  const key = crypto.randomUUID()
+  const payload = { productId: product.id, quantity: 1 }
 
-  const first = await request(app).post('/orders').set('Idempotency-Key', key).send(payload);
-  const second = await request(app).post('/orders').set('Idempotency-Key', key).send(payload);
+  const first = await request(app)
+    .post("/orders")
+    .set("Idempotency-Key", key)
+    .send(payload)
+  const second = await request(app)
+    .post("/orders")
+    .set("Idempotency-Key", key)
+    .send(payload)
 
-  expect(second.body.id).toBe(first.body.id);
-  await expect(db.order.count({ where: { idempotencyKey: key } })).resolves.toBe(1);
-});
+  expect(second.body.id).toBe(first.body.id)
+  await expect(
+    db.order.count({ where: { idempotencyKey: key } })
+  ).resolves.toBe(1)
+})
 ```
 
 La clave identifica la intención del cliente; no debe reutilizarse para operaciones diferentes. Define cuánto tiempo se conserva y qué respuesta recibe un request concurrente.
@@ -120,11 +129,11 @@ Ejecuta solicitudes simultáneas cuando la regla depende de competencia:
 ```ts
 const [first, second] = await Promise.all([
   reserveLastUnit(product.id, userA.id),
-  reserveLastUnit(product.id, userB.id),
-]);
+  reserveLastUnit(product.id, userB.id)
+])
 
-expect([first.ok, second.ok].sort()).toEqual([false, true]);
-expect(await stockOf(product.id)).toBe(0);
+expect([first.ok, second.ok].sort()).toEqual([false, true])
+expect(await stockOf(product.id)).toBe(0)
 ```
 
 El test debe pasar repetidamente y demostrar la invariante persistida. Si solo prueba una secuencia, no reproduce la carrera.

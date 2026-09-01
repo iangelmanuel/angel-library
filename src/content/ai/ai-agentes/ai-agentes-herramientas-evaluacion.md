@@ -20,11 +20,11 @@ const tools = {
   getOrder: {
     input: z.object({ orderId: z.string().uuid() }),
     execute: async ({ orderId }, context) => {
-      await requirePermission(context.user, 'orders:read', orderId);
-      return orders.findById(orderId);
-    },
-  },
-};
+      await requirePermission(context.user, "orders:read", orderId)
+      return orders.findById(orderId)
+    }
+  }
+}
 ```
 
 La descripción ayuda al modelo a elegir; el esquema valida argumentos; la función ejecutora aplica autenticación, autorización, timeout y auditoría. El modelo nunca sustituye esos controles.
@@ -50,12 +50,12 @@ Un bucle agente más libre es útil cuando no se conoce de antemano qué herrami
 
 La memoria de una conversación puede dividirse en:
 
-| Memoria | Contenido | Persistencia |
-| --- | --- | --- |
-| De trabajo | Mensajes y resultados del turno | Contexto actual |
-| Resumen | Decisiones y estado compacto | Conversación |
-| Perfil | Preferencias confirmadas | Cuenta, con consentimiento |
-| Conocimiento | Documentos recuperables | Índice externo |
+| Memoria      | Contenido                       | Persistencia               |
+| ------------ | ------------------------------- | -------------------------- |
+| De trabajo   | Mensajes y resultados del turno | Contexto actual            |
+| Resumen      | Decisiones y estado compacto    | Conversación               |
+| Perfil       | Preferencias confirmadas        | Cuenta, con consentimiento |
+| Conocimiento | Documentos recuperables         | Índice externo             |
 
 No guardes cada salida como hecho. Separa afirmaciones del usuario, datos verificados y conclusiones del modelo; permite revisar y eliminar información personal.
 
@@ -69,11 +69,11 @@ Una **eval** es una prueba repetible del comportamiento de un sistema de IA. Man
 
 ```ts
 type EvalCase = {
-  input: string;
-  expectedCategory: string;
-  mustCite?: string[];
-  forbiddenActions?: string[];
-};
+  input: string
+  expectedCategory: string
+  mustCite?: string[]
+  forbiddenActions?: string[]
+}
 ```
 
 Mide por componentes: selección de herramienta, argumentos, resultado final, citas, latencia y costo. Combina reglas exactas, jueces humanos y, cuando sea apropiado, un modelo evaluador calibrado. Compara versiones del prompt, modelo y herramientas antes de desplegar.
@@ -82,4 +82,3 @@ Mide por componentes: selección de herramienta, argumentos, resultado final, ci
 
 - [OpenAI: evaluación de modelos](https://platform.openai.com/docs/guides/evals)
 - [OpenAI: prácticas de seguridad](https://platform.openai.com/docs/guides/safety-best-practices)
-

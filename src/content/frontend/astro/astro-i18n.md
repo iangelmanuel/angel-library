@@ -13,28 +13,28 @@ updatedAt: 2026-08-25
 
 Astro incluye routing i18n para describir locales soportados y validar URLs localizadas. La traducción del contenido sigue siendo responsabilidad de tu estructura o librería elegida.
 
-**i18n** es la abreviatura de *internationalization*: hay 18 letras entre la `i` y la `n`. Un **locale** combina reglas de idioma y, opcionalmente, región; `es` expresa español general y `es-CO` añade convenciones de Colombia. Traducir texto, localizar formatos y diseñar URLs son tareas relacionadas, pero diferentes.
+**i18n** es la abreviatura de _internationalization_: hay 18 letras entre la `i` y la `n`. Un **locale** combina reglas de idioma y, opcionalmente, región; `es` expresa español general y `es-CO` añade convenciones de Colombia. Traducir texto, localizar formatos y diseñar URLs son tareas relacionadas, pero diferentes.
 
 ## Decisiones antes de configurar
 
-| Pregunta | Ejemplo de decisión |
-| --- | --- |
-| ¿el locale aparece en la URL? | `/en/docs` frente a `/docs` |
-| ¿el idioma por defecto lleva prefijo? | `/es/docs` o `/docs` |
-| ¿qué ocurre si falta una traducción? | 404, fallback o contenido parcial |
-| ¿cómo se elige inicialmente? | URL, preferencia guardada o `Accept-Language` |
-| ¿quién traduce el contenido? | archivos, CMS o servicio externo |
+| Pregunta                              | Ejemplo de decisión                           |
+| ------------------------------------- | --------------------------------------------- |
+| ¿el locale aparece en la URL?         | `/en/docs` frente a `/docs`                   |
+| ¿el idioma por defecto lleva prefijo? | `/es/docs` o `/docs`                          |
+| ¿qué ocurre si falta una traducción?  | 404, fallback o contenido parcial             |
+| ¿cómo se elige inicialmente?          | URL, preferencia guardada o `Accept-Language` |
+| ¿quién traduce el contenido?          | archivos, CMS o servicio externo              |
 
 ```js title="astro.config.mjs"
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config"
 
 export default defineConfig({
   i18n: {
-    locales: ['es', 'en', 'pt-br'],
-    defaultLocale: 'es',
-    routing: { prefixDefaultLocale: false },
-  },
-});
+    locales: ["es", "en", "pt-br"],
+    defaultLocale: "es",
+    routing: { prefixDefaultLocale: false }
+  }
+})
 ```
 
 ```text
@@ -56,12 +56,12 @@ Centralizar la construcción de URLs evita dobles prefijos, locales inválidos y
 Un diccionario puede ser un objeto por locale o venir de un CMS. Carga en servidor el idioma de la ruta y pasa a una isla únicamente los textos que necesita. Para fechas, números, moneda y plurales usa las APIs `Intl`; traducir `"1 productos"` mediante concatenación produce errores gramaticales.
 
 ```ts
-const formatter = new Intl.NumberFormat('es-CO', {
-  style: 'currency',
-  currency: 'COP',
-});
+const formatter = new Intl.NumberFormat("es-CO", {
+  style: "currency",
+  currency: "COP"
+})
 
-formatter.format(125000); // "$ 125.000,00" según el entorno
+formatter.format(125000) // "$ 125.000,00" según el entorno
 ```
 
 ## Fallbacks

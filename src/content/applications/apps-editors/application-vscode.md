@@ -38,15 +38,15 @@ Fedora/RHEL usa el mismo repositorio de Microsoft pero con `dnf`/`yum`; el paso 
 
 Quien empieza debe distinguir configuración de usuario y de proyecto. Quien viene a recordar puede saltar a los archivos y comandos principales.
 
-| Necesidad | Lugar |
-| --- | --- |
-| abrir la paleta | `Cmd+Shift+P` en macOS; `Ctrl+Shift+P` en Windows/Linux |
-| configuración visual | Preferences: Open Settings |
-| configuración JSON | Preferences: Open User Settings (JSON) |
-| configuración del proyecto | `.vscode/settings.json` |
-| extensiones sugeridas | `.vscode/extensions.json` |
-| tareas repetibles | `.vscode/tasks.json` |
-| perfiles de depuración | `.vscode/launch.json` |
+| Necesidad                  | Lugar                                                   |
+| -------------------------- | ------------------------------------------------------- |
+| abrir la paleta            | `Cmd+Shift+P` en macOS; `Ctrl+Shift+P` en Windows/Linux |
+| configuración visual       | Preferences: Open Settings                              |
+| configuración JSON         | Preferences: Open User Settings (JSON)                  |
+| configuración del proyecto | `.vscode/settings.json`                                 |
+| extensiones sugeridas      | `.vscode/extensions.json`                               |
+| tareas repetibles          | `.vscode/tasks.json`                                    |
+| perfiles de depuración     | `.vscode/launch.json`                                   |
 
 ## User settings y workspace settings
 
@@ -131,4 +131,3 @@ Settings Sync puede sincronizar configuración personal entre dispositivos. No r
 Abrir un repositorio puede activar tareas, extensiones, depuración y configuraciones. Usa **Workspace Trust** para mantener capacidades restringidas mientras verificas un proyecto desconocido. Lee scripts de instalación y tareas antes de ejecutarlos; el hecho de estar dentro del editor no vuelve seguro un comando.
 
 Fuentes: [configuración de VS Code](https://code.visualstudio.com/docs/configure/settings) y [Profiles](https://code.visualstudio.com/docs/configure/profiles).
-

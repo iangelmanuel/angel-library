@@ -19,19 +19,19 @@ npm install --save-dev @types/jsonwebtoken
 ## Paso 2: un endpoint que firma un token (sin verificar password todavía, a propósito)
 
 ```ts title="server.ts"
-import express from 'express';
-import jwt from 'jsonwebtoken';
+import express from "express"
+import jwt from "jsonwebtoken"
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-const SECRET = 'solo-para-este-ejemplo-usar-env-var-en-real';
+const SECRET = "solo-para-este-ejemplo-usar-env-var-en-real"
 
-app.post('/token', (req, res) => {
-  const { userId } = req.body;
-  const token = jwt.sign({ sub: userId }, SECRET, { expiresIn: '1h' });
-  res.json({ token });
-});
+app.post("/token", (req, res) => {
+  const { userId } = req.body
+  const token = jwt.sign({ sub: userId }, SECRET, { expiresIn: "1h" })
+  res.json({ token })
+})
 ```
 
 ## Paso 3: probar que emite un token
@@ -49,25 +49,29 @@ curl -X POST http://localhost:3000/token \
 ## Paso 4: un middleware que verifica el token
 
 ```ts title="server.ts"
-function requireAuth(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const token = req.headers.authorization?.replace('Bearer ', '');
+function requireAuth(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  const token = req.headers.authorization?.replace("Bearer ", "")
 
   if (!token) {
-    return res.status(401).json({ error: 'Falta el token' });
+    return res.status(401).json({ error: "Falta el token" })
   }
 
   try {
-    const payload = jwt.verify(token, SECRET) as { sub: string };
-    (req as any).userId = payload.sub;
-    next();
+    const payload = jwt.verify(token, SECRET) as { sub: string }
+    ;(req as any).userId = payload.sub
+    next()
   } catch {
-    res.status(401).json({ error: 'Token inválido o expirado' });
+    res.status(401).json({ error: "Token inválido o expirado" })
   }
 }
 
-app.get('/protegida', requireAuth, (req, res) => {
-  res.json({ mensaje: `Hola, usuario ${(req as any).userId}` });
-});
+app.get("/protegida", requireAuth, (req, res) => {
+  res.json({ mensaje: `Hola, usuario ${(req as any).userId}` })
+})
 ```
 
 ## Paso 5: probar la ruta protegida

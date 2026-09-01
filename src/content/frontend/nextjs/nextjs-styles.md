@@ -15,13 +15,13 @@ Next.js no obliga a una sola estrategia de CSS. La decisión importante es defin
 
 ## Elección rápida
 
-| Necesidad | Opción recomendada |
-| --- | --- |
-| reset, variables y estilos base | CSS global |
-| estilos aislados de un componente | CSS Modules |
-| utilidades y sistema de diseño por clases | Tailwind CSS |
-| variables, mixins y sintaxis de Sass | Sass Modules |
-| estilos calculados durante ejecución | CSS-in-JS compatible con Server Components |
+| Necesidad                                 | Opción recomendada                         |
+| ----------------------------------------- | ------------------------------------------ |
+| reset, variables y estilos base           | CSS global                                 |
+| estilos aislados de un componente         | CSS Modules                                |
+| utilidades y sistema de diseño por clases | Tailwind CSS                               |
+| variables, mixins y sintaxis de Sass      | Sass Modules                               |
+| estilos calculados durante ejecución      | CSS-in-JS compatible con Server Components |
 
 ## CSS global
 
@@ -32,12 +32,18 @@ Next.js no obliga a una sola estrategia de CSS. La decisión importante es defin
   --accent: #f6c85f;
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--surface); color: var(--text); }
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+}
 ```
 
 ```tsx title="app/layout.tsx"
-import './globals.css';
+import "./globals.css"
 ```
 
 Importa los estilos globales en el layout raíz para que su alcance sea intencional. También se pueden importar desde layouts, páginas y componentes del directorio `app`, pero repartir reglas globales por muchas rutas hace más difícil predecir la cascada y el orden final.
@@ -55,10 +61,10 @@ Un archivo `*.module.css` genera nombres de clase locales, por lo que dos compon
 ```
 
 ```tsx title="app/products/product-card.tsx"
-import styles from './product-card.module.css';
+import styles from "./product-card.module.css"
 
 export function ProductCard({ name }: { name: string }) {
-  return <article className={styles.card}>{name}</article>;
+  return <article className={styles.card}>{name}</article>
 }
 ```
 
@@ -69,7 +75,7 @@ CSS Modules funciona en Server y Client Components porque la importación se pro
 ```tsx
 const className = [styles.card, featured && styles.featured]
   .filter(Boolean)
-  .join(' ');
+  .join(" ")
 ```
 
 Para combinaciones frecuentes puedes usar utilidades como `clsx`; si Tailwind genera conflictos entre utilidades, una herramienta como `tailwind-merge` puede resolver la última clase aplicable. Estas utilidades organizan strings: no reemplazan una estrategia de diseño.
@@ -84,7 +90,7 @@ export function Badge({ children }: { children: React.ReactNode }) {
     <span className="inline-flex rounded border border-violet-400/30 px-2 py-1 text-xs text-violet-200">
       {children}
     </span>
-  );
+  )
 }
 ```
 

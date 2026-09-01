@@ -10,16 +10,16 @@ related:
 updatedAt: 2026-08-28
 ---
 
-**SQL** (*Structured Query Language* o lenguaje de consulta estructurada) es declarativo: se expresa el resultado deseado y el gestor decide el plan físico para obtenerlo. Una consulta clara facilita tanto el mantenimiento como la optimización.
+**SQL** (_Structured Query Language_ o lenguaje de consulta estructurada) es declarativo: se expresa el resultado deseado y el gestor decide el plan físico para obtenerlo. Una consulta clara facilita tanto el mantenimiento como la optimización.
 
 ## Mapa del lenguaje
 
-| Grupo | Propósito | Ejemplos |
-| --- | --- | --- |
-| DDL (*Data Definition Language*) | definir estructura | `CREATE`, `ALTER`, `DROP` |
-| DML (*Data Manipulation Language*) | leer y modificar filas | `SELECT`, `INSERT`, `UPDATE`, `DELETE` |
-| TCL (*Transaction Control Language*) | controlar transacciones | `BEGIN`, `COMMIT`, `ROLLBACK` |
-| DCL (*Data Control Language*) | administrar privilegios | `GRANT`, `REVOKE` |
+| Grupo                                | Propósito               | Ejemplos                               |
+| ------------------------------------ | ----------------------- | -------------------------------------- |
+| DDL (_Data Definition Language_)     | definir estructura      | `CREATE`, `ALTER`, `DROP`              |
+| DML (_Data Manipulation Language_)   | leer y modificar filas  | `SELECT`, `INSERT`, `UPDATE`, `DELETE` |
+| TCL (_Transaction Control Language_) | controlar transacciones | `BEGIN`, `COMMIT`, `ROLLBACK`          |
+| DCL (_Data Control Language_)        | administrar privilegios | `GRANT`, `REVOKE`                      |
 
 Los nombres ayudan a clasificar, pero no todos los gestores implementan exactamente las mismas sentencias o semántica. Aquí se utiliza sintaxis de PostgreSQL cuando SQL estándar no es suficiente.
 
@@ -65,11 +65,11 @@ El filtro de estado está en el `ON` para conservar usuarios sin pedidos pagados
 
 ## Elegir el join
 
-| Join | Resultado |
-| --- | --- |
-| `INNER JOIN` | Solo filas con coincidencia en ambos lados |
-| `LEFT JOIN` | Todas las filas de la izquierda y coincidencias de la derecha |
-| `CROSS JOIN` | Todas las combinaciones; úsalo de forma deliberada |
+| Join         | Resultado                                                     |
+| ------------ | ------------------------------------------------------------- |
+| `INNER JOIN` | Solo filas con coincidencia en ambos lados                    |
+| `LEFT JOIN`  | Todas las filas de la izquierda y coincidencias de la derecha |
+| `CROSS JOIN` | Todas las combinaciones; úsalo de forma deliberada            |
 
 Un `FULL OUTER JOIN` conserva filas de ambos lados y completa con `NULL` donde no existe coincidencia. Es útil al reconciliar dos fuentes. Un `SELF JOIN` no es un tipo diferente: une una tabla consigo misma usando alias, por ejemplo para relacionar empleados y supervisores.
 
@@ -134,7 +134,7 @@ FROM customers;
 
 ## CTE para nombrar pasos
 
-Una **CTE** (*Common Table Expression* o expresión de tabla común) da nombre a un resultado intermedio:
+Una **CTE** (_Common Table Expression_ o expresión de tabla común) da nombre a un resultado intermedio:
 
 ```sql
 WITH monthly_sales AS (
@@ -157,25 +157,24 @@ Una CTE mejora legibilidad y permite recursión, pero no es automáticamente má
 ## Parámetros, nunca concatenación
 
 ```ts
-const result = await db.query(
-  'SELECT id, email FROM users WHERE email = $1',
-  [email],
-);
+const result = await db.query("SELECT id, email FROM users WHERE email = $1", [
+  email
+])
 ```
 
 Los parámetros separan código y datos, reducen inyección SQL y permiten reutilizar planes. Los identificadores dinámicos —como nombres de columnas— no suelen aceptar parámetros; se eligen desde una lista permitida.
 
 ```ts
 const allowedSorts = {
-  recent: 'created_at DESC',
-  oldest: 'created_at ASC',
-} as const;
+  recent: "created_at DESC",
+  oldest: "created_at ASC"
+} as const
 
-const orderBy = allowedSorts[inputSort] ?? allowedSorts.recent;
+const orderBy = allowedSorts[inputSort] ?? allowedSorts.recent
 const result = await db.query(
   `SELECT id, title FROM posts WHERE author_id = $1 ORDER BY ${orderBy}`,
-  [authorId],
-);
+  [authorId]
+)
 ```
 
 La interpolación es segura aquí únicamente porque el fragmento proviene de una lista cerrada controlada por la aplicación, no del texto recibido.
@@ -210,4 +209,3 @@ Si un pedido tiene cinco líneas, unir pedidos con líneas produce cinco filas p
 - [PostgreSQL: consultas](https://www.postgresql.org/docs/current/queries.html)
 - [PostgreSQL: funciones de ventana](https://www.postgresql.org/docs/current/tutorial-window.html)
 - [PostgreSQL: expresiones condicionales](https://www.postgresql.org/docs/current/functions-conditional.html)
-

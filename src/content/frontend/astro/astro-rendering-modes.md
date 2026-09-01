@@ -27,30 +27,32 @@ Estas decisiones son independientes. Una página puede ser estática y contener 
 
 ## Matriz de elección
 
-| Necesidad | Elección inicial |
-| --- | --- |
-| documentación o contenido igual para todas las personas | prerender estático |
-| datos que cambian, pero pueden actualizarse con otro build | estático + nuevo build |
-| cookie, sesión o personalización por request | render bajo demanda |
-| botón, filtro o widget local | isla cliente o `<script>` |
-| bloque personalizado dentro de una página mayormente estática | server island |
-| API consumida por sistemas externos | endpoint on-demand |
+| Necesidad                                                     | Elección inicial          |
+| ------------------------------------------------------------- | ------------------------- |
+| documentación o contenido igual para todas las personas       | prerender estático        |
+| datos que cambian, pero pueden actualizarse con otro build    | estático + nuevo build    |
+| cookie, sesión o personalización por request                  | render bajo demanda       |
+| botón, filtro o widget local                                  | isla cliente o `<script>` |
+| bloque personalizado dentro de una página mayormente estática | server island             |
+| API consumida por sistemas externos                           | endpoint on-demand        |
 
 ## El comportamiento predeterminado: estático
 
 ```ts title="astro.config.ts"
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config"
 
 export default defineConfig({
-  output: 'static',
-});
+  output: "static"
+})
 ```
 
 Astro ejecuta el frontmatter durante el build y escribe HTML. El hosting solo entrega archivos; no existe un proceso de aplicación esperando requests.
 
 ```astro title="src/pages/releases.astro"
 ---
-const releases = await fetch('https://api.example.com/releases').then((response) => response.json());
+const releases = await fetch("https://api.example.com/releases").then(
+  (response) => response.json()
+)
 ---
 
 <ul>{releases.map((release) => <li>{release.name}</li>)}</ul>
@@ -64,12 +66,12 @@ Después de instalar un adapter, una página puede excluirse del prerender:
 
 ```astro title="src/pages/account.astro"
 ---
-export const prerender = false;
+export const prerender = false
 
-const sessionId = Astro.cookies.get('session')?.value;
-const user = sessionId ? await getUser(sessionId) : null;
+const sessionId = Astro.cookies.get("session")?.value
+const user = sessionId ? await getUser(sessionId) : null
 
-if (!user) return Astro.redirect('/login');
+if (!user) return Astro.redirect("/login")
 ---
 
 <h1>Hola, {user.name}</h1>
@@ -80,20 +82,20 @@ La página se ejecuta en cada request y puede leer cookies o headers. El resto d
 ## Proyecto principalmente dinámico
 
 ```ts title="astro.config.ts"
-import node from '@astrojs/node';
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config"
+import node from "@astrojs/node"
 
 export default defineConfig({
-  output: 'server',
-  adapter: node({ mode: 'standalone' }),
-});
+  output: "server",
+  adapter: node({ mode: "standalone" })
+})
 ```
 
 Con `output: 'server'`, las rutas son on-demand por defecto. Una página que deba permanecer estática puede declarar:
 
 ```astro
 ---
-export const prerender = true;
+export const prerender = true
 ---
 
 <h1>Política de privacidad</h1>
@@ -119,7 +121,7 @@ Una página SSR puede ser completamente no interactiva. Una página estática pu
 
 ```astro
 ---
-import Avatar from '../components/Avatar.astro';
+import Avatar from "../components/Avatar.astro"
 ---
 
 <main>
@@ -156,4 +158,3 @@ La mejor arquitectura no elige un modo para todo el producto. Asigna cada dato a
 - Si una variable secreta aparece en el bundle, revisa la frontera de la isla y las variables públicas.
 - Si todo el sitio requiere servidor por un widget pequeño, evalúa una isla cliente o server island.
 - Si `prerender = false` falla al compilar, confirma que existe un adapter compatible.
-

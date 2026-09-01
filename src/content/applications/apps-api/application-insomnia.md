@@ -73,15 +73,17 @@ Insomnia incluye helpers para Basic, Bearer, OAuth 2.0 y otros esquemas. El help
 ## Comprobar respuestas con scripts
 
 ```js title="After-response script"
-const body = insomnia.response.json();
+const body = insomnia.response.json()
 
-insomnia.test('responde 200', () => {
-  insomnia.expect(insomnia.response.code).to.eql(200);
-});
+insomnia.test("responde 200", () => {
+  insomnia.expect(insomnia.response.code).to.eql(200)
+})
 
-insomnia.test('cada producto tiene id', () => {
-  insomnia.expect(body.items.every((item) => typeof item.id === 'string')).to.eql(true);
-});
+insomnia.test("cada producto tiene id", () => {
+  insomnia
+    .expect(body.items.every((item) => typeof item.id === "string"))
+    .to.eql(true)
+})
 ```
 
 Prueba status, headers, forma y reglas relevantes. Evita afirmar un body completo si campos como identificadores o fechas cambian legítimamente.
@@ -99,4 +101,3 @@ Puedes importar OpenAPI, Postman, cURL y otros formatos. Cuando una especificaci
 Inso CLI puede ejecutar colecciones, pruebas y validación de especificaciones en CI. La ejecución automatizada debe usar un entorno de prueba aislado, no la colección apuntando accidentalmente a producción.
 
 Fuentes: [documentación de Insomnia](https://developer.konghq.com/insomnia/), [entornos](https://developer.konghq.com/insomnia/environments/) y [testing de APIs](https://developer.konghq.com/insomnia/test/).
-

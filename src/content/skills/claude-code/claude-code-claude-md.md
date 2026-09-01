@@ -26,9 +26,9 @@ Claude Code lo carga automáticamente al arrancar una sesión en ese directorio 
 ## Comandos
 
 \`\`\`bash
-pnpm dev      # servidor de desarrollo
-pnpm build    # build de producción
-pnpm test     # tests
+pnpm dev # servidor de desarrollo
+pnpm build # build de producción
+pnpm test # tests
 \`\`\`
 
 ## Arquitectura

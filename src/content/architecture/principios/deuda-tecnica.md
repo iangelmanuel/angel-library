@@ -24,7 +24,7 @@ No toda deuda técnica es un error. Hay una diferencia importante entre dos tipo
 // Reemplazar por integración real de Stripe antes de producción.
 // Ticket: PROJ-482
 function processPayment(amount: number): PaymentResult {
-  return { success: true, transactionId: 'mock-txn-id' };
+  return { success: true, transactionId: "mock-txn-id" }
 }
 ```
 
@@ -35,12 +35,12 @@ function processPayment(amount: number): PaymentResult {
 function getUserPermissions(userId: string) {
   // llamada síncrona bloqueante a un servicio externo, sin cache,
   // sin timeout, sin manejo de error — funcionó en dev y quedó en prod
-  const response = httpSync.get(`https://auth.internal/permissions/${userId}`);
-  return response.data.permissions;
+  const response = httpSync.get(`https://auth.internal/permissions/${userId}`)
+  return response.data.permissions
 }
 ```
 
-La deuda deliberada tiene un plan; la accidental hay que primero *descubrirla* antes de poder priorizarla.
+La deuda deliberada tiene un plan; la accidental hay que primero _descubrirla_ antes de poder priorizarla.
 
 ## Cómo priorizar qué pagar primero
 
@@ -50,12 +50,12 @@ No toda deuda merece ser pagada. Pagar deuda en código legacy que nadie toca ha
 prioridad de pago ≈ frecuencia de cambio del código × costo de cambiarlo
 ```
 
-| Código | Frecuencia de cambio | Costo de cambiarlo | Prioridad |
-|---|---|---|---|
-| Módulo de checkout, se toca cada sprint | Alta | Alto (spaghetti, sin tests) | Pagar ya |
-| Script de migración de datos usado una vez | Nula | Alto | Ignorar |
-| Config de build, se toca casi nunca | Baja | Bajo | Ignorar |
-| Sistema de notificaciones, crece cada mes | Alta | Medio | Pagar pronto |
+| Código                                     | Frecuencia de cambio | Costo de cambiarlo          | Prioridad    |
+| ------------------------------------------ | -------------------- | --------------------------- | ------------ |
+| Módulo de checkout, se toca cada sprint    | Alta                 | Alto (spaghetti, sin tests) | Pagar ya     |
+| Script de migración de datos usado una vez | Nula                 | Alto                        | Ignorar      |
+| Config de build, se toca casi nunca        | Baja                 | Bajo                        | Ignorar      |
+| Sistema de notificaciones, crece cada mes  | Alta                 | Medio                       | Pagar pronto |
 
 El error común es priorizar por "qué tan feo se ve el código" en vez de por cuánto duele tocarlo en la práctica. Un archivo horrible que nadie abre hace dos años no es una prioridad, por más que ofenda estéticamente.
 

@@ -33,20 +33,19 @@ Se parece al neumorfismo en la sensación táctil, pero resuelve su peor defecto
   box-shadow:
     /* Brillo inferior: la parte más gruesa de la masa. */
     inset 0 -8px 12px rgb(255 255 255 / 0.55),
-    /* Sombra superior interna: el borde por donde entra la luz. */
-    inset 0 8px 14px rgb(76 29 149 / 0.22),
-    /* Sombra proyectada, amplia y difusa. */
-    0 14px 24px rgb(76 29 149 / 0.28);
+    /* Sombra superior interna: el borde por donde entra la luz. */ inset 0 8px
+      14px rgb(76 29 149 / 0.22),
+    /* Sombra proyectada, amplia y difusa. */ 0 14px 24px rgb(76 29 149 / 0.28);
 }
 ```
 
 Las tres sombras no son intercambiables:
 
-| Sombra | Qué aporta |
-| --- | --- |
-| `inset` inferior clara | El volumen: sin ella la forma se ve plana |
-| `inset` superior oscura | El grosor del material |
-| Externa difusa | Separación del fondo |
+| Sombra                  | Qué aporta                                |
+| ----------------------- | ----------------------------------------- |
+| `inset` inferior clara  | El volumen: sin ella la forma se ve plana |
+| `inset` superior oscura | El grosor del material                    |
+| Externa difusa          | Separación del fondo                      |
 
 El radio manda: por debajo de unos 20 px el efecto deja de leerse como plastilina y parece un botón redondeado normal.
 

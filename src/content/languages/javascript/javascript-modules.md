@@ -20,15 +20,15 @@ Un módulo tiene scope propio, se ejecuta en strict mode y se evalúa una vez po
 
 Un módulo tiene su propio scope y se evalúa una vez por URL. Usa exports nombrados para APIs explícitas y default solo cuando el módulo tiene una responsabilidad principal.
 
-| Sintaxis | Qué expone o carga | Caso de uso |
-| --- | --- | --- |
-| `export const name = ...` | export nombrado | varias piezas públicas |
-| `export { name as alias }` | export nombrado con otro nombre | adaptar la API pública |
-| `export default value` | un valor principal | componente o responsabilidad central |
-| `import { name } from '...'` | binding nombrado vivo | dependencia estática |
-| `import value from '...'` | export default | dependencia estática principal |
-| `import * as namespace from '...'` | objeto namespace | agrupar una API |
-| `import('...')` | `Promise` con el namespace | carga bajo demanda |
+| Sintaxis                           | Qué expone o carga              | Caso de uso                          |
+| ---------------------------------- | ------------------------------- | ------------------------------------ |
+| `export const name = ...`          | export nombrado                 | varias piezas públicas               |
+| `export { name as alias }`         | export nombrado con otro nombre | adaptar la API pública               |
+| `export default value`             | un valor principal              | componente o responsabilidad central |
+| `import { name } from '...'`       | binding nombrado vivo           | dependencia estática                 |
+| `import value from '...'`          | export default                  | dependencia estática principal       |
+| `import * as namespace from '...'` | objeto namespace                | agrupar una API                      |
+| `import('...')`                    | `Promise` con el namespace      | carga bajo demanda                   |
 
 ```js
 // format.js
@@ -48,10 +48,10 @@ separator             // ' '
 `export default` se importa con cualquier nombre, mientras que un export nombrado debe coincidir con su nombre o usar alias:
 
 ```js
-import { formatName as format } from './format.js'
-import formatDefault from './format-default.js'
+import formatDefault from "./format-default.js"
+import { formatName as format } from "./format.js"
 
-typeof format        // 'function'
+typeof format // 'function'
 typeof formatDefault // depende del valor exportado por defecto
 ```
 
@@ -84,8 +84,8 @@ Los módulos se cargan por su specifier resuelto. En navegador, las rutas relati
 Un `index.js` puede exponer una API pública estable:
 
 ```js
-export { createClient } from './client.js'
-export { ClientError } from './client-error.js'
+export { createClient } from "./client.js"
+export { ClientError } from "./client-error.js"
 ```
 
 `export type` pertenece a TypeScript, no a JavaScript. Si el archivo es `.ts`, el compilador puede eliminar ese export porque solo existe durante el chequeo de tipos.
@@ -97,8 +97,8 @@ No reexportes cada detalle interno por comodidad. Un barrel demasiado amplio pue
 `import()` devuelve una Promise y permite dividir código por ruta o interacción:
 
 ```js
-button.addEventListener('click', async () => {
-  const { openEditor } = await import('./editor.js')
+button.addEventListener("click", async () => {
+  const { openEditor } = await import("./editor.js")
   openEditor()
 })
 ```
@@ -106,10 +106,10 @@ button.addEventListener('click', async () => {
 El resultado completo de `import()` es un objeto namespace:
 
 ```js
-const module = await import('./format.js')
+const module = await import("./format.js")
 
-Object.keys(module)       // ['formatName', 'separator']
-module.formatName(' Eva ') // 'Eva'
+Object.keys(module) // ['formatName', 'separator']
+module.formatName(" Eva ") // 'Eva'
 ```
 
 Úsala cuando el módulo no sea necesario para el primer render. Maneja el fallo de red y el estado de carga; la división de bundle no elimina la necesidad de una UX clara.
@@ -117,7 +117,10 @@ module.formatName(' Eva ') // 'Eva'
 ## Módulos en HTML y top-level await
 
 ```html
-<script type="module" src="/app.js"></script>
+<script
+  type="module"
+  src="/app.js"
+></script>
 ```
 
 Los scripts de módulo se difieren automáticamente, pueden importar otros módulos y siguen CORS. Cada `<script type="module">` y cada dependencia se ejecuta una sola vez por identidad, aunque se solicite desde varios lugares.
@@ -126,7 +129,7 @@ Un módulo puede usar `await` en el nivel superior:
 
 ```js
 // config.js
-const response = await fetch('/config.json')
+const response = await fetch("/config.json")
 if (!response.ok) throw new Error(`HTTP ${response.status}`)
 
 export const config = await response.json()
@@ -139,7 +142,7 @@ Los módulos dependientes esperan esa evaluación. Evita bloquear un grafo ampli
 Los atributos declaran cómo debe interpretar el host un recurso. ECMAScript 2025 estandariza la sintaxis `with` y los JSON modules; la disponibilidad práctica depende del runtime y del bundler.
 
 ```js
-import config from './config.json' with { type: 'json' }
+import config from "./config.json" with { type: "json" }
 
 config.theme // valor exportado por defecto desde el JSON
 ```
@@ -147,8 +150,8 @@ config.theme // valor exportado por defecto desde el JSON
 También pueden combinarse con import dinámico:
 
 ```js
-const module = await import('./translations/es.json', {
-  with: { type: 'json' },
+const module = await import("./translations/es.json", {
+  with: { type: "json" }
 })
 
 module.default // objeto parseado
@@ -174,8 +177,8 @@ Después: feature-a.js → shared-contract.js ← feature-b.js
 `import.meta` contiene metadatos definidos por el host. En el navegador y varios runtimes, `import.meta.url` identifica el módulo actual y permite resolver recursos relativos sin depender de la URL de la página.
 
 ```js
-const workerURL = new URL('./search.worker.js', import.meta.url)
-const worker = new Worker(workerURL, { type: 'module' })
+const workerURL = new URL("./search.worker.js", import.meta.url)
+const worker = new Worker(workerURL, { type: "module" })
 
 workerURL // URL absoluta resuelta junto al módulo actual
 ```
@@ -189,12 +192,12 @@ Un import puede hacer que todo su grafo viaje al navegador en herramientas con b
 ## Caso de uso: API pública pequeña
 
 ```js
-// payments/index.js: contrato público
-export { createCheckout } from './create-checkout.js'
-export { PaymentError } from './payment-error.js'
-
 // app.js: no conoce archivos internos
-import { createCheckout, PaymentError } from './payments/index.js'
+import { PaymentError, createCheckout } from "./payments/index.js"
+
+// payments/index.js: contrato público
+export { createCheckout } from "./create-checkout.js"
+export { PaymentError } from "./payment-error.js"
 ```
 
 El consumidor depende de una frontera estable. Los helpers internos pueden cambiar de ubicación sin obligar a modificar cada import de la aplicación.

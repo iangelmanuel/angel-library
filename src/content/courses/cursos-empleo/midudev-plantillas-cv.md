@@ -16,11 +16,11 @@ updatedAt: 2026-08-30
 
 Plantilla de currículum pensada para postular a empresas de tecnología, con tres piezas que cumplen funciones distintas.
 
-| Recurso | Qué es | Enlace |
-| --- | --- | --- |
-| Guía | Documento en Notion que explica qué escribir en cada sección | [midu.link/cv](https://www.midu.link/cv) |
-| Plantilla | Google Docs listo para duplicar en tu cuenta | [midu.link/cvp](https://www.midu.link/cvp) |
-| Ejemplo | Google Docs de solo lectura, ya rellenado | [midu.link/cvt](https://www.midu.link/cvt) |
+| Recurso   | Qué es                                                       | Enlace                                     |
+| --------- | ------------------------------------------------------------ | ------------------------------------------ |
+| Guía      | Documento en Notion que explica qué escribir en cada sección | [midu.link/cv](https://www.midu.link/cv)   |
+| Plantilla | Google Docs listo para duplicar en tu cuenta                 | [midu.link/cvp](https://www.midu.link/cvp) |
+| Ejemplo   | Google Docs de solo lectura, ya rellenado                    | [midu.link/cvt](https://www.midu.link/cvt) |
 
 La plantilla abre el diálogo de **"hacer una copia"** de Google Docs, así que necesitas una sesión de Google iniciada. El ejemplo se puede leer sin copiar nada.
 

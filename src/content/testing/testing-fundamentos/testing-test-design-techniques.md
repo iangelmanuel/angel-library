@@ -15,14 +15,14 @@ Probar todas las entradas posibles casi nunca es viable. El diseño de casos de 
 
 ## Mapa rápido
 
-| Técnica | Pregunta que responde | Ejemplo |
-| --- | --- | --- |
-| Particiones de equivalencia | ¿Qué grupos deberían comportarse igual? | edad inválida, menor y adulta |
-| Valores límite | ¿Dónde cambia una regla? | `17`, `18` y `19` |
-| Tabla de decisión | ¿Qué combinaciones alteran el resultado? | sesión, rol y ownership |
-| Transición de estados | ¿Qué acciones son válidas desde cada estado? | pedido pendiente → pagado |
-| Pairwise | ¿Cómo reducir muchas combinaciones? | navegador, plan, idioma y dispositivo |
-| Exploratoria | ¿Qué riesgos no capturó la especificación? | sesión guiada por hipótesis |
+| Técnica                     | Pregunta que responde                        | Ejemplo                               |
+| --------------------------- | -------------------------------------------- | ------------------------------------- |
+| Particiones de equivalencia | ¿Qué grupos deberían comportarse igual?      | edad inválida, menor y adulta         |
+| Valores límite              | ¿Dónde cambia una regla?                     | `17`, `18` y `19`                     |
+| Tabla de decisión           | ¿Qué combinaciones alteran el resultado?     | sesión, rol y ownership               |
+| Transición de estados       | ¿Qué acciones son válidas desde cada estado? | pedido pendiente → pagado             |
+| Pairwise                    | ¿Cómo reducir muchas combinaciones?          | navegador, plan, idioma y dispositivo |
+| Exploratoria                | ¿Qué riesgos no capturó la especificación?   | sesión guiada por hipótesis           |
 
 ## Particiones y valores límite
 
@@ -30,13 +30,13 @@ Si una entrada acepta cantidades entre 1 y 10, no necesitas repetir todos los va
 
 ```ts
 it.each([
-  { quantity: 0, expected: 'invalid' },
-  { quantity: 1, expected: 'valid' },
-  { quantity: 10, expected: 'valid' },
-  { quantity: 11, expected: 'invalid' },
-])('clasifica $quantity como $expected', ({ quantity, expected }) => {
-  expect(classifyQuantity(quantity)).toBe(expected);
-});
+  { quantity: 0, expected: "invalid" },
+  { quantity: 1, expected: "valid" },
+  { quantity: 10, expected: "valid" },
+  { quantity: 11, expected: "invalid" }
+])("clasifica $quantity como $expected", ({ quantity, expected }) => {
+  expect(classifyQuantity(quantity)).toBe(expected)
+})
 ```
 
 Incluye límites vacíos y técnicos cuando apliquen: cadena vacía, espacios, `null`, fechas de cambio de mes, cero, negativos, valor máximo de base de datos y caracteres Unicode. Un valor “normal” demuestra el camino feliz; un límite demuestra que entendiste la regla.
@@ -47,12 +47,12 @@ No confundas una partición con un único valor. “Correo inválido” puede co
 
 Cuando varias condiciones interactúan, escribir casos desde intuición deja huecos. Una tabla hace visible cada combinación relevante.
 
-| Sesión | Es dueño | Es admin | Resultado |
-| --- | --- | --- | --- |
-| no | — | — | `401 Unauthorized` |
-| sí | no | no | `403 Forbidden` |
-| sí | sí | no | permitido |
-| sí | no | sí | permitido |
+| Sesión | Es dueño | Es admin | Resultado          |
+| ------ | -------- | -------- | ------------------ |
+| no     | —        | —        | `401 Unauthorized` |
+| sí     | no       | no       | `403 Forbidden`    |
+| sí     | sí       | no       | permitido          |
+| sí     | no       | sí       | permitido          |
 
 `401` significa que falta una identidad válida; `403` significa que la identidad existe, pero no tiene permiso. La prueba debe verificar también que un rechazo no produzca cambios persistidos.
 

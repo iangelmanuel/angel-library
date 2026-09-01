@@ -20,15 +20,23 @@ updatedAt: 2026-08-18
 @layer reset, base, components, utilities;
 
 @layer reset {
-  *, *::before, *::after { box-sizing: border-box; }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 }
 
 @layer components {
-  .button { border-radius: 0.5rem; }
+  .button {
+    border-radius: 0.5rem;
+  }
 }
 
 @layer utilities {
-  .u-hidden { display: none !important; }
+  .u-hidden {
+    display: none !important;
+  }
 }
 ```
 
@@ -40,12 +48,14 @@ Una custom property conserva texto hasta que una propiedad la consume. `@propert
 
 ```css
 @property --progress {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 0;
 }
 
-.bar { transform: scaleX(var(--progress)); }
+.bar {
+  transform: scaleX(var(--progress));
+}
 ```
 
 Usa tokens para decisiones de diseño compartidas, no para ocultar valores sin nombre. Define fallbacks cuando el componente pueda renderizarse fuera del tema principal.
@@ -55,10 +65,14 @@ Usa tokens para decisiones de diseño compartidas, no para ocultar valores sin n
 Una media query pregunta por el viewport; una container query pregunta por el espacio disponible para el componente. Esto permite que una card cambie de layout igual si vive en un sidebar o en una grilla ancha.
 
 ```css
-.card-list { container: cards / inline-size; }
+.card-list {
+  container: cards / inline-size;
+}
 
 @container cards (min-width: 36rem) {
-  .card { grid-template-columns: 8rem 1fr; }
+  .card {
+    grid-template-columns: 8rem 1fr;
+  }
 }
 ```
 

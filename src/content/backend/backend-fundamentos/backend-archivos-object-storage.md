@@ -25,12 +25,12 @@ El **object storage** almacena objetos por clave, no como un sistema de archivos
 La URL debe limitar método, clave, tamaño aproximado, tipo permitido y expiración. El cliente no decide una ruta pública arbitraria.
 
 ```ts
-const objectKey = `${tenantId}/${crypto.randomUUID()}`;
+const objectKey = `${tenantId}/${crypto.randomUUID()}`
 const upload = await storage.createSignedUpload({
   key: objectKey,
   expiresInSeconds: 300,
-  contentType: 'image/png',
-});
+  contentType: "image/png"
+})
 ```
 
 ## Validación por capas
@@ -51,4 +51,3 @@ Que una persona conozca la URL no significa que tenga permiso. Para objetos priv
 ## Limpieza
 
 Programa la eliminación de cargas incompletas, versiones reemplazadas y archivos cuya retención terminó. La eliminación debe considerar copias, miniaturas, índices de IA y backups según la política del producto.
-

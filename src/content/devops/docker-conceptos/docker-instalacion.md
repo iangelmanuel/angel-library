@@ -59,11 +59,11 @@ docker run hello-world
 
 ## Problemas comunes
 
-| Síntoma | Causa típica |
-|---|---|
-| `Cannot connect to the Docker daemon` | Docker Desktop no está abierto, o el daemon no arrancó |
-| WSL2 no instala / falla `wsl --install` | Virtualización desactivada en la BIOS/UEFI |
-| Todo muy lento en Windows | Proyecto ubicado en `C:\...` en vez del filesystem de WSL2 (`\\wsl$\...`) — el filesystem cruzado Windows↔WSL2 es lento |
+| Síntoma                                 | Causa típica                                                                                                            |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `Cannot connect to the Docker daemon`   | Docker Desktop no está abierto, o el daemon no arrancó                                                                  |
+| WSL2 no instala / falla `wsl --install` | Virtualización desactivada en la BIOS/UEFI                                                                              |
+| Todo muy lento en Windows               | Proyecto ubicado en `C:\...` en vez del filesystem de WSL2 (`\\wsl$\...`) — el filesystem cruzado Windows↔WSL2 es lento |
 
 ## Consideraciones
 

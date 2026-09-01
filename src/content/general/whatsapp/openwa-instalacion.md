@@ -12,11 +12,11 @@ updatedAt: 2026-08-30
 
 ## Requisitos
 
-| Requisito | Versión |
-| --- | --- |
-| Node.js | `>=22.13` (solo para instalación local) |
-| Docker + Docker Compose | Recomendado para cualquier uso serio |
-| Chromium | Lo instala la imagen; solo hace falta a mano en local con el motor `whatsapp-web.js` |
+| Requisito               | Versión                                                                              |
+| ----------------------- | ------------------------------------------------------------------------------------ |
+| Node.js                 | `>=22.13` (solo para instalación local)                                              |
+| Docker + Docker Compose | Recomendado para cualquier uso serio                                                 |
+| Chromium                | Lo instala la imagen; solo hace falta a mano en local con el motor `whatsapp-web.js` |
 
 ## Opción A: Docker
 
@@ -49,11 +49,11 @@ En modo desarrollo el panel corre aparte, en el servidor de Vite con recarga en 
 
 ## Puertos
 
-| Servicio | Puerto | Nota |
-| --- | --- | --- |
-| API y panel | `2785` | En Docker van juntos en el mismo puerto |
-| Swagger | `2785/api/docs` | Se apaga con `NODE_ENV=production` salvo que pongas `ENABLE_SWAGGER=true` |
-| Panel en desarrollo | `2886` | Solo con `npm run dev` |
+| Servicio            | Puerto          | Nota                                                                      |
+| ------------------- | --------------- | ------------------------------------------------------------------------- |
+| API y panel         | `2785`          | En Docker van juntos en el mismo puerto                                   |
+| Swagger             | `2785/api/docs` | Se apaga con `NODE_ENV=production` salvo que pongas `ENABLE_SWAGGER=true` |
+| Panel en desarrollo | `2886`          | Solo con `npm run dev`                                                    |
 
 ## Producción
 
@@ -71,12 +71,12 @@ docker compose --profile postgres up -d
 docker compose --profile full up -d
 ```
 
-| Perfil | Levanta |
-| --- | --- |
-| `postgres` | Base de datos PostgreSQL |
-| `redis` | Caché Redis |
-| `minio` | Almacenamiento compatible con S3 |
-| `full` | Los tres anteriores |
+| Perfil     | Levanta                          |
+| ---------- | -------------------------------- |
+| `postgres` | Base de datos PostgreSQL         |
+| `redis`    | Caché Redis                      |
+| `minio`    | Almacenamiento compatible con S3 |
+| `full`     | Los tres anteriores              |
 
 El panel no necesita perfil: viaja dentro de la imagen de la API y se sirve donde corra `openwa-api`.
 
@@ -90,12 +90,12 @@ OpenWA no termina TLS por su cuenta. Para exponerlo hay que poner delante un pro
 
 Casi todo se cambia por configuración, no tocando código:
 
-| Pieza | Opciones |
-| --- | --- |
+| Pieza             | Opciones                                                       |
+| ----------------- | -------------------------------------------------------------- |
 | Motor de WhatsApp | `whatsapp-web.js` (por defecto) o `baileys`, con `ENGINE_TYPE` |
-| Base de datos | SQLite o PostgreSQL |
-| Caché | Desactivada o Redis |
-| Almacenamiento | Local o S3/MinIO |
+| Base de datos     | SQLite o PostgreSQL                                            |
+| Caché             | Desactivada o Redis                                            |
+| Almacenamiento    | Local o S3/MinIO                                               |
 
 Un detalle que conviene saber: el contenido multimedia se devuelve **en línea** a quien consume la API y los webhooks. No se guarda automáticamente en el backend de almacenamiento —ese backend es para respaldo y migración—.
 

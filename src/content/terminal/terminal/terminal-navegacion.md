@@ -5,7 +5,11 @@ type: guides
 order: 2
 tags: [terminal, navegacion, cli]
 scope: cd / ls / pwd
-related: [terminal/terminal/terminal-archivos-carpetas, terminal/terminal/terminal-ver-contenido]
+related:
+  [
+    terminal/terminal/terminal-archivos-carpetas,
+    terminal/terminal/terminal-ver-contenido
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -13,9 +17,9 @@ Moverse por carpetas desde la terminal es lo primero que se usa, y donde más di
 
 ## Ver el directorio actual
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Directorio actual | `Get-Location` (alias `pwd`) | `pwd` |
+| Acción            | Windows (PowerShell)         | macOS / Linux |
+| ----------------- | ---------------------------- | ------------- |
+| Directorio actual | `Get-Location` (alias `pwd`) | `pwd`         |
 
 ```powershell title="PowerShell"
 Get-Location
@@ -27,13 +31,13 @@ pwd
 
 `cd` existe igual en los tres, pero el manejo de rutas con espacios y las comillas cambian un poco.
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Entrar a una carpeta | `cd nombre-carpeta` | `cd nombre-carpeta` |
-| Subir un nivel | `cd ..` | `cd ..` |
-| Ir al home del usuario | `cd ~` | `cd ~` |
-| Ir a la raíz del disco actual | `cd \` | `cd /` |
-| Volver al directorio anterior | `cd -` | `cd -` |
+| Acción                        | Windows (PowerShell) | macOS / Linux       |
+| ----------------------------- | -------------------- | ------------------- |
+| Entrar a una carpeta          | `cd nombre-carpeta`  | `cd nombre-carpeta` |
+| Subir un nivel                | `cd ..`              | `cd ..`             |
+| Ir al home del usuario        | `cd ~`               | `cd ~`              |
+| Ir a la raíz del disco actual | `cd \`               | `cd /`              |
+| Volver al directorio anterior | `cd -`               | `cd -`              |
 
 ```powershell title="PowerShell"
 cd C:\Users\angel\Proyectos\angel-library
@@ -49,11 +53,11 @@ cd ../otro-proyecto
 
 Aquí sí existen comandos nativos distintos: `ls` en macOS y Linux es un binario real; en PowerShell es un alias de `Get-ChildItem`, y en `cmd.exe` clásico se usa `dir`.
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-| --- | --- | --- |
-| Listar contenido | `Get-ChildItem` (alias `ls` o `dir`) | `ls` |
-| Listar con detalle (tamaño, fecha, permisos) | `Get-ChildItem \| Format-Table` o `ls -Force` | `ls -la` |
-| Incluir ocultos | `Get-ChildItem -Force` | `ls -a` |
+| Acción                                       | Windows (PowerShell)                          | macOS / Linux |
+| -------------------------------------------- | --------------------------------------------- | ------------- |
+| Listar contenido                             | `Get-ChildItem` (alias `ls` o `dir`)          | `ls`          |
+| Listar con detalle (tamaño, fecha, permisos) | `Get-ChildItem \| Format-Table` o `ls -Force` | `ls -la`      |
+| Incluir ocultos                              | `Get-ChildItem -Force`                        | `ls -a`       |
 
 ```powershell title="PowerShell"
 Get-ChildItem
@@ -85,12 +89,12 @@ ls archivo?.txt
 
 ## Atajos de ruta
 
-| Atajo | Significa |
-| --- | --- |
-| `~` | Directorio home del usuario |
-| `.` | Directorio actual |
-| `..` | Directorio padre |
-| `-` | Directorio anterior (el de antes del último `cd`) |
+| Atajo | Significa                                         |
+| ----- | ------------------------------------------------- |
+| `~`   | Directorio home del usuario                       |
+| `.`   | Directorio actual                                 |
+| `..`  | Directorio padre                                  |
+| `-`   | Directorio anterior (el de antes del último `cd`) |
 
 ## Consideraciones
 

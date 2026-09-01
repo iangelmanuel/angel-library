@@ -27,92 +27,107 @@ npm install --save-dev @types/jsonwebtoken @types/bcrypt @types/cookie-parser
 ## Registro
 
 ```ts title="routes/auth.routes.ts"
-import { Router } from 'express';
-import bcrypt from 'bcrypt';
-import { prisma } from '../lib/prisma';
+import bcrypt from "bcrypt"
+import { Router } from "express"
+import { prisma } from "../lib/prisma"
 
-export const authRouter = Router();
+export const authRouter = Router()
 
-authRouter.post('/registro', async (req, res, next) => {
+authRouter.post("/registro", async (req, res, next) => {
   try {
-    const { email, password, nombre } = req.body;
+    const { email, password, nombre } = req.body
 
-    const existente = await prisma.user.findUnique({ where: { email } });
+    const existente = await prisma.user.findUnique({ where: { email } })
     if (existente) {
-      return res.status(409).json({ error: { code: 'EMAIL_YA_REGISTRADO', message: 'Ese email ya está en uso' } });
+      return res
+        .status(409)
+        .json({
+          error: {
+            code: "EMAIL_YA_REGISTRADO",
+            message: "Ese email ya está en uso"
+          }
+        })
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 10)
     const usuario = await prisma.user.create({
-      data: { email, passwordHash, nombre, rol: 'user' },
-    });
+      data: { email, passwordHash, nombre, rol: "user" }
+    })
 
-    res.status(201).json({ id: usuario.id, email: usuario.email });
+    res.status(201).json({ id: usuario.id, email: usuario.email })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 ```
 
 ## Login: verificar y firmar el JWT
 
 ```ts
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken"
 
-authRouter.post('/login', async (req, res, next) => {
+authRouter.post("/login", async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body
 
-    const usuario = await prisma.user.findUnique({ where: { email } });
-    const passwordValida = usuario && (await bcrypt.compare(password, usuario.passwordHash));
+    const usuario = await prisma.user.findUnique({ where: { email } })
+    const passwordValida =
+      usuario && (await bcrypt.compare(password, usuario.passwordHash))
 
     if (!usuario || !passwordValida) {
-      return res.status(401).json({ error: { code: 'CREDENCIALES_INVALIDAS', message: 'Email o contraseña incorrectos' } });
+      return res
+        .status(401)
+        .json({
+          error: {
+            code: "CREDENCIALES_INVALIDAS",
+            message: "Email o contraseña incorrectos"
+          }
+        })
     }
 
     const token = jwt.sign(
       { sub: usuario.id, rol: usuario.rol },
       process.env.JWT_SECRET!,
-      { expiresIn: '1h' },
-    );
+      { expiresIn: "1h" }
+    )
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 1000,
-    });
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1000
+    })
 
-    res.json({ id: usuario.id, email: usuario.email });
+    res.json({ id: usuario.id, email: usuario.email })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 ```
 
 ## Logout
 
 ```ts
-authRouter.post('/logout', (req, res) => {
-  res.clearCookie('token');
-  res.status(204).end();
-});
+authRouter.post("/logout", (req, res) => {
+  res.clearCookie("token")
+  res.status(204).end()
+})
 ```
 
 ## Ruta protegida de prueba
 
 ```ts title="app.ts"
-import cookieParser from 'cookie-parser';
-import { authRouter } from './routes/auth.routes';
-import { requireAuth } from './middlewares/requireAuth';
+import cookieParser from "cookie-parser"
+import { requireAuth } from "./middlewares/requireAuth"
+import { authRouter } from "./routes/auth.routes"
 
-app.use(cookieParser());
-app.use(express.json());
-app.use('/auth', authRouter);
+app.use(cookieParser())
+app.use(express.json())
+app.use("/auth", authRouter)
 
-app.get('/perfil', requireAuth, (req, res) => {
-  res.json({ userId: req.user!.id, rol: req.user!.rol });
-});
+app.get("/perfil", requireAuth, (req, res) => {
+  res.json({ userId: req.user!.id, rol: req.user!.rol })
+})
 ```
 
 ## Consideraciones

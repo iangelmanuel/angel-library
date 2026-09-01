@@ -17,10 +17,10 @@ updatedAt: 2026-08-26
 
 Es fácil confundirlo con dos cosas que no son esto:
 
-| No es lo mismo que | Diferencia |
-| --- | --- |
-| Un proyecto grande sin paquetes | Un `src/` enorme con carpetas por feature sigue siendo **un** paquete. Un monorepo tiene **varios** `package.json`, cada uno instalable y versionable por separado |
-| Git submódulos / subtrees | Cada submódulo es su **propio repositorio de Git** con su propio historial, referenciado desde el padre por commit. Un monorepo es **un solo** historial de Git para todo |
+| No es lo mismo que              | Diferencia                                                                                                                                                                |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Un proyecto grande sin paquetes | Un `src/` enorme con carpetas por feature sigue siendo **un** paquete. Un monorepo tiene **varios** `package.json`, cada uno instalable y versionable por separado        |
+| Git submódulos / subtrees       | Cada submódulo es su **propio repositorio de Git** con su propio historial, referenciado desde el padre por commit. Un monorepo es **un solo** historial de Git para todo |
 
 ## Cómo funciona por dentro
 

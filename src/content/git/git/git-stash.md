@@ -55,13 +55,13 @@ git stash clear             # borra todos
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `git stash` | Guarda cambios sin commitear, limpia el working tree |
-| `git stash pop` | Aplica el stash más reciente y lo saca de la pila |
-| `git stash apply` | Aplica el más reciente, pero lo deja guardado |
-| `git stash list` | Ver todos los stashes guardados |
-| `git stash -u` | Incluir también archivos nuevos (untracked) |
+| Comando           | Qué hace                                             |
+| ----------------- | ---------------------------------------------------- |
+| `git stash`       | Guarda cambios sin commitear, limpia el working tree |
+| `git stash pop`   | Aplica el stash más reciente y lo saca de la pila    |
+| `git stash apply` | Aplica el más reciente, pero lo deja guardado        |
+| `git stash list`  | Ver todos los stashes guardados                      |
+| `git stash -u`    | Incluir también archivos nuevos (untracked)          |
 
 ## Consideraciones
 

@@ -91,7 +91,12 @@ Shimmer, para skeletons de carga: un degradado que se desliza sobre el bloque mi
 }
 
 .skeleton {
-  background: linear-gradient(90deg, var(--muted) 25%, var(--accent) 50%, var(--muted) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--muted) 25%,
+    var(--accent) 50%,
+    var(--muted) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }
@@ -171,7 +176,7 @@ Marquee, para un ticker de texto o logos que se desplaza sin fin. El track dupli
 
 ## Crecer o revelar al entrar en pantalla
 
-`animation-timeline: scroll()` liga la animación al scroll de toda la página. `animation-timeline: view()` es distinto: liga la animación a la posición del elemento *dentro del viewport* — así se anima cada vez que ese elemento entra en pantalla, sin importar en qué parte del scroll total esté. Es la técnica para que una imagen "crezca" o una sección aparezca a medida que el usuario llega a ella.
+`animation-timeline: scroll()` liga la animación al scroll de toda la página. `animation-timeline: view()` es distinto: liga la animación a la posición del elemento _dentro del viewport_ — así se anima cada vez que ese elemento entra en pantalla, sin importar en qué parte del scroll total esté. Es la técnica para que una imagen "crezca" o una sección aparezca a medida que el usuario llega a ella.
 
 `animation-range` controla en qué tramo de esa entrada ocurre la animación. `entry 0% cover 40%` significa: arranca apenas el elemento empieza a entrar, y termina cuando ya cubrió el 40% del viewport — así el efecto se siente rápido y responsivo, no estirado durante todo el scroll.
 
@@ -195,7 +200,11 @@ Marquee, para un ticker de texto o logos que se desplaza sin fin. El track dupli
 ```
 
 ```html
-<img src="/foto.jpg" alt="…" class="scroll-reveal-image" />
+<img
+  src="/foto.jpg"
+  alt="…"
+  class="scroll-reveal-image"
+/>
 ```
 
 El mismo mecanismo sirve para texto y secciones enteras — solo cambia el keyframe. Reutilizando el `fade-in` de arriba:
@@ -237,17 +246,17 @@ Igual que en el reset: cualquier animación decorativa (no funcional) debería c
 
 ## Resumen
 
-| Técnica | Cuándo usarla |
-| --- | --- |
-| `fade-in` | Entrada estándar de cualquier elemento |
-| `spin` | Loaders, spinners |
-| `slide-in-left` | Elementos que entran desde un costado (menús, cascada de tarjetas) |
-| `pulse` | Llamar la atención sin ser agresivo (badge, indicador "en vivo") |
-| `shimmer` / `.skeleton` | Loading state mientras el contenido real carga |
-| `marquee` | Ticker de texto o logos en loop, con pausa al hover |
-| `animation-timeline: scroll()` | Barra de progreso, parallax, efectos ligados al scroll total de la página |
-| `animation-timeline: view()` | Crecer/revelar un elemento cuando entra en pantalla (imágenes, texto, secciones) |
-| `@media (prefers-reduced-motion: reduce)` | Cualquier animación decorativa, siempre |
+| Técnica                                   | Cuándo usarla                                                                    |
+| ----------------------------------------- | -------------------------------------------------------------------------------- |
+| `fade-in`                                 | Entrada estándar de cualquier elemento                                           |
+| `spin`                                    | Loaders, spinners                                                                |
+| `slide-in-left`                           | Elementos que entran desde un costado (menús, cascada de tarjetas)               |
+| `pulse`                                   | Llamar la atención sin ser agresivo (badge, indicador "en vivo")                 |
+| `shimmer` / `.skeleton`                   | Loading state mientras el contenido real carga                                   |
+| `marquee`                                 | Ticker de texto o logos en loop, con pausa al hover                              |
+| `animation-timeline: scroll()`            | Barra de progreso, parallax, efectos ligados al scroll total de la página        |
+| `animation-timeline: view()`              | Crecer/revelar un elemento cuando entra en pantalla (imágenes, texto, secciones) |
+| `@media (prefers-reduced-motion: reduce)` | Cualquier animación decorativa, siempre                                          |
 
 ## Consideraciones
 

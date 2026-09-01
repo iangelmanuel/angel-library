@@ -18,18 +18,18 @@ Next.js extiende React con routing, renderizado en servidor, optimización de re
 
 ## Si vienes a recordar
 
-| Necesitas | Ve a |
-| --- | --- |
-| iniciar o reconocer la estructura | [Primer proyecto](/frontend/nextjs/nextjs-getting-started) y [Estructura y configuración](/frontend/nextjs/nextjs-project-structure-configuration) |
-| crear una URL o leer parámetros | [Fundamentos de routing](/frontend/nextjs/nextjs-routing-fundamentals) y [params / searchParams](/frontend/nextjs/nextjs-params-searchparams) |
-| decidir servidor o navegador | [Server y Client Components](/frontend/nextjs/nextjs-server-client-components) |
-| compartir UI entre rutas | [Layouts](/frontend/nextjs/nextjs-layouts) y [loading, error y not-found](/frontend/nextjs/nextjs-page-error-loading) |
-| consultar datos y controlar frescura | [Fetching y revalidate](/frontend/nextjs/nextjs-fetching-revalidate) o [Cache Components](/frontend/nextjs/nextjs-cache-components) |
-| modificar datos desde un formulario | [Forms](/frontend/nextjs/nextjs-forms) y [Server Actions](/frontend/nextjs/nextjs-server-actions) |
-| crear una API HTTP | [Route Handlers](/frontend/nextjs/nextjs-endpoints) |
-| navegar por código | [Link](/frontend/nextjs/nextjs-link), [useRouter](/frontend/nextjs/nextjs-userouter) y [redirect / notFound](/frontend/nextjs/nextjs-redirect-notfound) |
-| optimizar recursos | [Image](/frontend/nextjs/nextjs-image), [Font](/frontend/nextjs/nextjs-font) y [scripts/carga diferida](/frontend/nextjs/nextjs-scripts-lazy-loading) |
-| resolver una composición avanzada | [Rutas paralelas e interceptadas](/frontend/nextjs/nextjs-parallel-intercepting-routes) |
+| Necesitas                            | Ve a                                                                                                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| iniciar o reconocer la estructura    | [Primer proyecto](/frontend/nextjs/nextjs-getting-started) y [Estructura y configuración](/frontend/nextjs/nextjs-project-structure-configuration)      |
+| crear una URL o leer parámetros      | [Fundamentos de routing](/frontend/nextjs/nextjs-routing-fundamentals) y [params / searchParams](/frontend/nextjs/nextjs-params-searchparams)           |
+| decidir servidor o navegador         | [Server y Client Components](/frontend/nextjs/nextjs-server-client-components)                                                                          |
+| compartir UI entre rutas             | [Layouts](/frontend/nextjs/nextjs-layouts) y [loading, error y not-found](/frontend/nextjs/nextjs-page-error-loading)                                   |
+| consultar datos y controlar frescura | [Fetching y revalidate](/frontend/nextjs/nextjs-fetching-revalidate) o [Cache Components](/frontend/nextjs/nextjs-cache-components)                     |
+| modificar datos desde un formulario  | [Forms](/frontend/nextjs/nextjs-forms) y [Server Actions](/frontend/nextjs/nextjs-server-actions)                                                       |
+| crear una API HTTP                   | [Route Handlers](/frontend/nextjs/nextjs-endpoints)                                                                                                     |
+| navegar por código                   | [Link](/frontend/nextjs/nextjs-link), [useRouter](/frontend/nextjs/nextjs-userouter) y [redirect / notFound](/frontend/nextjs/nextjs-redirect-notfound) |
+| optimizar recursos                   | [Image](/frontend/nextjs/nextjs-image), [Font](/frontend/nextjs/nextjs-font) y [scripts/carga diferida](/frontend/nextjs/nextjs-scripts-lazy-loading)   |
+| resolver una composición avanzada    | [Rutas paralelas e interceptadas](/frontend/nextjs/nextjs-parallel-intercepting-routes)                                                                 |
 
 ## Si vienes a aprender
 
@@ -75,18 +75,18 @@ URL
 
 ## Vocabulario esencial
 
-| Término | Significado |
-| --- | --- |
-| App Router | router basado en el directorio `app/` y React Server Components |
-| segmento | parte de la URL representada por una carpeta |
-| RSC | React Server Component; componente que se renderiza en el entorno servidor |
-| hidratación | conexión del HTML inicial con el JavaScript interactivo |
-| renderizado estático | salida calculada antes de una solicitud concreta |
-| renderizado dinámico | salida calculada con información de la solicitud |
-| streaming | envío progresivo de partes de la respuesta |
-| revalidación | actualización de una entrada o página almacenada en caché |
-| Route Handler | función que responde a métodos HTTP mediante `route.ts` |
-| Server Action | función servidor invocable desde componentes y formularios React |
+| Término              | Significado                                                                |
+| -------------------- | -------------------------------------------------------------------------- |
+| App Router           | router basado en el directorio `app/` y React Server Components            |
+| segmento             | parte de la URL representada por una carpeta                               |
+| RSC                  | React Server Component; componente que se renderiza en el entorno servidor |
+| hidratación          | conexión del HTML inicial con el JavaScript interactivo                    |
+| renderizado estático | salida calculada antes de una solicitud concreta                           |
+| renderizado dinámico | salida calculada con información de la solicitud                           |
+| streaming            | envío progresivo de partes de la respuesta                                 |
+| revalidación         | actualización de una entrada o página almacenada en caché                  |
+| Route Handler        | función que responde a métodos HTTP mediante `route.ts`                    |
+| Server Action        | función servidor invocable desde componentes y formularios React           |
 
 ## Cuándo lo elijo
 
@@ -101,14 +101,14 @@ El modelo de render y caché tiene más conceptos que una SPA tradicional. Una d
 
 ## Piezas esenciales
 
-| Pieza | Propósito |
-| --- | --- |
-| `app/` | rutas, layouts y convenciones |
+| Pieza             | Propósito                       |
+| ----------------- | ------------------------------- |
+| `app/`            | rutas, layouts y convenciones   |
 | Server Components | datos y HTML sin bundle cliente |
-| Client Components | estado, efectos y browser APIs |
-| Server Actions | mutaciones desde UI |
-| Route Handlers | API HTTP pública/integrable |
-| Cache Components | caché y partial prerendering |
+| Client Components | estado, efectos y browser APIs  |
+| Server Actions    | mutaciones desde UI             |
+| Route Handlers    | API HTTP pública/integrable     |
+| Cache Components  | caché y partial prerendering    |
 
 ## Regla práctica
 

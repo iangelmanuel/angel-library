@@ -5,7 +5,11 @@ type: guides
 order: 1
 tags: [docker, volumenes, persistencia]
 scope: volúmenes
-related: [devops/docker-redes-volumenes/docker-persistencia-datos, devops/docker-bases-datos/docker-postgres-run]
+related:
+  [
+    devops/docker-redes-volumenes/docker-persistencia-datos,
+    devops/docker-bases-datos/docker-postgres-run
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -29,12 +33,12 @@ Volumen nombrado          Bind mount                tmpfs
                             └────────────┘
 ```
 
-| | Volumen nombrado | Bind mount | tmpfs |
-|---|---|---|---|
-| Dónde vive | Área gestionada por Docker (`/var/lib/docker/volumes/...`) | Carpeta específica del host, la que elijas | RAM |
-| Persiste tras `docker rm` | Sí | Sí (es una carpeta real del host) | No |
-| Uso típico | Datos de la aplicación (base de datos) | Código fuente en desarrollo (recarga en caliente) | Datos temporales sensibles o caché |
-| Sintaxis | `-v mis-datos:/data` | `-v /ruta/host:/data` | `--tmpfs /data` |
+|                           | Volumen nombrado                                           | Bind mount                                        | tmpfs                              |
+| ------------------------- | ---------------------------------------------------------- | ------------------------------------------------- | ---------------------------------- |
+| Dónde vive                | Área gestionada por Docker (`/var/lib/docker/volumes/...`) | Carpeta específica del host, la que elijas        | RAM                                |
+| Persiste tras `docker rm` | Sí                                                         | Sí (es una carpeta real del host)                 | No                                 |
+| Uso típico                | Datos de la aplicación (base de datos)                     | Código fuente en desarrollo (recarga en caliente) | Datos temporales sensibles o caché |
+| Sintaxis                  | `-v mis-datos:/data`                                       | `-v /ruta/host:/data`                             | `--tmpfs /data`                    |
 
 ## Volumen nombrado: el default para datos de app
 

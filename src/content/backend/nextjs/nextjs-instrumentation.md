@@ -21,8 +21,8 @@ updatedAt: 2026-08-25
 
 ```ts title="instrumentation.ts"
 export async function register() {
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
-    await import('./src/instrumentation.node');
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    await import("./src/instrumentation.node")
   }
 }
 ```
@@ -32,16 +32,20 @@ La importación condicional evita cargar dependencias específicas de Node en un
 ## Capturar errores de request
 
 ```ts title="instrumentation.ts"
-import type { Instrumentation } from 'next';
+import type { Instrumentation } from "next"
 
-export const onRequestError: Instrumentation.onRequestError = async (error, request, context) => {
+export const onRequestError: Instrumentation.onRequestError = async (
+  error,
+  request,
+  context
+) => {
   console.error({
     message: error.message,
     path: request.path,
     routerKind: context.routerKind,
-    routeType: context.routeType,
-  });
-};
+    routeType: context.routeType
+  })
+}
 ```
 
 En producción, envía el error a Sentry, OpenTelemetry u otro backend y sanitiza URLs, headers y payloads. No registres cookies, tokens, contraseñas ni cuerpos completos por defecto.
@@ -50,33 +54,33 @@ En producción, envía el error a Sentry, OpenTelemetry u otro backend y sanitiz
 
 ## Las tres señales
 
-| Señal | Responde principalmente |
-| --- | --- |
-| logs | qué evento ocurrió y con qué contexto |
-| métricas | con qué frecuencia, latencia o saturación |
-| trazas | por qué camino pasó una request entre servicios |
+| Señal    | Responde principalmente                         |
+| -------- | ----------------------------------------------- |
+| logs     | qué evento ocurrió y con qué contexto           |
+| métricas | con qué frecuencia, latencia o saturación       |
+| trazas   | por qué camino pasó una request entre servicios |
 
 Un `requestId` correlaciona líneas del mismo flujo. Una **trace** agrega spans: unidades con inicio, fin, atributos y relación padre/hijo. No conviertas identificadores de alta cardinalidad, como `userId`, en nombres de métricas.
 
 ## Instrumentar una operación propia
 
 ```ts
-import { trace } from '@opentelemetry/api';
+import { trace } from "@opentelemetry/api"
 
-const tracer = trace.getTracer('posts');
+const tracer = trace.getTracer("posts")
 
 export async function publishPost(input: PublishPostInput) {
-  return tracer.startActiveSpan('posts.publish', async (span) => {
+  return tracer.startActiveSpan("posts.publish", async (span) => {
     try {
-      span.setAttribute('posts.visibility', input.visibility);
-      return await repository.publish(input);
+      span.setAttribute("posts.visibility", input.visibility)
+      return await repository.publish(input)
     } catch (error) {
-      span.recordException(error as Error);
-      throw error;
+      span.recordException(error as Error)
+      throw error
     } finally {
-      span.end();
+      span.end()
     }
-  });
+  })
 }
 ```
 

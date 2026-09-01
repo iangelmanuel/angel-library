@@ -51,12 +51,11 @@ const Invoice = z.object({
   vendor: z.string(),
   total: z.number().nonnegative(),
   currency: z.string().length(3),
-  sourcePage: z.number().int().positive(),
-});
+  sourcePage: z.number().int().positive()
+})
 ```
 
 ## Referencias
 
 - [OpenAI: visión](https://platform.openai.com/docs/guides/images-vision)
 - [OpenAI: speech to text](https://platform.openai.com/docs/guides/speech-to-text)
-

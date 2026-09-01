@@ -52,12 +52,12 @@ Sin adornos, quedan cuatro palancas. Conviene usarlas con una escala, no a ojo:
 }
 ```
 
-| Palanca | Cómo se usa |
-| --- | --- |
+| Palanca | Cómo se usa                                                       |
+| ------- | ----------------------------------------------------------------- |
 | Espacio | Agrupa lo relacionado y separa lo distinto; sustituye a las cajas |
-| Tamaño | Marca el nivel de jerarquía |
-| Peso | Distingue dentro de un mismo nivel |
-| Color | Reservado para lo accionable, no para decorar |
+| Tamaño  | Marca el nivel de jerarquía                                       |
+| Peso    | Distingue dentro de un mismo nivel                                |
+| Color   | Reservado para lo accionable, no para decorar                     |
 
 La regla que más rinde: **el espacio entre grupos siempre mayor que el espacio dentro de un grupo**. Si la etiqueta está más cerca del campo de al lado que del suyo, la interfaz miente aunque se vea limpia.
 

@@ -63,13 +63,13 @@ git branch -vv
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `git remote add origin <url>` | Conecta el repo local con uno remoto |
-| `git clone <url>` | Descarga un repo remoto entero, ya conectado |
-| `git fetch` | Descarga cambios del remoto sin tocar tu working tree |
-| `git pull` | `fetch` + integra los cambios en tu rama actual |
-| `git push` | Sube tus commits locales al remoto |
+| Comando                       | Qué hace                                              |
+| ----------------------------- | ----------------------------------------------------- |
+| `git remote add origin <url>` | Conecta el repo local con uno remoto                  |
+| `git clone <url>`             | Descarga un repo remoto entero, ya conectado          |
+| `git fetch`                   | Descarga cambios del remoto sin tocar tu working tree |
+| `git pull`                    | `fetch` + integra los cambios en tu rama actual       |
+| `git push`                    | Sube tus commits locales al remoto                    |
 
 ## Consideraciones
 

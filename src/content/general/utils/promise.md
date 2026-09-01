@@ -22,10 +22,17 @@ Espera la cantidad de milisegundos indicada, como una versión con Promise de `s
 ```ts title="lib/promise.ts"
 export function delay(ms: number, signal?: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
-    if (signal?.aborted) return reject(signal.reason);
-    const id = setTimeout(resolve, ms);
-    signal?.addEventListener('abort', () => { clearTimeout(id); reject(signal.reason); }, { once: true });
-  });
+    if (signal?.aborted) return reject(signal.reason)
+    const id = setTimeout(resolve, ms)
+    signal?.addEventListener(
+      "abort",
+      () => {
+        clearTimeout(id)
+        reject(signal.reason)
+      },
+      { once: true }
+    )
+  })
 }
 ```
 
@@ -34,16 +41,22 @@ export function delay(ms: number, signal?: AbortSignal): Promise<void> {
 Envuelve cualquier promesa con un límite de tiempo: si no se resuelve antes de `ms`, la promesa devuelta rechaza con un error de timeout.
 
 ```ts
-export async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  let timeoutId: ReturnType<typeof setTimeout>;
+export async function withTimeout<T>(
+  promise: Promise<T>,
+  ms: number
+): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout>
   const timeout = new Promise<never>((_, reject) => {
-    timeoutId = setTimeout(() => reject(new Error(`Timeout después de ${ms}ms`)), ms);
-  });
+    timeoutId = setTimeout(
+      () => reject(new Error(`Timeout después de ${ms}ms`)),
+      ms
+    )
+  })
 
   try {
-    return await Promise.race([promise, timeout]);
+    return await Promise.race([promise, timeout])
   } finally {
-    clearTimeout(timeoutId!);
+    clearTimeout(timeoutId!)
   }
 }
 ```
@@ -57,12 +70,18 @@ export async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T
 Procesa un array de forma asíncrona en lotes de tamaño fijo, esperando a que termine cada lote antes de arrancar el siguiente. Evita lanzar cientos de llamadas en paralelo con `Promise.all()` directo, que puede saturar una API o una base de datos.
 
 ```ts
-export async function mapBatches<T, R>(items: T[], size: number, mapper: (item: T) => Promise<R>) {
-  const results: R[] = [];
+export async function mapBatches<T, R>(
+  items: T[],
+  size: number,
+  mapper: (item: T) => Promise<R>
+) {
+  const results: R[] = []
   for (let index = 0; index < items.length; index += size) {
-    results.push(...await Promise.all(items.slice(index, index + size).map(mapper)));
+    results.push(
+      ...(await Promise.all(items.slice(index, index + size).map(mapper)))
+    )
   }
-  return results;
+  return results
 }
 ```
 
@@ -70,11 +89,11 @@ Los lotes limitan presión sobre una API o base de datos, aunque no mantienen un
 
 ## Resumen
 
-| Función | Qué hace |
-| --- | --- |
-| `delay()` | Espera cancelable con `AbortSignal` |
-| `withTimeout()` | Limita cuánto puede tardar una promesa |
-| `mapBatches()` | Procesa un array async en lotes de tamaño fijo |
+| Función         | Qué hace                                       |
+| --------------- | ---------------------------------------------- |
+| `delay()`       | Espera cancelable con `AbortSignal`            |
+| `withTimeout()` | Limita cuánto puede tardar una promesa         |
+| `mapBatches()`  | Procesa un array async en lotes de tamaño fijo |
 
 ## Consideraciones
 

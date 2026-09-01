@@ -22,22 +22,22 @@ npm install better-auth
 **1. Configurar el core:**
 
 ```ts title="src/libs/auth.ts"
-import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { prisma } from './prisma';
+import { betterAuth } from "better-auth"
+import { prismaAdapter } from "better-auth/adapters/prisma"
+import { prisma } from "./prisma"
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, { provider: 'postgresql' }),
+  database: prismaAdapter(prisma, { provider: "postgresql" }),
   emailAndPassword: {
-    enabled: true,
+    enabled: true
   },
   socialProviders: {
     github: {
       clientId: import.meta.env.GITHUB_CLIENT_ID,
-      clientSecret: import.meta.env.GITHUB_CLIENT_SECRET,
-    },
-  },
-});
+      clientSecret: import.meta.env.GITHUB_CLIENT_SECRET
+    }
+  }
+})
 ```
 
 **2. Generar y aplicar las migraciones:**
@@ -50,12 +50,12 @@ npx @better-auth/cli migrate
 **3. Montar el endpoint catch-all** — sí hace falta crear esta ruta, es lo que expone todo `/api/auth/*`:
 
 ```ts title="src/pages/api/auth/[...all].ts"
-import type { APIRoute } from 'astro';
-import { auth } from '../../../lib/auth';
+import type { APIRoute } from "astro"
+import { auth } from "../../../lib/auth"
 
 export const ALL: APIRoute = async (context) => {
-  return auth.handler(context.request);
-};
+  return auth.handler(context.request)
+}
 ```
 
 El archivo `[...all].ts` (ruta dinámica catch-all de Astro) captura cualquier ruta bajo `/api/auth/*` — `sign-in`, `sign-up`, `sign-out`, callbacks de OAuth, todos pasan por este único handler. **No hace falta escribir rutas propias de login/registro.**
@@ -63,15 +63,17 @@ El archivo `[...all].ts` (ruta dinámica catch-all de Astro) captura cualquier r
 **4. Leer la sesión en el middleware, para poblar `context.locals`:**
 
 ```ts title="src/middleware.ts"
-import { defineMiddleware } from 'astro:middleware';
-import { auth } from './lib/auth';
+import { defineMiddleware } from "astro:middleware"
+import { auth } from "./lib/auth"
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const session = await auth.api.getSession({ headers: context.request.headers });
-  context.locals.user = session?.user ?? null;
+  const session = await auth.api.getSession({
+    headers: context.request.headers
+  })
+  context.locals.user = session?.user ?? null
 
-  return next();
-});
+  return next()
+})
 ```
 
 Requiere `output: 'server'` o mantener `output: 'static'` y marcar las rutas de autenticación con `export const prerender = false`. El antiguo modo `hybrid` se expresa hoy con esa selección por ruta.
@@ -81,50 +83,66 @@ Requiere `output: 'server'` o mantener `output: 'static'` y marcar las rutas de 
 ```astro title="src/pages/perfil.astro"
 ---
 if (!Astro.locals.user) {
-  return Astro.redirect('/login');
+  return Astro.redirect("/login")
 }
 ---
+
 <h1>Hola, {Astro.locals.user.name}</h1>
 ```
 
 ## Proteger un endpoint
 
 ```ts title="src/pages/api/posts.ts"
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ request, locals }) => {
   if (!locals.user) {
-    return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401 });
+    return new Response(JSON.stringify({ error: "No autenticado" }), {
+      status: 401
+    })
   }
 
-  const body = await request.json();
-  const post = await postsRepository.create({ ...body, authorId: locals.user.id });
-  return new Response(JSON.stringify(post), { status: 201 });
-};
+  const body = await request.json()
+  const post = await postsRepository.create({
+    ...body,
+    authorId: locals.user.id
+  })
+  return new Response(JSON.stringify(post), { status: 201 })
+}
 ```
 
 ## Login/registro desde un componente
 
 ```astro title="src/components/AuthForm.astro"
 <script>
-  import { createAuthClient } from 'better-auth/client';
+  import { createAuthClient } from "better-auth/client"
 
-  const authClient = createAuthClient();
+  const authClient = createAuthClient()
 
-  document.querySelector('#login-form')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const email = (form.email as HTMLInputElement).value;
-    const password = (form.password as HTMLInputElement).value;
+  document
+    .querySelector("#login-form")
+    ?.addEventListener("submit", async (e) => {
+      e.preventDefault()
+      const form = e.target as HTMLFormElement
+      const email = (form.email as HTMLInputElement).value
+      const password = (form.password as HTMLInputElement).value
 
-    await authClient.signIn.email({ email, password });
-    window.location.href = '/perfil';
-  });
+      await authClient.signIn.email({ email, password })
+      window.location.href = "/perfil"
+    })
 </script>
 
 <form id="login-form">
-  <input name="email" type="email" required />
-  <input name="password" type="password" required />
+  <input
+    name="email"
+    type="email"
+    required
+  />
+  <input
+    name="password"
+    type="password"
+    required
+  />
   <button type="submit">Entrar</button>
 </form>
 ```
@@ -136,22 +154,22 @@ export const auth = betterAuth({
   // ...
   user: {
     additionalFields: {
-      rol: { type: 'string', defaultValue: 'user' },
-    },
-  },
-});
+      rol: { type: "string", defaultValue: "user" }
+    }
+  }
+})
 ```
 
 Tras regenerar el schema (`npx @better-auth/cli generate`), `locals.user.rol` queda disponible en cualquier página/endpoint que lea la sesión del middleware.
 
 ## Piezas de Better Auth en Astro
 
-| Pieza | Rol |
-| --- | --- |
-| `betterAuth({ database, ...providers })` | Configuración central |
-| `pages/api/auth/[...all].ts` | Ruta catch-all que expone todos los endpoints de auth |
-| `context.locals.user` | Poblado en el middleware, disponible en páginas y endpoints |
-| `createAuthClient()` | Client para login/registro desde el navegador, sin `fetch` manual |
+| Pieza                                    | Rol                                                               |
+| ---------------------------------------- | ----------------------------------------------------------------- |
+| `betterAuth({ database, ...providers })` | Configuración central                                             |
+| `pages/api/auth/[...all].ts`             | Ruta catch-all que expone todos los endpoints de auth             |
+| `context.locals.user`                    | Poblado en el middleware, disponible en páginas y endpoints       |
+| `createAuthClient()`                     | Client para login/registro desde el navegador, sin `fetch` manual |
 
 ## Sesión, adapter y runtime
 

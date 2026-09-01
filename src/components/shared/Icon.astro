@@ -1,14 +1,14 @@
 ---
-import { getIcon } from '@/lib/icons';
+import { getIcon } from "@/lib/icons"
 
 /** Icono inline resuelto en build: <Icon name="search" class="size-4" />. */
 
 interface Props {
-  name: string;
-  class?: string;
+  name: string
+  class?: string
 }
 
-const { name, class: className } = Astro.props;
+const { name, class: className } = Astro.props
 ---
 
 <Fragment set:html={getIcon(name, className)} />

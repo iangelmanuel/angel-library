@@ -19,30 +19,42 @@ Esta guía cubre **Declarative Mode**: rutas declaradas en el árbol de componen
 ## Setup
 
 ```tsx title="main.tsx"
-import { BrowserRouter } from 'react-router';
-import App from './App';
+import { BrowserRouter } from "react-router"
+import App from "./App"
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <App />
-  </BrowserRouter>,
-);
+  </BrowserRouter>
+)
 ```
 
 ## Declarar rutas
 
 ```tsx title="App.tsx"
-import { Routes, Route } from 'react-router';
+import { Route, Routes } from "react-router"
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Inicio />} />
-      <Route path="/productos" element={<Productos />} />
-      <Route path="/productos/:id" element={<DetalleProducto />} />
-      <Route path="*" element={<NoEncontrado />} />
+      <Route
+        path="/"
+        element={<Inicio />}
+      />
+      <Route
+        path="/productos"
+        element={<Productos />}
+      />
+      <Route
+        path="/productos/:id"
+        element={<DetalleProducto />}
+      />
+      <Route
+        path="*"
+        element={<NoEncontrado />}
+      />
     </Routes>
-  );
+  )
 }
 ```
 
@@ -52,15 +64,24 @@ Una ruta padre renderiza su propio layout, y `<Outlet />` marca dónde va la rut
 
 ```tsx
 <Routes>
-  <Route path="/panel" element={<LayoutPanel />}>
-    <Route index element={<ResumenPanel />} />
-    <Route path="ajustes" element={<AjustesPanel />} />
+  <Route
+    path="/panel"
+    element={<LayoutPanel />}
+  >
+    <Route
+      index
+      element={<ResumenPanel />}
+    />
+    <Route
+      path="ajustes"
+      element={<AjustesPanel />}
+    />
   </Route>
 </Routes>
 ```
 
 ```tsx title="LayoutPanel.tsx"
-import { Outlet } from 'react-router';
+import { Outlet } from "react-router"
 
 function LayoutPanel() {
   return (
@@ -68,41 +89,43 @@ function LayoutPanel() {
       <Sidebar />
       <Outlet /> {/* aquí se renderiza ResumenPanel o AjustesPanel */}
     </div>
-  );
+  )
 }
 ```
 
 ## Navegar
 
 ```tsx
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
+import { Link, useNavigate, useParams, useSearchParams } from "react-router"
 
 function DetalleProducto() {
-  const { id } = useParams(); // de /productos/:id
-  const [searchParams] = useSearchParams(); // de ?orden=precio
-  const navigate = useNavigate();
+  const { id } = useParams() // de /productos/:id
+  const [searchParams] = useSearchParams() // de ?orden=precio
+  const navigate = useNavigate()
 
   return (
     <>
       <Link to="/productos">Volver</Link>
       <button onClick={() => navigate(-1)}>Atrás</button>
-      <p>Producto {id}, orden: {searchParams.get('orden')}</p>
+      <p>
+        Producto {id}, orden: {searchParams.get("orden")}
+      </p>
     </>
-  );
+  )
 }
 ```
 
 ## APIs del router en una mirada
 
-| API | Uso |
-| --- | --- |
-| `<BrowserRouter>` | Envuelve la app, habilita el routing basado en la URL real |
-| `<Routes>` / `<Route path="..." element={...} />` | Declarar qué componente va en cada ruta |
-| `<Outlet />` | Marca dónde renderiza la ruta hija dentro de un layout padre |
-| `<Link to="...">` | Navegación sin recargar la página |
-| `useNavigate()` | Navegar por código |
-| `useParams()` | Leer segmentos dinámicos (`:id`) |
-| `useSearchParams()` | Leer/escribir la query string |
+| API                                               | Uso                                                          |
+| ------------------------------------------------- | ------------------------------------------------------------ |
+| `<BrowserRouter>`                                 | Envuelve la app, habilita el routing basado en la URL real   |
+| `<Routes>` / `<Route path="..." element={...} />` | Declarar qué componente va en cada ruta                      |
+| `<Outlet />`                                      | Marca dónde renderiza la ruta hija dentro de un layout padre |
+| `<Link to="...">`                                 | Navegación sin recargar la página                            |
+| `useNavigate()`                                   | Navegar por código                                           |
+| `useParams()`                                     | Leer segmentos dinámicos (`:id`)                             |
+| `useSearchParams()`                               | Leer/escribir la query string                                |
 
 ## Datos, navegación y arquitectura
 

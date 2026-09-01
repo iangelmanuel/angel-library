@@ -14,13 +14,13 @@ updatedAt: 2026-08-30
 
 Iniciativa de **LinkedIn**, parte de Microsoft, con rutas de aprendizaje gratuitas orientadas a las habilidades que piden hoy las ofertas de empleo, con la IA como eje principal.
 
-| | |
-| --- | --- |
-| Plataforma | LinkedIn Learning |
-| Precio | Gratis las rutas de la iniciativa |
-| Idioma | Disponible en español |
+|             |                                    |
+| ----------- | ---------------------------------- |
+| Plataforma  | LinkedIn Learning                  |
+| Precio      | Gratis las rutas de la iniciativa  |
+| Idioma      | Disponible en español              |
 | Certificado | Sí, se añade al perfil de LinkedIn |
-| Requisito | Cuenta de LinkedIn |
+| Requisito   | Cuenta de LinkedIn                 |
 
 ## Qué esperar
 

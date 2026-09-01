@@ -21,10 +21,10 @@ Un Web Component combina un custom element, ciclo de vida y, opcionalmente, Shad
 
 Un Web Component permite crear una etiqueta reutilizable con APIs nativas del navegador. No requiere React, Vue ni otro framework. Sus tres piezas principales son:
 
-| Pieza | Responsabilidad |
-| --- | --- |
-| Custom Elements | registrar una etiqueta y su clase |
-| Shadow DOM | encapsular estructura y estilos internos |
+| Pieza                   | Responsabilidad                           |
+| ----------------------- | ----------------------------------------- |
+| Custom Elements         | registrar una etiqueta y su clase         |
+| Shadow DOM              | encapsular estructura y estilos internos  |
 | `<template>` y `<slot>` | reutilizar estructura y recibir contenido |
 
 Una etiqueta personalizada autónoma debe incluir un guion: `<nueva-etiqueta>` es válida; `<nuevaetiqueta>` no lo es. El guion evita colisiones con etiquetas que HTML pueda incorporar en el futuro.
@@ -34,57 +34,60 @@ Una etiqueta personalizada autónoma debe incluir un guion: `<nueva-etiqueta>` e
 ```html
 <nueva-etiqueta nombre="Ángel"></nueva-etiqueta>
 
-<script type="module" src="/components/nueva-etiqueta.js"></script>
+<script
+  type="module"
+  src="/components/nueva-etiqueta.js"
+></script>
 ```
 
 ```js
 // /components/nueva-etiqueta.js
 class NuevaEtiqueta extends HTMLElement {
   connectedCallback() {
-    const name = this.getAttribute('nombre') ?? 'Visitante'
+    const name = this.getAttribute("nombre") ?? "Visitante"
     this.textContent = `Hola, ${name}`
   }
 }
 
-if (!customElements.get('nueva-etiqueta')) {
-  customElements.define('nueva-etiqueta', NuevaEtiqueta)
+if (!customElements.get("nueva-etiqueta")) {
+  customElements.define("nueva-etiqueta", NuevaEtiqueta)
 }
 ```
 
 Después de registrar la clase:
 
 ```js
-const component = document.querySelector('nueva-etiqueta')
+const component = document.querySelector("nueva-etiqueta")
 
 component instanceof NuevaEtiqueta // true
-component.textContent               // 'Hola, Ángel'
-customElements.get('nueva-etiqueta') === NuevaEtiqueta // true
+component.textContent // 'Hola, Ángel'
+customElements.get("nueva-etiqueta") === NuevaEtiqueta // true
 ```
 
 `customElements.define()` devuelve `undefined` y lanza si el nombre o constructor ya fue registrado. La comprobación con `get` ayuda durante hot reload, pruebas o scripts que podrían evaluarse más de una vez.
 
 ## Constructor y ciclo de vida
 
-| Callback | Cuándo se ejecuta | Uso adecuado |
-| --- | --- | --- |
-| `constructor()` | al crear o actualizar el elemento | estado interno, `super()`, shadow root |
-| `connectedCallback()` | cada vez que entra al documento | render, listeners y recursos |
-| `disconnectedCallback()` | cada vez que sale | cancelar listeners, timers y requests |
-| `attributeChangedCallback()` | cambia un atributo observado | sincronizar atributo con UI |
-| `adoptedCallback()` | se mueve a otro documento | casos avanzados |
-| `connectedMoveCallback()` | movimiento preservando estado en APIs compatibles | evitar desmontaje al reordenar |
+| Callback                     | Cuándo se ejecuta                                 | Uso adecuado                           |
+| ---------------------------- | ------------------------------------------------- | -------------------------------------- |
+| `constructor()`              | al crear o actualizar el elemento                 | estado interno, `super()`, shadow root |
+| `connectedCallback()`        | cada vez que entra al documento                   | render, listeners y recursos           |
+| `disconnectedCallback()`     | cada vez que sale                                 | cancelar listeners, timers y requests  |
+| `attributeChangedCallback()` | cambia un atributo observado                      | sincronizar atributo con UI            |
+| `adoptedCallback()`          | se mueve a otro documento                         | casos avanzados                        |
+| `connectedMoveCallback()`    | movimiento preservando estado en APIs compatibles | evitar desmontaje al reordenar         |
 
 El constructor debe llamar primero a `super()`. La inicialización que depende de atributos, hijos o conexión al documento pertenece normalmente a `connectedCallback()`.
 
 ```js
 class UserBadge extends HTMLElement {
-  static observedAttributes = ['name', 'status']
+  static observedAttributes = ["name", "status"]
 
   #controller
 
   constructor() {
     super()
-    this.attachShadow({ mode: 'open' })
+    this.attachShadow({ mode: "open" })
   }
 
   connectedCallback() {
@@ -92,8 +95,8 @@ class UserBadge extends HTMLElement {
     this.#controller = new AbortController()
 
     this.render()
-    this.shadowRoot.addEventListener('click', this.handleClick, {
-      signal: this.#controller.signal,
+    this.shadowRoot.addEventListener("click", this.handleClick, {
+      signal: this.#controller.signal
     })
   }
 
@@ -106,16 +109,18 @@ class UserBadge extends HTMLElement {
   }
 
   handleClick = () => {
-    this.dispatchEvent(new CustomEvent('badge:open', {
-      detail: { name: this.getAttribute('name') },
-      bubbles: true,
-      composed: true,
-    }))
+    this.dispatchEvent(
+      new CustomEvent("badge:open", {
+        detail: { name: this.getAttribute("name") },
+        bubbles: true,
+        composed: true
+      })
+    )
   }
 
   render() {
-    const name = this.getAttribute('name') ?? 'Sin nombre'
-    const status = this.getAttribute('status') ?? 'offline'
+    const name = this.getAttribute("name") ?? "Sin nombre"
+    const status = this.getAttribute("status") ?? "offline"
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -124,15 +129,15 @@ class UserBadge extends HTMLElement {
       </style>
       <button type="button">
         <span data-name></span>
-        <span class="${status === 'online' ? 'online' : ''}"></span>
+        <span class="${status === "online" ? "online" : ""}"></span>
       </button>
     `
 
-    this.shadowRoot.querySelector('[data-name]').textContent = name
+    this.shadowRoot.querySelector("[data-name]").textContent = name
   }
 }
 
-customElements.define('user-badge', UserBadge)
+customElements.define("user-badge", UserBadge)
 ```
 
 La plantilla de `innerHTML` anterior solo contiene texto estático y una clase controlada; el nombre externo se asigna con `textContent` para no interpretarlo como HTML.
@@ -143,23 +148,23 @@ Los atributos son strings y forman parte del HTML. Las propiedades pueden conser
 
 ```js
 class ProgressRing extends HTMLElement {
-  static observedAttributes = ['value']
+  static observedAttributes = ["value"]
 
   get value() {
-    return Number(this.getAttribute('value') ?? 0)
+    return Number(this.getAttribute("value") ?? 0)
   }
 
   set value(nextValue) {
     const safeValue = Math.min(Math.max(Number(nextValue), 0), 100)
-    this.setAttribute('value', String(safeValue))
+    this.setAttribute("value", String(safeValue))
   }
 }
 
-const ring = document.querySelector('progress-ring')
+const ring = document.querySelector("progress-ring")
 ring.value = 120
 
-ring.value                 // 100
-ring.getAttribute('value') // '100'
+ring.value // 100
+ring.getAttribute("value") // '100'
 ```
 
 Evita reflejar objetos grandes en atributos mediante JSON. Exponlos como propiedades y documenta si el componente conserva o copia la referencia.
@@ -169,11 +174,11 @@ Evita reflejar objetos grandes en atributos mediante JSON. Exponlos como propied
 Un shadow root crea una frontera de DOM y estilos. `mode: 'open'` permite leer `element.shadowRoot`; con `closed`, esa propiedad devuelve `null`, pero no convierte el contenido en un límite de seguridad.
 
 ```js
-const root = this.attachShadow({ mode: 'open' })
+const root = this.attachShadow({ mode: "open" })
 
 root instanceof ShadowRoot // true
-this.shadowRoot === root   // true
-root.host === this         // true
+this.shadowRoot === root // true
+root.host === this // true
 ```
 
 Los selectores externos normales no entran en el shadow tree. Para permitir personalización controlada usa:
@@ -211,10 +216,18 @@ user-badge::part(icon) {
 ```html
 <template id="alert-template">
   <style>
-    :host { display: block; }
-    .alert { border-inline-start: 4px solid currentColor; padding: 1rem; }
+    :host {
+      display: block;
+    }
+    .alert {
+      border-inline-start: 4px solid currentColor;
+      padding: 1rem;
+    }
   </style>
-  <section class="alert" part="container">
+  <section
+    class="alert"
+    part="container"
+  >
     <strong><slot name="title">Aviso</slot></strong>
     <div><slot></slot></div>
   </section>
@@ -230,21 +243,21 @@ user-badge::part(icon) {
 class AppAlert extends HTMLElement {
   constructor() {
     super()
-    const template = document.querySelector('#alert-template')
-    const root = this.attachShadow({ mode: 'open' })
+    const template = document.querySelector("#alert-template")
+    const root = this.attachShadow({ mode: "open" })
     root.append(template.content.cloneNode(true))
   }
 }
 
-customElements.define('app-alert', AppAlert)
+customElements.define("app-alert", AppAlert)
 ```
 
 El contenido asignado a un slot permanece en el light DOM; el slot controla dónde se presenta. `slotchange` avisa cuando cambia el conjunto de nodos asignados.
 
 ```js
-const slot = component.shadowRoot.querySelector('slot')
+const slot = component.shadowRoot.querySelector("slot")
 
-slot.addEventListener('slotchange', () => {
+slot.addEventListener("slotchange", () => {
   slot.assignedElements({ flatten: true })
   // array de elementos asignados
 })
@@ -255,15 +268,17 @@ slot.addEventListener('slotchange', () => {
 Un componente debe emitir eventos que describan intención o resultado, no detalles internos como “se hizo clic en el tercer span”.
 
 ```js
-this.dispatchEvent(new CustomEvent('quantity:change', {
-  detail: { value: 3 },
-  bubbles: true,
-  composed: true,
-}))
+this.dispatchEvent(
+  new CustomEvent("quantity:change", {
+    detail: { value: 3 },
+    bubbles: true,
+    composed: true
+  })
+)
 ```
 
 ```js
-counter.addEventListener('quantity:change', event => {
+counter.addEventListener("quantity:change", (event) => {
   event.detail.value // 3
 })
 ```
@@ -279,7 +294,7 @@ class RatingInput extends HTMLElement {
   static formAssociated = true
 
   #internals = this.attachInternals()
-  #value = '0'
+  #value = "0"
 
   set value(nextValue) {
     this.#value = String(nextValue)
@@ -291,7 +306,7 @@ class RatingInput extends HTMLElement {
   }
 }
 
-customElements.define('rating-input', RatingInput)
+customElements.define("rating-input", RatingInput)
 ```
 
 Revisa compatibilidad y prueba con teclado y tecnologías de asistencia antes de crear controles de formulario personalizados.
@@ -301,8 +316,8 @@ Revisa compatibilidad y prueba con teclado y tecnologías de asistencia antes de
 El navegador puede encontrar `<nueva-etiqueta>` antes de cargar su clase. Al ejecutar `define`, actualiza esas instancias existentes.
 
 ```js
-customElements.whenDefined('nueva-etiqueta').then(() => {
-  console.log('Componente disponible')
+customElements.whenDefined("nueva-etiqueta").then(() => {
+  console.log("Componente disponible")
 })
 ```
 

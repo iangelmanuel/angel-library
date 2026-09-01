@@ -14,12 +14,12 @@ Una **migración** es un cambio versionado del esquema o de los datos. Un **back
 
 ## Dos responsabilidades diferentes
 
-| Pieza | Responde a | No sustituye |
-| --- | --- | --- |
-| migración | ¿cómo evoluciona el esquema? | backup |
-| backup | ¿cómo recupero una copia anterior? | réplica |
-| réplica | ¿cómo distribuyo o continúo el servicio? | historial ante borrado lógico |
-| registro de transacciones | ¿cómo reproduzco cambios hasta un punto? | simulacro de restauración |
+| Pieza                     | Responde a                               | No sustituye                  |
+| ------------------------- | ---------------------------------------- | ----------------------------- |
+| migración                 | ¿cómo evoluciona el esquema?             | backup                        |
+| backup                    | ¿cómo recupero una copia anterior?       | réplica                       |
+| réplica                   | ¿cómo distribuyo o continúo el servicio? | historial ante borrado lógico |
+| registro de transacciones | ¿cómo reproduzco cambios hasta un punto? | simulacro de restauración     |
 
 Las migraciones pertenecen al repositorio y siguen el mismo proceso de revisión que el código. No edites una migración que ya pudo ejecutarse en otros entornos: crea la siguiente corrección.
 
@@ -104,8 +104,8 @@ La condición final hace el lote idempotente. Aun así, decide qué ocurre si el
 
 ## RPO y RTO
 
-- **RPO** (*Recovery Point Objective*): cuántos datos se acepta perder, medido en tiempo.
-- **RTO** (*Recovery Time Objective*): cuánto puede tardar la recuperación del servicio.
+- **RPO** (_Recovery Point Objective_): cuántos datos se acepta perder, medido en tiempo.
+- **RTO** (_Recovery Time Objective_): cuánto puede tardar la recuperación del servicio.
 
 Una copia nocturna implica potencialmente un RPO cercano a 24 horas. Para exigencias menores se necesitan respaldos continuos, registros de transacciones o replicación; la replicación por sí sola no protege contra un borrado lógico que también se replica.
 
@@ -113,13 +113,13 @@ Una copia nocturna implica potencialmente un RPO cercano a 24 horas. Para exigen
 
 Un backup **lógico** exporta objetos y datos —por ejemplo con `pg_dump`—. Es portátil y permite seleccionar objetos, pero restaurar grandes volúmenes puede ser lento. Un backup **físico** copia el estado del cluster y suele combinarse con WAL para recuperación puntual; depende más de versión y topología.
 
-**PITR** (*Point-in-Time Recovery* o recuperación a un punto en el tiempo) restaura una base física y reproduce WAL hasta antes de un incidente. Exige conservar la cadena completa, reloj confiable, permisos, almacenamiento y un procedimiento probado.
+**PITR** (_Point-in-Time Recovery_ o recuperación a un punto en el tiempo) restaura una base física y reproduce WAL hasta antes de un incidente. Exige conservar la cadena completa, reloj confiable, permisos, almacenamiento y un procedimiento probado.
 
-| Escenario | Mecanismo posible |
-| --- | --- |
-| recuperar una tabla pequeña | exportación lógica o restauración aislada |
-| perder una instancia completa | backup físico + WAL o backup administrado |
-| volver antes de un borrado | PITR en entorno separado y reconciliación |
+| Escenario                     | Mecanismo posible                              |
+| ----------------------------- | ---------------------------------------------- |
+| recuperar una tabla pequeña   | exportación lógica o restauración aislada      |
+| perder una instancia completa | backup físico + WAL o backup administrado      |
+| volver antes de un borrado    | PITR en entorno separado y reconciliación      |
 | continuidad por fallo de nodo | failover a réplica, más backups independientes |
 
 ## Restaurar es la prueba
@@ -170,4 +170,3 @@ Evita restaurar directamente encima de la única copia dañada. Conserva evidenc
 - [PostgreSQL: backup y restore](https://www.postgresql.org/docs/current/backup.html)
 - [PostgreSQL: pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html)
 - [PostgreSQL: archivado de WAL y PITR](https://www.postgresql.org/docs/current/continuous-archiving.html)
-

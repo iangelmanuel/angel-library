@@ -27,11 +27,11 @@ Keep it short — a reviewer should understand the change in under a minute. Don
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
-| Claude Code | `.claude/commands/pr-description.md` |
-| Cursor | `.cursor/commands/pr-description.md` |
-| OpenCode | `.opencode/commands/pr-description.md` (+ `template:`) |
+| Dónde       | Archivo                                                |
+| ----------- | ------------------------------------------------------ |
+| Claude Code | `.claude/commands/pr-description.md`                   |
+| Cursor      | `.cursor/commands/pr-description.md`                   |
+| OpenCode    | `.opencode/commands/pr-description.md` (+ `template:`) |
 
 ## Consideraciones
 

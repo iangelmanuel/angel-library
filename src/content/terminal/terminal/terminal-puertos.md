@@ -5,7 +5,8 @@ type: guides
 order: 9
 tags: [terminal, puertos, red, procesos]
 scope: puertos
-related: [terminal/terminal/terminal-procesos, terminal/terminal/terminal-red-basica]
+related:
+  [terminal/terminal/terminal-procesos, terminal/terminal/terminal-red-basica]
 updatedAt: 2026-08-17
 ---
 
@@ -68,11 +69,11 @@ Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess -Force
 
 ## Resumen del flujo completo (ejemplo: puerto 3000)
 
-| Paso | Windows (PowerShell) | macOS / Linux |
-|---|---|---|
+| Paso                     | Windows (PowerShell)            | macOS / Linux   |
+| ------------------------ | ------------------------------- | --------------- |
 | 1. Ver qué usa el puerto | `netstat -ano \| findstr :3000` | `lsof -i :3000` |
-| 2. Anotar el PID | última columna | columna `PID` |
-| 3. Matar el proceso | `Stop-Process -Id <pid> -Force` | `kill -9 <pid>` |
+| 2. Anotar el PID         | última columna                  | columna `PID`   |
+| 3. Matar el proceso      | `Stop-Process -Id <pid> -Force` | `kill -9 <pid>` |
 
 ## Consideraciones
 

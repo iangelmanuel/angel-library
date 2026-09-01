@@ -1,25 +1,34 @@
 ---
-import Icon from '@/components/shared/Icon.astro';
-import { CONTENT_TYPES, type ContentTypeId } from '@/config/site';
+import Icon from "@/components/shared/Icon.astro"
+import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
 
 interface Props {
-  type: ContentTypeId;
-  linked?: boolean;
+  type: ContentTypeId
+  linked?: boolean
 }
 
-const { type, linked = false } = Astro.props;
-const meta = CONTENT_TYPES[type];
+const { type, linked = false } = Astro.props
+const meta = CONTENT_TYPES[type]
 ---
 
 {
   linked ? (
-    <a href={`/tipos/${type}`} class:list={['badge', `type-${type}`]}>
-      <Icon name={meta.icon} class="size-3" />
+    <a
+      href={`/tipos/${type}`}
+      class:list={["badge", `type-${type}`]}
+    >
+      <Icon
+        name={meta.icon}
+        class="size-3"
+      />
       {meta.singular}
     </a>
   ) : (
-    <span class:list={['badge', `type-${type}`]}>
-      <Icon name={meta.icon} class="size-3" />
+    <span class:list={["badge", `type-${type}`]}>
+      <Icon
+        name={meta.icon}
+        class="size-3"
+      />
       {meta.singular}
     </span>
   )

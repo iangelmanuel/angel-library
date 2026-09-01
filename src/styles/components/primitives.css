@@ -1,193 +1,228 @@
 /* Primitivas: piezas pequeñas reutilizadas en todo el sitio */
 @layer components {
-/* Skip link accesible */
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: -100%;
-  z-index: 100;
-  background: var(--foreground);
-  color: var(--background);
-  padding: 0.5rem 0.75rem;
-  font-family: var(--font-pixel);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-}
-.skip-link:focus-visible {
-  top: 1rem;
-}
+  /* Skip link accesible */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    background: var(--foreground);
+    color: var(--background);
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+  .skip-link:focus-visible {
+    top: 1rem;
+  }
 
-/* Micro-título de UI. */
-.section-label {
-  font-family: var(--font-pixel);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--heading-secondary);
-}
-.section-label::before {
-  content: '$ ';
-  color: var(--accent-green);
-}
+  /* Micro-título de UI. */
+  .section-label {
+    font-family: var(--font-pixel);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--heading-secondary);
+  }
+  .section-label::before {
+    content: "$ ";
+    color: var(--accent-green);
+  }
 
-/* Teclas */
-.kbd {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.35rem;
-  padding: 0.1rem 0.35rem;
-  border: 1px solid var(--border);
-  background: var(--muted);
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  line-height: 1.4;
-  box-shadow: inset 0 -2px 0 rgb(255 255 255 / 0.06);
-}
+  /* Teclas */
+  .kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid var(--border);
+    background: var(--muted);
+    color: var(--muted-foreground);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    line-height: 1.4;
+    box-shadow: inset 0 -2px 0 rgb(255 255 255 / 0.06);
+  }
 
+  /* Badge de tipo de contenido */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    padding: 0.2rem 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted-foreground);
+    white-space: nowrap;
+    transition:
+      color 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      transform 150ms ease;
+  }
+  a.badge:hover,
+  button.badge:hover {
+    color: var(--foreground);
+    border-color: var(--border-strong);
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0
+      color-mix(in srgb, var(--border-strong) 55%, transparent);
+  }
 
-/* Badge de tipo de contenido */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  border: 1px solid var(--border);
-  background: transparent;
-  padding: 0.2rem 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--muted-foreground);
-  white-space: nowrap;
-  transition:
-    color 150ms ease,
-    border-color 150ms ease,
-    box-shadow 150ms ease,
-    transform 150ms ease;
-}
-a.badge:hover,
-button.badge:hover {
-  color: var(--foreground);
-  border-color: var(--border-strong);
-  transform: translate(-2px, -2px);
-  box-shadow: 3px 3px 0 color-mix(in srgb, var(--border-strong) 55%, transparent);
-}
-
-/* Badge de categoría: hover de card. El color va aquí, no inline:
+  /* Badge de categoría: hover de card. El color va aquí, no inline:
    un estilo inline gana siempre sobre :hover. */
-.badge--category {
-  color: var(--card-accent);
-  border-color: color-mix(in srgb, var(--card-accent) 35%, var(--border));
-  transition:
-    color 150ms ease,
-    border-color 150ms ease,
-    box-shadow 150ms ease,
-    transform 150ms ease;
-}
-a.badge--category:hover {
-  color: var(--card-accent);
-  border-color: var(--card-accent);
-  transform: translate(-2px, -2px);
-  box-shadow: 3px 3px 0 color-mix(in srgb, var(--card-accent) 38%, transparent);
-}
+  .badge--category {
+    color: var(--card-accent);
+    border-color: color-mix(in srgb, var(--card-accent) 35%, var(--border));
+    transition:
+      color 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      transform 150ms ease;
+  }
+  a.badge--category:hover {
+    color: var(--card-accent);
+    border-color: var(--card-accent);
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0
+      color-mix(in srgb, var(--card-accent) 38%, transparent);
+  }
 
-/* Tag suelto: sin borde, solo cambia de color. */
-.tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  border: none;
-  background: transparent;
-  padding: 0;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  line-height: 1.35;
-  color: var(--reading-link);
-  transition: color 120ms ease;
-}
+  /* Tag suelto: sin borde, solo cambia de color. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1.35;
+    color: var(--reading-link);
+    transition: color 120ms ease;
+  }
 
-/* El logo avanza por la paleta en cada hover. */
-.logo-cycle {
-  --logo-hover-color: var(--accent-blue);
-}
-.logo-cycle__text {
-  transition:
-    color 100ms steps(2, end),
-    text-shadow 100ms steps(2, end);
-}
-.logo-cycle:hover .logo-cycle__text,
-.logo-cycle:focus-visible .logo-cycle__text {
-  color: var(--logo-hover-color);
-  text-shadow: 2px 0 0 color-mix(in srgb, var(--logo-hover-color) 25%, transparent);
-}
-.tag::before {
-  content: '#';
-  opacity: 0.65;
-}
-a.tag:hover,
-a.tag:focus-visible {
-  color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
-}
-.tag__name {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.tag__count {
-  margin-left: 0.1rem;
-  color: var(--muted-foreground);
-  font-size: 0.62rem;
-  opacity: 0.8;
-}
+  /* El logo avanza por la paleta en cada hover. */
+  .logo-cycle {
+    --logo-hover-color: var(--accent-blue);
+  }
+  .logo-cycle__text {
+    transition:
+      color 100ms steps(2, end),
+      text-shadow 100ms steps(2, end);
+  }
+  .logo-cycle:hover .logo-cycle__text,
+  .logo-cycle:focus-visible .logo-cycle__text {
+    color: var(--logo-hover-color);
+    text-shadow: 2px 0 0
+      color-mix(in srgb, var(--logo-hover-color) 25%, transparent);
+  }
+  .tag::before {
+    content: "#";
+    opacity: 0.65;
+  }
+  a.tag:hover,
+  a.tag:focus-visible {
+    color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
+  }
+  .tag__name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tag__count {
+    margin-left: 0.1rem;
+    color: var(--muted-foreground);
+    font-size: 0.62rem;
+    opacity: 0.8;
+  }
 
-/* Tile de /tags: es un botón, conserva borde. */
-.tag--tile {
-  justify-content: flex-start;
-  min-width: 0;
-  border: 1px solid var(--border);
-  padding: 0.55rem 0.65rem;
-  color: var(--reading-link);
-  transition:
-    border-color 120ms ease,
-    color 120ms ease,
-    box-shadow 120ms ease,
-    transform 120ms ease;
-}
-.tag--tile:hover,
-.tag--tile:focus-visible {
-  border-color: var(--reading-link);
-  color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
-  transform: translate(-2px, -2px);
-  box-shadow: 3px 3px 0 color-mix(in srgb, var(--reading-link) 38%, transparent);
-}
-.tag--tile .tag__count {
-  margin-left: auto;
-}
+  /* Tile de /tags: es un botón, conserva borde. */
+  .tag--tile {
+    justify-content: flex-start;
+    min-width: 0;
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.65rem;
+    color: var(--reading-link);
+    transition:
+      border-color 120ms ease,
+      color 120ms ease,
+      box-shadow 120ms ease,
+      transform 120ms ease;
+  }
+  .tag--tile:hover,
+  .tag--tile:focus-visible {
+    border-color: var(--reading-link);
+    color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0
+      color-mix(in srgb, var(--reading-link) 38%, transparent);
+  }
+  .tag--tile .tag__count {
+    margin-left: auto;
+  }
 
-/* Acentos por tipo: solo badges. Los títulos usan --heading-*. */
-.type-technologies { color: var(--accent-blue); }
-.type-libraries { color: var(--accent-blue); }
-.type-integrations { color: var(--accent-indigo); }
-.type-recipes { color: var(--accent-red); }
-.type-snippets { color: var(--accent-cyan); }
-.type-hooks { color: var(--accent-pink); }
-.type-utilities { color: var(--accent-blue); }
-.type-resources { color: var(--accent-pink); }
-.type-skills { color: var(--accent-pink); }
-.type-commands { color: var(--accent-lime); }
-.type-patterns { color: var(--accent-blue); }
-.type-practices { color: var(--accent-red); }
-.type-guides { color: var(--accent-lime); }
-.type-tricks { color: var(--accent-indigo); }
+  /* Acentos por tipo: solo badges. Los títulos usan --heading-*. */
+  .type-technologies {
+    color: var(--accent-blue);
+  }
+  .type-libraries {
+    color: var(--accent-blue);
+  }
+  .type-integrations {
+    color: var(--accent-indigo);
+  }
+  .type-recipes {
+    color: var(--accent-red);
+  }
+  .type-snippets {
+    color: var(--accent-cyan);
+  }
+  .type-hooks {
+    color: var(--accent-pink);
+  }
+  .type-utilities {
+    color: var(--accent-blue);
+  }
+  .type-resources {
+    color: var(--accent-pink);
+  }
+  .type-skills {
+    color: var(--accent-pink);
+  }
+  .type-commands {
+    color: var(--accent-lime);
+  }
+  .type-patterns {
+    color: var(--accent-blue);
+  }
+  .type-practices {
+    color: var(--accent-red);
+  }
+  .type-guides {
+    color: var(--accent-lime);
+  }
+  .type-tricks {
+    color: var(--accent-indigo);
+  }
 
-/* Título de entrada: violeta de --heading-primary. */
-main h1 { color: var(--heading-primary); }
-main header > p { color: var(--reading-muted); }
+  /* Título de entrada: violeta de --heading-primary. */
+  main h1 {
+    color: var(--heading-primary);
+  }
+  main header > p {
+    color: var(--reading-muted);
+  }
 
-/* Título del TOC: color de los subtítulos. */
-.toc-title {
-  color: var(--heading-secondary);
-}
+  /* Título del TOC: color de los subtítulos. */
+  .toc-title {
+    color: var(--heading-secondary);
+  }
 }

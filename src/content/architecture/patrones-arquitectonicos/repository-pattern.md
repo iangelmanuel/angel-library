@@ -5,7 +5,11 @@ type: patterns
 order: 4
 tags: [arquitectura, patrones-arquitectonicos, repository, orm]
 problem: La lógica de negocio termina llena de queries SQL o llamadas a un ORM específico, en vez de hablar en términos del dominio.
-related: [architecture/patrones-arquitectonicos/hexagonal-architecture, architecture/patrones-arquitectonicos/layered-architecture]
+related:
+  [
+    architecture/patrones-arquitectonicos/hexagonal-architecture,
+    architecture/patrones-arquitectonicos/layered-architecture
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -15,9 +19,9 @@ El resto de la aplicación no debería saber ni necesitar saber si los datos vie
 
 ```ts title="repositories/user-repository.ts (interfaz)"
 export interface UserRepository {
-  findActiveUsers(): Promise<User[]>;
-  findById(id: string): Promise<User | null>;
-  save(user: User): Promise<void>;
+  findActiveUsers(): Promise<User[]>
+  findById(id: string): Promise<User | null>
+  save(user: User): Promise<void>
 }
 ```
 
@@ -26,26 +30,26 @@ export interface UserRepository {
 ## Una implementación concreta
 
 ```ts title="repositories/prisma-user-repository.ts"
-import type { PrismaClient } from '@prisma/client';
-import type { UserRepository } from './user-repository';
+import type { PrismaClient } from "@prisma/client"
+import type { UserRepository } from "./user-repository"
 
 export class PrismaUserRepository implements UserRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   findActiveUsers() {
-    return this.prisma.user.findMany({ where: { active: true } });
+    return this.prisma.user.findMany({ where: { active: true } })
   }
 
   findById(id: string) {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({ where: { id } })
   }
 
   async save(user: User) {
     await this.prisma.user.upsert({
       where: { id: user.id },
       update: user,
-      create: user,
-    });
+      create: user
+    })
   }
 }
 ```
@@ -57,7 +61,7 @@ export class UserService {
   constructor(private readonly repo: UserRepository) {}
 
   listActive() {
-    return this.repo.findActiveUsers();
+    return this.repo.findActiveUsers()
   }
 }
 ```

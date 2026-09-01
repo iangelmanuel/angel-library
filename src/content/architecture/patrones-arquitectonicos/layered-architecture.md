@@ -5,7 +5,11 @@ type: patterns
 order: 2
 tags: [arquitectura, patrones-arquitectonicos, layered, n-tier]
 problem: Sin capas explícitas, cualquier parte del código termina llamando a cualquier otra — HTTP mezclado con SQL, UI mezclada con reglas de negocio.
-related: [architecture/patrones-arquitectonicos/mvc-overview, architecture/patrones-arquitectonicos/repository-pattern]
+related:
+  [
+    architecture/patrones-arquitectonicos/mvc-overview,
+    architecture/patrones-arquitectonicos/repository-pattern
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -33,10 +37,10 @@ Son cosas distintas que se confunden seguido. Layered architecture es un princip
 
 ```ts title="ejemplo de lo que NO hacer"
 // controller saltándose la capa de servicio
-app.get('/users/:id', async (req, res) => {
-  const user = await prisma.user.findUnique({ where: { id: req.params.id } });
-  res.json(user);
-});
+app.get("/users/:id", async (req, res) => {
+  const user = await prisma.user.findUnique({ where: { id: req.params.id } })
+  res.json(user)
+})
 ```
 
 Funciona hoy. Duele después:
@@ -48,10 +52,10 @@ Funciona hoy. Duele después:
 La versión correcta pasa por un service intermedio:
 
 ```ts title="ejemplo correcto"
-app.get('/users/:id', async (req, res) => {
-  const user = await userService.getById(req.params.id);
-  res.json(user);
-});
+app.get("/users/:id", async (req, res) => {
+  const user = await userService.getById(req.params.id)
+  res.json(user)
+})
 ```
 
 El controller ya no sabe que existe Prisma. Ese conocimiento vive en una sola capa, reemplazable sin tocar el resto.

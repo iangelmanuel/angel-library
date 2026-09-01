@@ -48,24 +48,24 @@ https://docs.example.com:443/guides/http?page=2#cache
 scheme           host       port     path      query   fragment
 ```
 
-| Parte | Viaja en HTTP | Función |
-| --- | --- | --- |
-| esquema | determina conexión | `http`, `https` |
-| host | sí, como autoridad/Host | dominio de destino |
-| puerto | forma parte de autoridad | 443 por defecto en HTTPS |
-| path | sí | recurso solicitado |
-| query | sí | filtros o parámetros |
-| fragment | **no** | navegación dentro del documento, solo cliente |
+| Parte    | Viaja en HTTP            | Función                                       |
+| -------- | ------------------------ | --------------------------------------------- |
+| esquema  | determina conexión       | `http`, `https`                               |
+| host     | sí, como autoridad/Host  | dominio de destino                            |
+| puerto   | forma parte de autoridad | 443 por defecto en HTTPS                      |
+| path     | sí                       | recurso solicitado                            |
+| query    | sí                       | filtros o parámetros                          |
+| fragment | **no**                   | navegación dentro del documento, solo cliente |
 
 El navegador normaliza la URL, aplica políticas como HSTS, comprueba esquemas especiales, consulta historial y decide si la navegación puede ser interceptada por un service worker.
 
 ```js
-const url = new URL('https://docs.example.com/guides/http?page=2#cache')
+const url = new URL("https://docs.example.com/guides/http?page=2#cache")
 
-url.origin   // 'https://docs.example.com'
+url.origin // 'https://docs.example.com'
 url.pathname // '/guides/http'
-url.search   // '?page=2'
-url.hash     // '#cache'
+url.search // '?page=2'
+url.hash // '#cache'
 ```
 
 Nunca pongas secretos en query o fragmentos suponiendo que son privados. Una query puede quedar en historial, logs, analítica y encabezados de referencia según la política aplicada.
@@ -87,21 +87,28 @@ La etiqueta “from memory cache” o “from disk cache” en DevTools indica q
 
 DNS traduce `docs.example.com` a direcciones IPv4 o IPv6. Puede consultar cachés del navegador, sistema operativo, router, proveedor o resolver recursivo antes de llegar a servidores autoritativos.
 
-| Registro | Función habitual |
-| --- | --- |
-| `A` | dominio → IPv4 |
-| `AAAA` | dominio → IPv6 |
-| `CNAME` | alias hacia otro nombre |
+| Registro         | Función habitual                                |
+| ---------------- | ----------------------------------------------- |
+| `A`              | dominio → IPv4                                  |
+| `AAAA`           | dominio → IPv6                                  |
+| `CNAME`          | alias hacia otro nombre                         |
 | `HTTPS` / `SVCB` | parámetros modernos del servicio y alternativas |
-| `TXT` | verificación y políticas de correo, entre otros |
+| `TXT`            | verificación y políticas de correo, entre otros |
 
 Un CDN suele responder con una dirección cercana o adecuada para la red del usuario. El TTL define por cuánto tiempo puede conservarse una respuesta DNS, aunque cada capa puede aplicar límites propios.
 
 Optimizar DNS solo importa cuando hay dominios nuevos. Añadir muchos orígenes de terceros aumenta búsquedas, conexiones, privacidad expuesta y puntos de fallo.
 
 ```html
-<link rel="dns-prefetch" href="//cdn.example.com">
-<link rel="preconnect" href="https://cdn.example.com" crossorigin>
+<link
+  rel="dns-prefetch"
+  href="//cdn.example.com"
+/>
+<link
+  rel="preconnect"
+  href="https://cdn.example.com"
+  crossorigin
+/>
 ```
 
 `preconnect` adelanta DNS y conexión, pero consume recursos; resérvalo para pocos orígenes críticos que realmente se usarán pronto.
@@ -116,11 +123,11 @@ TCP establece una conexión confiable. HTTPS añade un handshake TLS para autent
 
 HTTP/3 utiliza QUIC sobre UDP e integra seguridad. Reduce algunos costos de conexión y evita que la pérdida de un paquete bloquee todos los streams de la misma conexión como puede ocurrir a nivel TCP.
 
-| Versión | Transporte | Multiplexación | Característica práctica |
-| --- | --- | --- | --- |
-| HTTP/1.1 | TCP | limitada; varias conexiones | texto, una respuesta activa por conexión sin pipelining práctico |
-| HTTP/2 | TCP | varios streams | compresión de headers y multiplexación |
-| HTTP/3 | QUIC/UDP | varios streams independientes | mejor comportamiento ante pérdida y cambios de red |
+| Versión  | Transporte | Multiplexación                | Característica práctica                                          |
+| -------- | ---------- | ----------------------------- | ---------------------------------------------------------------- |
+| HTTP/1.1 | TCP        | limitada; varias conexiones   | texto, una respuesta activa por conexión sin pipelining práctico |
+| HTTP/2   | TCP        | varios streams                | compresión de headers y multiplexación                           |
+| HTTP/3   | QUIC/UDP   | varios streams independientes | mejor comportamiento ante pérdida y cambios de red               |
 
 La versión negociada no cambia la semántica de `GET`, headers o status. Cambia cómo se transportan los mensajes.
 
@@ -142,15 +149,15 @@ User-Agent: ...
 
 ### Métodos
 
-| Método | Intención | Seguro | Idempotente | Body habitual |
-| --- | --- | --- | --- | --- |
-| `GET` | leer representación | sí | sí | no |
-| `HEAD` | headers de un GET sin body | sí | sí | no |
-| `POST` | crear o ejecutar acción | no | no necesariamente | sí |
-| `PUT` | reemplazar recurso conocido | no | sí | sí |
-| `PATCH` | modificar parcialmente | no | depende del contrato | sí |
-| `DELETE` | eliminar | no | debería serlo | opcional |
-| `OPTIONS` | capacidades y preflight CORS | sí | sí | no habitual |
+| Método    | Intención                    | Seguro | Idempotente          | Body habitual |
+| --------- | ---------------------------- | ------ | -------------------- | ------------- |
+| `GET`     | leer representación          | sí     | sí                   | no            |
+| `HEAD`    | headers de un GET sin body   | sí     | sí                   | no            |
+| `POST`    | crear o ejecutar acción      | no     | no necesariamente    | sí            |
+| `PUT`     | reemplazar recurso conocido  | no     | sí                   | sí            |
+| `PATCH`   | modificar parcialmente       | no     | depende del contrato | sí            |
+| `DELETE`  | eliminar                     | no     | debería serlo        | opcional      |
+| `OPTIONS` | capacidades y preflight CORS | sí     | sí                   | no habitual   |
 
 “Seguro” significa que no debería cambiar estado de negocio; “idempotente” significa que repetir la misma operación produce el mismo efecto final. Una request idempotente todavía puede generar logs, métricas o costos.
 
@@ -198,51 +205,51 @@ Content-Security-Policy: default-src 'self'
 
 ### Familias de status
 
-| Rango | Significado | Ejemplos |
-| ---: | --- | --- |
-| `1xx` | información provisional | `100`, `103` |
-| `2xx` | operación aceptada o completada | `200`, `201`, `204`, `206` |
-| `3xx` | redirección o caché | `301`, `302`, `304`, `307`, `308` |
-| `4xx` | problema atribuible a la request | `400`, `401`, `403`, `404`, `409`, `422`, `429` |
-| `5xx` | servidor o upstream no pudo responder | `500`, `502`, `503`, `504` |
+| Rango | Significado                           | Ejemplos                                        |
+| ----: | ------------------------------------- | ----------------------------------------------- |
+| `1xx` | información provisional               | `100`, `103`                                    |
+| `2xx` | operación aceptada o completada       | `200`, `201`, `204`, `206`                      |
+| `3xx` | redirección o caché                   | `301`, `302`, `304`, `307`, `308`               |
+| `4xx` | problema atribuible a la request      | `400`, `401`, `403`, `404`, `409`, `422`, `429` |
+| `5xx` | servidor o upstream no pudo responder | `500`, `502`, `503`, `504`                      |
 
-| Status | Uso habitual |
-| ---: | --- |
-| `200 OK` | respuesta normal con body |
-| `201 Created` | recurso creado; puede incluir `Location` |
-| `202 Accepted` | trabajo aceptado pero aún no terminado |
-| `204 No Content` | éxito sin body |
-| `206 Partial Content` | rango parcial, común en media |
-| `304 Not Modified` | usa la representación cacheada; sin body nuevo |
-| `400 Bad Request` | sintaxis o entrada inválida |
-| `401 Unauthorized` | falta autenticación válida |
-| `403 Forbidden` | identidad conocida sin permiso |
-| `404 Not Found` | recurso inexistente o deliberadamente oculto |
-| `409 Conflict` | conflicto con el estado actual |
-| `422 Unprocessable Content` | estructura válida con errores semánticos |
-| `429 Too Many Requests` | límite excedido; puede incluir `Retry-After` |
-| `500 Internal Server Error` | fallo no esperado |
-| `502 Bad Gateway` | respuesta inválida de upstream |
-| `503 Service Unavailable` | indisponibilidad temporal |
-| `504 Gateway Timeout` | upstream excedió el tiempo |
+|                      Status | Uso habitual                                   |
+| --------------------------: | ---------------------------------------------- |
+|                    `200 OK` | respuesta normal con body                      |
+|               `201 Created` | recurso creado; puede incluir `Location`       |
+|              `202 Accepted` | trabajo aceptado pero aún no terminado         |
+|            `204 No Content` | éxito sin body                                 |
+|       `206 Partial Content` | rango parcial, común en media                  |
+|          `304 Not Modified` | usa la representación cacheada; sin body nuevo |
+|           `400 Bad Request` | sintaxis o entrada inválida                    |
+|          `401 Unauthorized` | falta autenticación válida                     |
+|             `403 Forbidden` | identidad conocida sin permiso                 |
+|             `404 Not Found` | recurso inexistente o deliberadamente oculto   |
+|              `409 Conflict` | conflicto con el estado actual                 |
+| `422 Unprocessable Content` | estructura válida con errores semánticos       |
+|     `429 Too Many Requests` | límite excedido; puede incluir `Retry-After`   |
+| `500 Internal Server Error` | fallo no esperado                              |
+|           `502 Bad Gateway` | respuesta inválida de upstream                 |
+|   `503 Service Unavailable` | indisponibilidad temporal                      |
+|       `504 Gateway Timeout` | upstream excedió el tiempo                     |
 
 No devuelvas `200` para todos los resultados. El status permite a clientes, cachés, proxies y observabilidad entender la operación.
 
 ## Headers importantes
 
-| Área | Headers frecuentes |
-| --- | --- |
-| tipo y tamaño | `Content-Type`, `Content-Length` |
-| compresión | `Accept-Encoding`, `Content-Encoding` |
-| caché | `Cache-Control`, `ETag`, `Last-Modified`, `Vary`, `Age` |
-| negociación | `Accept`, `Accept-Language` |
-| autenticación | `Authorization`, `WWW-Authenticate`, `Cookie`, `Set-Cookie` |
-| rango | `Range`, `Accept-Ranges`, `Content-Range` |
-| redirección | `Location` |
-| seguridad | `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options` |
-| CORS | `Access-Control-Allow-Origin` y familia |
-| descarga | `Content-Disposition` |
-| referencia | `Referer`, `Referrer-Policy` |
+| Área          | Headers frecuentes                                                               |
+| ------------- | -------------------------------------------------------------------------------- |
+| tipo y tamaño | `Content-Type`, `Content-Length`                                                 |
+| compresión    | `Accept-Encoding`, `Content-Encoding`                                            |
+| caché         | `Cache-Control`, `ETag`, `Last-Modified`, `Vary`, `Age`                          |
+| negociación   | `Accept`, `Accept-Language`                                                      |
+| autenticación | `Authorization`, `WWW-Authenticate`, `Cookie`, `Set-Cookie`                      |
+| rango         | `Range`, `Accept-Ranges`, `Content-Range`                                        |
+| redirección   | `Location`                                                                       |
+| seguridad     | `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options` |
+| CORS          | `Access-Control-Allow-Origin` y familia                                          |
+| descarga      | `Content-Disposition`                                                            |
+| referencia    | `Referer`, `Referrer-Policy`                                                     |
 
 Los nombres de header no distinguen mayúsculas. Algunos son hop-by-hop y no deben reenviarse indiscriminadamente entre proxies.
 
@@ -250,18 +257,18 @@ Los nombres de header no distinguen mayúsculas. Algunos son hop-by-hop y no deb
 
 ### Directivas de `Cache-Control`
 
-| Directiva | Significado práctico |
-| --- | --- |
-| `max-age=N` | frescura en segundos desde navegador/origen |
-| `s-maxage=N` | frescura para cachés compartidas |
-| `public` | puede almacenarse en caché compartida |
-| `private` | solo caché privada del usuario |
-| `no-cache` | puede guardar, pero debe revalidar antes de reutilizar |
-| `no-store` | no almacenar |
-| `immutable` | no cambiará durante su vida fresca |
-| `must-revalidate` | no servir stale una vez vencido sin validar |
-| `stale-while-revalidate=N` | servir stale mientras actualiza en segundo plano |
-| `stale-if-error=N` | permitir stale durante un error |
+| Directiva                  | Significado práctico                                   |
+| -------------------------- | ------------------------------------------------------ |
+| `max-age=N`                | frescura en segundos desde navegador/origen            |
+| `s-maxage=N`               | frescura para cachés compartidas                       |
+| `public`                   | puede almacenarse en caché compartida                  |
+| `private`                  | solo caché privada del usuario                         |
+| `no-cache`                 | puede guardar, pero debe revalidar antes de reutilizar |
+| `no-store`                 | no almacenar                                           |
+| `immutable`                | no cambiará durante su vida fresca                     |
+| `must-revalidate`          | no servir stale una vez vencido sin validar            |
+| `stale-while-revalidate=N` | servir stale mientras actualiza en segundo plano       |
+| `stale-if-error=N`         | permitir stale durante un error                        |
 
 `no-cache` no significa “no guardar”; significa “revalidar”. Para datos altamente sensibles, revisa `no-store`, historial, Service Worker y cachés intermedias como un conjunto.
 
@@ -326,13 +333,13 @@ Envía el `Content-Type` correcto y `X-Content-Type-Options: nosniff` cuando cor
 
 ## Redirecciones
 
-| Status | Método en siguiente request | Uso |
-| ---: | --- | --- |
-| `301` | clientes históricos pueden convertir POST en GET | movimiento permanente |
-| `302` | clientes históricos pueden convertir POST en GET | redirección temporal general |
-| `303` | cambia a GET | patrón Post/Redirect/Get |
-| `307` | conserva método y body | temporal estricta |
-| `308` | conserva método y body | permanente estricta |
+| Status | Método en siguiente request                      | Uso                          |
+| -----: | ------------------------------------------------ | ---------------------------- |
+|  `301` | clientes históricos pueden convertir POST en GET | movimiento permanente        |
+|  `302` | clientes históricos pueden convertir POST en GET | redirección temporal general |
+|  `303` | cambia a GET                                     | patrón Post/Redirect/Get     |
+|  `307` | conserva método y body                           | temporal estricta            |
+|  `308` | conserva método y body                           | permanente estricta          |
 
 Cada redirección puede añadir otra vuelta de red. Evita cadenas como HTTP → HTTPS → www → locale cuando el primer salto puede ir directamente al destino.
 
@@ -341,9 +348,19 @@ Cada redirección puede añadir otra vuelta de red. Evita cadenas como HTTP → 
 El navegador puede empezar a parsear HTML antes de recibir el documento completo. El preload scanner descubre recursos mientras el parser principal trabaja.
 
 ```html
-<link rel="stylesheet" href="/styles.css">
-<script type="module" src="/app.js"></script>
-<img src="/hero.avif" alt="" fetchpriority="high">
+<link
+  rel="stylesheet"
+  href="/styles.css"
+/>
+<script
+  type="module"
+  src="/app.js"
+></script>
+<img
+  src="/hero.avif"
+  alt=""
+  fetchpriority="high"
+/>
 ```
 
 El orden del HTML, los hints y la prioridad influyen en cuándo se descubren y solicitan recursos. No marques todo como prioridad alta: la prioridad solo tiene sentido por comparación.
@@ -360,17 +377,23 @@ Las hojas de estilo aplicables participan en el CSSOM y suelen bloquear el prime
 
 ### Scripts
 
-| Tipo | Bloquea parser | Orden | Momento |
-| --- | --- | --- | --- |
-| clásico sin atributo | **sí** | documento | al encontrarlo |
-| clásico `defer` | no | conserva orden | después de parsear, antes de `DOMContentLoaded` |
-| clásico `async` | no | orden de descarga | al terminar de descargar |
-| módulo | no por defecto | grafo y dependencias | diferido por defecto |
-| módulo `async` | no | al estar listo | no espera orden normal |
+| Tipo                 | Bloquea parser | Orden                | Momento                                         |
+| -------------------- | -------------- | -------------------- | ----------------------------------------------- |
+| clásico sin atributo | **sí**         | documento            | al encontrarlo                                  |
+| clásico `defer`      | no             | conserva orden       | después de parsear, antes de `DOMContentLoaded` |
+| clásico `async`      | no             | orden de descarga    | al terminar de descargar                        |
+| módulo               | no por defecto | grafo y dependencias | diferido por defecto                            |
+| módulo `async`       | no             | al estar listo       | no espera orden normal                          |
 
 ```html
-<script src="/legacy.js" defer></script>
-<script type="module" src="/app.js"></script>
+<script
+  src="/legacy.js"
+  defer
+></script>
+<script
+  type="module"
+  src="/app.js"
+></script>
 ```
 
 Un script puede bloquear el hilo principal aunque se descargue de forma asíncrona. `async` y `defer` cambian descarga/ejecución respecto al parser, no vuelven barato el trabajo ejecutado.
@@ -389,14 +412,14 @@ paint
 composite
 ```
 
-| Paso | Decide |
-| --- | --- |
-| DOM | estructura y contenido |
-| CSSOM | reglas y valores calculados |
-| render tree | qué cajas visibles participan |
-| layout | tamaño y posición |
-| paint | píxeles de texto, fondos, bordes y sombras |
-| composite | combinación de capas en pantalla |
+| Paso        | Decide                                     |
+| ----------- | ------------------------------------------ |
+| DOM         | estructura y contenido                     |
+| CSSOM       | reglas y valores calculados                |
+| render tree | qué cajas visibles participan              |
+| layout      | tamaño y posición                          |
+| paint       | píxeles de texto, fondos, bordes y sombras |
+| composite   | combinación de capas en pantalla           |
 
 Cambiar texto, clases o estilos puede invalidar parte de este trabajo. Propiedades geométricas suelen provocar layout; colores y sombras pueden requerir paint; `transform` y `opacity` pueden resolverse mediante composición cuando la capa está disponible.
 
@@ -412,25 +435,33 @@ No agregues `will-change` indiscriminadamente: promover capas consume memoria y 
 
 ## 12. Estados y eventos del documento
 
-| Estado/evento | Qué garantiza |
-| --- | --- |
-| `readyState: 'loading'` | parser todavía trabaja |
-| `readyState: 'interactive'` | DOM parseado |
-| `DOMContentLoaded` | DOM parseado y scripts diferidos ejecutados |
-| `readyState: 'complete'` | documento y subrecursos principales terminaron |
-| `load` | recursos como imágenes y hojas terminaron o fallaron |
-| `pageshow` | documento se muestra, incluso desde back-forward cache |
+| Estado/evento               | Qué garantiza                                          |
+| --------------------------- | ------------------------------------------------------ |
+| `readyState: 'loading'`     | parser todavía trabaja                                 |
+| `readyState: 'interactive'` | DOM parseado                                           |
+| `DOMContentLoaded`          | DOM parseado y scripts diferidos ejecutados            |
+| `readyState: 'complete'`    | documento y subrecursos principales terminaron         |
+| `load`                      | recursos como imágenes y hojas terminaron o fallaron   |
+| `pageshow`                  | documento se muestra, incluso desde back-forward cache |
 
 `DOMContentLoaded` no espera todas las imágenes. No esperes `load` para conectar una interfaz que solo necesita DOM.
 
 ```js
-document.addEventListener('DOMContentLoaded', () => {
-  document.readyState // 'interactive'
-}, { once: true })
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    document.readyState // 'interactive'
+  },
+  { once: true }
+)
 
-window.addEventListener('load', () => {
-  document.readyState // 'complete'
-}, { once: true })
+window.addEventListener(
+  "load",
+  () => {
+    document.readyState // 'complete'
+  },
+  { once: true }
+)
 ```
 
 ## Navegación completa, SPA y bfcache
@@ -452,20 +483,21 @@ La back-forward cache puede conservar una página completa en memoria al navegar
 ## Medir con Navigation Timing
 
 ```js
-const [navigation] = performance.getEntriesByType('navigation')
+const [navigation] = performance.getEntriesByType("navigation")
 
 const metrics = {
   dns: navigation.domainLookupEnd - navigation.domainLookupStart,
   connection: navigation.connectEnd - navigation.connectStart,
-  tls: navigation.secureConnectionStart > 0
-    ? navigation.connectEnd - navigation.secureConnectionStart
-    : 0,
+  tls:
+    navigation.secureConnectionStart > 0
+      ? navigation.connectEnd - navigation.secureConnectionStart
+      : 0,
   ttfb: navigation.responseStart - navigation.requestStart,
   download: navigation.responseEnd - navigation.responseStart,
   domReady: navigation.domContentLoadedEventEnd - navigation.startTime,
   total: navigation.loadEventEnd - navigation.startTime,
   protocol: navigation.nextHopProtocol,
-  transferSize: navigation.transferSize,
+  transferSize: navigation.transferSize
 }
 
 metrics
@@ -489,13 +521,13 @@ Estas duraciones son del navegador actual, no una verdad universal. Conexiones r
 
 ```js
 const slowResources = performance
-  .getEntriesByType('resource')
-  .filter(resource => resource.duration > 500)
-  .map(resource => ({
+  .getEntriesByType("resource")
+  .filter((resource) => resource.duration > 500)
+  .map((resource) => ({
     name: resource.name,
     type: resource.initiatorType,
     duration: Math.round(resource.duration),
-    bytes: resource.transferSize,
+    bytes: resource.transferSize
   }))
 
 slowResources
@@ -506,15 +538,15 @@ Los recursos cross-origin necesitan `Timing-Allow-Origin` para exponer algunas m
 
 ## Leer una waterfall de DevTools
 
-| Fase | Posible causa si es alta |
-| --- | --- |
-| Queueing/Stalled | demasiadas prioridades o conexiones, límite del navegador |
-| DNS Lookup | dominio nuevo o resolución lenta |
-| Initial connection | latencia y handshake |
-| SSL | negociación TLS y certificados |
-| Request sent | body grande o subida lenta |
-| Waiting/TTFB | red + cola + servidor |
-| Content Download | respuesta grande o conexión lenta |
+| Fase               | Posible causa si es alta                                  |
+| ------------------ | --------------------------------------------------------- |
+| Queueing/Stalled   | demasiadas prioridades o conexiones, límite del navegador |
+| DNS Lookup         | dominio nuevo o resolución lenta                          |
+| Initial connection | latencia y handshake                                      |
+| SSL                | negociación TLS y certificados                            |
+| Request sent       | body grande o subida lenta                                |
+| Waiting/TTFB       | red + cola + servidor                                     |
+| Content Download   | respuesta grande o conexión lenta                         |
 
 Revisa también initiator, prioridad, protocol, tamaño transferido, compresión, caché y redirects. Optimizar el segmento equivocado no mejora el resultado.
 
@@ -530,14 +562,14 @@ Revisa también initiator, prioridad, protocol, tamaño transferido, compresión
 
 ## Diagnóstico por síntoma
 
-| Síntoma | Revisa primero |
-| --- | --- |
-| tarda antes del primer byte | redirects, DNS/conexión, CDN, servidor, base de datos |
-| HTML llega rápido pero nada se ve | CSS bloqueante, JS síncrono, fuente, render crítico |
-| contenido aparece y salta | dimensiones de media, fuentes, contenido insertado tarde |
-| carga rápida pero interacción lenta | tareas largas, hidratación, listeners y JavaScript enviado |
-| segunda visita no mejora | headers de caché, ETag, hash de assets, service worker |
-| solo falla cross-origin | CORS, cookies, credentials, preflight y certificados |
-| funciona con recarga pero no al volver | bfcache, estado conservado, `pageshow` y cleanup |
+| Síntoma                                | Revisa primero                                             |
+| -------------------------------------- | ---------------------------------------------------------- |
+| tarda antes del primer byte            | redirects, DNS/conexión, CDN, servidor, base de datos      |
+| HTML llega rápido pero nada se ve      | CSS bloqueante, JS síncrono, fuente, render crítico        |
+| contenido aparece y salta              | dimensiones de media, fuentes, contenido insertado tarde   |
+| carga rápida pero interacción lenta    | tareas largas, hidratación, listeners y JavaScript enviado |
+| segunda visita no mejora               | headers de caché, ETag, hash de assets, service worker     |
+| solo falla cross-origin                | CORS, cookies, credentials, preflight y certificados       |
+| funciona con recarga pero no al volver | bfcache, estado conservado, `pageshow` y cleanup           |
 
 La carga termina técnicamente en `load`, pero la experiencia continúa: interacción, requests posteriores, lazy loading, fuentes y tareas de JavaScript también determinan si la página se siente rápida y estable.

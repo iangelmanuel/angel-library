@@ -71,4 +71,3 @@ Publicar, desplegar, migrar, borrar, enviar mensajes o cambiar permisos requiere
 ## Aprender del trabajo
 
 Pide que la explicación conecte síntoma, causa, cambio y validación. Conserva como snippet el patrón general; no guardes una solución específica sin condiciones ni versión.
-

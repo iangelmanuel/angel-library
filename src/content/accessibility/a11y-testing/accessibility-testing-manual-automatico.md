@@ -27,13 +27,13 @@ No uses el lector de pantalla solo para “leer toda la página”. Navega por e
 ## Auditoría automática
 
 ```ts
-import AxeBuilder from '@axe-core/playwright';
+import AxeBuilder from "@axe-core/playwright"
 
-test('checkout sin violaciones detectables', async ({ page }) => {
-  await page.goto('/checkout');
-  const results = await new AxeBuilder({ page }).analyze();
-  expect(results.violations).toEqual([]);
-});
+test("checkout sin violaciones detectables", async ({ page }) => {
+  await page.goto("/checkout")
+  const results = await new AxeBuilder({ page }).analyze()
+  expect(results.violations).toEqual([])
+})
 ```
 
 Ejecuta auditorías sobre estados reales: diálogo abierto, error de formulario, menú móvil y contenido cargado. Una página inicial limpia no cubre interacciones posteriores.
@@ -41,7 +41,7 @@ Ejecuta auditorías sobre estados reales: diálogo abierto, error de formulario,
 ## Pruebas por rol
 
 ```tsx
-expect(screen.getByRole('button', { name: /guardar/i })).toBeEnabled();
+expect(screen.getByRole("button", { name: /guardar/i })).toBeEnabled()
 ```
 
 Buscar por rol y nombre accesible se aproxima a cómo las tecnologías asistivas encuentran el control y evita selectores basados en clases. Aun así, una prueba puede aprobar con una experiencia confusa; revisa el flujo completo.
@@ -54,4 +54,3 @@ Define qué combinaciones de navegador y tecnología asistiva soporta el product
 
 - [W3C WAI: evaluación de accesibilidad](https://www.w3.org/WAI/test-evaluate/)
 - [Testing Library: prioridad de queries](https://testing-library.com/docs/queries/about/#priority)
-

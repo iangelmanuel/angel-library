@@ -55,11 +55,11 @@ Lo característico es lo que **no** hay:
 
 Tres decisiones que definen el estilo:
 
-| Decisión | Efecto |
-| --- | --- |
-| `border-radius: 0` | Todo es rectangular; nada intenta ser un objeto |
-| Sombra sin desenfoque | Profundidad declarada, no simulada |
-| Tipografía del sistema o monoespaciada | Se ve "sin diseñar" a propósito |
+| Decisión                               | Efecto                                          |
+| -------------------------------------- | ----------------------------------------------- |
+| `border-radius: 0`                     | Todo es rectangular; nada intenta ser un objeto |
+| Sombra sin desenfoque                  | Profundidad declarada, no simulada              |
+| Tipografía del sistema o monoespaciada | Se ve "sin diseñar" a propósito                 |
 
 ## La ventaja que nadie menciona
 

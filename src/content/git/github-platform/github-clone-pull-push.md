@@ -67,11 +67,11 @@ No uses `git push --force` sobre ramas compartidas. Si reescribiste una rama pro
 
 ## Tabla mental
 
-| Necesidad | Comando | ¿Modifica tu rama? |
-| --- | --- | --- |
+| Necesidad                 | Comando     | ¿Modifica tu rama?     |
+| ------------------------- | ----------- | ---------------------- |
 | obtener una copia inicial | `git clone` | crea una nueva carpeta |
-| mirar lo nuevo del remoto | `git fetch` | no |
-| traer e integrar lo nuevo | `git pull` | sí |
-| publicar commits locales | `git push` | cambia el remoto |
+| mirar lo nuevo del remoto | `git fetch` | no                     |
+| traer e integrar lo nuevo | `git pull`  | sí                     |
+| publicar commits locales  | `git push`  | cambia el remoto       |
 
 La [documentación de GitHub sobre obtener cambios](https://docs.github.com/en/get-started/using-git/getting-changes-from-a-remote-repository) resume este mismo flujo.

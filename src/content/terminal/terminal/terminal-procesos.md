@@ -5,16 +5,20 @@ type: guides
 order: 8
 tags: [terminal, procesos, kill]
 scope: procesos
-related: [terminal/terminal/terminal-puertos, terminal/terminal/terminal-historial-atajos]
+related:
+  [
+    terminal/terminal/terminal-puertos,
+    terminal/terminal/terminal-historial-atajos
+  ]
 updatedAt: 2026-08-17
 ---
 
 ## Listar procesos corriendo
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-|---|---|---|
-| Listar todos los procesos | `Get-Process` | `ps aux` |
-| Filtrar por nombre | `Get-Process node` | `ps aux \| grep node` |
+| Acción                    | Windows (PowerShell) | macOS / Linux         |
+| ------------------------- | -------------------- | --------------------- |
+| Listar todos los procesos | `Get-Process`        | `ps aux`              |
+| Filtrar por nombre        | `Get-Process node`   | `ps aux \| grep node` |
 
 `cmd.exe` (no PowerShell) tiene su propio equivalente: `tasklist`, y `tasklist \| findstr node` para filtrar.
 
@@ -52,10 +56,10 @@ kill -9 1234
 
 ## Matar un proceso por nombre
 
-| Acción | Windows (PowerShell) | macOS / Linux |
-|---|---|---|
-| Matar todos los procesos con ese nombre | `Stop-Process -Name node -Force` | `pkill node` |
-| Forzar | (ya incluido arriba con `-Force`) | `pkill -9 node` |
+| Acción                                  | Windows (PowerShell)              | macOS / Linux   |
+| --------------------------------------- | --------------------------------- | --------------- |
+| Matar todos los procesos con ese nombre | `Stop-Process -Name node -Force`  | `pkill node`    |
+| Forzar                                  | (ya incluido arriba con `-Force`) | `pkill -9 node` |
 
 ```bash
 pkill node

@@ -64,21 +64,21 @@ Runtime del navegador
 
 ### Glosario mínimo de la ruta
 
-| Término | Significado |
-| --- | --- |
-| API | *Application Programming Interface*: contrato que permite usar una capacidad desde código |
-| DOM | *Document Object Model*: representación en objetos del documento HTML |
-| ESM | *ECMAScript Modules*: sistema estándar de módulos con `import` y `export` |
-| JSON | *JavaScript Object Notation*: formato textual de intercambio de datos |
-| URL | *Uniform Resource Locator*: dirección de un recurso |
-| HTTP | *Hypertext Transfer Protocol*: protocolo de requests y responses de la Web |
-| CORS | *Cross-Origin Resource Sharing*: política de headers que controla qué respuestas puede leer otro origen en el navegador |
-| MIME type | tipo de medio que describe el formato de un contenido, como `application/json` |
-| UTF-8 | codificación Unicode de longitud variable utilizada habitualmente en la Web |
-| UTC | *Coordinated Universal Time*: referencia temporal global independiente de una zona local |
-| ASI | *Automatic Semicolon Insertion*: reglas con las que JavaScript inserta ciertos puntos y coma omitidos |
-| TDZ | *Temporal Dead Zone*: periodo en el que un binding `let`, `const` o `class` existe pero todavía no puede leerse |
-| OPFS | *Origin Private File System*: sistema de archivos privado del origen dentro del navegador |
+| Término   | Significado                                                                                                             |
+| --------- | ----------------------------------------------------------------------------------------------------------------------- |
+| API       | _Application Programming Interface_: contrato que permite usar una capacidad desde código                               |
+| DOM       | _Document Object Model_: representación en objetos del documento HTML                                                   |
+| ESM       | _ECMAScript Modules_: sistema estándar de módulos con `import` y `export`                                               |
+| JSON      | _JavaScript Object Notation_: formato textual de intercambio de datos                                                   |
+| URL       | _Uniform Resource Locator_: dirección de un recurso                                                                     |
+| HTTP      | _Hypertext Transfer Protocol_: protocolo de requests y responses de la Web                                              |
+| CORS      | _Cross-Origin Resource Sharing_: política de headers que controla qué respuestas puede leer otro origen en el navegador |
+| MIME type | tipo de medio que describe el formato de un contenido, como `application/json`                                          |
+| UTF-8     | codificación Unicode de longitud variable utilizada habitualmente en la Web                                             |
+| UTC       | _Coordinated Universal Time_: referencia temporal global independiente de una zona local                                |
+| ASI       | _Automatic Semicolon Insertion_: reglas con las que JavaScript inserta ciertos puntos y coma omitidos                   |
+| TDZ       | _Temporal Dead Zone_: periodo en el que un binding `let`, `const` o `class` existe pero todavía no puede leerse         |
+| OPFS      | _Origin Private File System_: sistema de archivos privado del origen dentro del navegador                               |
 
 No necesitas memorizar estas siglas. Vuelve a esta tabla cuando una guía utilice una de ellas y continúa con el modelo mental del tema.
 
@@ -103,25 +103,25 @@ Comienza en [Primeros pasos con JavaScript](/languages/javascript/javascript-get
 
 Usa el [Mapa de tipos y APIs nativas](/languages/javascript/javascript-built-ins), la búsqueda o esta tabla:
 
-| Necesito recordar | Documento |
-| --- | --- |
-| truthy, falsy, nullish, `??=`, `||=`, `?.` | [Fundamentos](/languages/javascript/javascript-fundamentals) |
-| coerción, igualdad, spread, rest, precedencia | [Expresiones y operadores](/languages/javascript/javascript-expressions-operators) |
-| scope, closures, parámetros y formas de función | [Control y funciones](/languages/javascript/javascript-control-functions) |
-| `for`, `for...of`, `for...in`, async iteration | [Ciclos](/languages/javascript/javascript-loops-iteration) |
-| firma, retorno y mutación de un método | [Mapa de APIs nativas](/languages/javascript/javascript-built-ins) |
-| `try/catch`, `Error`, `cause`, limpieza | [Errores y depuración](/languages/javascript/javascript-errors-debugging) |
-| prototypes, `class`, campos privados, `new` | [Prototypes y clases](/languages/javascript/javascript-prototypes-classes) |
-| generators, Iterator helpers, `for await` | [Iteradores](/languages/javascript/javascript-iterators-generators) |
-| `this`, `call`, `bind`, Symbols, Proxy, Reflect | [Metaprogramación](/languages/javascript/javascript-advanced-language) |
-| buffers, typed arrays, Base64, hexadecimal y Atomics | [Datos binarios](/languages/javascript/javascript-binary-data) |
-| Promises, concurrencia, carreras y cancelación | [Código asíncrono](/languages/javascript/javascript-async-promises) |
-| imports, exports, carga dinámica y JSON modules | [Módulos](/languages/javascript/javascript-modules) |
-| DOM, formularios y creación de nodos | [DOM](/languages/javascript/javascript-dom-events) |
-| propagación, delegación, teclado y pointer | [Eventos](/languages/javascript/javascript-events) |
-| JSON exacto, serialización y almacenamiento local | [JSON y almacenamiento](/languages/javascript/javascript-json-storage) |
-| requests, headers, CORS, errores y paginación | [Fetch y HTTP](/languages/javascript/javascript-fetch-apis) |
-| `new URL`, observers, workers y constructores | [Constructores del navegador](/languages/javascript/javascript-browser-constructors) |
+| Necesito recordar                                    | Documento                                                                            |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| truthy, falsy, nullish, `??=`, `                     |                                                                                      | =`, `?.` | [Fundamentos](/languages/javascript/javascript-fundamentals) |
+| coerción, igualdad, spread, rest, precedencia        | [Expresiones y operadores](/languages/javascript/javascript-expressions-operators)   |
+| scope, closures, parámetros y formas de función      | [Control y funciones](/languages/javascript/javascript-control-functions)            |
+| `for`, `for...of`, `for...in`, async iteration       | [Ciclos](/languages/javascript/javascript-loops-iteration)                           |
+| firma, retorno y mutación de un método               | [Mapa de APIs nativas](/languages/javascript/javascript-built-ins)                   |
+| `try/catch`, `Error`, `cause`, limpieza              | [Errores y depuración](/languages/javascript/javascript-errors-debugging)            |
+| prototypes, `class`, campos privados, `new`          | [Prototypes y clases](/languages/javascript/javascript-prototypes-classes)           |
+| generators, Iterator helpers, `for await`            | [Iteradores](/languages/javascript/javascript-iterators-generators)                  |
+| `this`, `call`, `bind`, Symbols, Proxy, Reflect      | [Metaprogramación](/languages/javascript/javascript-advanced-language)               |
+| buffers, typed arrays, Base64, hexadecimal y Atomics | [Datos binarios](/languages/javascript/javascript-binary-data)                       |
+| Promises, concurrencia, carreras y cancelación       | [Código asíncrono](/languages/javascript/javascript-async-promises)                  |
+| imports, exports, carga dinámica y JSON modules      | [Módulos](/languages/javascript/javascript-modules)                                  |
+| DOM, formularios y creación de nodos                 | [DOM](/languages/javascript/javascript-dom-events)                                   |
+| propagación, delegación, teclado y pointer           | [Eventos](/languages/javascript/javascript-events)                                   |
+| JSON exacto, serialización y almacenamiento local    | [JSON y almacenamiento](/languages/javascript/javascript-json-storage)               |
+| requests, headers, CORS, errores y paginación        | [Fetch y HTTP](/languages/javascript/javascript-fetch-apis)                          |
+| `new URL`, observers, workers y constructores        | [Constructores del navegador](/languages/javascript/javascript-browser-constructors) |
 
 ## Curva de aprendizaje completa
 
@@ -190,11 +190,11 @@ Al terminar debes poder construir una interfaz sin framework que lea datos, resp
 
 La edición del estándar y la disponibilidad real no son lo mismo. ECMAScript define la API; cada navegador o runtime decide cuándo la implementa. Una sintaxis nueva puede impedir cargar todo el módulo en un entorno antiguo, mientras que un método nuevo a veces admite polyfill.
 
-| Edición | Capacidades destacadas documentadas aquí |
-| --- | --- |
-| ECMAScript 2025 | Iterator helpers, operaciones de Set, `RegExp.escape`, `Promise.try`, import attributes, JSON modules y `Float16Array` |
-| ECMAScript 2026 | `Math.sumPrecise`, `Iterator.concat`, `Array.fromAsync`, `Error.isError`, upsert de Map, Base64/hexadecimal en `Uint8Array` y JSON exacto |
-| prevista para ECMAScript 2027 | Temporal y gestión explícita de recursos con `using` |
+| Edición                       | Capacidades destacadas documentadas aquí                                                                                                  |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| ECMAScript 2025               | Iterator helpers, operaciones de Set, `RegExp.escape`, `Promise.try`, import attributes, JSON modules y `Float16Array`                    |
+| ECMAScript 2026               | `Math.sumPrecise`, `Iterator.concat`, `Array.fromAsync`, `Error.isError`, upsert de Map, Base64/hexadecimal en `Uint8Array` y JSON exacto |
+| prevista para ECMAScript 2027 | Temporal y gestión explícita de recursos con `using`                                                                                      |
 
 Para una consulta rápida, mira primero la edición y después la matriz de soporte del proyecto. Para aprender, entiende el problema que resuelve la API y conserva también el patrón portable: por ejemplo, `try/finally` antes de `using`, o una acumulación normal antes de `Math.sumPrecise`.
 

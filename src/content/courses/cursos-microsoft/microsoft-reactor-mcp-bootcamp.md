@@ -17,13 +17,13 @@ updatedAt: 2026-08-30
 
 Bootcamp de **Microsoft Reactor** sobre el **Model Context Protocol**, el estándar que permite a un modelo descubrir y usar herramientas externas.
 
-| | |
-| --- | --- |
-| Idioma | Español (LATAM) |
-| Sesiones | 4 directos |
-| Fechas | 18 de agosto a 1 de septiembre de 2025 |
-| Formato | En vivo, disponible bajo demanda después |
-| Precio | Gratis |
+|          |                                          |
+| -------- | ---------------------------------------- |
+| Idioma   | Español (LATAM)                          |
+| Sesiones | 4 directos                               |
+| Fechas   | 18 de agosto a 1 de septiembre de 2025   |
+| Formato  | En vivo, disponible bajo demanda después |
+| Precio   | Gratis                                   |
 
 Como las fechas ya pasaron, hoy se consume como material grabado.
 
@@ -38,9 +38,9 @@ Como las fechas ya pasaron, hoy se consume como material grabado.
 
 Los dos bootcamps de Reactor circulan con descripciones cruzadas. Para ubicarlos:
 
-| Serie | Contenido real |
-| --- | --- |
-| `S-1567` | MCP Bootcamp LATAM, esta |
+| Serie    | Contenido real                                                                                     |
+| -------- | -------------------------------------------------------------------------------------------------- |
+| `S-1567` | MCP Bootcamp LATAM, esta                                                                           |
 | `S-1633` | [Python + Agentes con Agent Framework](/courses/cursos-microsoft/microsoft-reactor-python-agentes) |
 
 El parámetro `?wt.mc_id=` que a veces acompaña al enlace es solo seguimiento de campaña y se puede quitar.

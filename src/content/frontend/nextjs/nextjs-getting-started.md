@@ -45,7 +45,7 @@ export default function HomePage() {
       <h1>Mi biblioteca</h1>
       <p>Notas para aprender y recordar.</p>
     </main>
-  );
+  )
 }
 ```
 
@@ -56,20 +56,22 @@ El archivo exporta un componente de React, pero no necesitas importar React para
 Todo proyecto con App Router necesita un layout raíz. Este documento envuelve las rutas, conserva UI compartida entre navegaciones y define las etiquetas `<html>` y `<body>`.
 
 ```tsx title="app/layout.tsx"
-import type { Metadata } from 'next';
-import './globals.css';
+import type { Metadata } from "next"
+import "./globals.css"
 
 export const metadata: Metadata = {
-  title: 'Mi biblioteca',
-  description: 'Notas de desarrollo web',
-};
+  title: "Mi biblioteca",
+  description: "Notas de desarrollo web"
+}
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
       <body>{children}</body>
     </html>
-  );
+  )
 }
 ```
 
@@ -88,7 +90,7 @@ app/
 Una carpeta representa un **segmento** de URL, pero la ruta solo es pública cuando contiene un archivo `page.tsx` o `route.ts`. Esto permite colocar componentes, pruebas y utilidades cerca de una ruta sin publicarlos accidentalmente.
 
 ```tsx title="app/notas/page.tsx"
-import Link from 'next/link';
+import Link from "next/link"
 
 export default function NotesPage() {
   return (
@@ -96,7 +98,7 @@ export default function NotesPage() {
       <h1>Notas</h1>
       <Link href="/">Volver al inicio</Link>
     </main>
-  );
+  )
 }
 ```
 
@@ -104,31 +106,34 @@ export default function NotesPage() {
 
 ## Comandos cotidianos
 
-| Comando | Para qué sirve |
-| --- | --- |
-| `pnpm dev` | inicia el servidor de desarrollo con recarga y diagnósticos |
-| `pnpm build` | crea la compilación de producción y descubre errores de renderizado |
-| `pnpm start` | sirve localmente una compilación ya generada |
-| `pnpm exec next info` | muestra versiones y datos del entorno para depurar |
-| `pnpm lint` o `pnpm exec eslint .` | ejecuta el script de lint definido por el proyecto |
+| Comando                            | Para qué sirve                                                      |
+| ---------------------------------- | ------------------------------------------------------------------- |
+| `pnpm dev`                         | inicia el servidor de desarrollo con recarga y diagnósticos         |
+| `pnpm build`                       | crea la compilación de producción y descubre errores de renderizado |
+| `pnpm start`                       | sirve localmente una compilación ya generada                        |
+| `pnpm exec next info`              | muestra versiones y datos del entorno para depurar                  |
+| `pnpm lint` o `pnpm exec eslint .` | ejecuta el script de lint definido por el proyecto                  |
 
 No uses solamente el servidor de desarrollo como validación. La compilación de producción puede detectar rutas incompatibles, variables ausentes y código que depende accidentalmente del navegador.
 
 ## Primer componente interactivo
 
 ```tsx title="app/contador.tsx"
-'use client';
+"use client"
 
-import { useState } from 'react';
+import { useState } from "react"
 
 export function Counter() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   return (
-    <button type="button" onClick={() => setCount((current) => current + 1)}>
+    <button
+      type="button"
+      onClick={() => setCount((current) => current + 1)}
+    >
       Conteo: {count}
     </button>
-  );
+  )
 }
 ```
 
@@ -146,12 +151,12 @@ Este recorrido obliga a distinguir las cuatro ideas que sostienen el framework: 
 
 ## Si algo falla
 
-| Síntoma | Causa probable | Qué revisar |
-| --- | --- | --- |
-| `useState` o `onClick` produce un error | falta una frontera cliente | agrega `'use client'` al archivo interactivo más pequeño |
-| una ruta devuelve 404 | no existe `page.tsx` o el segmento no coincide | compara carpetas y URL |
-| `window is not defined` | una API del navegador se ejecutó en servidor | muévela a un Client Component y, si aplica, a un efecto |
-| una variable es `undefined` en el navegador | no es pública | solo `NEXT_PUBLIC_*` se incluye en el bundle cliente |
-| desarrollo funciona y producción no | la ruta cambia durante build | ejecuta `pnpm build` y corrige el primer error real |
+| Síntoma                                     | Causa probable                                 | Qué revisar                                              |
+| ------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------- |
+| `useState` o `onClick` produce un error     | falta una frontera cliente                     | agrega `'use client'` al archivo interactivo más pequeño |
+| una ruta devuelve 404                       | no existe `page.tsx` o el segmento no coincide | compara carpetas y URL                                   |
+| `window is not defined`                     | una API del navegador se ejecutó en servidor   | muévela a un Client Component y, si aplica, a un efecto  |
+| una variable es `undefined` en el navegador | no es pública                                  | solo `NEXT_PUBLIC_*` se incluye en el bundle cliente     |
+| desarrollo funciona y producción no         | la ruta cambia durante build                   | ejecuta `pnpm build` y corrige el primer error real      |
 
 Referencia oficial: [Installation](https://nextjs.org/docs/app/getting-started/installation).

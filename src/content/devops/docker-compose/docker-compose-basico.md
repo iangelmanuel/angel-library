@@ -5,7 +5,11 @@ type: guides
 order: 1
 tags: [docker, compose, yaml]
 scope: docker-compose.yml
-related: [devops/docker-redes-volumenes/docker-redes, devops/docker-compose/docker-compose-comandos]
+related:
+  [
+    devops/docker-redes-volumenes/docker-redes,
+    devops/docker-compose/docker-compose-comandos
+  ]
 updatedAt: 2026-08-17
 ---
 

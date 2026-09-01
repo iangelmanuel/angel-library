@@ -32,7 +32,9 @@ Cuando el estilo tiene que aplicar más allá de este componente (estilos base, 
 
 ```astro
 <style is:global>
-  h1 { color: red; }
+  h1 {
+    color: red;
+  }
 </style>
 ```
 
@@ -42,8 +44,12 @@ Para estilar contenido de un hijo (un componente de terceros, HTML inyectado con
 
 ```astro
 <style>
-  h1 { color: red; }              /* scoped: solo el h1 de este archivo */
-  article :global(h1) { color: blue; } /* afecta cualquier h1 dentro de .article, incluido contenido de hijos */
+  h1 {
+    color: red;
+  } /* scoped: solo el h1 de este archivo */
+  article :global(h1) {
+    color: blue;
+  } /* afecta cualquier h1 dentro de .article, incluido contenido de hijos */
 </style>
 ```
 
@@ -53,8 +59,9 @@ Pasa valores calculados en el frontmatter directo al `<style>`, como custom prop
 
 ```astro
 ---
-const colorAcento = destacado ? '#f59e0b' : '#60a5fa';
+const colorAcento = destacado ? "#f59e0b" : "#60a5fa"
 ---
+
 <div class="card">...</div>
 
 <style define:vars={{ colorAcento }}>
@@ -70,19 +77,19 @@ Un `import './estilos.css'` en el frontmatter **no** se scopea — se comporta c
 
 ```astro
 ---
-import '../styles/utilidades.css';
+import "../styles/utilidades.css"
 ---
 ```
 
 ## Opciones de estilos en una mirada
 
-| Técnica | Alcance |
-| --- | --- |
-| `<style>` (sin nada más) | Scoped a este componente, por defecto |
-| `<style is:global>` | Sin scope, aplica en todo el sitio |
+| Técnica                                           | Alcance                                                     |
+| ------------------------------------------------- | ----------------------------------------------------------- |
+| `<style>` (sin nada más)                          | Scoped a este componente, por defecto                       |
+| `<style is:global>`                               | Sin scope, aplica en todo el sitio                          |
 | `:global(selector)` dentro de un `<style>` scoped | Ese selector puntual sale del scope, el resto sigue aislado |
-| `define:vars={{...}}` | Custom properties CSS calculadas en el frontmatter |
-| `import '...css'` | Global, como un `<link>` — nunca se scopea |
+| `define:vars={{...}}`                             | Custom properties CSS calculadas en el frontmatter          |
+| `import '...css'`                                 | Global, como un `<link>` — nunca se scopea                  |
 
 ## Cascada, alcance y mantenimiento
 

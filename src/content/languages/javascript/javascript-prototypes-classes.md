@@ -29,26 +29,26 @@ Cuando una propiedad no existe en el objeto, JavaScript la busca en su prototype
 const baseUser = {
   describe() {
     return `${this.name} (${this.role})`
-  },
+  }
 }
 
 const editor = Object.create(baseUser)
-editor.name = 'Ana'
-editor.role = 'editor'
+editor.name = "Ana"
+editor.role = "editor"
 
 editor.describe() // 'Ana (editor)'
-Object.hasOwn(editor, 'describe') // false
-'describe' in editor              // true
+Object.hasOwn(editor, "describe") // false
+"describe" in editor // true
 Object.getPrototypeOf(editor) === baseUser // true
 ```
 
-| Operación | Qué comprueba |
-| --- | --- |
-| `Object.hasOwn(object, key)` | solo propiedades propias |
-| `key in object` | propiedades propias y heredadas |
-| `Object.getPrototypeOf(object)` | prototype inmediato |
-| `Object.setPrototypeOf(object, value)` | cambia delegación; evitar en rutas críticas |
-| `object instanceof Constructor` | si `Constructor.prototype` aparece en la cadena |
+| Operación                              | Qué comprueba                                   |
+| -------------------------------------- | ----------------------------------------------- |
+| `Object.hasOwn(object, key)`           | solo propiedades propias                        |
+| `key in object`                        | propiedades propias y heredadas                 |
+| `Object.getPrototypeOf(object)`        | prototype inmediato                             |
+| `Object.setPrototypeOf(object, value)` | cambia delegación; evitar en rutas críticas     |
+| `object instanceof Constructor`        | si `Constructor.prototype` aparece en la cadena |
 
 Cambiar el prototype de un objeto existente puede impedir optimizaciones del motor. Define la relación al crearlo mediante `class`, `new` u `Object.create`.
 
@@ -69,11 +69,11 @@ User.prototype.greet = function () {
   return `Hola, ${this.name}`
 }
 
-const ana = new User('Ana')
+const ana = new User("Ana")
 
-ana.greet()                  // 'Hola, Ana'
-ana instanceof User          // true
-Object.hasOwn(ana, 'greet')  // false
+ana.greet() // 'Hola, Ana'
+ana instanceof User // true
+Object.hasOwn(ana, "greet") // false
 ```
 
 No todas las funciones deben llamarse con `new`, y no todo lo que empieza en mayúscula es universal. `Array`, `Map`, `Set`, `Date` y clases propias son construibles; `Math`, `JSON`, `Symbol` y `BigInt` no lo son.
@@ -82,9 +82,9 @@ No todas las funciones deben llamarse con `new`, y no todo lo que empieza en may
 
 ```js
 class Money {
-  constructor(cents, currency = 'COP') {
+  constructor(cents, currency = "COP") {
     if (!Number.isSafeInteger(cents)) {
-      throw new TypeError('cents debe ser un entero seguro')
+      throw new TypeError("cents debe ser un entero seguro")
     }
 
     this.cents = cents
@@ -93,7 +93,7 @@ class Money {
 
   add(other) {
     if (other.currency !== this.currency) {
-      throw new RangeError('Las monedas deben coincidir')
+      throw new RangeError("Las monedas deben coincidir")
     }
     return new Money(this.cents + other.cents, this.currency)
   }
@@ -107,18 +107,18 @@ class Money {
   }
 }
 
-const price = Money.fromAmount(25.5, 'USD')
+const price = Money.fromAmount(25.5, "USD")
 price.amount // 25.5
 ```
 
-| Elemento | Pertenece a | Uso |
-| --- | --- | --- |
-| `constructor` | inicialización de instancia | validar y guardar estado |
-| campo `name = value` | cada instancia | estado público inicial |
-| método `run()` | prototype | comportamiento compartido |
-| getter/setter | prototype | propiedad calculada o validada |
-| `static create()` | clase | fábrica o utilidad relacionada |
-| `static {}` | clase | inicialización estática compleja |
+| Elemento             | Pertenece a                 | Uso                              |
+| -------------------- | --------------------------- | -------------------------------- |
+| `constructor`        | inicialización de instancia | validar y guardar estado         |
+| campo `name = value` | cada instancia              | estado público inicial           |
+| método `run()`       | prototype                   | comportamiento compartido        |
+| getter/setter        | prototype                   | propiedad calculada o validada   |
+| `static create()`    | clase                       | fábrica o utilidad relacionada   |
+| `static {}`          | clase                       | inicialización estática compleja |
 
 Los métodos de clase no son enumerables y se ejecutan en strict mode. Las declaraciones de clase existen en una temporal dead zone: no pueden usarse antes de inicializarse.
 
@@ -134,13 +134,13 @@ class Counter {
   }
 
   static isCounter(value) {
-    return typeof value === 'object' && value !== null && #value in value
+    return typeof value === "object" && value !== null && #value in value
   }
 }
 
 const counter = new Counter()
-counter.increment()          // 1
-Counter.isCounter(counter)   // true
+counter.increment() // 1
+Counter.isCounter(counter) // true
 // counter.#value            // SyntaxError
 ```
 
@@ -152,23 +152,23 @@ La marca privada pertenece a la clase, no a un nombre string. No puede leerse co
 class AppError extends Error {
   constructor(code, message, options) {
     super(message, options)
-    this.name = 'AppError'
+    this.name = "AppError"
     this.code = code
   }
 }
 
 class ValidationError extends AppError {
   constructor(field, message, options) {
-    super('VALIDATION_ERROR', message, options)
+    super("VALIDATION_ERROR", message, options)
     this.field = field
   }
 }
 
-const error = new ValidationError('email', 'Correo inválido')
+const error = new ValidationError("email", "Correo inválido")
 
 error instanceof ValidationError // true
-error instanceof AppError        // true
-error instanceof Error           // true
+error instanceof AppError // true
+error instanceof Error // true
 ```
 
 En un constructor derivado debes llamar `super()` antes de usar `this`. `super.method()` invoca un comportamiento del prototype padre.
@@ -181,8 +181,8 @@ La herencia es adecuada para una relación estable de sustitución: una `Validat
 function createLogger(write) {
   return {
     info(message) {
-      write({ level: 'info', message })
-    },
+      write({ level: "info", message })
+    }
   }
 }
 
@@ -192,7 +192,7 @@ function createProjectService({ repository, logger }) {
       const project = await repository.insert(input)
       logger.info(`Proyecto creado: ${project.id}`)
       return project
-    },
+    }
   }
 }
 ```
@@ -205,10 +205,10 @@ El valor de `this` depende de la forma de llamada:
 
 ```js
 const account = {
-  name: 'Ana',
+  name: "Ana",
   greet() {
     return `Hola, ${this.name}`
-  },
+  }
 }
 
 account.greet() // 'Hola, Ana'
@@ -239,7 +239,7 @@ class Cart {
 
   add(product, quantity = 1) {
     if (!Number.isInteger(quantity) || quantity < 1) {
-      throw new RangeError('quantity debe ser un entero positivo')
+      throw new RangeError("quantity debe ser un entero positivo")
     }
     this.#items.push({ product, quantity })
   }
@@ -247,18 +247,21 @@ class Cart {
   get total() {
     return this.#items.reduce(
       (sum, { product, quantity }) => sum + product.price * quantity,
-      0,
+      0
     )
   }
 
   toJSON() {
-    return { items: this.#items.map(item => ({ ...item })), total: this.total }
+    return {
+      items: this.#items.map((item) => ({ ...item })),
+      total: this.total
+    }
   }
 }
 
 const cart = new Cart()
 cart.add({ id: 1, price: 20 }, 2)
-cart.total   // 40
+cart.total // 40
 cart.toJSON() // { items: [...], total: 40 }
 ```
 

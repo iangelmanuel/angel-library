@@ -12,7 +12,13 @@ function readLucide(name: string): string {
   let svg: string
   try {
     svg = readFileSync(
-      join(process.cwd(), "node_modules", "lucide-static", "icons", `${name}.svg`),
+      join(
+        process.cwd(),
+        "node_modules",
+        "lucide-static",
+        "icons",
+        `${name}.svg`
+      ),
       "utf8"
     )
   } catch {
@@ -41,6 +47,8 @@ export function getIcon(name: string, className = "size-4"): string {
 
   const recolored = RECOLORED_ICONS[name]
   const svg = readLucide(recolored?.base ?? name)
-  const colored = recolored ? svg.replace(/currentColor/g, recolored.color) : svg
+  const colored = recolored
+    ? svg.replace(/currentColor/g, recolored.color)
+    : svg
   return colored.replace("<svg", `<svg ${attrs}`)
 }

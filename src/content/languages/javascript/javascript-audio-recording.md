@@ -19,47 +19,47 @@ updatedAt: 2026-08-25
 
 ## Elegir la API de audio
 
-| Necesidad | API adecuada |
-| --- | --- |
-| reproducir un archivo | `<audio>` o `new Audio()` |
-| controlar volumen, filtros o mezclar fuentes | Web Audio API |
-| visualizar o detectar nivel de sonido | `AnalyserNode` |
-| grabar un MediaStream | `MediaRecorder` |
-| convertir texto en voz | Speech Synthesis |
-| reconocer voz | Speech Recognition, con soporte variable |
+| Necesidad                                    | API adecuada                             |
+| -------------------------------------------- | ---------------------------------------- |
+| reproducir un archivo                        | `<audio>` o `new Audio()`                |
+| controlar volumen, filtros o mezclar fuentes | Web Audio API                            |
+| visualizar o detectar nivel de sonido        | `AnalyserNode`                           |
+| grabar un MediaStream                        | `MediaRecorder`                          |
+| convertir texto en voz                       | Speech Synthesis                         |
+| reconocer voz                                | Speech Recognition, con soporte variable |
 
 Audio del usuario implica permisos y privacidad. Reproducción automática con sonido suele estar restringida hasta una interacción.
 
 ## `<audio>` y `new Audio()`
 
 ```js
-const audio = new Audio('/sounds/notification.mp3')
+const audio = new Audio("/sounds/notification.mp3")
 
-audio.preload = 'metadata'
+audio.preload = "metadata"
 audio.volume = 0.5
 audio.loop = false
 
 await audio.play() // Promise; puede rechazar por política de autoplay
-audio.pause()      // undefined
-audio.currentTime  // posición actual en segundos
+audio.pause() // undefined
+audio.currentTime // posición actual en segundos
 ```
 
-| Propiedad o método | Devuelve o representa | Efecto |
-| --- | --- | --- |
-| `play()` | Promise | inicia o reanuda |
-| `pause()` | `undefined` | pausa |
-| `currentTime` | segundos | lectura o búsqueda |
-| `duration` | segundos o `NaN` antes de metadata | duración |
-| `volume` | número entre 0 y 1 | volumen del elemento |
-| `muted` | booleano | silenciar |
-| `playbackRate` | multiplicador | velocidad |
+| Propiedad o método | Devuelve o representa              | Efecto               |
+| ------------------ | ---------------------------------- | -------------------- |
+| `play()`           | Promise                            | inicia o reanuda     |
+| `pause()`          | `undefined`                        | pausa                |
+| `currentTime`      | segundos                           | lectura o búsqueda   |
+| `duration`         | segundos o `NaN` antes de metadata | duración             |
+| `volume`           | número entre 0 y 1                 | volumen del elemento |
+| `muted`            | booleano                           | silenciar            |
+| `playbackRate`     | multiplicador                      | velocidad            |
 
 ```js
-audio.addEventListener('loadedmetadata', () => {
+audio.addEventListener("loadedmetadata", () => {
   audio.duration // duración conocida
 })
 
-audio.addEventListener('ended', () => {
+audio.addEventListener("ended", () => {
   showReplayButton()
 })
 ```
@@ -79,11 +79,11 @@ Crea y reutiliza un contexto en lugar de abrir uno por sonido.
 ```js
 const audioContext = new AudioContext()
 
-audioContext.state      // 'suspended', 'running' o 'closed'
+audioContext.state // 'suspended', 'running' o 'closed'
 audioContext.sampleRate // por ejemplo: 48000
 
 await audioContext.resume()
-audioContext.state      // 'running'
+audioContext.state // 'running'
 ```
 
 Haz `resume()` como respuesta a un gesto del usuario. Al terminar definitivamente:
@@ -96,12 +96,16 @@ audioContext.state // 'closed'
 ## Reproducir y controlar una fuente
 
 ```html
-<audio id="music" src="/music/theme.mp3" controls></audio>
+<audio
+  id="music"
+  src="/music/theme.mp3"
+  controls
+></audio>
 ```
 
 ```js
 const context = new AudioContext()
-const element = document.querySelector('#music')
+const element = document.querySelector("#music")
 const source = context.createMediaElementSource(element)
 const gain = context.createGain()
 
@@ -116,15 +120,15 @@ Un `MediaElementAudioSourceNode` se asocia una vez a su elemento dentro del cont
 
 ## Nodos frecuentes
 
-| Nodo | Se crea con | Resuelve |
-| --- | --- | --- |
-| `GainNode` | `createGain()` | volumen y fundidos |
-| `AnalyserNode` | `createAnalyser()` | forma de onda y frecuencias |
-| `BiquadFilterNode` | `createBiquadFilter()` | filtros lowpass, highpass, etc. |
-| `StereoPannerNode` | `createStereoPanner()` | paneo izquierda/derecha |
-| `OscillatorNode` | `createOscillator()` | tonos generados |
-| `DelayNode` | `createDelay()` | retraso |
-| `DynamicsCompressorNode` | `createDynamicsCompressor()` | controlar rango dinámico |
+| Nodo                     | Se crea con                  | Resuelve                        |
+| ------------------------ | ---------------------------- | ------------------------------- |
+| `GainNode`               | `createGain()`               | volumen y fundidos              |
+| `AnalyserNode`           | `createAnalyser()`           | forma de onda y frecuencias     |
+| `BiquadFilterNode`       | `createBiquadFilter()`       | filtros lowpass, highpass, etc. |
+| `StereoPannerNode`       | `createStereoPanner()`       | paneo izquierda/derecha         |
+| `OscillatorNode`         | `createOscillator()`         | tonos generados                 |
+| `DelayNode`              | `createDelay()`              | retraso                         |
+| `DynamicsCompressorNode` | `createDynamicsCompressor()` | controlar rango dinámico        |
 
 ### Generar un tono breve
 
@@ -179,9 +183,9 @@ async function createMicrophoneMeter() {
   return {
     readLevel,
     stop: async () => {
-      stream.getTracks().forEach(track => track.stop())
+      stream.getTracks().forEach((track) => track.stop())
       await context.close()
-    },
+    }
   }
 }
 
@@ -214,7 +218,7 @@ Conecta una fuente al analyser y el analyser al destino si también debe escucha
 ```js
 const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
 
-const preferredType = 'audio/webm;codecs=opus'
+const preferredType = "audio/webm;codecs=opus"
 const options = MediaRecorder.isTypeSupported(preferredType)
   ? { mimeType: preferredType }
   : undefined
@@ -222,14 +226,18 @@ const options = MediaRecorder.isTypeSupported(preferredType)
 const recorder = new MediaRecorder(stream, options)
 const chunks = []
 
-recorder.addEventListener('dataavailable', event => {
+recorder.addEventListener("dataavailable", (event) => {
   if (event.data.size > 0) chunks.push(event.data)
 })
 
-const recording = new Promise(resolve => {
-  recorder.addEventListener('stop', () => {
-    resolve(new Blob(chunks, { type: recorder.mimeType }))
-  }, { once: true })
+const recording = new Promise((resolve) => {
+  recorder.addEventListener(
+    "stop",
+    () => {
+      resolve(new Blob(chunks, { type: recorder.mimeType }))
+    },
+    { once: true }
+  )
 })
 
 recorder.start(1_000)
@@ -240,18 +248,18 @@ recorder.stop()
 const blob = await recording
 
 blob instanceof Blob // true
-blob.type             // MIME elegido por el navegador
+blob.type // MIME elegido por el navegador
 
-stream.getTracks().forEach(track => track.stop())
+stream.getTracks().forEach((track) => track.stop())
 ```
 
-| Método | Estado esperado | Resultado |
-| --- | --- | --- |
-| `start(timeslice?)` | `inactive` | comienza; emite chunks opcionales |
-| `pause()` | `recording` | estado `paused` |
-| `resume()` | `paused` | vuelve a `recording` |
-| `requestData()` | `recording` | fuerza `dataavailable` |
-| `stop()` | recording/paused | finaliza y emite último dato |
+| Método              | Estado esperado  | Resultado                         |
+| ------------------- | ---------------- | --------------------------------- |
+| `start(timeslice?)` | `inactive`       | comienza; emite chunks opcionales |
+| `pause()`           | `recording`      | estado `paused`                   |
+| `resume()`          | `paused`         | vuelve a `recording`              |
+| `requestData()`     | `recording`      | fuerza `dataavailable`            |
+| `stop()`            | recording/paused | finaliza y emite último dato      |
 
 Comprueba `MediaRecorder.isTypeSupported()`; los contenedores y codecs varían. Limita duración y tamaño, informa que se está grabando y no subas el archivo sin consentimiento explícito.
 
@@ -262,17 +270,17 @@ const url = URL.createObjectURL(blob)
 recordingAudio.src = url
 
 download.href = url
-download.download = 'grabacion.webm'
+download.download = "grabacion.webm"
 
 function discardRecording() {
-  recordingAudio.removeAttribute('src')
+  recordingAudio.removeAttribute("src")
   recordingAudio.load()
-  download.removeAttribute('href')
+  download.removeAttribute("href")
   URL.revokeObjectURL(url)
 }
 
 // Llamar cuando se reemplace la grabación o se desmonte la vista.
-discardButton.addEventListener('click', discardRecording, { once: true })
+discardButton.addEventListener("click", discardRecording, { once: true })
 ```
 
 No revoques la URL mientras un elemento aún la necesita. Hazlo al reemplazar la grabación o desmontar la vista.
@@ -280,16 +288,16 @@ No revoques la URL mientras un elemento aún la necesita. Hazlo al reemplazar la
 ## Síntesis de voz
 
 ```js
-const utterance = new SpeechSynthesisUtterance('La descarga terminó')
+const utterance = new SpeechSynthesisUtterance("La descarga terminó")
 
-utterance.lang = 'es-CO'
+utterance.lang = "es-CO"
 utterance.rate = 1
 utterance.pitch = 1
 
 speechSynthesis.speak(utterance)
 
-utterance.addEventListener('end', () => {
-  console.log('Lectura finalizada')
+utterance.addEventListener("end", () => {
+  console.log("Lectura finalizada")
 })
 ```
 
@@ -309,15 +317,15 @@ No reproduzcas voz inesperadamente. La síntesis no reemplaza etiquetas, regione
 `SpeechRecognition` permite transcribir audio en navegadores compatibles, pero el soporte, prefijos, procesamiento local/remoto e idiomas varían. Trátalo como mejora progresiva.
 
 ```js
-const SpeechRecognition = window.SpeechRecognition
-  ?? window.webkitSpeechRecognition
+const SpeechRecognition =
+  window.SpeechRecognition ?? window.webkitSpeechRecognition
 
 if (SpeechRecognition) {
   const recognition = new SpeechRecognition()
-  recognition.lang = 'es-CO'
+  recognition.lang = "es-CO"
   recognition.interimResults = false
 
-  recognition.addEventListener('result', event => {
+  recognition.addEventListener("result", (event) => {
     const transcript = event.results[0][0].transcript
     transcript // texto reconocido
   })

@@ -19,39 +19,39 @@ updatedAt: 2026-08-25
 ## Código
 
 ```ts title="hooks/useEventListener.ts"
-import { useEffect, useRef, type RefObject } from 'react';
+import { type RefObject, useEffect, useRef } from "react"
 
-type Target = Window | Document | HTMLElement;
+type Target = Window | Document | HTMLElement
 
 export function useEventListener<K extends keyof WindowEventMap>(
   eventName: K,
   handler: (event: WindowEventMap[K]) => void,
-  target?: RefObject<HTMLElement | null>,
-): void;
+  target?: RefObject<HTMLElement | null>
+): void
 export function useEventListener(
   eventName: string,
   handler: (event: Event) => void,
-  target?: RefObject<HTMLElement | null>,
+  target?: RefObject<HTMLElement | null>
 ) {
   // El handler vive en un ref: el efecto no necesita re-suscribirse
   // solo porque el componente pasó una función nueva en este render.
-  const savedHandler = useRef(handler);
+  const savedHandler = useRef(handler)
 
   useEffect(() => {
-    savedHandler.current = handler;
-  }, [handler]);
+    savedHandler.current = handler
+  }, [handler])
 
   useEffect(() => {
-    const el: Target = target?.current ?? window;
-    if (!el || !el.addEventListener) return;
+    const el: Target = target?.current ?? window
+    if (!el || !el.addEventListener) return
 
     function eventListener(event: Event) {
-      savedHandler.current(event);
+      savedHandler.current(event)
     }
 
-    el.addEventListener(eventName, eventListener);
-    return () => el.removeEventListener(eventName, eventListener);
-  }, [eventName, target]);
+    el.addEventListener(eventName, eventListener)
+    return () => el.removeEventListener(eventName, eventListener)
+  }, [eventName, target])
 }
 ```
 
@@ -59,13 +59,13 @@ export function useEventListener(
 
 ```tsx
 // Sobre window (sin target)
-useEventListener('keydown', (event) => {
-  if (event.key === 'Escape') cerrarModal();
-});
+useEventListener("keydown", (event) => {
+  if (event.key === "Escape") cerrarModal()
+})
 
 // Sobre un elemento puntual (con ref)
-const buttonRef = useRef<HTMLButtonElement>(null);
-useEventListener('mouseenter', () => setHovered(true), buttonRef);
+const buttonRef = useRef<HTMLButtonElement>(null)
+useEventListener("mouseenter", () => setHovered(true), buttonRef)
 ```
 
 El overload tipado (`K extends keyof WindowEventMap`) hace que `event` en el callback tenga el tipo correcto según el nombre del evento — `'keydown'` te da `KeyboardEvent`, `'mouseenter'` te da `MouseEvent`, sin castear nada a mano.

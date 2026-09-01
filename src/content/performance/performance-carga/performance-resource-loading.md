@@ -43,7 +43,11 @@ El navegador tiene ancho de banda y conexiones limitadas. Prioriza documento, CS
 Busca primero la cadena crítica: documento HTML, CSS que bloquea, fuente o imagen LCP y JavaScript que impide pintar. Una conexión a un dominio de terceros no debería aparecer antes que el contenido propio salvo que sea imprescindible. Si el navegador descubre un recurso tarde, mejora el HTML o el orden de carga antes de añadir más hints.
 
 ```html
-<link rel="preconnect" href="https://fonts.example.com" crossorigin />
+<link
+  rel="preconnect"
+  href="https://fonts.example.com"
+  crossorigin
+/>
 <link
   rel="preload"
   href="/fonts/inter-latin.woff2"

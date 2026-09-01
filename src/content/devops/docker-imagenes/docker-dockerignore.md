@@ -5,7 +5,11 @@ type: guides
 order: 5
 tags: [docker, dockerignore, imagenes]
 scope: .dockerignore
-related: [devops/docker-imagenes/docker-build-tags, devops/docker-imagenes/docker-capas-cache]
+related:
+  [
+    devops/docker-imagenes/docker-build-tags,
+    devops/docker-imagenes/docker-capas-cache
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -31,12 +35,12 @@ README.md
 
 ## Por qué cada línea importa
 
-| Entrada | Por qué excluirla |
-|---|---|
-| `node_modules` | Se reinstala dentro del contenedor con `npm ci` — copiar el local es peso muerto y puede traer binarios nativos compilados para el SO equivocado |
-| `.git` | Todo el historial del repo, no hace falta para correr la app |
-| `.env` | **Nunca** debe terminar dentro de la imagen: las variables secretas no van en su sistema de archivos; se inyectan en tiempo de ejecución con `-e` o `--env-file` (ver [Variables de entorno](/devops/docker-contenedores/docker-variables-entorno)) |
-| `dist` / `build` | Si la imagen los genera con `RUN npm run build`, no hace falta copiarlos del host |
+| Entrada          | Por qué excluirla                                                                                                                                                                                                                                   |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `node_modules`   | Se reinstala dentro del contenedor con `npm ci` — copiar el local es peso muerto y puede traer binarios nativos compilados para el SO equivocado                                                                                                    |
+| `.git`           | Todo el historial del repo, no hace falta para correr la app                                                                                                                                                                                        |
+| `.env`           | **Nunca** debe terminar dentro de la imagen: las variables secretas no van en su sistema de archivos; se inyectan en tiempo de ejecución con `-e` o `--env-file` (ver [Variables de entorno](/devops/docker-contenedores/docker-variables-entorno)) |
+| `dist` / `build` | Si la imagen los genera con `RUN npm run build`, no hace falta copiarlos del host                                                                                                                                                                   |
 
 ## Efecto en el cache de build
 

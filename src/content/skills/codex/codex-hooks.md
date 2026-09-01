@@ -55,12 +55,12 @@ PermissionRequest                  ← propio de Codex
 
 ## Resumen
 
-| Fuente de config | Se mergea con las demás |
-| --- | --- |
-| `~/.codex/hooks.json` | Sí — todas las fuentes presentes se combinan |
-| `~/.codex/config.toml` (`[hooks]`) | Sí |
-| `<repo>/.codex/hooks.json` | Sí, si el proyecto es trusted |
-| `<repo>/.codex/config.toml` | Sí, si el proyecto es trusted |
+| Fuente de config                   | Se mergea con las demás                      |
+| ---------------------------------- | -------------------------------------------- |
+| `~/.codex/hooks.json`              | Sí — todas las fuentes presentes se combinan |
+| `~/.codex/config.toml` (`[hooks]`) | Sí                                           |
+| `<repo>/.codex/hooks.json`         | Sí, si el proyecto es trusted                |
+| `<repo>/.codex/config.toml`        | Sí, si el proyecto es trusted                |
 
 ## Consideraciones
 

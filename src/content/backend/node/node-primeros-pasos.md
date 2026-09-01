@@ -42,8 +42,8 @@ npm init -y
 ```
 
 ```js title="src/index.js"
-const startedAt = new Date();
-console.log(`Proceso ${process.pid} iniciado en ${startedAt.toISOString()}`);
+const startedAt = new Date()
+console.log(`Proceso ${process.pid} iniciado en ${startedAt.toISOString()}`)
 ```
 
 ```bash
@@ -66,8 +66,8 @@ shell inicia node
 `process.cwd()` indica el directorio desde el que se ejecutó el comando. `import.meta.url` identifica el archivo actual. No son equivalentes y confundirlos rompe rutas al iniciar la aplicación desde otra carpeta.
 
 ```js
-console.log(process.cwd());
-console.log(import.meta.url);
+console.log(process.cwd())
+console.log(import.meta.url)
 ```
 
 ## APIs globales y módulos nativos
@@ -75,10 +75,10 @@ console.log(import.meta.url);
 Algunas capacidades son globales (`fetch`, `URL`, `AbortController`, `Buffer`, `process`). Otras se importan con el prefijo `node:`.
 
 ```js
-import { readFile } from 'node:fs/promises';
+import { readFile } from "node:fs/promises"
 
-const file = new URL('./config.json', import.meta.url);
-const config = JSON.parse(await readFile(file, 'utf8'));
+const file = new URL("./config.json", import.meta.url)
+const config = JSON.parse(await readFile(file, "utf8"))
 ```
 
 El prefijo `node:` deja claro que `fs/promises` pertenece al runtime y no a `node_modules`.
@@ -103,4 +103,3 @@ Una dependencia de producción es necesaria cuando corre la aplicación. Una dep
 ## Comprobación rápida
 
 Antes de seguir deberías poder explicar qué diferencia hay entre Node, npm y un framework; ejecutar un archivo; importar un módulo nativo; saber dónde corre el código y distinguir `process.cwd()` de la ubicación del módulo.
-

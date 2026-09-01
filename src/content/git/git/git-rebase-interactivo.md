@@ -79,14 +79,14 @@ git rebase --skip       # salta el commit actual por completo (raro, úsalo con 
 
 ## Resumen
 
-| Acción en el editor | Efecto |
-| --- | --- |
-| `pick` | Deja el commit igual |
-| `reword` | Deja el commit, pide editar el mensaje |
-| `edit` | Pausa el rebase en ese commit para modificarlo |
-| `squash` | Fusiona con el anterior, combina mensajes |
-| `fixup` | Fusiona con el anterior, descarta el mensaje |
-| `drop` | Elimina el commit |
+| Acción en el editor | Efecto                                         |
+| ------------------- | ---------------------------------------------- |
+| `pick`              | Deja el commit igual                           |
+| `reword`            | Deja el commit, pide editar el mensaje         |
+| `edit`              | Pausa el rebase en ese commit para modificarlo |
+| `squash`            | Fusiona con el anterior, combina mensajes      |
+| `fixup`             | Fusiona con el anterior, descarta el mensaje   |
+| `drop`              | Elimina el commit                              |
 
 ## Consideraciones
 

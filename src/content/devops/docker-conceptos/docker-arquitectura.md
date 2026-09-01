@@ -5,7 +5,11 @@ type: guides
 order: 3
 tags: [docker, conceptos, arquitectura]
 scope: arquitectura de Docker
-related: [devops/docker-conceptos/docker-que-es, devops/docker-conceptos/docker-instalacion]
+related:
+  [
+    devops/docker-conceptos/docker-que-es,
+    devops/docker-conceptos/docker-instalacion
+  ]
 updatedAt: 2026-08-17
 ---
 

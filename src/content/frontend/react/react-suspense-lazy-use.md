@@ -24,12 +24,12 @@ updatedAt: 2026-08-25
 ## Cargar código con `lazy`
 
 ```tsx
-import { lazy, Suspense, useState } from 'react';
+import { Suspense, lazy, useState } from "react"
 
-const MarkdownEditor = lazy(() => import('./MarkdownEditor'));
+const MarkdownEditor = lazy(() => import("./MarkdownEditor"))
 
 export function ArticleTools() {
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(false)
 
   return (
     <section>
@@ -41,7 +41,7 @@ export function ArticleTools() {
         </Suspense>
       )}
     </section>
-  );
+  )
 }
 ```
 
@@ -64,26 +64,36 @@ Un único límite alrededor de toda la página puede ocultar contenido útil por
 ## Leer una Promise con `use`
 
 ```tsx
-import { Suspense, use } from 'react';
+import { Suspense, use } from "react"
 
-type Comment = { id: string; body: string };
+type Comment = { id: string; body: string }
 
-function Comments({ commentsPromise }: { commentsPromise: Promise<Comment[]> }) {
-  const comments = use(commentsPromise);
+function Comments({
+  commentsPromise
+}: {
+  commentsPromise: Promise<Comment[]>
+}) {
+  const comments = use(commentsPromise)
 
   return (
     <ul>
-      {comments.map((comment) => <li key={comment.id}>{comment.body}</li>)}
+      {comments.map((comment) => (
+        <li key={comment.id}>{comment.body}</li>
+      ))}
     </ul>
-  );
+  )
 }
 
-export function CommentSection({ commentsPromise }: { commentsPromise: Promise<Comment[]> }) {
+export function CommentSection({
+  commentsPromise
+}: {
+  commentsPromise: Promise<Comment[]>
+}) {
   return (
     <Suspense fallback={<p>Cargando comentarios…</p>}>
       <Comments commentsPromise={commentsPromise} />
     </Suspense>
-  );
+  )
 }
 ```
 
@@ -97,8 +107,8 @@ Esto no activa el fallback:
 
 ```tsx
 useEffect(() => {
-  fetch('/api/items').then(/* ... */);
-}, []);
+  fetch("/api/items").then(/* ... */)
+}, [])
 ```
 
 El efecto ocurre después del commit. Debes modelar su loading manualmente o utilizar una capa de datos compatible con Suspense. No lances Promises manualmente desde componentes de aplicación sin un contrato de caché y framework.
@@ -150,4 +160,3 @@ El fallback debe describir el contenido esperado y reservar espacio cuando sea p
 - envolver toda la aplicación en un único fallback.
 - ocultar contenido ya útil durante cada actualización.
 - confundir espera con error y no añadir una estrategia de recuperación.
-

@@ -14,12 +14,12 @@ Una biblioteca UI puede aportar comportamiento accesible, estilos, tokens o bloq
 
 ## Tipos
 
-| Tipo | Aporta | Costo habitual |
-| --- | --- | --- |
-| headless/primitives | comportamiento y accesibilidad | diseñar apariencia |
-| kit completo | componentes, tema y patrones | adaptar identidad y overrides |
-| bloques copiables | propiedad del código | mantenimiento propio |
-| CSS framework | utilidades o clases visuales | comportamiento complejo aparte |
+| Tipo                | Aporta                         | Costo habitual                 |
+| ------------------- | ------------------------------ | ------------------------------ |
+| headless/primitives | comportamiento y accesibilidad | diseñar apariencia             |
+| kit completo        | componentes, tema y patrones   | adaptar identidad y overrides  |
+| bloques copiables   | propiedad del código           | mantenimiento propio           |
+| CSS framework       | utilidades o clases visuales   | comportamiento complejo aparte |
 
 ## Matriz de decisión
 
@@ -51,7 +51,13 @@ Dos kits completos pueden traer resets, tokens, portales y modelos de estilo inc
 
 ```tsx
 export function PrimaryButton(props: ButtonProps) {
-  return <VendorButton variant="solid" color="brand" {...props} />;
+  return (
+    <VendorButton
+      variant="solid"
+      color="brand"
+      {...props}
+    />
+  )
 }
 ```
 
@@ -64,4 +70,3 @@ Construye primero un componente nativo simple y luego compara qué resuelve la b
 ## Para recordar
 
 Necesidad → tipo de biblioteca → piloto complejo → accesibilidad → integración → mantenimiento → salida. La mejor opción es la que reduce riesgo del producto, no la que tiene más componentes.
-

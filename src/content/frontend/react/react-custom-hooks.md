@@ -35,40 +35,40 @@ Buenos nombres describen el resultado o la relación:
 `navigator.onLine` vive fuera de React. `useSyncExternalStore` expresa cómo suscribirse y cómo leer un snapshot coherente:
 
 ```tsx title="hooks/useOnlineStatus.ts"
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore } from "react"
 
 function subscribe(callback: () => void) {
-  window.addEventListener('online', callback);
-  window.addEventListener('offline', callback);
+  window.addEventListener("online", callback)
+  window.addEventListener("offline", callback)
 
   return () => {
-    window.removeEventListener('online', callback);
-    window.removeEventListener('offline', callback);
-  };
+    window.removeEventListener("online", callback)
+    window.removeEventListener("offline", callback)
+  }
 }
 
 function getSnapshot() {
-  return navigator.onLine;
+  return navigator.onLine
 }
 
 function getServerSnapshot() {
-  return true;
+  return true
 }
 
 export function useOnlineStatus() {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
 ```
 
 ```tsx
 function SaveButton() {
-  const isOnline = useOnlineStatus();
+  const isOnline = useOnlineStatus()
 
   return (
     <button disabled={!isOnline}>
-      {isOnline ? 'Guardar' : 'Sin conexión'}
+      {isOnline ? "Guardar" : "Sin conexión"}
     </button>
-  );
+  )
 }
 ```
 
@@ -78,13 +78,13 @@ El componente consume una intención de producto. Los detalles de eventos, clean
 
 ```tsx
 function HeaderStatus() {
-  const online = useOnlineStatus();
-  return <span>{online ? 'En línea' : 'Sin conexión'}</span>;
+  const online = useOnlineStatus()
+  return <span>{online ? "En línea" : "Sin conexión"}</span>
 }
 
 function SaveButton() {
-  const online = useOnlineStatus();
-  return <button disabled={!online}>Guardar</button>;
+  const online = useOnlineStatus()
+  return <button disabled={!online}>Guardar</button>
 }
 ```
 
@@ -94,25 +94,25 @@ Ambas llamadas se suscriben a la misma fuente externa, pero no porque el Hook ma
 
 ```tsx
 type UseChatRoomOptions = {
-  roomId: string;
-  serverUrl?: string;
-  onMessage(message: Message): void;
-};
+  roomId: string
+  serverUrl?: string
+  onMessage(message: Message): void
+}
 
 function useChatRoom({
   roomId,
-  serverUrl = 'wss://chat.example.com',
-  onMessage,
+  serverUrl = "wss://chat.example.com",
+  onMessage
 }: UseChatRoomOptions) {
-  const onMessageEvent = useEffectEvent(onMessage);
+  const onMessageEvent = useEffectEvent(onMessage)
 
   useEffect(() => {
-    const connection = connect({ roomId, serverUrl });
-    connection.on('message', onMessageEvent);
-    connection.open();
+    const connection = connect({ roomId, serverUrl })
+    connection.on("message", onMessageEvent)
+    connection.open()
 
-    return () => connection.close();
-  }, [roomId, serverUrl]);
+    return () => connection.close()
+  }, [roomId, serverUrl])
 }
 ```
 
@@ -124,7 +124,7 @@ Un Hook no necesita usar `useEffect`. Puede componer estado, reducer, contexto, 
 
 ```ts
 function formatPrice(cents: number) {
-  return currency.format(cents / 100);
+  return currency.format(cents / 100)
 }
 ```
 
@@ -158,4 +158,3 @@ Casos importantes:
 - ¿la salida evita exponer detalles internos?
 - ¿funciona al montarse, actualizarse y desmontarse varias veces?
 - ¿su nombre evita prometer estado compartido cuando cada llamada es independiente?
-

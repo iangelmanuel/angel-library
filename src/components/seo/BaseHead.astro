@@ -1,0 +1,240 @@
+---
+import geistSans400 from "@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2?url"
+import geistMono400 from "@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2?url"
+import geistPixel400 from "@fontsource/geist-pixel/files/geist-pixel-latin-400-normal.woff2?url"
+import { SITE } from "@/config/site"
+import type { SeoProps } from "@/lib/seo"
+
+type Props = SeoProps
+
+const {
+  title,
+  description = SITE.seo.description,
+  image = SITE.seo.image,
+  canonical = new URL(Astro.url.pathname, `${SITE.seo.url}/`).href,
+  keywords = SITE.seo.keywords,
+  ogType = SITE.seo.ogType,
+  noindex = SITE.seo.noindex
+} = Astro.props
+
+const pageTitle = title ? `${title} — ${SITE.info.name}` : SITE.seo.title
+const ogImage = new URL(image, `${SITE.seo.url}/`).href
+const ogLocale = SITE.seo.locale.replace("-", "_")
+const robots = noindex ? "noindex, nofollow" : "index, follow"
+const googlebot = noindex
+  ? robots
+  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+---
+
+<title>{pageTitle}</title>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=5"
+/>
+
+<meta
+  name="description"
+  content={description}
+/>
+<link
+  rel="canonical"
+  href={canonical}
+/>
+{
+  SITE.seo.locales.map((locale) => (
+    <link
+      rel="alternate"
+      hreflang={locale.hreflang}
+      href={canonical}
+    />
+  ))
+}
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={canonical}
+/>
+
+<meta
+  name="robots"
+  content={robots}
+/>
+<meta
+  name="googlebot"
+  content={googlebot}
+/>
+
+<meta
+  property="og:type"
+  content={ogType}
+/>
+<meta
+  property="og:site_name"
+  content={SITE.info.name}
+/>
+<meta
+  property="og:title"
+  content={pageTitle}
+/>
+<meta
+  property="og:description"
+  content={description}
+/>
+<meta
+  property="og:url"
+  content={canonical}
+/>
+<meta
+  property="og:locale"
+  content={ogLocale}
+/>
+<meta
+  property="og:image"
+  content={ogImage}
+/>
+<meta
+  property="og:image:width"
+  content={String(SITE.seo.imageWidth)}
+/>
+<meta
+  property="og:image:height"
+  content={String(SITE.seo.imageHeight)}
+/>
+<meta
+  property="og:image:alt"
+  content={SITE.seo.imageAlt}
+/>
+
+<meta
+  name="twitter:card"
+  content={SITE.seo.twitterCard}
+/>
+{
+  SITE.seo.twitterHandle && (
+    <meta
+      name="twitter:site"
+      content={SITE.seo.twitterHandle}
+    />
+  )
+}
+{
+  SITE.seo.twitterAuthor && (
+    <meta
+      name="twitter:creator"
+      content={SITE.seo.twitterAuthor}
+    />
+  )
+}
+<meta
+  name="twitter:title"
+  content={pageTitle}
+/>
+<meta
+  name="twitter:description"
+  content={description}
+/>
+<meta
+  name="twitter:image"
+  content={ogImage}
+/>
+
+<meta
+  name="keywords"
+  content={keywords.join(", ")}
+/>
+<meta
+  name="author"
+  content={SITE.seo.author}
+/>
+<meta
+  name="creator"
+  content={SITE.seo.creator}
+/>
+<meta
+  name="publisher"
+  content={SITE.seo.publisher}
+/>
+<meta
+  name="application-name"
+  content={SITE.info.name}
+/>
+<meta
+  name="category"
+  content={SITE.seo.category}
+/>
+<meta
+  name="classification"
+  content={SITE.seo.classification}
+/>
+<meta
+  name="generator"
+  content={Astro.generator}
+/>
+<meta
+  name="referrer"
+  content="strict-origin-when-cross-origin"
+/>
+<meta
+  name="format-detection"
+  content="telephone=no, address=no, email=no"
+/>
+
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+/>
+<meta
+  name="apple-mobile-web-app-title"
+  content={SITE.info.name}
+/>
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+/>
+
+<meta
+  name="color-scheme"
+  content="dark"
+/>
+<meta
+  name="theme-color"
+  media="(prefers-color-scheme: light)"
+  content={SITE.seo.themeColor.light}
+/>
+<meta
+  name="theme-color"
+  media="(prefers-color-scheme: dark)"
+  content={SITE.seo.themeColor.dark}
+/>
+
+<link
+  rel="preload"
+  href={geistSans400}
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  href={geistMono400}
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  href={geistPixel400}
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+<link
+  rel="icon"
+  href={SITE.seo.logo}
+  type="image/svg+xml"
+/>
+<link
+  rel="manifest"
+  href="/manifest.webmanifest"
+/>

@@ -14,13 +14,13 @@ Un **índice** es una estructura auxiliar que permite localizar filas sin recorr
 
 ## Referencia rápida
 
-| Pregunta | Señal útil |
-| --- | --- |
-| ¿qué consulta optimizo? | una lenta y frecuente con parámetros reales |
-| ¿qué columnas van primero? | igualdades frecuentes, luego rango u orden |
-| ¿el índice se usa? | `EXPLAIN (ANALYZE, BUFFERS)` en entorno seguro |
-| ¿faltan estadísticas? | gran diferencia entre filas estimadas y reales |
-| ¿sobran índices? | costo de escritura, espacio y uso observado |
+| Pregunta                   | Señal útil                                     |
+| -------------------------- | ---------------------------------------------- |
+| ¿qué consulta optimizo?    | una lenta y frecuente con parámetros reales    |
+| ¿qué columnas van primero? | igualdades frecuentes, luego rango u orden     |
+| ¿el índice se usa?         | `EXPLAIN (ANALYZE, BUFFERS)` en entorno seguro |
+| ¿faltan estadísticas?      | gran diferencia entre filas estimadas y reales |
+| ¿sobran índices?           | costo de escritura, espacio y uso observado    |
 
 La **cardinalidad** es la cantidad de valores diferentes. La **selectividad** describe qué proporción de filas conserva un filtro. Buscar un correo único es muy selectivo; filtrar una columna booleana que coincide con el 90 % de la tabla normalmente no lo es.
 
@@ -84,15 +84,15 @@ Un `Seq Scan` no es automáticamente malo. En una tabla pequeña o una consulta 
 
 ## Índices útiles
 
-| Tipo | Uso |
-| --- | --- |
-| B-tree | Igualdad, rangos y orden; opción predeterminada |
-| Único | Rendimiento y garantía de no duplicación |
-| Parcial | Indexar solo filas que cumplen una condición estable |
-| GIN | Arrays, búsqueda de texto y operadores sobre `jsonb` |
-| GiST | rangos, geometría y operadores especializados |
-| BRIN | tablas enormes físicamente correlacionadas, como eventos por tiempo |
-| Hash | igualdad; rara vez sustituye la versatilidad de B-tree |
+| Tipo    | Uso                                                                 |
+| ------- | ------------------------------------------------------------------- |
+| B-tree  | Igualdad, rangos y orden; opción predeterminada                     |
+| Único   | Rendimiento y garantía de no duplicación                            |
+| Parcial | Indexar solo filas que cumplen una condición estable                |
+| GIN     | Arrays, búsqueda de texto y operadores sobre `jsonb`                |
+| GiST    | rangos, geometría y operadores especializados                       |
+| BRIN    | tablas enormes físicamente correlacionadas, como eventos por tiempo |
+| Hash    | igualdad; rara vez sustituye la versatilidad de B-tree              |
 
 ```sql
 CREATE INDEX orders_pending_idx
@@ -168,4 +168,3 @@ Si `WHERE tenant_id = $1 AND created_at >= $2 ORDER BY created_at DESC LIMIT 50`
 - [PostgreSQL: uso de índices](https://www.postgresql.org/docs/current/indexes.html)
 - [PostgreSQL: EXPLAIN](https://www.postgresql.org/docs/current/using-explain.html)
 - [PostgreSQL: tipos de índices](https://www.postgresql.org/docs/current/indexes-types.html)
-

@@ -92,4 +92,3 @@ No incluyas secretos, datos personales ni material contractual en prompts o regl
 Resulta especialmente útil para navegar un repositorio desconocido, preparar refactors acotados, generar casos iniciales de prueba y explicar errores. Mantén intervención humana alta en autenticación, migraciones destructivas, pagos, infraestructura y seguridad.
 
 Fuentes: [Rules de Cursor](https://docs.cursor.com/context/rules) y [privacidad y seguridad](https://docs.cursor.com/account/privacy).
-

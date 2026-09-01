@@ -21,63 +21,67 @@ No lo uses para datos sensibles (tokens, contraseñas) ni para estado que debe s
 ## Código
 
 ```ts title="hooks/useLocalStorage.ts"
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react"
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
   const [value, setValue] = useState<T>(() => {
-    if (typeof window === 'undefined') return initialValue;
+    if (typeof window === "undefined") return initialValue
 
     try {
-      const raw = window.localStorage.getItem(key);
-      return raw !== null ? (JSON.parse(raw) as T) : initialValue;
+      const raw = window.localStorage.getItem(key)
+      return raw !== null ? (JSON.parse(raw) as T) : initialValue
     } catch {
-      return initialValue;
+      return initialValue
     }
-  });
+  })
 
   const setStoredValue = useCallback(
     (next: T | ((current: T) => T)) => {
       setValue((current) => {
-        const resolved = next instanceof Function ? next(current) : next;
+        const resolved = next instanceof Function ? next(current) : next
 
         try {
-          window.localStorage.setItem(key, JSON.stringify(resolved));
+          window.localStorage.setItem(key, JSON.stringify(resolved))
         } catch {
           // cuota excedida o storage no disponible: el estado en memoria sigue funcionando
         }
 
-        return resolved;
-      });
+        return resolved
+      })
     },
-    [key],
-  );
+    [key]
+  )
 
   // Sincroniza si otra pestaña cambia la misma key
   useEffect(() => {
     function handleStorageChange(event: StorageEvent) {
-      if (event.key !== key || event.newValue === null) return;
+      if (event.key !== key || event.newValue === null) return
 
       try {
-        setValue(JSON.parse(event.newValue) as T);
+        setValue(JSON.parse(event.newValue) as T)
       } catch {
         // valor corrupto en la otra pestaña: ignorarlo, no pisar el estado local
       }
     }
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, [key]);
+    window.addEventListener("storage", handleStorageChange)
+    return () => window.removeEventListener("storage", handleStorageChange)
+  }, [key])
 
-  return [value, setStoredValue] as const;
+  return [value, setStoredValue] as const
 }
 ```
 
 ## Uso
 
 ```tsx
-const [tema, setTema] = useLocalStorage<'claro' | 'oscuro'>('tema', 'oscuro');
+const [tema, setTema] = useLocalStorage<"claro" | "oscuro">("tema", "oscuro")
 
-<button onClick={() => setTema((actual) => (actual === 'oscuro' ? 'claro' : 'oscuro'))}>
+;<button
+  onClick={() =>
+    setTema((actual) => (actual === "oscuro" ? "claro" : "oscuro"))
+  }
+>
   Cambiar tema
 </button>
 ```
@@ -88,5 +92,5 @@ La API es igual a `useState`: acepta un valor directo o una función que recibe 
 
 - **El `useState` con función inicializadora** (`() => ...`) evita leer `localStorage` en cada render — solo corre una vez, al montar.
 - **`typeof window === 'undefined'`** cubre el caso de un framework con SSR (Next.js, Astro con islas): en el servidor no existe `window`, y sin este chequeo el componente rompe el build o el render inicial.
-- **El listener de `storage`** solo dispara en pestañas *distintas* a la que hizo el cambio — el navegador no emite ese evento en la misma pestaña que escribió, por eso `setStoredValue` actualiza el estado local directamente en vez de depender del evento.
+- **El listener de `storage`** solo dispara en pestañas _distintas_ a la que hizo el cambio — el navegador no emite ese evento en la misma pestaña que escribió, por eso `setStoredValue` actualiza el estado local directamente en vez de depender del evento.
 - Para objetos grandes o que cambian muy seguido, `localStorage` no es el lugar — es sincrónico y bloquea el hilo principal en escrituras grandes.

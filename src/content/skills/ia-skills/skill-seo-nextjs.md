@@ -82,37 +82,37 @@ Search the project for an existing site-wide config object (commonly `SITE`, in 
 
 ## `references/config.md`
 
-```md title=".claude/skills/nextjs-seo/references/config.md"
+````md title=".claude/skills/nextjs-seo/references/config.md"
 # SITE.seo — target shape
 
 ​```ts title="src/config/site.ts"
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
 export const SITE = {
-  // ...the rest of SITE already exists in the project — company, location, contact,
-  // whatsapp, businessHours, social, legal. Not repeated here because it's brand
-  // identity and contact data, not SEO — the target of this skill is only what's below.
+// ...the rest of SITE already exists in the project — company, location, contact,
+// whatsapp, businessHours, social, legal. Not repeated here because it's brand
+// identity and contact data, not SEO — the target of this skill is only what's below.
 
-  seo: {
-    /** Default title — used as-is on the home page, and as the " — {name}" suffix elsewhere. */
-    title: "Acme — Software, marca y comunicación para empresas",
-    /** Next applies this template to any child page that only sets its own `title`. */
-    titleTemplate: "%s | Acme",
-    description:
-      "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
-    keywords: [
-      "agencia digital",
-      "desarrollo web",
-      "desarrollo de software",
-      "diseño web Bogotá",
-      "identidad de marca",
-      "comunicación organizacional",
-      "e-commerce",
-      "landing pages",
-      "Bogotá",
-      "Colombia",
-      "software boutique",
-    ],
+seo: {
+/** Default title — used as-is on the home page, and as the " — {name}" suffix elsewhere. _/
+title: "Acme — Software, marca y comunicación para empresas",
+/_* Next applies this template to any child page that only sets its own `title`. */
+titleTemplate: "%s | Acme",
+description:
+"Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
+keywords: [
+"agencia digital",
+"desarrollo web",
+"desarrollo de software",
+"diseño web Bogotá",
+"identidad de marca",
+"comunicación organizacional",
+"e-commerce",
+"landing pages",
+"Bogotá",
+"Colombia",
+"software boutique",
+],
 
     /** Site authorship — feeds the author/creator/publisher metas. This used to be derived
      *  from `info.founders`; it's now an explicit SEO field, since the content author
@@ -173,7 +173,8 @@ export const SITE = {
       { type: "Country", name: "Colombia" },
       { type: "Place", name: "Latin America" },
     ],
-  },
+
+},
 } as const;
 ​```
 
@@ -181,11 +182,11 @@ Two decisions worth keeping when generating or migrating:
 
 - **`titleTemplate` instead of concatenating the string by hand** — declared once in the root layout (`references/assembly.md`), any child page that only sets `title: "Servicios"` comes out as `"Servicios | Acme"` automatically.
 - **One single source of coordinates** — `SITE.seo.geo` is the only place with latitude/longitude. Don't let a second copy exist anywhere else (e.g. under `location`) — that's the exact bug this pattern fixes.
-```
+````
 
 ## `references/libs.md`
 
-```md title=".claude/skills/nextjs-seo/references/libs.md"
+````md title=".claude/skills/nextjs-seo/references/libs.md"
 # src/libs/seo.ts
 
 ​```ts title="src/libs/seo.ts"
@@ -193,75 +194,76 @@ import type { Metadata } from "next";
 import { SITE } from "@/config/site";
 
 export interface SeoOptions {
-  /** Short page title — Next applies the root layout's template automatically. */
-  title?: string;
-  /** Already-built title, bypassing the template — for pages that shouldn't carry the brand suffix. */
-  fullTitle?: string;
-  description?: string;
-  /** Relative path — "/servicios", "/blog/mi-post". */
-  path?: string;
-  image?: string;
-  imageAlt?: string;
-  noindex?: boolean;
-  nofollow?: boolean;
-  type?: "website" | "article";
-  publishedTime?: string | Date;
-  modifiedTime?: string | Date;
-  authors?: string[];
-  section?: string;
-  tags?: string[];
-  /** Extra keywords — added to SITE.seo.keywords, not a replacement. */
-  keywords?: string[];
+/** Short page title — Next applies the root layout's template automatically. _/
+title?: string;
+/_* Already-built title, bypassing the template — for pages that shouldn't carry the brand suffix. _/
+fullTitle?: string;
+description?: string;
+/_* Relative path — "/servicios", "/blog/mi-post". _/
+path?: string;
+image?: string;
+imageAlt?: string;
+noindex?: boolean;
+nofollow?: boolean;
+type?: "website" | "article";
+publishedTime?: string | Date;
+modifiedTime?: string | Date;
+authors?: string[];
+section?: string;
+tags?: string[];
+/_* Extra keywords — added to SITE.seo.keywords, not a replacement. */
+keywords?: string[];
 }
 
 /** Converts a relative path to an absolute URL; returns it unchanged if already absolute. */
 export function absoluteUrl(path: string): string {
-  return /^https?:\/\//i.test(path) ? path : new URL(path, `${SITE.seo.url}/`).href;
+return /^https?:\/\//i.test(path) ? path : new URL(path, `${SITE.seo.url}/`).href;
 }
 
 const toIso = (value?: string | Date): string | undefined => (value ? new Date(value).toISOString() : undefined);
 
 /**
- * Builds the full Next `Metadata` object for a page: title (via the native
- * template), description, Open Graph, Twitter, robots, canonical, and hreflang.
- */
-export function buildMetadata(options: SeoOptions = {}): Metadata {
+
+- Builds the full Next `Metadata` object for a page: title (via the native
+- template), description, Open Graph, Twitter, robots, canonical, and hreflang.
+  */
+  export function buildMetadata(options: SeoOptions = {}): Metadata {
   const {
-    title,
-    fullTitle,
-    description = SITE.seo.description,
-    path = "/",
-    image = SITE.seo.image,
-    imageAlt,
-    noindex = false,
-    nofollow = false,
-    type = SITE.seo.ogType,
-    publishedTime,
-    modifiedTime,
-    authors,
-    section,
-    tags,
-    keywords = [],
+  title,
+  fullTitle,
+  description = SITE.seo.description,
+  path = "/",
+  image = SITE.seo.image,
+  imageAlt,
+  noindex = false,
+  nofollow = false,
+  type = SITE.seo.ogType,
+  publishedTime,
+  modifiedTime,
+  authors,
+  section,
+  tags,
+  keywords = [],
   } = options;
 
-  const cleanPath = (path.split("?")[0] ?? "/").replace(/\/+$/, "") || "/";
-  const blockIndexing = noindex || SITE.seo.noindex;
-  const imageUrl = absoluteUrl(image);
-  const resolvedTitle = fullTitle ?? title ?? SITE.seo.title;
-  const resolvedAlt = imageAlt ?? SITE.seo.imageAlt;
+const cleanPath = (path.split("?")[0] ?? "/").replace(/\/+$/, "") || "/";
+const blockIndexing = noindex || SITE.seo.noindex;
+const imageUrl = absoluteUrl(image);
+const resolvedTitle = fullTitle ?? title ?? SITE.seo.title;
+const resolvedAlt = imageAlt ?? SITE.seo.imageAlt;
 
-  return {
-    // No `fullTitle`: a plain string — Next applies the root layout's `template` alone.
-    // With `fullTitle`: `absolute` skips the template on purpose (a campaign landing
-    // page that already carries its own full branding, for example).
-    title: fullTitle ? { absolute: fullTitle } : title,
-    description,
-    keywords: [...SITE.seo.keywords, ...keywords],
-    authors: [{ name: SITE.seo.author }],
-    creator: SITE.seo.creator,
-    publisher: SITE.seo.publisher,
-    category: SITE.seo.category,
-    other: { classification: SITE.seo.classification },
+return {
+// No `fullTitle`: a plain string — Next applies the root layout's `template` alone.
+// With `fullTitle`: `absolute` skips the template on purpose (a campaign landing
+// page that already carries its own full branding, for example).
+title: fullTitle ? { absolute: fullTitle } : title,
+description,
+keywords: [...SITE.seo.keywords, ...keywords],
+authors: [{ name: SITE.seo.author }],
+creator: SITE.seo.creator,
+publisher: SITE.seo.publisher,
+category: SITE.seo.category,
+other: { classification: SITE.seo.classification },
 
     alternates: {
       canonical: cleanPath,
@@ -312,166 +314,167 @@ export function buildMetadata(options: SeoOptions = {}): Metadata {
       "geo.position": `${SITE.seo.geo.latitude};${SITE.seo.geo.longitude}`,
       ICBM: `${SITE.seo.geo.latitude}, ${SITE.seo.geo.longitude}`,
     },
-  };
+
+};
 }
 
 /** Maps Spanish day names to English — schema.org expects `dayOfWeek` in English. */
 const dayNameEn: Record<string, string> = {
-  Lunes: "Monday",
-  Martes: "Tuesday",
-  Miércoles: "Wednesday",
-  Jueves: "Thursday",
-  Viernes: "Friday",
-  Sábado: "Saturday",
-  Domingo: "Sunday",
+Lunes: "Monday",
+Martes: "Tuesday",
+Miércoles: "Wednesday",
+Jueves: "Thursday",
+Viernes: "Friday",
+Sábado: "Saturday",
+Domingo: "Sunday",
 };
 
 /** Organization/ProfessionalService JSON-LD — contact, address, hours, social. Rendered once, in the root layout. */
 export function buildBusinessSchema(): Record<string, unknown> {
-  const openingHours = SITE.businessHours
-    .filter((d) => d.open !== null && d.close !== null)
-    .map((d) => ({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: `https://schema.org/${dayNameEn[d.day] ?? d.day}`,
-      opens: d.open,
-      closes: d.close,
-    }));
+const openingHours = SITE.businessHours
+.filter((d) => d.open !== null && d.close !== null)
+.map((d) => ({
+"@type": "OpeningHoursSpecification",
+dayOfWeek: `https://schema.org/${dayNameEn[d.day] ?? d.day}`,
+opens: d.open,
+closes: d.close,
+}));
 
-  const sameAs = Object.values(SITE.social).filter((url): url is string => typeof url === "string" && url.length > 0);
+const sameAs = Object.values(SITE.social).filter((url): url is string => typeof url === "string" && url.length > 0);
 
-  return {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${SITE.seo.url}/#organization`,
-    name: SITE.info.name,
-    legalName: SITE.info.legalName,
-    description: SITE.info.description,
-    slogan: SITE.info.slogan,
-    url: SITE.seo.url,
-    logo: absoluteUrl(SITE.seo.logo),
-    image: absoluteUrl(SITE.seo.image),
-    telephone: SITE.contact.whatsapp(),
-    email: SITE.contact.email,
-    foundingDate: String(SITE.info.founded),
-    founder: SITE.info.founders.map((f) => ({
-      "@type": "Person",
-      name: f.name,
-      jobTitle: f.role,
-    })),
-    priceRange: SITE.seo.priceRange,
-    currenciesAccepted: SITE.seo.currency,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE.location.address,
-      addressLocality: SITE.location.city,
-      addressRegion: SITE.location.state,
-      postalCode: SITE.location.postalCode,
-      addressCountry: SITE.location.countryCode,
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: SITE.seo.geo.latitude,
-      longitude: SITE.seo.geo.longitude,
-    },
-    areaServed: SITE.seo.areaServed.map((a) => ({ "@type": a.type, name: a.name })),
-    openingHoursSpecification: openingHours,
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "customer support",
-        email: SITE.contact.email,
-        telephone: SITE.contact.whatsapp(),
-        availableLanguage: SITE.seo.languages,
-        areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
-      },
-    ],
-    ...(sameAs.length > 0 ? { sameAs } : {}),
-  };
+return {
+"@context": "https://schema.org",
+"@type": "ProfessionalService",
+"@id": `${SITE.seo.url}/#organization`,
+name: SITE.info.name,
+legalName: SITE.info.legalName,
+description: SITE.info.description,
+slogan: SITE.info.slogan,
+url: SITE.seo.url,
+logo: absoluteUrl(SITE.seo.logo),
+image: absoluteUrl(SITE.seo.image),
+telephone: SITE.contact.whatsapp(),
+email: SITE.contact.email,
+foundingDate: String(SITE.info.founded),
+founder: SITE.info.founders.map((f) => ({
+"@type": "Person",
+name: f.name,
+jobTitle: f.role,
+})),
+priceRange: SITE.seo.priceRange,
+currenciesAccepted: SITE.seo.currency,
+address: {
+"@type": "PostalAddress",
+streetAddress: SITE.location.address,
+addressLocality: SITE.location.city,
+addressRegion: SITE.location.state,
+postalCode: SITE.location.postalCode,
+addressCountry: SITE.location.countryCode,
+},
+geo: {
+"@type": "GeoCoordinates",
+latitude: SITE.seo.geo.latitude,
+longitude: SITE.seo.geo.longitude,
+},
+areaServed: SITE.seo.areaServed.map((a) => ({ "@type": a.type, name: a.name })),
+openingHoursSpecification: openingHours,
+contactPoint: [
+{
+"@type": "ContactPoint",
+contactType: "customer support",
+email: SITE.contact.email,
+telephone: SITE.contact.whatsapp(),
+availableLanguage: SITE.seo.languages,
+areaServed: [SITE.location.countryCode, SITE.seo.contactRegion],
+},
+],
+...(sameAs.length > 0 ? { sameAs } : {}),
+};
 }
 
 /** WebSite JSON-LD — ties the site to the Organization via `@id`. */
 export function buildWebsiteSchema(): Record<string, unknown> {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${SITE.seo.url}/#website`,
-    url: SITE.seo.url,
-    name: SITE.info.name,
-    inLanguage: SITE.seo.locale,
-    publisher: { "@id": `${SITE.seo.url}/#organization` },
-  };
+return {
+"@context": "https://schema.org",
+"@type": "WebSite",
+"@id": `${SITE.seo.url}/#website`,
+url: SITE.seo.url,
+name: SITE.info.name,
+inLanguage: SITE.seo.locale,
+publisher: { "@id": `${SITE.seo.url}/#organization` },
+};
 }
 
 /** BreadcrumbList JSON-LD — improves how the navigation path shows up in Google results. */
 export function buildBreadcrumbSchema(crumbs: { label: string; href: string }[]): Record<string, unknown> {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: crumbs.map((crumb, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: crumb.label,
-      item: absoluteUrl(crumb.href),
-    })),
-  };
+return {
+"@context": "https://schema.org",
+"@type": "BreadcrumbList",
+itemListElement: crumbs.map((crumb, i) => ({
+"@type": "ListItem",
+position: i + 1,
+name: crumb.label,
+item: absoluteUrl(crumb.href),
+})),
+};
 }
 
 // ── Optional: only add these two if the project actually has a catalog or a blog ──
 
 export function buildProductSchema(product: {
-  id: string;
-  name: string;
-  description: string;
-  slug: string;
-  price: number;
-  image: string;
-  availability: "instock" | "outofstock";
+id: string;
+name: string;
+description: string;
+slug: string;
+price: number;
+image: string;
+availability: "instock" | "outofstock";
 }) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": `${SITE.seo.url}/producto/${product.slug}/#product`,
-    name: product.name,
-    description: product.description,
-    url: `${SITE.seo.url}/producto/${product.slug}`,
-    image: absoluteUrl(product.image),
-    sku: product.id,
-    offers: {
-      "@type": "Offer",
-      url: `${SITE.seo.url}/producto/${product.slug}`,
-      price: product.price,
-      priceCurrency: SITE.seo.currency,
-      availability: product.availability === "instock" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      seller: { "@id": `${SITE.seo.url}/#organization` },
-    },
-  };
+return {
+"@context": "https://schema.org",
+"@type": "Product",
+"@id": `${SITE.seo.url}/producto/${product.slug}/#product`,
+name: product.name,
+description: product.description,
+url: `${SITE.seo.url}/producto/${product.slug}`,
+image: absoluteUrl(product.image),
+sku: product.id,
+offers: {
+"@type": "Offer",
+url: `${SITE.seo.url}/producto/${product.slug}`,
+price: product.price,
+priceCurrency: SITE.seo.currency,
+availability: product.availability === "instock" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+seller: { "@id": `${SITE.seo.url}/#organization` },
+},
+};
 }
 
 export function buildArticleSchema(article: {
-  title: string;
-  description: string;
-  image: string;
-  slug: string;
-  publishedAt: Date;
-  updatedAt?: Date;
-  author: string;
+title: string;
+description: string;
+image: string;
+slug: string;
+publishedAt: Date;
+updatedAt?: Date;
+author: string;
 }) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: article.title,
-    description: article.description,
-    image: absoluteUrl(article.image),
-    url: `${SITE.seo.url}/blog/${article.slug}`,
-    datePublished: article.publishedAt.toISOString(),
-    dateModified: (article.updatedAt ?? article.publishedAt).toISOString(),
-    author: { "@type": "Person", name: article.author },
-    publisher: {
-      "@type": "Organization",
-      name: SITE.info.name,
-      logo: { "@type": "ImageObject", url: absoluteUrl(SITE.seo.logo) },
-    },
-  };
+return {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+headline: article.title,
+description: article.description,
+image: absoluteUrl(article.image),
+url: `${SITE.seo.url}/blog/${article.slug}`,
+datePublished: article.publishedAt.toISOString(),
+dateModified: (article.updatedAt ?? article.publishedAt).toISOString(),
+author: { "@type": "Person", name: article.author },
+publisher: {
+"@type": "Organization",
+name: SITE.info.name,
+logo: { "@type": "ImageObject", url: absoluteUrl(SITE.seo.logo) },
+},
+};
 }
 ​```
 
@@ -484,43 +487,44 @@ export function buildArticleSchema(article: {
 - `imageAlt` falling back to the page title instead of `SITE.seo.imageAlt` when no per-page alt is given — the alt text should describe the image, not repeat the title.
 - `SITE.seo.languages` defined but never consumed anywhere — always wire it into `buildBusinessSchema()`'s `contactPoint.availableLanguage`, otherwise it's a field with no real consumer.
 - `app/manifest.ts` missing while the root layout already links to `/manifest.webmanifest` — that link 404s until the file exists.
-```
+````
 
 ## `references/components.md`
 
-```md title=".claude/skills/nextjs-seo/references/components.md"
+````md title=".claude/skills/nextjs-seo/references/components.md"
 # src/components/JsonLd.tsx
 
 ​```tsx title="src/components/JsonLd.tsx"
 type Schema = Record<string, unknown>;
 
 /**
- * Injects one or more JSON-LD blocks into the page.
- *
- * `dangerouslySetInnerHTML` instead of rendering the object: structured data has
- * to arrive as-is in the initial HTML (crawlers don't execute JS to read it), and
- * manually escaping `<` prevents an untrusted value from closing the `<script>`
- * tag early.
- */
-export function JsonLd({ schema }: { schema: Schema | Schema[] }) {
+
+- Injects one or more JSON-LD blocks into the page.
+-
+- `dangerouslySetInnerHTML` instead of rendering the object: structured data has
+- to arrive as-is in the initial HTML (crawlers don't execute JS to read it), and
+- manually escaping `<` prevents an untrusted value from closing the `<script>`
+- tag early.
+  */
+  export function JsonLd({ schema }: { schema: Schema | Schema[] }) {
   const schemas = Array.isArray(schema) ? schema : [schema];
 
-  return (
-    <>
-      {schemas.map((item, i) => (
-        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(item).replace(/</g, "\\u003c") }} />
-      ))}
-    </>
-  );
+return (
+<>
+{schemas.map((item, i) => (
+<script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(item).replace(/</g, "\\u003c") }} />
+))}
+</>
+);
 }
 ​```
 
 Accepts a single schema or an array — the root layout sends `Organization` + `WebSite` together in one `<JsonLd>`, and a blog page can send its own `BreadcrumbList` separately.
-```
+````
 
 ## `references/assembly.md`
 
-```md title=".claude/skills/nextjs-seo/references/assembly.md"
+````md title=".claude/skills/nextjs-seo/references/assembly.md"
 # robots.ts, sitemap.ts, root layout, example pages
 
 ## app/manifest.ts
@@ -530,18 +534,18 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/config/site";
 
 export default function manifest(): MetadataRoute.Manifest {
-  return {
-    name: SITE.info.legalName,
-    short_name: SITE.info.name,
-    description: SITE.seo.description,
-    start_url: "/",
-    display: "standalone",
-    background_color: SITE.seo.themeColor.dark,
-    theme_color: SITE.seo.themeColor.dark,
-    lang: SITE.seo.locale,
-    categories: SITE.seo.manifestCategories,
-    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
-  };
+return {
+name: SITE.info.legalName,
+short_name: SITE.info.name,
+description: SITE.seo.description,
+start_url: "/",
+display: "standalone",
+background_color: SITE.seo.themeColor.dark,
+theme_color: SITE.seo.themeColor.dark,
+lang: SITE.seo.locale,
+categories: SITE.seo.manifestCategories,
+icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
+};
 }
 ​```
 
@@ -553,17 +557,17 @@ File convention: `app/manifest.ts` with `export default` generates `/manifest.we
 import type { MetadataRoute } from "next";
 import { SITE } from "@/config/site";
 
-/** Generates /robots.txt. With SITE.seo.noindex on (staging/preview), blocks the entire site. */
+/** Generates /robots.txt. With SITE.seo.noindex on (staging/preview), blocks the entire site. _/
 export default function robots(): MetadataRoute.Robots {
-  if (SITE.seo.noindex) {
-    return { rules: { userAgent: "*", disallow: "/" } };
-  }
+if (SITE.seo.noindex) {
+return { rules: { userAgent: "_", disallow: "/" } };
+}
 
-  return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/admin/", "/api/"] },
-    sitemap: `${SITE.seo.url}/sitemap.xml`,
-    host: SITE.seo.url,
-  };
+return {
+rules: { userAgent: "*", allow: "/", disallow: ["/admin/", "/api/"] },
+sitemap: `${SITE.seo.url}/sitemap.xml`,
+host: SITE.seo.url,
+};
 }
 ​```
 
@@ -575,31 +579,31 @@ import { SITE } from "@/config/site";
 
 /** Static routes. Add here as the site grows. */
 const STATIC_ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
-  { path: "/", changeFrequency: "daily", priority: 1 },
-  { path: "/servicios", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/blog", changeFrequency: "daily", priority: 0.8 },
+{ path: "/", changeFrequency: "daily", priority: 1 },
+{ path: "/servicios", changeFrequency: "weekly", priority: 0.9 },
+{ path: "/blog", changeFrequency: "daily", priority: 0.8 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+const now = new Date();
 
-  const staticRoutes: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
-    url: `${SITE.seo.url}${route.path}`,
-    lastModified: now,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
+const staticRoutes: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
+url: `${SITE.seo.url}${route.path}`,
+lastModified: now,
+changeFrequency: route.changeFrequency,
+priority: route.priority,
+}));
 
-  // Dynamic routes (blog, catalog) — pull slugs from the project's real data source.
-  // const blogSlugs = await getPublishedBlogSlugs()
-  // const blogRoutes: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-  //   url: `${SITE.seo.url}/blog/${slug}`,
-  //   lastModified: now,
-  //   changeFrequency: "weekly",
-  //   priority: 0.7,
-  // }))
+// Dynamic routes (blog, catalog) — pull slugs from the project's real data source.
+// const blogSlugs = await getPublishedBlogSlugs()
+// const blogRoutes: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
+// url: `${SITE.seo.url}/blog/${slug}`,
+// lastModified: now,
+// changeFrequency: "weekly",
+// priority: 0.7,
+// }))
 
-  return staticRoutes;
+return staticRoutes;
 }
 ​```
 
@@ -614,21 +618,21 @@ import { JsonLd } from "@/components/JsonLd";
 // The title template is declared ONCE, here — any page that only exports
 // `title: "Servicios"` (via buildMetadata) comes out as "Servicios | Acme" automatically.
 export const metadata: Metadata = {
-  title: { default: SITE.seo.title, template: SITE.seo.titleTemplate },
-  description: SITE.seo.description,
+title: { default: SITE.seo.title, template: SITE.seo.titleTemplate },
+description: SITE.seo.description,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang={SITE.seo.lang}>
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.webmanifest" />
-        <JsonLd schema={[buildBusinessSchema(), buildWebsiteSchema()]} />
-      </head>
-      <body>{children}</body>
-    </html>
-  );
+return (
+<html lang={SITE.seo.lang}>
+<head>
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<JsonLd schema={[buildBusinessSchema(), buildWebsiteSchema()]} />
+</head>
+<body>{children}</body>
+</html>
+);
 }
 ​```
 
@@ -642,18 +646,18 @@ Static page, short title Next merges with the root layout's template on its own:
 import { buildMetadata } from "@/libs/seo";
 
 export const metadata = buildMetadata({
-  title: "Servicios",
-  description: "Servicios digitales: desarrollo web, software a medida, identidad de marca y comunicación.",
-  path: "/servicios",
+title: "Servicios",
+description: "Servicios digitales: desarrollo web, software a medida, identidad de marca y comunicación.",
+path: "/servicios",
 });
 
 export default function ServiciosPage() {
-  return (
-    <main>
-      <h1>Nuestros servicios</h1>
-      {/* page content — the real services list lives in the project itself, not in SITE.seo */}
-    </main>
-  );
+return (
+<main>
+<h1>Nuestros servicios</h1>
+{/* page content — the real services list lives in the project itself, not in SITE.seo */}
+</main>
+);
 }
 ​```
 
@@ -666,50 +670,50 @@ import { JsonLd } from "@/components/JsonLd";
 import { getBlogPostBySlug } from "@/libs/db";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const post = await getBlogPostBySlug(slug);
-  if (!post) return buildMetadata();
+const { slug } = await params;
+const post = await getBlogPostBySlug(slug);
+if (!post) return buildMetadata();
 
-  return buildMetadata({
-    title: post.title,
-    description: post.excerpt,
-    path: `/blog/${slug}`,
-    image: post.coverImage,
-    type: "article",
-    publishedTime: post.publishedAt,
-    modifiedTime: post.updatedAt,
-    authors: [post.author.name],
-    section: "Blog",
-    tags: post.tags,
-  });
+return buildMetadata({
+title: post.title,
+description: post.excerpt,
+path: `/blog/${slug}`,
+image: post.coverImage,
+type: "article",
+publishedTime: post.publishedAt,
+modifiedTime: post.updatedAt,
+authors: [post.author.name],
+section: "Blog",
+tags: post.tags,
+});
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = await getBlogPostBySlug(slug);
-  if (!post) notFound();
+const { slug } = await params;
+const post = await getBlogPostBySlug(slug);
+if (!post) notFound();
 
-  return (
-    <>
-      <JsonLd
-        schema={buildBreadcrumbSchema([
-          { label: "Inicio", href: "/" },
-          { label: "Blog", href: "/blog" },
-          { label: post.title, href: `/blog/${slug}` },
-        ])}
-      />
-      <article>
-        <h1>{post.title}</h1>
-      </article>
-    </>
-  );
+return (
+<>
+<JsonLd
+schema={buildBreadcrumbSchema([
+{ label: "Inicio", href: "/" },
+{ label: "Blog", href: "/blog" },
+{ label: post.title, href: `/blog/${slug}` },
+])}
+/>
+<article>
+<h1>{post.title}</h1>
+</article>
+</>
+);
 }
 ​```
-```
+````
 
 ## Consideraciones
 

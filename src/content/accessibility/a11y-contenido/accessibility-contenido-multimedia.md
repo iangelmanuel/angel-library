@@ -26,19 +26,20 @@ Define el idioma del documento y de fragmentos que cambian de lengua:
 
 ```html
 <html lang="es">
-<p>La propiedad <span lang="en">stale-while-revalidate</span>...</p>
+  <p>La propiedad <span lang="en">stale-while-revalidate</span>...</p>
+</html>
 ```
 
 ## Texto alternativo
 
 La decisión depende del propósito:
 
-| Imagen | Tratamiento |
-| --- | --- |
-| Decorativa | `alt=""` para ignorarla |
-| Informativa | Describe la información relevante en contexto |
-| Enlace o botón | Describe la acción o destino, no “imagen de” |
-| Gráfico complejo | Resumen corto y explicación o datos cercanos |
+| Imagen           | Tratamiento                                   |
+| ---------------- | --------------------------------------------- |
+| Decorativa       | `alt=""` para ignorarla                       |
+| Informativa      | Describe la información relevante en contexto |
+| Enlace o botón   | Describe la acción o destino, no “imagen de”  |
+| Gráfico complejo | Resumen corto y explicación o datos cercanos  |
 
 No repitas un pie de foto idéntico en `alt`. Si una captura enseña varios pasos, el procedimiento debe existir también como texto.
 
@@ -46,12 +47,20 @@ No repitas un pie de foto idéntico en `alt`. Si una captura enseña varios paso
 
 ```html
 <table>
-  <caption>Resultados por trimestre</caption>
+  <caption>
+    Resultados por trimestre
+  </caption>
   <thead>
-    <tr><th scope="col">Trimestre</th><th scope="col">Ingresos</th></tr>
+    <tr>
+      <th scope="col">Trimestre</th>
+      <th scope="col">Ingresos</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Q1</th><td>$12 000</td></tr>
+    <tr>
+      <th scope="row">Q1</th>
+      <td>$12 000</td>
+    </tr>
   </tbody>
 </table>
 ```
@@ -81,7 +90,10 @@ Explica una abreviatura en su primera aparición. Para fechas, precios e instruc
 Un `alt` corto identifica la conclusión; una tabla o descripción cercana expone valores y tendencia. No intentes comprimir veinte puntos de datos dentro del atributo.
 
 ```html
-<img src="ventas.webp" alt="Las ventas crecieron 18 % entre enero y junio" />
+<img
+  src="ventas.webp"
+  alt="Las ventas crecieron 18 % entre enero y junio"
+/>
 <details>
   <summary>Consultar datos del gráfico</summary>
   <!-- tabla con meses y valores -->
@@ -96,4 +108,3 @@ Recorre la página sin imágenes, sin audio y con estilos desactivados. La estru
 
 - [WCAG 2.2](https://www.w3.org/TR/WCAG22/)
 - [WAI: imágenes](https://www.w3.org/WAI/tutorials/images/)
-

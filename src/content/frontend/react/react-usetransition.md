@@ -17,30 +17,37 @@ Una transición no agrega un retraso fijo ni vuelve más rápido un algoritmo le
 Devuelve un booleano (`isPending`, si la transición todavía está resolviendo) y una función (`startTransition`) que envuelve la actualización que puede esperar.
 
 ```tsx
-import { useState, useTransition } from 'react';
+import { useState, useTransition } from "react"
 
 function BuscadorLista({ items }: { items: string[] }) {
-  const [texto, setTexto] = useState('');
-  const [consulta, setConsulta] = useState('');
-  const [isPending, startTransition] = useTransition();
+  const [texto, setTexto] = useState("")
+  const [consulta, setConsulta] = useState("")
+  const [isPending, startTransition] = useTransition()
 
-  const filtrados = items.filter((item) => item.includes(consulta));
+  const filtrados = items.filter((item) => item.includes(consulta))
 
   function manejarCambio(nuevoTexto: string) {
-    setTexto(nuevoTexto); // urgente: el input responde ya
+    setTexto(nuevoTexto) // urgente: el input responde ya
 
     startTransition(() => {
-      setConsulta(nuevoTexto); // el render de la lista puede esperar
-    });
+      setConsulta(nuevoTexto) // el render de la lista puede esperar
+    })
   }
 
   return (
     <>
-      <input value={texto} onChange={(e) => manejarCambio(e.target.value)} />
+      <input
+        value={texto}
+        onChange={(e) => manejarCambio(e.target.value)}
+      />
       {isPending && <span>Filtrando…</span>}
-      <ul>{filtrados.map((i) => <li key={i}>{i}</li>)}</ul>
+      <ul>
+        {filtrados.map((i) => (
+          <li key={i}>{i}</li>
+        ))}
+      </ul>
     </>
-  );
+  )
 }
 ```
 
@@ -51,20 +58,20 @@ El input (`setTexto`) se actualiza al instante en cada tecla. El cambio que vuel
 `useTransition` es un hook: solo se puede usar dentro de un componente o de otro hook, y da acceso a `isPending`. Si no necesitas mostrar un indicador y solo quieres marcar una actualización desde una función externa, `startTransition` también se puede importar directamente desde `react`.
 
 ```ts
-import { startTransition } from 'react';
+import { startTransition } from "react"
 
 startTransition(() => {
-  setFiltrados(/* ... */);
-});
+  setFiltrados(/* ... */)
+})
 ```
 
 ## Referencia rápida
 
-| API | Uso |
-| --- | --- |
-| `const [isPending, startTransition] = useTransition()` | Hook: da acceso al estado de carga de la transición |
-| `startTransition(fn)` (standalone, de `react`) | Igual, pero sin `isPending`, usable fuera de componentes |
-| `isPending` | `true` mientras la actualización marcada como transición todavía no terminó |
+| API                                                    | Uso                                                                         |
+| ------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `const [isPending, startTransition] = useTransition()` | Hook: da acceso al estado de carga de la transición                         |
+| `startTransition(fn)` (standalone, de `react`)         | Igual, pero sin `isPending`, usable fuera de componentes                    |
+| `isPending`                                            | `true` mientras la actualización marcada como transición todavía no terminó |
 
 ## Límites y decisiones
 

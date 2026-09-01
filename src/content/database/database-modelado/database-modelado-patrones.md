@@ -15,15 +15,15 @@ Los patrones de modelado son soluciones recurrentes, no plantillas universales. 
 
 ## Referencia rápida
 
-| Necesidad | Patrón inicial |
-| --- | --- |
-| etiquetas reutilizables | tabla `tags` + tabla intermedia |
-| árbol pequeño y mutable | referencia `parent_id` a la misma tabla |
-| conservar cambios de estado | tabla actual + historial de transiciones |
-| atributos realmente variables | columnas comunes + `jsonb` validado |
-| una entidad con varios tipos | tabla base + tablas específicas |
-| archivos | metadatos en DB, bytes en object storage |
-| contador derivable | calcular primero; materializar solo si medir lo justifica |
+| Necesidad                     | Patrón inicial                                            |
+| ----------------------------- | --------------------------------------------------------- |
+| etiquetas reutilizables       | tabla `tags` + tabla intermedia                           |
+| árbol pequeño y mutable       | referencia `parent_id` a la misma tabla                   |
+| conservar cambios de estado   | tabla actual + historial de transiciones                  |
+| atributos realmente variables | columnas comunes + `jsonb` validado                       |
+| una entidad con varios tipos  | tabla base + tablas específicas                           |
+| archivos                      | metadatos en DB, bytes en object storage                  |
+| contador derivable            | calcular primero; materializar solo si medir lo justifica |
 
 ## Etiquetas y muchos a muchos
 
@@ -53,7 +53,7 @@ CREATE TABLE categories (
 );
 ```
 
-Este patrón guarda el padre inmediato y es fácil de modificar. Una CTE recursiva recorre descendientes. Para árboles muy profundos con muchas lecturas pueden evaluarse *materialized path*, *closure table* o tipos específicos del gestor, aceptando mayor complejidad de escritura.
+Este patrón guarda el padre inmediato y es fácil de modificar. Una CTE recursiva recorre descendientes. Para árboles muy profundos con muchas lecturas pueden evaluarse _materialized path_, _closure table_ o tipos específicos del gestor, aceptando mayor complejidad de escritura.
 
 ## Direcciones e instantáneas
 
@@ -139,7 +139,7 @@ El flujo debe manejar estados parciales: archivo subido sin fila o fila creada s
 
 ## Antipatrones que conviene reconocer
 
-- **EAV** (*Entity-Attribute-Value*) para cualquier dato: ofrece flexibilidad, pero pierde tipos, constraints y consultas claras.
+- **EAV** (_Entity-Attribute-Value_) para cualquier dato: ofrece flexibilidad, pero pierde tipos, constraints y consultas claras.
 - tablas como `users_2026_01` creadas manualmente: sustituyen particionamiento por lógica frágil;
 - una columna por cada elemento de una lista (`phone_1`, `phone_2`);
 - FK polimórficas sin integridad;

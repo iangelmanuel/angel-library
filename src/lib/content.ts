@@ -1,11 +1,10 @@
-import { getCollection, type CollectionEntry } from "astro:content"
+import { type CollectionEntry, getCollection } from "astro:content"
+import { CATEGORY_LIST, type CategoryId } from "@/config/categories"
+import { type ContentTypeId } from "@/config/content-types"
 import {
-  CATEGORY_LIST,
-  getSubcategoriesForCategory,
-  type CategoryId,
-  type ContentTypeId,
-  type SubcategoryId
-} from "@/config/site"
+  type SubcategoryId,
+  getSubcategoriesForCategory
+} from "@/config/subcategories"
 
 /** Una entrada de la biblioteca. */
 export type AnyEntry = CollectionEntry<"library">
@@ -13,7 +12,9 @@ export type AnyEntry = CollectionEntry<"library">
 // ── Cargar ──
 
 /** Todas las entradas; los borradores solo en dev. */
-export async function getAllEntries(includePrivate = false): Promise<AnyEntry[]> {
+export async function getAllEntries(
+  includePrivate = false
+): Promise<AnyEntry[]> {
   const entries = await getCollection("library")
 
   return entries.filter((entry) => {
@@ -107,7 +108,9 @@ export function getCategoryEntries(all: AnyEntry[], category: CategoryId) {
   return {
     entries,
     groups,
-    ungrouped: sortByLearningPath(entries.filter((entry) => !subcategoryOf(entry)))
+    ungrouped: sortByLearningPath(
+      entries.filter((entry) => !subcategoryOf(entry))
+    )
   }
 }
 

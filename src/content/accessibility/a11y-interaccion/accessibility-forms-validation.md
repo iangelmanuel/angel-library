@@ -51,7 +51,11 @@ Durante el envío, evita dobles submits, muestra el progreso al usuario y no des
 Un error de campo debe estar cerca del control y conectado con `aria-describedby`. Un error global —por ejemplo, “No pudimos guardar”— debe estar en una región visible y anunciarse sin borrar los mensajes de cada campo. Si el formulario tiene muchos errores, muestra un resumen con enlaces que lleven al campo correspondiente; al activar el enlace, conserva un indicador visual y un nombre accesible.
 
 ```html
-<div role="alert" tabindex="-1" id="form-error">
+<div
+  role="alert"
+  tabindex="-1"
+  id="form-error"
+>
   Revisa los campos marcados antes de continuar.
 </div>
 <a href="#email">Ir al campo Correo</a>

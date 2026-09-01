@@ -56,8 +56,8 @@ h6 {
   overflow-wrap: break-word;
 }
 
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
   padding: 0;
 }
@@ -81,16 +81,16 @@ ol[role='list'] {
 
 ## Qué hace cada regla
 
-| Regla | Por qué |
-| --- | --- |
-| `box-sizing: border-box` en todo | Padding y border no suman al ancho declarado |
-| `margin: 0` universal | Sin márgenes sorpresa entre `h1`, `p`, `ul`... que hay que ir pisando |
-| `min-height: 100dvh` en `body` | `dvh` respeta la barra de direcciones en mobile, `vh` no |
-| `img, picture, video...` a `display: block` + `max-width: 100%` | Las imágenes no se desbordan del contenedor ni dejan espacio fantasma abajo (`display: inline` por defecto) |
-| `font: inherit` en inputs/botones | Los form controls no usan la tipografía del sistema por defecto, heredan la del sitio |
-| `ul[role='list']` en vez de `ul` a secas | Quita los bullets solo donde tú decides, y mantiene la semántica de lista para lectores de pantalla (quitar `list-style` sin más hace que VoiceOver deje de anunciarlo como lista) |
-| `#root, #__next` con `isolation: isolate` | Crea un nuevo stacking context, evita que `z-index` de librerías externas (modales, tooltips) rompa el layout |
-| Bloque `prefers-reduced-motion` | Respeta la preferencia de accesibilidad del sistema operativo, forzando animaciones casi instantáneas |
+| Regla                                                           | Por qué                                                                                                                                                                            |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `box-sizing: border-box` en todo                                | Padding y border no suman al ancho declarado                                                                                                                                       |
+| `margin: 0` universal                                           | Sin márgenes sorpresa entre `h1`, `p`, `ul`... que hay que ir pisando                                                                                                              |
+| `min-height: 100dvh` en `body`                                  | `dvh` respeta la barra de direcciones en mobile, `vh` no                                                                                                                           |
+| `img, picture, video...` a `display: block` + `max-width: 100%` | Las imágenes no se desbordan del contenedor ni dejan espacio fantasma abajo (`display: inline` por defecto)                                                                        |
+| `font: inherit` en inputs/botones                               | Los form controls no usan la tipografía del sistema por defecto, heredan la del sitio                                                                                              |
+| `ul[role='list']` en vez de `ul` a secas                        | Quita los bullets solo donde tú decides, y mantiene la semántica de lista para lectores de pantalla (quitar `list-style` sin más hace que VoiceOver deje de anunciarlo como lista) |
+| `#root, #__next` con `isolation: isolate`                       | Crea un nuevo stacking context, evita que `z-index` de librerías externas (modales, tooltips) rompa el layout                                                                      |
+| Bloque `prefers-reduced-motion`                                 | Respeta la preferencia de accesibilidad del sistema operativo, forzando animaciones casi instantáneas                                                                              |
 
 ## Consideraciones
 

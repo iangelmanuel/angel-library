@@ -36,9 +36,9 @@ Proyecto   → React, Astro, librerías y tu código
 `Array`, `Object`, `Map`, `Set`, `Promise` y `RegExp` pertenecen al lenguaje. `document`, `localStorage`, `fetch` y `Notification` son APIs proporcionadas por el navegador o por otro runtime compatible.
 
 ```js
-typeof Array       // 'function': objeto incorporado del lenguaje
-typeof document    // 'object' en una página; 'undefined' en Node.js
-typeof process     // 'object' en Node.js; normalmente 'undefined' en navegador
+typeof Array // 'function': objeto incorporado del lenguaje
+typeof document // 'object' en una página; 'undefined' en Node.js
+typeof process // 'object' en Node.js; normalmente 'undefined' en navegador
 ```
 
 Esta separación explica por qué un fragmento puede funcionar en DevTools pero fallar durante renderizado en servidor: ambos ejecutan JavaScript, pero no ofrecen las mismas APIs.
@@ -53,7 +53,7 @@ Abre DevTools, entra a **Console** y escribe una expresión:
 2 + 3
 // 5
 
-const language = 'JavaScript'
+const language = "JavaScript"
 language.toUpperCase()
 // 'JAVASCRIPT'
 ```
@@ -67,15 +67,18 @@ Para código moderno usa módulos:
 ```html
 <button id="greet">Saludar</button>
 
-<script type="module" src="./main.js"></script>
+<script
+  type="module"
+  src="./main.js"
+></script>
 ```
 
 ```js
 // main.js
-const button = document.querySelector('#greet')
+const button = document.querySelector("#greet")
 
-button?.addEventListener('click', () => {
-  console.log('Hola desde un módulo')
+button?.addEventListener("click", () => {
+  console.log("Hola desde un módulo")
 })
 ```
 
@@ -87,8 +90,8 @@ Node.js, Deno y Bun pueden ejecutar archivos JavaScript. Sus comandos, permisos 
 
 ```js
 // hello.js
-const names = ['Ana', 'Leo']
-console.log(names.map(name => `Hola, ${name}`))
+const names = ["Ana", "Leo"]
+console.log(names.map((name) => `Hola, ${name}`))
 ```
 
 ```bash
@@ -102,15 +105,15 @@ node hello.js
 const total = prices.reduce((sum, price) => sum + price, 0)
 ```
 
-| Parte | Nombre | Qué hace |
-| --- | --- | --- |
-| `const` | declaración | crea un binding que no se puede reasignar |
-| `total` | identificador | nombre elegido para acceder al resultado |
-| `=` | asignación | guarda el valor derecho en el nombre izquierdo |
-| `prices` | expresión | obtiene el valor de una variable |
-| `.reduce(...)` | llamada a método | ejecuta una función asociada al array |
-| `(sum, price) => ...` | arrow function | describe el cálculo de cada iteración |
-| `0` | valor inicial | estado con el que comienza la reducción |
+| Parte                 | Nombre           | Qué hace                                       |
+| --------------------- | ---------------- | ---------------------------------------------- |
+| `const`               | declaración      | crea un binding que no se puede reasignar      |
+| `total`               | identificador    | nombre elegido para acceder al resultado       |
+| `=`                   | asignación       | guarda el valor derecho en el nombre izquierdo |
+| `prices`              | expresión        | obtiene el valor de una variable               |
+| `.reduce(...)`        | llamada a método | ejecuta una función asociada al array          |
+| `(sum, price) => ...` | arrow function   | describe el cálculo de cada iteración          |
+| `0`                   | valor inicial    | estado con el que comienza la reducción        |
 
 Aprender a nombrar cada pieza permite buscar documentación con precisión. “No funciona el reduce” es menos útil que “el callback de `reduce` no retorna el acumulador”.
 
@@ -119,13 +122,14 @@ Aprender a nombrar cada pieza permite buscar documentación con precisión. “N
 Una **expresión** produce un valor. Una **sentencia** dirige la ejecución o declara algo.
 
 ```js
-2 * 4                    // expresión → 8
-user.name                // expresión → valor de la propiedad
-isReady ? 'sí' : 'no'    // expresión → una de dos cadenas
+2 * 4 // expresión → 8
+user.name // expresión → valor de la propiedad
+isReady ? "sí" : "no" // expresión → una de dos cadenas
 
-const result = 2 * 4     // sentencia de declaración
-if (result > 5) {        // sentencia de control
-  console.log(result)    // sentencia con una llamada
+const result = 2 * 4 // sentencia de declaración
+if (result > 5) {
+  // sentencia de control
+  console.log(result) // sentencia con una llamada
 }
 ```
 
@@ -140,7 +144,7 @@ const maxAttempts = 3
 
 if (maxAttempts > 0) {
   // Comentario de una línea: explica una decisión no evidente.
-  console.log('Se permiten intentos')
+  console.log("Se permiten intentos")
 }
 
 /*
@@ -169,7 +173,7 @@ Elige una convención con ESLint y un formateador. No mezcles estilos manualment
 ```js
 function createUser() {
   return {
-    active: true,
+    active: true
   }
 }
 
@@ -181,7 +185,7 @@ createUser() // { active: true }
 El modo estricto convierte comportamientos ambiguos en errores y modifica algunas reglas históricas. Los módulos ES ya son estrictos. En un script clásico puede activarse con `'use strict'`.
 
 ```js
-'use strict'
+"use strict"
 
 // accidentalGlobal = 1
 // ReferenceError: accidentalGlobal is not defined
@@ -217,7 +221,7 @@ function calculateTotal(values, taxRate = 0.19) {
   return {
     subtotal,
     tax,
-    total: subtotal + tax,
+    total: subtotal + tax
   }
 }
 

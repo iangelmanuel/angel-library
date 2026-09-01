@@ -36,8 +36,15 @@ El `min()` evita que el track de una card sea más ancho que el viewport en pant
 `subgrid` permite que una grilla hija use los tracks de su padre. Es útil para alinear títulos, metadatos y botones de varias cards sin fijar alturas artificiales.
 
 ```css
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); }
-.card { display: grid; grid-template-rows: subgrid; grid-row: span 3; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.card {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
 ```
 
 No lo uses para compensar una estructura de contenido incoherente. Si una card tiene acciones opcionales, define una jerarquía que siga siendo comprensible cuando una fila quede vacía.
@@ -51,9 +58,17 @@ No lo uses para compensar una estructura de contenido incoherente. Si una card t
 `z-index` solo compara elementos dentro del mismo stacking context. `transform`, `opacity` menor que 1, `filter`, `isolation: isolate`, algunos `contain` y elementos posicionados pueden crear contextos nuevos. Un `z-index: 9999` dentro de un contexto detrás no puede superar un hermano de otro contexto.
 
 ```css
-.app-shell { isolation: isolate; }
-.modal-layer { position: fixed; z-index: 10; }
-.tooltip { position: absolute; z-index: 20; }
+.app-shell {
+  isolation: isolate;
+}
+.modal-layer {
+  position: fixed;
+  z-index: 10;
+}
+.tooltip {
+  position: absolute;
+  z-index: 20;
+}
 ```
 
 Define capas semánticas —base, dropdown, modal, toast— en vez de subir números indefinidamente. La solución suele ser corregir el árbol de stacking, no usar `999999`.

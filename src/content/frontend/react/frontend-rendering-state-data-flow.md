@@ -16,14 +16,14 @@ Esta guía conecta conceptos que a menudo se estudian por separado. **Renderizar
 
 ## Mapa de decisiones
 
-| Dato | Fuente habitual | Ejemplo |
-| --- | --- | --- |
-| estado visual efímero | componente local | modal abierto, pestaña activa |
-| estado compartido por hermanos | ancestro común | filtro que afecta lista y contador |
-| estado navegable | URL | búsqueda, página, orden |
-| dato remoto cacheado | librería de caché o framework | productos, perfil |
-| sesión o preferencia HTTP | servidor/cookie | identidad, locale |
-| dato persistente de negocio | base de datos | pedidos, permisos |
+| Dato                           | Fuente habitual               | Ejemplo                            |
+| ------------------------------ | ----------------------------- | ---------------------------------- |
+| estado visual efímero          | componente local              | modal abierto, pestaña activa      |
+| estado compartido por hermanos | ancestro común                | filtro que afecta lista y contador |
+| estado navegable               | URL                           | búsqueda, página, orden            |
+| dato remoto cacheado           | librería de caché o framework | productos, perfil                  |
+| sesión o preferencia HTTP      | servidor/cookie               | identidad, locale                  |
+| dato persistente de negocio    | base de datos                 | pedidos, permisos                  |
 
 No todo valor que cambia debe ir en `useState`. La URL, un formulario no controlado, una caché remota o un valor derivado pueden ser fuentes más adecuadas.
 
@@ -34,9 +34,13 @@ Mantén el estado lo más cerca posible de los componentes que lo usan. Un estad
 No copies una prop a estado sin una razón: aparecen dos fuentes de verdad. Para valores derivados, calcula desde las props y el estado actual. La caché de servidor, el estado de UI y los datos persistidos son problemas distintos y no deben mezclarse en un único objeto global.
 
 ```tsx
-function CartSummary({ items }: { items: Array<{ price: number; quantity: number }> }) {
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  return <output>Total: {total}</output>;
+function CartSummary({
+  items
+}: {
+  items: Array<{ price: number; quantity: number }>
+}) {
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  return <output>Total: {total}</output>
 }
 ```
 
@@ -66,10 +70,10 @@ Modela estados explícitos en lugar de combinar booleanos incompatibles:
 
 ```ts
 type RequestState<T> =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'success'; data: T }
-  | { status: 'error'; message: string }
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: T }
+  | { status: "error"; message: string }
 ```
 
 Así puedes exigir que cada estado tenga una representación visual y evitar una pantalla que muestre “cargando” y “error” al mismo tiempo. Cancela solicitudes obsoletas y no dejes que una respuesta lenta sobrescriba una búsqueda más reciente.

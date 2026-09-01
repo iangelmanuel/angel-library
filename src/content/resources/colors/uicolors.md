@@ -7,7 +7,8 @@ url: https://uicolors.app/
 resourceCategory: colors
 technologies: []
 personalNote: Útil para crear escalas semánticas antes de definir los tokens de una interfaz.
-related: [resources/colors/colour-contrast-checker, resources/colors/cool-contrast]
+related:
+  [resources/colors/colour-contrast-checker, resources/colors/cool-contrast]
 updatedAt: 2026-08-15
 ---
 

@@ -25,12 +25,12 @@ página, script o isla hidratada → Playwright
 adapter y SSR → build + preview/runtime de producción
 ```
 
-| Capa | Herramienta | Ejemplos |
-| --- | --- | --- |
-| Función pura | Vitest | transformaciones, schemas, ordenamiento |
-| Endpoint/Action | Vitest o integración | status, autorización, validación |
-| Página e interacción | Playwright | rutas, formularios, copy, islas, accesibilidad |
-| Contenido | build/check | schemas y referencias |
+| Capa                 | Herramienta          | Ejemplos                                       |
+| -------------------- | -------------------- | ---------------------------------------------- |
+| Función pura         | Vitest               | transformaciones, schemas, ordenamiento        |
+| Endpoint/Action      | Vitest o integración | status, autorización, validación               |
+| Página e interacción | Playwright           | rutas, formularios, copy, islas, accesibilidad |
+| Contenido            | build/check          | schemas y referencias                          |
 
 Un archivo `.astro` se transforma dentro del pipeline de Astro. En lugar de forzar su render en jsdom, extrae reglas puras, prueba componentes React/Vue/Svelte con su herramienta y conserva una prueba de página para composición, slots y HTML final.
 
@@ -38,14 +38,14 @@ Un archivo `.astro` se transforma dentro del pipeline de Astro. En lugar de forz
 
 ```ts title="vitest.config.ts"
 /// <reference types="vitest/config" />
-import { getViteConfig } from 'astro/config';
+import { getViteConfig } from "astro/config"
 
 export default getViteConfig({
   test: {
-    environment: 'node',
-    include: ['src/**/*.test.ts'],
-  },
-});
+    environment: "node",
+    include: ["src/**/*.test.ts"]
+  }
+})
 ```
 
 `getViteConfig` incorpora aliases y configuración de Vite del proyecto. Cambia environment solo en pruebas que realmente necesiten DOM.
@@ -53,31 +53,37 @@ export default getViteConfig({
 ## E2E contra preview
 
 ```ts title="playwright.config.ts"
-import { defineConfig } from '@playwright/test';
+import { defineConfig } from "@playwright/test"
 
 export default defineConfig({
-  webServer: { command: 'pnpm build && pnpm preview', url: 'http://localhost:4321', reuseExistingServer: !process.env.CI },
-  use: { baseURL: 'http://localhost:4321' },
-});
+  webServer: {
+    command: "pnpm build && pnpm preview",
+    url: "http://localhost:4321",
+    reuseExistingServer: !process.env.CI
+  },
+  use: { baseURL: "http://localhost:4321" }
+})
 ```
 
 `preview` sirve la salida real y descubre diferencias que el dev server oculta. Si el sitio utiliza un adapter, confirma que el comando reproduce su runtime; algunos adapters necesitan una prueba desplegada o un servidor específico.
 
 ```ts title="tests/navigation.spec.ts"
-import { test, expect } from '@playwright/test';
+import { expect, test } from "@playwright/test"
 
-test('abre una entrada desde búsqueda', async ({ page }) => {
-  await page.goto('/');
-  await page.getByRole('button', { name: /buscar/i }).click();
-  await page.getByPlaceholder(/buscar/i).fill('content collections');
-  await page.getByRole('option', { name: /content collections/i }).click();
-  await expect(page.getByRole('heading', { name: /content collections/i })).toBeVisible();
-});
+test("abre una entrada desde búsqueda", async ({ page }) => {
+  await page.goto("/")
+  await page.getByRole("button", { name: /buscar/i }).click()
+  await page.getByPlaceholder(/buscar/i).fill("content collections")
+  await page.getByRole("option", { name: /content collections/i }).click()
+  await expect(
+    page.getByRole("heading", { name: /content collections/i })
+  ).toBeVisible()
+})
 ```
 
 ## Qué no olvidar
 
-- Navegación con y sin JavaScript si dependes de mejora progresiva (*progressive enhancement*).
+- Navegación con y sin JavaScript si dependes de mejora progresiva (_progressive enhancement_).
 - View Transitions después de varias navegaciones, no solo carga inicial.
 - Teclado, foco y nombres accesibles.
 - Rutas on-demand contra el adapter real cuando el runtime importa.
@@ -89,20 +95,22 @@ Referencia oficial: [Testing](https://docs.astro.build/en/guides/testing/).
 Las funciones que transforman contenido o datos no necesitan Astro ni un navegador: pruébalas con Vitest y casos de borde. Para endpoints, construye requests con headers, cookies y body reales, y comprueba autorización, status y formato de error. Para islas, prueba la interacción con navegador real porque el problema puede estar en la hidratación y no en el HTML generado.
 
 ```ts
-import { describe, expect, it } from 'vitest';
-import { POST } from '../src/pages/api/subscriptions';
+import { describe, expect, it } from "vitest"
+import { POST } from "../src/pages/api/subscriptions"
 
-it('rechaza un cuerpo inválido', async () => {
-  const request = new Request('http://example.test/api/subscriptions', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ email: 'no-es-correo' }),
-  });
+it("rechaza un cuerpo inválido", async () => {
+  const request = new Request("http://example.test/api/subscriptions", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ email: "no-es-correo" })
+  })
 
-  const response = await POST({ request } as never);
-  expect(response.status).toBe(400);
-  await expect(response.json()).resolves.toMatchObject({ code: 'INVALID_EMAIL' });
-});
+  const response = await POST({ request } as never)
+  expect(response.status).toBe(400)
+  await expect(response.json()).resolves.toMatchObject({
+    code: "INVALID_EMAIL"
+  })
+})
 ```
 
 Extrae la lógica que no depende del contexto de Astro y pruébala sin casts. Conserva una prueba de integración para comprobar el adapter, cookies y runtime que usa producción.
@@ -114,9 +122,9 @@ Incluye `pnpm check` y `pnpm build` en CI para que el schema de la colección, e
 Puedes probar transformaciones de contenido como funciones puras y dejar al build la integridad global:
 
 ```ts
-it('ordena entradas por prioridad y título', () => {
-  expect(sortEntries(entries)).toEqual([highPriority, alphabetical]);
-});
+it("ordena entradas por prioridad y título", () => {
+  expect(sortEntries(entries)).toEqual([highPriority, alphabetical])
+})
 ```
 
 No simules `getCollection` en todos los casos y concluyas que el schema o la ruta funcionan. El build real es el contrato para colecciones y `getStaticPaths`.
@@ -143,12 +151,12 @@ Una llamada directa al handler no ejecuta middleware, adapter ni proxy. Conserva
 
 ## Matriz de renderizado
 
-| Modo | Caso que no debe faltar |
-| --- | --- |
-| estático | ruta generada, assets y 404 |
-| on-demand | cookie, header, método y error del adapter |
-| híbrido | navegación entre página estática y dinámica |
-| isla | HTML inicial, hidratación y navegación repetida |
+| Modo      | Caso que no debe faltar                         |
+| --------- | ----------------------------------------------- |
+| estático  | ruta generada, assets y 404                     |
+| on-demand | cookie, header, método y error del adapter      |
+| híbrido   | navegación entre página estática y dinámica     |
+| isla      | HTML inicial, hidratación y navegación repetida |
 
 ## Referencias
 

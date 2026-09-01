@@ -34,11 +34,11 @@ SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 **3. Client de servidor** (Server Components, Route Handlers) — lee/escribe la sesión desde las cookies de Next.js:
 
 ```ts title="lib/supabase/server.ts"
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+import { createServerClient } from "@supabase/ssr"
+import { cookies } from "next/headers"
 
 export async function createClient() {
-  const cookieStore = await cookies();
+  const cookieStore = await cookies()
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -47,37 +47,45 @@ export async function createClient() {
       cookies: {
         getAll: () => cookieStore.getAll(),
         setAll: (cookiesToSet) => {
-          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
-        },
-      },
-    },
-  );
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options)
+          )
+        }
+      }
+    }
+  )
 }
 ```
 
 **4. Client de navegador** (Client Components):
 
 ```ts title="lib/supabase/client.ts"
-import { createBrowserClient } from '@supabase/ssr';
+import { createBrowserClient } from "@supabase/ssr"
 
 export function createClient() {
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 }
 ```
 
 **5. Un Server Component real:**
 
 ```tsx title="app/posts/page.tsx"
-import { createClient } from '@/libs/supabase/server';
+import { createClient } from "@/libs/supabase/server"
 
 export default async function PostsPage() {
-  const supabase = await createClient();
-  const { data: posts } = await supabase.from('posts').select('*');
+  const supabase = await createClient()
+  const { data: posts } = await supabase.from("posts").select("*")
 
-  return <ul>{posts?.map((p) => <li key={p.id}>{p.title}</li>)}</ul>;
+  return (
+    <ul>
+      {posts?.map((p) => (
+        <li key={p.id}>{p.title}</li>
+      ))}
+    </ul>
+  )
 }
 ```
 
@@ -105,17 +113,17 @@ using (auth.uid() = author_id);
 Para operaciones que necesitan saltarse RLS (tareas admin, jobs de servidor):
 
 ```ts title="app/api/admin/posts/route.ts"
-import { createClient } from '@supabase/supabase-js';
-import { NextResponse } from 'next/server';
+import { createClient } from "@supabase/supabase-js"
+import { NextResponse } from "next/server"
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!, // sin prefijo NEXT_PUBLIC_
-);
+  process.env.SUPABASE_SERVICE_ROLE_KEY! // sin prefijo NEXT_PUBLIC_
+)
 
 export async function GET() {
-  const { data } = await supabaseAdmin.from('posts').select('*'); // ve TODO, sin RLS
-  return NextResponse.json(data);
+  const { data } = await supabaseAdmin.from("posts").select("*") // ve TODO, sin RLS
+  return NextResponse.json(data)
 }
 ```
 
@@ -124,24 +132,24 @@ Este client usa `@supabase/supabase-js` directo (no `@supabase/ssr`) porque no n
 ## Refrescar la sesión en el proxy
 
 ```ts title="proxy.ts"
-import { createServerClient } from '@supabase/ssr';
-import { NextResponse } from 'next/server';
+import { createServerClient } from "@supabase/ssr"
+import { NextResponse } from "next/server"
 
 export default async function proxy(req: Request) {
-  const res = NextResponse.next();
+  const res = NextResponse.next()
   // crear el client con cookies del request/response, llamar a supabase.auth.getUser()
   // refresca el token de sesión automáticamente si expiró, antes de que la request siga
-  return res;
+  return res
 }
 ```
 
 ## Capacidades de Supabase en Next.js
 
-| Client | Para qué |
-| --- | --- |
-| `createServerClient` (`@supabase/ssr`) | Server Components, Route Handlers — respeta RLS con la sesión del usuario |
-| `createBrowserClient` (`@supabase/ssr`) | Client Components |
-| `createClient` con service role (`@supabase/supabase-js`) | Operaciones admin, sin RLS, solo servidor |
+| Client                                                    | Para qué                                                                  |
+| --------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `createServerClient` (`@supabase/ssr`)                    | Server Components, Route Handlers — respeta RLS con la sesión del usuario |
+| `createBrowserClient` (`@supabase/ssr`)                   | Client Components                                                         |
+| `createClient` con service role (`@supabase/supabase-js`) | Operaciones admin, sin RLS, solo servidor                                 |
 
 ## Claves, RLS y Server Components
 

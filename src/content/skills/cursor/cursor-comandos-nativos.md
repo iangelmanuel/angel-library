@@ -44,13 +44,13 @@ updatedAt: 2026-08-17
 
 ## Resumen
 
-| Comando | Para qué |
-| --- | --- |
-| `/model` | Cambiar modelo |
-| `/plan` | Modo solo-lectura para diseñar |
-| `/shell` / `/sh` / `/run` | Correr shell |
-| `/resume` / `/fork` | Gestión de sesiones |
-| `/clear` | Contexto limpio |
+| Comando                   | Para qué                       |
+| ------------------------- | ------------------------------ |
+| `/model`                  | Cambiar modelo                 |
+| `/plan`                   | Modo solo-lectura para diseñar |
+| `/shell` / `/sh` / `/run` | Correr shell                   |
+| `/resume` / `/fork`       | Gestión de sesiones            |
+| `/clear`                  | Contexto limpio                |
 
 ## Consideraciones
 

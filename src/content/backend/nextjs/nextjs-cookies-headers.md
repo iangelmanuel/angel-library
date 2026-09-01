@@ -17,25 +17,25 @@ Una cookie es un par nombre/valor que el navegador asocia a un dominio y envía 
 
 ## Consulta rápida
 
-| Necesidad | API |
-| --- | --- |
-| leer preferencia o sesión durante render | `await cookies()` |
-| leer `user-agent`, idioma o header propio | `await headers()` |
-| escribir/eliminar cookie | Server Action o Route Handler |
-| crear headers de respuesta | `Response`, `NextResponse` o configuración |
-| leer query/path dentro de Route Handler | `request.url` y `params` |
+| Necesidad                                 | API                                        |
+| ----------------------------------------- | ------------------------------------------ |
+| leer preferencia o sesión durante render  | `await cookies()`                          |
+| leer `user-agent`, idioma o header propio | `await headers()`                          |
+| escribir/eliminar cookie                  | Server Action o Route Handler              |
+| crear headers de respuesta                | `Response`, `NextResponse` o configuración |
+| leer query/path dentro de Route Handler   | `request.url` y `params`                   |
 
 ## Leer cookies y headers
 
 ```tsx title="app/cuenta/page.tsx"
-import { cookies, headers } from 'next/headers';
+import { cookies, headers } from "next/headers"
 
 export default async function Page() {
-  const cookieStore = await cookies();
-  const headersList = await headers();
-  const theme = cookieStore.get('theme')?.value ?? 'system';
-  const userAgent = headersList.get('user-agent');
-  return <pre>{JSON.stringify({ theme, userAgent })}</pre>;
+  const cookieStore = await cookies()
+  const headersList = await headers()
+  const theme = cookieStore.get("theme")?.value ?? "system"
+  const userAgent = headersList.get("user-agent")
+  return <pre>{JSON.stringify({ theme, userAgent })}</pre>
 }
 ```
 
@@ -44,12 +44,18 @@ export default async function Page() {
 Los headers de la respuesta no se pueden cambiar después de empezar a transmitir el body. Por eso `set`, `delete` y `clear` deben ejecutarse en una Server Action o Route Handler.
 
 ```ts title="app/actions.ts"
-'use server';
-import { cookies } from 'next/headers';
+"use server"
 
-export async function guardarTema(theme: 'light' | 'dark') {
-  const store = await cookies();
-  store.set('theme', theme, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' });
+import { cookies } from "next/headers"
+
+export async function guardarTema(theme: "light" | "dark") {
+  const store = await cookies()
+  store.set("theme", theme, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/"
+  })
 }
 ```
 
@@ -58,13 +64,13 @@ export async function guardarTema(theme: 'light' | 'dark') {
 Una cookie de autenticación debería usar `httpOnly`, `secure` en producción, `sameSite` y un `maxAge`/`expires` explícito. Guarda un identificador opaco o token firmado, no el perfil completo del usuario. La autorización real siempre se vuelve a comprobar en el servidor.
 
 ```ts
-store.set('session', sessionId, {
-  httpOnly: true,                         // JavaScript del navegador no puede leerla
-  secure: process.env.NODE_ENV === 'production', // solo HTTPS en producción
-  sameSite: 'lax',                        // reduce envíos cross-site inesperados
-  path: '/',
-  maxAge: 60 * 60 * 24 * 7,
-});
+store.set("session", sessionId, {
+  httpOnly: true, // JavaScript del navegador no puede leerla
+  secure: process.env.NODE_ENV === "production", // solo HTTPS en producción
+  sameSite: "lax", // reduce envíos cross-site inesperados
+  path: "/",
+  maxAge: 60 * 60 * 24 * 7
+})
 ```
 
 `HttpOnly` reduce robo mediante XSS, pero no evita que el navegador envíe la cookie. `SameSite` ayuda contra CSRF; los flujos cross-site legítimos pueden requerir una estrategia diferente. `Secure` exige HTTPS. Ningún atributo reemplaza expiración, rotación y revocación del servidor.
@@ -72,13 +78,13 @@ store.set('session', sessionId, {
 ## Eliminar y actualizar
 
 ```ts title="app/logout/route.ts"
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers"
 
 export async function POST() {
-  const store = await cookies();
-  await revokeSession(store.get('session')?.value);
-  store.delete('session');
-  return new Response(null, { status: 204 });
+  const store = await cookies()
+  await revokeSession(store.get("session")?.value)
+  store.delete("session")
+  return new Response(null, { status: 204 })
 }
 ```
 
@@ -91,14 +97,14 @@ Para devolver headers propios usa un Route Handler, `NextResponse` en `proxy.ts`
 ```ts title="app/api/report/route.ts"
 export async function GET() {
   return Response.json(
-    { status: 'ready' },
+    { status: "ready" },
     {
       headers: {
-        'Cache-Control': 'private, no-store',
-        'X-Content-Type-Options': 'nosniff',
-      },
-    },
-  );
+        "Cache-Control": "private, no-store",
+        "X-Content-Type-Options": "nosniff"
+      }
+    }
+  )
 }
 ```
 
@@ -110,9 +116,9 @@ Leer estas APIs hace que ese árbol dependa de la request. Con Cache Components,
 
 ```tsx
 async function AccountMenu() {
-  const sessionId = (await cookies()).get('session')?.value;
-  const user = sessionId ? await getSessionUser(sessionId) : null;
-  return user ? <span>{user.name}</span> : <a href="/login">Ingresar</a>;
+  const sessionId = (await cookies()).get("session")?.value
+  const user = sessionId ? await getSessionUser(sessionId) : null
+  return user ? <span>{user.name}</span> : <a href="/login">Ingresar</a>
 }
 ```
 

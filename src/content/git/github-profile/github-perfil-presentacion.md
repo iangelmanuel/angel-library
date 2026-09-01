@@ -17,15 +17,15 @@ Además del README, el perfil se compone de campos estructurados y de dos bloque
 
 Se editan en **Settings → Public profile**.
 
-| Campo | Límite | Nota |
-| --- | --- | --- |
-| Nombre | — | Es un nombre para mostrar; el identificador real sigue siendo tu usuario |
-| Bio | 160 caracteres | Admite mencionar a otras cuentas con `@`, pero no enlaces markdown |
-| Pronombres | Lista + opción libre | Visible junto al nombre |
-| Empresa | — | Con `@organizacion` enlaza a esa organización |
-| Ubicación | — | Texto libre, sin geolocalización |
-| Sitio web | 1 | Se muestra como enlace |
-| Cuentas sociales | 4 | Enlaces con icono reconocido cuando el dominio es conocido |
+| Campo            | Límite               | Nota                                                                     |
+| ---------------- | -------------------- | ------------------------------------------------------------------------ |
+| Nombre           | —                    | Es un nombre para mostrar; el identificador real sigue siendo tu usuario |
+| Bio              | 160 caracteres       | Admite mencionar a otras cuentas con `@`, pero no enlaces markdown       |
+| Pronombres       | Lista + opción libre | Visible junto al nombre                                                  |
+| Empresa          | —                    | Con `@organizacion` enlaza a esa organización                            |
+| Ubicación        | —                    | Texto libre, sin geolocalización                                         |
+| Sitio web        | 1                    | Se muestra como enlace                                                   |
+| Cuentas sociales | 4                    | Enlaces con icono reconocido cuando el dominio es conocido               |
 
 Cambiar el **nombre de usuario** es otra cosa y tiene consecuencias reales: GitHub crea redirecciones desde las URLs antiguas de repositorios, pero **no redirige los enlaces a tu perfil ni el remoto de quienes ya clonaron**, y libera tu nombre anterior para que otra persona lo registre. Si tienes proyectos que otros consumen, trátalo como una migración, no como un ajuste de perfil.
 

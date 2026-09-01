@@ -14,9 +14,9 @@ Resend es un servicio de envío de emails transaccionales (confirmaciones, recup
 ## Setup
 
 ```ts title="lib/resend.ts"
-import { Resend } from 'resend';
+import { Resend } from "resend"
 
-export const resend = new Resend(process.env.RESEND_API_KEY);
+export const resend = new Resend(process.env.RESEND_API_KEY)
 ```
 
 Antes de mandar emails en producción, el dominio de envío necesita verificarse en el panel de Resend (agregar registros DNS) — sin eso, los emails salen de un dominio de prueba compartido, con límites y peor entregabilidad.
@@ -41,9 +41,15 @@ npm install @react-email/components
 ```
 
 ```tsx title="emails/BienvenidaEmail.tsx"
-import { Html, Body, Text, Link } from '@react-email/components';
+import { Body, Html, Link, Text } from "@react-email/components"
 
-export function BienvenidaEmail({ nombre, urlConfirmacion }: { nombre: string; urlConfirmacion: string }) {
+export function BienvenidaEmail({
+  nombre,
+  urlConfirmacion
+}: {
+  nombre: string
+  urlConfirmacion: string
+}) {
   return (
     <Html>
       <Body>
@@ -51,46 +57,49 @@ export function BienvenidaEmail({ nombre, urlConfirmacion }: { nombre: string; u
         <Link href={urlConfirmacion}>Confirmar cuenta</Link>
       </Body>
     </Html>
-  );
+  )
 }
 ```
 
 ```ts
-import { BienvenidaEmail } from './emails/BienvenidaEmail';
+import { BienvenidaEmail } from "./emails/BienvenidaEmail"
 
 await resend.emails.send({
-  from: 'App <noreply@midominio.com>',
+  from: "App <noreply@midominio.com>",
   to: usuario.email,
-  subject: 'Bienvenido',
-  react: BienvenidaEmail({ nombre: usuario.nombre, urlConfirmacion }),
-});
+  subject: "Bienvenido",
+  react: BienvenidaEmail({ nombre: usuario.nombre, urlConfirmacion })
+})
 ```
 
 ## Caso de uso típico: email de bienvenida tras el registro
 
 ```ts
-app.post('/registro', async (req, res) => {
-  const usuario = await crearUsuario(req.body);
+app.post("/registro", async (req, res) => {
+  const usuario = await crearUsuario(req.body)
 
   await resend.emails.send({
-    from: 'App <noreply@midominio.com>',
+    from: "App <noreply@midominio.com>",
     to: usuario.email,
-    subject: 'Bienvenido',
-    react: BienvenidaEmail({ nombre: usuario.nombre, urlConfirmacion: generarUrlConfirmacion(usuario.id) }),
-  });
+    subject: "Bienvenido",
+    react: BienvenidaEmail({
+      nombre: usuario.nombre,
+      urlConfirmacion: generarUrlConfirmacion(usuario.id)
+    })
+  })
 
-  res.status(201).json({ ok: true });
-});
+  res.status(201).json({ ok: true })
+})
 ```
 
 ## Resumen
 
-| API | Qué hace |
-| --- | --- |
-| `new Resend(apiKey)` | Instancia el client |
-| `resend.emails.send({ from, to, subject, html/react })` | Manda un email |
-| Dominio verificado (DNS) | Requisito para producción, mejor entregabilidad |
-| `react: <Componente />` | Template como JSX en vez de HTML crudo |
+| API                                                     | Qué hace                                        |
+| ------------------------------------------------------- | ----------------------------------------------- |
+| `new Resend(apiKey)`                                    | Instancia el client                             |
+| `resend.emails.send({ from, to, subject, html/react })` | Manda un email                                  |
+| Dominio verificado (DNS)                                | Requisito para producción, mejor entregabilidad |
+| `react: <Componente />`                                 | Template como JSX en vez de HTML crudo          |
 
 ## Consideraciones
 

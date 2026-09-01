@@ -18,9 +18,9 @@ En el App Router, todo componente es Server Component **por defecto** — corre 
 Al principio del archivo, antes de cualquier import. Marca ese módulo (y todo lo que importe o renderice directamente) como parte del bundle que sí viaja al navegador — ahí es donde puedes usar `useState`, `onClick`, `window`, cualquier hook.
 
 ```tsx title="app/ui/contador.tsx"
-'use client'
+"use client"
 
-import { useState } from 'react'
+import { useState } from "react"
 
 export default function Contador() {
   const [cuenta, setCuenta] = useState(0)
@@ -35,7 +35,7 @@ No hace falta ponerlo en cada componente: una vez que un archivo tiene `'use cli
 Marca las funciones que cubre como Server Functions: se pueden llamar desde un Client Component, pero el código nunca viaja al cliente — solo una referencia que hace un POST al servidor cuando se invoca. Esto es lo que habilita [Server Actions](/frontend/nextjs/nextjs-server-actions).
 
 ```ts title="app/actions.ts"
-'use server'
+"use server"
 
 export async function crearPost(formData: FormData) {
   // corre en el servidor, nunca en el navegador
@@ -50,8 +50,8 @@ Es una directiva de Next.js —no de React— que almacena el resultado de una f
 
 ```ts title="app/lib/data.ts"
 export async function getUsuarios() {
-  'use cache'
-  return db.query('SELECT * FROM usuarios')
+  "use cache"
+  return db.query("SELECT * FROM usuarios")
 }
 ```
 
@@ -59,11 +59,11 @@ Esta directiva es parte de Cache Components, habilitado con `cacheComponents: tr
 
 ## Directivas en una mirada
 
-| Directiva | Definida por | Efecto |
-| --- | --- | --- |
-| `'use client'` | React | Crea un límite hacia el bundle de cliente |
-| `'use server'` | React | Expone funciones como Server Functions callables desde el cliente |
-| `'use cache'` | Next.js | Cachea el resultado de una función o componente según sus entradas |
+| Directiva      | Definida por | Efecto                                                             |
+| -------------- | ------------ | ------------------------------------------------------------------ |
+| `'use client'` | React        | Crea un límite hacia el bundle de cliente                          |
+| `'use server'` | React        | Expone funciones como Server Functions callables desde el cliente  |
+| `'use cache'`  | Next.js      | Cachea el resultado de una función o componente según sus entradas |
 
 ## Fronteras y errores de alcance
 

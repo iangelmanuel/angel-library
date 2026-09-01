@@ -25,9 +25,11 @@ allowed-tools: Bash(git log:*), Bash(git tag:*), Bash(git describe:*)
 ## [Unreleased]
 
 ### Added
+
 - ...
 
 ### Fixed
+
 - ...
 
 Skip merge commits and CI commits that don't matter to the end user.
@@ -35,10 +37,10 @@ Skip merge commits and CI commits that don't matter to the end user.
 
 ## Resumen
 
-| Dónde | Archivo |
-| --- | --- |
+| Dónde       | Archivo                         |
+| ----------- | ------------------------------- |
 | Claude Code | `.claude/commands/changelog.md` |
-| Cursor | `.cursor/commands/changelog.md` |
+| Cursor      | `.cursor/commands/changelog.md` |
 
 ## Consideraciones
 

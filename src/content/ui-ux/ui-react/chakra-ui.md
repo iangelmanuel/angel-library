@@ -16,11 +16,11 @@ Estilos vía props (`<Box p={4} bg="gray.100">`) en vez de clases utilitarias �
 ## Configuración inicial
 
 ```tsx title="main.tsx"
-import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
 
-<ChakraProvider value={defaultSystem}>
+;<ChakraProvider value={defaultSystem}>
   <App />
-</ChakraProvider>;
+</ChakraProvider>
 ```
 
 Snippets de componentes compuestos (ej. `toaster`, `color-mode`) se agregan con su propio CLI:

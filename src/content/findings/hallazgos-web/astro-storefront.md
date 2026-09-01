@@ -19,13 +19,13 @@ Astro lleva años construyendo la base para sitios centrados en contenido, y el 
 
 ## Qué demuestra
 
-| Pieza | Para qué |
-| --- | --- |
-| **Arquitectura de islas con SolidJS** | El menor coste de ejecución posible en el cliente |
-| **Renderizado bajo demanda con caché de CDN** | Entregar páginas a velocidad de HTML estático |
-| **`astro:actions`** | Endpoints sencillos y con tipado seguro para la sesión del usuario |
-| **`astro:assets`** | Optimización de imágenes bajo demanda, con Netlify CDN, Sharp o tu proveedor |
-| **`astro:env`** | Variables de entorno gestionadas y tipadas |
+| Pieza                                         | Para qué                                                                     |
+| --------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Arquitectura de islas con SolidJS**         | El menor coste de ejecución posible en el cliente                            |
+| **Renderizado bajo demanda con caché de CDN** | Entregar páginas a velocidad de HTML estático                                |
+| **`astro:actions`**                           | Endpoints sencillos y con tipado seguro para la sesión del usuario           |
+| **`astro:assets`**                            | Optimización de imágenes bajo demanda, con Netlify CDN, Sharp o tu proveedor |
+| **`astro:env`**                               | Variables de entorno gestionadas y tipadas                                   |
 
 La elección de **SolidJS** en vez de React para las islas no es casual: en una tienda, cada kilobyte de JavaScript en el cliente compite con la conversión, y Solid tiene menos coste de ejecución.
 

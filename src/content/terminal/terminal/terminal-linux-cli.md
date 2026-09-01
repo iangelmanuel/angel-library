@@ -5,7 +5,12 @@ type: guides
 order: 22
 tags: [terminal, bash, zsh, linux, gestor-de-paquetes]
 scope: bash / zsh
-related: [terminal/terminal/terminal-wsl, terminal/terminal/terminal-powershell, applications/apps-cli/terminal-nvm]
+related:
+  [
+    terminal/terminal/terminal-wsl,
+    terminal/terminal/terminal-powershell,
+    applications/apps-cli/terminal-nvm
+  ]
 updatedAt: 2026-08-17
 ---
 
@@ -23,12 +28,12 @@ echo $SHELL
 
 Cada shell corre distintos archivos según cómo se abrió la sesión:
 
-| Archivo | Shell | Cuándo se ejecuta |
-|---|---|---|
-| `~/.bashrc` | bash | Cada terminal nueva interactiva (no de login) |
-| `~/.bash_profile` | bash | Solo en shells de "login" (ej. al conectarse por SSH) |
-| `~/.zshrc` | zsh | Cada terminal nueva interactiva |
-| `~/.zprofile` | zsh | Solo en shells de "login" |
+| Archivo           | Shell | Cuándo se ejecuta                                     |
+| ----------------- | ----- | ----------------------------------------------------- |
+| `~/.bashrc`       | bash  | Cada terminal nueva interactiva (no de login)         |
+| `~/.bash_profile` | bash  | Solo en shells de "login" (ej. al conectarse por SSH) |
+| `~/.zshrc`        | zsh   | Cada terminal nueva interactiva                       |
+| `~/.zprofile`     | zsh   | Solo en shells de "login"                             |
 
 En la práctica, la mayoría de terminales gráficas (VS Code, iTerm, GNOME Terminal) abren shells interactivos no-login, así que `.bashrc`/`.zshrc` es donde va casi todo: alias, `PATH`, variables de entorno, prompts. `.bash_profile`/`.zprofile` suele limitarse a cargar el otro archivo:
 
@@ -39,11 +44,11 @@ En la práctica, la mayoría de terminales gráficas (VS Code, iTerm, GNOME Term
 
 ## Gestores de paquetes del sistema por distro
 
-| Distro | Gestor | Instalar | Actualizar índice | Actualizar paquetes | Quitar |
-|---|---|---|---|---|---|
-| Debian / Ubuntu | `apt` | `sudo apt install <paquete>` | `sudo apt update` | `sudo apt upgrade` | `sudo apt remove <paquete>` |
-| Fedora / RHEL | `dnf` | `sudo dnf install <paquete>` | (implícito en install) | `sudo dnf upgrade` | `sudo dnf remove <paquete>` |
-| Arch | `pacman` | `sudo pacman -S <paquete>` | `sudo pacman -Sy` | `sudo pacman -Syu` | `sudo pacman -R <paquete>` |
+| Distro          | Gestor   | Instalar                     | Actualizar índice      | Actualizar paquetes | Quitar                      |
+| --------------- | -------- | ---------------------------- | ---------------------- | ------------------- | --------------------------- |
+| Debian / Ubuntu | `apt`    | `sudo apt install <paquete>` | `sudo apt update`      | `sudo apt upgrade`  | `sudo apt remove <paquete>` |
+| Fedora / RHEL   | `dnf`    | `sudo dnf install <paquete>` | (implícito en install) | `sudo dnf upgrade`  | `sudo dnf remove <paquete>` |
+| Arch            | `pacman` | `sudo pacman -S <paquete>`   | `sudo pacman -Sy`      | `sudo pacman -Syu`  | `sudo pacman -R <paquete>`  |
 
 ## Ejemplo típico
 

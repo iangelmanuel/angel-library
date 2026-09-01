@@ -24,49 +24,49 @@ JavaScript trabaja con **valores**. Cada valor tiene un tipo y puede guardarse e
 
 ## Tipos de datos
 
-| Tipo | Ejemplo | Descripción | Caso de uso |
-| --- | --- | --- | --- |
-| `string` | `'Hola'` | texto inmutable | nombres, mensajes, URLs |
-| `number` | `42`, `3.14`, `NaN` | enteros y decimales IEEE-754 | cantidades y cálculos |
-| `bigint` | `9007199254740993n` | enteros fuera del rango seguro de Number | ids o enteros muy grandes |
-| `boolean` | `true`, `false` | condición lógica | permisos y estados |
-| `undefined` | `undefined` | valor no asignado o propiedad ausente | ausencia implícita |
-| `null` | `null` | ausencia intencional | resultado vacío conocido |
-| `symbol` | `Symbol('id')` | identificador único | claves internas y protocolos |
-| `object` | `{}`, `[]`, `new Date()` | colección de propiedades | entidades y estructuras |
+| Tipo        | Ejemplo                  | Descripción                              | Caso de uso                  |
+| ----------- | ------------------------ | ---------------------------------------- | ---------------------------- |
+| `string`    | `'Hola'`                 | texto inmutable                          | nombres, mensajes, URLs      |
+| `number`    | `42`, `3.14`, `NaN`      | enteros y decimales IEEE-754             | cantidades y cálculos        |
+| `bigint`    | `9007199254740993n`      | enteros fuera del rango seguro de Number | ids o enteros muy grandes    |
+| `boolean`   | `true`, `false`          | condición lógica                         | permisos y estados           |
+| `undefined` | `undefined`              | valor no asignado o propiedad ausente    | ausencia implícita           |
+| `null`      | `null`                   | ausencia intencional                     | resultado vacío conocido     |
+| `symbol`    | `Symbol('id')`           | identificador único                      | claves internas y protocolos |
+| `object`    | `{}`, `[]`, `new Date()` | colección de propiedades                 | entidades y estructuras      |
 
 ```js
-typeof 'Hola'        // 'string'
-typeof 42            // 'number'
-typeof true          // 'boolean'
-typeof undefined     // 'undefined'
-typeof 10n           // 'bigint'
-typeof Symbol('id')  // 'symbol'
-typeof {}            // 'object'
-typeof null          // 'object' ← particularidad histórica
+typeof "Hola" // 'string'
+typeof 42 // 'number'
+typeof true // 'boolean'
+typeof undefined // 'undefined'
+typeof 10n // 'bigint'
+typeof Symbol("id") // 'symbol'
+typeof {} // 'object'
+typeof null // 'object' ← particularidad histórica
 
-Array.isArray([])    // true
-Number.isNaN(NaN)    // true
+Array.isArray([]) // true
+Number.isNaN(NaN) // true
 ```
 
 **Caso de uso:** al validar una respuesta externa, `typeof` permite descartar tipos imposibles, pero para objetos complejos necesitas comprobar su estructura o usar un schema.
 
 ## `const`, `let` y `var`
 
-| Declaración | Alcance | ¿Reasignable? | Recomendación |
-| --- | --- | --- | --- |
-| `const` | bloque | no | opción por defecto |
-| `let` | bloque | sí | contadores y estado que cambia |
-| `var` | función | sí | evitar en código moderno |
+| Declaración | Alcance | ¿Reasignable? | Recomendación                  |
+| ----------- | ------- | ------------- | ------------------------------ |
+| `const`     | bloque  | no            | opción por defecto             |
+| `let`       | bloque  | sí            | contadores y estado que cambia |
+| `var`       | función | sí            | evitar en código moderno       |
 
 ```js
-const user = { name: 'Ana' }
-user.name = 'Luis'      // válido: muta el objeto
+const user = { name: "Ana" }
+user.name = "Luis" // válido: muta el objeto
 // user = {}            // TypeError: const no se reasigna
 
 let attempts = 0
 attempts += 1
-console.log(attempts)   // 1
+console.log(attempts) // 1
 ```
 
 `const` protege la variable, no vuelve inmutable el objeto. Si varias partes comparten la misma referencia, una mutación será visible para todas.
@@ -78,7 +78,7 @@ let first = 10
 let second = first
 second = 20
 
-console.log(first)  // 10
+console.log(first) // 10
 console.log(second) // 20
 
 const original = { count: 1 }
@@ -93,12 +93,12 @@ console.log(original.count) // 2
 ## Conversión explícita
 
 ```js
-Number('42')        // 42
-Number('')          // 0
-Number('hola')      // NaN
-String(42)          // '42'
-Boolean(0)          // false
-Boolean('false')    // true: es una string no vacía
+Number("42") // 42
+Number("") // 0
+Number("hola") // NaN
+String(42) // '42'
+Boolean(0) // false
+Boolean("false") // true: es una string no vacía
 ```
 
 Los valores falsy son `false`, `0`, `-0`, `0n`, `''`, `null`, `undefined` y `NaN`. Los arrays y objetos vacíos son truthy.
@@ -115,29 +115,29 @@ Nullish no es sinónimo de falsy. Todos los valores nullish son falsy, pero `0`,
 
 ### Todos los valores falsy habituales
 
-| Valor | `Boolean(valor)` | Puede representar |
-| --- | --- | --- |
-| `false` | `false` | opción desactivada |
-| `0` | `false` | cantidad válida igual a cero |
-| `-0` | `false` | cero con signo en cálculos especiales |
-| `0n` | `false` | BigInt igual a cero |
-| `''` | `false` | texto vacío permitido |
-| `null` | `false` | ausencia intencional |
-| `undefined` | `false` | valor no proporcionado o propiedad ausente |
-| `NaN` | `false` | cálculo numérico inválido |
+| Valor       | `Boolean(valor)` | Puede representar                          |
+| ----------- | ---------------- | ------------------------------------------ |
+| `false`     | `false`          | opción desactivada                         |
+| `0`         | `false`          | cantidad válida igual a cero               |
+| `-0`        | `false`          | cero con signo en cálculos especiales      |
+| `0n`        | `false`          | BigInt igual a cero                        |
+| `''`        | `false`          | texto vacío permitido                      |
+| `null`      | `false`          | ausencia intencional                       |
+| `undefined` | `false`          | valor no proporcionado o propiedad ausente |
+| `NaN`       | `false`          | cálculo numérico inválido                  |
 
 ```js
-Boolean(false)     // false
-Boolean(0)         // false
-Boolean('')        // false
-Boolean(null)      // false
+Boolean(false) // false
+Boolean(0) // false
+Boolean("") // false
+Boolean(null) // false
 Boolean(undefined) // false
-Boolean(NaN)       // false
+Boolean(NaN) // false
 
-Boolean('0')       // true: es un string no vacío
-Boolean('false')   // true: es un string no vacío
-Boolean([])        // true: es un objeto
-Boolean({})        // true: es un objeto
+Boolean("0") // true: es un string no vacío
+Boolean("false") // true: es un string no vacío
+Boolean([]) // true: es un objeto
+Boolean({}) // true: es un objeto
 ```
 
 Existe una excepción histórica del navegador: `document.all` se comporta como falsy aunque parece un objeto. Es una compatibilidad heredada y no debe usarse para lógica de aplicación.
@@ -151,32 +151,32 @@ let pending
 pending // undefined: nunca recibió un valor
 
 const user = {
-  middleName: null, // ausencia conocida e intencional
+  middleName: null // ausencia conocida e intencional
 }
 
 user.middleName // null
-user.avatar     // undefined: la propiedad no existe
+user.avatar // undefined: la propiedad no existe
 ```
 
-| Comprobación | Resultado | Qué detecta |
-| --- | --- | --- |
-| `value === null` | booleano | solo `null` |
-| `value === undefined` | booleano | solo `undefined` |
-| `value == null` | booleano | `null` o `undefined` |
-| `value === null || value === undefined` | booleano | `null` o `undefined`, de forma explícita |
+| Comprobación          | Resultado | Qué detecta          |
+| --------------------- | --------- | -------------------- |
+| `value === null`      | booleano  | solo `null`          |
+| `value === undefined` | booleano  | solo `undefined`     |
+| `value == null`       | booleano  | `null` o `undefined` |
+| `value === null       |           | value === undefined` | booleano | `null` o `undefined`, de forma explícita |
 
 ```js
-null == undefined  // true
+null == undefined // true
 null === undefined // false
 
 function isNullish(value) {
   return value == null
 }
 
-isNullish(null)      // true
+isNullish(null) // true
 isNullish(undefined) // true
-isNullish(0)         // false
-isNullish('')        // false
+isNullish(0) // false
+isNullish("") // false
 ```
 
 Usar `== null` es uno de los pocos usos intencionales y conocidos de igualdad flexible: comprueba únicamente `null` y `undefined`. Si el equipo evita `==` por convención, escribe la comparación explícita.
@@ -198,16 +198,16 @@ El operador OR lógico `||` devuelve el primer operando truthy. El operador de c
 ```js
 const volume = 0
 const autoplay = false
-const nickname = ''
+const nickname = ""
 
-volume || 50       // 50: reemplaza el cero
-volume ?? 50       // 0: conserva un cero válido
+volume || 50 // 50: reemplaza el cero
+volume ?? 50 // 0: conserva un cero válido
 
-autoplay || true   // true: reemplaza false
-autoplay ?? true   // false: conserva la decisión
+autoplay || true // true: reemplaza false
+autoplay ?? true // false: conserva la decisión
 
-nickname || 'Ana'  // 'Ana': reemplaza el string vacío
-nickname ?? 'Ana'  // '': conserva el string vacío
+nickname || "Ana" // 'Ana': reemplaza el string vacío
+nickname ?? "Ana" // '': conserva el string vacío
 ```
 
 Usa `||` cuando cualquier valor falsy significa “usar alternativa”. Usa `??` cuando solamente la ausencia (`null` o `undefined`) debe activar el valor predeterminado.
@@ -221,14 +221,14 @@ let calls = 0
 
 function createDefault() {
   calls += 1
-  return 'created'
+  return "created"
 }
 
-'saved' ?? createDefault() // 'saved'
-calls                      // 0: no se llamó la función
+"saved" ?? createDefault() // 'saved'
+calls // 0: no se llamó la función
 
-null ?? createDefault()    // 'created'
-calls                      // 1
+null ?? createDefault() // 'created'
+calls // 1
 ```
 
 Evita esconder efectos importantes en el lado derecho. El lector debe poder entender fácilmente cuándo se ejecutará.
@@ -237,11 +237,11 @@ Evita esconder efectos importantes en el lado derecho. El lector debe poder ente
 
 Estos operadores combinan una comprobación lógica con una asignación. Solo escriben el nuevo valor cuando se cumple su condición.
 
-| Operador | Asigna cuando el valor actual es | Conserva |
-| --- | --- | --- |
-| `target ??= value` | `null` o `undefined` | `false`, `0`, `''`, `NaN` y valores truthy |
-| `target ||= value` | cualquier valor falsy | únicamente valores truthy |
-| `target &&= value` | cualquier valor truthy | valores falsy |
+| Operador           | Asigna cuando el valor actual es | Conserva                                   |
+| ------------------ | -------------------------------- | ------------------------------------------ |
+| `target ??= value` | `null` o `undefined`             | `false`, `0`, `''`, `NaN` y valores truthy |
+| `target            |                                  | = value`                                   | cualquier valor falsy | únicamente valores truthy |
+| `target &&= value` | cualquier valor truthy           | valores falsy                              |
 
 Los tres mutan la variable o propiedad del lado izquierdo cuando realizan la asignación y devuelven el valor final.
 
@@ -250,12 +250,12 @@ Los tres mutan la variable o propiedad del lado izquierdo cuando realizan la asi
 ```js
 const settings = {
   volume: 0,
-  theme: null,
+  theme: null
 }
 
 settings.volume ??= 50
-settings.theme ??= 'system'
-settings.language ??= 'es'
+settings.theme ??= "system"
+settings.language ??= "es"
 
 settings
 // {
@@ -289,14 +289,14 @@ function withDefaults(options = {}) {
     timeout: 5_000,
     retries: 2,
     cache: true,
-    ...options,
+    ...options
   }
 }
 
 const original = { timeout: 0 }
 const normalized = withDefaults(original)
 
-original   // { timeout: 0 }
+original // { timeout: 0 }
 normalized // { timeout: 0, retries: 2, cache: true }
 ```
 
@@ -304,14 +304,14 @@ normalized // { timeout: 0, retries: 2, cache: true }
 
 ```js
 const profile = {
-  displayName: '',
+  displayName: "",
   score: 0,
-  role: null,
+  role: null
 }
 
-profile.displayName ||= 'Usuario'
+profile.displayName ||= "Usuario"
 profile.score ||= 10
-profile.role ||= 'reader'
+profile.role ||= "reader"
 
 profile
 // { displayName: 'Usuario', score: 10, role: 'reader' }
@@ -320,12 +320,12 @@ profile
 Aquí el string vacío, cero y `null` son reemplazados. Esto es correcto solo si todos representan una configuración inválida o no utilizable.
 
 ```js
-let heading = 'Documentación'
-heading ||= 'Sin título'
+let heading = "Documentación"
+heading ||= "Sin título"
 heading // 'Documentación'
 
-let emptyHeading = ''
-emptyHeading ||= 'Sin título'
+let emptyHeading = ""
+emptyHeading ||= "Sin título"
 emptyHeading // 'Sin título'
 ```
 
@@ -334,11 +334,11 @@ emptyHeading // 'Sin título'
 `&&=` es útil para transformar algo únicamente cuando está activo o presente como valor truthy.
 
 ```js
-let label = '  JavaScript  '
+let label = "  JavaScript  "
 label &&= label.trim()
 label // 'JavaScript'
 
-let emptyLabel = ''
+let emptyLabel = ""
 emptyLabel &&= emptyLabel.trim()
 emptyLabel // '': no evaluó el lado derecho
 ```
@@ -363,7 +363,7 @@ function getSettings() {
   return settings
 }
 
-getSettings().theme ??= 'system'
+getSettings().theme ??= "system"
 accesses // 1
 ```
 
@@ -372,16 +372,16 @@ accesses // 1
 Los valores predeterminados de parámetros y desestructuración se aplican únicamente ante `undefined`, no ante `null`, `false`, `0` o `''`.
 
 ```js
-function greet(name = 'Visitante') {
+function greet(name = "Visitante") {
   return `Hola, ${name}`
 }
 
-greet()          // 'Hola, Visitante'
+greet() // 'Hola, Visitante'
 greet(undefined) // 'Hola, Visitante'
-greet(null)      // 'Hola, null'
-greet('')        // 'Hola, '
+greet(null) // 'Hola, null'
+greet("") // 'Hola, '
 
-const { theme = 'system' } = { theme: null }
+const { theme = "system" } = { theme: null }
 theme // null
 ```
 
@@ -394,25 +394,25 @@ El encadenamiento opcional `?.` detiene el acceso cuando el valor anterior es `n
 ```js
 const user = {
   profile: {
-    social: null,
-  },
+    social: null
+  }
 }
 
-user.profile?.name                   // undefined
-user.profile?.social?.website        // undefined
-user.permissions?.includes('admin')  // undefined
-user.onLogin?.()                     // undefined si no es función presente
+user.profile?.name // undefined
+user.profile?.social?.website // undefined
+user.permissions?.includes("admin") // undefined
+user.onLogin?.() // undefined si no es función presente
 ```
 
-| Sintaxis | Uso |
-| --- | --- |
-| `object?.property` | propiedad opcional conocida |
+| Sintaxis               | Uso                         |
+| ---------------------- | --------------------------- |
+| `object?.property`     | propiedad opcional conocida |
 | `object?.[dynamicKey]` | propiedad opcional dinámica |
-| `functionValue?.()` | llamada opcional |
+| `functionValue?.()`    | llamada opcional            |
 
 ```js
-const field = 'city'
-const city = user.address?.[field] ?? 'Sin ciudad'
+const field = "city"
+const city = user.address?.[field] ?? "Sin ciudad"
 
 city // 'Sin ciudad'
 ```
@@ -426,45 +426,45 @@ JavaScript no permite mezclar `??` directamente con `||` o `&&` sin paréntesis,
 ```js
 // null || undefined ?? 'fallback' // SyntaxError
 
-(null || undefined) ?? 'fallback' // 'fallback'
-null || (undefined ?? 'fallback') // 'fallback'
+;(null || undefined) ?? "fallback" // 'fallback'
+null || (undefined ?? "fallback") // 'fallback'
 ```
 
 Cuando una expresión lógica necesita varios paréntesis para entenderse, extrae nombres intermedios o una función. La claridad vale más que reducir una línea.
 
 ## Operadores aritméticos
 
-| Operador | Ejemplo | Resultado |
-| --- | --- | --- |
-| `+` | `5 + 2` | `7` |
-| `-` | `5 - 2` | `3` |
-| `*` | `5 * 2` | `10` |
-| `/` | `5 / 2` | `2.5` |
-| `%` | `5 % 2` | `1` |
-| `**` | `5 ** 2` | `25` |
+| Operador | Ejemplo  | Resultado |
+| -------- | -------- | --------- |
+| `+`      | `5 + 2`  | `7`       |
+| `-`      | `5 - 2`  | `3`       |
+| `*`      | `5 * 2`  | `10`      |
+| `/`      | `5 / 2`  | `2.5`     |
+| `%`      | `5 % 2`  | `1`       |
+| `**`     | `5 ** 2` | `25`      |
 
 ```js
-1 + '2'       // '12': concatena porque hay una string
-Number('1') + 2 // 3
-10 % 2        // 0: útil para saber si es par
-2 ** 3        // 8
+1 + "2" // '12': concatena porque hay una string
+Number("1") + 2 // 3
+10 % 2 // 0: útil para saber si es par
+2 ** 3 // 8
 ```
 
 ## Comparación y operadores lógicos
 
 ```js
-5 === 5       // true
-5 === '5'     // false
-5 == '5'      // true: aplica coerción, normalmente se evita
-5 !== 4       // true
-10 > 5        // true
+5 === 5 // true
+5 === "5" // false
+5 == "5" // true: aplica coerción, normalmente se evita
+5 !== 4 // true
+10 > 5 // true
 
-true && 'ok'  // 'ok'
-false && 'ok' // false
-0 || 10       // 10
-0 ?? 10       // 0
-null ?? 10    // 10
-!true         // false
+true && "ok" // 'ok'
+false && "ok" // false
+0 || 10 // 10
+0 ?? 10 // 0
+null ?? 10 // 10
+!true // false
 ```
 
 `&&` y `||` devuelven operandos, no necesariamente booleanos. `??` solo reemplaza `null` o `undefined`, por eso conserva valores válidos como `0`, `false` y `''`.
@@ -472,8 +472,8 @@ null ?? 10    // 10
 ## Acceso opcional y asignación
 
 ```js
-const city = user.address?.city ?? 'Sin ciudad'
-settings.theme ??= 'system'
+const city = user.address?.city ?? "Sin ciudad"
+settings.theme ??= "system"
 count += 1
 ```
 

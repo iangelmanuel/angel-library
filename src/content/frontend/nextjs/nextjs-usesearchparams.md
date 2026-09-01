@@ -16,15 +16,15 @@ Como `usePathname`, pero para la query string (`?a=1&b=2`) — con la diferencia
 ## Uso básico
 
 ```tsx title="app/ui/filtros.tsx"
-'use client'
+"use client"
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation"
 
 export function Filtros() {
-  const searchParams = useSearchParams();
-  const orden = searchParams.get('orden') ?? 'relevancia';
+  const searchParams = useSearchParams()
+  const orden = searchParams.get("orden") ?? "relevancia"
 
-  return <p>Ordenando por: {orden}</p>;
+  return <p>Ordenando por: {orden}</p>
 }
 ```
 
@@ -35,19 +35,19 @@ Al ser `URLSearchParams`, tiene sus métodos normales: `.get()`, `.getAll()`, `.
 `useSearchParams` es de solo lectura — para cambiar la URL se arma el nuevo string y se navega con `router.push` del hook [`useRouter`](/frontend/nextjs/nextjs-userouter) (ver esa entrada para el resto de sus métodos), o con un `<Link>`.
 
 ```tsx
-'use client'
+"use client"
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 function SelectorOrden() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   function cambiarOrden(valor: string) {
-    const params = new URLSearchParams(searchParams);
-    params.set('orden', valor);
-    router.push(`${pathname}?${params.toString()}`);
+    const params = new URLSearchParams(searchParams)
+    params.set("orden", valor)
+    router.push(`${pathname}?${params.toString()}`)
   }
 
   return (
@@ -55,7 +55,7 @@ function SelectorOrden() {
       <option value="relevancia">Relevancia</option>
       <option value="precio">Precio</option>
     </select>
-  );
+  )
 }
 ```
 
@@ -64,37 +64,37 @@ function SelectorOrden() {
 Durante el pre-renderizado estático, Next no puede saber la query string de antemano — así que un componente que llama `useSearchParams()` "suspende" en ese momento. Sin un `<Suspense>` envolviéndolo, el build tira error (o, según el modo, hace que toda la ruta sea dinámica sin avisar).
 
 ```tsx title="app/buscar/page.tsx"
-import { Suspense } from 'react';
-import Resultados from './resultados';
+import { Suspense } from "react"
+import Resultados from "./resultados"
 
 export default function Page() {
   return (
     <Suspense fallback={<p>Cargando…</p>}>
       <Resultados />
     </Suspense>
-  );
+  )
 }
 ```
 
 ```tsx title="app/buscar/resultados.tsx"
-'use client'
+"use client"
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation"
 
 export default function Resultados() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('q');
-  return <p>Resultados para: {query}</p>;
+  const searchParams = useSearchParams()
+  const query = searchParams.get("q")
+  return <p>Resultados para: {query}</p>
 }
 ```
 
 ## API de consulta en una mirada
 
-| API | Uso |
-| --- | --- |
-| `useSearchParams()` | `URLSearchParams` de solo lectura, con `.get()`/`.getAll()` |
-| `useRouter().push(url)` | Navegar con una query string nueva |
-| `<Suspense>` alrededor | Necesario para que el resto de la página se pre-renderice sin bloquear por esto |
+| API                     | Uso                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------- |
+| `useSearchParams()`     | `URLSearchParams` de solo lectura, con `.get()`/`.getAll()`                     |
+| `useRouter().push(url)` | Navegar con una query string nueva                                              |
+| `<Suspense>` alrededor  | Necesario para que el resto de la página se pre-renderice sin bloquear por esto |
 
 ## Suspense, escritura y validación
 

@@ -39,11 +39,11 @@ claude mcp add --scope project github -- npx @modelcontextprotocol/server-github
 
 ## Los 3 scopes
 
-| Scope | Dónde vive | Compartido |
-| --- | --- | --- |
-| `local` (default) | `~/.claude.json`, atado a este proyecto | No, privado |
-| `project` | `.mcp.json` en la raíz del repo | Sí, se commitea (pide aprobación al abrir) |
-| `user` | `~/.claude.json` | No, pero cruza todos tus proyectos |
+| Scope             | Dónde vive                              | Compartido                                 |
+| ----------------- | --------------------------------------- | ------------------------------------------ |
+| `local` (default) | `~/.claude.json`, atado a este proyecto | No, privado                                |
+| `project`         | `.mcp.json` en la raíz del repo         | Sí, se commitea (pide aprobación al abrir) |
+| `user`            | `~/.claude.json`                        | No, pero cruza todos tus proyectos         |
 
 ## Comandos útiles
 

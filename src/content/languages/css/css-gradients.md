@@ -63,13 +63,13 @@ Los tres tipos de degradado y un par de trucos que se preguntan seguido: texto c
 
 ## Resumen
 
-| Técnica | Cuándo usarla |
-| --- | --- |
-| `linear-gradient()` | Fondos con transición de color en una dirección |
-| `radial-gradient()` | Efecto de "luz" o foco desde un punto |
-| `conic-gradient()` | Gráficos circulares, progreso, selectores de color |
-| `background-clip: text` | Texto con degradado |
-| Doble background (`padding-box` / `border-box`) | Borde con degradado, con esquinas redondeadas |
+| Técnica                                         | Cuándo usarla                                      |
+| ----------------------------------------------- | -------------------------------------------------- |
+| `linear-gradient()`                             | Fondos con transición de color en una dirección    |
+| `radial-gradient()`                             | Efecto de "luz" o foco desde un punto              |
+| `conic-gradient()`                              | Gráficos circulares, progreso, selectores de color |
+| `background-clip: text`                         | Texto con degradado                                |
+| Doble background (`padding-box` / `border-box`) | Borde con degradado, con esquinas redondeadas      |
 
 ## Consideraciones
 

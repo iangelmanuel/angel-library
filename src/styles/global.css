@@ -2,25 +2,25 @@
    Orden: tokens → base → keyframes → componentes, de general a específico. */
 
 /* Fuentes: Sans texto, Mono código, Pixel títulos. */
-@import '@fontsource/geist-sans/latin-400.css';
-@import '@fontsource/geist-sans/latin-500.css';
-@import '@fontsource/geist-sans/latin-600.css';
-@import '@fontsource/geist-mono/latin-400.css';
-@import '@fontsource/geist-mono/latin-500.css';
-@import '@fontsource/geist-pixel/latin-400.css';
+@import "@fontsource/geist-sans/latin-400.css";
+@import "@fontsource/geist-sans/latin-500.css";
+@import "@fontsource/geist-sans/latin-600.css";
+@import "@fontsource/geist-mono/latin-400.css";
+@import "@fontsource/geist-mono/latin-500.css";
+@import "@fontsource/geist-pixel/latin-400.css";
 
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@import './tokens.css';
-@import './base.css';
-@import './keyframes.css';
-@import './components/primitives.css';
-@import './components/card.css';
-@import './components/sidebar.css';
-@import './components/code.css';
-@import './components/markdown.css';
-@import './components/terminal.css';
-@import './components/search-terminal.css';
+@import "./tokens.css";
+@import "./base.css";
+@import "./keyframes.css";
+@import "./components/primitives.css";
+@import "./components/card.css";
+@import "./components/sidebar.css";
+@import "./components/code.css";
+@import "./components/markdown.css";
+@import "./components/terminal.css";
+@import "./components/search-terminal.css";
 
 @custom-variant dark (&:is(.dark *));

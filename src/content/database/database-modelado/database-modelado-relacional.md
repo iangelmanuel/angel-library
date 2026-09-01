@@ -31,11 +31,11 @@ Un buen modelo no intenta adivinar todas las necesidades futuras. Representa cor
 - Una **relación** conecta entidades: un usuario realiza pedidos.
 - La **cardinalidad** indica cuántas instancias pueden participar.
 
-| Cardinalidad | Ejemplo | Implementación habitual |
-| --- | --- | --- |
-| uno a uno (`1:1`) | usuario y perfil privado | FK con `UNIQUE` en una de las tablas |
-| uno a muchos (`1:N`) | usuario y pedidos | FK en el lado “muchos” |
-| muchos a muchos (`N:M`) | pedidos y productos | tabla intermedia con dos FK |
+| Cardinalidad            | Ejemplo                  | Implementación habitual              |
+| ----------------------- | ------------------------ | ------------------------------------ |
+| uno a uno (`1:1`)       | usuario y perfil privado | FK con `UNIQUE` en una de las tablas |
+| uno a muchos (`1:N`)    | usuario y pedidos        | FK en el lado “muchos”               |
+| muchos a muchos (`N:M`) | pedidos y productos      | tabla intermedia con dos FK          |
 
 La **opcionalidad** también importa. “Un pedido debe pertenecer a un usuario” produce una FK `NOT NULL`; “un usuario puede tener perfil” permite que todavía no exista la fila relacionada.
 
@@ -78,14 +78,14 @@ users 1 ───── N orders 1 ───── N order_items N ────�
 
 ## Restricciones que expresan intención
 
-| Restricción | Qué garantiza | Caso habitual |
-| --- | --- | --- |
-| `PRIMARY KEY` | Identidad única y no nula | Identificar un pedido |
-| `FOREIGN KEY` | La referencia existe | El pedido pertenece a un usuario real |
-| `UNIQUE` | No hay duplicados en una clave candidata | Correo o slug |
-| `NOT NULL` | El dato es obligatorio | Estado del pedido |
-| `CHECK` | El valor cumple una condición | Cantidad positiva |
-| `DEFAULT` | Proporciona un valor inicial | Fecha de creación |
+| Restricción   | Qué garantiza                            | Caso habitual                         |
+| ------------- | ---------------------------------------- | ------------------------------------- |
+| `PRIMARY KEY` | Identidad única y no nula                | Identificar un pedido                 |
+| `FOREIGN KEY` | La referencia existe                     | El pedido pertenece a un usuario real |
+| `UNIQUE`      | No hay duplicados en una clave candidata | Correo o slug                         |
+| `NOT NULL`    | El dato es obligatorio                   | Estado del pedido                     |
+| `CHECK`       | El valor cumple una condición            | Cantidad positiva                     |
+| `DEFAULT`     | Proporciona un valor inicial             | Fecha de creación                     |
 
 Una clave foránea no crea automáticamente todos los índices que necesita una consulta. Si se buscan pedidos por `user_id`, normalmente se agrega `CREATE INDEX ON orders(user_id)`.
 
@@ -93,11 +93,11 @@ Una clave foránea no crea automáticamente todos los índices que necesita una 
 
 La acción `ON DELETE` debe representar la regla, no una comodidad:
 
-| Acción | Qué ocurre | Caso apropiado |
-| --- | --- | --- |
-| `RESTRICT` / `NO ACTION` | impide eliminar mientras existan referencias | catálogo con pedidos históricos |
-| `CASCADE` | elimina filas dependientes | líneas que no tienen sentido sin su pedido |
-| `SET NULL` | conserva la fila y elimina la referencia | autor opcional de un comentario |
+| Acción                   | Qué ocurre                                   | Caso apropiado                             |
+| ------------------------ | -------------------------------------------- | ------------------------------------------ |
+| `RESTRICT` / `NO ACTION` | impide eliminar mientras existan referencias | catálogo con pedidos históricos            |
+| `CASCADE`                | elimina filas dependientes                   | líneas que no tienen sentido sin su pedido |
+| `SET NULL`               | conserva la fila y elimina la referencia     | autor opcional de un comentario            |
 
 Evita cascadas largas entre muchas tablas: una eliminación pequeña puede convertirse en una operación masiva difícil de observar. Para información legal o auditable suele conservarse el registro y controlar su estado.
 
@@ -127,11 +127,11 @@ La **normalización** reduce duplicación y dependencias inconsistentes. Como re
 2. Cada fila representa una entidad o relación identificable.
 3. Un dato derivable no se duplica sin una razón de rendimiento o historial.
 
-| Forma | Pregunta práctica | Problema que evita |
-| --- | --- | --- |
-| 1NF | ¿Cada celda contiene un valor y no una lista reutilizable? | columnas `phone_1`, `phone_2` o CSV difícil de consultar |
-| 2NF | ¿Cada atributo depende de toda la clave compuesta? | repetir datos del producto en una línea identificada por pedido y producto |
-| 3NF | ¿Los atributos no clave dependen solo de la identidad? | guardar `city_name` que depende de `city_id` en cada usuario |
+| Forma | Pregunta práctica                                          | Problema que evita                                                         |
+| ----- | ---------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1NF   | ¿Cada celda contiene un valor y no una lista reutilizable? | columnas `phone_1`, `phone_2` o CSV difícil de consultar                   |
+| 2NF   | ¿Cada atributo depende de toda la clave compuesta?         | repetir datos del producto en una línea identificada por pedido y producto |
+| 3NF   | ¿Los atributos no clave dependen solo de la identidad?     | guardar `city_name` que depende de `city_id` en cada usuario               |
 
 Las formas normales son herramientas para detectar dependencias, no un concurso académico. Una dirección de envío copiada dentro de un pedido puede ser desnormalización correcta porque representa una fotografía histórica, no el perfil actual del cliente.
 
@@ -189,7 +189,7 @@ CREATE TABLE projects (
 );
 ```
 
-Filtrar `tenant_id` solo en el frontend es una vulnerabilidad. Debe aplicarse en la capa de acceso y, cuando corresponde, reforzarse con permisos o **RLS** (*Row-Level Security* o seguridad por fila) en PostgreSQL.
+Filtrar `tenant_id` solo en el frontend es una vulnerabilidad. Debe aplicarse en la capa de acceso y, cuando corresponde, reforzarse con permisos o **RLS** (_Row-Level Security_ o seguridad por fila) en PostgreSQL.
 
 ## Del esquema a las consultas
 
@@ -239,4 +239,3 @@ El ejemplo muestra la idea principal: modelar no es dibujar tablas, sino convert
 ## Referencias
 
 - [PostgreSQL: constraints](https://www.postgresql.org/docs/current/ddl-constraints.html)
-

@@ -5,7 +5,11 @@ type: guides
 order: 2
 tags: [docker, postgres, compose, base-de-datos]
 scope: Postgres con Compose
-related: [devops/docker-bases-datos/docker-postgres-run, devops/docker-compose/docker-compose-variables]
+related:
+  [
+    devops/docker-bases-datos/docker-postgres-run,
+    devops/docker-compose/docker-compose-variables
+  ]
 updatedAt: 2026-08-17
 ---
 

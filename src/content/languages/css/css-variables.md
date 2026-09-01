@@ -63,16 +63,16 @@ Una variable declarada en un selector más específico pisa la de `:root` solo d
 Las variables viven en el DOM, así que se leen con `getComputedStyle` y se escriben con `.style.setProperty`. Para leerlas, este sitio ya tiene [`getCssVar()`](/general/utils/dom) en DOM Utils.
 
 ```ts
-document.documentElement.style.setProperty('--color-primary', '#22c55e');
+document.documentElement.style.setProperty("--color-primary", "#22c55e")
 ```
 
 ## Resumen
 
-| Técnica | Cuándo usarla |
-| --- | --- |
-| Declarar en `:root` | Tokens globales: colores, spacing, radios |
-| `var(--x, fallback)` | Componentes reusables entre proyectos con distintos tokens |
-| Override por selector | Theming (variantes de color, dark/light) sin duplicar reglas |
+| Técnica                | Cuándo usarla                                                     |
+| ---------------------- | ----------------------------------------------------------------- |
+| Declarar en `:root`    | Tokens globales: colores, spacing, radios                         |
+| `var(--x, fallback)`   | Componentes reusables entre proyectos con distintos tokens        |
+| Override por selector  | Theming (variantes de color, dark/light) sin duplicar reglas      |
 | `setProperty` desde JS | Cambiar un token en tiempo real (ej. color picker, tema dinámico) |
 
 ## Consideraciones

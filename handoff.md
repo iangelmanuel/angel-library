@@ -27,22 +27,22 @@ No fue un objetivo único — fue una sesión larga de iteración continua sobre
 
 Se iteró mucho en vivo con el usuario (varias vueltas de "no me gusta, probemos otra cosa"); esto es el estado **final**, no el recorrido:
 
-| Elemento | Estado final |
-| --- | --- |
-| Tema de código (Shiki) | `tokyo-night` (bundled) — se probaron antes un tema Vercel a mano y `vitesse-black` |
-| Fuente de código | Fira Code (se probó Cascadia Code antes, el usuario la rechazó) |
-| Fuente de texto general | JetBrains Mono (reemplaza a Geist Sans en `--font-sans`) |
-| Fuente de títulos/badges | Geist Pixel (sin cambios) |
-| Título (h1) | Naranja (`--accent-orange`) |
-| Subtítulo (h2) | Amarillo (`--accent-yellow`) |
-| h3 | Cian (`--accent-cyan`) |
-| h4 | Gris apagado (`--muted-foreground`) |
-| `section-label` (etiquetas de sección) | Azul (`--accent-blue`) |
-| Tags | Morado único, estilo pill (se probó color por hash del texto, el usuario lo rechazó) |
-| Badges por defecto (accesos rápidos, home) | Gris terminal (`--accent-slate`) |
-| Código inline en texto | Sin fondo, solo borde, Geist Pixel (se probaron pills naranja y azul con acento antes) |
-| Nav-link activo (sidebar) | Cursor `❯` estilo terminal, coloreado por categoría (se probaron caja rellena y subrayado antes) |
-| Logo | Pixel art real (`src/assets/logo/`), en header y favicon, con ciclo de color al hover |
+| Elemento                                   | Estado final                                                                                     |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| Tema de código (Shiki)                     | `tokyo-night` (bundled) — se probaron antes un tema Vercel a mano y `vitesse-black`              |
+| Fuente de código                           | Fira Code (se probó Cascadia Code antes, el usuario la rechazó)                                  |
+| Fuente de texto general                    | JetBrains Mono (reemplaza a Geist Sans en `--font-sans`)                                         |
+| Fuente de títulos/badges                   | Geist Pixel (sin cambios)                                                                        |
+| Título (h1)                                | Naranja (`--accent-orange`)                                                                      |
+| Subtítulo (h2)                             | Amarillo (`--accent-yellow`)                                                                     |
+| h3                                         | Cian (`--accent-cyan`)                                                                           |
+| h4                                         | Gris apagado (`--muted-foreground`)                                                              |
+| `section-label` (etiquetas de sección)     | Azul (`--accent-blue`)                                                                           |
+| Tags                                       | Morado único, estilo pill (se probó color por hash del texto, el usuario lo rechazó)             |
+| Badges por defecto (accesos rápidos, home) | Gris terminal (`--accent-slate`)                                                                 |
+| Código inline en texto                     | Sin fondo, solo borde, Geist Pixel (se probaron pills naranja y azul con acento antes)           |
+| Nav-link activo (sidebar)                  | Cursor `❯` estilo terminal, coloreado por categoría (se probaron caja rellena y subrayado antes) |
+| Logo                                       | Pixel art real (`src/assets/logo/`), en header y favicon, con ciclo de color al hover            |
 
 Se instaló `sharp` (primera vez que el proyecto usa `astro:assets` para optimizar imágenes).
 
@@ -111,7 +111,7 @@ Importante: `package.json` de ejemplo en `/myastro` y `/mynext` también se reor
 - **Lock de Astro apuntando a un proceso ajeno**: en un punto, `preview_start` levantaba un proceso que moría al instante sin explicación — Astro tenía un lock de una sesión de dev **previa** (un PID corriendo en el puerto 4322, no 4321, iniciado fuera de esta sesión). `pnpm astro dev stop` lo resolvió; matar el PID a mano en el puerto equivocado no.
 - **YAML rompe con `"palabra: "` sin comillas dentro de un valor plano**: `description: ...protocolo workspace: no es fiable...` (dos puntos + espacio sin comillas) tira `bad indentation of a mapping entry`. Hay que envolver en comillas cualquier descripción que mencione algo como `workspace:` literal.
 - **El traductor de tabs pnpm/bun/npm es "todo o nada" por bloque, confirmado con pruebas reales**: comandos con `--filter`/`-w`/`--parallel` (flags específicos de un gestor) no están en `KNOWN_FLAGS`, así que `translateLine` devuelve `null` para esa línea y **todo el bloque** queda sin tocar — no hay riesgo de traducir mal `pnpm add zod --filter web` a un falso equivalente de npm. Se verificó en vivo para las 4 guías de monorepo antes de confiar en el comportamiento.
-- **Los anchors de heading no siempre son lo que uno adivina**: `"npm — necesita \`concurrently\`"` generó el id `npm--necesita-concurrently` (doble guión, por el em-dash + backticks), no `npm-necesita-concurrently` como se escribió a mano al armar un link cruzado. Hay que verificar el id real en el HTML generado, no asumirlo.
+- **Los anchors de heading no siempre son lo que uno adivina**: `"npm — necesita \`concurrently\`"`generó el id`npm--necesita-concurrently`(doble guión, por el em-dash + backticks), no`npm-necesita-concurrently` como se escribió a mano al armar un link cruzado. Hay que verificar el id real en el HTML generado, no asumirlo.
 - **La memoria de la conversación no es la fuente de verdad del estado del repo**: en un punto se encontró trabajo ya commiteado (tema Tokyo Night en `astro.config.mjs`, un logo con ciclo de color al hover) que no correspondía a nada hecho explícitamente en los turnos visibles de esta sesión — probablemente de contexto comprimido/resumido antes. La lección: para cualquier tarea de auditoría o changelog, `git diff`/`git status` contra HEAD es la fuente de verdad, no el recuerdo de la conversación.
 - **Instalación de aplicaciones y datos de proyectos externos, siempre verificados contra fuente real** (WebSearch/WebFetch), nunca inventados: se confirmaron IDs de winget (`Microsoft.VisualStudioCode`, `Docker.DockerDesktop`, `Figma.Figma`, `Notion.Notion`, `Discord.Discord`, `Warp.Warp`, `Insomnia.Insomnia`) y casks de Homebrew uno por uno. Se encontraron 2 datos genuinamente no obvios en el camino: el bug de `workspace:` en npm (arriba) y que Excalidraw no tiene app de escritorio oficial.
 - **El screenshot del navegador de este entorno sigue sin funcionar** (ya era lección del handoff anterior, sigue igual) — toda verificación visual de esta sesión (colores, tema de código, sidebar, cursor de nav-link, cards) se hizo leyendo estilos computados y estructura del DOM vía `javascript_tool`, nunca por captura de pantalla. Lo que depende de una interacción real (hover del logo, blink del cursor en las cards) **no se verificó visualmente** — queda para que el usuario lo mire.

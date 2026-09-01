@@ -67,11 +67,11 @@ Al mergear el PR que contiene ese commit, el issue #15 se cierra solo — sin te
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `gh issue create` | Crea un issue (interactivo o con flags) |
-| `gh issue list --assignee @me` | Lista tus issues asignados |
-| `gh issue close <número>` | Cierra un issue |
+| Comando                           | Qué hace                                   |
+| --------------------------------- | ------------------------------------------ |
+| `gh issue create`                 | Crea un issue (interactivo o con flags)    |
+| `gh issue list --assignee @me`    | Lista tus issues asignados                 |
+| `gh issue close <número>`         | Cierra un issue                            |
 | `Fixes #<número>` en un commit/PR | Cierra el issue automáticamente al mergear |
 
 ## Consideraciones

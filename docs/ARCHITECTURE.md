@@ -58,14 +58,14 @@ Cómo crear y modificar categorías, subcategorías, módulos y secciones está 
 
 ## Rutas
 
-| Ruta | Genera |
-| --- | --- |
-| `src/pages/[...slug].astro` | Cada entrada. La URL es su id |
-| `src/pages/categories/[category].astro` | Listado por categoría, agrupado por subcategoría |
-| `src/pages/tipos/[type].astro` | Listado por tipo de documento |
-| `src/pages/tags/index.astro`, `tags/[tag].astro` | Nube de tags y listado por tag |
-| `src/pages/index.astro`, `search.astro` | Home y consola de búsqueda |
-| `src/pages/search-index.json.ts` | Índice de búsqueda, generado en build |
+| Ruta                                             | Genera                                           |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `src/pages/[...slug].astro`                      | Cada entrada. La URL es su id                    |
+| `src/pages/categories/[category].astro`          | Listado por categoría, agrupado por subcategoría |
+| `src/pages/tipos/[type].astro`                   | Listado por tipo de documento                    |
+| `src/pages/tags/index.astro`, `tags/[tag].astro` | Nube de tags y listado por tag                   |
+| `src/pages/index.astro`, `search.astro`          | Home y consola de búsqueda                       |
+| `src/pages/search-index.json.ts`                 | Índice de búsqueda, generado en build            |
 
 ## Validación en build
 

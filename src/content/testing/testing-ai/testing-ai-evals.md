@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-28
 ---
 
-Una **eval** o evaluación ejecuta casos representativos y mide si un sistema de IA cumple criterios definidos. Un LLM (*Large Language Model* o modelo grande de lenguaje) puede producir respuestas diferentes para la misma entrada; por eso la calidad se evalúa con propiedades, rúbricas y distribuciones, no solo con un string exacto.
+Una **eval** o evaluación ejecuta casos representativos y mide si un sistema de IA cumple criterios definidos. Un LLM (_Large Language Model_ o modelo grande de lenguaje) puede producir respuestas diferentes para la misma entrada; por eso la calidad se evalúa con propiedades, rúbricas y distribuciones, no solo con un string exacto.
 
 ## Qué parte evalúas
 
@@ -26,14 +26,14 @@ entrada
 
 Prueba capas por separado y juntas:
 
-| Capa | Señal |
-| --- | --- |
-| retrieval | documentos relevantes recuperados |
-| prompt | instrucciones, contexto y límites correctos |
-| salida estructurada | schema válido y campos permitidos |
-| tool call | herramienta, argumentos y autorización |
-| respuesta | exactitud, utilidad, citas y tono |
-| sistema completo | tarea terminada sin acciones inseguras |
+| Capa                | Señal                                       |
+| ------------------- | ------------------------------------------- |
+| retrieval           | documentos relevantes recuperados           |
+| prompt              | instrucciones, contexto y límites correctos |
+| salida estructurada | schema válido y campos permitidos           |
+| tool call           | herramienta, argumentos y autorización      |
+| respuesta           | exactitud, utilidad, citas y tono           |
+| sistema completo    | tarea terminada sin acciones inseguras      |
 
 Un fallo final no dice si el problema fue recuperación, modelo o herramienta. Instrumenta cada paso.
 
@@ -50,9 +50,7 @@ Cada caso necesita más que prompt y respuesta:
     "el plazo es de 30 días",
     "los productos abiertos tienen excepciones"
   ],
-  "forbiddenClaims": [
-    "todas las devoluciones abiertas están garantizadas"
-  ],
+  "forbiddenClaims": ["todas las devoluciones abiertas están garantizadas"],
   "tags": ["policy", "edge-case", "spanish"]
 }
 ```
@@ -63,13 +61,13 @@ Incluye casos normales, límites, idiomas, instrucciones conflictivas, contexto 
 
 Un **grader** califica una salida.
 
-| Grader | Bueno para | Riesgo |
-| --- | --- | --- |
-| exacto | IDs, enums, cálculos | demasiado rígido para lenguaje |
-| schema | JSON y tool arguments | no evalúa veracidad |
-| regla/código | citas, palabras prohibidas, límites | cubre criterios expresables |
-| modelo juez | utilidad o rúbrica semántica | sesgo, variabilidad y costo |
-| humano | calidad ambigua o alto riesgo | lento y costoso |
+| Grader       | Bueno para                          | Riesgo                         |
+| ------------ | ----------------------------------- | ------------------------------ |
+| exacto       | IDs, enums, cálculos                | demasiado rígido para lenguaje |
+| schema       | JSON y tool arguments               | no evalúa veracidad            |
+| regla/código | citas, palabras prohibidas, límites | cubre criterios expresables    |
+| modelo juez  | utilidad o rúbrica semántica        | sesgo, variabilidad y costo    |
+| humano       | calidad ambigua o alto riesgo       | lento y costoso                |
 
 Combina graders. Un JSON válido puede contener una decisión incorrecta; una respuesta útil puede incumplir una política.
 
@@ -90,7 +88,7 @@ Entrega al grader solo la información necesaria y exige explicación estructura
 
 ## Evaluar RAG
 
-**RAG** (*Retrieval-Augmented Generation* o generación aumentada por recuperación) añade documentos al prompt.
+**RAG** (_Retrieval-Augmented Generation_ o generación aumentada por recuperación) añade documentos al prompt.
 
 Mide por separado:
 
@@ -102,10 +100,10 @@ Mide por separado:
 - abstención cuando no existe evidencia.
 
 ```ts
-expect(retrievedDocumentIds).toContain('policy/refunds-v3');
+expect(retrievedDocumentIds).toContain("policy/refunds-v3")
 expect(answer.citations).toEqual(
-  expect.arrayContaining([{ documentId: 'policy/refunds-v3' }]),
-);
+  expect.arrayContaining([{ documentId: "policy/refunds-v3" }])
+)
 ```
 
 Las métricas semánticas complementan aserciones deterministas sobre IDs, permisos y schemas.
@@ -124,13 +122,13 @@ Para un agente, el resultado final puede ser correcto mediante un camino peligro
 ```ts
 expect(trace.toolCalls).toEqual([
   {
-    name: 'get_order',
-    arguments: { orderId: 'order_42' },
-  },
-]);
+    name: "get_order",
+    arguments: { orderId: "order_42" }
+  }
+])
 expect(trace.toolCalls).not.toContainEqual(
-  expect.objectContaining({ name: 'refund_order' }),
-);
+  expect.objectContaining({ name: "refund_order" })
+)
 ```
 
 Simula tools en la mayoría de evals y conserva un conjunto controlado de integración. Nunca permitas que una evaluación automática ejecute pagos, envíe mensajes reales o elimine producción.

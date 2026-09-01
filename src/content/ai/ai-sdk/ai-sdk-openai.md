@@ -41,13 +41,13 @@ La clave debe configurarse también en el administrador de secretos del entorno 
 
 ```ts
 // src/libs/openai.ts
-import OpenAI from 'openai';
+import OpenAI from "openai"
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   timeout: 30_000,
-  maxRetries: 2,
-});
+  maxRetries: 2
+})
 ```
 
 Si no se pasa `apiKey`, el SDK puede leer `OPENAI_API_KEY` automáticamente. Declararla hace visible la dependencia. `timeout` evita dejar una solicitud abierta indefinidamente y `maxRetries` permite reintentar algunos errores transitorios. Una acción con efectos externos necesita además idempotencia; reintentar no debe duplicar pagos, correos o reservas.
@@ -57,15 +57,15 @@ Este archivo no debe importarse desde un componente React de cliente. En framewo
 ## Primera respuesta paso a paso
 
 ```ts
-import { openai } from './lib/openai';
+import { openai } from "./lib/openai"
 
 const response = await openai.responses.create({
-  model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
-  instructions: 'Responde en español latinoamericano con ejemplos breves.',
-  input: '¿Qué diferencia existe entre autenticación y autorización?',
-});
+  model: process.env.OPENAI_MODEL ?? "gpt-5.6",
+  instructions: "Responde en español latinoamericano con ejemplos breves.",
+  input: "¿Qué diferencia existe entre autenticación y autorización?"
+})
 
-console.log(response.output_text);
+console.log(response.output_text)
 ```
 
 1. `responses.create` crea una generación.
@@ -82,55 +82,55 @@ No se debe asumir que siempre habrá texto. Una respuesta puede contener una lla
 Entender el protocolo facilita la depuración y permite usar `fetch` cuando el SDK no está disponible.
 
 ```ts
-const httpResponse = await fetch('https://api.openai.com/v1/responses', {
-  method: 'POST',
+const httpResponse = await fetch("https://api.openai.com/v1/responses", {
+  method: "POST",
   headers: {
     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json"
   },
   body: JSON.stringify({
     model: process.env.OPENAI_MODEL,
-    input: 'Resume el patrón Repository en tres puntos.',
-  }),
-});
+    input: "Resume el patrón Repository en tres puntos."
+  })
+})
 
 if (!httpResponse.ok) {
-  throw new Error(`OpenAI respondió ${httpResponse.status}`);
+  throw new Error(`OpenAI respondió ${httpResponse.status}`)
 }
 
-const data = await httpResponse.json();
+const data = await httpResponse.json()
 ```
 
-| Parte | Motivo |
-|---|---|
-| HTTPS | Cifra la clave y el contenido durante el tránsito |
-| `Authorization: Bearer` | Autentica la cuenta que consumirá la API |
-| `Content-Type: application/json` | Declara cómo interpretar el cuerpo |
-| Cuerpo JSON | Transporta modelo, entrada y configuración |
+| Parte                            | Motivo                                            |
+| -------------------------------- | ------------------------------------------------- |
+| HTTPS                            | Cifra la clave y el contenido durante el tránsito |
+| `Authorization: Bearer`          | Autentica la cuenta que consumirá la API          |
+| `Content-Type: application/json` | Declara cómo interpretar el cuerpo                |
+| Cuerpo JSON                      | Transporta modelo, entrada y configuración        |
 
 La clave de OpenAI viaja únicamente entre el backend y OpenAI. El navegador usa la autenticación de la aplicación. Copiar la clave al header de React convertiría a cada visitante en poseedor de la credencial.
 
 ## Propiedades más importantes de Responses
 
-| Propiedad | Función | Observación |
-|---|---|---|
-| `model` | Selecciona el modelo | Validarlo en el backend, no recibir cualquier valor del cliente |
-| `input` | Texto, mensajes o contenido de entrada | Puede incluir texto, imágenes, archivos y resultados de herramientas según el modelo |
-| `instructions` | Reglas de alto nivel | Separarlas del contenido del usuario reduce ambigüedad |
-| `max_output_tokens` | Límite de tokens de salida | Una respuesta puede terminar incompleta al alcanzarlo |
-| `reasoning` | Configura esfuerzo de razonamiento | Más esfuerzo puede aumentar latencia y consumo |
-| `text.verbosity` | Ajusta concisión o detalle cuando existe soporte | No sustituye instrucciones específicas |
-| `text.format` | Solicita texto o salida estructurada | Usar esquema estricto para datos consumidos por código |
-| `temperature` | Modifica variación del muestreo | Su soporte depende del modelo y configuración de razonamiento |
-| `top_p` | Limita el núcleo probabilístico | Normalmente se ajusta esto o `temperature`, no ambos |
-| `tools` | Declara funciones o herramientas integradas | El servidor sigue controlando su ejecución |
-| `tool_choice` | Controla cuándo elegir una herramienta | Puede dejarse automático o limitarse a una herramienta |
-| `previous_response_id` | Enlaza un turno con la respuesta anterior | Facilita continuidad sin reenviar manualmente todo el arreglo |
-| `store` | Decide si OpenAI conserva el objeto de respuesta | Evaluar requisitos de privacidad y retención |
-| `stream` | Entrega eventos a medida que se generan | Requiere consumir un iterador asíncrono |
-| `metadata` | Asocia pares clave-valor para búsqueda y trazabilidad | Evitar secretos y datos personales innecesarios |
-| `safety_identifier` | Identifica de forma estable a un usuario final para controles de seguridad | Usar un valor opaco o con hash, no correo en texto claro |
-| `background` | Permite ejecutar tareas largas en segundo plano cuando está soportado | La aplicación debe consultar o recibir el resultado después |
+| Propiedad              | Función                                                                    | Observación                                                                          |
+| ---------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `model`                | Selecciona el modelo                                                       | Validarlo en el backend, no recibir cualquier valor del cliente                      |
+| `input`                | Texto, mensajes o contenido de entrada                                     | Puede incluir texto, imágenes, archivos y resultados de herramientas según el modelo |
+| `instructions`         | Reglas de alto nivel                                                       | Separarlas del contenido del usuario reduce ambigüedad                               |
+| `max_output_tokens`    | Límite de tokens de salida                                                 | Una respuesta puede terminar incompleta al alcanzarlo                                |
+| `reasoning`            | Configura esfuerzo de razonamiento                                         | Más esfuerzo puede aumentar latencia y consumo                                       |
+| `text.verbosity`       | Ajusta concisión o detalle cuando existe soporte                           | No sustituye instrucciones específicas                                               |
+| `text.format`          | Solicita texto o salida estructurada                                       | Usar esquema estricto para datos consumidos por código                               |
+| `temperature`          | Modifica variación del muestreo                                            | Su soporte depende del modelo y configuración de razonamiento                        |
+| `top_p`                | Limita el núcleo probabilístico                                            | Normalmente se ajusta esto o `temperature`, no ambos                                 |
+| `tools`                | Declara funciones o herramientas integradas                                | El servidor sigue controlando su ejecución                                           |
+| `tool_choice`          | Controla cuándo elegir una herramienta                                     | Puede dejarse automático o limitarse a una herramienta                               |
+| `previous_response_id` | Enlaza un turno con la respuesta anterior                                  | Facilita continuidad sin reenviar manualmente todo el arreglo                        |
+| `store`                | Decide si OpenAI conserva el objeto de respuesta                           | Evaluar requisitos de privacidad y retención                                         |
+| `stream`               | Entrega eventos a medida que se generan                                    | Requiere consumir un iterador asíncrono                                              |
+| `metadata`             | Asocia pares clave-valor para búsqueda y trazabilidad                      | Evitar secretos y datos personales innecesarios                                      |
+| `safety_identifier`    | Identifica de forma estable a un usuario final para controles de seguridad | Usar un valor opaco o con hash, no correo en texto claro                             |
+| `background`           | Permite ejecutar tareas largas en segundo plano cuando está soportado      | La aplicación debe consultar o recibir el resultado después                          |
 
 Un **token** es una unidad interna de texto y no equivale necesariamente a una palabra. El costo y los límites se calculan normalmente con tokens de entrada y salida. El objeto de respuesta incluye datos de uso que conviene registrar sin guardar el contenido sensible.
 
@@ -138,14 +138,14 @@ Un **token** es una unidad interna de texto y no equivale necesariamente a una p
 
 ```ts
 const response = await openai.responses.create({
-  model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
-  instructions: 'Extrae únicamente los campos solicitados.',
-  input: 'Pedido A-18 para Camila, total 45 USD.',
+  model: process.env.OPENAI_MODEL ?? "gpt-5.6",
+  instructions: "Extrae únicamente los campos solicitados.",
+  input: "Pedido A-18 para Camila, total 45 USD.",
   max_output_tokens: 300,
   text: {
-    verbosity: 'low',
-  },
-});
+    verbosity: "low"
+  }
+})
 ```
 
 No conviene copiar `temperature: 0` en todas las solicitudes. Algunos modelos de razonamiento no aceptan esa propiedad con determinados niveles de esfuerzo. Cuando se admite, una temperatura baja ayuda en clasificación y extracción; una mayor puede ser útil para propuestas creativas. Se debe comprobar la ficha del modelo y probar el comportamiento con evaluaciones propias.
@@ -154,50 +154,50 @@ Para datos que alimentarán código, la salida estructurada es más segura que p
 
 ```ts
 const response = await openai.responses.create({
-  model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
-  input: 'Pedido A-18 para Camila, total 45 USD.',
+  model: process.env.OPENAI_MODEL ?? "gpt-5.6",
+  input: "Pedido A-18 para Camila, total 45 USD.",
   text: {
     format: {
-      type: 'json_schema',
-      name: 'order',
+      type: "json_schema",
+      name: "order",
       strict: true,
       schema: {
-        type: 'object',
+        type: "object",
         properties: {
-          id: { type: 'string' },
-          customer: { type: 'string' },
-          totalUsd: { type: 'number' },
+          id: { type: "string" },
+          customer: { type: "string" },
+          totalUsd: { type: "number" }
         },
-        required: ['id', 'customer', 'totalUsd'],
-        additionalProperties: false,
-      },
-    },
-  },
-});
+        required: ["id", "customer", "totalUsd"],
+        additionalProperties: false
+      }
+    }
+  }
+})
 
-const order = JSON.parse(response.output_text);
+const order = JSON.parse(response.output_text)
 ```
 
 El esquema limita la forma, pero la aplicación todavía debe validar reglas de negocio. Un número válido sintácticamente puede ser incorrecto para el pedido real.
 
 ## Streaming desde OpenAI
 
-OpenAI transmite eventos mediante **SSE** (*Server-Sent Events*). El SDK los presenta como un iterador asíncrono:
+OpenAI transmite eventos mediante **SSE** (_Server-Sent Events_). El SDK los presenta como un iterador asíncrono:
 
 ```ts
 const stream = await openai.responses.create({
-  model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
-  input: 'Explica el event loop con una analogía y un ejemplo.',
-  stream: true,
-});
+  model: process.env.OPENAI_MODEL ?? "gpt-5.6",
+  input: "Explica el event loop con una analogía y un ejemplo.",
+  stream: true
+})
 
 for await (const event of stream) {
-  if (event.type === 'response.output_text.delta') {
-    process.stdout.write(event.delta);
+  if (event.type === "response.output_text.delta") {
+    process.stdout.write(event.delta)
   }
 
-  if (event.type === 'response.completed') {
-    console.log('\nRespuesta:', event.response.id);
+  if (event.type === "response.completed") {
+    console.log("\nRespuesta:", event.response.id)
   }
 }
 ```
@@ -206,85 +206,86 @@ Entre los eventos importantes están `response.created`, `response.output_text.d
 
 ## Endpoint de streaming para React
 
-El siguiente endpoint Express transforma el stream SSE de OpenAI en **NDJSON** (*Newline-Delimited JSON*): un objeto JSON por línea. Así puede enviar texto, identificadores, uso y errores mediante un contrato sencillo.
+El siguiente endpoint Express transforma el stream SSE de OpenAI en **NDJSON** (_Newline-Delimited JSON_): un objeto JSON por línea. Así puede enviar texto, identificadores, uso y errores mediante un contrato sencillo.
 
 ```ts
-import type { Request, Response } from 'express';
-import { z } from 'zod';
-import { openai } from './lib/openai';
+import type { Request, Response } from "express"
+import { z } from "zod"
+import { openai } from "./lib/openai"
 
 const requestSchema = z.object({
   sessionId: z.string().uuid(),
-  message: z.string().trim().min(1).max(4_000),
-});
+  message: z.string().trim().min(1).max(4_000)
+})
 
 type SessionState = {
-  userId: string;
-  previousResponseId?: string;
-};
+  userId: string
+  previousResponseId?: string
+}
 
 // Solo para demostrar el flujo. En producción se usa una base de datos.
-const sessions = new Map<string, SessionState>();
+const sessions = new Map<string, SessionState>()
 
 export async function streamOpenAI(request: Request, response: Response) {
-  const user = requireAuthenticatedUser(request);
-  const input = requestSchema.parse(request.body);
-  const sessionKey = `${user.id}:${input.sessionId}`;
-  const session = sessions.get(sessionKey);
-  const abortController = new AbortController();
+  const user = requireAuthenticatedUser(request)
+  const input = requestSchema.parse(request.body)
+  const sessionKey = `${user.id}:${input.sessionId}`
+  const session = sessions.get(sessionKey)
+  const abortController = new AbortController()
 
-  response.on('close', () => abortController.abort());
-  response.status(200);
-  response.setHeader('Content-Type', 'application/x-ndjson; charset=utf-8');
-  response.setHeader('Cache-Control', 'no-cache, no-transform');
-  response.setHeader('X-Accel-Buffering', 'no');
-  response.flushHeaders();
+  response.on("close", () => abortController.abort())
+  response.status(200)
+  response.setHeader("Content-Type", "application/x-ndjson; charset=utf-8")
+  response.setHeader("Cache-Control", "no-cache, no-transform")
+  response.setHeader("X-Accel-Buffering", "no")
+  response.flushHeaders()
 
   const send = (event: unknown) => {
-    response.write(`${JSON.stringify(event)}\n`);
-  };
+    response.write(`${JSON.stringify(event)}\n`)
+  }
 
   try {
     const stream = await openai.responses.create(
       {
-        model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
-        instructions: 'Ayuda al usuario con explicaciones verificables y claras.',
+        model: process.env.OPENAI_MODEL ?? "gpt-5.6",
+        instructions:
+          "Ayuda al usuario con explicaciones verificables y claras.",
         input: input.message,
         previous_response_id: session?.previousResponseId,
         store: true,
         stream: true,
         max_output_tokens: 1_500,
-        safety_identifier: createSafetyIdentifier(user.id),
+        safety_identifier: createSafetyIdentifier(user.id)
       },
-      { signal: abortController.signal },
-    );
+      { signal: abortController.signal }
+    )
 
-    send({ type: 'start' });
+    send({ type: "start" })
 
     for await (const event of stream) {
-      if (event.type === 'response.output_text.delta') {
-        send({ type: 'text-delta', delta: event.delta });
+      if (event.type === "response.output_text.delta") {
+        send({ type: "text-delta", delta: event.delta })
       }
 
-      if (event.type === 'response.completed') {
+      if (event.type === "response.completed") {
         sessions.set(sessionKey, {
           userId: user.id,
-          previousResponseId: event.response.id,
-        });
+          previousResponseId: event.response.id
+        })
 
         send({
-          type: 'done',
+          type: "done",
           responseId: event.response.id,
-          usage: event.response.usage,
-        });
+          usage: event.response.usage
+        })
       }
     }
   } catch (error) {
     if (!abortController.signal.aborted) {
-      send({ type: 'error', message: 'No se pudo completar la respuesta.' });
+      send({ type: "error", message: "No se pudo completar la respuesta." })
     }
   } finally {
-    response.end();
+    response.end()
   }
 }
 ```
@@ -298,99 +299,99 @@ El `Map` se pierde al reiniciar, no se comparte entre instancias y crece sin con
 `EventSource` solo facilita solicitudes GET. Como el chat necesita enviar un cuerpo con POST, el componente usa `fetch`, lee `response.body` y separa cada línea NDJSON.
 
 ```tsx
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from "react"
 
 type Message = {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-};
+  id: string
+  role: "user" | "assistant"
+  content: string
+}
 
 type StreamEvent =
-  | { type: 'start' }
-  | { type: 'text-delta'; delta: string }
-  | { type: 'done'; responseId: string }
-  | { type: 'error'; message: string };
+  | { type: "start" }
+  | { type: "text-delta"; delta: string }
+  | { type: "done"; responseId: string }
+  | { type: "error"; message: string }
 
 export function OpenAIChat() {
-  const sessionId = useRef(crypto.randomUUID());
-  const activeRequest = useRef<AbortController | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [status, setStatus] = useState<'idle' | 'streaming' | 'error'>('idle');
+  const sessionId = useRef(crypto.randomUUID())
+  const activeRequest = useRef<AbortController | null>(null)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState("")
+  const [status, setStatus] = useState<"idle" | "streaming" | "error">("idle")
 
   async function submit(event: FormEvent) {
-    event.preventDefault();
-    const text = input.trim();
-    if (!text || status === 'streaming') return;
+    event.preventDefault()
+    const text = input.trim()
+    if (!text || status === "streaming") return
 
     const userMessage: Message = {
       id: crypto.randomUUID(),
-      role: 'user',
-      content: text,
-    };
-    const assistantId = crypto.randomUUID();
-    const controller = new AbortController();
+      role: "user",
+      content: text
+    }
+    const assistantId = crypto.randomUUID()
+    const controller = new AbortController()
 
-    activeRequest.current = controller;
-    setInput('');
-    setStatus('streaming');
+    activeRequest.current = controller
+    setInput("")
+    setStatus("streaming")
     setMessages((current) => [
       ...current,
       userMessage,
-      { id: assistantId, role: 'assistant', content: '' },
-    ]);
+      { id: assistantId, role: "assistant", content: "" }
+    ])
 
     try {
-      const response = await fetch('/api/chat/openai', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
+      const response = await fetch("/api/chat/openai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         signal: controller.signal,
-        body: JSON.stringify({ sessionId: sessionId.current, message: text }),
-      });
+        body: JSON.stringify({ sessionId: sessionId.current, message: text })
+      })
 
       if (!response.ok || !response.body) {
-        throw new Error(`El servidor respondió ${response.status}`);
+        throw new Error(`El servidor respondió ${response.status}`)
       }
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ""
 
       while (true) {
-        const { done, value } = await reader.read();
-        buffer += decoder.decode(value, { stream: !done });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() ?? '';
+        const { done, value } = await reader.read()
+        buffer += decoder.decode(value, { stream: !done })
+        const lines = buffer.split("\n")
+        buffer = lines.pop() ?? ""
 
         for (const line of lines) {
-          if (!line.trim()) continue;
-          const streamEvent = JSON.parse(line) as StreamEvent;
+          if (!line.trim()) continue
+          const streamEvent = JSON.parse(line) as StreamEvent
 
-          if (streamEvent.type === 'text-delta') {
+          if (streamEvent.type === "text-delta") {
             setMessages((current) =>
               current.map((message) =>
                 message.id === assistantId
                   ? { ...message, content: message.content + streamEvent.delta }
-                  : message,
-              ),
-            );
+                  : message
+              )
+            )
           }
 
-          if (streamEvent.type === 'error') {
-            throw new Error(streamEvent.message);
+          if (streamEvent.type === "error") {
+            throw new Error(streamEvent.message)
           }
         }
 
-        if (done) break;
+        if (done) break
       }
 
-      setStatus('idle');
+      setStatus("idle")
     } catch (error) {
-      if (!controller.signal.aborted) setStatus('error');
+      if (!controller.signal.aborted) setStatus("error")
     } finally {
-      activeRequest.current = null;
+      activeRequest.current = null
     }
   }
 
@@ -399,8 +400,8 @@ export function OpenAIChat() {
       <ol aria-live="polite">
         {messages.map((message) => (
           <li key={message.id}>
-            <strong>{message.role === 'user' ? 'Tú' : 'Asistente'}:</strong>{' '}
-            {message.content || 'Escribiendo…'}
+            <strong>{message.role === "user" ? "Tú" : "Asistente"}:</strong>{" "}
+            {message.content || "Escribiendo…"}
           </li>
         ))}
       </ol>
@@ -411,20 +412,25 @@ export function OpenAIChat() {
           id="chat-message"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          disabled={status === 'streaming'}
+          disabled={status === "streaming"}
         />
-        <button disabled={!input.trim() || status === 'streaming'}>
+        <button disabled={!input.trim() || status === "streaming"}>
           Enviar
         </button>
-        {status === 'streaming' && (
-          <button type="button" onClick={() => activeRequest.current?.abort()}>
+        {status === "streaming" && (
+          <button
+            type="button"
+            onClick={() => activeRequest.current?.abort()}
+          >
             Detener
           </button>
         )}
-        {status === 'error' && <p role="alert">No se pudo generar la respuesta.</p>}
+        {status === "error" && (
+          <p role="alert">No se pudo generar la respuesta.</p>
+        )}
       </form>
     </section>
-  );
+  )
 }
 ```
 
@@ -436,17 +442,17 @@ En una interfaz madura también se controla el foco, se anuncia el estado sin le
 
 ```ts
 const first = await openai.responses.create({
-  model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
-  input: 'Mi proyecto se llama Atlas y utiliza PostgreSQL.',
-  store: true,
-});
+  model: process.env.OPENAI_MODEL ?? "gpt-5.6",
+  input: "Mi proyecto se llama Atlas y utiliza PostgreSQL.",
+  store: true
+})
 
 const second = await openai.responses.create({
-  model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
+  model: process.env.OPENAI_MODEL ?? "gpt-5.6",
   previous_response_id: first.id,
-  input: '¿Qué base de datos usa mi proyecto?',
-  store: true,
-});
+  input: "¿Qué base de datos usa mi proyecto?",
+  store: true
+})
 ```
 
 `previous_response_id` enlaza el turno nuevo con una respuesta guardada. La aplicación conserva el último ID por sesión y por usuario. Los tokens previos que vuelven a formar parte del contexto siguen contando para facturación; enlazar respuestas no convierte un historial grande en gratuito.
@@ -472,47 +478,47 @@ La base de datos permite reconstruir la interfaz, buscar conversaciones y migrar
 
 ```ts
 const first = await openai.responses.create({
-  model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
-  input: '¿Cuántas unidades quedan del producto A-18?',
+  model: process.env.OPENAI_MODEL ?? "gpt-5.6",
+  input: "¿Cuántas unidades quedan del producto A-18?",
   tools: [
     {
-      type: 'function',
-      name: 'get_inventory',
-      description: 'Obtiene el inventario actual de un producto autorizado.',
+      type: "function",
+      name: "get_inventory",
+      description: "Obtiene el inventario actual de un producto autorizado.",
       strict: true,
       parameters: {
-        type: 'object',
+        type: "object",
         properties: {
-          productId: { type: 'string' },
+          productId: { type: "string" }
         },
-        required: ['productId'],
-        additionalProperties: false,
-      },
-    },
-  ],
-});
+        required: ["productId"],
+        additionalProperties: false
+      }
+    }
+  ]
+})
 
 const toolCall = first.output.find(
-  (item) => item.type === 'function_call' && item.name === 'get_inventory',
-);
+  (item) => item.type === "function_call" && item.name === "get_inventory"
+)
 
-if (toolCall?.type === 'function_call') {
-  const args = JSON.parse(toolCall.arguments);
-  const inventory = await getAuthorizedInventory(args.productId);
+if (toolCall?.type === "function_call") {
+  const args = JSON.parse(toolCall.arguments)
+  const inventory = await getAuthorizedInventory(args.productId)
 
   const final = await openai.responses.create({
-    model: process.env.OPENAI_MODEL ?? 'gpt-5.6',
+    model: process.env.OPENAI_MODEL ?? "gpt-5.6",
     previous_response_id: first.id,
     input: [
       {
-        type: 'function_call_output',
+        type: "function_call_output",
         call_id: toolCall.call_id,
-        output: JSON.stringify(inventory),
-      },
-    ],
-  });
+        output: JSON.stringify(inventory)
+      }
+    ]
+  })
 
-  console.log(final.output_text);
+  console.log(final.output_text)
 }
 ```
 

@@ -46,9 +46,7 @@ mi-plugin/
 {
   "name": "mi-marketplace",
   "owner": "tu-usuario",
-  "plugins": [
-    { "name": "mi-plugin", "source": "./mi-plugin" }
-  ]
+  "plugins": [{ "name": "mi-plugin", "source": "./mi-plugin" }]
 }
 ```
 
@@ -58,7 +56,9 @@ Cualquier repo de git (GitHub, GitLab, o incluso una carpeta local) puede ser un
 
 ```json title=".claude/settings.json"
 {
-  "extraKnownMarketplaces": { "mi-marketplace": { "source": "tu-usuario/mi-marketplace" } },
+  "extraKnownMarketplaces": {
+    "mi-marketplace": { "source": "tu-usuario/mi-marketplace" }
+  },
   "enabledPlugins": ["mi-plugin@mi-marketplace"]
 }
 ```
@@ -67,11 +67,11 @@ Con esto en `settings.json` (commiteado), cualquiera que abra el proyecto tiene 
 
 ## Resumen
 
-| Comando | Qué hace |
-| --- | --- |
-| `/plugin marketplace add <repo>` | Agrega un marketplace |
-| `/plugin install <plugin>@<marketplace>` | Instala un plugin |
-| `enabledPlugins` en settings.json | Auto-instala para todo el equipo |
+| Comando                                  | Qué hace                         |
+| ---------------------------------------- | -------------------------------- |
+| `/plugin marketplace add <repo>`         | Agrega un marketplace            |
+| `/plugin install <plugin>@<marketplace>` | Instala un plugin                |
+| `enabledPlugins` en settings.json        | Auto-instala para todo el equipo |
 
 ## Consideraciones
 

@@ -62,13 +62,13 @@ git config --global alias.lg "log --oneline --graph --decorate --all"
 
 ## Resumen
 
-| Comando | Qué configura |
-| --- | --- |
-| `git config --global user.name/email` | Identidad para firmar commits |
-| `git config --global init.defaultBranch main` | Nombre de la rama inicial en repos nuevos |
-| `git config --global core.editor "..."` | Editor para mensajes largos y rebases |
-| `git config --global alias.x "..."` | Atajos custom (`git x` en vez del comando completo) |
-| `git config --list` | Ver toda la configuración activa |
+| Comando                                       | Qué configura                                       |
+| --------------------------------------------- | --------------------------------------------------- |
+| `git config --global user.name/email`         | Identidad para firmar commits                       |
+| `git config --global init.defaultBranch main` | Nombre de la rama inicial en repos nuevos           |
+| `git config --global core.editor "..."`       | Editor para mensajes largos y rebases               |
+| `git config --global alias.x "..."`           | Atajos custom (`git x` en vez del comando completo) |
+| `git config --list`                           | Ver toda la configuración activa                    |
 
 ## Consideraciones
 

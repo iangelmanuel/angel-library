@@ -5,7 +5,11 @@ type: guides
 order: 2
 tags: [docker, lifecycle, contenedores]
 scope: ciclo de vida
-related: [devops/docker-contenedores/docker-run-basico, devops/docker-contenedores/docker-ps-inspect]
+related:
+  [
+    devops/docker-contenedores/docker-run-basico,
+    devops/docker-contenedores/docker-ps-inspect
+  ]
 updatedAt: 2026-08-17
 ---
 

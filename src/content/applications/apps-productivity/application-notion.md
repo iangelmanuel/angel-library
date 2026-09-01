@@ -38,14 +38,14 @@ Una **base de datos** en Notion es una colección de páginas que comparten prop
 
 Esa misma base de datos se puede mostrar con distintas **vistas** sin duplicar los datos:
 
-| Vista | Para qué sirve |
-| --- | --- |
-| **Table** | Como una hoja de cálculo — todas las propiedades visibles en columnas |
-| **Board** | Tipo Kanban, agrupado por una propiedad de selección (por ejemplo, estado: Por hacer / En progreso / Hecho) |
-| **Calendar** | Agrupa por una propiedad de fecha |
-| **Gallery** | Tarjetas visuales, útil cuando cada fila tiene una imagen relevante |
-| **Timeline** | Tipo Gantt, para propiedades con rango de fechas |
-| **List** | La vista más compacta, sin columnas |
+| Vista        | Para qué sirve                                                                                              |
+| ------------ | ----------------------------------------------------------------------------------------------------------- |
+| **Table**    | Como una hoja de cálculo — todas las propiedades visibles en columnas                                       |
+| **Board**    | Tipo Kanban, agrupado por una propiedad de selección (por ejemplo, estado: Por hacer / En progreso / Hecho) |
+| **Calendar** | Agrupa por una propiedad de fecha                                                                           |
+| **Gallery**  | Tarjetas visuales, útil cuando cada fila tiene una imagen relevante                                         |
+| **Timeline** | Tipo Gantt, para propiedades con rango de fechas                                                            |
+| **List**     | La vista más compacta, sin columnas                                                                         |
 
 Cambiar de vista no mueve ni copia datos: son distintas formas de mirar la misma base, cada una con sus propios filtros y orden guardados.
 

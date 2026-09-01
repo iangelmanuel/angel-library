@@ -94,4 +94,3 @@ Las funciones conectadas pueden enviar prompts, contexto o salida a servicios re
 - comprueba shell, directorio actual y entorno antes de ejecutar.
 
 Fuentes: [instalación de Warp](https://docs.warp.dev/getting-started/quickstart/installation-and-setup), [Blocks](https://docs.warp.dev/terminal/blocks) y [Launch Configurations](https://docs.warp.dev/terminal/sessions/launch-configurations).
-

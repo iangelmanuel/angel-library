@@ -82,61 +82,61 @@ Search the project for an existing site-wide config object (commonly `SITE`, `si
 
 ## `references/config.md`
 
-```md title=".claude/skills/astro-seo/references/config.md"
+````md title=".claude/skills/astro-seo/references/config.md"
 # SITE.seo — target shape
 
 The single source of truth for every SEO-related value in the project. Nothing SEO-related should be written directly in a component or function — it all reads from here.
 
 ​```ts title="src/config/site.ts"
 export interface Service {
-  /** Used in the JSON-LD fragment: `${URL}#service-${id}`. */
-  id: string;
-  /** Short label above the title (category or service type). */
-  eyebrow: string;
-  /** Visible service title — maps to `name` in the JSON-LD. */
-  h3: string;
-  /** Short description — maps to `description`. */
-  body: string;
-  /** Offer catalog items for that service (JSON-LD `OfferCatalog`). */
-  items: string[];
+/** Used in the JSON-LD fragment: `${URL}#service-${id}`. _/
+id: string;
+/_* Short label above the title (category or service type). _/
+eyebrow: string;
+/_* Visible service title — maps to `name` in the JSON-LD. _/
+h3: string;
+/_* Short description — maps to `description`. _/
+body: string;
+/_* Offer catalog items for that service (JSON-LD `OfferCatalog`). */
+items: string[];
 }
 
 export interface FaqItem {
-  /** The question — maps to `name` in the JSON-LD Question. */
-  q: string;
-  /** The answer — maps to `acceptedAnswer.text`. */
-  a: string;
+/** The question — maps to `name` in the JSON-LD Question. _/
+q: string;
+/_* The answer — maps to `acceptedAnswer.text`. */
+a: string;
 }
 
 /** Comes from the `site` option in astro.config.mjs — one place defines the domain. */
 const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
-  /\/$/,
-  ""
+/\/$/,
+""
 );
 
 export const SITE = {
-  // ...the rest of SITE already exists in the project — name, legalName, slogan,
-  // founded, location, contact, social, founders. Not repeated here because it's
-  // brand identity, not SEO — the target of this skill is only what's below.
+// ...the rest of SITE already exists in the project — name, legalName, slogan,
+// founded, location, contact, social, founders. Not repeated here because it's
+// brand identity, not SEO — the target of this skill is only what's below.
 
-  seo: {
-    /** Default title — used as-is on the home page, and as the " — {name}" suffix elsewhere. */
-    title: "Acme — Software, marca y comunicación para empresas",
-    description:
-      "Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
-    keywords: [
-      "agencia digital",
-      "desarrollo web",
-      "desarrollo de software",
-      "diseño web Bogotá",
-      "identidad de marca",
-      "comunicación organizacional",
-      "e-commerce",
-      "landing pages",
-      "Bogotá",
-      "Colombia",
-      "software boutique",
-    ],
+seo: {
+/** Default title — used as-is on the home page, and as the " — {name}" suffix elsewhere. */
+title: "Acme — Software, marca y comunicación para empresas",
+description:
+"Firma boutique en Bogotá, Colombia. Construimos sitios web, software a medida, identidad de marca y comunicación para empresas que quieren ser vistas, entendidas y elegidas.",
+keywords: [
+"agencia digital",
+"desarrollo web",
+"desarrollo de software",
+"diseño web Bogotá",
+"identidad de marca",
+"comunicación organizacional",
+"e-commerce",
+"landing pages",
+"Bogotá",
+"Colombia",
+"software boutique",
+],
 
     /** Site authorship — feeds the author/creator/publisher metas. This used to be derived
      *  from `info.founders`; it's now an explicit SEO field, since the content author
@@ -197,7 +197,8 @@ export const SITE = {
       { type: "Country", name: "Colombia" },
       { type: "Place", name: "Latin America" },
     ],
-  },
+
+},
 } as const;
 
 // SERVICES and FAQ_ITEMS feed servicesLd()/faqLd() below — sibling exports of
@@ -206,29 +207,29 @@ export const SITE = {
 // it out of here into its own content collection.
 
 export const SERVICES: Service[] = [
-  {
-    id: "desarrollo-software",
-    eyebrow: "Desarrollo",
-    h3: "Desarrollo de Software",
-    body: "Aplicaciones a medida, desde el diagnóstico hasta el despliegue.",
-    items: ["Aplicaciones web", "Automatización de procesos", "Integraciones"],
-  },
+{
+id: "desarrollo-software",
+eyebrow: "Desarrollo",
+h3: "Desarrollo de Software",
+body: "Aplicaciones a medida, desde el diagnóstico hasta el despliegue.",
+items: ["Aplicaciones web", "Automatización de procesos", "Integraciones"],
+},
 ];
 
 export const FAQ_ITEMS: FaqItem[] = [
-  {
-    q: "¿Cuánto tarda un proyecto típico?",
-    a: "Entre 4 y 8 semanas según el alcance, con entregas parciales revisables.",
-  },
+{
+q: "¿Cuánto tarda un proyecto típico?",
+a: "Entre 4 y 8 semanas según el alcance, con entregas parciales revisables.",
+},
 ];
 ​```
 
 Every field has exactly one consumer somewhere in `references/components.md`, `references/head.md`, or `references/assembly.md` — if a field here ends up unused, it doesn't belong.
-```
+````
 
 ## `references/components.md`
 
-```md title=".claude/skills/astro-seo/references/components.md"
+````md title=".claude/skills/astro-seo/references/components.md"
 # JsonLd.astro + src/libs/seo.ts
 
 ## JsonLd.astro
@@ -237,9 +238,10 @@ Generic, reusable — no company data inside, it only serializes whatever it's g
 
 ​```astro title="src/components/seo/JsonLd.astro"
 ---
+
 interface Props {
-  id: string;
-  data: object | object[];
+id: string;
+data: object | object[];
 }
 
 const { id, data } = Astro.props;
@@ -387,37 +389,38 @@ export function faqLd() {
 | `professionalServiceLd` | `ProfessionalService` | Local business with address/phone — what Google uses for price/location rich results |
 | `servicesLd` | `Service` (one per service) | Each service as an individual offering, with its own catalog |
 | `faqLd` | `FAQPage` | FAQ — can generate the accordion rich result directly in search |
-```
+````
 
 ## `references/head.md`
 
-```md title=".claude/skills/astro-seo/references/head.md"
+````md title=".claude/skills/astro-seo/references/head.md"
 # BaseHead.astro
 
 Tag order matters: charset → viewport → title → description → canonical + hreflang → robots → Open Graph → Twitter → secondary meta → geo/theme-color/icons last. Canonical and robots are indexing signals everything else depends on, so they come before OG/Twitter (which are only for social sharing).
 
 ​```astro title="src/components/seo/BaseHead.astro"
 ---
+
 import { SITE } from "@/config/site";
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonical?: string;
-  keywords?: readonly string[];
-  ogType?: "website" | "article";
-  noindex?: boolean;
+title?: string;
+description?: string;
+image?: string;
+canonical?: string;
+keywords?: readonly string[];
+ogType?: "website" | "article";
+noindex?: boolean;
 }
 
 const {
-  title,
-  description = SITE.seo.description,
-  image = SITE.seo.image,
-  canonical = new URL(Astro.url.pathname, SITE.seo.url).href,
-  keywords = SITE.seo.keywords,
-  ogType = SITE.seo.ogType,
-  noindex = SITE.seo.noindex,
+title,
+description = SITE.seo.description,
+image = SITE.seo.image,
+canonical = new URL(Astro.url.pathname, SITE.seo.url).href,
+keywords = SITE.seo.keywords,
+ogType = SITE.seo.ogType,
+noindex = SITE.seo.noindex,
 } = Astro.props;
 
 // No custom title: use the default as-is (home page doesn't end up "Acme — ... — Acme").
@@ -428,8 +431,8 @@ const ogImage = new URL(image, SITE.seo.url).href;
 const ogLocale = SITE.seo.locale.replace("-", "_");
 const robots = noindex ? "noindex, nofollow" : "index, follow";
 const googlebot = noindex
-  ? robots
-  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
+? robots
+: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 ---
 
 <title>{pageTitle}</title>
@@ -497,17 +500,18 @@ const googlebot = noindex
 1. **Duplicated title on the home page** — if `title` defaults to `SITE.seo.title`, the condition `title ? ... : SITE.seo.title` is always true, so the home ends up `"Acme — Software... — Acme"`. `title` must have **no default** for the ternary above to work.
 2. **`og:image:width`/`og:image:height` hardcoded** as `"1200"`/`"630"` even when `SITE.seo.imageWidth`/`imageHeight` already exist — always read from those fields, never repeat the numbers.
 3. **Fixed `hreflang`** written once by hand instead of iterating `SITE.seo.locales` — breaks the moment a second language is added.
-```
+````
 
 ## `references/assembly.md`
 
-```md title=".claude/skills/astro-seo/references/assembly.md"
+````md title=".claude/skills/astro-seo/references/assembly.md"
 # Layout, API routes, and a working example
 
 ## Layout.astro
 
 ​```astro title="src/layouts/Layout.astro"
 ---
+
 import BaseHead from "@/components/seo/BaseHead.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import { SITE } from "@/config/site";
@@ -515,13 +519,13 @@ import { faqLd, organizationLd, professionalServiceLd, servicesLd, webSiteLd } f
 import "@/styles/globals.css";
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonical?: string;
-  keywords?: readonly string[];
-  ogType?: "website" | "article";
-  noindex?: boolean;
+title?: string;
+description?: string;
+image?: string;
+canonical?: string;
+keywords?: readonly string[];
+ogType?: "website" | "article";
+noindex?: boolean;
 }
 
 const { title, description, image, canonical, keywords, ogType, noindex } = Astro.props;
@@ -544,6 +548,7 @@ const { title, description, image, canonical, keywords, ogType, noindex } = Astr
     <JsonLd id="ld-business" data={professionalServiceLd()} />
     <JsonLd id="ld-services" data={servicesLd()} />
     <JsonLd id="ld-faq" data={faqLd()} />
+
   </head>
 
   <body class="antialiased">
@@ -561,22 +566,22 @@ import type { APIRoute } from "astro";
 import { SITE } from "@/config/site";
 
 export const GET: APIRoute = () => {
-  const manifest = {
-    name: SITE.info.legalName,
-    short_name: SITE.info.name,
-    description: SITE.seo.description,
-    start_url: "/",
-    display: "standalone",
-    background_color: SITE.seo.themeColor.dark,
-    theme_color: SITE.seo.themeColor.dark,
-    lang: SITE.seo.locale,
-    categories: SITE.seo.manifestCategories,
-    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
-  };
+const manifest = {
+name: SITE.info.legalName,
+short_name: SITE.info.name,
+description: SITE.seo.description,
+start_url: "/",
+display: "standalone",
+background_color: SITE.seo.themeColor.dark,
+theme_color: SITE.seo.themeColor.dark,
+lang: SITE.seo.locale,
+categories: SITE.seo.manifestCategories,
+icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
+};
 
-  return new Response(JSON.stringify(manifest, null, 2), {
-    headers: { "Content-Type": "application/manifest+json; charset=utf-8" },
-  });
+return new Response(JSON.stringify(manifest, null, 2), {
+headers: { "Content-Type": "application/manifest+json; charset=utf-8" },
+});
 };
 ​```
 
@@ -587,17 +592,17 @@ import type { APIRoute } from "astro";
 import { SITE } from "@/config/site";
 
 export const GET: APIRoute = () => {
-  const body = [
-    "User-agent: *",
-    "Allow: /",
-    "Disallow: /_astro/",
-    "",
-    `Sitemap: ${SITE.seo.url}/sitemap.xml`,
-    `Host: ${SITE.seo.url}`,
-    "",
-  ].join("\n");
+const body = [
+"User-agent: *",
+"Allow: /",
+"Disallow: /_astro/",
+"",
+`Sitemap: ${SITE.seo.url}/sitemap.xml`,
+`Host: ${SITE.seo.url}`,
+"",
+].join("\n");
 
-  return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
 };
 ​```
 
@@ -611,24 +616,24 @@ import { SITE } from "@/config/site";
 const ROUTES = [{ path: "/", changeFrequency: "monthly", priority: "1.0" }];
 
 export const GET: APIRoute = () => {
-  const lastModified = new Date().toISOString();
+const lastModified = new Date().toISOString();
 
-  const urls = ROUTES.map(
-    (route) => `  <url>
+const urls = ROUTES.map(
+(route) => `  <url>
     <loc>${SITE.seo.url}${route.path}</loc>
     <lastmod>${lastModified}</lastmod>
     <changefreq>${route.changeFrequency}</changefreq>
     <priority>${route.priority}</priority>
   </url>`,
-  ).join("\n");
+).join("\n");
 
-  const body = `<?xml version="1.0" encoding="UTF-8"?>
+const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
 </urlset>
 `;
 
-  return new Response(body, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
+return new Response(body, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
 };
 ​```
 
@@ -638,15 +643,18 @@ ${urls}
 
 ​```astro title="src/pages/servicios.astro"
 ---
+
 import Layout from "@/layouts/Layout.astro";
 import { SERVICES, SITE } from "@/config/site";
 ---
 
 <Layout
-  title="Servicios"
-  description="Desarrollo de software, identidad de marca y comunicación organizacional para empresas en Bogotá y toda Latinoamérica."
-  canonical={new URL("/servicios", SITE.seo.url).href}
+title="Servicios"
+description="Desarrollo de software, identidad de marca y comunicación organizacional para empresas en Bogotá y toda Latinoamérica."
+canonical={new URL("/servicios", SITE.seo.url).href}
+
 >
+
   <main>
     <h1>Servicios</h1>
     <ul>
@@ -657,7 +665,7 @@ import { SERVICES, SITE } from "@/config/site";
 ​```
 
 Overrides `title`, `description`, and `canonical` — everything else (`image`, `keywords`, `ogType`, `noindex`) falls back to `SITE.seo` defaults without the page repeating them. For a page that shouldn't be indexed (a "thank you" page after a form, for example), same pattern plus one flag: `<Layout title="Gracias" noindex={true}>`.
-```
+````
 
 ## Consideraciones
 
