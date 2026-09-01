@@ -3,10 +3,9 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { unified } from '@astrojs/markdown-remark';
 import { transformerMetaHighlight, transformerNotationDiff } from '@shikijs/transformers';
-import { rehypeCodeBlocks } from './src/lib/rehype-code-blocks.mjs';
-import { rehypeExternalLinks } from './src/lib/rehype-external-links.mjs';
-import { transformerCodeFilename, transformerPackageManagerMeta } from './src/lib/shiki-transformers.mjs';
-import { remarkPmTabs } from './src/lib/remark-pm-tabs.mjs';
+import { rehypeCodeBlocks, transformerCodeFilename, transformerPackageManagerMeta } from './src/markdown/code-blocks.mjs';
+import { rehypeExternalLinks } from './src/markdown/external-links.mjs';
+import { remarkPackageManagerTabs } from './src/markdown/package-manager.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,7 +16,7 @@ export default defineConfig({
   },
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkPmTabs],
+      remarkPlugins: [remarkPackageManagerTabs],
       rehypePlugins: [rehypeCodeBlocks, rehypeExternalLinks],
     }),
     shikiConfig: {

@@ -1,4 +1,4 @@
-import type { SearchDoc } from "@/lib/search"
+import type { SearchDoc } from "../search"
 import type {
   CategoryItem,
   MenuItem,

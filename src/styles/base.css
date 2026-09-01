@@ -9,6 +9,9 @@
     scroll-behavior: smooth;
     scrollbar-color: var(--zinc-800) transparent;
     scrollbar-width: thin;
+    /* Mantiene el texto en escala de grises y evita halos de color del subpíxel. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -19,6 +22,7 @@
     line-height: 1.6;
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 

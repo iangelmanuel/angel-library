@@ -16,7 +16,6 @@
 │   │   ├── content/         # Tarjetas, metadatos y relaciones de las entradas
 │   │   ├── layout/          # Header, sidebar, navegación móvil, TOC y footer
 │   │   ├── shared/          # Iconos, logo y botón de copiar
-│   │   └── ui/              # Primitivas React (shadcn) realmente usadas
 │   ├── config/
 │   │   ├── site.ts          # Tipos, categorías, subcategorías y orden
 │   │   └── icons.ts         # Tabla única de iconos (Astro y React)
@@ -24,7 +23,8 @@
 │   ├── content.config.ts    # Esquema único, unión discriminada por `type`
 │   ├── features/terminal/   # La consola: componentes, hooks, comandos y datos
 │   ├── layouts/             # Documento base y composición de páginas
-│   ├── lib/                 # Contenido, relaciones, navegación, iconos, Markdown
+│   ├── lib/                 # Contenido, relaciones, navegación e iconos
+│   ├── markdown/            # Transformaciones de Markdown y bloques de código
 │   ├── pages/               # Rutas y endpoints estáticos
 │   ├── scripts/             # Interacciones globales del navegador
 │   └── styles/              # Tokens y parciales de estilo
@@ -86,15 +86,17 @@ A eso se suman dos redes de seguridad en configuración: una categoría fuera de
 - `src/lib/relations.ts` — validaciones y relaciones explícitas, inversas y por afinidad de tags.
 - `src/lib/nav.ts` — convierte configuración y contenido en el árbol de la sidebar y el menú móvil.
 - `src/lib/icons.ts` — construye el SVG en build para `<Icon>`; `DynamicIcon.tsx` hace lo mismo en React desde la misma tabla.
-- `src/lib/search.ts` — descarga el índice una vez por sesión y configura Fuse.
-- `src/lib/remark-pm-tabs.mjs`, `rehype-code-blocks.mjs`, `rehype-external-links.mjs`, `shiki-transformers.mjs`, `pm-commands.mjs` — pipeline de Markdown: pestañas de package manager, cabecera de los bloques de código y enlaces externos seguros.
-- `src/features/terminal/` — la consola de `/search` y de Ctrl/Cmd + K. Su propio README explica cómo añadir un comando.
+- `src/markdown/package-manager.mjs` — traduce instalaciones y crea las pestañas pnpm, Bun y npm.
+- `src/markdown/code-blocks.mjs` — conserva metadatos de Shiki y construye las cabeceras de los bloques.
+- `src/markdown/external-links.mjs` — asegura y abre aparte los enlaces externos del Markdown.
+- `src/features/terminal/` — la consola de `/search` y de Ctrl/Cmd + K, incluido su índice de búsqueda. Su propio README explica cómo añadir un comando.
 - `src/scripts/site-interactions.ts` — eventos globales: copiar código, abrir la terminal, tabs de package manager y estado de la sidebar.
 
 ## Límites entre capas
 
 - **Configuración:** `site.ts` e `icons.ts` definen el vocabulario y nada más.
-- **Contenido:** `content.ts` y `relations.ts` cargan, validan, ordenan y relacionan sin conocer componentes.
+- **Contenido:** los cuatro archivos de `src/lib/` cargan, validan, ordenan, relacionan, preparan la navegación y resuelven iconos sin conocer componentes.
+- **Markdown:** `src/markdown/` transforma el contenido durante el build; nada de esa carpeta llega al cliente.
 - **Presentación:** rutas, layouts y componentes renderizan modelos ya preparados; no repiten filtros ni agrupaciones.
 - **Cliente:** React y `src/scripts/` solo contienen lo que debe correr en el navegador.
 - **Features:** una parte de la interfaz con estado, datos y reglas propias vive completa en `src/features/<nombre>/`.

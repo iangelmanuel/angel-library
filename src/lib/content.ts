@@ -40,15 +40,6 @@ export function getEntryUrl(entry: AnyEntry): string {
   return `/${entry.id}`
 }
 
-/** Clave de referencia: el id. */
-export function entryKey(entry: AnyEntry): string {
-  return entry.id
-}
-
-export function buildEntryMap(entries: AnyEntry[]): Map<string, AnyEntry> {
-  return new Map(entries.map((entry) => [entryKey(entry), entry]))
-}
-
 // ── Ordenar ──
 
 /** Curva de lectura: fundamentos primero. */
@@ -99,29 +90,23 @@ interface EntryGroup {
   entries: AnyEntry[]
 }
 
-function toGroups(
-  source: readonly { id: string; label: string; description?: string }[],
-  pick: (id: string) => AnyEntry[]
-): EntryGroup[] {
-  return source
+/** Entradas de una categoría, agrupadas por subcategoría. */
+export function getCategoryEntries(all: AnyEntry[], category: CategoryId) {
+  const entries = all.filter((entry) => categoryOf(entry) === category)
+  const groups: EntryGroup[] = getSubcategoriesForCategory(category)
     .map(({ id, label, description }) => ({
       id,
       label,
       description,
-      entries: pick(id)
+      entries: sortByLearningPath(
+        entries.filter((entry) => subcategoryOf(entry) === id)
+      )
     }))
     .filter((group) => group.entries.length > 0)
-}
-
-/** Entradas de una categoría, agrupadas por subcategoría. */
-export function getCategoryEntries(all: AnyEntry[], category: CategoryId) {
-  const entries = all.filter((entry) => categoryOf(entry) === category)
 
   return {
     entries,
-    groups: toGroups(getSubcategoriesForCategory(category), (id) =>
-      sortByLearningPath(entries.filter((entry) => subcategoryOf(entry) === id))
-    ),
+    groups,
     ungrouped: sortByLearningPath(entries.filter((entry) => !subcategoryOf(entry)))
   }
 }
@@ -157,10 +142,16 @@ export function getCategorySections(
     }
   }
 
-  return { entries, sections: [...groups, ...loose(
-      "Fundamentos y referencias",
-      "Contenido de la categoría que no pertenece a ninguna subcategoría."
-    )] }
+  return {
+    entries,
+    sections: [
+      ...groups,
+      ...loose(
+        "Fundamentos y referencias",
+        "Contenido de la categoría que no pertenece a ninguna subcategoría."
+      )
+    ]
+  }
 }
 
 /** Agrupa por categoría. */

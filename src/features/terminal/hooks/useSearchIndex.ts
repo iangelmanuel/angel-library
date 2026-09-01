@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { createFuse, loadSearchIndex, type SearchDoc } from "@/lib/search"
+import { createFuse, loadSearchIndex, type SearchDoc } from "../search"
 import type { CategoryItem, TagIndexItem } from "../types"
 
 /**
@@ -19,13 +19,19 @@ export function useSearchIndex() {
       })
   }, [])
 
-  const fuse = useMemo(() => (docs ? createFuse(docs) : null), [docs])
-
-  const tags = useMemo<TagIndexItem[]>(() => {
-    if (!docs) return []
+  const derived = useMemo(() => {
+    if (docs === null) {
+      return {
+        fuse: null,
+        tags: [] as TagIndexItem[],
+        categories: [] as CategoryItem[]
+      }
+    }
 
     const counts = new Map<string, TagIndexItem>()
+    const categoryIndex = new Map<string, CategoryItem>()
     for (const doc of docs) {
+      categoryIndex.set(doc.categoryId, { id: doc.categoryId, label: doc.categoryLabel })
       for (const tag of doc.tags) {
         const key = tag.toLocaleLowerCase("es")
         const current = counts.get(key)
@@ -33,21 +39,16 @@ export function useSearchIndex() {
       }
     }
 
-    return [...counts.values()].sort(
-      (a, b) => b.count - a.count || a.tag.localeCompare(b.tag, "es")
-    )
-  }, [docs])
-
-  const categories = useMemo<CategoryItem[]>(() => {
-    if (!docs) return []
-
-    const index = new Map<string, CategoryItem>()
-    for (const doc of docs) {
-      index.set(doc.categoryId, { id: doc.categoryId, label: doc.categoryLabel })
+    return {
+      fuse: createFuse(docs),
+      tags: [...counts.values()].sort(
+        (a, b) => b.count - a.count || a.tag.localeCompare(b.tag, "es")
+      ),
+      categories: [...categoryIndex.values()].sort((a, b) =>
+        a.label.localeCompare(b.label, "es")
+      )
     }
-
-    return [...index.values()].sort((a, b) => a.label.localeCompare(b.label, "es"))
   }, [docs])
 
-  return { docs, failed, fuse, tags, categories }
+  return { docs, failed, ...derived }
 }

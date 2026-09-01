@@ -9,6 +9,7 @@ terminal/
 ├── hooks/          el estado, uno por tema
 ├── commands/       un archivo por familia de comandos
 ├── data/           textos largos (quiz, tips, dibujos)
+├── search.ts       descarga el índice una vez y configura Fuse
 ├── parse.ts        funciones puras: leer el input, normalizar, elegir al azar
 └── types.ts        tipos y constantes compartidas
 ```

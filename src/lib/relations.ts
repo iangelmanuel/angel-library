@@ -5,7 +5,7 @@ import {
   type CategoryId,
   type ContentTypeId
 } from "@/config/site"
-import { buildEntryMap, entryKey, type AnyEntry } from "./content"
+import type { AnyEntry } from "./content"
 
 /** Relaciones entre entradas y validaciones de build. */
 
@@ -41,7 +41,7 @@ function referencesOf(entry: AnyEntry): string[] {
 
 /** Falla si una referencia no existe. */
 export function validateContentRelations(all: AnyEntry[]): void {
-  const entryMap = buildEntryMap(all)
+  const entryMap = new Map(all.map((entry) => [entry.id, entry]))
   const errors = all.flatMap((entry) =>
     referencesOf(entry)
       .filter((ref) => !entryMap.has(ref))
@@ -116,15 +116,15 @@ export function validateInternalLinks(all: AnyEntry[]): void {
 export function getRelated(
   entry: AnyEntry,
   all: AnyEntry[],
-  entryMap: Map<string, AnyEntry> = buildEntryMap(all)
+  entryMap: Map<string, AnyEntry> = new Map(all.map((item) => [item.id, item]))
 ): RelatedData {
-  const self = entryKey(entry)
+  const self = entry.id
   const seen = new Set<string>([self])
 
   /** Añade sin repetir. */
   const take = (group: AnyEntry[], item: AnyEntry | undefined): boolean => {
-    if (!item || seen.has(entryKey(item))) return false
-    seen.add(entryKey(item))
+    if (!item || seen.has(item.id)) return false
+    seen.add(item.id)
     group.push(item)
     return true
   }
@@ -135,7 +135,7 @@ export function getRelated(
   const backlinks: AnyEntry[] = []
 
   for (const other of all) {
-    if (entryKey(other) === self) continue
+    if (other.id === self) continue
     const data = other.data as Refs
     const asTech = data.technologies?.includes(self) ?? false
     const asRelated = data.related?.includes(self) ?? false
@@ -160,7 +160,7 @@ export function getRelated(
 
   const myTags = new Set(entry.data.tags ?? [])
   const byTags = all
-    .filter((other) => !seen.has(entryKey(other)))
+    .filter((other) => !seen.has(other.id))
     .map((other) => ({
       other,
       shared: (other.data.tags ?? []).filter((tag) => myTags.has(tag)).length

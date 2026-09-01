@@ -1,4 +1,4 @@
-import type { SearchDoc } from "@/lib/search"
+import type { SearchDoc } from "./search"
 import { TERMINAL_THEMES, type InputMode, type MenuItem, type TerminalTheme } from "./types"
 
 /** Decide si el usuario está buscando, filtrando tags o ejecutando algo. */

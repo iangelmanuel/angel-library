@@ -1,8 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { navigate } from "astro:transitions/client"
 import {
-  COMMANDS_WITH_ARGS,
-  COMMAND_SET,
   PUBLIC_COMMANDS,
   findCommand,
   type TerminalContext
@@ -80,7 +78,7 @@ export function Terminal({
     commandSuggestions.length > 0
       ? Math.min(activeCommandIndex, commandSuggestions.length - 1)
       : 0
-  const knownCommand = inputMode.kind === "command" && COMMAND_SET.has(inputMode.name)
+  const knownCommand = inputMode.kind === "command" && Boolean(findCommand(inputMode.name))
 
   const menuItems = useMemo<MenuItem[]>(() => {
     if (!index.docs || !trimmedInput || inputMode.kind === "command") return []
@@ -112,6 +110,12 @@ export function Terminal({
     commandSuggestions.length > 0
       ? commandOptionId(selectedCommandIndex)
       : optionId(activeIndex)
+  const activeListboxId =
+    commandSuggestions.length > 0
+      ? commandListboxId
+      : menuItems.length > 0
+        ? listboxId
+        : undefined
 
   // Mueve solo la salida, no la página.
   useEffect(() => {
@@ -137,7 +141,7 @@ export function Terminal({
   }
 
   function completeCommand(command: string) {
-    setInput(`/${command}${COMMANDS_WITH_ARGS.has(command) ? " " : ""}`)
+    setInput(`/${command}${findCommand(command)?.args ? " " : ""}`)
     history.resetCursor()
     window.requestAnimationFrame(() => inputRef.current?.focus())
   }
@@ -222,43 +226,28 @@ export function Terminal({
       return
     }
 
-    if (commandSuggestions.length > 0) {
-      const total = commandSuggestions.length
-      if (key === "Tab") {
-        stop()
-        completeCommand(commandSuggestions[selectedCommandIndex])
-        return
-      }
-      if (key === "ArrowDown") {
-        stop()
-        setActiveCommandIndex((current) => (current + 1) % total)
-        return
-      }
-      if (key === "ArrowUp") {
-        stop()
-        setActiveCommandIndex((current) => (current - 1 + total) % total)
-        return
-      }
-    }
-
-    if (menuItems.length > 0 && (key === "ArrowDown" || key === "ArrowUp")) {
+    if (key === "Tab" && commandSuggestions.length > 0) {
       stop()
+      completeCommand(commandSuggestions[selectedCommandIndex])
+      return
+    }
+
+    if (key === "ArrowDown" || key === "ArrowUp") {
       const step = key === "ArrowDown" ? 1 : -1
-      setActiveIndex((current) => (current + step + menuItems.length) % menuItems.length)
-      return
-    }
-
-    if (key === "ArrowUp") {
-      const recalled = history.previous(input)
-      if (recalled !== null) {
+      if (commandSuggestions.length > 0) {
         stop()
-        setInput(recalled)
+        setActiveCommandIndex(
+          (current) => (current + step + commandSuggestions.length) % commandSuggestions.length
+        )
+        return
       }
-      return
-    }
+      if (menuItems.length > 0) {
+        stop()
+        setActiveIndex((current) => (current + step + menuItems.length) % menuItems.length)
+        return
+      }
 
-    if (key === "ArrowDown") {
-      const recalled = history.next()
+      const recalled = key === "ArrowUp" ? history.previous(input) : history.next()
       if (recalled !== null) {
         stop()
         setInput(recalled)
@@ -277,20 +266,20 @@ export function Terminal({
     }
   }
 
-  const terminalMode =
-    inputMode.kind === "command" ? "command" : inputMode.kind === "tags" ? "tags" : "docs"
+  const terminalMode = inputMode.kind === "documents" ? "docs" : inputMode.kind
 
-  const status = index.failed
-    ? "error al montar el índice"
-    : index.docs === null
-      ? "montando índice…"
-      : history.cursor !== null
-        ? `historial ${history.cursor + 1}/${history.history.length}`
-        : commandSuggestions.length > 0
-          ? `${commandSuggestions.length} comando${commandSuggestions.length === 1 ? "" : "s"}`
-          : menuItems.length > 0
-            ? `${menuItems.length} resultado${menuItems.length === 1 ? "" : "s"}`
-            : `${index.docs.length} documentos · ${index.tags.length} tags`
+  let status = `${index.docs?.length ?? 0} documentos · ${index.tags.length} tags`
+  if (menuItems.length > 0) {
+    status = `${menuItems.length} resultado${menuItems.length === 1 ? "" : "s"}`
+  }
+  if (commandSuggestions.length > 0) {
+    status = `${commandSuggestions.length} comando${commandSuggestions.length === 1 ? "" : "s"}`
+  }
+  if (history.cursor !== null) {
+    status = `historial ${history.cursor + 1}/${history.history.length}`
+  }
+  if (index.docs === null) status = "montando índice…"
+  if (index.failed) status = "error al montar el índice"
 
   return (
     <div
@@ -327,7 +316,7 @@ export function Terminal({
 
           {commandSuggestions.length > 0 && (
             <CommandOptions
-              commands={[...commandSuggestions]}
+              commands={commandSuggestions}
               selectedIndex={selectedCommandIndex}
               listboxId={commandListboxId}
               optionId={commandOptionId}
@@ -393,17 +382,9 @@ export function Terminal({
             role="combobox"
             aria-label="Buscar o ejecutar un comando de la biblioteca"
             aria-autocomplete="list"
-            aria-expanded={menuItems.length > 0 || commandSuggestions.length > 0}
-            aria-controls={
-              commandSuggestions.length > 0
-                ? commandListboxId
-                : menuItems.length > 0
-                  ? listboxId
-                  : undefined
-            }
-            aria-activedescendant={
-              commandSuggestions.length > 0 || menuItems.length > 0 ? activeOptionId : undefined
-            }
+            aria-expanded={activeListboxId !== undefined}
+            aria-controls={activeListboxId}
+            aria-activedescendant={activeListboxId ? activeOptionId : undefined}
             aria-describedby={statusId}
           />
         </div>

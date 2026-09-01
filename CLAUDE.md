@@ -70,7 +70,7 @@ Three validations run inside `getStaticPaths()` of `[...slug].astro` and **fail 
 
 ### Search
 
-Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 1200 chars via `stripMarkdown`). The client fetches it **once per session** (`src/lib/search.ts` module-level cache, survives view transitions) and runs Fuse.js locally. `useSearchIndex` in the terminal feature is the only consumer.
+Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 1200 chars via `stripMarkdown`). The terminal fetches it **once per session** (`src/features/terminal/search.ts`) and runs Fuse.js locally.
 
 ### Icons — one table, two renderers
 
@@ -82,8 +82,9 @@ Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 
 ### Markdown pipeline
 
 `astro.config.mjs` wires Shiki (`tokyo-night`) with:
-- `src/lib/shiki-transformers.mjs` — `transformerCodeFilename()` reads ` ```ts title="src/app.ts" ` into `data-filename`.
-- `src/lib/rehype-code-blocks.mjs` — rehype plugin wrapping each `<pre>` in `.code-block` with a header (label + copy button), and merging the pnpm/bun/npm triples produced by `remark-pm-tabs.mjs` into one tabbed block. The copy button carries **no inline JS**; a single delegated `click` listener in `src/scripts/site-interactions.ts` handles `[data-copy]` globally.
+- `src/markdown/package-manager.mjs` translates install commands and expands them into pnpm/Bun/npm variants.
+- `src/markdown/code-blocks.mjs` preserves fence metadata, groups those variants and wraps each `<pre>` in `.code-block` with its header and copy button. The copy button carries **no inline JS**; a single delegated `click` listener in `src/scripts/site-interactions.ts` handles `[data-copy]` globally.
+- `src/markdown/external-links.mjs` adds safe external-link attributes.
 
 `EntryMeta.astro` hand-duplicates that copy-button markup for `command` / `install` frontmatter fields — change one, change the other.
 
@@ -100,8 +101,6 @@ Self-contained feature behind `/search` and Ctrl/Cmd+K: `components/` renders, `
 ### Styling
 
 Tailwind v4 via `@tailwindcss/vite` — no `tailwind.config`. All tokens are CSS variables in `src/styles/global.css` (`:root` + `@theme inline`). Dark-only: `<html class="dark">` is hardcoded, `--radius: 0rem` (square, terminal-ish aesthetic). Fonts self-hosted via Fontsource: Geist Sans / Mono / **Pixel** (`font-pixel` is used for headings and uppercase micro-labels).
-
-shadcn/ui is configured (`components.json`, new-york, zinc); new primitives land in `src/components/ui/`.
 
 ## Content authoring
 

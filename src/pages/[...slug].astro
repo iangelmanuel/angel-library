@@ -13,7 +13,6 @@ import RelationSection from '@/components/content/RelationSection.astro';
 import Icon from '@/components/shared/Icon.astro';
 import { CATEGORIES } from '@/config/site';
 import {
-  buildEntryMap,
   categoryOf,
   formatDate,
   getAllEntries,
@@ -44,7 +43,7 @@ const { entry } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
 const { Content, headings } = await render(entry);
 
 const entries = await getAllEntries(true);
-const entryMap = buildEntryMap(entries);
+const entryMap = new Map(entries.map((item) => [item.id, item]));
 const related = getRelated(entry, entries, entryMap);
 const relatedExplicit = [...related.explicit, ...related.backlinks];
 const categoryMeta = CATEGORIES[categoryOf(entry)];

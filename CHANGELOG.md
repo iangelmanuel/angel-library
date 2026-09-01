@@ -8,6 +8,28 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.20.1] — 2026-09-01
+
+Correcciones visuales y de presentación para los bloques de comandos y la
+tipografía global.
+
+### Corregido
+
+- Los comandos de las entradas (`command`, `install` y las variantes de
+  `pnpm`, `bun` y `npm`) ya no heredan espacios de la indentación del template
+  dentro de `<pre>`. Esto elimina el desplazamiento visible antes del prompt
+  `$` y mantiene todos los comandos alineados.
+- El suavizado tipográfico global se aplica también en `html`, con escala de
+  grises para sistemas que la soportan, reduciendo halos de color en textos,
+  títulos, código y navegación.
+
+### Verificado
+
+- `pnpm check` con 0 errores y `pnpm build` generando 1630 páginas.
+- Rutas `/applications/apps-editors/myastro`,
+  `/applications/apps-editors/mynext` y un bloque de instalación con los tres
+  gestores de paquetes revisados visualmente.
+
 ## [0.20.0] — 2026-09-01
 
 El contenido deja de organizarse por tipo de documento y pasa a organizarse por
@@ -1211,7 +1233,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.20.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.20.1...HEAD
+[0.20.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.20.1
 [0.20.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.20.0
 [0.19.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.19.0
 [0.18.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.18.0
