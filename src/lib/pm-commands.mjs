@@ -1,12 +1,6 @@
 /**
- * Traduce instalaciones y ejecutores de npm, pnpm o Bun a sus equivalentes.
- * Puro (sin dependencias de Astro/Node más allá de string parsing) para poder
- * importarse tanto desde un plugin remark (.mjs, corre en build) como desde
- * un componente Astro/TS (EntryMeta.astro).
- *
- * Filosofía: mejor no traducir que traducir mal — si una línea no matchea un
- * patrón conocido, translateBlock() devuelve null y el bloque original queda
- * sin tocar.
+ * Traduce instalaciones entre npm, pnpm y Bun. Puro: lo usan el plugin
+ * remark y EntryMeta. Si una línea no encaja, devuelve null y no traduce.
  */
 
 const INSTALL_RE = /^(npm|pnpm|bun)\s+(install|i|add)\b(.*)$/;
@@ -16,7 +10,7 @@ const CREATE_RE = /^(npm|pnpm|bun)\s+(create|init)\b(.*)$/;
 const COMMENT_RE = /^#/;
 const KNOWN_FLAGS = new Set(['-D', '-d', '--save-dev', '-g', '--global']);
 
-/** Separa flags (empiezan con "-") de paquetes en el resto de la línea. */
+/** Separa flags de paquetes. */
 function splitArgs(rest) {
   const tokens = rest.trim().split(/\s+/).filter(Boolean);
   const flags = tokens.filter((t) => t.startsWith('-'));
@@ -28,11 +22,8 @@ function hasFlag(flags, ...names) {
   return flags.some((f) => names.includes(f));
 }
 
-/**
- * Traduce una sola línea. Devuelve { pnpm, bun, npm } o null si no coincide
- * con una instalación o ejecutor reconocido.
- */
-export function translateLine(line) {
+/** Traduce una línea; null si no la reconoce. */
+function translateLine(line) {
   const trimmed = line.trim();
   if (trimmed === '' || COMMENT_RE.test(trimmed)) {
     return { pnpm: line, bun: line, npm: line };
@@ -87,9 +78,7 @@ export function translateLine(line) {
     const [, , verb, rawRest] = createMatch;
     const rest = rawRest.trim();
 
-    // `npm init -y` crea un package.json y no equivale a ejecutar un
-    // initializer. Solo convertimos `init` cuando recibe el nombre de uno,
-    // como `npm init playwright@latest`.
+    // `npm init -y` no es un initializer: solo se traduce `init <nombre>`.
     if (!rest || (verb === 'init' && rest.startsWith('-'))) return null;
 
     return {
@@ -102,10 +91,7 @@ export function translateLine(line) {
   return null;
 }
 
-/**
- * Traduce un bloque multilínea. Si alguna línea no vacía/no-comentario no
- * coincide, devuelve null para no transformar el bloque de forma parcial.
- */
+/** Traduce un bloque entero; null si alguna línea no encaja. */
 export function translateBlock(text) {
   const lines = text.split('\n');
   if (lines.every((l) => l.trim() === '')) return null;

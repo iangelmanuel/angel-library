@@ -1,6 +1,4 @@
-/* ------------------------------------------------------------------ */
-/* Base: lienzo del documento, selection, scrollbars, accesibilidad     */
-/* ------------------------------------------------------------------ */
+/* Base: lienzo del documento, selection, scrollbars, accesibilidad */
 @layer base {
   * {
     border-color: var(--border);
@@ -81,9 +79,7 @@
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* View transitions: rápidas y discretas                                */
-/* ------------------------------------------------------------------ */
+/* View transitions: rápidas y discretas */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 140ms;

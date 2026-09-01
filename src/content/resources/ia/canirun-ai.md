@@ -1,7 +1,7 @@
 ---
 title: "canirun.ai — qué modelos de IA corre tu máquina"
 description: Compara la memoria y capacidad del equipo con los requisitos de distintos modelos de IA para estimar cuáles pueden ejecutarse localmente y con qué rendimiento.
-category: resources
+type: resources
 tags: [ai, modelos-locales, hardware]
 url: https://www.canirun.ai
 resourceCategory: ia

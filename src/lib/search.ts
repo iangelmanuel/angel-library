@@ -1,17 +1,14 @@
 import Fuse from 'fuse.js';
 
-/**
- * Documento del índice de búsqueda (generado en /search-index.json).
- * Compartido por el Command Palette y la página de búsqueda.
- */
+/** Documento del índice de búsqueda. */
 export interface SearchDoc {
   title: string;
   description: string;
   url: string;
   type: string;
-  /** Etiqueta plural del tipo: "Librerías" */
+  /** Plural del tipo. */
   typeLabel: string;
-  /** Etiqueta singular del tipo: "Librería" */
+  /** Singular del tipo. */
   typeSingular: string;
   typeIcon: string;
   categoryId: string;
@@ -25,7 +22,7 @@ export interface SearchDoc {
 let cache: SearchDoc[] | null = null;
 let pending: Promise<SearchDoc[]> | null = null;
 
-/** Carga el índice una sola vez por sesión (sobrevive a las view transitions). */
+/** Carga el índice una vez por sesión. */
 export function loadSearchIndex(): Promise<SearchDoc[]> {
   if (cache) return Promise.resolve(cache);
   pending ??= fetch('/search-index.json')

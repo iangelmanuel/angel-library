@@ -1,7 +1,7 @@
 ---
 title: "autoskills.sh — detecta tu stack e instala skills"
 description: Herramienta de terminal que reconoce las tecnologías de un proyecto y propone instrucciones reutilizables para que un agente de IA trabaje con ellas.
-category: resources
+type: resources
 tags: [ai, skills, cli]
 url: https://www.autoskills.sh
 resourceCategory: ia

@@ -1,7 +1,7 @@
 ---
 title: "Heroicons — iconos SVG de los creadores de Tailwind"
 description: Colección de iconos consistente con el estilo de Tailwind, disponible con contorno o relleno y lista para usar como SVG o componente de React.
-category: resources
+type: resources
 tags: [icons, ui, svg]
 url: https://heroicons.com
 resourceCategory: icons

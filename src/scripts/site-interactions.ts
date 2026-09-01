@@ -1,14 +1,4 @@
-/**
- * Handlers globales (una sola vez por sesión; el documento sobrevive
- * a las view transitions):
- * - [data-open-search] / [data-open-nav] → eventos para las islas
- * - [data-copy] → copiar un bloque de código
- * - [data-copy-all] → copiar todos los bloques con nombre de archivo
- *   de la entrada, concatenados en un solo bloque
- * - Ctrl/Cmd+K y "/" → abrir la terminal global
- * - astro:after-swap → resincronizar el estado activo de la sidebar
- *   (persistida con transition:persist)
- */
+/** Handlers globales del sitio: copiar, buscar, navegar, sidebar. */
 
 function isTypingTarget(el: Element | null): boolean {
   if (!el) return false
@@ -36,12 +26,7 @@ async function copyToClipboard(text: string): Promise<void> {
   }
 }
 
-/**
- * Activa el tab `pm` (pnpm/bun/npm) en TODOS los bloques con tabs de la
- * página: destapa su <pre>, oculta los otros, y marca el botón activo.
- * Si `pm` no existe en un bloque puntual (no debería pasar, los 3 se
- * generan siempre juntos), no hace nada en ese bloque.
- */
+/** Activa el tab pnpm/bun/npm en todos los bloques de la página. */
 function applyPmPreference(pm: string): void {
   document.querySelectorAll<HTMLElement>(".code-block--pm").forEach((block) => {
     const target = block.querySelector<HTMLElement>(`pre[data-pm="${pm}"]`)
@@ -73,7 +58,7 @@ const logoColors = [
   "--accent-lime"
 ]
 
-/** Cada nueva entrada del puntero avanza un color de la paleta. */
+/** Cada entrada del puntero avanza un color. */
 document.addEventListener("pointerover", (event) => {
   const target = event.target as HTMLElement
   const logo = target.closest<HTMLElement>("[data-logo-cycle]")
@@ -165,9 +150,7 @@ document.addEventListener("keydown", (event) => {
   }
 })
 
-/* Desplaza SOLO la columna de navegación, nunca el documento: el
-   lector no pierde su posición en el artículo porque la sidebar
-   tuviera que moverse. */
+/* Desplaza solo la columna de navegación, nunca el documento. */
 function revealInSidebar(
   el: Element | null,
   behavior: ScrollBehavior
@@ -195,9 +178,7 @@ function syncSidebarState() {
     if (isActive) {
       active = link
       link.setAttribute("aria-current", "page")
-      // Todos los ancestros, no solo el más cercano: una entrada vive
-      // dentro de subcategoría Y categoría, y abrir solo la interna
-      // la dejaba oculta dentro de una categoría cerrada.
+      // Todos los ancestros: la entrada vive en subcategoría Y categoría.
       let parent = link.parentElement
       while (parent && parent.closest("#sidebar")) {
         if (parent instanceof HTMLDetailsElement) parent.open = true
@@ -211,9 +192,7 @@ function syncSidebarState() {
 }
 document.addEventListener("astro:after-swap", syncSidebarState)
 
-/* Al desplegar una categoría larga, acompaña la apertura: si su
-   contenido queda por debajo del borde visible, sube el encabezado.
-   `toggle` no burbujea, de ahí la fase de captura. */
+/* Al desplegar una categoría larga, acompaña la apertura. */
 document.addEventListener(
   "toggle",
   (event) => {
@@ -234,9 +213,7 @@ document.addEventListener(
   true
 )
 
-// Aplica la preferencia de package manager guardada (o "pnpm" por
-// defecto) a los bloques con tabs de cada página que carga — corre en
-// la carga inicial Y después de cada navegación con View Transitions.
+// Aplica el package manager guardado en cada carga y navegación.
 document.addEventListener("astro:page-load", () => {
   const stored = window.localStorage.getItem("angel:pm")
   applyPmPreference(stored ?? "pnpm")

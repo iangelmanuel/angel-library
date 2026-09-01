@@ -8,6 +8,89 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.20.0] — 2026-09-01
+
+El contenido deja de organizarse por tipo de documento y pasa a organizarse por
+categoría: `src/content/<categoría>/<subcategoría>/<módulo>.md`. La carpeta es
+ahora la fuente de verdad de dónde vive una entrada, y el frontmatter solo
+declara de qué **tipo** es. Las 14 colecciones se funden en una sola con un
+esquema por tipo, y el build gana dos validaciones nuevas.
+
+### Añadido
+
+- `validateContentStructure()`: el build falla si un archivo está en una
+  carpeta que no es una categoría o subcategoría declarada en
+  `src/config/site.ts`. Sustituye a la validación por enum que hacía el schema
+  cuando la categoría se escribía en el frontmatter.
+- `validateInternalLinks()`: el build falla si un enlace `](/…)` del cuerpo de
+  una entrada no lleva a ninguna parte. Antes nada vigilaba los 674 enlaces
+  internos del contenido.
+- `categoryOf()` y `subcategoryOf()` en `src/lib/content.ts`: deducen la
+  ubicación de una entrada a partir de su id.
+- `getSubcategoriesForCategory()` en `src/config/site.ts`: devuelve las
+  subcategorías válidas de una categoría y su orden público.
+
+### Cambiado
+
+- **Estructura del contenido**: los 689 `.md` pasan de `src/content/<tipo>/` a
+  `src/content/<categoría>/<subcategoría>/`. Recategorizar una entrada es
+  mover el archivo; ya no hay nada que editar.
+- **Frontmatter**: `category` y `stack` desaparecen (los dice la carpeta) y
+  aparece `type`, obligatorio, en el lugar que ocupaba `category`.
+- **Rutas**: la URL de una entrada es su id
+  (`/frontend/react/react-context-api`, antes `/guides/react-context-api`);
+  los listados por tipo pasan de `/<tipo>` a `/tipos/<tipo>`. Las páginas de
+  categoría siguen en `/categories/<id>`.
+- **Referencias**: `related`, `technologies` y `libraries` usan el id completo
+  de la entrada (`frontend/react/react-context-api`) en vez del par
+  colección/id.
+- **Esquema**: `src/content.config.ts` pasa de 14 `defineCollection` a una
+  colección `library` con `z.discriminatedUnion("type", …)`. Cada tipo
+  conserva sus campos obligatorios y ahora TypeScript los estrecha por `type`.
+- `getCategoryEntries()` pasa de tres ramas a un solo camino: agrupa siempre
+  por la subcategoría deducida de la carpeta. El render de las páginas de
+  categoría no cambia.
+- El concepto `stack` se renombra a **subcategoría** en todo el código:
+  `SUBCATEGORY_LABELS`, `SUBCATEGORY_DESCRIPTIONS`, `SUBCATEGORY_ICONS`,
+  `CATEGORY_SUBCATEGORY_ORDER`.
+- La barra de las tarjetas muestra la ruta completa de la entrada
+  (`~/general/packages/zod`) porque el id ya incluye la categoría.
+- Comentarios del código reescritos a una línea corta por bloque o función:
+  se conserva la intención y desaparece la prosa larga.
+- Documentación reescrita: `docs/CONTENT_GUIDE.md` explica cómo crear,
+  modificar, mover y borrar categorías, subcategorías, módulos y secciones;
+  `docs/ARCHITECTURE.md`, `AGENTS.md`, `CONTRIBUTING.md`, `README.md` y
+  `CLAUDE.md` se actualizan al modelo nuevo.
+
+### Corregido
+
+- Enlace roto `/category/git` en el contenido, que apuntaba a una ruta
+  inexistente y que nada detectaba.
+- La referencia al tema de Shiki en `CLAUDE.md` decía `github-dark-default`
+  cuando `astro.config.mjs` usa `tokyo-night`.
+
+### Eliminado
+
+- Reglas CSS sin ningún consumidor: `.search-card`, `.pixel-corners` y
+  `.type-components`, esta última de un tipo de contenido que ya no existe.
+- Exportaciones que nadie importaba fuera de su archivo: `RESOURCE_CATEGORY_LIST`,
+  `SUBCATEGORY_IDS`, `CATEGORY_SUBCATEGORY_ORDER`, `translateLine` y los tipos
+  `NavItem`, `NavGroup`, `NavCategory`, `EntryGroup`, `CategorySection`,
+  `TagCount`, `RelatedData`, `BrandIcon`, `SubcategoryMeta`, `SubcategoryGroup`
+  y `ResourceCategoryMeta` pasan a ser internas.
+- `SUBCATEGORY_GROUPED_CATEGORIES`, que quedó sin uso al unificar el agrupado.
+- La rama muerta "Ruta de aprendizaje" de `getCategorySections()`, que ninguna
+  categoría alcanzaba.
+- El script de migración `scripts/migrate-content.mjs`, de un solo uso.
+
+### Verificado
+
+- `pnpm check` con 0 errores y `pnpm build` generando 1630 páginas (689
+  entradas, 21 categorías, 14 tipos) tras cada tanda de cambios.
+- Home, `/categories/resources`, `/categories/frontend`, una entrada con
+  relaciones e instalación, `/tipos/guides`, `/tags`, el buscador y los
+  atajos de la terminal revisados en el navegador.
+
 ## [0.19.0] — 2026-08-31
 
 Segunda pasada sobre el sistema visual: la paleta se reorganiza para que cada
@@ -1128,7 +1211,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.19.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.20.0...HEAD
+[0.20.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.20.0
 [0.19.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.19.0
 [0.18.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.18.0
 [0.17.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.17.0

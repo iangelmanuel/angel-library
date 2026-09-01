@@ -1,7 +1,7 @@
 ---
 title: "iconmonstr — iconos simples en varias colecciones"
 description: Catálogo de iconos sencillos que se descargan individualmente en varios formatos, útil cuando no se quiere instalar una biblioteca completa.
-category: resources
+type: resources
 tags: [icons, svg, ui]
 url: https://iconmonstr.com/
 resourceCategory: icons

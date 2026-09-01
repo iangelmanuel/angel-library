@@ -1,10 +1,6 @@
-/* ------------------------------------------------------------------ */
-/* Sistema visual terminal / pixel + relaciones entre entradas          */
-/* ------------------------------------------------------------------ */
+/* Sistema visual terminal / pixel + relaciones entre entradas */
 @layer components {
-  /* El final de una entrada cambia de ritmo: primero cierra el artículo y luego
-   ofrece caminos para continuar. "Contenido similar" va en el mismo azul
-   que los subtítulos (ver --related-accent en tokens.css). */
+  /* Cierre de la entrada: apartados en el color de los subtítulos. */
   .entry-relations {
     margin-top: 4.5rem;
     border-top: 1px solid var(--border-strong);
@@ -37,23 +33,16 @@
     font-family: var(--font-mono);
     color: var(--related-accent);
   }
-  /* Sin overrides de borde/hover aquí a propósito: estas cards deben
-   comportarse IDÉNTICO a cualquier otra .terminal-card (mismo anillo de
-   --card-accent al hover). Una regla con la misma especificidad que
-   .card:hover pero declarada después en el CSS pisaba el border-color del
-   hover — por eso solo tocamos lo que de verdad es distinto aquí. */
+  /* Sin overrides de hover: reusan el de .card. */
   .entry-relations .terminal-card {
     min-height: 13.5rem;
   }
-  /* El "~/" de la ruta no lleva el color de la categoría aquí — solo el
-   borde y la sombra del hover. */
+  /* El "~/" no toma el color de la categoría. */
   .entry-relations .terminal-card__path > span {
     color: inherit;
   }
 
-  /* ------------------------------------------------------------------ */
-  /* Sistema visual terminal / pixel                                    */
-  /* ------------------------------------------------------------------ */
+  /* Sistema visual terminal / pixel */
   .terminal-window {
     position: relative;
     border: 1px solid var(--border-strong);
@@ -107,8 +96,7 @@
     height: 5px;
     background: var(--border-strong);
   }
-  /* Semáforo macOS: colores fuertes reales del sistema operativo, no la
-   paleta pastel del resto del sitio — es una referencia visual directa. */
+  /* Semáforo macOS: colores reales, no la paleta pastel. */
   .terminal-window__lights i:nth-child(1),
   .terminal-card__status i:nth-child(1) {
     background: #ff5f57;
@@ -253,10 +241,7 @@
     padding: 0;
     color: var(--card-accent);
   }
-  /* Barra superior más gruesa que la de .card base — el "antes" de encender
-   la ventana de terminal necesita más presencia aquí que en una card
-   simple. Sin línea lateral: eso se quitó a propósito (ver hover en
-   card.css, borde + sombra en el color de tipo de contenido). */
+  /* Barra superior: borde y sombra en el color del tipo. */
   .terminal-card::before {
     height: 3px;
   }
@@ -266,8 +251,7 @@
     padding: 0.35rem 0.6rem;
     font-size: 0.6rem;
   }
-  /* Semáforo a la izquierda, como una ventana macOS real — el path/nombre
-   de archivo va después. */
+  /* Semáforo a la izquierda, el nombre después. */
   .terminal-card__status {
     order: -1;
   }
@@ -305,10 +289,7 @@
     letter-spacing: 0.07em;
     color: var(--muted-foreground);
   }
-  /* Título de tarjeta: blanco siempre — el color de tipo de contenido vive
-   en el borde/sombra al hover (--card-accent), no en el texto. Así nunca
-   compite con la jerarquía violeta/cian/turquesa del contenido de una
-   entrada. */
+  /* Título siempre blanco: el color vive en la barra. */
   .terminal-card h2,
   .terminal-card h3 {
     display: flex;

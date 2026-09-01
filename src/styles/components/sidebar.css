@@ -1,22 +1,16 @@
-/* ------------------------------------------------------------------ */
-/* Navegación lateral                                                   */
-/* ------------------------------------------------------------------ */
+/* Navegación lateral */
 @layer components {
-/* Tres niveles: categoría → subcategoría → entrada. La jerarquía se lee
-   por tamaño, peso y una guía vertical fina, no por sangrías grandes: con
-   19 categorías y ~600 entradas, cada píxel de sangría es texto que se
-   pierde. La entrada activa se marca con un cursor `❯` de terminal, con el
-   hueco siempre reservado para que nada salte al activarse. */
+/* Tres niveles: categoría → subcategoría → entrada.
+   Jerarquía por tamaño y guía vertical, no por sangría; la activa lleva `❯`. */
 
-/* Bloque de categorías (CATEGORY_GROUPS). El separador va arriba de cada
-   bloque, así también despega el primero de los accesos rápidos. */
+/* Bloques de CATEGORY_GROUPS; el separador va arriba. */
 .nav-group {
   margin-top: 0.7rem;
   border-top: 1px solid var(--border);
   padding-top: 0.7rem;
 }
 
-/* --- Fila de categoría y de subcategoría --- */
+/* Fila de categoría y de subcategoría */
 .nav-summary {
   display: flex;
   align-items: center;
@@ -51,8 +45,7 @@ details[open] > .nav-summary {
   color: var(--cat-accent, var(--foreground));
 }
 
-/* Subcategoría: un escalón por debajo — más pequeña y apagada, para que
-   no compita con el nombre de la categoría. */
+/* Subcategoría: un escalón por debajo. */
 .nav-summary--sub {
   padding: 0.26rem 0.4rem;
   font-family: var(--font-sans);
@@ -65,16 +58,13 @@ details[open] > .nav-summary {
   color: color-mix(in srgb, var(--cat-accent, var(--foreground)) 70%, var(--foreground));
 }
 
-/* --- Iconos, contador y chevron --- */
+/* Iconos, contador y chevron */
 .nav-icon {
   width: 0.875rem;
   height: 0.875rem;
   flex-shrink: 0;
 }
-/* Los iconos de categoría y de acceso rápido llevan una versión pastel de
-   su acento: dan una señal cromática para orientarse sin gritar tan fuerte
-   como para distraer de la lectura. Los iconos de marca (Astro, React…)
-   traen su propio color dentro del SVG y no heredan este. */
+/* Iconos pastel; los de marca traen su color en el SVG. */
 .nav-icon--cat,
 .nav-link--quick .nav-icon {
   color: color-mix(in srgb, var(--cat-accent) 55%, var(--zinc-300));
@@ -91,9 +81,7 @@ details[open] > .nav-summary .nav-chevron {
   transform: rotate(90deg);
 }
 
-/* --- Contenedores anidados ---
-   La guía vertical cae bajo el icono de la categoría, así la columna de
-   texto de los hijos arranca donde arrancaba la etiqueta del padre. */
+/* Anidados: la guía cae bajo el icono del padre. */
 .nav-children {
   margin-left: 0.62rem;
   border-left: 1px solid color-mix(in srgb, var(--cat-accent) 22%, transparent);
@@ -105,7 +93,7 @@ details[open] > .nav-summary .nav-chevron {
   padding-left: 0.45rem;
 }
 
-/* --- Entrada --- */
+/* Entrada */
 .nav-link {
   display: flex;
   align-items: flex-start;
@@ -130,10 +118,7 @@ details[open] > .nav-summary .nav-chevron {
   opacity: 0;
   transition: opacity 120ms ease;
 }
-/* Hasta tres líneas: con títulos de 40-55 caracteres, cortar con puntos
-   suspensivos escondía justo la parte que distingue una entrada de otra.
-   Tres líneas cubren el título más largo del catálogo, y solo un puñado de
-   entradas llega a necesitarlas. */
+/* Hasta tres líneas: truncar escondía lo que distingue cada entrada. */
 .nav-link__label {
   display: -webkit-box;
   -webkit-box-orient: vertical;

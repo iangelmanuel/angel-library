@@ -8,7 +8,7 @@ import type { Command, CommandMap } from "./types"
 
 export type { Command, TerminalContext } from "./types"
 
-/** Un comando por nombre. Añadir uno = añadirlo a su archivo temático. */
+/** Un comando por nombre. */
 const COMMANDS: CommandMap = {
   ...sesionCommands,
   ...navegacionCommands,
@@ -18,7 +18,7 @@ const COMMANDS: CommandMap = {
   ...secretosCommands
 }
 
-/** Orden del autocompletado: agrupa por cercanía de uso, no alfabético. */
+/** Orden del autocompletado. */
 export const PUBLIC_COMMANDS = [
   "help",
   "clear",
@@ -55,8 +55,7 @@ export const PUBLIC_COMMANDS = [
 
 const named = Object.entries(COMMANDS)
 
-// Red de seguridad: un comando con descripción que nadie listó desaparecería
-// del autocompletado sin avisar, igual que un nombre listado que ya no existe.
+// Un comando sin listar desaparecería del autocompletado sin avisar.
 const listed = new Set<string>(PUBLIC_COMMANDS)
 const missing = named
   .filter(([name, command]) => command.description && !listed.has(name))
@@ -74,7 +73,7 @@ export const COMMAND_DESCRIPTIONS: Record<string, string> = Object.fromEntries(
     .map(([name, command]) => [name, command.description as string])
 )
 
-/** Comandos que esperan argumentos: al completar con Tab se añade un espacio. */
+/** Comandos que esperan argumentos. */
 export const COMMANDS_WITH_ARGS = new Set(
   named.filter(([, command]) => command.args).map(([name]) => name)
 )
@@ -85,7 +84,7 @@ for (const [name, command] of named) {
   for (const alias of command.aliases ?? []) BY_NAME.set(alias, command)
 }
 
-/** Todos los nombres válidos, alias incluidos. */
+/** Nombres válidos, alias incluidos. */
 export const COMMAND_SET = new Set(BY_NAME.keys())
 
 export function findCommand(name: string): Command | undefined {

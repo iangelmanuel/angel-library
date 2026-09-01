@@ -1,7 +1,4 @@
-/**
- * Conserva el filename declarado en el meta del fence después de que Shiki
- * reemplace el árbol HAST del bloque.
- */
+/** Conserva `title=` del fence como data-filename. */
 export function transformerCodeFilename() {
   function filenameFromMeta(meta) {
     const raw = meta && typeof meta === 'object' && '__raw' in meta ? meta.__raw : meta;
@@ -40,11 +37,7 @@ export function transformerCodeFilename() {
   };
 }
 
-/**
- * Conserva `pm="pnpm"`, `pmGroup="g0"` y `pmDefault` (los agrega `remarkPmTabs`
- * al meta de cada bloque generado) como atributos `data-*` en el `<pre>` final,
- * mismo mecanismo que `transformerCodeFilename` usa para `title=`.
- */
+/** Conserva el meta de remarkPmTabs como atributos data-pm. */
 export function transformerPackageManagerMeta() {
   function fromMeta(meta) {
     const raw = meta && typeof meta === 'object' && '__raw' in meta ? meta.__raw : meta;

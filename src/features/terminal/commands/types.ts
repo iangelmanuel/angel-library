@@ -9,22 +9,19 @@ import type {
   TerminalTheme
 } from "../types"
 
-/**
- * Todo lo que un comando puede leer y hacer. La terminal lo arma en cada
- * ejecución; los comandos no conocen React ni el estado interno.
- */
+/** Lo que un comando puede leer y hacer. */
 export interface TerminalContext {
-  /** El comando completo tal como se escribió: "/theme matrix". */
+  /** Lo escrito entero: "/theme matrix". */
   command: string
-  /** Lo escrito después del nombre: en "/theme matrix" es "matrix". */
+  /** Solo los argumentos: "matrix". */
   args: string
 
   docs: SearchDoc[] | null
   categories: CategoryItem[]
   tags: TagIndexItem[]
-  /** Comandos anteriores, sin incluir el que se está ejecutando. */
+  /** Comandos anteriores. */
   history: string[]
-  /** Resultados que se mostraban antes, para /open <n>. */
+  /** Resultados previos, para /open <n>. */
   results: MenuItem[]
 
   theme: TerminalTheme
@@ -32,20 +29,20 @@ export interface TerminalContext {
   scanlines: boolean
   quiz: QuizQuestion | null
 
-  /** Escribe una respuesta en la salida. */
+  /** Responde en la salida. */
   print: (lines: string[], tone?: MessageTone) => void
-  /** Escribe una respuesta marcada como error. */
+  /** Responde con error. */
   fail: (lines: string[]) => void
   clearOutput: () => void
   clearHistory: () => void
 
-  /** Deja este texto en el prompt en vez de vaciarlo. */
+  /** Deja texto en el prompt. */
   setInput: (value: string) => void
-  /** Navega dentro del sitio; ignora rutas externas. */
+  /** Navega dentro del sitio. */
   go: (url: string) => void
-  /** Abre una URL https en otra pestaña. */
+  /** Abre una URL externa. */
   openExternal: (url: string) => void
-  /** Cierra la terminal si está en diálogo. */
+  /** Cierra el diálogo. */
   close: (() => void) | undefined
 
   setTheme: (theme: TerminalTheme) => void
@@ -55,15 +52,15 @@ export interface TerminalContext {
 }
 
 export interface Command {
-  /** Texto del autocompletado. Sin descripción = comando oculto. */
+  /** Sin descripción = oculto. */
   description?: string
-  /** Espera argumentos: al completar con Tab se añade un espacio. */
+  /** Espera argumentos. */
   args?: boolean
-  /** Otros nombres que ejecutan lo mismo. */
+  /** Alias del comando. */
   aliases?: readonly string[]
-  /** No se guarda en el historial. */
+  /** No entra en el historial. */
   skipHistory?: boolean
-  /** No vacía el prompt al terminar; el comando decide qué queda. */
+  /** No vacía el prompt. */
   keepInput?: boolean
   run: (ctx: TerminalContext) => void
 }

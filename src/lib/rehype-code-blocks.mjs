@@ -1,15 +1,8 @@
 import { visit } from 'unist-util-visit';
 
-/**
- * Envuelve cada <pre> de Shiki en un .code-block con cabecera (nombre del
- * archivo + botón de copiar). El botón no lleva JavaScript inline: un solo
- * listener global en src/scripts/site-interactions.ts atiende a todos.
- *
- * Antes de eso agrupa los tríos pnpm/bun/npm que genera remarkPmTabs en un
- * único bloque con pestañas.
- */
+/** Envuelve cada <pre> en .code-block y agrupa los tríos pnpm/bun/npm. */
 
-/** Atajo para crear un nodo de elemento HAST. */
+/** Nodo HAST. */
 function h(tagName, properties = {}, children = []) {
   return { type: 'element', tagName, properties, children };
 }
@@ -18,7 +11,7 @@ function text(value) {
   return { type: 'text', value };
 }
 
-/** Lee una propiedad que puede venir en camelCase o con guiones. */
+/** Propiedad en camelCase o con guiones. */
 function prop(node, camel, hyphenated) {
   return node.properties?.[camel] ?? node.properties?.[hyphenated];
 }
@@ -55,15 +48,14 @@ function header(children) {
   return h('div', { className: ['code-block__header'] }, children);
 }
 
-/** Une un trío [pnpm, bun, npm] en un solo bloque con pestañas. */
+/** Une el trío en un bloque con pestañas. */
 function buildPmTabBlock(pres, group) {
   const isDefault = (pre) => prop(pre, 'dataPmDefault', 'data-pm-default') !== undefined;
 
   for (const pre of pres) {
     pre.properties ??= {};
     pre.properties.hidden = !isDefault(pre);
-    // Sin borrar el marcador, el visitor reagruparía el mismo trío al
-    // entrar en los hijos del wrapper recién creado.
+    // Sin borrar el marcador, el visitor reagruparía el mismo trío.
     delete pre.properties.dataPmGroup;
     delete pre.properties['data-pm-group'];
     pre.__pmHandled = true;
@@ -95,7 +87,7 @@ function pmGroupOf(node) {
 const isBlankText = (node) =>
   node?.type === 'text' && String(node.value ?? '').trim() === '';
 
-/** Agrupa los <pre> consecutivos que comparten data-pm-group. */
+/** Agrupa <pre> con el mismo data-pm-group. */
 function groupConsecutivePmBlocks(children) {
   const result = [];
   let changed = false;
@@ -106,7 +98,7 @@ function groupConsecutivePmBlocks(children) {
     const run = [children[i]];
     let j = i + 1;
 
-    // Markdown deja saltos de línea entre bloques: no rompen el trío.
+    // Los saltos entre bloques no rompen el trío.
     while (group && j < children.length) {
       if (isBlankText(children[j])) {
         j++;
@@ -131,7 +123,7 @@ function groupConsecutivePmBlocks(children) {
   return changed ? result : children;
 }
 
-/** Etiqueta de la cabecera: nombre de archivo o lenguaje. */
+/** Etiqueta: archivo o lenguaje. */
 function labelFor(pre) {
   const filename = prop(pre, 'dataFilename', 'data-filename');
   if (filename) return String(filename);

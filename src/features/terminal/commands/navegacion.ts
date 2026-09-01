@@ -3,9 +3,9 @@ import type { CommandMap } from "./types"
 
 /** Atajos a una entrada personal concreta. */
 const SHORTCUTS: Record<string, string> = {
-  myjson: "/commands/myjson",
-  myastro: "/commands/myastro",
-  mynext: "/commands/mynext"
+  myjson: "/applications/apps-editors/myjson",
+  myastro: "/applications/apps-editors/myastro",
+  mynext: "/applications/apps-editors/mynext"
 }
 
 const shortcutCommands: CommandMap = Object.fromEntries(

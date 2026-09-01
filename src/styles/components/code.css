@@ -1,10 +1,6 @@
-/* ------------------------------------------------------------------ */
-/* Bloques de código, TOC, progreso de lectura y callouts               */
-/* ------------------------------------------------------------------ */
+/* Bloques de código, TOC, progreso de lectura y callouts */
 @layer components {
-/* ------------------------------------------------------------------ */
-/* Bloques de código (generados por rehype-code-blocks)                */
-/* ------------------------------------------------------------------ */
+/* Bloques de código (generados por rehype-code-blocks) */
 .code-block {
   margin: 1.25rem 0;
   border: 1px solid var(--border);
@@ -95,8 +91,7 @@
   user-select: none;
 }
 
-/* Tabs pnpm/bun/npm — generados por remark-pm-tabs + rehype-code-blocks,
-   o a mano en EntryMeta.astro para el campo `install:` de las libraries. */
+/* Tabs pnpm/bun/npm; EntryMeta.astro repite este markup. */
 .code-block__pm-tabs {
   display: flex;
   align-items: center;
@@ -129,8 +124,7 @@
   display: none;
 }
 
-/* Scroll-spy del TOC — ver Toc.astro. El borde propio del link se pinta
-   exactamente sobre el border-l compartido del <ul> (margin-left: -1px). */
+/* Scroll-spy del TOC: el borde del link tapa el del <ul>. */
 .toc-link {
   border-left: 1px solid transparent;
   margin-left: -1px;
@@ -141,7 +135,7 @@
   font-weight: 500;
 }
 
-/* Barra de progreso de lectura — solo en páginas de entrada individual. */
+/* Progreso de lectura. */
 .reading-progress {
   position: fixed;
   top: 0;

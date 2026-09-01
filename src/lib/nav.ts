@@ -2,34 +2,40 @@ import {
   CATEGORIES,
   CATEGORY_GROUPS,
   CONTENT_TYPES,
-  STACKS,
+  SUBCATEGORIES,
   type CategoryId,
   type ContentTypeId
 } from "@/config/site"
-import { getCategoryEntries, getEntryUrl, sortByLearningPath, type AnyEntry } from "./content"
+import {
+  getCategoryEntries,
+  getEntryUrl,
+  sortByLearningPath,
+  subcategoryOf,
+  type AnyEntry
+} from "./content"
 
-/** Datos de la sidebar (Astro) y del menú móvil (React). */
+/** Datos de la sidebar y del menú móvil. */
 
-export interface NavItem {
+interface NavItem {
   title: string
   url: string
   icon: string
 }
 
-export interface NavGroup {
+interface NavGroup {
   id: string
   label: string
   items: NavItem[]
 }
 
-export interface NavCategory {
+interface NavCategory {
   id: CategoryId
   label: string
   icon: string
   color: string
-  /** Entradas sin subcategoría, sueltas bajo la categoría. */
+  /** Entradas sueltas. */
   items: NavItem[]
-  /** Subcategorías desplegables (por stack o por tipo de recurso). */
+  /** Subcategorías desplegables. */
   groups: NavGroup[]
 }
 
@@ -37,13 +43,17 @@ export interface NavData {
   groups: { id: string; categories: NavCategory[] }[]
 }
 
-/** Iconos de marca que ganan al icono del tipo o del stack. */
-const ICON_OVERRIDES: Record<string, string> = {
-  "libraries/zod": "brand-zod",
-  "guides/typescript-path-aliases": "brand-typescript",
-  "patterns/site-config-global": "brand-typescript",
-  "hooks/*": "brand-typescript",
-  "libraries/*": "stack-dependency"
+/** Excepciones por entrada. */
+const ICON_BY_ENTRY: Record<string, string> = {
+  "general/packages/zod": "brand-zod",
+  "general/typescript/typescript-path-aliases": "brand-typescript",
+  "general/config/site-config-global": "brand-typescript"
+}
+
+/** Excepciones por tipo. */
+const ICON_BY_TYPE: Partial<Record<ContentTypeId, string>> = {
+  hooks: "brand-typescript",
+  libraries: "stack-dependency"
 }
 
 const LANGUAGE_ICONS: Record<string, string> = {
@@ -51,20 +61,18 @@ const LANGUAGE_ICONS: Record<string, string> = {
   typescript: "brand-typescript"
 }
 
-/** Icono de una entrada: excepción, stack, lenguaje o tipo. */
+/** Icono de una entrada. */
 function iconFor(entry: AnyEntry): string {
-  const override =
-    ICON_OVERRIDES[`${entry.collection}/${entry.id}`] ??
-    ICON_OVERRIDES[`${entry.collection}/*`]
+  const override = ICON_BY_ENTRY[entry.id] ?? ICON_BY_TYPE[entry.data.type]
   if (override) return override
 
-  if (entry.data.stack) return STACKS[entry.data.stack].icon
+  // En `resources` la subcategoría no tiene icono propio.
+  const subcategory = subcategoryOf(entry)
+  const icon = subcategory ? SUBCATEGORIES[subcategory]?.icon : undefined
+  if (icon) return icon
 
   const language = (entry.data as { language?: string }).language
-  return (
-    (language && LANGUAGE_ICONS[language]) ||
-    CONTENT_TYPES[entry.collection as ContentTypeId].icon
-  )
+  return (language && LANGUAGE_ICONS[language]) || CONTENT_TYPES[entry.data.type].icon
 }
 
 function toNavItems(entries: AnyEntry[]): NavItem[] {
@@ -93,7 +101,7 @@ export function buildNavData(all: AnyEntry[]): NavData {
   const hasContent = (category: NavCategory) =>
     category.items.length > 0 || category.groups.length > 0
 
-  // Un bloque entero vacío no dibuja su separador.
+  // Bloque vacío no dibuja separador.
   return {
     groups: CATEGORY_GROUPS.map((group) => ({
       id: group.id,

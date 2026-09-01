@@ -1,16 +1,4 @@
-/**
- * Configuración central del sitio.
- *
- * Este archivo es la única fuente de verdad para:
- * - identidad del sitio
- * - tipos de contenido (colecciones)
- * - categorías (áreas de conocimiento)
- * - categorías de recursos
- *
- * Las rutas, la sidebar, el command palette y los schemas de contenido
- * se generan a partir de aquí. Para añadir un nuevo tipo o categoría,
- * basta con extender estas listas.
- */
+/** Fuente de verdad del sitio. */
 
 export const SITE = {
   name: "angel.library",
@@ -19,7 +7,7 @@ export const SITE = {
   locale: "es"
 } as const
 
-/** Conserva el orden de declaración y el tipo literal de las claves. */
+/** Claves en orden. */
 function keysOf<const Values extends Record<string, unknown>>(values: Values) {
   return Object.keys(values) as unknown as readonly [
     keyof Values & string,
@@ -27,7 +15,7 @@ function keysOf<const Values extends Record<string, unknown>>(values: Values) {
   ]
 }
 
-/** Copia cada entrada añadiéndole su clave como campo `id`. */
+/** Añade `id` a cada valor. */
 function withIds<Id extends string, Value>(values: Record<Id, Value>) {
   const entries = Object.entries(values) as [Id, Value][]
   return Object.fromEntries(
@@ -35,9 +23,7 @@ function withIds<Id extends string, Value>(values: Record<Id, Value>) {
   ) as Record<Id, Value & { id: Id }>
 }
 
-/* ------------------------------------------------------------------ */
-/* Tipos de contenido                                                  */
-/* ------------------------------------------------------------------ */
+// ── Tipos de contenido ──
 
 const CONTENT_TYPE_DEFINITIONS = {
   technologies: {
@@ -157,15 +143,14 @@ export type ContentTypeId = keyof typeof CONTENT_TYPE_DEFINITIONS
 
 export interface ContentTypeMeta {
   id: ContentTypeId
-  /** Etiqueta en plural (listados, navegación) */
+  /** Plural. */
   label: string
-  /** Etiqueta en singular (badges) */
+  /** Singular. */
   singular: string
-  /** Nombre de icono (lucide) */
+  /** Icono lucide. */
   icon: string
   description: string
-  /** Nombre de variable CSS (definida en tokens.css) usada para colorear
-   *  el badge de este tipo (.type-X) y el hover de sus cards (ContentCard). */
+  /** Var CSS del color. */
   color: string
 }
 
@@ -177,9 +162,7 @@ export const CONTENT_TYPE_IDS = keysOf(CONTENT_TYPE_DEFINITIONS)
 
 export const CONTENT_TYPE_LIST = CONTENT_TYPE_IDS.map((id) => CONTENT_TYPES[id])
 
-/* ------------------------------------------------------------------ */
-/* Categorías (áreas de conocimiento)                                  */
-/* ------------------------------------------------------------------ */
+// ── Categorías ──
 
 const CATEGORY_DEFINITIONS = {
   general: {
@@ -337,8 +320,7 @@ export interface CategoryMeta {
   label: string
   icon: string
   description: string
-  /** Nombre de variable CSS (definida en global.css) usada para colorear
-   *  esta categoría en la sidebar y en el título de su página de listado. */
+  /** Var CSS del color. */
   color: string
 }
 
@@ -347,16 +329,7 @@ export const CATEGORIES = withIds(CATEGORY_DEFINITIONS) as Record<
   CategoryMeta
 >
 
-/**
- * Bloques de categorías para la navegación. Cada grupo se dibuja separado
- * por una línea en la sidebar, de modo que el listado no sea una lista
- * plana de 19 elementos sino cinco bloques con una lógica reconocible:
- * construir → producto e IA → flujo de trabajo → calidad → referencia.
- *
- * Este arreglo es además el **orden real de las categorías en todo el
- * sitio**: `CATEGORY_LIST` se deriva de aquí, así que la home, la sidebar
- * y las páginas de tags comparten la misma secuencia.
- */
+/** Bloques de la sidebar; fija el orden global de categorías. */
 export const CATEGORY_GROUPS = [
   {
     id: "construir",
@@ -395,9 +368,7 @@ const GROUPED_CATEGORY_IDS = CATEGORY_GROUPS.flatMap(
   (group) => group.categories as readonly CategoryId[]
 )
 
-// Red de seguridad: una categoría nueva en CATEGORY_IDS que nadie asignó a
-// un grupo desaparecería de la navegación sin avisar. Preferimos que falle
-// el build, igual que con una referencia de contenido rota.
+// Sin grupo desaparecería de la navegación: mejor romper el build.
 const UNGROUPED = CATEGORY_IDS.filter((id) => !GROUPED_CATEGORY_IDS.includes(id))
 if (UNGROUPED.length > 0) {
   throw new Error(
@@ -407,9 +378,7 @@ if (UNGROUPED.length > 0) {
 
 export const CATEGORY_LIST = GROUPED_CATEGORY_IDS.map((id) => CATEGORIES[id])
 
-/* ------------------------------------------------------------------ */
-/* Categorías de recursos externos                                     */
-/* ------------------------------------------------------------------ */
+// ── Categorías de recurso ──
 
 const RESOURCE_CATEGORY_DEFINITIONS = {
   "ui-inspiration": {
@@ -491,36 +460,31 @@ const RESOURCE_CATEGORY_DEFINITIONS = {
 
 export type ResourceCategoryId = keyof typeof RESOURCE_CATEGORY_DEFINITIONS
 
-export interface ResourceCategoryMeta {
+interface ResourceCategoryMeta {
   id: ResourceCategoryId
   label: string
-  /** Una línea que explica qué se va a encontrar en el grupo. */
+  /** Descripción del grupo. */
   description: string
 }
 
 export const RESOURCE_CATEGORY_IDS = keysOf(RESOURCE_CATEGORY_DEFINITIONS)
 
-export const RESOURCE_CATEGORY_LIST: ResourceCategoryMeta[] =
+const RESOURCE_CATEGORY_LIST: ResourceCategoryMeta[] =
   RESOURCE_CATEGORY_IDS.map((id) => ({
     id,
     ...RESOURCE_CATEGORY_DEFINITIONS[id]
   }))
 
-/** Solo la etiqueta, para las insignias de las entradas. */
+/** Etiqueta para insignias. */
 export const RESOURCE_CATEGORIES: Record<ResourceCategoryId, string> =
   Object.fromEntries(
     RESOURCE_CATEGORY_IDS.map((id) => [id, RESOURCE_CATEGORY_DEFINITIONS[id].label])
   ) as Record<ResourceCategoryId, string>
 
-/* ------------------------------------------------------------------ */
-/* Stacks (subcategorías y rutas de aprendizaje por categoría)         */
-/* ------------------------------------------------------------------ */
+// ── Subcategorías ──
 
-/**
- * Subcategorías dentro de una categoría. Un mismo stack puede aparecer en
- * varias categorías; CATEGORY_STACK_ORDER decide el orden en cada una.
- */
-const STACK_LABELS = {
+/** Segunda carpeta de src/content; su orden lo fija CATEGORY_SUBCATEGORY_ORDER. */
+const SUBCATEGORY_LABELS = {
   "frontend-fundamentos": "Fundamentos de frontend",
   config: "Config",
   monorepo: "Monorepo",
@@ -624,17 +588,17 @@ const STACK_LABELS = {
   "patrones-arquitectonicos": "Patrones arquitectónicos"
 } as const
 
-export type StackId = keyof typeof STACK_LABELS
+export type SubcategoryId = keyof typeof SUBCATEGORY_LABELS
 
-/** Stacks que reutilizan el icono de otro; el resto usa "brand-<id>". */
-const STACK_ICONS: Partial<Record<StackId, string>> = {
+/** Iconos prestados; el resto usa `brand-<id>`. */
+const SUBCATEGORY_ICONS: Partial<Record<SubcategoryId, string>> = {
   "github-platform": "brand-github",
   "github-actions": "workflow",
   utils: "brand-typescript",
   "apps-cli": "brand-cli"
 }
 
-const STACK_DESCRIPTIONS: Partial<Record<StackId, string>> = {
+const SUBCATEGORY_DESCRIPTIONS: Partial<Record<SubcategoryId, string>> = {
   config:
     "Archivos y herramientas que configuran un proyecto antes de escribir código.",
   monorepo:
@@ -839,37 +803,32 @@ const STACK_DESCRIPTIONS: Partial<Record<StackId, string>> = {
     "Implementaciones web que convierten ideas poco habituales en experiencias, herramientas o arquitecturas concretas."
 }
 
-export interface StackMeta {
-  id: StackId
+interface SubcategoryMeta {
+  id: SubcategoryId
   label: string
-  /** Icono de marca (ver src/config/icons.ts) */
+  /** Icono de marca. */
   icon: string
-  /** Una línea que explica qué se va a encontrar en la subcategoría. */
+  /** Descripción del grupo. */
   description?: string
 }
 
-export const STACK_IDS = keysOf(STACK_LABELS)
+const SUBCATEGORY_IDS = keysOf(SUBCATEGORY_LABELS)
 
-export const STACKS = Object.fromEntries(
-  STACK_IDS.map((id) => [
+export const SUBCATEGORIES = Object.fromEntries(
+  SUBCATEGORY_IDS.map((id) => [
     id,
     {
       id,
-      label: STACK_LABELS[id],
-      icon: STACK_ICONS[id] ?? `brand-${id}`,
-      description: STACK_DESCRIPTIONS[id]
+      label: SUBCATEGORY_LABELS[id],
+      icon: SUBCATEGORY_ICONS[id] ?? `brand-${id}`,
+      description: SUBCATEGORY_DESCRIPTIONS[id]
     }
   ])
-) as Record<StackId, StackMeta>
+) as Record<SubcategoryId, SubcategoryMeta>
 
-/**
- * Cada categoría necesita su propia progresión. Un único orden global hacía,
- * por ejemplo, que Astro apareciera antes de HTML o que herramientas avanzadas
- * se adelantaran a sus fundamentos. Los stacks no declarados se añaden al final
- * como fallback para que una nueva subcategoría nunca desaparezca.
- */
-export const CATEGORY_STACK_ORDER: Partial<
-  Record<CategoryId, readonly StackId[]>
+/** Orden de lectura por categoría; las no declaradas van al final. */
+const CATEGORY_SUBCATEGORY_ORDER: Partial<
+  Record<CategoryId, readonly SubcategoryId[]>
 > = {
   general: ["config", "monorepo", "packages", "typescript", "utils", "whatsapp"],
   findings: ["hallazgos-ia", "hallazgos-web"],
@@ -977,13 +936,20 @@ export const CATEGORY_STACK_ORDER: Partial<
   architecture: ["principios", "patrones-diseno", "patrones-arquitectonicos"]
 }
 
-export function getStacksForCategory(category: CategoryId): StackMeta[] {
-  const preferred = CATEGORY_STACK_ORDER[category] ?? []
-  const remaining = STACK_IDS.filter((id) => !preferred.includes(id))
-  return [...preferred, ...remaining].map((id) => STACKS[id])
+/** Grupo dibujable. */
+interface SubcategoryGroup {
+  id: string
+  label: string
+  description?: string
 }
 
-/** Categorías que agrupan sus entradas por stack en vez de listarlas planas. */
-export const STACK_GROUPED_CATEGORIES = CATEGORY_IDS.filter(
-  (category) => CATEGORY_STACK_ORDER[category] !== undefined
-)
+/** Subcategorías válidas y su orden. */
+export function getSubcategoriesForCategory(
+  category: CategoryId
+): readonly SubcategoryGroup[] {
+  if (category === "resources") return RESOURCE_CATEGORY_LIST
+
+  const preferred = CATEGORY_SUBCATEGORY_ORDER[category] ?? []
+  const remaining = SUBCATEGORY_IDS.filter((id) => !preferred.includes(id))
+  return [...preferred, ...remaining].map((id) => SUBCATEGORIES[id])
+}

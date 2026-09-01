@@ -1,7 +1,7 @@
 ---
 title: "Vibiz AI — embudos de marketing generados con IA"
 description: Plataforma que toma un sitio como referencia y prepara borradores de una página de venta, anuncios y correos para presentar o promocionar un producto.
-category: resources
+type: resources
 tags: [ai, marketing, landing-pages, ads, branding, automation]
 url: https://www.vibiz.ai/
 resourceCategory: ia

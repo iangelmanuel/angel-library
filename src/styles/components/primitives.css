@@ -1,6 +1,4 @@
-/* ------------------------------------------------------------------ */
-/* Primitivas: piezas pequeñas reutilizadas en todo el sitio            */
-/* ------------------------------------------------------------------ */
+/* Primitivas: piezas pequeñas reutilizadas en todo el sitio */
 @layer components {
 /* Skip link accesible */
 .skip-link {
@@ -19,8 +17,7 @@
   top: 1rem;
 }
 
-/* Etiqueta de sección: micro-título de UI (no de contenido), en el mismo
-   color que --heading-secondary. */
+/* Micro-título de UI. */
 .section-label {
   font-family: var(--font-pixel);
   font-size: 0.8rem;
@@ -49,14 +46,6 @@
   box-shadow: inset 0 -2px 0 rgb(255 255 255 / 0.06);
 }
 
-/* Esquinas pixeladas (borde con muescas) para detalles puntuales */
-.pixel-corners {
-  box-shadow:
-    0 -3px 0 0 var(--border-strong),
-    0 3px 0 0 var(--border-strong),
-    -3px 0 0 0 var(--border-strong),
-    3px 0 0 0 var(--border-strong);
-}
 
 /* Badge de tipo de contenido */
 .badge {
@@ -86,12 +75,8 @@ button.badge:hover {
   box-shadow: 3px 3px 0 color-mix(in srgb, var(--border-strong) 55%, transparent);
 }
 
-/* Badge de categoría (cabecera de una entrada): mismo hover que las
-   cards — exactamente el mismo transform+box-shadow, en el color de la
-   categoría. Requiere --card-accent inline (ver [...slug].astro). Color y
-   border-color van aquí, no inline: un estilo inline gana siempre sobre
-   :hover de una hoja de estilos, así que el borde se quedaba apagado al
-   pasar el mouse. */
+/* Badge de categoría: hover de card. El color va aquí, no inline:
+   un estilo inline gana siempre sobre :hover. */
 .badge--category {
   color: var(--card-accent);
   border-color: color-mix(in srgb, var(--card-accent) 35%, var(--border));
@@ -108,8 +93,7 @@ a.badge--category:hover {
   box-shadow: 3px 3px 0 color-mix(in srgb, var(--card-accent) 38%, transparent);
 }
 
-/* Tag chip: mismo azul que los links, suelto y sin borde — estilo
-   Twitter. Solo cambia de color al pasar el mouse, sin subrayado. */
+/* Tag suelto: sin borde, solo cambia de color. */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -124,7 +108,7 @@ a.badge--category:hover {
   transition: color 120ms ease;
 }
 
-/* El nombre de la biblioteca avanza por la paleta en cada nuevo hover. */
+/* El logo avanza por la paleta en cada hover. */
 .logo-cycle {
   --logo-hover-color: var(--accent-blue);
 }
@@ -158,8 +142,7 @@ a.tag:focus-visible {
   opacity: 0.8;
 }
 
-/* Tile de la nube de tags (/tags): a diferencia del tag suelto de arriba,
-   aquí funciona como botón de filtro, así que conserva un borde propio. */
+/* Tile de /tags: es un botón, conserva borde. */
 .tag--tile {
   justify-content: flex-start;
   min-width: 0;
@@ -183,19 +166,13 @@ a.tag:focus-visible {
   margin-left: auto;
 }
 
-/* Acentos por tipo: solo para badges (.badge.type-X, ver TypeBadge.astro) —
-   cada familia de contenido tiene su color para escanear rápido. Los títulos
-   (h1) NO usan esto: llevan el color de la jerarquía de lectura, fijo en
-   todo el sitio (ver --heading-* en tokens.css), para que el look sea
-   consistente. El color de categoría (sidebar, badge de categoría) sigue
-   siendo inline desde CategoryMeta.color en site.ts. */
+/* Acentos por tipo: solo badges. Los títulos usan --heading-*. */
 .type-technologies { color: var(--accent-blue); }
 .type-libraries { color: var(--accent-blue); }
 .type-integrations { color: var(--accent-indigo); }
 .type-recipes { color: var(--accent-red); }
 .type-snippets { color: var(--accent-cyan); }
 .type-hooks { color: var(--accent-pink); }
-.type-components { color: var(--accent-pink); }
 .type-utilities { color: var(--accent-blue); }
 .type-resources { color: var(--accent-pink); }
 .type-skills { color: var(--accent-pink); }
@@ -205,14 +182,11 @@ a.tag:focus-visible {
 .type-guides { color: var(--accent-lime); }
 .type-tricks { color: var(--accent-indigo); }
 
-/* Jerarquía estable: el título principal de la entrada lleva el mismo
-   violeta que --heading-primary; el texto introductorio va más claro que
-   el metadata, sin teñir párrafos largos. */
+/* Título de entrada: violeta de --heading-primary. */
 main h1 { color: var(--heading-primary); }
 main header > p { color: var(--reading-muted); }
 
-/* Título de "$ en esta página" (Toc.astro): mismo color que los
-   subtítulos del contenido — el "$" sigue verde, heredado de ::before. */
+/* Título del TOC: color de los subtítulos. */
 .toc-title {
   color: var(--heading-secondary);
 }

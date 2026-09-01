@@ -1,14 +1,8 @@
 import { visit } from 'unist-util-visit';
 
 /**
- * Los enlaces externos del Markdown se abren en otra pestaña.
- *
- * `rel` no es decoración: sin `noopener`, la página destino recibe una
- * referencia a la nuestra por `window.opener` y puede redirigirla.
- * `noreferrer` además evita enviar la URL de origen.
- *
- * Los enlaces internos (`/ruta`, `#ancla`) se dejan igual para no romper
- * la navegación con View Transitions.
+ * Enlaces externos en otra pestaña. `noopener` evita que el destino
+ * manipule esta página por `window.opener`; los internos no se tocan.
  */
 export function rehypeExternalLinks() {
   return (tree) => {

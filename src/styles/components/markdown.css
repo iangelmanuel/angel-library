@@ -1,6 +1,4 @@
-/* ------------------------------------------------------------------ */
-/* Contenido markdown                                                   */
-/* ------------------------------------------------------------------ */
+/* Contenido markdown */
 @layer components {
   .markdown {
     font-family: var(--font-sans);
@@ -12,11 +10,7 @@
     margin-top: 0;
   }
 
-  /* Jerarquía de títulos (ver --heading-* en tokens.css):
-     h1 módulo (violeta) → h2 sección (amarillo) → h3 apartado (amarillo
-     más claro) → h4 detalle (gris). Cada nivel cambia de color Y de
-     tratamiento de borde, para que la separación se lea incluso en
-     escala de grises. */
+  /* h1 módulo → h2 sección → h3 apartado → h4 detalle: cambian color y borde. */
   .markdown h1,
   .markdown h2,
   .markdown h3,
@@ -63,9 +57,7 @@
   .markdown p + h4 {
     margin-top: 3rem;
   }
-  /* Enlaces de lectura: mismo azul que los tags — un único color para
-     "esto es interactivo" en todo el contenido. Subrayado visible, fondo
-     solo al interactuar; no dependen únicamente del color. */
+  /* Enlaces: azul de los tags, subrayado siempre visible. */
   .markdown a {
     color: var(--reading-link);
     text-decoration: underline;
@@ -115,16 +107,14 @@
   .markdown li {
     margin: 0.35rem 0;
   }
-  /* Cita: borde izquierdo reforzado en el color de los apartados, sin
-     relleno — el fondo del documento se mantiene intacto. */
+  /* Cita: solo borde izquierdo. */
   .markdown blockquote {
     margin: 1.25rem 0;
     border-left: 3px solid var(--heading-tertiary);
     padding: 0.8rem 1rem;
     color: var(--reading-muted);
   }
-  /* Código inline: solo borde — propiedades, comandos y nombres de API se
-     reconocen sin relleno ni acento, en la fuente mono del sitio. */
+  /* Código inline: solo borde. */
   .markdown :not(pre) > code {
     background: transparent;
     border: 1px solid var(--border);

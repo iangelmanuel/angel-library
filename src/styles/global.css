@@ -1,32 +1,7 @@
-/* ------------------------------------------------------------------ */
-/* angel-library — hoja de entrada de estilos                           */
-/*                                                                      */
-/* Este archivo solo importa: aquí no viven reglas. Cada parcial agrupa */
-/* una sección de la interfaz para que sea fácil encontrar y editar     */
-/* estilos sin navegar un único archivo gigante:                        */
-/*                                                                      */
-/*   tokens.css                       Variables de diseño (colores,    */
-/*                                    jerarquía de títulos, fuentes)   */
-/*   base.css                         Lienzo del documento, selection, */
-/*                                    scrollbars, view transitions     */
-/*   keyframes.css                    @keyframes compartidos           */
-/*   components/primitives.css        Piezas sueltas: badge, tag, kbd, */
-/*                                    section-label, logo-cycle        */
-/*   components/card.css              Tarjeta base de contenido        */
-/*   components/sidebar.css           Navegación lateral               */
-/*   components/code.css              Bloques de código, TOC, callouts */
-/*   components/markdown.css          Contenido markdown               */
-/*   components/terminal.css          Ventanas, consolas y relaciones  */
-/*                                    entre entradas                   */
-/*   components/search-terminal.css   Consola de búsqueda (Ctrl/Cmd+K) */
-/*                                                                      */
-/* El orden importa: tokens → base → keyframes → componentes, de lo     */
-/* general a lo específico (un parcial puede sobreescribir al anterior  */
-/* cuando las piezas se combinan, p. ej. .terminal-card extiende .card) */
-/* ------------------------------------------------------------------ */
+/* Hoja de entrada: solo imports.
+   Orden: tokens → base → keyframes → componentes, de general a específico. */
 
-/* Fuentes (self-hosted vía Fontsource). Geist Sans es el texto general,
-   Geist Mono la fuente de código y Geist Pixel las display/títulos. */
+/* Fuentes: Sans texto, Mono código, Pixel títulos. */
 @import '@fontsource/geist-sans/latin-400.css';
 @import '@fontsource/geist-sans/latin-500.css';
 @import '@fontsource/geist-sans/latin-600.css';

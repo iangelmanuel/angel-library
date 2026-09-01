@@ -1,13 +1,13 @@
 ---
 title: "transition.style — transiciones con clip-path"
 description: "Colección de transiciones que revelan u ocultan contenido mediante formas; se pueden copiar como CSS y aplicar también al cambio entre páginas."
-category: resources
+type: resources
 tags: [css, transiciones, animaciones, clip-path, view-transitions]
 url: https://www.transition.style/
 resourceCategory: animations
 personalNote: "El catálogo se ve y se copia en segundos; lo más útil es que las mismas transiciones sirven para View Transitions, no solo para hover."
 related:
-  - resources/hallazgos/12-principios-animacion
+  - findings/hallazgos-web/12-principios-animacion
 updatedAt: 2026-08-30
 ---
 

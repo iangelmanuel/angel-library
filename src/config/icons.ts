@@ -1,14 +1,14 @@
-/** Tabla única de iconos: la leen Icon.astro (build) y DynamicIcon.tsx (React). */
+/** Tabla única de iconos: Astro y React. */
 
-export interface BrandIcon {
+interface BrandIcon {
   viewBox: string
-  /** Color de marca en el <svg>; null si ya viene dentro de body. */
+  /** Color de marca; null si va en body. */
   fill: string | null
-  /** Interior del <svg>, en SVG plano: sirve igual en Astro y en React. */
+  /** Interior del <svg>, SVG plano. */
   body: string
 }
 
-/** Marcas con dibujo propio (logos y glifos). */
+/** Logos y glifos propios. */
 export const BRAND_ICONS: Record<string, BrandIcon> = {
   "brand-typescript": {
     viewBox: "0 0 24 24",
@@ -92,7 +92,7 @@ export const BRAND_ICONS: Record<string, BrandIcon> = {
   },
 }
 
-/** Icono de lucide pintado con un color fijo en vez de currentColor. */
+/** Lucide con color fijo. */
 export const RECOLORED_ICONS: Record<string, { base: string; color: string }> = {
   "stack-component": { base: "component", color: "#facc15" },
   "stack-dependency": { base: "package", color: "#4ade80" },

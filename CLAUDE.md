@@ -30,37 +30,43 @@ UI text, comments, frontmatter values and content are **in Spanish**. Match that
 
 ## Architecture
 
+### The content model: folders decide, frontmatter declares the type
+
+`src/content/<category>/<subcategory>/<file>.md`. **The folder is the source of truth** for category and subcategory; the frontmatter only declares `type` (`guides`, `commands`, `resources`…). Moving a file recategorizes it — there is nothing to edit.
+
+One collection (`library`) holds everything; its schema is a `z.discriminatedUnion("type", …)` so each type keeps its own required fields. The entry id is its path, and the URL is the id.
+
 ### Single source of truth: `src/config/site.ts`
 
-Content types, knowledge categories, and resource categories are declared as `as const` arrays + metadata records. Everything derives from them: Zod enums in `src/content.config.ts`, sidebar/nav (`src/lib/nav.ts`), routes, command palette, badges.
+Content types, knowledge categories, subcategories, and resource categories are declared as `as const` arrays + metadata records. Everything derives from them: the sidebar/nav (`src/lib/nav.ts`), routes, command palette, badges, and the build-time validation of folder names.
 
-Ids are the keys of those maps — `CONTENT_TYPE_IDS`, `CATEGORY_IDS`, `STACK_IDS` are derived, never hand-written lists.
+Ids are the keys of those maps — `CONTENT_TYPE_IDS`, `CATEGORY_IDS`, `SUBCATEGORY_IDS` are derived, never hand-written lists.
 
-Adding a content type = add its `CONTENT_TYPE_DEFINITIONS` entry, add a `defineCollection` in `content.config.ts`, add its `CollectionEntry<...>` to the `AnyEntry` union in `src/lib/content.ts`, create `src/content/<id>/`. No route or component changes needed.
+Adding a content type = add its `CONTENT_TYPE_DEFINITIONS` entry, add an `entryType("<id>", …)` line to the union in `content.config.ts`, place it in `LEARNING_TYPE_ORDER`. No folder, route, or component changes needed.
 
-Adding a category = add its `CATEGORY_DEFINITIONS` entry + place its id in `CATEGORY_GROUPS` (the build throws if you forget).
+Adding a category = add its `CATEGORY_DEFINITIONS` entry + place its id in `CATEGORY_GROUPS` (the build throws if you forget) + create `src/content/<id>/`.
 
-Adding a stack = add `id: "Label"` to `STACK_LABELS` + place it in `CATEGORY_STACK_ORDER`. Its icon is `brand-<id>` unless listed in `STACK_ICONS`.
+Adding a subcategory = add `id: "Label"` to `SUBCATEGORY_LABELS` + place it in `CATEGORY_SUBCATEGORY_ORDER`. Its icon is `brand-<id>` unless listed in `SUBCATEGORY_ICONS`. In the `resources` category the subfolders are `RESOURCE_CATEGORY_DEFINITIONS` ids instead.
 
 ### Routing
 
 Three dynamic routes cover the whole site:
 
-- `src/pages/[type]/[...slug].astro` — every entry of every collection. URL = `/<collection>/<id>`.
-- `src/pages/[type]/index.astro` — listing per content type.
+- `src/pages/[...slug].astro` — every entry. URL = the entry id = `/<category>/<subcategory>/<file>`.
+- `src/pages/tipos/[type].astro` — listing per content type.
 - `src/pages/categories/[category].astro` — listing per category.
 
 Plus `/`, `/search`, `/tags`, `/tags/[tag]`, and `/search-index.json` (build-time API route).
 
-Dropping a `.md` file into a collection folder generates its page automatically.
+Dropping a `.md` file into a category folder generates its page automatically.
 
 ### Content relations
 
-Frontmatter references are **namespaced ids**: `collection/id` (e.g. `technologies/react`, `resources/design/uiverse` — resources are nested in subfolders, so the id includes the subfolder). Regex-enforced in the schema.
+Frontmatter references are the target's **id, i.e. its path**: `frontend/react/react-context-api`. Regex-enforced in the schema.
 
 `src/lib/relations.ts` derives relations from three sources: explicit `related`, backlinks (entries pointing here), and shared-tag affinity (max 6). `integrations` and `recipes` that list an entry in their `technologies` are surfaced on that entry automatically — never declare relations in both directions.
 
-`validateContentRelations()` runs inside `getStaticPaths()` of `[type]/[...slug].astro`. **A broken reference fails the build** with `[contenido] Referencias rotas:`. This is the safety net for content edits.
+Three validations run inside `getStaticPaths()` of `[...slug].astro` and **fail the build** with a Spanish message: `validateContentStructure()` (unknown category/subcategory folder), `validateContentRelations()` (broken reference), `validateInternalLinks()` (`](/…)` link in a body that leads nowhere). This is the safety net for content edits.
 
 ### Search
 
@@ -75,7 +81,7 @@ Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 
 
 ### Markdown pipeline
 
-`astro.config.mjs` wires Shiki (`github-dark-default`) with:
+`astro.config.mjs` wires Shiki (`tokyo-night`) with:
 - `src/lib/shiki-transformers.mjs` — `transformerCodeFilename()` reads ` ```ts title="src/app.ts" ` into `data-filename`.
 - `src/lib/rehype-code-blocks.mjs` — rehype plugin wrapping each `<pre>` in `.code-block` with a header (label + copy button), and merging the pnpm/bun/npm triples produced by `remark-pm-tabs.mjs` into one tabbed block. The copy button carries **no inline JS**; a single delegated `click` listener in `src/scripts/site-interactions.ts` handles `[data-copy]` globally.
 
@@ -99,11 +105,11 @@ shadcn/ui is configured (`components.json`, new-york, zinc); new primitives land
 
 ## Content authoring
 
-Each collection has its own schema on top of a shared base (`title`, `description`, `category`, `tags`, `related`, `draft`, `private`, `updatedAt`). Read `src/content.config.ts` before adding frontmatter — e.g. `commands` require `command`, `resources` require `url` + `resourceCategory`, `integrations` require ≥2 `technologies`. Use `private: true` for personal command/configuration entries: they retain their generated detail route but stay out of public navigation, listings, tags, and search.
+Each type has its own schema on top of a shared base (`title`, `description`, `type`, `tags`, `related`, `draft`, `private`, `updatedAt`). Read `src/content.config.ts` before adding frontmatter — e.g. `commands` require `command`, `resources` require `url` + `resourceCategory`, `integrations` require ≥2 `technologies`. Use `private: true` for personal command/configuration entries: they retain their generated detail route but stay out of public navigation, listings, tags, and search.
 
 `draft: true` entries render in dev and are excluded from production builds (`getAllEntries()`).
 
-There is no content generator script: add a `.md` to a collection folder and copy the frontmatter of a similar entry. `docs/CONTENT_GUIDE.md` has ready-to-copy templates.
+There is no content generator script: add a `.md` to a `<category>/<subcategory>/` folder and copy the frontmatter of a similar entry. `docs/CONTENT_GUIDE.md` has ready-to-copy templates.
 
 ## Notes
 

@@ -1,10 +1,5 @@
 ---
-/**
- * Barra de progreso de lectura — se usa SOLO desde la página de entrada
- * individual ([type]/[...slug].astro), nunca desde DocsLayout (compartido
- * por listados/búsqueda/home) para que no aparezca fuera de una página con
- * contenido real.
- */
+/** Barra de progreso; solo en la página de una entrada. */
 ---
 
 <div class="reading-progress" aria-hidden="true">
@@ -14,9 +9,7 @@
 <script>
   function updateReadingProgress(): void {
     const bar = document.getElementById('reading-progress-bar');
-    // El <article> completo (breadcrumbs + título + meta + .markdown + relacionados),
-    // no solo .markdown — si se mide solo desde .markdown, hay que scrollear todo el
-    // encabezado de la entrada antes de que la barra reaccione, y se siente "atrasada".
+    // Se mide el <article> entero: medir solo .markdown se siente atrasado.
     const article = document.querySelector<HTMLElement>('article');
     if (!bar || !article) return;
 
@@ -27,8 +20,7 @@
   }
 
   window.addEventListener('scroll', updateReadingProgress, { passive: true });
-  // astro:page-load garantiza el recálculo en la carga inicial y después de
-  // cada navegación con View Transitions (el .markdown de la página nueva).
+  // astro:page-load recalcula tras cada View Transition.
   document.addEventListener('astro:page-load', updateReadingProgress);
   updateReadingProgress();
 </script>

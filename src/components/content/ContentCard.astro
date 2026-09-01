@@ -1,6 +1,6 @@
 ---
 import Icon from '@/components/shared/Icon.astro';
-import { CATEGORIES, CONTENT_TYPES, type CategoryId, type ContentTypeId } from '@/config/site';
+import { CONTENT_TYPES } from '@/config/site';
 import { getEntryUrl, type AnyEntry } from '@/lib/content';
 
 interface Props {
@@ -8,8 +8,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const meta = CONTENT_TYPES[entry.collection as ContentTypeId];
-const category = CATEGORIES[entry.data.category as CategoryId];
+const meta = CONTENT_TYPES[entry.data.type];
 const tags = entry.data.tags ?? [];
 ---
 
@@ -19,14 +18,14 @@ const tags = entry.data.tags ?? [];
   style={`--card-accent: var(${meta.color})`}
 >
   <div class="terminal-card__bar" aria-hidden="true">
-    <span class="terminal-card__path"><span>~/</span>{category.id}/{entry.id}</span>
+    <span class="terminal-card__path"><span>~/</span>{entry.id}</span>
     <span class="terminal-card__status">
       <i></i><i></i><i></i>
     </span>
   </div>
   <div class="terminal-card__body">
     <div class="terminal-card__meta">
-      <span class:list={['flex items-center gap-1.5', `type-${entry.collection}`]}>
+      <span class:list={['flex items-center gap-1.5', `type-${entry.data.type}`]}>
         <Icon name={meta.icon} class="size-3" />
         <span>{meta.singular}</span>
       </span>

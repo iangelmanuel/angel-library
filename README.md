@@ -28,7 +28,7 @@ pnpm preview           # sirve la salida generada localmente
 
 El contenido vive en `src/content/`. La navegación, categorías, iconos y orden editorial se centralizan en `src/config/site.ts`. El sitio genera las rutas y los índices automáticamente.
 
-Para añadir una entrada basta con crear un `.md` en `src/content/<colección>/`. La [guía para añadir contenido](docs/CONTENT_GUIDE.md) explica el frontmatter de cada colección, cómo relacionar entradas y cómo ampliar la estructura editorial. La [documentación de arquitectura](docs/ARCHITECTURE.md) describe el flujo interno.
+Para añadir una entrada basta con crear un `.md` en `src/content/<categoría>/<subcategoría>/`. La [guía para añadir contenido](docs/CONTENT_GUIDE.md) explica el frontmatter de cada tipo, cómo relacionar entradas y cómo ampliar la estructura editorial. La [documentación de arquitectura](docs/ARCHITECTURE.md) describe el flujo interno.
 
 ## Convenciones rápidas
 

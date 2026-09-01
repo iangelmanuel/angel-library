@@ -1,20 +1,20 @@
 import type { APIRoute } from "astro"
-import { CATEGORIES, CONTENT_TYPES, type ContentTypeId } from "@/config/site"
-import { getAllEntries, getEntryUrl, stripMarkdown } from "@/lib/content"
+import { CATEGORIES, CONTENT_TYPES } from "@/config/site"
+import { categoryOf, getAllEntries, getEntryUrl, stripMarkdown } from "@/lib/content"
 
 /** Índice que descarga el buscador del cliente una vez por sesión. */
 export const GET: APIRoute = async () => {
   const entries = await getAllEntries()
 
   const docs = entries.map((entry) => {
-    const type = CONTENT_TYPES[entry.collection as ContentTypeId]
-    const category = CATEGORIES[entry.data.category]
+    const type = CONTENT_TYPES[entry.data.type]
+    const category = CATEGORIES[categoryOf(entry)]
 
     return {
       title: entry.data.title,
       description: entry.data.description,
       url: getEntryUrl(entry),
-      type: entry.collection,
+      type: entry.data.type,
       typeLabel: type.label,
       typeSingular: type.singular,
       typeIcon: type.icon,

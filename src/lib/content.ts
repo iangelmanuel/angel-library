@@ -1,69 +1,57 @@
 import { getCollection, type CollectionEntry } from "astro:content"
 import {
   CATEGORY_LIST,
-  CONTENT_TYPE_IDS,
-  RESOURCE_CATEGORY_LIST,
-  STACK_GROUPED_CATEGORIES,
-  getStacksForCategory,
+  getSubcategoriesForCategory,
   type CategoryId,
-  type ContentTypeId
+  type ContentTypeId,
+  type SubcategoryId
 } from "@/config/site"
 
-/** Una entrada de cualquier colección de la biblioteca. */
-export type AnyEntry =
-  | CollectionEntry<"technologies">
-  | CollectionEntry<"libraries">
-  | CollectionEntry<"integrations">
-  | CollectionEntry<"recipes">
-  | CollectionEntry<"snippets">
-  | CollectionEntry<"hooks">
-  | CollectionEntry<"utilities">
-  | CollectionEntry<"resources">
-  | CollectionEntry<"skills">
-  | CollectionEntry<"commands">
-  | CollectionEntry<"patterns">
-  | CollectionEntry<"practices">
-  | CollectionEntry<"guides">
-  | CollectionEntry<"tricks">
+/** Una entrada de la biblioteca. */
+export type AnyEntry = CollectionEntry<"library">
 
-/* ---------------------------------------------------------------- */
-/* Cargar                                                            */
-/* ---------------------------------------------------------------- */
+// ── Cargar ──
 
-/** Todas las entradas. Los borradores solo salen en desarrollo. */
+/** Todas las entradas; los borradores solo en dev. */
 export async function getAllEntries(includePrivate = false): Promise<AnyEntry[]> {
-  const collections = await Promise.all(
-    CONTENT_TYPE_IDS.map((id) => getCollection(id as "libraries"))
-  )
+  const entries = await getCollection("library")
 
-  return (collections.flat() as AnyEntry[]).filter((entry) => {
+  return entries.filter((entry) => {
     if (!includePrivate && entry.data.private) return false
     return import.meta.env.DEV || !entry.data.draft
   })
 }
 
-/** URL pública: /<coleccion>/<id> */
-export function getEntryUrl(entry: AnyEntry): string {
-  return `/${entry.collection}/${entry.id}`
+// ── Ubicación ──
+
+/** Categoría = primera carpeta del id. */
+export function categoryOf(entry: AnyEntry): CategoryId {
+  return entry.id.split("/")[0] as CategoryId
 }
 
-/** Clave "coleccion/id" con la que se referencian entre sí. */
+/** Subcategoría = segunda carpeta, si la hay. */
+export function subcategoryOf(entry: AnyEntry): SubcategoryId | undefined {
+  const segments = entry.id.split("/")
+  return segments.length > 2 ? (segments[1] as SubcategoryId) : undefined
+}
+
+/** URL pública: el id. */
+export function getEntryUrl(entry: AnyEntry): string {
+  return `/${entry.id}`
+}
+
+/** Clave de referencia: el id. */
 export function entryKey(entry: AnyEntry): string {
-  return `${entry.collection}/${entry.id}`
+  return entry.id
 }
 
 export function buildEntryMap(entries: AnyEntry[]): Map<string, AnyEntry> {
   return new Map(entries.map((entry) => [entryKey(entry), entry]))
 }
 
-/* ---------------------------------------------------------------- */
-/* Ordenar                                                           */
-/* ---------------------------------------------------------------- */
+// ── Ordenar ──
 
-/**
- * Curva de lectura compartida por sidebar, categorías y anterior/siguiente:
- * primero los fundamentos, al final lo aplicado.
- */
+/** Curva de lectura: fundamentos primero. */
 const LEARNING_TYPE_ORDER: ContentTypeId[] = [
   "technologies",
   "guides",
@@ -91,7 +79,7 @@ export function sortByTitle<T extends AnyEntry>(entries: T[]): T[] {
 
 export function sortByLearningPath<T extends AnyEntry>(entries: T[]): T[] {
   const rank = (entry: AnyEntry) => {
-    const index = LEARNING_TYPE_ORDER.indexOf(entry.collection as ContentTypeId)
+    const index = LEARNING_TYPE_ORDER.indexOf(entry.data.type)
     return index === -1 ? Infinity : index
   }
   const order = (entry: AnyEntry) => entry.data.order ?? Infinity
@@ -101,14 +89,12 @@ export function sortByLearningPath<T extends AnyEntry>(entries: T[]): T[] {
   )
 }
 
-/* ---------------------------------------------------------------- */
-/* Agrupar                                                           */
-/* ---------------------------------------------------------------- */
+// ── Agrupar ──
 
-export interface EntryGroup {
+interface EntryGroup {
   id: string
   label: string
-  /** Una línea que explica de qué va el grupo. */
+  /** Descripción del grupo. */
   description?: string
   entries: AnyEntry[]
 }
@@ -127,53 +113,27 @@ function toGroups(
     .filter((group) => group.entries.length > 0)
 }
 
-/**
- * Entradas de una categoría separadas en subgrupos (por categoría de recurso
- * o por stack) y sueltas. Sin subgrupos, todas quedan en `ungrouped`.
- */
+/** Entradas de una categoría, agrupadas por subcategoría. */
 export function getCategoryEntries(all: AnyEntry[], category: CategoryId) {
-  const entries = all.filter((entry) => entry.data.category === category)
-
-  if (category === "resources") {
-    return {
-      entries,
-      groups: toGroups(RESOURCE_CATEGORY_LIST, (id) =>
-        entries.filter(
-          (entry) =>
-            entry.collection === "resources" && entry.data.resourceCategory === id
-        )
-      ),
-      ungrouped: sortByLearningPath(
-        entries.filter((entry) => entry.collection !== "resources")
-      )
-    }
-  }
-
-  if (STACK_GROUPED_CATEGORIES.includes(category)) {
-    return {
-      entries,
-      groups: toGroups(getStacksForCategory(category), (id) =>
-        sortByLearningPath(entries.filter((entry) => entry.data.stack === id))
-      ),
-      ungrouped: sortByLearningPath(entries.filter((entry) => !entry.data.stack))
-    }
-  }
+  const entries = all.filter((entry) => categoryOf(entry) === category)
 
   return {
     entries,
-    groups: [] as EntryGroup[],
-    ungrouped: sortByLearningPath(entries)
+    groups: toGroups(getSubcategoriesForCategory(category), (id) =>
+      sortByLearningPath(entries.filter((entry) => subcategoryOf(entry) === id))
+    ),
+    ungrouped: sortByLearningPath(entries.filter((entry) => !subcategoryOf(entry)))
   }
 }
 
-export interface CategorySection {
+interface CategorySection {
   label: string
   icon?: string
   description?: string
   entries: AnyEntry[]
 }
 
-/** Las secciones tal cual se dibujan en /categories/<id>. */
+/** Secciones de /categories/<id>. */
 export function getCategorySections(
   all: AnyEntry[],
   category: CategoryId
@@ -197,37 +157,27 @@ export function getCategorySections(
     }
   }
 
-  if (STACK_GROUPED_CATEGORIES.includes(category)) {
-    return { entries, sections: [...groups, ...loose(
-        "Fundamentos y referencias",
-        "Contenido de la categoría que no pertenece a ninguna subcategoría."
-      )] }
-  }
-
-  return { entries, sections: [
-      {
-        label: "Ruta de aprendizaje",
-        description: "Todo el contenido de la categoría, en orden de lectura.",
-        entries: ungrouped
-      }
-    ] }
+  return { entries, sections: [...groups, ...loose(
+      "Fundamentos y referencias",
+      "Contenido de la categoría que no pertenece a ninguna subcategoría."
+    )] }
 }
 
-/** Agrupa una selección de entradas en el orden público de categorías. */
+/** Agrupa por categoría. */
 export function groupEntriesByCategory(entries: AnyEntry[]) {
   return CATEGORY_LIST.map((meta) => ({
     meta,
     entries: sortByLearningPath(
-      entries.filter((entry) => entry.data.category === meta.id)
+      entries.filter((entry) => categoryOf(entry) === meta.id)
     )
   })).filter((group) => group.entries.length > 0)
 }
 
-/** Categorías con contenido y cuántas entradas tiene cada una. */
+/** Categorías con contenido y su conteo. */
 export function getCategoryCounts(entries: AnyEntry[]) {
   return CATEGORY_LIST.map((meta) => ({
     ...meta,
-    count: entries.filter((entry) => entry.data.category === meta.id).length
+    count: entries.filter((entry) => categoryOf(entry) === meta.id).length
   })).filter((category) => category.count > 0)
 }
 
@@ -235,14 +185,12 @@ export function getEntriesByType(
   entries: AnyEntry[],
   type: ContentTypeId
 ): AnyEntry[] {
-  return entries.filter((entry) => entry.collection === type)
+  return entries.filter((entry) => entry.data.type === type)
 }
 
-/* ---------------------------------------------------------------- */
-/* Tags                                                              */
-/* ---------------------------------------------------------------- */
+// ── Tags ──
 
-export interface TagCount {
+interface TagCount {
   tag: string
   count: number
 }
@@ -264,9 +212,7 @@ export function getEntriesByTag(entries: AnyEntry[], tag: string): AnyEntry[] {
   return sortByTitle(entries.filter((entry) => entry.data.tags?.includes(tag)))
 }
 
-/* ---------------------------------------------------------------- */
-/* Texto                                                             */
-/* ---------------------------------------------------------------- */
+// ── Texto ──
 
 const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
 
@@ -274,7 +220,7 @@ export function formatDate(date: Date): string {
   return dateFormatter.format(date)
 }
 
-/** Markdown a texto plano, para el índice de búsqueda. */
+/** Markdown a texto plano. */
 export function stripMarkdown(body: string): string {
   return body
     .replace(/```(\w*)\n?/g, " ")

@@ -13,15 +13,12 @@ function readStored(value: string | null): string[] | null {
   }
 }
 
-/**
- * Historial de comandos, con las flechas ↑ ↓ para recorrerlo. Se guarda en
- * localStorage y se anuncia por evento a las demás terminales de la página.
- */
+/** Historial con ↑ ↓, compartido entre terminales. */
 export function useCommandHistory() {
   const [history, setHistory] = useState<string[]>([])
-  /** Posición dentro del historial; null = escribiendo algo nuevo. */
+  /** Posición; null = texto nuevo. */
   const [cursor, setCursor] = useState<number | null>(null)
-  /** Lo que el usuario había escrito antes de empezar a recorrer. */
+  /** Borrador previo. */
   const draft = useRef("")
 
   useEffect(() => {
@@ -63,7 +60,7 @@ export function useCommandHistory() {
       draft.current = ""
     },
 
-    /** Comando anterior, o null si no hay historial que recorrer. */
+    /** Comando anterior. */
     previous(currentInput: string): string | null {
       if (history.length === 0 || (currentInput !== "" && cursor === null)) return null
 
@@ -73,7 +70,7 @@ export function useCommandHistory() {
       return history[next]
     },
 
-    /** Comando siguiente, o el borrador al salir del historial. */
+    /** Comando siguiente o el borrador. */
     next(): string | null {
       if (cursor === null) return null
 

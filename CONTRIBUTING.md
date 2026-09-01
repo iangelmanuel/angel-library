@@ -11,7 +11,7 @@ Las contribuciones deben conservar el objetivo del proyecto: ser una referencia 
 
 ## Documentación
 
-Una entrada debe incluir título, descripción, categoría, tags y, cuando corresponda, `stack`, `order` y relaciones. La explicación ideal contiene:
+Una entrada debe incluir título, descripción, `type`, tags y, cuando corresponda, `order` y relaciones. La categoría y la subcategoría salen de la carpeta en la que la coloques. La explicación ideal contiene:
 
 - definición breve;
 - cuándo usarlo y cuándo evitarlo;
@@ -21,9 +21,9 @@ Una entrada debe incluir título, descripción, categoría, tags y, cuando corre
 
 Los bloques de instalación deben escribirse una sola vez con npm, pnpm o Bun para que el sitio pueda generar las pestañas automáticamente.
 
-Para crear una entrada, copia el frontmatter de una similar dentro de `src/content/<colección>/`. Los ids válidos de categoría, stack y categoría de recurso están en `src/config/site.ts`, y `pnpm build` falla indicando cuál no existe.
+Para crear una entrada, copia el frontmatter de una similar y colócala en `src/content/<categoría>/<subcategoría>/`. Los ids válidos de categoría, subcategoría y categoría de recurso están en `src/config/site.ts`, y `pnpm build` falla indicando cuál no existe.
 
-Consulta la [guía completa de contenido](docs/CONTENT_GUIDE.md) para elegir tipo, categoría y subcategoría, añadir referencias y ampliar la estructura editorial.
+Consulta la [guía de contenido](docs/CONTENT_GUIDE.md) para crear o modificar categorías, subcategorías, módulos y secciones.
 
 ## Validación local
 

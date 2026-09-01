@@ -1,0 +1,139 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import { render } from 'astro:content';
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Toc from '@/components/layout/Toc.astro';
+import ReadingProgress from '@/components/layout/ReadingProgress.astro';
+import PageNav from '@/components/layout/PageNav.astro';
+import TypeBadge from '@/components/content/TypeBadge.astro';
+import TagList from '@/components/content/TagList.astro';
+import EntryMeta from '@/components/content/EntryMeta.astro';
+import RelationSection from '@/components/content/RelationSection.astro';
+import Icon from '@/components/shared/Icon.astro';
+import { CATEGORIES } from '@/config/site';
+import {
+  buildEntryMap,
+  categoryOf,
+  formatDate,
+  getAllEntries,
+  sortByLearningPath,
+  subcategoryOf,
+} from '@/lib/content';
+import {
+  getRelated,
+  validateContentRelations,
+  validateContentStructure,
+  validateInternalLinks,
+} from '@/lib/relations';
+
+/** Ruta única de todas las entradas: la URL es el id. */
+export async function getStaticPaths() {
+  const entries = await getAllEntries(true);
+  validateContentStructure(entries);
+  validateContentRelations(entries);
+  validateInternalLinks(entries);
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
+const { Content, headings } = await render(entry);
+
+const entries = await getAllEntries(true);
+const entryMap = buildEntryMap(entries);
+const related = getRelated(entry, entries, entryMap);
+const relatedExplicit = [...related.explicit, ...related.backlinks];
+const categoryMeta = CATEGORIES[categoryOf(entry)];
+const hasNamedCodeBlocks = /```[^\n]*\btitle=["']/.test(entry.body ?? '');
+
+// Anterior y siguiente, dentro de la misma subcategoría.
+const siblings = sortByLearningPath(
+  entries.filter(
+    (item) =>
+      categoryOf(item) === categoryOf(entry) && subcategoryOf(item) === subcategoryOf(entry),
+  ),
+);
+const index = siblings.findIndex((item) => item.id === entry.id);
+const prev = index > 0 ? siblings[index - 1] : undefined;
+const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;
+---
+
+<DocsLayout title={entry.data.title} description={entry.data.description}>
+  <ReadingProgress />
+  <Toc slot="aside" headings={headings} />
+
+  <article class:list={['mx-auto w-full max-w-3xl', `knowledge-${entry.data.type}`]}>
+    <Breadcrumbs
+      items={[
+        { label: 'inicio', href: '/' },
+        { label: categoryMeta.label.toLowerCase(), href: `/categories/${categoryMeta.id}`, segment: categoryMeta.id },
+        { label: entry.data.title, segment: entry.id.split('/').at(-1) },
+      ]}
+    />
+
+    <header class="mb-8 border-b border-border pb-8">
+      <div class="mb-4 flex flex-wrap items-center gap-2">
+        <TypeBadge type={entry.data.type} />
+        <a
+          href={`/categories/${categoryMeta.id}`}
+          class="badge badge--category"
+          style={`--card-accent: var(${categoryMeta.color})`}
+        >
+          <Icon name={categoryMeta.icon} class="size-3" />
+          {categoryMeta.label}
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-start justify-between gap-3">
+        <h1 class="font-pixel text-2xl leading-snug md:text-3xl">{entry.data.title}</h1>
+        {
+          hasNamedCodeBlocks && (
+            <button
+              type="button"
+              class="copy-all-btn"
+              data-copy-all
+              title="Copia todo el código de esta página en un solo bloque, listo para pegar en tu proyecto"
+            >
+              <Icon name="files" class="size-3.5" />
+              <span data-copy-label>Copiar código completo</span>
+            </button>
+          )
+        }
+      </div>
+      <p class="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+        {entry.data.description}
+      </p>
+
+      <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
+        <TagList tags={entry.data.tags ?? []} />
+        {
+          entry.data.updatedAt && (
+            <span class="font-mono text-[0.68rem] text-muted-foreground/70">
+              actualizado: {formatDate(entry.data.updatedAt)}
+            </span>
+          )
+        }
+      </div>
+    </header>
+
+    <EntryMeta entry={entry} entryMap={entryMap} />
+
+    <div class="markdown">
+      <Content />
+    </div>
+
+    <div class="entry-relations" aria-label="Más contenido relacionado">
+      <RelationSection title="Integraciones" icon="blocks" entries={related.integrations} />
+      <RelationSection title="Recetas" icon="list-checks" entries={related.recipes} />
+      <RelationSection title="Recursos" icon="link" entries={related.resources} />
+      <RelationSection title="Relacionado" icon="corner-down-right" entries={relatedExplicit} />
+      <RelationSection title="Contenido similar" icon="tags" entries={related.byTags} />
+    </div>
+
+    <PageNav prev={prev} next={next} />
+  </article>
+</DocsLayout>

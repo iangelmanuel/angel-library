@@ -5,11 +5,7 @@ import type { TerminalEffect, TerminalTheme } from "../types"
 const THEME_KEY = "angel:terminal-theme"
 const SCANLINES_KEY = "angel:terminal-scanlines"
 
-/**
- * Tema, scanlines y efecto. Se guardan en localStorage y se anuncian por
- * evento para que las dos terminales de la página (diálogo y /search)
- * muestren siempre lo mismo.
- */
+/** Tema y efectos, compartidos entre las dos terminales. */
 export function useAppearance() {
   const [theme, setThemeState] = useState<TerminalTheme>("default")
   const [scanlines, setScanlinesState] = useState(true)

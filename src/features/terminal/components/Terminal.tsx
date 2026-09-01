@@ -25,11 +25,7 @@ function openExternal(url: string) {
   window.open(destination.toString(), "_blank", "noopener,noreferrer")
 }
 
-/**
- * Consola compartida por /search y por el diálogo de Ctrl/Cmd + K.
- * La salida tiene su propio scroll: moverse por los resultados nunca
- * desplaza la página que queda detrás.
- */
+/** Consola de /search y del diálogo Ctrl/Cmd + K. */
 export function Terminal({
   variant = "page",
   onRequestClose,
@@ -46,7 +42,7 @@ export function Terminal({
   const appearance = useAppearance()
 
   const inputRef = useRef<HTMLInputElement>(null)
-  /** Últimos resultados mostrados, para poder abrirlos con /open <n>. */
+  /** Últimos resultados, para /open <n>. */
   const lastResults = useRef<MenuItem[]>([])
 
   const [input, setInput] = useState(initialInput)
@@ -57,7 +53,7 @@ export function Terminal({
   const trimmedInput = input.trim()
   const inputMode = useMemo(() => parseInput(input), [input])
 
-  // En /search la consulta vive en la URL: se lee al entrar y se sincroniza.
+  // En /search la consulta vive en la URL.
   useEffect(() => {
     if (variant !== "page") return
     setInput(new URLSearchParams(window.location.search).get("q") ?? "")
@@ -117,7 +113,7 @@ export function Terminal({
       ? commandOptionId(selectedCommandIndex)
       : optionId(activeIndex)
 
-  // Mantiene visible la opción activa moviendo solo la salida, no la página.
+  // Mueve solo la salida, no la página.
   useEffect(() => {
     const screen = output.outputRef.current
     const option = document.getElementById(activeOptionId)

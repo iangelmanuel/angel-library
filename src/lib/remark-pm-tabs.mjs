@@ -4,13 +4,8 @@ import { translateBlock } from './pm-commands.mjs';
 const PM_LANGS = new Set(['bash', 'sh', 'shell']);
 
 /**
- * Plugin remark: busca bloques de código bash/sh/shell cuyo contenido es
- * enteramente instalaciones o ejecutores de npm, pnpm o Bun, y los expande a 3 bloques
- * (pnpm, bun, npm) con meta `pm="..." pmGroup="..." pmDefault` — el mismo
- * mecanismo de meta que ya lee `transformerCodeFilename` para `title=`.
- *
- * Corre en mdast, ANTES de que Shiki resalte el código, así los 3 bloques
- * generados se resaltan igual que cualquier otro (nada de HTML a mano acá).
+ * Expande un bloque bash de instalación en tres (pnpm, bun, npm).
+ * Corre en mdast, antes de Shiki, para que los tres se resalten igual.
  */
 export function remarkPmTabs() {
   let counter = 0;

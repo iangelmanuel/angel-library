@@ -41,13 +41,7 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
 }
 
 <script>
-  /**
-   * Scroll-spy: marca en el TOC el heading correspondiente a la sección
-   * que se está leyendo. El activo es el último heading cuyo borde
-   * superior ya cruzó la línea de activación (cerca del tope del viewport,
-   * debajo del header sticky) — mismo criterio simple de "el más profundo
-   * que ya pasamos", sin IntersectionObserver.
-   */
+  /** Scroll-spy: activa el último heading que cruzó el header. */
   function updateActiveHeading(): void {
     const nav = document.getElementById('toc-nav');
     if (!nav) return;

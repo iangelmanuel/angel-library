@@ -4,18 +4,12 @@ import CopyButton from "@/components/shared/CopyButton.astro"
 import {
   CONTENT_TYPES,
   RESOURCE_CATEGORIES,
-  type ContentTypeId,
   type ResourceCategoryId
 } from "@/config/site"
 import { getEntryUrl, type AnyEntry } from "@/lib/content"
 import { translateBlock } from "@/lib/pm-commands.mjs"
 
-/**
- * Bloque de metadatos específicos por tipo de contenido.
- * Se renderiza entre la cabecera de la entrada y su cuerpo markdown:
- * comando destacado, enlace de recurso, instalación, tecnologías
- * combinadas, problema que resuelve, etc.
- */
+/** Metadatos propios del tipo, entre la cabecera y el markdown. */
 
 interface Props {
   entry: AnyEntry
@@ -38,23 +32,23 @@ const showWebsite = typeof data.website === "string"
 const showGithub = typeof data.github === "string"
 
 const showProblem =
-  (entry.collection === "recipes" ||
-    entry.collection === "patterns" ||
-    entry.collection === "tricks") &&
+  (entry.data.type === "recipes" ||
+    entry.data.type === "patterns" ||
+    entry.data.type === "tricks") &&
   typeof data.problem === "string"
 const showCommand =
-  entry.collection === "commands" && typeof data.command === "string"
+  entry.data.type === "commands" && typeof data.command === "string"
 const showInstall =
-  entry.collection === "libraries" && typeof data.install === "string"
+  entry.data.type === "libraries" && typeof data.install === "string"
 const installTabs = showInstall ? translateBlock(data.install as string) : null
 const showResource =
-  entry.collection === "resources" && typeof data.url === "string"
+  entry.data.type === "resources" && typeof data.url === "string"
 const showTech = techEntries.length > 0
-const showTool = entry.collection === "skills" && typeof data.tool === "string"
+const showTool = entry.data.type === "skills" && typeof data.tool === "string"
 const showLanguage =
-  (entry.collection === "snippets" ||
-    entry.collection === "hooks" ||
-    entry.collection === "utilities") &&
+  (entry.data.type === "snippets" ||
+    entry.data.type === "hooks" ||
+    entry.data.type === "utilities") &&
   typeof data.language === "string"
 
 const hasMeta = [
@@ -262,7 +256,7 @@ const hasMeta = [
       {showTech && (
         <div class="flex flex-wrap items-center gap-2">
           <span class="font-pixel text-[0.62rem] uppercase tracking-wider text-muted-foreground">
-            {entry.collection === "integrations" ? "Combina" : "Usa"}
+            {entry.data.type === "integrations" ? "Combina" : "Usa"}
           </span>
           {techEntries.map((tech) => (
             <a
@@ -270,7 +264,7 @@ const hasMeta = [
               class="badge"
             >
               <Icon
-                name={CONTENT_TYPES[tech.collection as ContentTypeId].icon}
+                name={CONTENT_TYPES[tech.data.type].icon}
                 class="size-3"
               />
               {tech.data.title}

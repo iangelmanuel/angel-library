@@ -2,10 +2,7 @@ import { LEARNING_TIPS, QUIZ_QUESTIONS } from "../data/aprendizaje"
 import { normalizeKeyword, pickRandom } from "../parse"
 import type { CommandMap, TerminalContext } from "./types"
 
-/**
- * Filtra por tema. Devuelve `null` cuando el comando ya respondió solo:
- * porque pidieron la lista de temas o porque el tema no existe.
- */
+/** Filtra por tema; `null` si el comando ya respondió. */
 function filterByTopic<T extends { topic: string }>(
   ctx: TerminalContext,
   items: readonly T[]
@@ -30,7 +27,7 @@ function filterByTopic<T extends { topic: string }>(
   return matches
 }
 
-/** Comandos de estudio: preguntas y consejos. */
+/** Comandos de estudio. */
 export const aprendizajeCommands: CommandMap = {
   quiz: {
     description: "iniciar una pregunta técnica interactiva",
@@ -39,7 +36,7 @@ export const aprendizajeCommands: CommandMap = {
       const candidates = filterByTopic(ctx, QUIZ_QUESTIONS)
       if (!candidates) return
 
-      // No repetir la pregunta activa mientras haya alternativas.
+      // No repetir la pregunta activa.
       const alternatives =
         ctx.quiz && candidates.length > 1
           ? candidates.filter((question) => question !== ctx.quiz)

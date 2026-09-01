@@ -1,17 +1,7 @@
-/* ------------------------------------------------------------------ */
-/* Tarjeta base de contenido                                            */
-/* ------------------------------------------------------------------ */
+/* Tarjeta base de contenido */
 @layer components {
-  /* Tarjeta de contenido — barra superior "title bar" en el color de su
-     categoría (el consumidor pasa --card-accent inline, ver
-     ContentCard.astro) al pasar el mouse: la tarjeta se comporta como una
-     ventana de terminal que se "enciende" con el color de su propio
-     contenido. Sin relleno interior: fondo del documento + borde + sombra
-     dura desplazada estilo brutalista — nunca un color de fondo propio.
-     Este es EL hover estándar del sitio, definido una sola vez aquí:
-     cualquier card/badge/botón que redirija debe usar --card-accent y
-     este mismo par transform+box-shadow (ver primitives.css y
-     terminal.css) — no reinventar una variante distinta. */
+  /* Hover estándar del sitio: --card-accent + transform y sombra dura.
+     Toda card, badge o botón que navegue reusa este par. */
   .card {
     --card-accent: var(--border-strong);
     position: relative;
@@ -58,10 +48,5 @@
       animation: none;
       opacity: 1;
     }
-  }
-
-  /* Variante de tarjeta sin altura mínima (disparador de búsqueda). */
-  .search-card {
-    min-height: 0;
   }
 }

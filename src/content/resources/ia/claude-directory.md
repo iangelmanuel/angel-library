@@ -1,7 +1,7 @@
 ---
 title: "Claude Directory — plugins, agentes y MCP para Claude Code"
 description: Catálogo no oficial de extensiones e integraciones para Claude Code; ayuda a descubrir opciones, pero cada una debe revisarse antes de instalarla.
-category: resources
+type: resources
 tags: [ai, plugin, mcp, claude-code]
 url: https://www.claudedirectory.org
 resourceCategory: ia

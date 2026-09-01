@@ -1,23 +1,26 @@
+import {
+  CATEGORY_IDS,
+  CONTENT_TYPE_IDS,
+  getSubcategoriesForCategory,
+  type CategoryId,
+  type ContentTypeId
+} from "@/config/site"
 import { buildEntryMap, entryKey, type AnyEntry } from "./content"
 
-/**
- * Relaciones entre entradas. Salen de tres sitios, sin declarar nada dos
- * veces: el campo `related`, los backlinks de quien apunta aquí, y los tags
- * compartidos. Las integraciones y recetas se detectan por `technologies`.
- */
+/** Relaciones entre entradas y validaciones de build. */
 
-export interface RelatedData {
-  /** Declaradas en el campo `related` de esta entrada. */
+interface RelatedData {
+  /** Declaradas en `related`. */
   explicit: AnyEntry[]
-  /** Entradas que apuntan a esta en su `related`. */
+  /** Quien apunta aquí. */
   backlinks: AnyEntry[]
-  /** Integraciones que la incluyen en `technologies`. */
+  /** La incluyen en `technologies`. */
   integrations: AnyEntry[]
-  /** Recetas que la incluyen en `technologies` o `related`. */
+  /** La incluyen en `technologies`. */
   recipes: AnyEntry[]
-  /** Recursos externos relacionados. */
+  /** Recursos externos. */
   resources: AnyEntry[]
-  /** Hasta 6 entradas con tags en común. */
+  /** Hasta 6, por tags en común. */
   byTags: AnyEntry[]
 }
 
@@ -36,17 +39,77 @@ function referencesOf(entry: AnyEntry): string[] {
   ]
 }
 
-/** Falla el build si una referencia apunta a una entrada inexistente. */
+/** Falla si una referencia no existe. */
 export function validateContentRelations(all: AnyEntry[]): void {
   const entryMap = buildEntryMap(all)
   const errors = all.flatMap((entry) =>
     referencesOf(entry)
       .filter((ref) => !entryMap.has(ref))
-      .map((ref) => `  ${entry.collection}/${entry.id} → "${ref}" no existe`)
+      .map((ref) => `  ${entry.id} → "${ref}" no existe`)
   )
 
   if (errors.length > 0) {
     throw new Error(`[contenido] Referencias rotas:\n${errors.join("\n")}`)
+  }
+}
+
+/** Falla si la carpeta no está declarada en site.ts. */
+export function validateContentStructure(all: AnyEntry[]): void {
+  const errors = all.flatMap((entry) => {
+    const segments = entry.id.split("/")
+    if (segments.length < 2 || segments.length > 3) {
+      return [`  ${entry.id} → se esperaba <categoría>/<subcategoría>/<archivo>`]
+    }
+
+    const [category, subcategory] = segments
+    if (!CATEGORY_IDS.includes(category as CategoryId)) {
+      return [`  ${entry.id} → "${category}" no es una categoría`]
+    }
+
+    if (segments.length === 3) {
+      const valid = getSubcategoriesForCategory(category as CategoryId)
+      if (!valid.some((group) => group.id === subcategory)) {
+        return [`  ${entry.id} → "${subcategory}" no es una subcategoría de "${category}"`]
+      }
+    }
+
+    return []
+  })
+
+  if (errors.length > 0) {
+    throw new Error(
+      `[contenido] Carpetas desconocidas (declara la categoría o la subcategoría en src/config/site.ts):\n${errors.join("\n")}`
+    )
+  }
+}
+
+/** Enlaces internos del cuerpo. */
+const INTERNAL_LINK = /\]\((\/[^)\s#]*)(?:#[^)]*)?\)/g
+
+/** Falla si un enlace interno no existe. */
+export function validateInternalLinks(all: AnyEntry[]): void {
+  const ids = new Set(all.map((entry) => entry.id))
+  const errors: string[] = []
+
+  for (const entry of all) {
+    for (const [, href] of (entry.body ?? "").matchAll(INTERNAL_LINK)) {
+      const target = href.replace(/\/$/, "").slice(1)
+      const [first, second] = target.split("/")
+
+      const exists =
+        target === "" ||
+        target === "search" ||
+        first === "tags" ||
+        ids.has(target) ||
+        (first === "categories" && CATEGORY_IDS.includes(second as CategoryId)) ||
+        (first === "tipos" && CONTENT_TYPE_IDS.includes(second as ContentTypeId))
+
+      if (!exists) errors.push(`  ${entry.id} → "${href}" no lleva a ninguna parte`)
+    }
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`[contenido] Enlaces internos rotos:\n${errors.join("\n")}`)
   }
 }
 
@@ -58,7 +121,7 @@ export function getRelated(
   const self = entryKey(entry)
   const seen = new Set<string>([self])
 
-  /** Añade la entrada a un grupo si no salió ya en otro. */
+  /** Añade sin repetir. */
   const take = (group: AnyEntry[], item: AnyEntry | undefined): boolean => {
     if (!item || seen.has(entryKey(item))) return false
     seen.add(entryKey(item))
@@ -77,22 +140,22 @@ export function getRelated(
     const asTech = data.technologies?.includes(self) ?? false
     const asRelated = data.related?.includes(self) ?? false
 
-    // Los grupos con nombre propio ganan a "Relacionado".
-    if (other.collection === "integrations" && asTech) {
+    // Grupo con nombre propio gana a "Relacionado".
+    if (other.data.type === "integrations" && asTech) {
       if (take(integrations, other)) continue
     }
-    if (other.collection === "recipes" && (asTech || asRelated)) {
+    if (other.data.type === "recipes" && (asTech || asRelated)) {
       if (take(recipes, other)) continue
     }
     if (asRelated) {
-      take(other.collection === "resources" ? resources : backlinks, other)
+      take(other.data.type === "resources" ? resources : backlinks, other)
     }
   }
 
   const explicit: AnyEntry[] = []
   for (const ref of (entry.data as Refs).related ?? []) {
     const target = entryMap.get(ref)
-    take(target?.collection === "resources" ? resources : explicit, target)
+    take(target?.data.type === "resources" ? resources : explicit, target)
   }
 
   const myTags = new Set(entry.data.tags ?? [])

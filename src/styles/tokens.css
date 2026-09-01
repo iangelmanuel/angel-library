@@ -1,16 +1,7 @@
-/* ------------------------------------------------------------------ */
-/* Tokens de diseño                                                     */
-/*                                                                      */
-/* Paleta: negro puro de fondo + escala zinc de Tailwind para los       */
-/* grises (neutra, sin el tinte azulado de slate). La jerarquía visual  */
-/* se construye con bordes, no con rellenos: las superficies comparten  */
-/* el fondo del documento, como en una UI de terminal.                  */
-/* ------------------------------------------------------------------ */
+/* Tokens de diseño: fondo negro y escala zinc; la jerarquía la dan los bordes. */
 
 :root {
-  /* Escala zinc (Tailwind): la referencia única de grises del sitio.
-     Ningún gris del proyecto se escribe fuera de esta escala — así se
-     evita que vuelva a colarse un gris con tinte azulado (slate). */
+  /* Escala zinc: ningún gris se escribe fuera de aquí. */
   --zinc-50: #fafafa;
   --zinc-100: #f4f4f5;
   --zinc-200: #e4e4e7;
@@ -23,8 +14,7 @@
   --zinc-900: #18181b;
   --zinc-950: #09090b;
 
-  /* Superficies: fondo negro y tarjetas sin relleno propio — se dibujan
-     solo con borde. */
+  /* Superficies: sin relleno, solo borde. */
   --background: #000000;
   --foreground: var(--zinc-100);
   --card: transparent;
@@ -47,34 +37,21 @@
   --ring: var(--zinc-500);
   --code-bg: transparent;
 
-  /* Lectura: textos largos y enlaces de las entradas. El enlace es el
-     mismo azul que usan los tags (#hash) — un único color para "esto es
-     interactivo" en todo el contenido. */
+  /* Lectura: el azul del enlace es el mismo de los tags. */
   --reading-text: var(--zinc-300);
   --reading-muted: var(--zinc-400);
   --reading-link: color-mix(in srgb, var(--accent-blue) 78%, var(--foreground));
 
-  /* Jerarquía de títulos del contenido (módulo → sección → apartado).
-     Violeta el título; los subtítulos (h2 y h3) en amarillo fuerte, sin
-     pastel, con hex propio — no el --accent-yellow pastel de categorías —
-     dos tonos de amarillo para distinguir sección de apartado. Reservados
-     dentro del contenido: tags, badges de tipo y demás UI de contenido no
-     repiten estos colores. Cambia aquí el color de toda la jerarquía. */
+  /* Jerarquía de títulos: módulo → sección → apartado. */
   --heading-primary: var(--accent-purple);
   --heading-secondary: #eab308;
   --heading-tertiary: #facc15;
   --heading-quaternary: var(--zinc-400);
 
-  /* "Recursos" / "Contenido similar" al final de una entrada: mismo color
-     que los subtítulos, para que el apartado se lea sin esfuerzo. */
+  /* Apartados finales: color de los subtítulos. */
   --related-accent: var(--heading-secondary);
 
-  /* Acentos por categoría: cada uno mapea 1:1 a una categoría en
-     config/site.ts (CategoryMeta.color) y también colorea los badges por
-     tipo de contenido (.type-X). Elegidos para que categorías vecinas
-     en la sidebar nunca compartan color. El amarillo y el naranja son
-     válidos aquí — solo quedan fuera de la jerarquía de lectura del
-     contenido (títulos, tags, badges de tipo). */
+  /* Acentos: 1:1 con CategoryMeta.color y con los badges .type-X. */
   --accent-blue: #60a5fa;
   --accent-cyan: #67e8f9;
   --accent-green: #86efac;

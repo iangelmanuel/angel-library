@@ -1,6 +1,4 @@
-/* ------------------------------------------------------------------ */
-/* Consola de búsqueda — compartida por /search y Ctrl/Cmd + K          */
-/* ------------------------------------------------------------------ */
+/* Consola de búsqueda — compartida por /search y Ctrl/Cmd + K */
 @layer components {
 /* Consola compartida por /search y Ctrl/Cmd + K. */
 .search-terminal {
