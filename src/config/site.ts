@@ -13,11 +13,14 @@ export interface FaqItem {
   a: string
 }
 
-const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
-  /\/$/,
-  ""
-)
+const PRODUCTION_URL = "https://angel-library.vercel.app"
+const DEV_URL = "http://localhost:4321"
+const isDev = process.argv.includes("dev")
 
+const SITE_URL = (
+  process.env.SITE ?? (isDev ? DEV_URL : PRODUCTION_URL)
+).replace(/\/$/, "")
+const IS_LOCAL = SITE_URL.startsWith("http://localhost")
 const DESCRIPTION =
   "Biblioteca personal de conocimiento técnico: snippets, recetas, comandos y referencias rápidas para desarrollo web."
 
@@ -36,8 +39,10 @@ export const SITE = {
     author: "Angel DM"
   },
 
-  site: {
-    url: SITE_URL,
+  config: {
+    SITE_URL,
+    IS_LOCAL,
+    isDev,
     locale: "es-CO",
     lang: "es",
     timezone: "America/Bogota",
@@ -91,16 +96,16 @@ export const SITE = {
 
     image: "/icon.webp",
     imageAlt: "angel.library, segundo cerebro técnico para desarrollo web",
-    imageWidth: 1200,
-    imageHeight: 630,
+    imageWidth: 1254,
+    imageHeight: 1254,
     logo: "/icon.webp",
 
     ogType: "website" as "website" | "article",
     twitterAuthor: "@iangelmanuel",
     twitterHandle: "@iangelmanuel",
-    twitterCard: "summary_large_image" as
+    twitterCard: "summary" as
       "summary" | "summary_large_image" | "app" | "player",
-    noindex: SITE_URL === "http://localhost:4321",
+    noindex: IS_LOCAL,
 
     category: "technology",
     classification: "Education",

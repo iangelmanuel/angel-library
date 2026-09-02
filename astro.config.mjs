@@ -6,6 +6,7 @@ import {
   transformerNotationDiff
 } from "@shikijs/transformers"
 import tailwindcss from "@tailwindcss/vite"
+import { SITE } from "@/config/site"
 import {
   rehypeCodeBlocks,
   transformerCodeFilename,
@@ -14,9 +15,10 @@ import {
 import { rehypeExternalLinks } from "./src/markdown/external-links.mjs"
 import { remarkPackageManagerTabs } from "./src/markdown/package-manager.mjs"
 
-// https://astro.build/config
+const { SITE_URL } = SITE.config
+
 export default defineConfig({
-  site: process.env.SITE ?? "http://localhost:4321",
+  site: SITE_URL,
   output: "static",
   trailingSlash: "never",
   compressHTML: true,

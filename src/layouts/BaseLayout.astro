@@ -1,16 +1,20 @@
 ---
-import "@/styles/global.css"
 import { ClientRouter } from "astro:transitions"
+import Analytics from "@vercel/analytics/astro"
+
 import { TerminalDialog } from "@/features/terminal"
 import BaseHead from "@/components/seo/BaseHead.astro"
 import JsonLd from "@/components/seo/JsonLd.astro"
-import { SITE } from "@/config/site"
+
 import {
   organizationLd,
   webSiteLd,
   type JsonLdBlock,
   type SeoProps
 } from "@/lib/seo"
+import { SITE } from "@/config/site"
+
+import "@/styles/global.css"
 
 interface Props extends SeoProps {
   jsonLd?: readonly JsonLdBlock[]
@@ -42,6 +46,7 @@ const { jsonLd = [], ...seoProps } = Astro.props
         />
       ))
     }
+    <Analytics />
     <ClientRouter />
   </head>
   <body>
