@@ -137,7 +137,10 @@ const hasMeta =
               <span class="code-block__label">terminal</span>
               <CopyButton label="Copiar comando" />
             </div>
-            <pre class="command-line" set:text={command} />
+            <pre
+              class="command-line"
+              set:text={command}
+            />
           </div>
 
           {typeof data.whenToUse === "string" && (
@@ -208,7 +211,10 @@ const hasMeta =
             <span class="code-block__label">instalación</span>
             <CopyButton label="Copiar comando de instalación" />
           </div>
-          <pre class="command-line" set:text={install} />
+          <pre
+            class="command-line"
+            set:text={install}
+          />
         </div>
       )}
 

@@ -8,6 +8,49 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.22.0] — 2026-09-01
+
+Prettier pasa sobre todo el repositorio y `SITE` deja de ser una plantilla de
+sitio comercial: se queda solo con lo que `angel.library` realmente es, con
+datos verdaderos en vez de campos en `null`.
+
+### Añadido
+
+- Datos reales de identidad en `SITE.info`: año de fundación (2026), rol del
+  fundador y `Angel DM` como autor.
+- Redes sociales verdaderas en `SITE.social`: Instagram, LinkedIn, X y YouTube;
+  `tiktok` sigue explícitamente en `null`.
+- Metadatos SEO con valores concretos: `currency` (COP), `contactRegion` (CO),
+  `geo` con la región y las coordenadas de Bogotá, y las cuentas
+  `twitterAuthor` y `twitterHandle`.
+
+### Cambiado
+
+- `pnpm prettier` aplicado a todo el repositorio; `pnpm prettier:check` pasa
+  sin diferencias.
+- `EntryMeta.astro`: los `<pre class="command-line">` con `set:text` quedan con
+  un atributo por línea.
+- Los bloques de código de `applications/apps-editors/myastro`,
+  `backend/express/express-api-protegida` y
+  `backend/express/express-auth-completa` se reformatean: las cadenas
+  `res.status(...).json(...)` pasan a una sola llamada encadenada y la unión de
+  `twitterCard` vuelve a una línea. Solo cambia el formato, no el código.
+
+### Eliminado
+
+- Ramas de `SITE` heredadas de la plantilla comercial y sin ningún consumidor:
+  `location`, `contact`, `whatsAppMessage`, `businessHours`, `legal`,
+  `navigation`, `stats` y `teams`.
+- La función exportada `whatsAppMessage()`, que no se usaba en ningún sitio.
+- Comentarios de `src/config/site.ts` que repetían lo que el propio objeto ya
+  deja claro.
+
+### Verificado
+
+- `pnpm prettier:check`: todos los archivos con el estilo aplicado.
+- `pnpm check`: 0 errores.
+- `pnpm build`: 1.630 páginas generadas correctamente.
+
 ## [0.21.1] — 2026-09-01
 
 Corrección del espaciado en los bloques de terminal y sincronización completa
@@ -1313,7 +1356,11 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.20.1...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.22.0...HEAD
+[0.22.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.22.0
+[0.21.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.21.1
+[0.21.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.21.0
+[0.20.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.20.2
 [0.20.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.20.1
 [0.20.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.20.0
 [0.19.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.19.0

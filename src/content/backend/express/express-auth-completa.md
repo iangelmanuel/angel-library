@@ -39,14 +39,12 @@ authRouter.post("/registro", async (req, res, next) => {
 
     const existente = await prisma.user.findUnique({ where: { email } })
     if (existente) {
-      return res
-        .status(409)
-        .json({
-          error: {
-            code: "EMAIL_YA_REGISTRADO",
-            message: "Ese email ya está en uso"
-          }
-        })
+      return res.status(409).json({
+        error: {
+          code: "EMAIL_YA_REGISTRADO",
+          message: "Ese email ya está en uso"
+        }
+      })
     }
 
     const passwordHash = await bcrypt.hash(password, 10)
@@ -75,14 +73,12 @@ authRouter.post("/login", async (req, res, next) => {
       usuario && (await bcrypt.compare(password, usuario.passwordHash))
 
     if (!usuario || !passwordValida) {
-      return res
-        .status(401)
-        .json({
-          error: {
-            code: "CREDENCIALES_INVALIDAS",
-            message: "Email o contraseña incorrectos"
-          }
-        })
+      return res.status(401).json({
+        error: {
+          code: "CREDENCIALES_INVALIDAS",
+          message: "Email o contraseña incorrectos"
+        }
+      })
     }
 
     const token = jwt.sign(

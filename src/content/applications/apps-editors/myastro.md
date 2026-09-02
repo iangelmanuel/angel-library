@@ -780,10 +780,7 @@ export const SITE = {
     twitterAuthor: null as string | null,
     twitterHandle: null as string | null,
     twitterCard: "summary_large_image" as
-      | "summary"
-      | "summary_large_image"
-      | "app"
-      | "player",
+      "summary" | "summary_large_image" | "app" | "player",
     /** El fallback local no debe indexarse; el deploy define SITE explícitamente. */
     noindex: SITE_URL === "http://localhost:4321",
 

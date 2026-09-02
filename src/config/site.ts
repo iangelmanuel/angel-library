@@ -21,12 +21,6 @@ const SITE_URL = (import.meta.env.SITE ?? "http://localhost:4321").replace(
 const DESCRIPTION =
   "Biblioteca personal de conocimiento técnico: snippets, recetas, comandos y referencias rápidas para desarrollo web."
 
-/**
- * Fuente única para los datos que describen al sitio, no para su catálogo.
- * Categorías, tipos, subcategorías y orden editorial viven en módulos hermanos.
- * Los campos sin aplicación comercial se mantienen explícitos como null para
- * que la estructura pueda crecer sin inventar información.
- */
 export const SITE = {
   name: "angel.library",
   description: DESCRIPTION,
@@ -37,10 +31,9 @@ export const SITE = {
     legalName: "angel.library",
     description: DESCRIPTION,
     slogan: "Segundo cerebro técnico para desarrollo web.",
-    founded: null as number | null,
-    founders: [{ name: "iangelmanuel", role: null as string | null }],
-    teams: null as Array<{ name: string; lead: string }> | null,
-    author: "iangelmanuel"
+    founded: 2026,
+    founders: [{ name: "iangelmanuel", role: "Founder & Developer" }],
+    author: "Angel DM"
   },
 
   site: {
@@ -48,66 +41,17 @@ export const SITE = {
     locale: "es-CO",
     lang: "es",
     timezone: "America/Bogota",
-    currency: null as string | null
-  },
-
-  location: {
-    address: null as string | null,
-    city: null as string | null,
-    state: null as string | null,
-    country: null as string | null,
-    countryCode: null as string | null,
-    postalCode: null as string | null,
-    timezone: "America/Bogota",
-    display: null as string | null
-  },
-
-  contact: {
-    email: null as string | null,
-    countryCode: null as string | null,
-    phone: null as string | null,
-    phoneDisplay: () => null as string | null,
-    whatsapp: () => null as string | null,
-    landline: null as string | null
-  },
-
-  whatsAppMessage: {
-    general: null as string | null,
-    service: (_service: string) => null as string | null,
-    appointment: null as string | null
+    currency: "COP"
   },
 
   social: {
-    instagram: null as string | null,
-    linkedin: null as string | null,
-    x: null as string | null,
+    instagram: "https://instagram.com/iangelmanuel",
+    linkedin: "https://linkedin.com/in/iangelmanuel",
+    x: "https://x.com/iangelmanuel",
     github: "https://github.com/iangelmanuel/angel-library",
     tiktok: null as string | null,
-    youtube: null as string | null
+    youtube: "https://youtube.com/@iangelmanuel"
   },
-
-  businessHours: null as Array<{
-    day: string
-    open: string | null
-    close: string | null
-  }> | null,
-
-  legal: null as Array<{
-    slug: string
-    title: string
-    updatedAt: string
-  }> | null,
-
-  navigation: {
-    main: null as Array<{ name: string; href: string }> | null,
-    cta: null as { label: string; href: string } | null
-  },
-
-  stats: null as Array<{
-    value: string
-    label: string
-    sublabel: string
-  }> | null,
 
   seo: {
     title: "angel.library — segundo cerebro técnico para desarrollo web",
@@ -128,21 +72,21 @@ export const SITE = {
       "SEO"
     ],
 
-    author: "iangelmanuel",
-    creator: "iangelmanuel",
+    author: "Angel DM",
+    creator: "Angel DM",
     publisher: "angel.library",
 
     url: SITE_URL,
     locale: "es-CO",
     lang: "es",
-    currency: null as string | null,
-    contactRegion: null as string | null,
+    currency: "COP",
+    contactRegion: "CO",
     languages: ["Spanish"],
     locales: [{ hreflang: "es-CO", default: true }] as const,
     geo: {
-      region: null as string | null,
-      latitude: null as number | null,
-      longitude: null as number | null
+      region: "CO",
+      latitude: "4.710989",
+      longitude: "-74.072090"
     },
 
     image: "/opengraph-image.svg",
@@ -152,11 +96,10 @@ export const SITE = {
     logo: "/icon.svg",
 
     ogType: "website" as "website" | "article",
-    twitterAuthor: null as string | null,
-    twitterHandle: null as string | null,
+    twitterAuthor: "@iangelmanuel",
+    twitterHandle: "@iangelmanuel",
     twitterCard: "summary_large_image" as
       "summary" | "summary_large_image" | "app" | "player",
-    /** El fallback local no debe indexarse; el deploy define SITE explícitamente. */
     noindex: SITE_URL === "http://localhost:4321",
 
     category: "technology",
@@ -173,11 +116,3 @@ export const SITE = {
 export const SERVICES: Service[] = []
 
 export const FAQ_ITEMS: FaqItem[] = []
-
-export function whatsAppMessage(message: string) {
-  const phone = SITE.contact.whatsapp()
-
-  return phone
-    ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
-    : null
-}

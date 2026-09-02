@@ -90,11 +90,9 @@ app.use(errorHandler)
 ```ts title="middlewares/error-handler.ts"
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof ZodError) {
-    return res
-      .status(400)
-      .json({
-        error: { code: "VALIDATION_ERROR", fields: err.flatten().fieldErrors }
-      })
+    return res.status(400).json({
+      error: { code: "VALIDATION_ERROR", fields: err.flatten().fieldErrors }
+    })
   }
   if (err instanceof AppError) {
     return res
