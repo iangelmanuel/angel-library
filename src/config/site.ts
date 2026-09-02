@@ -89,11 +89,11 @@ export const SITE = {
       longitude: "-74.072090"
     },
 
-    image: "/opengraph-image.svg",
+    image: "/icon.webp",
     imageAlt: "angel.library, segundo cerebro técnico para desarrollo web",
     imageWidth: 1200,
     imageHeight: 630,
-    logo: "/icon.svg",
+    logo: "/icon.webp",
 
     ogType: "website" as "website" | "article",
     twitterAuthor: "@iangelmanuel",
