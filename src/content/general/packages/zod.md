@@ -1,6 +1,6 @@
 ---
 title: Zod
-description: Validación de schemas con inferencia de tipos TypeScript — crear schemas, tipos de datos, refinamientos, parseo y manejo de errores.
+description: Validación de schemas con inferencia de tipos TypeScript — crear schemas, tipos de datos, refinamientos, parseo, manejo de errores y las novedades de Zod 4.5.
 type: libraries
 order: 1
 tags: [typescript, validation, schema, forms]
@@ -8,7 +8,7 @@ website: https://zod.dev
 github: https://github.com/colinhacks/zod
 install: npm install zod
 related: [general/utils/form]
-updatedAt: 2026-08-16
+updatedAt: 2026-09-01
 ---
 
 Zod valida datos en runtime y deriva el tipo TypeScript del schema — una sola fuente de verdad en vez de escribir el `interface` a mano y esperar que no se desincronice con la validación real.
@@ -269,6 +269,77 @@ const apiUserSchema = z.object({ id: z.string(), email: z.string() })
 const raw = await fetchJson("/api/user")
 const user = apiUserSchema.parse(raw) // lanza si la API cambió su forma sin avisar
 ```
+
+## Novedades de Zod 4.5
+
+Todo lo anterior sigue igual: 4.5 no rompe la forma de escribir schemas. Lo que trae es velocidad y algunas piezas que faltaban.
+
+### Compilar un schema
+
+`z.compile()` precompila el schema y acelera el parseo entre **3 y 9 veces** en objetos, arrays y uniones.
+
+```ts title="schemas/user.ts"
+// una sola vez, en el entry point
+import { z } from "zod"
+import "zod/compile"
+
+export const userSchema = z.compile(
+  z.object({ email: z.email(), age: z.number().int() })
+)
+```
+
+También se activa sin tocar el código, arrancando con `node --import zod/compile app.js`.
+
+### Validar sin construir el error
+
+Cuando solo necesitas saber si algo es válido, `z.validate()` evita montar el objeto de error: hasta **16 veces más rápido** que `.safeParse().success` sobre datos inválidos. Hay `z.validateAsync()` para refinamientos asíncronos.
+
+```ts
+if (!z.validate(userSchema, data)) return res.status(400).end()
+```
+
+Úsalo en filtros y guardas. Cuando necesites decirle al usuario _qué_ está mal, sigue siendo `.safeParse()`.
+
+### De JSON Schema a Zod
+
+`z.fromJSONSchema()` hace el camino inverso a `z.toJSONSchema()`: convierte un JSON Schema —de una API, de OpenAPI o de una herramienta externa— en un schema de Zod.
+
+```ts
+const zodSchema = z.fromJSONSchema({
+  type: "object",
+  properties: { name: { type: "string" }, age: { type: "number" } },
+  required: ["name", "age"]
+})
+```
+
+Está marcada como **experimental**: no forma parte todavía de la API estable.
+
+### Piezas nuevas
+
+| API                          | Para qué sirve                                                                |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| `z.creditCard()`             | Tarjetas de 12–19 dígitos, con checksum de Luhn, aceptando espacios y guiones |
+| `z.deepPartial()`            | Hacer opcionales también los objetos anidados                                 |
+| `.exactPartial()`            | Opcional que **rechaza** un `undefined` explícito                             |
+| `z.input()` / `z.output()`   | Proyectar un schema a su lado de entrada o de salida                          |
+| `z.toZod<T>()`               | Comprobar que el schema en runtime concuerda con un tipo estático             |
+| `z.getDiscriminatedOption()` | Extraer un miembro de una unión discriminada por su discriminante             |
+
+Además, `z.object()` acepta claves de tipo `symbol` y los schemas recursivos manejan datos con referencias cíclicas.
+
+### Cambios que pueden romperte algo
+
+No son API nueva, son correcciones de rigor: si dependías del comportamiento anterior, revísalas antes de actualizar.
+
+- `z.iso.datetime()` exige segundos: rechaza las fechas con precisión de minuto.
+- `.min()`, `.max()` y `.length()` en strings cuentan **puntos de código Unicode**, no unidades UTF-16 — un emoji ya no vale por dos.
+- Las claves de `record` y las intersecciones siguen la semántica de TypeScript.
+- `__proto__` se elimina siempre de los objetos.
+- Validación más estricta en IPv6, ULID, `httpUrl` y emoji.
+
+### Nuevos idiomas
+
+Bengalí, kurdo central, hindi, canarés, noruego nynorsk, portugués de Brasil, eslovaco y turcomano.
 
 ## Resumen
 

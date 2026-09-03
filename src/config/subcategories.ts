@@ -86,9 +86,11 @@ const SUBCATEGORY_LABELS = {
   "apps-devops": "DevOps y contenedores",
   "apps-design": "Diseño y diagramación",
   "apps-video": "Video y grabación",
+  "apps-media": "Música y multimedia",
   "cursos-midudev": "Midudev",
   "cursos-microsoft": "Microsoft",
   "cursos-google": "Google",
+  "cursos-amazon": "Amazon",
   "cursos-repos": "Repositorios y apuntes",
   "cursos-plataformas": "Plataformas y comunidad",
   "cursos-empleo": "Empleo y entrevistas",
@@ -255,6 +257,8 @@ const SUBCATEGORY_DESCRIPTIONS: Partial<Record<SubcategoryId, string>> = {
     "Aplicaciones para definir el aspecto de una interfaz, preparar prototipos y comunicar ideas mediante diagramas.",
   "apps-video":
     "Herramientas para grabar la pantalla y convertir el material en demostraciones, tutoriales o presentaciones.",
+  "apps-media":
+    "Reproductores y clientes de escritorio para consumir música, audio y video sin depender del navegador.",
   "apps-productivity":
     "Espacios para organizar notas, documentación, decisiones y datos que debe consultar un equipo.",
   "apps-comms":
@@ -265,6 +269,8 @@ const SUBCATEGORY_DESCRIPTIONS: Partial<Record<SubcategoryId, string>> = {
     "Sesiones, currículos y certificados de Microsoft sobre desarrollo, nube e inteligencia artificial.",
   "cursos-google":
     "Programas guiados de Google sobre inteligencia artificial y computación en la nube, algunos con requisitos o convocatorias.",
+  "cursos-amazon":
+    "Formación y credenciales de AWS, evaluadas dentro de un entorno real de la nube de Amazon.",
   "cursos-repos":
     "Código, explicaciones y apuntes abiertos que se estudian leyendo, ejecutando ejemplos y resolviendo ejercicios.",
   "cursos-plataformas":
@@ -317,6 +323,7 @@ const CATEGORY_SUBCATEGORY_ORDER: Partial<
     "cursos-midudev",
     "cursos-microsoft",
     "cursos-google",
+    "cursos-amazon",
     "cursos-repos",
     "cursos-plataformas",
     "cursos-empleo"
@@ -392,6 +399,7 @@ const CATEGORY_SUBCATEGORY_ORDER: Partial<
     "apps-devops",
     "apps-design",
     "apps-video",
+    "apps-media",
     "apps-productivity",
     "apps-comms"
   ],

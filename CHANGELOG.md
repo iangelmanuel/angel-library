@@ -8,6 +8,113 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.23.0] — 2026-09-01
+
+Tanda de contenido: nueve módulos nuevos repartidos entre CSS, aplicaciones,
+hallazgos, recursos y cursos, más dos subcategorías que hacían falta para que
+esos módulos cayeran donde les corresponde.
+
+### Añadido
+
+- **Subcategoría "Música y multimedia"** (`apps-media`) en Aplicaciones, para
+  reproductores y clientes de escritorio de audio y video. Ninguna de las
+  existentes servía: la más cercana, `apps-video`, es grabación de pantalla.
+- **Subcategoría "Amazon"** (`cursos-amazon`) en Cursos, junto a Midudev,
+  Microsoft y Google, para la formación y las credenciales de AWS.
+- **`flex-wrap: balance`** en Lenguajes → CSS: el valor que reparte los items
+  entre líneas para evitar el elemento huérfano de la última fila, con la
+  gramática completa, `flex-line-count`, el soporte real (Chrome y Edge 150) y
+  el patrón `@supports` para usarlo sin romper el resto de navegadores.
+- **Fastpotify** en Aplicaciones → Música y multimedia: cliente de Spotify en
+  Rust que gasta 100–250 MB de RAM frente a los 600 MB–1 GB de la app oficial.
+  Incluye la instalación de cada sistema —Homebrew, AUR, instalador de Windows,
+  `cargo` y las dependencias de audio en Linux—, los atajos, el control por
+  línea de comandos y el archivo de configuración.
+- **nodeterm** en Hallazgos → IA y agentes: terminales y sesiones de agentes
+  como nodos sobre un lienzo infinito, con el estado en tmux para que
+  sobrevivan a un reinicio.
+- **How To Secure A Linux Server** en Hallazgos → Web y producto: guía de
+  endurecimiento de servidores, con sus cinco secciones, las medidas centrales
+  y los avisos del propio autor sobre no copiarla a ciegas.
+- **it's free\*.ai** en Recursos → IA: directorio de capas gratuitas de APIs de
+  modelos, con sus límites por minuto y por día y las cautelas de privacidad y
+  disponibilidad antes de apoyarse en una.
+- **DeepWiki** en Recursos → Herramientas de desarrollo: documentación generada
+  de cualquier repositorio público cambiando `github` por `deepwiki` en la URL.
+- **RICOUI Brands** en Recursos → Inspiración de interfaces: 69 sistemas
+  visuales de marcas reales en `DESIGN.md`, Tailwind v4 y variables CSS, para
+  dar dirección visual a un asistente de código.
+- **Microcredenciales de AWS** en Cursos → Amazon: las ocho evaluaciones
+  prácticas gratuitas, su formato en un entorno real y la regla de los 25 días
+  de espera tras un suspenso.
+- **Think Python en español** en Cursos → Midudev: la traducción de midudev de
+  la tercera edición del libro de Allen B. Downey, con sus 19 capítulos en
+  notebooks de Colab.
+
+### Cambiado
+
+- **Zod** documenta la versión 4.5: `z.compile()` (parseo 3–9× más rápido),
+  `z.validate()` (16× sobre datos inválidos), `z.fromJSONSchema()` —todavía
+  experimental—, `z.creditCard()`, `deepPartial`/`exactPartial`, claves
+  `symbol`, datos cíclicos y ocho idiomas nuevos. Se documentan aparte los
+  cambios que pueden romper código existente: `z.iso.datetime()` exige
+  segundos y `.min()`/`.max()` cuentan puntos de código Unicode.
+
+### Verificado
+
+- 1.656 páginas generadas · `pnpm check` 0 errores · `pnpm eslint` sin avisos ·
+  `pnpm prettier:check` sin diferencias.
+
+## [0.22.1] — 2026-09-01
+
+Deja el sitio listo para publicar: corrige los cuatro fallos que se notaban el
+primer día, todos alrededor de la URL pública y de los metadatos que leen
+buscadores, redes sociales y navegadores.
+
+### Añadido
+
+- Página 404 propia (`src/pages/404.astro`) con el layout completo —sidebar,
+  cabecera y buscador—, para que un enlace roto no saque al lector del sitio.
+  Explica el patrón de rutas `/categoría/subcategoría/documento`, ofrece
+  accesos a inicio, buscador y tags, y recuerda el atajo `ctrl K`. Va con
+  `noindex`.
+- `SITE.config` agrupa `SITE_URL`, `IS_LOCAL` e `isDev` en un solo lugar, y
+  `astro.config.mjs` deriva de ahí su campo `site`.
+- Vercel Analytics (`@vercel/analytics`) montado desde `BaseLayout.astro`.
+
+### Cambiado
+
+- La URL pública se resuelve desde `process.env.SITE` con el dominio de
+  producción como valor por defecto; `astro dev` sigue en `localhost`.
+- `.env.example` documenta el dominio real y qué ocurre si la variable falta.
+- La tarjeta social pasa a `summary`, la variante cuadrada, con las medidas
+  reales de la imagen (1254×1254) en vez de las de un banner.
+
+### Corregido
+
+- Un deploy sin la variable `SITE` publicaba el sitio entero como invisible:
+  `robots.txt` con `Disallow: /`, `noindex, nofollow` en cada página y los
+  canonical y el sitemap apuntando a `localhost`. Ahora el valor por defecto
+  del build es el dominio publicado, así que olvidar la variable ya no
+  deindexa nada.
+- El manifest declaraba `type: "image/svg+xml"` y `sizes: "any"` para un
+  archivo `.webp`, lo que invalidaba el icono de la PWA. El tipo y las medidas
+  se derivan ahora de la extensión del archivo para que no vuelvan a
+  desincronizarse.
+- `og:image` anunciaba 1200×630 para una imagen cuadrada de 1254×1254, así que
+  X y LinkedIn la recortaban por el centro.
+- La URL del sitio vuelve a descartar la barra final, para que `robots.txt` no
+  imprima `//sitemap.xml` cuando la variable la incluya.
+
+### Verificado
+
+- `pnpm build` sin `.env`: `robots.txt` con `Allow: /`, `index, follow`, y
+  canonical y sitemap en `https://angel-library.vercel.app`.
+- `pnpm build` con el `.env` local: sigue en `localhost` y con `noindex`, como
+  corresponde.
+- 1.631 páginas generadas · `pnpm check` 0 errores · `pnpm eslint` sin avisos ·
+  `pnpm prettier:check` sin diferencias.
+
 ## [0.22.0] — 2026-09-01
 
 Prettier pasa sobre todo el repositorio y `SITE` deja de ser una plantilla de
@@ -1356,7 +1463,9 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.22.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.23.0...HEAD
+[0.23.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.23.0
+[0.22.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.22.1
 [0.22.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.22.0
 [0.21.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.21.1
 [0.21.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.21.0
