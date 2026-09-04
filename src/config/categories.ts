@@ -86,6 +86,13 @@ const CATEGORY_DEFINITIONS = {
       "Cursos, programas, plataformas y certificaciones cuyo propósito principal es enseñar o validar el aprendizaje sobre una tecnología o herramienta.",
     color: "--accent-green"
   },
+  benchmarks: {
+    label: "Benchmarks",
+    icon: "gauge",
+    description:
+      "Pruebas comparativas de IA, web, frameworks, bases de datos y hardware. Cada ficha explica qué se mide, cómo se obtiene el resultado, quién lo respalda y qué límites tiene la comparación.",
+    color: "--accent-cyan"
+  },
   seo: {
     label: "SEO",
     icon: "search-check",
@@ -201,7 +208,13 @@ export const CATEGORY_GROUPS = [
   },
   {
     id: "referencia",
-    categories: ["applications", "courses", "findings", "resources"]
+    categories: [
+      "applications",
+      "courses",
+      "findings",
+      "benchmarks",
+      "resources"
+    ]
   }
 ] as const satisfies readonly {
   id: string

@@ -8,6 +8,39 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.25.0] — 2026-09-04
+
+Incorpora una sección dedicada a interpretar benchmarks técnicos con contexto,
+metodología y límites, en lugar de presentar sus puntuaciones como rankings
+universales.
+
+### Añadido
+
+- Nueva categoría **Benchmarks** dentro del bloque de referencia, con cinco
+  subcategorías: IA, Web y navegadores, Frameworks, Bases de datos, y Hardware
+  y sistemas.
+- Nueve fichas comparativas: **Artificial Analysis**, **CursorBench**,
+  **Speedometer**, **WebPageTest**, **TechEmpower Framework Benchmarks**,
+  **js-framework-benchmark**, **ClickBench**, **BenchBase** y
+  **OpenBenchmarking.org / Phoronix Test Suite**.
+- Convención editorial específica para benchmarks: enlace y metodología al
+  inicio, responsable, ejecución, estudios, credibilidad, conflictos de interés
+  y límites de interpretación.
+
+### Cambiado
+
+- El bloque de referencia de la navegación queda ordenado como Aplicaciones →
+  Cursos → Hallazgos → Benchmarks → Recursos.
+- La guía de contenido define la estructura obligatoria de futuras fichas y
+  exige declarar cuándo el responsable del benchmark también participa en la
+  comparación.
+
+### Verificado
+
+- Las nueve fichas tienen frontmatter válido, enlaces oficiales al principio,
+  campos obligatorios, subcategorías registradas e iconos disponibles.
+- TypeScript, Prettier y `git diff --check` no reportan errores en los cambios.
+
 ## [0.24.0] — 2026-09-04
 
 Separa los agentes de programación de las extensiones que utilizan, amplía las

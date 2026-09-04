@@ -183,5 +183,10 @@ export const RECOLORED_ICONS: Record<string, { base: string; color: string }> =
     "brand-hallazgos-recursos": { base: "library", color: "#fbbf24" },
     "brand-hallazgos-ia": { base: "sparkles", color: "#22d3ee" },
     "brand-hallazgos-web": { base: "compass", color: "#fb923c" },
-    "brand-hallazgos-codigo": { base: "code-2", color: "#4ade80" }
+    "brand-hallazgos-codigo": { base: "code-2", color: "#4ade80" },
+    "brand-benchmarks-ia": { base: "brain-circuit", color: "#f472b6" },
+    "brand-benchmarks-web": { base: "gauge", color: "#38bdf8" },
+    "brand-benchmarks-frameworks": { base: "blocks", color: "#fbbf24" },
+    "brand-benchmarks-databases": { base: "database", color: "#4ade80" },
+    "brand-benchmarks-hardware": { base: "cpu", color: "#fb923c" }
   }

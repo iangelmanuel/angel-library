@@ -259,6 +259,19 @@ tags: [github, cli]
 
 `resourceCategory` repite el id de la subcarpeta porque es lo que se muestra en la insignia del recurso. Un recurso puede vivir en otra categoría (por ejemplo `courses/cursos-midudev/`): ahí la subcarpeta es una subcategoría normal y `resourceCategory` solo alimenta la insignia.
 
+### Fichas de Benchmarks
+
+`benchmarks` usa subcategorías normales por área y módulos `type: resources`. Cada ficha debe poder responder no solo quién obtuvo la mayor puntuación, sino **qué significa compararla**:
+
+1. Abre el cuerpo con enlaces al benchmark, su metodología y el código o resultados oficiales cuando existan.
+2. Explica qué documenta o mide y quién lo respalda.
+3. Describe la ejecución: datos, cargas, repeticiones, entorno, puntuación y control de variables.
+4. Enumera los estudios o dimensiones cubiertas.
+5. Evalúa la credibilidad por separado: fortalezas, conflicto de interés, reproducibilidad y límites.
+6. Cierra con una recomendación para interpretar el resultado sin convertirlo en un ranking universal.
+
+Cuando una empresa evaluada también mantiene el benchmark, dilo expresamente. Si dos versiones cambian tareas, hardware o puntuación, evita compararlas como si fueran el mismo experimento.
+
 ---
 
 ## Tipos de contenido

@@ -2,6 +2,16 @@
 
 Resumen para retomar sin releer todo el historial. Reemplaza el handoff anterior (Docker, Terminal & CLI, SEO + patrón `SITE`, Arquitectura, refinamiento de plataforma) — esta cubre una sesión larga y muy distinta: **rediseño visual completo del sitio**, reorganización de taxonomía, categoría Aplicaciones ampliada y auditada, documentación completa de monorepos, y un endurecimiento del patrón `SITE`/SEO tras una revisión línea por línea del usuario.
 
+> **Actualización posterior — Benchmarks:** se creó la categoría `benchmarks`
+> en el bloque de referencia con cinco subcategorías y nueve fichas. IA contiene
+> Artificial Analysis y CursorBench; Web y navegadores, Speedometer y
+> WebPageTest; Frameworks, TechEmpower y js-framework-benchmark; Bases de datos,
+> ClickBench y BenchBase; Hardware y sistemas, OpenBenchmarking.org/Phoronix
+> Test Suite. Todas usan `type: resources`, presentan los enlaces oficiales al
+> principio y separan alcance, respaldo, método, estudios, credibilidad y
+> límites. La convención quedó documentada en `docs/CONTENT_GUIDE.md` y el
+> cambio se publicó como versión 0.25.0 en `CHANGELOG.md` y `package.json`.
+
 > **Actualización posterior — Cursos y Hallazgos:** ambas categorías se auditaron
 > entrada por entrada. `Cursos` reúne cursos, programas, plataformas y
 > certificaciones; `Hallazgos` se reserva principalmente para repositorios y

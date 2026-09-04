@@ -99,6 +99,11 @@ const SUBCATEGORY_LABELS = {
   "hallazgos-ia": "IA y agentes",
   "hallazgos-web": "Web y producto",
   "hallazgos-codigo": "Código y desarrollo",
+  "benchmarks-ia": "IA",
+  "benchmarks-web": "Web y navegadores",
+  "benchmarks-frameworks": "Frameworks",
+  "benchmarks-databases": "Bases de datos",
+  "benchmarks-hardware": "Hardware y sistemas",
   "apps-productivity": "Notas y documentación",
   "apps-comms": "Comunicación",
   "ui-ux-design-systems": "Sistemas de diseño",
@@ -289,7 +294,17 @@ const SUBCATEGORY_DESCRIPTIONS: Partial<Record<SubcategoryId, string>> = {
   "hallazgos-web":
     "Implementaciones web que convierten ideas poco habituales en experiencias, herramientas o arquitecturas concretas.",
   "hallazgos-codigo":
-    "Repositorios con código, explicaciones y prácticas que permiten estudiar una tecnología o mejorar la forma de desarrollar."
+    "Repositorios con código, explicaciones y prácticas que permiten estudiar una tecnología o mejorar la forma de desarrollar.",
+  "benchmarks-ia":
+    "Evaluaciones de modelos y agentes de IA: capacidad, velocidad, coste y calidad en tareas reales o controladas.",
+  "benchmarks-web":
+    "Pruebas para comparar la respuesta de navegadores y diagnosticar cómo carga y se comporta una página.",
+  "benchmarks-frameworks":
+    "Comparativas reproducibles de frameworks frontend y backend bajo cargas y operaciones delimitadas.",
+  "benchmarks-databases":
+    "Cargas de trabajo para medir consultas, transacciones, ingestión y almacenamiento en motores de datos.",
+  "benchmarks-hardware":
+    "Suites para comparar procesadores, gráficos, memoria, almacenamiento y sistemas completos bajo condiciones documentadas."
 }
 
 export interface SubcategoryMeta {
@@ -340,6 +355,13 @@ const CATEGORY_SUBCATEGORY_ORDER: Partial<
     "cursos-mongodb",
     "cursos-amazon",
     "cursos-plataformas"
+  ],
+  benchmarks: [
+    "benchmarks-ia",
+    "benchmarks-web",
+    "benchmarks-frameworks",
+    "benchmarks-databases",
+    "benchmarks-hardware"
   ],
   languages: ["html", "css", "javascript"],
   frontend: ["frontend-fundamentos", "astro", "react", "nextjs"],
