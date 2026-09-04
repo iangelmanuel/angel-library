@@ -35,6 +35,35 @@ El catálogo de ids válidos está en `src/config/site.ts`. Una carpeta que no e
 
 ---
 
+## Cursos frente a Hallazgos
+
+La plataforma donde vive un recurso no decide su categoría. Un repositorio de
+GitHub puede contener un curso completo y una web educativa puede ser solo un
+índice de consulta.
+
+- **Cursos**: programas y plataformas cuyo propósito principal es enseñar o
+  validar el aprendizaje. Caben cursos, bootcamps, talleres, rutas oficiales y
+  certificaciones organizados por un proveedor o plataforma educativa.
+- **Hallazgos**: el propósito principal es descubrir o reutilizar una creación
+  de la comunidad. Normalmente son repositorios de GitHub que resuelven un
+  problema, implementan una herramienta, habilitan un espacio de interacción,
+  reúnen material educativo o convierten una idea poco habitual en un proyecto
+  real.
+
+La prueba rápida es preguntar: **«¿es un curso o programa ofrecido como ruta
+formativa, o es un repositorio/proyecto interesante de la comunidad?»** En el
+primer caso va en Cursos; en el segundo, en Hallazgos.
+
+Los repositorios educativos también son Hallazgos: aunque enseñen código limpio,
+algoritmos, seguridad o conceptos de un lenguaje, su formato y origen siguen
+siendo un aporte abierto de la comunidad. Las certificaciones permanecen en
+Cursos porque forman parte de una oferta formativa y validan su resultado.
+
+Un directorio o página cuyo producto principal sea una colección de enlaces,
+libros o herramientas pertenece a **Recursos**, aunque ayude a aprender.
+
+---
+
 ## Módulos (las entradas)
 
 ### Crear uno

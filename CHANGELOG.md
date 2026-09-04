@@ -8,6 +8,64 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.24.0] — 2026-09-04
+
+Separa los agentes de programación de las extensiones que utilizan, amplía las
+colecciones de aplicaciones y recursos visuales, e introduce una frontera más
+clara entre los cursos ofrecidos por plataformas y los repositorios encontrados
+en la comunidad.
+
+### Añadido
+
+- Nueva categoría **Agentes**, situada antes de IA Tools e IA SDK, con
+  fundamentos propios, un workflow seguro y la documentación de Claude Code,
+  Codex CLI, Cursor y OpenCode que antes vivía en IA Tools & Skills.
+- Subcategoría **Navegadores** en Aplicaciones, con fichas completas de **Brave**
+  y **Helium** sobre privacidad, compatibilidad, instalación y limitaciones.
+- **VoiceStudio** en Aplicaciones → Video y grabación, con el sitio oficial y el
+  repositorio presentados por separado, instalación multiplataforma y los flujos
+  locales de clonación, transcripción, doblaje y audiolibros.
+- **Programa de Certificación MongoDB en Español** en Cursos → MongoDB, con los
+  requisitos de MongoDB University, la sesión en vivo y los tres Skill Badges.
+- Cuatro recursos nuevos: **Dribbble** y **Pinterest** para inspiración visual,
+  y **Midjourney** y **Higgsfield** para generación de imagen y video.
+- **Taste Skill** e **Impeccable** en IA Tools → Skills, documentadas como
+  recursos para dirigir, auditar y refinar interfaces generadas con agentes.
+- Subcategorías **Código y desarrollo** y **Recursos de la comunidad** en
+  Hallazgos para separar repositorios técnicos de guías, plantillas, apuntes y
+  otras referencias compartidas por la comunidad.
+
+### Cambiado
+
+- **IA Tools & Skills** se divide en dos categorías: **Agentes** reúne Claude
+  Code, Codex CLI, Cursor y OpenCode; **IA Tools** conserva fundamentos,
+  comandos, skills, plugins y MCP. En el bloque de producto quedan ordenadas
+  como Agentes → IA Tools → IA SDK, después de UI / UX. Agentes incorpora una
+  introducción propia y el workflow seguro, mientras IA Tools redefine sus
+  fundamentos alrededor de las capacidades que extienden a esos agentes.
+- **Cursos y Hallazgos** delimitan su propósito: Cursos reúne cursos,
+  programas, plataformas y certificaciones; Hallazgos se centra en repositorios
+  y proyectos donde la comunidad presenta soluciones, herramientas,
+  experimentos o material educativo. Se elimina la subcategoría **Cursos en
+  repositorios**: cinco entradas pasan a `Hallazgos → Código y desarrollo` y
+  **LLMs from Scratch** a `Hallazgos → IA y agentes`.
+- **Node.js Best Practices** acompaña los repositorios trasladados en Hallazgos
+  → Código y desarrollo; las guías de entrevistas, plantillas, apuntes y
+  chuletas quedan agrupadas en Recursos de la comunidad.
+- **librosgratis.dev** sale de Cursos y pasa a Recursos → Aprendizaje, usando el
+  nombre del sitio como título principal. Se actualizaron todas las relaciones,
+  rutas internas, etiquetas, descripciones y órdenes afectados por los cambios.
+- La guía editorial define el criterio permanente: las ofertas formativas y
+  certificaciones pertenecen a Cursos; los repositorios y proyectos de la
+  comunidad pertenecen a Hallazgos, incluso cuando contienen material
+  educativo; los directorios externos pertenecen a Recursos.
+
+### Verificado
+
+- Las 709 entradas se revisaron estáticamente sin relaciones, enlaces internos
+  ni órdenes rotos. TypeScript, Prettier y `git diff --check` no reportan
+  errores.
+
 ## [0.23.0] — 2026-09-01
 
 Tanda de contenido: nueve módulos nuevos repartidos entre CSS, aplicaciones,

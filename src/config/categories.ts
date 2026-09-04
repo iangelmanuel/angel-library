@@ -76,14 +76,14 @@ const CATEGORY_DEFINITIONS = {
     label: "Hallazgos",
     icon: "telescope",
     description:
-      "Proyectos reales que vale la pena estudiar por la idea o la solución que exploran. No son tutoriales: sirven para descubrir enfoques poco comunes y entender cómo otras personas los llevaron a código.",
+      "Repositorios y proyectos de la comunidad que presentan soluciones, herramientas, material educativo, espacios de interacción o experimentos interesantes.",
     color: "--accent-red"
   },
   courses: {
     label: "Cursos",
     icon: "book-open",
     description:
-      "Cursos, ejercicios y materiales de estudio organizados por proveedor y objetivo. Cada módulo aclara qué enseña, qué conocimientos conviene tener y cómo aprovecharlo.",
+      "Cursos, programas, plataformas y certificaciones cuyo propósito principal es enseñar o validar el aprendizaje sobre una tecnología o herramienta.",
     color: "--accent-green"
   },
   seo: {
@@ -140,11 +140,18 @@ const CATEGORY_DEFINITIONS = {
       "Herramientas y referencias externas para resolver tareas concretas de diseño, desarrollo e inteligencia artificial. Cada ficha explica para qué sirve el recurso y qué conviene revisar antes de incorporarlo a un proyecto.",
     color: "--accent-orange"
   },
-  skills: {
-    label: "IA Tools & Skills",
+  agents: {
+    label: "Agentes",
     icon: "bot",
     description:
-      "Herramientas de inteligencia artificial (IA) para programar: agentes, skills, plugins y protocolos.",
+      "Asistentes de programación con IA: configuración, memoria, comandos, extensiones y flujos de trabajo.",
+    color: "--accent-pink"
+  },
+  skills: {
+    label: "IA Tools",
+    icon: "sparkles",
+    description:
+      "Recursos reutilizables para asistentes de IA: fundamentos, comandos, skills, plugins y protocolos.",
     color: "--accent-pink"
   }
 } as const
@@ -180,7 +187,7 @@ export const CATEGORY_GROUPS = [
       "devops"
     ]
   },
-  { id: "producto", categories: ["ui-ux", "ai", "skills"] },
+  { id: "producto", categories: ["ui-ux", "agents", "skills", "ai"] },
   { id: "flujo", categories: ["git", "terminal"] },
   {
     id: "calidad",

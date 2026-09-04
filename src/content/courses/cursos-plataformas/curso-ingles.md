@@ -2,7 +2,7 @@
 title: "curso-ingles.com"
 description: "Referencia gratuita de gramática inglesa explicada en español, útil para resolver una duda concreta y practicarla con ejercicios breves."
 type: resources
-order: 5
+order: 1
 tags: [cursos, ingles, gramatica, gratis, espanol]
 url: https://www.curso-ingles.com/
 resourceCategory: learning
@@ -18,9 +18,9 @@ Sitio en español con explicaciones de gramática inglesa organizadas por tema, 
 
 ## Cómo encaja
 
-Es un recurso **de consulta**, no una ruta guiada. Su punto fuerte es que las explicaciones están en español y organizadas por estructura gramatical, así que se llega rápido al tema concreto: los tiempos verbales, condicionales, preposiciones, verbos modales.
+Es un curso organizado por niveles y temas gramaticales. Su punto fuerte es que las explicaciones están en español y cada concepto se acompaña de ejercicios, así que puede recorrerse como aprendizaje progresivo o consultarse por tema: tiempos verbales, condicionales, preposiciones y verbos modales.
 
-Frente a la [certificación A2 de freeCodeCamp](/courses/cursos-plataformas/freecodecamp-a2-english), la diferencia es clara:
+Frente al [curso A2 de freeCodeCamp](/courses/cursos-plataformas/freecodecamp-a2-english), la diferencia es clara:
 
 |             | curso-ingles.com     | A2 for Developers          |
 | ----------- | -------------------- | -------------------------- |

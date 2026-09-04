@@ -9,8 +9,8 @@ technologies: []
 personalNote: Útil para descubrir flujos de agentes que leen datos web o escriben en otras aplicaciones; revisa autor, permisos, precio, manejo de tokens y cumplimiento del sitio origen antes de ejecutar un Actor.
 related:
   - resources/ia/smithery
-  - skills/codex/codex-mcp
-  - skills/skills-fundamentos/ai-tools-safe-workflow
+  - agents/codex/codex-mcp
+  - agents/agents-fundamentos/agent-safe-workflow
 updatedAt: 2026-08-28
 ---
 

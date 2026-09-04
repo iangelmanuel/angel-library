@@ -6,9 +6,9 @@ order: 2
 tags: [cursor, editor, ai, agent, rules]
 website: https://www.cursor.com
 related:
-  - skills/cursor/cursor-rules
-  - skills/cursor/cursor-config
-  - skills/skills-fundamentos/ai-tools-safe-workflow
+  - agents/cursor/cursor-rules
+  - agents/cursor/cursor-config
+  - agents/agents-fundamentos/agent-safe-workflow
 updatedAt: 2026-08-25
 ---
 

@@ -2,6 +2,15 @@
 
 Resumen para retomar sin releer todo el historial. Reemplaza el handoff anterior (Docker, Terminal & CLI, SEO + patrón `SITE`, Arquitectura, refinamiento de plataforma) — esta cubre una sesión larga y muy distinta: **rediseño visual completo del sitio**, reorganización de taxonomía, categoría Aplicaciones ampliada y auditada, documentación completa de monorepos, y un endurecimiento del patrón `SITE`/SEO tras una revisión línea por línea del usuario.
 
+> **Actualización posterior — Cursos y Hallazgos:** ambas categorías se auditaron
+> entrada por entrada. `Cursos` reúne cursos, programas, plataformas y
+> certificaciones; `Hallazgos` se reserva principalmente para repositorios y
+> proyectos de la comunidad, incluidos los educativos. Se eliminaron
+> `Cursos → Cursos en repositorios` y la subcategoría vacía `cursos-empleo`. Los
+> repositorios de JavaScript, Clean Code, algoritmos, Node y seguridad viven en
+> la nueva `Hallazgos → Código y desarrollo`; **LLMs from Scratch** vive en
+> `Hallazgos → IA y agentes`; y **librosgratis.dev** pasó a Recursos.
+
 ## 1. Objetivo de esta sesión
 
 No fue un objetivo único — fue una sesión larga de iteración continua sobre el mismo sitio, en este orden real:
@@ -48,7 +57,7 @@ Se instaló `sharp` (primera vez que el proyecto usa `astro:assets` para optimiz
 
 ### 2.2 Sidebar — rediseño estructural
 
-`CATEGORY_GROUPS` nuevo en `site.ts`: 5 bloques separados por línea — construir (General/Lenguajes/Frontend/Backend/BD/Testing/DevOps), producto (UI-UX/IA SDK/IA Tools & Skills), flujo (Git & GitHub/Terminal), calidad (Arquitectura/Seguridad/Performance/Accesibilidad/SEO), referencia (Aplicaciones/Recursos). `CATEGORY_LIST` ahora se **deriva** de `CATEGORY_GROUPS`, con un guard en build que rompe si una categoría queda sin grupo asignado.
+`CATEGORY_GROUPS` nuevo en `site.ts`: 5 bloques separados por línea — construir (General/Lenguajes/Frontend/Backend/BD/Testing/DevOps), producto (UI-UX/Agentes/IA Tools/IA SDK), flujo (Git & GitHub/Terminal), calidad (Arquitectura/Seguridad/Performance/Accesibilidad/SEO), referencia (Aplicaciones/Recursos). `CATEGORY_LIST` ahora se **deriva** de `CATEGORY_GROUPS`, con un guard en build que rompe si una categoría queda sin grupo asignado.
 
 Jerarquía de 3 niveles por tipografía (13px categoría con color propio → 11.5px subcategoría en mono → 12.5px entrada), no por sangría — el diseño viejo llegaba a 548 de 599 enlaces truncados por sangría acumulada; el nuevo da 0 truncados. El sidebar sigue a la entrada activa con scroll propio (nunca mueve el documento), y acompaña la apertura de una categoría larga si el contenido queda fuera de vista.
 
@@ -59,7 +68,8 @@ Contador numérico por categoría/subcategoría (`.nav-count`) — se agregó y 
 - `General → Libs` (`stack: libs`) renombrado a `Config` (`stack: config`, ícono `settings-2`). Zod sigue viviendo ahí aunque el nombre "Config" le queda raro — **pendiente de decidir**, el usuario no lo resolvió cuando se lo señalé.
 - Categoría **Herramientas eliminada por completo**: 10 archivos borrados (incluidas 3 guías editoriales sobre cómo mantener la propia biblioteca — el usuario eligió borrar todo, sin rescatarlas). Se limpiaron referencias entrantes en 4 archivos que sobrevivieron para no romper el build.
 - **Git & GitHub reorganizada**: `github-actions` (categoría separada) fusionada como subcategoría. Subcategoría nueva **Perfil y cuenta** con 4 guías (README de perfil como PWA/repo especial, presentación pública, claves SSH, firma de commits) — cubre un hueco real que la categoría no tenía.
-- **IA → IA SDK**: relabel para distinguirla de "IA Tools & Skills" (asistentes de código).
+- **Agentes** se separa de IA Tools: sus fundamentos, el workflow seguro, Claude Code, Codex CLI, Cursor y OpenCode viven en `src/content/agents`; IA Tools conserva fundamentos propios, comandos, skills, plugins y MCP.
+- **IA → IA SDK**: relabel para distinguirla de "IA Tools" y "Agentes".
 
 ### 2.4 Categoría Aplicaciones — auditoría + ampliación
 

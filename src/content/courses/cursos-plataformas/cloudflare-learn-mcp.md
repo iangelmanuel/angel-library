@@ -2,7 +2,7 @@
 title: "Learn MCP (Cloudflare Workers)"
 description: "Taller práctico para crear un servidor que conecta asistentes de IA con herramientas externas mediante MCP y publicarlo en Cloudflare Workers."
 type: resources
-order: 8
+order: 7
 tags: [cursos, mcp, cloudflare, workers, ia, typescript]
 url: https://learnmcp.examples.workers.dev/
 resourceCategory: learning

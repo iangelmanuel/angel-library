@@ -70,7 +70,7 @@ const RESOURCE_CATEGORY_DEFINITIONS = {
   learning: {
     label: "Aprendizaje",
     description:
-      "Cursos, ejercicios y referencias para aprender un tema o practicarlo con una ruta definida."
+      "Libros, catálogos, ejercicios y referencias externas para aprender o profundizar en un tema."
   },
   ia: {
     label: "IA",

@@ -2,7 +2,7 @@
 title: "Exercism"
 description: "Plataforma gratuita para aprender un lenguaje resolviendo ejercicios pequeños y recibiendo comentarios automáticos o mentoría humana sobre la solución."
 type: resources
-order: 3
+order: 4
 tags: [cursos, ejercicios, practica, mentoria, gratis, algoritmos]
 url: https://exercism.org/
 resourceCategory: learning

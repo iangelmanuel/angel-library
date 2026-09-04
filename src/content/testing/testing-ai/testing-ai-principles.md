@@ -7,7 +7,7 @@ tags: [testing, ai, e2e, visual-testing]
 related:
   - testing/testing-ai/midscene
   - testing/testing-e2e/testing-e2e-reliable-ci
-  - skills/skills-fundamentos/ai-tools-safe-workflow
+  - agents/agents-fundamentos/agent-safe-workflow
 updatedAt: 2026-08-28
 ---
 

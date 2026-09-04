@@ -149,6 +149,7 @@ export const RECOLORED_ICONS: Record<string, { base: string; color: string }> =
     "brand-infraestructura-codigo": { base: "blocks", color: "#a78bfa" },
     "brand-devops-fundamentos": { base: "workflow", color: "#fb923c" },
     "brand-ui-ux-fundamentos": { base: "palette", color: "#c084fc" },
+    "brand-agents-fundamentos": { base: "bot", color: "#c084fc" },
     "brand-skills-fundamentos": { base: "brain-circuit", color: "#f472b6" },
     "brand-ia-comandos": { base: "terminal", color: "#34d399" },
     "brand-ia-skills": { base: "sparkles", color: "#fbbf24" },
@@ -172,13 +173,15 @@ export const RECOLORED_ICONS: Record<string, { base: string; color: string }> =
     "brand-ui-ux-estilos": { base: "shapes", color: "#f472b6" },
     "brand-apps-video": { base: "clapperboard", color: "#fb923c" },
     "brand-apps-media": { base: "music", color: "#4ade80" },
+    "brand-apps-browsers": { base: "compass", color: "#38bdf8" },
     "brand-cursos-midudev": { base: "monitor-play", color: "#f472b6" },
     "brand-cursos-microsoft": { base: "building", color: "#38bdf8" },
+    "brand-cursos-mongodb": { base: "database", color: "#4ade80" },
     "brand-cursos-google": { base: "award", color: "#fbbf24" },
     "brand-cursos-amazon": { base: "cloud-cog", color: "#fb923c" },
-    "brand-cursos-repos": { base: "book-marked", color: "#4ade80" },
     "brand-cursos-plataformas": { base: "graduation-cap", color: "#a78bfa" },
-    "brand-cursos-empleo": { base: "briefcase", color: "#fbbf24" },
+    "brand-hallazgos-recursos": { base: "library", color: "#fbbf24" },
     "brand-hallazgos-ia": { base: "sparkles", color: "#22d3ee" },
-    "brand-hallazgos-web": { base: "compass", color: "#fb923c" }
+    "brand-hallazgos-web": { base: "compass", color: "#fb923c" },
+    "brand-hallazgos-codigo": { base: "code-2", color: "#4ade80" }
   }

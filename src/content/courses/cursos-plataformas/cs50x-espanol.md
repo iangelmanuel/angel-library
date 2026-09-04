@@ -2,7 +2,7 @@
 title: "CS50x en español"
 description: "Curso introductorio de Harvard para comprender cómo se resuelven problemas con algoritmos, memoria, datos y varios lenguajes; las clases están traducidas al español."
 type: resources
-order: 2
+order: 3
 tags: [cursos, cs50, harvard, fundamentos, algoritmos, c, python, espanol]
 url: https://www.youtube.com/playlist?list=PLXOJEg4xbr50
 resourceCategory: learning

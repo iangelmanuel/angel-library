@@ -12,6 +12,7 @@ const SUBCATEGORY_LABELS = {
   "devops-fundamentos": "Fundamentos de DevOps",
   "ui-ux-fundamentos": "Fundamentos de UI / UX",
   "ui-ux-estilos": "Estilos visuales",
+  "agents-fundamentos": "Fundamentos de agentes",
   "skills-fundamentos": "Fundamentos de IA Tools",
   node: "Node.js",
   express: "Express",
@@ -80,6 +81,7 @@ const SUBCATEGORY_LABELS = {
   "testing-e2e": "Pruebas E2E",
   "testing-ai": "Testing asistido por IA",
   "apps-editors": "Editores de código",
+  "apps-browsers": "Navegadores",
   "apps-terminal": "Terminales",
   "apps-cli": "Herramientas de terminal (CLI)",
   "apps-api": "Pruebas de APIs",
@@ -90,12 +92,13 @@ const SUBCATEGORY_LABELS = {
   "cursos-midudev": "Midudev",
   "cursos-microsoft": "Microsoft",
   "cursos-google": "Google",
+  "cursos-mongodb": "MongoDB",
   "cursos-amazon": "Amazon",
-  "cursos-repos": "Repositorios y apuntes",
-  "cursos-plataformas": "Plataformas y comunidad",
-  "cursos-empleo": "Empleo y entrevistas",
+  "cursos-plataformas": "Plataformas educativas",
+  "hallazgos-recursos": "Recursos de la comunidad",
   "hallazgos-ia": "IA y agentes",
   "hallazgos-web": "Web y producto",
+  "hallazgos-codigo": "Código y desarrollo",
   "apps-productivity": "Notas y documentación",
   "apps-comms": "Comunicación",
   "ui-ux-design-systems": "Sistemas de diseño",
@@ -196,8 +199,10 @@ const SUBCATEGORY_DESCRIPTIONS: Partial<Record<SubcategoryId, string>> = {
   "ai-agentes":
     "Modelos que usan herramientas y toman pasos, y cómo evaluarlos.",
   "ai-sdk": "Programar contra modelos desde tu código.",
+  "agents-fundamentos":
+    "Cómo trabaja un agente de programación: contexto, herramientas, permisos, autonomía, subagentes y verificación.",
   "skills-fundamentos":
-    "Cómo trabajar con un asistente de código sin perder el control.",
+    "Cómo elegir y combinar comandos, skills, plugins, hooks y conexiones MCP sin ampliar permisos innecesariamente.",
   "claude-code":
     "El asistente de Anthropic en la terminal: configuración y flujos.",
   codex: "El asistente de OpenAI en la terminal.",
@@ -256,9 +261,11 @@ const SUBCATEGORY_DESCRIPTIONS: Partial<Record<SubcategoryId, string>> = {
   "apps-design":
     "Aplicaciones para definir el aspecto de una interfaz, preparar prototipos y comunicar ideas mediante diagramas.",
   "apps-video":
-    "Herramientas para grabar la pantalla y convertir el material en demostraciones, tutoriales o presentaciones.",
+    "Herramientas para grabar, transcribir, doblar y convertir audio o video en demostraciones, tutoriales y otras piezas publicables.",
   "apps-media":
     "Reproductores y clientes de escritorio para consumir música, audio y video sin depender del navegador.",
+  "apps-browsers":
+    "Navegadores alternativos, su modelo de privacidad, compatibilidad, instalación y límites reales.",
   "apps-productivity":
     "Espacios para organizar notas, documentación, decisiones y datos que debe consultar un equipo.",
   "apps-comms":
@@ -269,18 +276,20 @@ const SUBCATEGORY_DESCRIPTIONS: Partial<Record<SubcategoryId, string>> = {
     "Sesiones, currículos y certificados de Microsoft sobre desarrollo, nube e inteligencia artificial.",
   "cursos-google":
     "Programas guiados de Google sobre inteligencia artificial y computación en la nube, algunos con requisitos o convocatorias.",
+  "cursos-mongodb":
+    "Rutas, sesiones y credenciales oficiales para aprender MongoDB y validar conocimientos prácticos.",
   "cursos-amazon":
-    "Formación y credenciales de AWS, evaluadas dentro de un entorno real de la nube de Amazon.",
-  "cursos-repos":
-    "Código, explicaciones y apuntes abiertos que se estudian leyendo, ejecutando ejemplos y resolviendo ejercicios.",
+    "Certificaciones y evaluaciones prácticas de AWS para validar conocimientos dentro de entornos reales de la nube de Amazon.",
   "cursos-plataformas":
-    "Sitios con cursos o ejercicios guiados para aprender programación, testing, herramientas e inglés técnico.",
-  "cursos-empleo":
-    "Material para presentar la experiencia profesional y prepararse para las etapas de una entrevista técnica.",
+    "Sitios con cursos y ejercicios guiados para alcanzar un objetivo de aprendizaje concreto.",
+  "hallazgos-recursos":
+    "Repositorios, guías, plantillas y colecciones de la comunidad que facilitan tareas o reúnen información útil.",
   "hallazgos-ia":
     "Proyectos para estudiar cómo varios agentes colaboran, conservan contexto o actúan dentro de un producto real.",
   "hallazgos-web":
-    "Implementaciones web que convierten ideas poco habituales en experiencias, herramientas o arquitecturas concretas."
+    "Implementaciones web que convierten ideas poco habituales en experiencias, herramientas o arquitecturas concretas.",
+  "hallazgos-codigo":
+    "Repositorios con código, explicaciones y prácticas que permiten estudiar una tecnología o mejorar la forma de desarrollar."
 }
 
 export interface SubcategoryMeta {
@@ -318,15 +327,19 @@ const CATEGORY_SUBCATEGORY_ORDER: Partial<
     "utils",
     "whatsapp"
   ],
-  findings: ["hallazgos-ia", "hallazgos-web"],
+  findings: [
+    "hallazgos-ia",
+    "hallazgos-web",
+    "hallazgos-codigo",
+    "hallazgos-recursos"
+  ],
   courses: [
     "cursos-midudev",
     "cursos-microsoft",
     "cursos-google",
+    "cursos-mongodb",
     "cursos-amazon",
-    "cursos-repos",
-    "cursos-plataformas",
-    "cursos-empleo"
+    "cursos-plataformas"
   ],
   languages: ["html", "css", "javascript"],
   frontend: ["frontend-fundamentos", "astro", "react", "nextjs"],
@@ -393,6 +406,7 @@ const CATEGORY_SUBCATEGORY_ORDER: Partial<
   ],
   applications: [
     "apps-editors",
+    "apps-browsers",
     "apps-terminal",
     "apps-cli",
     "apps-api",
@@ -403,12 +417,9 @@ const CATEGORY_SUBCATEGORY_ORDER: Partial<
     "apps-productivity",
     "apps-comms"
   ],
+  agents: ["agents-fundamentos", "claude-code", "codex", "cursor", "opencode"],
   skills: [
     "skills-fundamentos",
-    "claude-code",
-    "codex",
-    "cursor",
-    "opencode",
     "ia-comandos",
     "ia-skills",
     "ia-plugins",

@@ -1,131 +1,112 @@
 ---
-title: "IA Tools & Skills: conceptos y modelo de confianza"
-description: Diferencias entre prompts, contexto, herramientas, agentes, subagentes, skills, plugins, MCP, sandbox y aprobaciones.
+title: "IA Tools: comandos, skills, plugins, hooks y MCP"
+description: "Cómo se diferencian las capacidades que amplían un agente de IA, qué problema resuelve cada una y qué revisar antes de incorporarlas a un proyecto."
 type: guides
-tags: [ia, agentes, skills, plugins, mcp, herramientas, fundamentos]
 order: 1
-updatedAt: 2026-08-25
+tags: [ia, comandos, skills, plugins, hooks, mcp, herramientas, fundamentos]
+related:
+  - agents/agents-fundamentos/coding-agents-fundamentals
+  - agents/agents-fundamentos/agent-safe-workflow
+  - resources/ia/skills-sh
+updatedAt: 2026-09-04
 ---
 
-Las herramientas de programación con **inteligencia artificial (IA)** combinan un modelo de lenguaje con acceso al proyecto, instrucciones y, en algunos casos, herramientas para leer, editar, ejecutar o consultar servicios externos.
+**IA Tools** reúne las piezas reutilizables que amplían el comportamiento de un agente: comandos, skills, plugins, hooks y conexiones MCP. El agente es quien decide y ejecuta; estas herramientas le proporcionan procedimientos, disparadores o acceso a capacidades adicionales.
 
-La diferencia importante no es solo qué modelo usan, sino qué contexto reciben, qué acciones pueden ejecutar, cómo solicitan permisos y cómo se comprueba su trabajo.
+La separación importa porque cada mecanismo tiene un ciclo de vida y un nivel de confianza diferente. Un prompt se consume como texto; un servidor MCP puede recibir credenciales y ejecutar acciones; un hook puede correr automáticamente después de cada edición.
 
-## Aprende o consulta
+## Mapa de conceptos
 
-Para aprender, domina primero instrucciones de proyecto y contexto; después comandos, skills, subagentes, hooks, MCP y plugins. Cada capa aumenta capacidad y también superficie de confianza.
+| Concepto    | Propósito principal                                       | Se activa                                 |
+| ----------- | --------------------------------------------------------- | ----------------------------------------- |
+| Prompt      | Dar una instrucción o contexto para una tarea             | Al enviarlo                               |
+| Comando     | Iniciar manualmente un flujo conocido                     | Cuando la persona lo invoca               |
+| Skill       | Enseñar un procedimiento con instrucciones y recursos     | Cuando la tarea coincide o se solicita    |
+| Herramienta | Ejecutar una operación concreta                           | Cuando el agente decide usarla            |
+| Plugin      | Distribuir varias capacidades como un paquete             | Al instalarlo y habilitar sus componentes |
+| MCP         | Conectar herramientas o datos mediante un protocolo común | Al conectar un servidor                   |
+| Hook        | Ejecutar una comprobación o automatización ante un evento | Automáticamente cuando ocurre el evento   |
 
-| Necesidad                           | Empieza por                                                          |
-| ----------------------------------- | -------------------------------------------------------------------- |
-| reglas persistentes del repositorio | `AGENTS.md`, `CLAUDE.md` o Rules del agente                          |
-| procedimiento repetible             | skill                                                                |
-| atajo con prompt conocido           | comando personalizado                                                |
-| integración con servicio externo    | MCP o plugin, tras revisar permisos                                  |
-| trabajo independiente en paralelo   | subagente con alcance y criterio de salida                           |
-| automatización por evento           | hook determinista y auditable                                        |
-| flujo completo con revisión         | [Workflow seguro](/skills/skills-fundamentos/ai-tools-safe-workflow) |
+## Qué elegir según la necesidad
 
-Las fichas de cada herramienta sirven para recordar ubicación y sintaxis. Esta página explica el modelo compartido para que los nombres comerciales no oculten las mismas decisiones: autoridad, contexto, permisos, efectos y validación.
+| Necesidad                             | Empieza por                                        |
+| ------------------------------------- | -------------------------------------------------- |
+| Recordar una instrucción una sola vez | Prompt                                             |
+| Repetir una solicitud explícita       | Comando                                            |
+| Aplicar un método especializado       | Skill                                              |
+| Consultar o modificar un servicio     | MCP o herramienta nativa                           |
+| Instalar una integración completa     | Plugin                                             |
+| Validar automáticamente cada cambio   | Hook                                               |
+| Coordinar trabajo autónomo            | [Agentes](/categories/agents), no una tool aislada |
 
-## Modelo, prompt y contexto
+Usa el mecanismo más pequeño que resuelva el problema. Convertir cada instrucción en plugin o conectar un servidor para una consulta puntual añade mantenimiento y permisos sin aportar valor.
 
-Un **LLM** (_Large Language Model_ o modelo de lenguaje de gran tamaño) genera una respuesta a partir de tokens. El **prompt** es el conjunto de instrucciones y datos enviados. El **contexto** incluye archivos, mensajes, resultados de comandos, documentación y reglas disponibles durante esa ejecución.
+## Comandos
 
-Una ventana de contexto grande no significa memoria perfecta. Incluir archivos irrelevantes añade ruido y costo. La mejor instrucción identifica objetivo, alcance, restricciones y criterio de finalización.
+Un comando personalizado es un atajo para un prompt o flujo que una persona decide iniciar. Encaja en tareas frecuentes con un punto de entrada claro: preparar un commit, explicar código, ejecutar una auditoría o redactar una descripción de _pull request_.
 
-```text
-Objetivo: corregir la validación del formulario de registro.
-Alcance: src/features/signup y sus pruebas.
-Restricción: no cambiar el contrato público de la API.
-Termina cuando: pruebas, tipos y lint pasen.
-```
+Un buen comando declara qué información necesita, qué puede cambiar y qué resultado debe entregar. No debería esconder acciones destructivas ni asumir que cada proyecto utiliza los mismos scripts.
 
-## Herramienta, agente y flujo
+## Skills
 
-Una **herramienta** es una capacidad concreta, como leer un archivo, ejecutar pruebas o consultar una API. Un **agente** decide qué herramientas usar y en qué orden para avanzar hacia un objetivo.
+Una **skill** empaqueta conocimiento operativo en un `SKILL.md` y puede incluir referencias, plantillas o scripts. A diferencia de un prompt suelto, define cuándo aplica, qué pasos seguir y cómo comprobar el resultado.
 
-Un flujo determinista ejecuta pasos conocidos; un agente adapta el camino según resultados. Si la tarea solo requiere ejecutar tres comandos definidos, no necesita autonomía adicional.
+Antes de instalarla revisa:
 
-```text
-Objetivo → inspección → hipótesis → cambio → verificación
-                         ↑             ↓
-                         └── ajuste ───┘
-```
+- alcance y condiciones de activación;
+- archivos adicionales y scripts ejecutables;
+- herramientas o red que necesita;
+- instrucciones que podrían contradecir las del repositorio;
+- mantenedor, licencia y frecuencia de actualización.
 
-El ciclo debe tener un criterio de salida. “Seguir intentando” sin límite puede gastar tiempo, tokens o recursos sin mejorar el resultado.
+Una skill no añade conocimiento mágico al modelo. Hace explícito un procedimiento y reduce decisiones improvisadas, pero todavía necesita contexto correcto y revisión humana.
 
-## Subagente
+## Plugins
 
-Un **subagente** recibe una parte acotada del trabajo. Puede investigar un módulo o ejecutar una revisión paralela. Para ser útil necesita una frontera clara y una salida comprobable.
+Un plugin es un contenedor de distribución. Puede aportar skills, comandos, agentes especializados, hooks, servidores MCP o configuración. Por eso “instalar un plugin” no describe por sí solo qué acceso se está concediendo.
 
-Delegar no elimina responsabilidad. El agente principal debe integrar resultados, detectar contradicciones y verificar cambios. Dos subagentes editando los mismos archivos aumentan conflictos y rara vez aceleran.
-
-## Skill, plugin y comando
-
-Los productos pueden usar nombres distintos, pero esta distinción es práctica:
-
-| Concepto | Propósito habitual                                              |
-| -------- | --------------------------------------------------------------- |
-| Prompt   | Instrucción para una ejecución                                  |
-| Comando  | Atajo explícito que inicia un flujo                             |
-| Skill    | Instrucciones y recursos especializados reutilizables           |
-| Plugin   | Paquete instalable que agrega skills, herramientas o conexiones |
-| Agente   | Ejecutor que decide pasos y usa herramientas                    |
-
-Una **skill** no es conocimiento mágico: codifica un procedimiento, criterios y referencias. Debe revisarse cuando cambian las herramientas o el flujo del proyecto.
+Revisa cada componente del manifiesto y deshabilita lo que no necesites. Actualizar un plugin también puede cambiar sus instrucciones, ejecutables o permisos, aunque conserve el mismo nombre.
 
 ## MCP
 
-**MCP** significa _Model Context Protocol_ o protocolo de contexto de modelos. Permite que una aplicación de IA descubra herramientas y recursos ofrecidos por un servidor compatible.
+**MCP** significa _Model Context Protocol_. Permite que un cliente de IA descubra recursos y herramientas expuestos por un servidor compatible sin diseñar una integración distinta para cada agente.
 
-Un servidor MCP puede exponer datos internos, repositorios o acciones externas. Antes de conectarlo se revisan:
+Un servidor puede ser local o remoto y operar sobre repositorios, bases de datos, navegadores o cuentas externas. El protocolo normaliza la comunicación, pero no garantiza confianza. Antes de conectarlo comprueba:
 
-- origen y mantenimiento del servidor;
-- datos que puede leer;
-- acciones que puede ejecutar;
-- credenciales que recibe;
-- registros y retención;
-- posibilidad de limitar permisos.
+- qué datos puede leer y dónde se procesan;
+- qué acciones puede ejecutar o revertir;
+- qué credenciales recibe y cómo se revocan;
+- si permite limitar permisos o usar modo de solo lectura;
+- qué registros conserva y quién mantiene el servidor.
 
-El protocolo estandariza la conexión, no garantiza que cada servidor sea confiable.
+## Hooks
 
-## Sandbox y aprobación
+Un hook responde a eventos como editar un archivo, terminar una tarea o ejecutar una herramienta. Es apropiado para reglas deterministas: formatear, impedir secretos, validar archivos modificados o exigir una comprobación antes de finalizar.
 
-Un **sandbox** o entorno aislado limita archivos, red o procesos disponibles. Reduce impacto de una orden incorrecta, pero no reemplaza una revisión del alcance.
+Como puede ejecutarse sin una petición nueva, debe ser rápido, predecible y visible. Un hook complejo que modifica muchos archivos silenciosamente es más difícil de depurar que el problema que intenta resolver.
 
-Una **aprobación** amplía permisos para una acción específica. Antes de concederla se comprueba objetivo, comando, destino y reversibilidad. “Necesita acceso” es menos útil que “necesita descargar dependencias desde el registro para ejecutar las pruebas”.
+## Cómo se combinan
 
-## Instrucciones y precedencia
+```text
+tarea
+  └─ agente
+      ├─ instrucciones del proyecto
+      ├─ comando o skill que guía el procedimiento
+      ├─ herramientas nativas o MCP para actuar
+      ├─ plugin que distribuye capacidades relacionadas
+      └─ hooks que validan eventos importantes
+```
 
-Un agente puede recibir instrucciones desde el sistema, el usuario, el repositorio y una skill. Cuando dos reglas chocan, la precedencia del producto determina cuál domina.
+Las capas pueden combinarse, pero no deben duplicar la misma regla. Si una convención vive en `AGENTS.md`, copiarla dentro de cinco skills crea versiones contradictorias con el tiempo.
 
-Los archivos externos y páginas web son datos no confiables. Una frase dentro de un documento que ordena ignorar reglas es un posible caso de **prompt injection** o inyección de prompt, no una instrucción legítima.
+## Flujo de incorporación
 
-## Verificación
+1. Define el problema que la herramienta debe resolver.
+2. Comprueba si basta un prompt, comando o instrucción existente.
+3. Lee la fuente y enumera archivos, scripts, permisos y conexiones.
+4. Instala primero en un proyecto de prueba o con el alcance mínimo.
+5. Ejecuta una tarea conocida y revisa acciones, salidas y diff.
+6. Documenta cómo actualizar, deshabilitar y eliminar la integración.
+7. Reevalúa la herramienta cuando cambie de mantenedor o de permisos.
 
-Una respuesta verbal del agente no demuestra que el proyecto funciona. La verificación depende del cambio:
-
-- tipos y compilación para contratos estáticos;
-- pruebas unitarias para reglas aisladas;
-- pruebas de integración para fronteras;
-- build de producción para empaquetado;
-- revisión visual y accesibilidad para interfaces;
-- diff para confirmar que no cambió contenido fuera de alcance.
-
-También se revisa si una prueba pasó por la razón correcta. Un comando exitoso que no descubrió ningún test puede dar una falsa sensación de seguridad.
-
-## Contexto y privacidad
-
-No se incluyen secretos, datos personales ni archivos completos cuando basta un fragmento. Antes de conectar una cuenta externa se revisan permisos y políticas de retención.
-
-La anonimización no consiste solo en borrar un nombre; combinaciones de correo, identificadores, fechas y contenido pueden volver a identificar a una persona.
-
-## Flujo recomendado
-
-1. Define resultado, alcance y restricciones.
-2. Entrega el contexto mínimo suficiente.
-3. Usa permisos de lectura antes de ampliar a escritura o ejecución.
-4. Divide tareas solo cuando las fronteras son independientes.
-5. Revisa el diff y ejecuta verificaciones proporcionales al riesgo.
-6. Conserva decisiones importantes en documentación del repositorio.
-7. Trata cada integración como una dependencia con permisos.
+Para delimitar autoridad, permisos y verificación durante una tarea completa, consulta el [workflow seguro con agentes](/agents/agents-fundamentos/agent-safe-workflow).

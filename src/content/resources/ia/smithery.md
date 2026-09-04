@@ -6,7 +6,7 @@ tags: [ai, mcp]
 url: https://smithery.ai
 resourceCategory: ia
 official: false
-personalNote: Complementa la lista curada de MCP servers en IA Tools & Skills — útil cuando hace falta uno que no esté ya documentado ahí.
+personalNote: Complementa la lista curada de servidores MCP en IA Tools — útil cuando hace falta uno que no esté ya documentado ahí.
 updatedAt: 2026-08-17
 ---
 
