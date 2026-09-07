@@ -1,23 +1,53 @@
 ---
 import { Image } from "astro:assets"
-import { SITE } from "@/config/site"
 import logo from "@/assets/logo/angel-library-logo.webp"
+import { SITE } from "@/config/site"
 ---
 
 <a
   href="/"
-  class="group flex items-center gap-2.5"
+  class="brand"
   aria-label={`${SITE.name} — ir al inicio`}
 >
   <Image
     src={logo}
-    alt="Angel Library Logo"
+    alt=""
     width={30}
     height={30}
-    class="shrink-0 transition-transform group-hover:scale-105"
+    class="brand__mark"
   />
-  <span
-    class="font-display text-sm font-semibold tracking-tight text-white transition-colors group-hover:text-[var(--blue-400)]"
-    >{SITE.name}</span
-  >
+  <span class="brand__name">{SITE.name}</span>
 </a>
+
+<style>
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+  }
+
+  .brand__mark {
+    width: 1.875rem;
+    height: 1.875rem;
+    flex-shrink: 0;
+    transition: transform var(--dur-fast) var(--ease-enamel);
+  }
+
+  .brand:hover .brand__mark {
+    transform: scale(1.05);
+  }
+
+  .brand__name {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+
+  .brand:hover .brand__name {
+    color: var(--blue-400);
+  }
+</style>

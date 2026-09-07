@@ -30,16 +30,6 @@ function hasCurrent(entries: Entry[]): boolean {
 }
 ---
 
-<div class="sidebar-tools">
-  <button
-    type="button"
-    class="sidebar-tools__collapse"
-    data-collapse-sidebar
-  >
-    Contraer todo
-  </button>
-</div>
-
 <SidebarPersister>
   <ul class="top-level sidebar-blocks">
     {
@@ -94,47 +84,27 @@ function hasCurrent(entries: Entry[]): boolean {
 </div>
 
 <script>
-  // Cierra todas las categorías abiertas del menú.
-  document.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement | null
-    if (!target?.closest("[data-collapse-sidebar]")) return
+  // Una categoría abierta a la vez: al abrir una, se cierran las demás.
+  function onlyOneOpen(event: Event) {
+    const opened = event.target as HTMLDetailsElement
+    if (!opened.open) return
 
-    document
-      .querySelectorAll<HTMLDetailsElement>(".sidebar-content details[open]")
+    const list = opened.closest(".sidebar-block__list")
+    if (!list) return
+
+    list
+      .querySelectorAll<HTMLDetailsElement>(":scope > li > details")
       .forEach((details) => {
-        details.open = false
+        if (details !== opened) details.open = false
       })
-  })
+  }
+
+  document
+    .querySelectorAll<HTMLDetailsElement>(".sidebar-block__list > li > details")
+    .forEach((details) => details.addEventListener("toggle", onlyOneOpen))
 </script>
 
 <style>
-  .sidebar-tools {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 0.5rem;
-  }
-
-  .sidebar-tools__collapse {
-    border: 0;
-    border-radius: var(--radius-thin);
-    background: transparent;
-    padding: 0.2rem 0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gray-450);
-    cursor: pointer;
-    transition:
-      background-color var(--dur-fast) var(--ease-enamel),
-      color var(--dur-fast) var(--ease-enamel);
-  }
-
-  .sidebar-tools__collapse:hover {
-    background: color-mix(in oklab, var(--blue-800) 20%, #000000);
-    color: var(--white);
-  }
-
   .sidebar-blocks,
   .sidebar-block__list {
     margin: 0;

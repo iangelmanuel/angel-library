@@ -1,7 +1,7 @@
 ---
 import Search from "@astrojs/starlight/components/Search.astro"
-import SiteTitle from "@astrojs/starlight/components/SiteTitle.astro"
 import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro"
+import Logo from "@/components/shared/Logo.astro"
 
 // La misma cabecera que la portada: marca, atajos, buscador e iconos.
 
@@ -14,9 +14,7 @@ const NAV = [
 ---
 
 <div class="header chrome-header">
-  <div class="title-wrapper sl-flex">
-    <SiteTitle />
-  </div>
+  <Logo />
 
   <nav class="chrome-header__nav">
     {
@@ -54,13 +52,6 @@ const NAV = [
     margin-inline: auto;
   }
 
-  .title-wrapper {
-    overflow: clip;
-    min-width: 0;
-    padding: 0.25rem;
-    margin: -0.25rem;
-  }
-
   .chrome-header__nav {
     display: none;
     align-items: center;
@@ -87,8 +78,8 @@ const NAV = [
   }
 
   .chrome-header__search {
-    width: 100%;
-    max-width: 16rem;
+    flex: 0 0 16rem;
+    width: 16rem;
   }
 
   .chrome-header__social {

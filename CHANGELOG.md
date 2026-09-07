@@ -8,6 +8,37 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.4] — 2026-09-06
+
+Las dos cabeceras pasan a ser la misma pieza, el menú se compacta solo y el
+color de categoría baja a un tinte de fondo.
+
+### Cambiado
+
+- **La marca es el mismo componente en los dos sitios**: `Logo.astro` deja de
+  depender de Tailwind y lo usa también la cabecera de la documentación, en
+  lugar del `SiteTitle` de Starlight. Mismo icono de 30px, mismo texto de
+  0.875rem y misma separación.
+- **El buscador de las dos cabeceras copia el del hero**: campo de esmalte al
+  22% (32% al pasar), lupa azul y tecla `ctrl K` en azul, de 16rem de ancho y
+  2.25rem de alto en ambos sitios.
+- **El menú se compacta solo**: al abrir una categoría se cierran las demás del
+  mismo bloque. Sustituye al botón «Contraer todo», que se retira.
+- **El color de categoría baja a un tinte**: 12% de esmalte en reposo y 22% al
+  pasar, tanto en el índice de la portada como en el muro de `/categories` y en
+  las pastillas de una entrada. Antes chocaba.
+- **El pie de la portada es de producto, no una ficha técnica**: marca y lema,
+  atajos a Categorías, Tipos, Tags y Buscar, iconos sociales y una línea de
+  copyright. Fuera licencia, versión, idioma y tipo de build.
+- El botón «Leer la documentación» del hero lleva a `/categories`.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Cabeceras (256×36 el buscador en ambas), menú, pie y muros de categorías
+  revisados sobre el build.
+
 ## [0.29.3] — 2026-09-06
 
 Iguala las dos cabeceras, devuelve el azul pleno al botón principal y ajusta el
@@ -1892,7 +1923,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.3...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.4...HEAD
+[0.29.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.4
 [0.29.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.3
 [0.29.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.2
 [0.29.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.1

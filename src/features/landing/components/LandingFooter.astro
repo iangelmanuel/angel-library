@@ -1,35 +1,54 @@
 ---
+import Icon from "@/components/shared/Icon.astro"
 import { SITE } from "@/config/site"
-import { FOOTER_FIELDS } from "../data/content"
-import { REPOSITORY_LABEL, REPOSITORY_URL, VERSION } from "../lib/project"
 
-const fields = [
-  ...FOOTER_FIELDS,
-  { label: "versión", value: `v${VERSION}`, note: "" },
-  { label: "autor", value: SITE.info.author, note: "" }
+const NAV = [
+  { label: "Categorías", href: "/categories" },
+  { label: "Tipos", href: "/tipos/guides" },
+  { label: "Tags", href: "/tags" },
+  { label: "Buscar", href: "/buscar" }
 ]
+
+const SOCIAL = [
+  { label: "GitHub", icon: "brand-github", href: SITE.social.github },
+  { label: "X", icon: "brand-x", href: SITE.social.x }
+]
+
+const year = new Date().getFullYear()
 ---
 
 <footer class="wall-footer">
-  <div class="wall-footer__inner">
-    <dl class="wall-footer__fields">
+  <div class="wall-shell wall-footer__inner">
+    <div class="wall-footer__brand">
+      <span class="wall-footer__name">{SITE.name}</span>
+      <p class="wall-footer__claim">{SITE.info.slogan}</p>
+    </div>
+
+    <nav
+      class="wall-footer__nav"
+      aria-label="Secciones de la biblioteca"
+    >
+      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <div class="wall-footer__social">
       {
-        fields.map((field) => (
-          <div class="wall-footer__cell">
-            <dt>{field.label}</dt>
-            <dd>{field.value}</dd>
-          </div>
+        SOCIAL.map((item) => (
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={item.label}
+          >
+            <Icon
+              name={item.icon}
+              class="size-4"
+            />
+          </a>
         ))
       }
-    </dl>
+    </div>
 
-    <a
-      href={REPOSITORY_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="wall-footer__repo"
-    >
-      {REPOSITORY_LABEL}
-    </a>
+    <span class="wall-footer__legal">© {year} {SITE.info.author}</span>
   </div>
 </footer>
