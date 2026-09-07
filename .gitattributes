@@ -1,0 +1,10 @@
+# Fin de línea LF en todo el repositorio, en cualquier sistema.
+* text=auto eol=lf
+
+# Binarios: sin conversión.
+*.png binary
+*.webp binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
