@@ -34,9 +34,9 @@
   .wall-header__inner {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 100%;
-    max-width: 78rem;
+    max-width: 87.5rem;
     height: 4.25rem;
     margin: 0 auto;
     padding: 0 1.5rem;
@@ -44,10 +44,15 @@
   .wall-header__nav {
     display: none;
     align-items: center;
-    gap: 1.75rem;
-    margin-left: auto;
-    font-size: 0.84rem;
+    gap: 1.5rem;
+    font-size: 0.8rem;
     color: var(--muted-foreground);
+  }
+  /* El buscador ocupa el centro, como en la documentación. */
+  .wall-header__search {
+    width: 100%;
+    max-width: 22rem;
+    margin-inline: auto;
   }
   .wall-header__nav a {
     transition: color var(--dur-fast) var(--ease-enamel);
@@ -116,7 +121,7 @@
   .wall-hero__title {
     margin-top: 0;
     font-family: var(--font-display);
-    font-size: clamp(2.6rem, 5.4vw, 4.875rem);
+    font-size: clamp(2.1rem, 4vw, 3.25rem);
     font-weight: 600;
     letter-spacing: -0.045em;
     line-height: 1.02;
@@ -188,19 +193,18 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    min-height: 3rem;
+    min-height: 2.85rem;
     border-radius: var(--radius-field);
-    background: var(--primary);
-    padding-inline: 1.25rem;
-    font-size: 0.94rem;
+    background: color-mix(in oklab, var(--blue-800) 34%, #000000);
+    padding-inline: 1.15rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: var(--primary-foreground);
+    color: var(--white);
     transition: background-color var(--dur-fast) var(--ease-enamel);
   }
   .wall-hero__cta:hover,
   .wall-hero__cta:focus-visible {
-    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
-    color: var(--white);
+    background: color-mix(in oklab, var(--blue-800) 48%, #000000);
   }
   .wall-hero__secondary {
     display: inline-flex;
@@ -438,7 +442,7 @@
   .wall-title__text {
     margin-top: 0;
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.12;
@@ -709,7 +713,7 @@
   }
   .wall-close__title {
     font-family: var(--font-display);
-    font-size: clamp(2.1rem, 4.4vw, 3.625rem);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1.05;
@@ -728,22 +732,19 @@
     display: inline-flex;
     align-items: center;
     gap: 0.625rem;
-    min-height: 3.25rem;
-    margin-top: 2.375rem;
+    min-height: 3rem;
+    margin-top: 2.25rem;
     border-radius: var(--radius-field);
-    background: var(--white);
-    padding-inline: 1.375rem;
-    font-size: 0.94rem;
+    background: color-mix(in oklab, var(--blue-800) 40%, #000000);
+    padding-inline: 1.3rem;
+    font-size: 0.92rem;
     font-weight: 500;
-    color: var(--enamel-950);
-    transition:
-      background-color var(--dur-fast) var(--ease-enamel),
-      box-shadow var(--dur-fast) var(--ease-enamel);
+    color: var(--white);
+    transition: background-color var(--dur-fast) var(--ease-enamel);
   }
   .wall-btn:hover,
   .wall-btn:focus-visible {
-    background: var(--blue-200);
-    box-shadow: var(--shadow-lifted);
+    background: color-mix(in oklab, var(--blue-800) 55%, #000000);
   }
 
   /* --------------------------------------------------------------------- pie */

@@ -241,9 +241,24 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     color: var(--gray-300);
   }
 
+  /* Enlace externo: un botón, no un renglón de texto. */
   .entry-meta__links a {
-    font-size: 0.8rem;
-    color: var(--blue-300);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.5rem;
+    border-radius: var(--radius-field);
+    background: color-mix(in oklab, var(--blue-800) 34%, #000000);
+    padding-inline: 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--white);
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-enamel);
+  }
+
+  .entry-meta__links a:hover {
+    background: color-mix(in oklab, var(--blue-800) 48%, #000000);
   }
 
   .entry-meta__warnings {

@@ -6,14 +6,16 @@ import { getSubcategoriesForCategory } from "./subcategories"
 
 const DOCS_DIR = "src/content/docs"
 
-// Títulos de los bloques del menú.
-const GROUP_LABELS: Record<string, string> = {
-  construir: "Construir",
-  producto: "Producto",
-  flujo: "Flujo",
-  calidad: "Calidad",
-  referencia: "Referencia"
-}
+/** Icono y color de cada categoría, por su etiqueta. */
+export const CATEGORY_BY_LABEL: Record<
+  string,
+  { icon: string; color: string }
+> = Object.fromEntries(
+  Object.values(CATEGORIES).map((category) => [
+    category.label,
+    { icon: category.icon, color: category.color }
+  ])
+)
 
 interface SidebarLink {
   label: string
@@ -89,27 +91,27 @@ function docsIn(dir: string): SidebarLink[] {
     .map((doc) => ({ label: doc.title, link: doc.link }))
 }
 
-/** Menú: grupo → categoría → subcategoría → entradas. */
+/** Menú: categoría → subcategoría → entradas. */
 export function buildSidebar(): SidebarGroup[] {
-  return CATEGORY_GROUPS.map((group) => ({
-    label: GROUP_LABELS[group.id] ?? group.id,
-    collapsed: true as const,
-    items: (group.categories as readonly CategoryId[])
-      .map((category) => ({
-        label: CATEGORIES[category].label,
-        collapsed: true as const,
-        items: [
-          // Entradas sueltas en la raíz de la categoría.
-          ...docsIn(path.join(DOCS_DIR, category)),
-          ...subcategoriesOf(category)
-            .map((subcategory) => ({
-              label: subcategory.label,
-              collapsed: true as const,
-              items: docsIn(path.join(DOCS_DIR, category, subcategory.id))
-            }))
-            .filter((subcategory) => subcategory.items.length > 0)
-        ]
-      }))
-      .filter((category) => category.items.length > 0)
-  })).filter((group) => group.items.length > 0)
+  const categories = CATEGORY_GROUPS.flatMap(
+    (group) => group.categories as readonly CategoryId[]
+  )
+
+  return categories
+    .map((category) => ({
+      label: CATEGORIES[category].label,
+      collapsed: true as const,
+      items: [
+        // Entradas sueltas en la raíz de la categoría.
+        ...docsIn(path.join(DOCS_DIR, category)),
+        ...subcategoriesOf(category)
+          .map((subcategory) => ({
+            label: subcategory.label,
+            collapsed: true as const,
+            items: docsIn(path.join(DOCS_DIR, category, subcategory.id))
+          }))
+          .filter((subcategory) => subcategory.items.length > 0)
+      ]
+    }))
+    .filter((category) => category.items.length > 0)
 }

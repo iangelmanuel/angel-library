@@ -70,9 +70,9 @@ entrada real lo declare es `getAllEntries()`.
 - `sidebar.ts` — construye el menú de Starlight leyendo lo anterior **y** las
   carpetas reales.
 
-El menú tiene tres niveles: **grupo → categoría → subcategoría → entradas**.
-Las entradas se listan una a una, ordenadas por título; las privadas y los
-borradores no salen.
+El menú tiene dos niveles: **categoría → subcategoría → entradas**. Cada
+categoría lleva su icono y su color. Las entradas se listan una a una, ordenadas
+por título; las privadas y los borradores no salen.
 
 ## 4. Leer y relacionar
 
@@ -115,6 +115,8 @@ En `src/components/starlight/`:
 - `PageTitle.astro` — bajo el título añade los metadatos con sus enlaces:
   categoría, subcategoría, tipo, tags, comando o instalación, campos propios del
   tipo, tecnologías, enlaces externos y avisos.
+- `Sidebar.astro` — el menú de Starlight con el icono y el color de cada
+  categoría en el primer nivel.
 - `Footer.astro` — añade las relaciones de la entrada sobre el pie normal.
 - `ThemeSelect.astro` — vacío: el sitio es solo oscuro.
 

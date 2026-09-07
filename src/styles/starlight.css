@@ -37,7 +37,14 @@
 
   --sl-nav-height: 4.25rem;
   --sl-content-width: 50rem;
-  --sl-sidebar-width: 18rem;
+  --sl-sidebar-width: 16rem;
+
+  /* Títulos: una escala corta y legible, no titulares. */
+  --sl-text-h1: 2rem;
+  --sl-text-h2: 1.4rem;
+  --sl-text-h3: 1.15rem;
+  --sl-text-h4: 1rem;
+  --sl-text-h5: 0.95rem;
 
   --sl-shadow-md: var(--shadow-field);
   --sl-shadow-lg: var(--shadow-lifted);
@@ -90,21 +97,36 @@ site-search kbd {
   scrollbar-width: thin;
 }
 
-/* Bloque: un rótulo pequeño, no un título. */
-.sidebar-content ul.top-level > li > details > summary .large {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--blue-600);
+/* La fila que abre: icono, etiqueta y flecha en una línea. */
+.sidebar-content summary {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
-/* Categoría: el nivel que se abre. */
-.sidebar-content .large {
-  font-size: 0.85rem;
+.sidebar-content .group-label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Categoría: el primer nivel. */
+.sidebar-content ul.top-level > li > details > summary .large {
+  font-size: 0.82rem;
   font-weight: 500;
   color: var(--blue-200);
+}
+
+.sidebar-content .large {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--blue-200);
+}
+
+/* Subcategoría: un escalón por debajo. */
+.sidebar-content ul ul .large {
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--gray-300);
 }
 
 .sidebar-content summary {
@@ -129,8 +151,8 @@ site-search kbd {
 
 .sidebar-content a {
   border-radius: var(--radius-thin);
-  padding: 0.3rem 0.45rem;
-  font-size: 0.79rem;
+  padding: 0.26rem 0.45rem;
+  font-size: 0.75rem;
   line-height: 1.45;
   color: var(--gray-400);
   transition:

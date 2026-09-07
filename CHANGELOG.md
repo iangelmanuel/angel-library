@@ -8,6 +8,35 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.1] — 2026-09-06
+
+Ajusta la escala tipográfica y el peso del color tras la migración, y termina de
+alinear la portada con la documentación.
+
+### Cambiado
+
+- **El menú deja de tener el nivel de grupo**: las categorías pasan a ser el
+  primer nivel, como en el proyecto anterior, y cada una estrena **su icono** y
+  su color. El menú baja de 18rem a 16rem y sus tres niveles de texto se
+  reducen.
+- **Los títulos bajan de tamaño**: `h1` a 2rem, `h2` a 1.4rem, `h3` a 1.15rem en
+  la documentación; en la portada el titular pasa a `clamp(2.1rem, 4vw, 3.25rem)`
+  y los títulos de sección a `clamp(1.4rem, 2.2vw, 1.85rem)`.
+- **Los botones dejan de ser color pleno**: el CTA del hero, el del cierre y el
+  enlace externo de una entrada usan el esmalte translúcido del sistema.
+- **El enlace externo de una entrada es ahora un botón** («Abrir el recurso»,
+  «Repositorio», «Sitio oficial»), no un renglón de texto.
+- **Los bloques de código se separan del lienzo**: `--code-bg` sube del 20% al
+  30% de esmalte y su rótulo del 32% al 44%.
+- **La cabecera de la portada copia la de la documentación**: mismo ancho, el
+  buscador centrado y los iconos sociales a la derecha.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Menú, entrada de lectura y portada revisados sobre el build.
+
 ## [0.29.0] — 2026-09-06
 
 Cierra la migración: recupera las pestañas de instalación, aplana el menú,
@@ -1790,7 +1819,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.1...HEAD
+[0.29.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.1
 [0.29.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.0
 [0.28.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.28.0
 [0.27.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.1

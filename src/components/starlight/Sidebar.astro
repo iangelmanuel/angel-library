@@ -1,0 +1,87 @@
+---
+import { Icon as StarlightIcon } from "@astrojs/starlight/components"
+import MobileMenuFooter from "@astrojs/starlight/components/MobileMenuFooter.astro"
+import SidebarPersister from "@astrojs/starlight/components/SidebarPersister.astro"
+import SidebarRestorePoint from "@astrojs/starlight/components/SidebarRestorePoint.astro"
+import SidebarSublist from "@astrojs/starlight/components/SidebarSublist.astro"
+import Icon from "@/components/shared/Icon.astro"
+import { CATEGORY_BY_LABEL } from "@/config/sidebar"
+
+// Igual que el menú de Starlight, con el icono de la categoría.
+
+type Entry = { type: string; isCurrent?: boolean; entries?: Entry[] }
+
+const { sidebar } = Astro.locals.starlightRoute
+
+/** ¿Está la página actual dentro de esta rama? */
+function hasCurrent(entries: Entry[]): boolean {
+  return entries.some((entry) =>
+    entry.type === "link" ? entry.isCurrent : hasCurrent(entry.entries ?? [])
+  )
+}
+---
+
+<SidebarPersister>
+  <ul class="top-level">
+    {
+      sidebar.map((entry) =>
+        entry.type === "group" ? (
+          <li>
+            <details open={hasCurrent(entry.entries as Entry[])}>
+              <summary
+                style={`--category-accent: var(${CATEGORY_BY_LABEL[entry.label]?.color ?? "--blue-400"})`}
+              >
+                <span class="group-label">
+                  <Icon
+                    name={CATEGORY_BY_LABEL[entry.label]?.icon ?? "book-open"}
+                    class="category-icon"
+                  />
+                  <span class="large">{entry.label}</span>
+                </span>
+                <StarlightIcon
+                  name="right-caret"
+                  class="caret"
+                  size="1.25rem"
+                />
+              </summary>
+              <SidebarRestorePoint />
+              <SidebarSublist
+                sublist={entry.entries}
+                nested
+              />
+            </details>
+          </li>
+        ) : (
+          <li>
+            <a
+              href={entry.href}
+              aria-current={entry.isCurrent ? "page" : undefined}
+              class="large"
+            >
+              <span>{entry.label}</span>
+            </a>
+          </li>
+        )
+      )
+    }
+  </ul>
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+  <MobileMenuFooter />
+</div>
+
+<style>
+  .category-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    flex-shrink: 0;
+    color: var(--category-accent, var(--blue-400));
+  }
+
+  .group-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>

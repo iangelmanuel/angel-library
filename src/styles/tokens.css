@@ -76,8 +76,8 @@
   /* Código: negro esmaltado. El cuerpo se lee azul —leve, pero azul— y su
      rótulo va un paso por encima: dos alturas del mismo color, nunca dos
      colores distintos. */
-  --code-bg: color-mix(in oklab, var(--blue-800) 20%, #000000);
-  --code-chrome: color-mix(in oklab, var(--blue-800) 32%, #000000);
+  --code-bg: color-mix(in oklab, var(--blue-800) 30%, #000000);
+  --code-chrome: color-mix(in oklab, var(--blue-800) 44%, #000000);
 
   /* Lectura. La medida es fija; los márgenes se recortan, la medida no. */
   --reading-measure: 68ch;
