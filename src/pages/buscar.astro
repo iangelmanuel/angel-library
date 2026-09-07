@@ -1,0 +1,26 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Buscar",
+    description: "Busca en las 718 entradas de la biblioteca.",
+    template: "splash",
+    tableOfContents: false
+  }}
+>
+  <p>
+    Pulsa <kbd>Ctrl</kbd> + <kbd>K</kbd> o usa el buscador de la cabecera.
+  </p>
+</StarlightPage>
+
+<script>
+  // Abre el buscador nada más entrar.
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.querySelector<HTMLButtonElement>(
+      "site-search button[data-open-modal]"
+    )
+    button?.click()
+  })
+</script>

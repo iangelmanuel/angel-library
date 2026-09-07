@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guía para Claude Code (claude.ai/code) al trabajar en este repositorio.
 
-## Commands
+## Comandos
 
-Package manager: **pnpm**.
+Gestor de paquetes: **pnpm**.
 
 ```bash
 pnpm dev
@@ -18,101 +18,102 @@ pnpm build
 pnpm check
 ```
 
-`pnpm check` = `astro check` (TypeScript + Astro diagnostics). `pnpm sync` regenerates `.astro/types.d.ts` after changing `src/content.config.ts`. `pnpm preview` serves `dist/`.
+`pnpm check` = `astro check`. `pnpm sync` regenera los tipos tras tocar
+`src/content.config.ts`. `pnpm preview` sirve `dist/`. `pnpm eslint` y
+`pnpm prettier:check` son lo que corre el CI.
 
-No test runner, no linter, no formatter configured. Content integrity is verified at build time (see below), so `pnpm build` is the real validation step.
+No hay tests: `pnpm build` es la validación real.
 
-## What this is
+## Qué es esto
 
-Static Astro 7 site: a personal Spanish-language technical knowledge library. All content is local Markdown under `src/content/`. Zero backend, dark theme only, mostly zero client JS.
+Sitio estático con **Astro + Starlight**: una biblioteca técnica personal en
+español. Todo el contenido son Markdown locales en `src/content/docs/`. Sin
+backend, tema oscuro único.
 
-UI text, comments, frontmatter values and content are **in Spanish**. Match that.
+Los textos de interfaz, los comentarios y el contenido van **en español**.
 
-## Architecture
+## Arquitectura
 
-### The content model: folders decide, frontmatter declares the type
+### Contenido: la carpeta manda
 
-`src/content/<category>/<subcategory>/<file>.md`. **The folder is the source of truth** for category and subcategory; the frontmatter only declares `type` (`guides`, `commands`, `resources`…). Moving a file recategorizes it — there is nothing to edit.
+`src/content/docs/<categoría>/<subcategoría>/<archivo>.md`. La carpeta decide
+categoría y subcategoría; el frontmatter solo declara `type`. Mover un archivo
+lo recategoriza. La URL es la ruta: `/frontend/astro/astro-content-collections`.
 
-One collection (`library`) holds everything; its schema is a `z.discriminatedUnion("type", …)` so each type keeps its own required fields. The entry id is its path, and the URL is the id.
+Una sola colección, `docs`, la de Starlight. Su esquema
+(`src/content.config.ts`) es `docsSchema({ extend: … })`: los campos de
+Starlight más los propios (`type`, `tags`, `related`, `private`, `updatedAt` y
+los específicos de cada tipo). `type` es opcional en el esquema porque las
+páginas propias usan el mismo layout; `getAllEntries()` falla si una entrada de
+contenido no lo declara.
 
-### Single source of truth: `src/config/site.ts`
+Las reglas por tipo (`commands` exige `command`, `resources` exige `url` y
+`resourceCategory`, `integrations` exige dos tecnologías) viven en un
+`superRefine` al final del esquema.
 
-Content types, knowledge categories, subcategories, and resource categories are declared as `as const` arrays + metadata records. Everything derives from them: the sidebar/nav (`src/lib/nav.ts`), routes, command palette, badges, and the build-time validation of folder names.
+### Config: la única fuente
 
-Ids are the keys of those maps — `CONTENT_TYPE_IDS`, `CATEGORY_IDS`, `SUBCATEGORY_IDS` are derived, never hand-written lists.
+`src/config/` define categorías, subcategorías, tipos de contenido, categorías
+de recurso e iconos. De ahí salen el menú, las páginas de listado y los colores.
 
-Adding a content type = add its `CONTENT_TYPE_DEFINITIONS` entry, add an `entryType("<id>", …)` line to the union in `content.config.ts`, place it in `LEARNING_TYPE_ORDER`. No folder, route, or component changes needed.
+`src/config/sidebar.ts` construye el menú de Starlight leyendo esas listas y las
+carpetas reales de `src/content/docs/`. Grupo → categoría → subcategoría →
+entradas (`autogenerate`).
 
-Adding a category = add its `CATEGORY_DEFINITIONS` entry + place its id in `CATEGORY_GROUPS` (the build throws if you forget) + create `src/content/<id>/`.
+### Rutas
 
-Adding a subcategory = add `id: "Label"` to `SUBCATEGORY_LABELS` + place it in `CATEGORY_SUBCATEGORY_ORDER`. Its icon is `brand-<id>` unless listed in `SUBCATEGORY_ICONS`. In the `resources` category the subfolders are `RESOURCE_CATEGORY_DEFINITIONS` ids instead.
+Starlight genera todas las páginas de documentación. Además hay páginas propias
+en `src/pages/`, todas envueltas en `<StarlightPage>` para heredar el layout:
 
-### Routing
+- `/` — la portada (`src/features/landing/`), con su propio layout.
+- `/categories` y `/categories/[category]`
+- `/tipos/[type]`
+- `/tags` y `/tags/[tag]`
+- `/buscar` — abre el buscador de Starlight al entrar.
 
-Three dynamic routes cover the whole site:
+### Relaciones
 
-- `src/pages/[...slug].astro` — every entry. URL = the entry id = `/<category>/<subcategory>/<file>`.
-- `src/pages/tipos/[type].astro` — listing per content type.
-- `src/pages/categories/[category].astro` — listing per category.
+`src/lib/relations.ts` deriva las relaciones de una entrada: `related`
+explícitas, retroenlaces, integraciones y recetas que la citan, y afinidad por
+tags. Se pintan al pie de cada entrada mediante el override
+`src/components/starlight/Footer.astro`.
 
-Plus `/`, `/search`, `/tags`, `/tags/[tag]`, and `/search-index.json` (build-time API route).
+### Búsqueda
 
-Dropping a `.md` file into a category folder generates its page automatically.
+La de Starlight (Pagefind). No hay índice propio.
 
-### Content relations
+### Estilos
 
-Frontmatter references are the target's **id, i.e. its path**: `frontend/react/react-context-api`. Regex-enforced in the schema.
+Dos hojas, según quién pinte la página:
 
-`src/lib/relations.ts` derives relations from three sources: explicit `related`, backlinks (entries pointing here), and shared-tag affinity (max 6). `integrations` and `recipes` that list an entry in their `technologies` are surfaced on that entry automatically — never declare relations in both directions.
+- `src/styles/starlight.css` — mapea el sistema «El Esmalte» a las variables de
+  Starlight (`--sl-color-*`). La cargan las páginas de documentación.
+- `src/styles/global.css` — Tailwind v4 y las primitivas propias. Solo la usa la
+  portada.
 
-Three validations run inside `getStaticPaths()` of `[...slug].astro` and **fail the build** with a Spanish message: `validateContentStructure()` (unknown category/subcategory folder), `validateContentRelations()` (broken reference), `validateInternalLinks()` (`](/…)` link in a body that leads nowhere). This is the safety net for content edits.
+Los tokens viven en `src/styles/tokens.css` y los consumen las dos. `DESIGN.md`
+documenta el sistema visual.
 
-### Search
+### Bloques de código
 
-Build-time `src/pages/search-index.json.ts` emits every entry (body stripped to 1200 chars via `stripMarkdown`). The terminal fetches it **once per session** (`src/features/terminal/search.ts`) and runs Fuse.js locally.
+Expressive Code, el de Starlight. Los colores se ajustan desde
+`expressiveCode.styleOverrides` en `astro.config.mjs`.
 
-### Icons — one table, two renderers
+### Iconos
 
-`src/config/icons.ts` is the single source: `BRAND_ICONS` (own logos/glyphs, stored as `viewBox` + `fill` + inner SVG `body`) and `RECOLORED_ICONS` (a lucide icon painted a fixed color).
+`src/config/icons.ts` es la tabla única: `BRAND_ICONS` (logos propios) y
+`RECOLORED_ICONS` (un icono de lucide con color fijo). `<Icon name="…" />`
+resuelve en build; `DynamicIcon` hace lo mismo en las islas de React.
 
-- Astro: `<Icon name="git-branch" />` → `src/lib/icons.ts` builds the SVG at build time, reading plain lucide names from `node_modules/lucide-static`. Unknown name = build error. Zero client JS.
-- React islands: `DynamicIcon` reads the same table; it only keeps a `LUCIDE` import map because `lucide-react` cannot be imported by name at runtime. A brand or recolored icon added to `icons.ts` works in both without further edits.
+## Escribir contenido
 
-### Markdown pipeline
+Copia el frontmatter de una entrada parecida y lee `src/content.config.ts`.
+`docs/CONTENT_GUIDE.md` tiene plantillas. Usa `private: true` para entradas
+personales (conservan su ruta pero salen de listados y navegación) y
+`draft: true` para lo que aún no se publica.
 
-`astro.config.mjs` wires Shiki (`tokyo-night`) with:
+## Notas
 
-- `src/markdown/package-manager.mjs` translates install commands and expands them into pnpm/Bun/npm variants.
-- `src/markdown/code-blocks.mjs` preserves fence metadata, groups those variants and wraps each `<pre>` in `.code-block` with its header and copy button. The copy button carries **no inline JS**; a single delegated `click` listener in `src/scripts/site-interactions.ts` handles `[data-copy]` globally.
-- `src/markdown/external-links.mjs` adds safe external-link attributes.
-
-`EntryMeta.astro` hand-duplicates that copy-button markup for `command` / `install` frontmatter fields — change one, change the other.
-
-### Client-side interactivity
-
-`src/scripts/site-interactions.ts` (loaded once from `BaseLayout.astro`) holds all global scripts, wired via `CustomEvent` to the React islands so the islands stay decoupled: `angel:open-search`, `angel:toggle-search`, `angel:toggle-nav`. Also Ctrl/Cmd+K and `/` shortcuts, and `astro:after-swap` → `syncSidebarState()` (needed because the sidebar uses `transition:persist` and doesn't re-render on navigation).
-
-React is used only for the terminal (`src/features/terminal/`), `MobileNav`, and the shadcn `ui/` primitives. Everything else is `.astro`.
-
-### The terminal — `src/features/terminal/`
-
-Self-contained feature behind `/search` and Ctrl/Cmd+K: `components/` renders, `hooks/` holds the state (search index, output, history, appearance), `commands/` has one file per family, `data/` the long texts. A command is `{ description?, args?, aliases?, run(ctx) }` in its family's map; `TerminalContext` (`commands/types.ts`) is the only thing a command may touch. Commands with a `description` must be listed in `PUBLIC_COMMANDS` (`commands/index.ts`) — that array is the autocomplete order and the module throws at load if it drifts. Its README documents the flow.
-
-### Styling
-
-Tailwind v4 via `@tailwindcss/vite` — no `tailwind.config`. All tokens are CSS variables in `src/styles/global.css` (`:root` + `@theme inline`). Dark-only: `<html class="dark">` is hardcoded, `--radius: 0rem` (square, terminal-ish aesthetic). Fonts self-hosted via Fontsource: Geist Sans / Mono / **Pixel** (`font-pixel` is used for headings and uppercase micro-labels).
-
-## Content authoring
-
-Each type has its own schema on top of a shared base (`title`, `description`, `type`, `tags`, `related`, `draft`, `private`, `updatedAt`). Read `src/content.config.ts` before adding frontmatter — e.g. `commands` require `command`, `resources` require `url` + `resourceCategory`, `integrations` require ≥2 `technologies`. Use `private: true` for personal command/configuration entries: they retain their generated detail route but stay out of public navigation, listings, tags, and search.
-
-`draft: true` entries render in dev and are excluded from production builds (`getAllEntries()`).
-
-There is no content generator script: add a `.md` to a `<category>/<subcategory>/` folder and copy the frontmatter of a similar entry. `docs/CONTENT_GUIDE.md` has ready-to-copy templates.
-
-## Notes
-
-- Path alias `@/*` → `./src/*`.
-- `astro:content` types come from `.astro/`; run `pnpm sync` if imports look stale.
-- An OpenAI Codex config exists at `~/.codex`. If you'd like to import its MCP servers, commands, or instructions into Claude Code, reply `/import` to see what's importable.
+- Alias `@/*` → `./src/*`.
+- Los tipos de `astro:content` salen de `.astro/`; corre `pnpm sync` si algo
+  parece desactualizado.

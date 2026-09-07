@@ -8,6 +8,62 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.28.0] — 2026-09-06
+
+Migra el sitio a **Starlight**. La documentación pasa a su layout, su menú y su
+buscador; lo propio del proyecto —la segmentación por carpetas, los tipos
+editoriales, los tags y las relaciones— se conserva encima, y el sistema visual
+«El Esmalte» se traduce a las variables de Starlight.
+
+### Añadido
+
+- `@astrojs/starlight` como capa de documentación, con `docsLoader()` y
+  `docsSchema({ extend })`: los campos propios (`type`, `tags`, `related`,
+  `private`, `updatedAt` y los de cada tipo) viven sobre los de Starlight.
+- `src/config/sidebar.ts`: construye el menú desde el config y las carpetas
+  reales. Grupo → categoría → subcategoría → entradas, con `autogenerate`.
+- `src/styles/starlight.css`: «El Esmalte» sobre las variables `--sl-color-*`,
+  incluidos menú, buscador, paginación y bloques de código.
+- `src/components/starlight/Footer.astro`: override que pinta las relaciones de
+  cada entrada (explícitas, retroenlaces, integraciones, recetas, recursos y
+  afinidad por tags) sobre el pie de Starlight.
+- `src/pages/buscar.astro`: abre el buscador de Starlight al entrar, para que la
+  portada pueda enlazarlo.
+- `@astrojs/sitemap`, en lugar de la ruta `sitemap.xml.ts` hecha a mano.
+- `src/components/content/EntryList.astro`: la tarjeta de entrada que comparten
+  las páginas de tags, categorías y tipos.
+
+### Cambiado
+
+- El contenido se muda de `src/content/<categoría>/` a
+  `src/content/docs/<categoría>/`. Las 718 entradas conservan su ruta pública.
+- `/categories`, `/categories/[category]`, `/tipos/[type]`, `/tags` y
+  `/tags/[tag]` se reescriben con `<StarlightPage>`: mismo contenido, layout de
+  Starlight.
+- La colección `library` pasa a llamarse `docs`; `getAllEntries()` valida que
+  toda entrada declare `type`.
+- Astro sube a 7.3.1 y `@astrojs/markdown-remark` a 7.3.0 (lo exige Starlight).
+- La portada sigue con su propio layout; su buscador ahora enlaza a `/buscar`.
+
+### Eliminado
+
+- La terminal propia (`src/features/terminal/`), su índice
+  (`search-index.json.ts`) y la página `/search`: los sustituye Pagefind.
+- El layout de documentación propio: `DocsLayout`, `Sidebar`, `Toc`, `PageNav`,
+  `ReadingProgress`, `Breadcrumbs`, `MobileNav`, `EntryMeta`, `RelationSection`,
+  `ContentCard`, `TagExplorer`, `TypeBadge`, `TagList` y `CopyButton`.
+- La tubería propia de bloques de código y sus hojas (`code.css`,
+  `markdown.css`, `card.css`, `fields.css`, `sidebar.css`,
+  `command-palette.css`): Expressive Code y Starlight hacen ese trabajo.
+- `src/scripts/site-interactions.ts` y `src/lib/nav.ts`, sin consumidores.
+- El 404 propio: Starlight trae el suyo.
+
+### Verificado
+
+- `pnpm check`: 0 errores y 0 avisos.
+- `pnpm build`: 1719 páginas.
+- Entrada de lectura, portada, `/tags` y `/categories` revisadas sobre el build.
+
 ## [0.27.1] — 2026-09-06
 
 Arregla la integración continua, que fallaba desde la publicación de 0.27.0, y
@@ -1684,7 +1740,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.27.1...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.28.0...HEAD
+[0.28.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.28.0
 [0.27.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.1
 [0.27.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.0
 [0.26.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.26.0

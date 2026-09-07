@@ -1,72 +1,27 @@
 ---
-import DocsLayout from "@/layouts/DocsLayout.astro"
-import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
-import ContentCard from "@/components/content/ContentCard.astro"
-import Icon from "@/components/shared/Icon.astro"
-import {
-  getAllEntries,
-  getAllTags,
-  getEntriesByTag,
-  groupEntriesByCategory
-} from "@/lib/content"
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+import EntryList from "@/components/content/EntryList.astro"
+import { getAllEntries, getAllTags, getEntriesByTag } from "@/lib/content"
 
 export async function getStaticPaths() {
-  return getAllTags(await getAllEntries()).map(({ tag, count }) => ({
+  const all = await getAllEntries()
+
+  return getAllTags(all).map(({ tag, count }) => ({
     params: { tag },
-    props: { tag, count }
+    props: { entries: getEntriesByTag(all, tag), count }
   }))
 }
 
-const { tag, count } = Astro.props
-const entries = getEntriesByTag(await getAllEntries(), tag)
-const groups = groupEntriesByCategory(entries)
+const { tag } = Astro.params
+const { entries, count } = Astro.props
 ---
 
-<DocsLayout
-  title={`Tag: ${tag}`}
-  description={`Todo el contenido de la biblioteca etiquetado con "${tag}".`}
+<StarlightPage
+  frontmatter={{
+    title: `#${tag}`,
+    description: `${count} entradas etiquetadas con "${tag}".`
+  }}
 >
-  <div class="mx-auto w-full max-w-4xl">
-    <Breadcrumbs
-      items={[
-        { label: "inicio", href: "/" },
-        { label: "tags", href: "/tags" },
-        { label: tag, segment: tag }
-      ]}
-    />
-
-    <header class="mb-8 border-b border-border pb-8">
-      <h1 class="font-display text-2xl md:text-3xl">
-        <span class="text-muted-foreground">#</span>{tag}
-        <span
-          class="ml-2 align-middle font-mono text-base font-normal text-muted-foreground"
-          data-numeric
-        >
-          {count}
-        </span>
-      </h1>
-    </header>
-
-    {
-      groups.map((group) => (
-        <section class="mb-10">
-          <h2
-            class="section-label mb-4 flex items-center gap-2"
-            style={`--cat-accent: var(${group.meta.color}); color: var(--cat-accent)`}
-          >
-            <Icon
-              name={group.meta.icon}
-              class="size-3.5"
-            />
-            {group.meta.label}
-          </h2>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {group.entries.map((entry) => (
-              <ContentCard entry={entry} />
-            ))}
-          </div>
-        </section>
-      ))
-    }
-  </div>
-</DocsLayout>
+  <p><a href="/tags">Ver todos los tags</a></p>
+  <EntryList entries={entries} />
+</StarlightPage>

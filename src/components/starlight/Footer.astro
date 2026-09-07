@@ -1,0 +1,55 @@
+---
+import Default from "@astrojs/starlight/components/Footer.astro"
+import EntryList from "@/components/content/EntryList.astro"
+import { getAllEntries } from "@/lib/content"
+import { getRelated } from "@/lib/relations"
+
+const { entry } = Astro.locals.starlightRoute
+
+const all = await getAllEntries()
+const current = all.find((item) => item.id === entry.id)
+const related = current ? getRelated(current, all) : null
+
+const sections = related
+  ? [
+      { label: "Seguir leyendo", entries: related.explicit },
+      { label: "Enlazan aquí", entries: related.backlinks },
+      { label: "Integraciones", entries: related.integrations },
+      { label: "Recetas", entries: related.recipes },
+      { label: "Recursos", entries: related.resources },
+      { label: "Comparten tags", entries: related.byTags }
+    ].filter((section) => section.entries.length > 0)
+  : []
+---
+
+{
+  sections.length > 0 && (
+    <div class="relations">
+      {sections.map((section) => (
+        <section>
+          <h2>{section.label}</h2>
+          <EntryList entries={section.entries} />
+        </section>
+      ))}
+    </div>
+  )
+}
+
+<Default><slot /></Default>
+
+<style>
+  .relations {
+    margin-top: 3rem;
+    border-top: 1px solid var(--thread);
+    padding-top: 2rem;
+  }
+  .relations section + section {
+    margin-top: 2rem;
+  }
+  .relations h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--related-accent);
+  }
+</style>

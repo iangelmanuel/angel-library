@@ -7,7 +7,7 @@ import {
 } from "@/config/subcategories"
 
 /** Una entrada de la biblioteca. */
-export type AnyEntry = CollectionEntry<"library">
+export type AnyEntry = CollectionEntry<"docs">
 
 // ── Cargar ──
 
@@ -15,12 +15,23 @@ export type AnyEntry = CollectionEntry<"library">
 export async function getAllEntries(
   includePrivate = false
 ): Promise<AnyEntry[]> {
-  const entries = await getCollection("library")
+  const entries = await getCollection("docs")
+
+  for (const entry of entries) {
+    if (!entry.data.type) {
+      throw new Error(`[contenido] "${entry.id}" no declara "type".`)
+    }
+  }
 
   return entries.filter((entry) => {
     if (!includePrivate && entry.data.private) return false
     return import.meta.env.DEV || !entry.data.draft
   })
+}
+
+/** Tipo editorial de la entrada. */
+export function typeOf(entry: AnyEntry): ContentTypeId {
+  return entry.data.type as ContentTypeId
 }
 
 // ── Ubicación ──
@@ -71,7 +82,7 @@ export function sortByTitle<T extends AnyEntry>(entries: T[]): T[] {
 
 export function sortByLearningPath<T extends AnyEntry>(entries: T[]): T[] {
   const rank = (entry: AnyEntry) => {
-    const index = LEARNING_TYPE_ORDER.indexOf(entry.data.type)
+    const index = LEARNING_TYPE_ORDER.indexOf(typeOf(entry))
     return index === -1 ? Infinity : index
   }
   const order = (entry: AnyEntry) => entry.data.order ?? Infinity

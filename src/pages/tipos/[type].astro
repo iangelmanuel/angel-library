@@ -1,67 +1,24 @@
 ---
-import DocsLayout from "@/layouts/DocsLayout.astro"
-import Breadcrumbs from "@/components/layout/Breadcrumbs.astro"
-import ContentCard from "@/components/content/ContentCard.astro"
-import Icon from "@/components/shared/Icon.astro"
-import { CONTENT_TYPE_LIST, type ContentTypeMeta } from "@/config/content-types"
-import { getAllEntries, getEntriesByType, sortByTitle } from "@/lib/content"
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+import EntryList from "@/components/content/EntryList.astro"
+import { CONTENT_TYPES, CONTENT_TYPE_IDS } from "@/config/content-types"
+import { getAllEntries, getEntriesByType } from "@/lib/content"
 
-export function getStaticPaths() {
-  return CONTENT_TYPE_LIST.map((meta) => ({
-    params: { type: meta.id },
-    props: { meta }
+export async function getStaticPaths() {
+  const all = await getAllEntries()
+
+  return CONTENT_TYPE_IDS.map((type) => ({
+    params: { type },
+    props: { entries: getEntriesByType(all, type), type }
   }))
 }
 
-interface Props {
-  meta: ContentTypeMeta
-}
-
-const { meta } = Astro.props
-const entries = sortByTitle(getEntriesByType(await getAllEntries(), meta.id))
+const { type, entries } = Astro.props
+const meta = CONTENT_TYPES[type]
 ---
 
-<DocsLayout
-  title={meta.label}
-  description={meta.description}
+<StarlightPage
+  frontmatter={{ title: meta.label, description: meta.description }}
 >
-  <div class:list={["mx-auto w-full max-w-5xl", `type-${meta.id}`]}>
-    <Breadcrumbs
-      items={[
-        { label: "inicio", href: "/" },
-        { label: meta.label.toLowerCase(), segment: meta.id }
-      ]}
-    />
-
-    <header class="mb-8 border-b border-border pb-8">
-      <h1 class="flex items-center gap-3 font-display text-2xl md:text-3xl">
-        <Icon
-          name={meta.icon}
-          class="size-6 shrink-0 text-[var(--blue-400)]"
-        />
-        {meta.label}
-        <span
-          class="font-mono text-base font-normal text-muted-foreground"
-          data-numeric
-        >
-          {entries.length}
-        </span>
-      </h1>
-      <p class="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-        {meta.description}
-      </p>
-    </header>
-
-    {
-      entries.length > 0 ? (
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {entries.map((entry) => (
-            <ContentCard entry={entry} />
-          ))}
-        </div>
-      ) : (
-        <p class="empty-field">aún no hay entradas de este tipo</p>
-      )
-    }
-  </div>
-</DocsLayout>
+  <EntryList entries={entries} />
+</StarlightPage>

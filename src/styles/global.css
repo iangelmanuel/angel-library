@@ -17,11 +17,5 @@
 @import "./base.css";
 @import "./keyframes.css";
 @import "./components/primitives.css";
-@import "./components/card.css";
-@import "./components/sidebar.css";
-@import "./components/code.css";
-@import "./components/markdown.css";
-@import "./components/fields.css";
-@import "./components/command-palette.css";
 
 @custom-variant dark (&:is(.dark *));

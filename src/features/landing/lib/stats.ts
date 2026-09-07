@@ -9,7 +9,8 @@ import {
   getAllEntries,
   getAllTags,
   getCategoryCounts,
-  subcategoryOf
+  subcategoryOf,
+  typeOf
 } from "@/lib/content"
 
 export interface LandingTypeCount {
@@ -93,8 +94,8 @@ function buildRoute(entries: AnyEntry[]): LandingRoute | null {
     file: { segment: `${file}.md`, title: entry.data.title },
     url: `/${entry.id}`,
     type: {
-      id: entry.data.type,
-      label: CONTENT_TYPES[entry.data.type].label
+      id: typeOf(entry),
+      label: CONTENT_TYPES[typeOf(entry)].label
     }
   }
 }

@@ -2,7 +2,6 @@
 import { ClientRouter } from "astro:transitions"
 import Analytics from "@vercel/analytics/astro"
 
-import { TerminalDialog } from "@/features/terminal"
 import BaseHead from "@/components/seo/BaseHead.astro"
 import JsonLd from "@/components/seo/JsonLd.astro"
 
@@ -57,14 +56,5 @@ const { jsonLd = [], ...seoProps } = Astro.props
     >
 
     <slot />
-
-    <TerminalDialog
-      client:only="react"
-      transition:persist="command-palette"
-    />
-
-    <script>
-      import "@/scripts/site-interactions"
-    </script>
   </body>
 </html>

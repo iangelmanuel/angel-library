@@ -1,0 +1,206 @@
+/* El Esmalte sobre Starlight: sus variables, nuestros valores. */
+@import "./tokens.css";
+
+:root,
+[data-theme="dark"] {
+  --sl-color-accent-low: var(--enamel-700);
+  --sl-color-accent: var(--primary);
+  --sl-color-accent-high: var(--blue-200);
+
+  --sl-color-white: var(--white);
+  --sl-color-gray-1: var(--blue-100);
+  --sl-color-gray-2: var(--gray-300);
+  --sl-color-gray-3: var(--gray-400);
+  --sl-color-gray-4: var(--gray-450);
+  --sl-color-gray-5: var(--enamel-700);
+  --sl-color-gray-6: var(--enamel-900);
+  --sl-color-gray-7: var(--enamel-950);
+  --sl-color-black: var(--background);
+
+  --sl-color-text: var(--reading-text);
+  --sl-color-text-accent: var(--blue-400);
+  --sl-color-text-invert: var(--enamel-950);
+  --sl-color-bg: var(--background);
+  --sl-color-bg-nav: var(--background);
+  --sl-color-bg-sidebar: var(--background);
+  --sl-color-bg-inline-code: var(--code-chrome);
+  --sl-color-bg-accent: var(--primary);
+
+  --sl-color-hairline: var(--thread);
+  --sl-color-hairline-light: var(--thread-soft);
+  --sl-color-hairline-shade: var(--thread);
+
+  --sl-color-backdrop-overlay: rgb(0 0 0 / 0.7);
+
+  --sl-font: var(--font-sans);
+  --sl-font-mono: var(--font-mono);
+
+  --sl-nav-height: 4.25rem;
+  --sl-content-width: 50rem;
+  --sl-sidebar-width: 18rem;
+
+  --sl-shadow-md: var(--shadow-field);
+  --sl-shadow-lg: var(--shadow-lifted);
+}
+
+/* Hilo más leve para listas largas. */
+:root {
+  --thread-soft: color-mix(in srgb, var(--blue-400) 10%, transparent);
+}
+
+/* ------------------------------------------------------------------ cromo */
+
+.site-title {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+header.header {
+  border-bottom: 1px solid var(--thread);
+  background: color-mix(in srgb, var(--background) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+/* Buscador: campo apenas teñido, sin canto. */
+site-search button[data-open-modal] {
+  border: 0;
+  border-radius: var(--radius-field);
+  background: color-mix(in oklab, var(--blue-800) 10%, #000000);
+  color: var(--gray-450);
+  transition: background-color var(--dur-fast) var(--ease-enamel);
+}
+site-search button[data-open-modal]:hover {
+  background: color-mix(in oklab, var(--blue-800) 20%, #000000);
+  color: var(--gray-300);
+}
+site-search kbd {
+  background: color-mix(in srgb, var(--blue-400) 10%, transparent);
+  color: var(--blue-300);
+}
+
+/* ----------------------------------------------------------------- menú */
+
+.sidebar-content {
+  scrollbar-color: var(--scrollbar) transparent;
+  scrollbar-width: thin;
+}
+
+.sidebar-content summary {
+  padding-block: 0.35rem;
+}
+
+.sidebar-content .large {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--blue-300);
+}
+
+.sidebar-content a {
+  border-radius: var(--radius-thin);
+  font-size: 0.8rem;
+  color: var(--gray-400);
+  transition:
+    background-color var(--dur-fast) var(--ease-enamel),
+    color var(--dur-fast) var(--ease-enamel);
+}
+
+.sidebar-content a:hover {
+  background: color-mix(in oklab, var(--blue-800) 16%, #000000);
+  color: var(--white);
+}
+
+/* Activa: campo lleno, sin canto. */
+.sidebar-content a[aria-current="page"],
+.sidebar-content a[aria-current="page"]:hover {
+  background: color-mix(in oklab, var(--blue-800) 34%, #000000);
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------------- lectura */
+
+.content-panel h1,
+.content-panel h2,
+.content-panel h3 {
+  letter-spacing: -0.02em;
+}
+
+.content-panel h1 {
+  color: var(--heading-primary);
+}
+.content-panel h2 {
+  color: var(--heading-secondary);
+}
+.content-panel h3 {
+  color: var(--heading-tertiary);
+}
+
+.sl-markdown-content {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--reading-link);
+  text-underline-offset: 0.25em;
+}
+
+.sl-markdown-content
+  :not(a, strong, em, del, span, input, code, pre)
+  + :is(h2, h3, h4) {
+  margin-top: 2.25rem;
+}
+
+/* Cita: campo tenue, sin filete. */
+.sl-markdown-content blockquote {
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--enamel-900);
+  padding: 0.9rem 1.15rem;
+  color: var(--gray-300);
+}
+
+/* Tabla: solo hilos. */
+.sl-markdown-content table {
+  font-variant-numeric: tabular-nums;
+}
+.sl-markdown-content th,
+.sl-markdown-content td {
+  border-bottom: 1px solid var(--thread);
+}
+
+/* Código inline con el mismo azul del bloque. */
+.sl-markdown-content code:not(:where(.not-content *)) {
+  border-radius: var(--radius-thin);
+  color: var(--white);
+}
+
+/* Bloques: fondo azul rebajado, sin canto. */
+.expressive-code .frame pre {
+  background: var(--code-bg);
+}
+.expressive-code .frame .copy button {
+  border-radius: var(--radius-thin);
+  background: color-mix(in srgb, var(--white) 7%, transparent);
+}
+
+/* --------------------------------------------------------------- índices */
+
+.right-sidebar-panel a {
+  color: var(--gray-400);
+}
+.right-sidebar-panel a[aria-current="true"] {
+  color: var(--blue-300);
+}
+
+/* Paginación: dos campos, sin cantos. */
+.pagination-links a {
+  border: 0;
+  border-radius: var(--radius-field);
+  background: color-mix(in oklab, var(--blue-800) 16%, #000000);
+  box-shadow: none;
+  transition: background-color var(--dur-fast) var(--ease-enamel);
+}
+.pagination-links a:hover {
+  background: color-mix(in oklab, var(--blue-800) 28%, #000000);
+}

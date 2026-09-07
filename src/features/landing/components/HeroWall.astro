@@ -28,9 +28,8 @@ const figures = [
 
       <p class="wall-hero__claim">{HERO.claim}</p>
 
-      <button
-        type="button"
-        data-open-search
+      <a
+        href="/buscar"
         class="wall-index"
         aria-label="Abrir el índice de búsqueda (Control K)"
       >
@@ -40,7 +39,7 @@ const figures = [
         />
         <span class="wall-index__text">{HERO.searchCommand}</span>
         <kbd class="kbd">ctrl K</kbd>
-      </button>
+      </a>
 
       <div class="wall-hero__actions">
         <a
