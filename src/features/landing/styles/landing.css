@@ -121,7 +121,7 @@
   .wall-hero__title {
     margin-top: 0;
     font-family: var(--font-display);
-    font-size: clamp(2.1rem, 4vw, 3.25rem);
+    font-size: clamp(2.6rem, 5.4vw, 4.875rem);
     font-weight: 600;
     letter-spacing: -0.045em;
     line-height: 1.02;
@@ -442,7 +442,7 @@
   .wall-title__text {
     margin-top: 0;
     font-family: var(--font-display);
-    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.12;
@@ -713,7 +713,7 @@
   }
   .wall-close__title {
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-size: clamp(2.1rem, 4.4vw, 3.625rem);
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1.05;

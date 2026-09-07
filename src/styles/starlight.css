@@ -39,13 +39,6 @@
   --sl-content-width: 50rem;
   --sl-sidebar-width: 16rem;
 
-  /* Títulos: una escala corta y legible, no titulares. */
-  --sl-text-h1: 2rem;
-  --sl-text-h2: 1.4rem;
-  --sl-text-h3: 1.15rem;
-  --sl-text-h4: 1rem;
-  --sl-text-h5: 0.95rem;
-
   --sl-shadow-md: var(--shadow-field);
   --sl-shadow-lg: var(--shadow-lifted);
 }
@@ -139,12 +132,8 @@ site-search kbd {
   background: color-mix(in oklab, var(--blue-800) 14%, #000000);
 }
 
-.sidebar-content ul.top-level > li + li {
-  margin-top: 0.75rem;
-}
-
 /* Las entradas cuelgan de un hilo, sin sangría dura. */
-.sidebar-content ul ul {
+.sidebar-content .sidebar-block__list ul {
   border-inline-start: 1px solid var(--thread);
   padding-inline-start: 0.6rem;
 }
@@ -413,4 +402,26 @@ site-search .pagefind-ui__button {
 
 site-search .pagefind-ui__button:hover {
   background: color-mix(in oklab, var(--blue-800) 32%, #000000);
+}
+
+/* Cabecera de la documentación: la misma caja que la de la portada. */
+header.header > .header {
+  max-width: 87.5rem;
+  margin-inline: auto;
+  gap: 1rem;
+}
+
+header.header .social-icons::after {
+  display: none;
+}
+
+/* El buscador ocupa el centro. */
+header.header > .header > div:nth-child(2) {
+  flex: 1;
+  justify-content: center;
+}
+
+header.header site-search {
+  width: 100%;
+  max-width: 22rem;
 }

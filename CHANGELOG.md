@@ -15,21 +15,21 @@ alinear la portada con la documentación.
 
 ### Cambiado
 
-- **El menú deja de tener el nivel de grupo**: las categorías pasan a ser el
-  primer nivel, como en el proyecto anterior, y cada una estrena **su icono** y
-  su color. El menú baja de 18rem a 16rem y sus tres niveles de texto se
-  reducen.
-- **Los títulos bajan de tamaño**: `h1` a 2rem, `h2` a 1.4rem, `h3` a 1.15rem en
-  la documentación; en la portada el titular pasa a `clamp(2.1rem, 4vw, 3.25rem)`
-  y los títulos de sección a `clamp(1.4rem, 2.2vw, 1.85rem)`.
+- **El menú se reorganiza**: las categorías son el primer nivel desplegable,
+  cada una con **su icono** y su color, y se agrupan bajo el rótulo de su bloque
+  (Construir, Producto, Flujo, Calidad, Referencia), que ya no es un
+  desplegable. El menú baja de 18rem a 16rem, sin viñetas y con las filas más
+  juntas.
 - **Los botones dejan de ser color pleno**: el CTA del hero, el del cierre y el
   enlace externo de una entrada usan el esmalte translúcido del sistema.
 - **El enlace externo de una entrada es ahora un botón** («Abrir el recurso»,
   «Repositorio», «Sitio oficial»), no un renglón de texto.
 - **Los bloques de código se separan del lienzo**: `--code-bg` sube del 20% al
   30% de esmalte y su rótulo del 32% al 44%.
-- **La cabecera de la portada copia la de la documentación**: mismo ancho, el
-  buscador centrado y los iconos sociales a la derecha.
+- **Las dos cabeceras se igualan**: mismo ancho (87.5rem), buscador centrado con
+  22rem de ancho máximo e iconos sociales a la derecha, tanto en la portada como
+  en la documentación. La de la documentación pierde el filete que separaba los
+  iconos.
 
 ### Verificado
 

@@ -70,8 +70,9 @@ entrada real lo declare es `getAllEntries()`.
 - `sidebar.ts` — construye el menú de Starlight leyendo lo anterior **y** las
   carpetas reales.
 
-El menú tiene dos niveles: **categoría → subcategoría → entradas**. Cada
-categoría lleva su icono y su color. Las entradas se listan una a una, ordenadas
+El menú agrupa las categorías bajo el rótulo de su bloque (Construir, Producto,
+Flujo, Calidad, Referencia) y de ahí bajan dos niveles: **categoría →
+subcategoría → entradas**. Cada categoría lleva su icono y su color. Las entradas se listan una a una, ordenadas
 por título; las privadas y los borradores no salen.
 
 ## 4. Leer y relacionar

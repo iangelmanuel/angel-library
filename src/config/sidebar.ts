@@ -6,6 +6,23 @@ import { getSubcategoriesForCategory } from "./subcategories"
 
 const DOCS_DIR = "src/content/docs"
 
+// Títulos de los bloques del menú.
+const GROUP_LABELS: Record<string, string> = {
+  construir: "Construir",
+  producto: "Producto",
+  flujo: "Flujo",
+  calidad: "Calidad",
+  referencia: "Referencia"
+}
+
+/** Los bloques y las categorías que lleva cada uno. */
+export const SIDEBAR_GROUPS = CATEGORY_GROUPS.map((group) => ({
+  label: GROUP_LABELS[group.id] ?? group.id,
+  categories: (group.categories as readonly CategoryId[]).map(
+    (category) => CATEGORIES[category].label
+  )
+}))
+
 /** Icono y color de cada categoría, por su etiqueta. */
 export const CATEGORY_BY_LABEL: Record<
   string,

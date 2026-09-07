@@ -5,64 +5,76 @@ import SidebarPersister from "@astrojs/starlight/components/SidebarPersister.ast
 import SidebarRestorePoint from "@astrojs/starlight/components/SidebarRestorePoint.astro"
 import SidebarSublist from "@astrojs/starlight/components/SidebarSublist.astro"
 import Icon from "@/components/shared/Icon.astro"
-import { CATEGORY_BY_LABEL } from "@/config/sidebar"
+import { CATEGORY_BY_LABEL, SIDEBAR_GROUPS } from "@/config/sidebar"
 
-// Igual que el menú de Starlight, con el icono de la categoría.
-
-type Entry = { type: string; isCurrent?: boolean; entries?: Entry[] }
+// El menú de Starlight, en bloques y con el icono de cada categoría.
 
 const { sidebar } = Astro.locals.starlightRoute
+
+type Entry = (typeof sidebar)[number]
+
+const byLabel = new Map(sidebar.map((entry) => [entry.label, entry]))
+
+const blocks = SIDEBAR_GROUPS.map((group) => ({
+  label: group.label,
+  categories: group.categories
+    .map((label) => byLabel.get(label))
+    .filter((entry): entry is Entry => entry !== undefined)
+})).filter((block) => block.categories.length > 0)
 
 /** ¿Está la página actual dentro de esta rama? */
 function hasCurrent(entries: Entry[]): boolean {
   return entries.some((entry) =>
-    entry.type === "link" ? entry.isCurrent : hasCurrent(entry.entries ?? [])
+    entry.type === "link" ? entry.isCurrent : hasCurrent(entry.entries)
   )
 }
 ---
 
 <SidebarPersister>
-  <ul class="top-level">
+  <ul class="top-level sidebar-blocks">
     {
-      sidebar.map((entry) =>
-        entry.type === "group" ? (
-          <li>
-            <details open={hasCurrent(entry.entries as Entry[])}>
-              <summary
-                style={`--category-accent: var(${CATEGORY_BY_LABEL[entry.label]?.color ?? "--blue-400"})`}
-              >
-                <span class="group-label">
-                  <Icon
-                    name={CATEGORY_BY_LABEL[entry.label]?.icon ?? "book-open"}
-                    class="category-icon"
-                  />
-                  <span class="large">{entry.label}</span>
-                </span>
-                <StarlightIcon
-                  name="right-caret"
-                  class="caret"
-                  size="1.25rem"
-                />
-              </summary>
-              <SidebarRestorePoint />
-              <SidebarSublist
-                sublist={entry.entries}
-                nested
-              />
-            </details>
-          </li>
-        ) : (
-          <li>
-            <a
-              href={entry.href}
-              aria-current={entry.isCurrent ? "page" : undefined}
-              class="large"
-            >
-              <span>{entry.label}</span>
-            </a>
-          </li>
-        )
-      )
+      blocks.map((block) => (
+        <li class="sidebar-block">
+          <span class="sidebar-block__label">{block.label}</span>
+          <ul class="sidebar-block__list">
+            {block.categories.map((category) => (
+              <li>
+                <details
+                  open={
+                    category.type === "group" && hasCurrent(category.entries)
+                  }
+                >
+                  <summary
+                    style={`--category-accent: var(${CATEGORY_BY_LABEL[category.label]?.color ?? "--blue-400"})`}
+                  >
+                    <span class="group-label">
+                      <Icon
+                        name={
+                          CATEGORY_BY_LABEL[category.label]?.icon ?? "book-open"
+                        }
+                        class="category-icon"
+                      />
+                      <span class="large">{category.label}</span>
+                    </span>
+                    <StarlightIcon
+                      name="right-caret"
+                      class="caret"
+                      size="1.25rem"
+                    />
+                  </summary>
+                  <SidebarRestorePoint />
+                  {category.type === "group" && (
+                    <SidebarSublist
+                      sublist={category.entries}
+                      nested
+                    />
+                  )}
+                </details>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
     }
   </ul>
 </SidebarPersister>
@@ -72,6 +84,37 @@ function hasCurrent(entries: Entry[]): boolean {
 </div>
 
 <style>
+  .sidebar-blocks,
+  .sidebar-block__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sidebar-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .sidebar-block__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    margin-top: 0.3rem;
+  }
+
+  /* El bloque es un rótulo, no un desplegable. */
+  .sidebar-block__label {
+    display: block;
+    padding-inline: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue-600);
+  }
+
   .category-icon {
     width: 0.9rem;
     height: 0.9rem;
