@@ -1,5 +1,6 @@
 /* El Esmalte sobre Starlight: sus variables, nuestros valores. */
 @import "./tokens.css";
+@import "./chrome.css";
 
 :root,
 [data-theme="dark"] {
@@ -84,6 +85,10 @@ site-search button[data-open-modal]:hover {
 site-search button[data-open-modal] > svg {
   color: var(--blue-400);
 }
+site-search button[data-open-modal] > kbd {
+  margin-left: auto;
+}
+
 site-search button[data-open-modal] kbd {
   background: color-mix(in srgb, var(--blue-400) 12%, transparent);
   color: var(--blue-300);

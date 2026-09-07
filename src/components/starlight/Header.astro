@@ -13,7 +13,7 @@ const NAV = [
 ]
 ---
 
-<div class="header chrome-header">
+<div class="header chrome-header__inner">
   <Logo />
 
   <nav class="chrome-header__nav">
@@ -40,56 +40,3 @@ const NAV = [
     </div>
   </div>
 </div>
-
-<style>
-  .chrome-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    max-width: 87.5rem;
-    height: 100%;
-    margin-inline: auto;
-  }
-
-  .chrome-header__nav {
-    display: none;
-    align-items: center;
-    gap: 1.5rem;
-    font-size: 0.8rem;
-    color: var(--gray-400);
-  }
-
-  .chrome-header__nav a {
-    text-decoration: none;
-    color: inherit;
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-
-  .chrome-header__nav a:hover,
-  .chrome-header__nav a.is-current {
-    color: var(--white);
-  }
-
-  .chrome-header__right {
-    align-items: center;
-    gap: 0.9rem;
-    margin-left: auto;
-  }
-
-  .chrome-header__search {
-    flex: 0 0 16rem;
-    width: 16rem;
-  }
-
-  .chrome-header__social {
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 50rem) {
-    .chrome-header__nav {
-      display: flex;
-    }
-  }
-</style>

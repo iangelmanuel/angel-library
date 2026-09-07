@@ -21,70 +21,6 @@
     padding-inline: 1.5rem;
   }
 
-  /* ---------------------------------------------------------------- cabecera */
-
-  .wall-header {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    border-bottom: 1px solid var(--thread);
-    background: color-mix(in srgb, var(--background) 88%, transparent);
-    backdrop-filter: blur(12px);
-  }
-  .wall-header__inner {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    width: 100%;
-    max-width: 87.5rem;
-    height: 3.75rem;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-  .wall-header__nav {
-    display: none;
-    align-items: center;
-    gap: 1.5rem;
-    font-size: 0.8rem;
-    color: var(--muted-foreground);
-  }
-  /* El buscador va a la derecha, junto a las redes. */
-  .wall-header__search {
-    width: 100%;
-    max-width: 16rem;
-    margin-left: auto;
-    background: color-mix(in oklab, var(--blue-800) 18%, #000000);
-  }
-  .wall-header__search:hover,
-  .wall-header__search:focus-visible {
-    background: color-mix(in oklab, var(--blue-800) 30%, #000000);
-  }
-  .wall-header__repo {
-    color: var(--white);
-  }
-  .wall-header__repo:hover {
-    color: var(--blue-400);
-  }
-  .wall-header__nav a {
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-header__nav a:hover,
-  .wall-header__nav a:focus-visible {
-    color: var(--white);
-  }
-  .wall-header__search {
-    display: none;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .wall-header__repo {
-    color: var(--muted-foreground);
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-header__repo:hover {
-    color: var(--white);
-  }
-
   /* ------------------------------------------------------------------- hero */
 
   /* El hero ocupa la altura de la ventana: el buscador y las cifras caben
@@ -378,13 +314,13 @@
     height: 100%;
     min-height: 3.25rem;
     border-radius: var(--radius-field);
-    background: color-mix(in oklab, var(--field-accent) 12%, #000000);
+    background: color-mix(in oklab, var(--field-accent) 17%, #000000);
     padding-inline: 0.9rem;
     transition: background-color var(--dur-fast) var(--ease-enamel);
   }
   .wall-entry:hover,
   .wall-entry:focus-visible {
-    background: color-mix(in oklab, var(--field-accent) 22%, #000000);
+    background: color-mix(in oklab, var(--field-accent) 27%, #000000);
   }
   .wall-entry__chip {
     flex-shrink: 0;
@@ -823,9 +759,6 @@
   /* --------------------------------------------------------- adaptación */
 
   @media (min-width: 640px) {
-    .wall-header__nav {
-      display: flex;
-    }
     .wall-figures {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -839,9 +772,6 @@
   }
 
   @media (min-width: 1024px) {
-    .wall-header__search {
-      display: inline-flex;
-    }
     .wall-hero__inner {
       grid-template-columns: minmax(0, 1fr) 26.25rem;
       gap: 5.5rem;
@@ -858,7 +788,7 @@
 
   @media (max-width: 639px) {
     .wall-shell,
-    .wall-header__inner,
+    .chrome-header__inner,
     .wall-footer__inner {
       padding-inline: 1.25rem;
     }

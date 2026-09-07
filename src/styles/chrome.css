@@ -1,0 +1,123 @@
+/* Cabecera del sitio: la misma pieza en la portada y en la documentación. */
+
+.chrome-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--thread);
+  background: color-mix(in srgb, var(--background) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.chrome-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 87.5rem;
+  height: 3.75rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.chrome-header__nav {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+
+.chrome-header__nav a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--dur-fast) var(--ease-enamel);
+}
+
+.chrome-header__nav a:hover,
+.chrome-header__nav a:focus-visible,
+.chrome-header__nav a.is-current {
+  color: var(--white);
+}
+
+.chrome-header__right {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-left: auto;
+}
+
+.chrome-header__search {
+  flex: 0 0 16rem;
+  width: 16rem;
+}
+
+/* Redes: blancas, azules al pasar. */
+.chrome-header__social {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chrome-header__social a,
+.chrome-social a {
+  color: var(--white);
+  transition: color var(--dur-fast) var(--ease-enamel);
+}
+
+.chrome-header__social a:hover,
+.chrome-header__social a:focus-visible,
+.chrome-social a:hover,
+.chrome-social a:focus-visible {
+  color: var(--blue-400);
+}
+
+/* El campo de búsqueda: el del hero, en pequeño. */
+.chrome-search {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.25rem;
+  border-radius: var(--radius-field);
+  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
+  padding: 0 0.5rem 0 0.85rem;
+  font-size: 0.82rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-enamel);
+}
+
+.chrome-search:hover,
+.chrome-search:focus-visible {
+  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
+}
+
+.chrome-search svg {
+  flex-shrink: 0;
+  color: var(--blue-400);
+}
+
+/* La tecla se ancla al borde derecho. */
+.chrome-search__text {
+  flex: 1;
+  text-align: left;
+}
+
+.chrome-search .kbd {
+  margin-left: auto;
+  background: color-mix(in srgb, var(--blue-400) 12%, transparent);
+  color: var(--blue-300);
+}
+
+@media (min-width: 50rem) {
+  .chrome-header__nav {
+    display: flex;
+  }
+}
+
+@media (max-width: 49.99rem) {
+  .chrome-header__search {
+    flex: 1;
+    width: auto;
+  }
+}

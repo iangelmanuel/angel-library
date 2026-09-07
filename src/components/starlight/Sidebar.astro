@@ -30,6 +30,21 @@ function hasCurrent(entries: Entry[]): boolean {
 }
 ---
 
+<div class="sidebar-tools">
+  <button
+    type="button"
+    class="sidebar-tools__button"
+    data-collapse-sidebar
+    title="Contraer todas las categorías"
+    aria-label="Contraer todas las categorías"
+  >
+    <Icon
+      name="chevrons-down-up"
+      class="size-4"
+    />
+  </button>
+</div>
+
 <SidebarPersister>
   <ul class="top-level sidebar-blocks">
     {
@@ -84,6 +99,18 @@ function hasCurrent(entries: Entry[]): boolean {
 </div>
 
 <script>
+  // Contraer todo: un clic cierra cada categoría abierta.
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null
+    if (!target?.closest("[data-collapse-sidebar]")) return
+
+    document
+      .querySelectorAll<HTMLDetailsElement>(".sidebar-content details[open]")
+      .forEach((details) => {
+        details.open = false
+      })
+  })
+
   // Una categoría abierta a la vez: al abrir una, se cierran las demás.
   function onlyOneOpen(event: Event) {
     const opened = event.target as HTMLDetailsElement
@@ -105,6 +132,33 @@ function hasCurrent(entries: Entry[]): boolean {
 </script>
 
 <style>
+  .sidebar-tools {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.35rem;
+  }
+
+  .sidebar-tools__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 0;
+    border-radius: var(--radius-thin);
+    background: transparent;
+    color: var(--gray-450);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-fast) var(--ease-enamel),
+      color var(--dur-fast) var(--ease-enamel);
+  }
+
+  .sidebar-tools__button:hover {
+    background: color-mix(in oklab, var(--blue-800) 24%, #000000);
+    color: var(--white);
+  }
+
   .sidebar-blocks,
   .sidebar-block__list {
     margin: 0;

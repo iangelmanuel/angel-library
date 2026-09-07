@@ -1,59 +1,74 @@
 ---
-import Logo from "@/components/shared/Logo.astro"
 import Icon from "@/components/shared/Icon.astro"
+import Logo from "@/components/shared/Logo.astro"
 import { SITE } from "@/config/site"
+
+// La misma cabecera que la documentación.
+
+const NAV = [
+  { label: "Inicio", href: "/" },
+  { label: "Categorías", href: "/categories" },
+  { label: "Tipos", href: "/tipos/guides" },
+  { label: "Tags", href: "/tags" }
+]
+
+const SOCIAL = [
+  { label: "GitHub", icon: "brand-github", href: SITE.social.github },
+  { label: "X", icon: "brand-x", href: SITE.social.x }
+]
 ---
 
-<header class="wall-header">
-  <div class="wall-header__inner">
+<header class="chrome-header">
+  <div class="chrome-header__inner">
     <Logo />
 
     <nav
-      class="wall-header__nav"
-      aria-label="Secciones de la página"
+      class="chrome-header__nav"
+      aria-label="Secciones de la biblioteca"
     >
-      <a href="#la-ruta">La ruta</a>
-      <a href="#recorrido">Recorrido</a>
-      <a href="#tipos">Tipos</a>
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            class:list={{ "is-current": item.href === "/" }}
+          >
+            {item.label}
+          </a>
+        ))
+      }
     </nav>
 
-    <a
-      href="/buscar"
-      class="wall-header__search chrome-search"
-      aria-label="Abrir la búsqueda (Control K)"
-    >
-      <Icon
-        name="search"
-        class="size-3.5"
-      />
-      <span class="wall-header__search-text">Buscar</span>
-      <kbd class="kbd">ctrl K</kbd>
-    </a>
+    <div class="chrome-header__right">
+      <a
+        href="/buscar"
+        class="chrome-header__search chrome-search"
+        aria-label="Abrir la búsqueda"
+      >
+        <Icon
+          name="search"
+          class="size-4"
+        />
+        <span class="chrome-search__text">Buscar</span>
+        <kbd class="kbd">ctrl K</kbd>
+      </a>
 
-    <a
-      href={SITE.social.x}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="wall-header__repo"
-      aria-label="Ver el perfil de X (Twitter)"
-    >
-      <Icon
-        name="brand-x"
-        class="size-4"
-      />
-    </a>
-
-    <a
-      href={SITE.social.github}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="wall-header__repo"
-      aria-label="Ver el repositorio en GitHub"
-    >
-      <Icon
-        name="brand-github"
-        class="size-4"
-      />
-    </a>
+      <div class="chrome-header__social">
+        {
+          SOCIAL.map((item) => (
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={item.label}
+            >
+              <Icon
+                name={item.icon}
+                class="size-4"
+              />
+            </a>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </header>

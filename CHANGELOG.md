@@ -8,6 +8,36 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.5] — 2026-09-06
+
+La cabecera pasa a ser una sola pieza compartida y el menú recupera el contraer.
+
+### Añadido
+
+- `src/styles/chrome.css`: los estilos de la cabecera y del campo de búsqueda,
+  cargados por la portada y por la documentación. Las dos cabeceras dejan de
+  tener estilos propios.
+- El menú recupera el **contraer todo**, ahora como botón de icono discreto
+  arriba a la derecha, además del acordeón que ya cerraba las hermanas.
+
+### Cambiado
+
+- La cabecera de la portada es idéntica a la de la documentación: mismos
+  atajos (Inicio, Categorías, Tipos, Tags), mismo buscador de 16rem y las redes
+  a la derecha.
+- La tecla `ctrl K` se ancla al borde derecho del campo de búsqueda, en los dos
+  sitios.
+- Los iconos de X y GitHub van en blanco y pasan a azul al posarse, tanto en la
+  cabecera como en el pie.
+- El color de categoría sube de 12% a 17% (27% al pasar) en el índice de la
+  portada y en el muro de `/categories`: se nota, sin hacer ruido.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Cabeceras, menú, pie y búsqueda de entradas privadas revisados sobre el build.
+
 ## [0.29.4] — 2026-09-06
 
 Las dos cabeceras pasan a ser la misma pieza, el menú se compacta solo y el
@@ -1923,7 +1953,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.4...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.5...HEAD
+[0.29.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.5
 [0.29.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.4
 [0.29.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.3
 [0.29.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.2
