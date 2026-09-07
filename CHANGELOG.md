@@ -8,6 +8,45 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.2] — 2026-09-06
+
+Arregla el menú, iguala las dos cabeceras y termina de quitar código muerto.
+
+### Corregido
+
+- La flecha de una categoría **gira al abrirse**: la rotación de Starlight está
+  en estilos con ámbito y el menú propio no la heredaba.
+- Doble clic sobre una categoría ya no selecciona su texto (`user-select: none`).
+- El botón del buscador vuelve a tener fondo: esmalte al 22%, 34% al pasar.
+
+### Añadido
+
+- **Atajos en la cabecera de la documentación**: Inicio, Categorías, Tipos y
+  Tags, con la página actual marcada. La cabecera pasa a ser un override propio
+  (`src/components/starlight/Header.astro`) e iguala a la de la portada.
+- **«Contraer todo»** en el menú: cierra de golpe todas las categorías abiertas.
+- El enlace externo de una entrada usa el **botón principal** del sitio, con un
+  icono SVG de «abrir en otra pestaña» delante del texto.
+
+### Cambiado
+
+- El azul sube un punto en todo el sistema: `--glaze` 20% → 26%, `--glaze-lit`
+  30% → 36%, bloques de código 30% → 34% y sus rótulos 44% → 48%; las tarjetas
+  de listado, relaciones y categorías suben en la misma proporción.
+
+### Eliminado
+
+- Funciones sin consumidores desde la migración: `getCategorySections`,
+  `groupEntriesByCategory` y `stripMarkdown` de `lib/content.ts`; `articleLd` y
+  `breadcrumbLd` de `lib/seo.ts`; `CONTENT_TYPE_LIST` de `config/content-types.ts`.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Menú (flecha, selección, contraer), cabecera, buscador y botón de recurso
+  revisados sobre el build.
+
 ## [0.29.1] — 2026-09-06
 
 Ajusta la escala tipográfica y el peso del color tras la migración, y termina de
@@ -1819,7 +1858,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.1...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.2...HEAD
+[0.29.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.2
 [0.29.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.1
 [0.29.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.0
 [0.28.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.28.0

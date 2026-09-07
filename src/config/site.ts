@@ -1,8 +1,5 @@
 /** Configuración de identidad y SEO global del sitio. */
 
-/** Contratos de `SERVICES` y `FAQ_ITEMS`: se conservan vacíos a propósito —
-    la guía «Configuración global del sitio» los documenta como exports
-    hermanos de `SITE`, y el JSON-LD de servicios y FAQ los espera aquí. */
 export interface Service {
   id: string
   eyebrow: string

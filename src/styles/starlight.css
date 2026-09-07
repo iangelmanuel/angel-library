@@ -61,17 +61,20 @@ header.header {
   backdrop-filter: blur(12px);
 }
 
-/* Buscador: campo apenas teñido, sin canto. */
+/* Buscador: campo teñido, sin canto. */
+header.header site-search button[data-open-modal],
 site-search button[data-open-modal] {
+  width: 100%;
   border: 0;
   border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 10%, #000000);
-  color: var(--gray-450);
+  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
+  color: var(--gray-400);
   transition: background-color var(--dur-fast) var(--ease-enamel);
 }
+header.header site-search button[data-open-modal]:hover,
 site-search button[data-open-modal]:hover {
-  background: color-mix(in oklab, var(--blue-800) 20%, #000000);
-  color: var(--gray-300);
+  background: color-mix(in oklab, var(--blue-800) 34%, #000000);
+  color: var(--white);
 }
 site-search kbd {
   background: color-mix(in srgb, var(--blue-400) 10%, transparent);
@@ -95,6 +98,17 @@ site-search kbd {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  user-select: none;
+}
+
+/* La flecha gira al abrir. */
+.sidebar-content details > summary .caret {
+  flex-shrink: 0;
+  transition: transform var(--dur-fast) var(--ease-enamel);
+}
+
+.sidebar-content details[open] > summary .caret {
+  transform: rotate(90deg);
 }
 
 .sidebar-content .group-label {

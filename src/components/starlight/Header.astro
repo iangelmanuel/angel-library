@@ -1,0 +1,98 @@
+---
+import Search from "@astrojs/starlight/components/Search.astro"
+import SiteTitle from "@astrojs/starlight/components/SiteTitle.astro"
+import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro"
+
+// La misma cabecera que la portada: marca, atajos, buscador e iconos.
+
+const NAV = [
+  { label: "Inicio", href: "/" },
+  { label: "Categorías", href: "/categories" },
+  { label: "Tipos", href: "/tipos/guides" },
+  { label: "Tags", href: "/tags" }
+]
+---
+
+<div class="header chrome-header">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle />
+  </div>
+
+  <nav class="chrome-header__nav">
+    {
+      NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={{
+            "is-current": Astro.url.pathname === item.href
+          }}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="chrome-header__search print:hidden">
+    <Search />
+  </div>
+
+  <div class="chrome-header__social sl-flex print:hidden">
+    <SocialIcons />
+  </div>
+</div>
+
+<style>
+  .chrome-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 87.5rem;
+    height: 100%;
+    margin-inline: auto;
+  }
+
+  .title-wrapper {
+    overflow: clip;
+    min-width: 0;
+    padding: 0.25rem;
+    margin: -0.25rem;
+  }
+
+  .chrome-header__nav {
+    display: none;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--gray-400);
+  }
+
+  .chrome-header__nav a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+
+  .chrome-header__nav a:hover,
+  .chrome-header__nav a.is-current {
+    color: var(--white);
+  }
+
+  .chrome-header__search {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chrome-header__social {
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (min-width: 50rem) {
+    .chrome-header__nav {
+      display: flex;
+    }
+  }
+</style>

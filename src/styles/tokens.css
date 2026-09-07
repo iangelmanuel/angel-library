@@ -76,8 +76,8 @@
   /* Código: negro esmaltado. El cuerpo se lee azul —leve, pero azul— y su
      rótulo va un paso por encima: dos alturas del mismo color, nunca dos
      colores distintos. */
-  --code-bg: color-mix(in oklab, var(--blue-800) 30%, #000000);
-  --code-chrome: color-mix(in oklab, var(--blue-800) 44%, #000000);
+  --code-bg: color-mix(in oklab, var(--blue-800) 34%, #000000);
+  --code-chrome: color-mix(in oklab, var(--blue-800) 48%, #000000);
 
   /* Lectura. La medida es fija; los márgenes se recortan, la medida no. */
   --reading-measure: 68ch;
@@ -137,8 +137,8 @@
   /* El esmalte: un campo se rellena mezclando su color contra el negro en
      oklab. Rebajado a propósito — en reposo 20%, encendido 30%: se lee el
      color, pero veinte campos juntos no saturan la pantalla. */
-  --glaze: 20%;
-  --glaze-lit: 30%;
+  --glaze: 26%;
+  --glaze-lit: 36%;
 
   /* Cantos: finos, nunca cero, nunca de píldora. */
   --radius: 4px;

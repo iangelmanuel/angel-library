@@ -135,4 +135,3 @@ export const CONTENT_TYPES = withIds(CONTENT_TYPE_DEFINITIONS) as Record<
   ContentTypeMeta
 >
 export const CONTENT_TYPE_IDS = keysOf(CONTENT_TYPE_DEFINITIONS)
-export const CONTENT_TYPE_LIST = CONTENT_TYPE_IDS.map((id) => CONTENT_TYPES[id])

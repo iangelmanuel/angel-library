@@ -63,44 +63,7 @@ export interface ArticleLdInput {
   dateModified?: Date
 }
 
-/** Información estructurada de una entrada Markdown. */
-export function articleLd({
-  title,
-  description,
-  url,
-  dateModified
-}: ArticleLdInput) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "@id": `${url}#article`,
-    headline: title,
-    description,
-    url,
-    mainEntityOfPage: url,
-    image: absoluteUrl(SITE.seo.image),
-    inLanguage: SITE.seo.locale,
-    author: { "@id": `${SITE_URL}/#organization` },
-    publisher: { "@id": `${SITE_URL}/#organization` },
-    ...(dateModified && { dateModified: dateModified.toISOString() })
-  } as const
-}
-
 export interface BreadcrumbItem {
   name: string
   url: string
-}
-
-/** Ruta de navegación que acompaña a las páginas de contenido. */
-export function breadcrumbLd(items: readonly BreadcrumbItem[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: item.url
-    }))
-  } as const
 }

@@ -38,6 +38,7 @@ export default defineConfig({
       components: {
         // Relaciones al pie y sin selector de tema.
         Footer: "./src/components/starlight/Footer.astro",
+        Header: "./src/components/starlight/Header.astro",
         PageTitle: "./src/components/starlight/PageTitle.astro",
         Sidebar: "./src/components/starlight/Sidebar.astro",
         ThemeSelect: "./src/components/starlight/ThemeSelect.astro"

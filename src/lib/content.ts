@@ -144,59 +144,6 @@ export function getCategoryEntries(all: AnyEntry[], category: CategoryId) {
   }
 }
 
-interface CategorySection {
-  label: string
-  icon?: string
-  description?: string
-  entries: AnyEntry[]
-}
-
-/** Secciones de /categories/<id>. */
-export function getCategorySections(
-  all: AnyEntry[],
-  category: CategoryId
-): { entries: AnyEntry[]; sections: CategorySection[] } {
-  const { entries, groups, ungrouped } = getCategoryEntries(all, category)
-  const loose = (label: string, description: string): CategorySection[] =>
-    ungrouped.length > 0
-      ? [{ label, icon: "book-open", description, entries: ungrouped }]
-      : []
-
-  if (category === "resources") {
-    return {
-      entries,
-      sections: [
-        ...loose(
-          "Guías y fundamentos",
-          "Cómo elegir y evaluar un recurso antes de meterlo en un proyecto."
-        ),
-        ...groups.map((group) => ({ ...group, icon: "bookmark" }))
-      ]
-    }
-  }
-
-  return {
-    entries,
-    sections: [
-      ...groups,
-      ...loose(
-        "Fundamentos y referencias",
-        "Contenido de la categoría que no pertenece a ninguna subcategoría."
-      )
-    ]
-  }
-}
-
-/** Agrupa por categoría. */
-export function groupEntriesByCategory(entries: AnyEntry[]) {
-  return CATEGORY_LIST.map((meta) => ({
-    meta,
-    entries: sortByLearningPath(
-      entries.filter((entry) => categoryOf(entry) === meta.id)
-    )
-  })).filter((group) => group.entries.length > 0)
-}
-
 /** Categorías con contenido y su conteo. */
 export function getCategoryCounts(entries: AnyEntry[]) {
   return CATEGORY_LIST.map((meta) => ({
@@ -242,15 +189,4 @@ const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
 
 export function formatDate(date: Date): string {
   return dateFormatter.format(date)
-}
-
-/** Markdown a texto plano. */
-export function stripMarkdown(body: string): string {
-  return body
-    .replace(/```(\w*)\n?/g, " ")
-    .replace(/!\[([^\]]*)\]\([^)]*\)/g, " ")
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/[#>*_`|~-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
 }

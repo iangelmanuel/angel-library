@@ -30,6 +30,16 @@ function hasCurrent(entries: Entry[]): boolean {
 }
 ---
 
+<div class="sidebar-tools">
+  <button
+    type="button"
+    class="sidebar-tools__collapse"
+    data-collapse-sidebar
+  >
+    Contraer todo
+  </button>
+</div>
+
 <SidebarPersister>
   <ul class="top-level sidebar-blocks">
     {
@@ -83,7 +93,48 @@ function hasCurrent(entries: Entry[]): boolean {
   <MobileMenuFooter />
 </div>
 
+<script>
+  // Cierra todas las categorías abiertas del menú.
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null
+    if (!target?.closest("[data-collapse-sidebar]")) return
+
+    document
+      .querySelectorAll<HTMLDetailsElement>(".sidebar-content details[open]")
+      .forEach((details) => {
+        details.open = false
+      })
+  })
+</script>
+
 <style>
+  .sidebar-tools {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+  }
+
+  .sidebar-tools__collapse {
+    border: 0;
+    border-radius: var(--radius-thin);
+    background: transparent;
+    padding: 0.2rem 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-450);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-fast) var(--ease-enamel),
+      color var(--dur-fast) var(--ease-enamel);
+  }
+
+  .sidebar-tools__collapse:hover {
+    background: color-mix(in oklab, var(--blue-800) 20%, #000000);
+    color: var(--white);
+  }
+
   .sidebar-blocks,
   .sidebar-block__list {
     margin: 0;

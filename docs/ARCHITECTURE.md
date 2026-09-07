@@ -116,8 +116,10 @@ En `src/components/starlight/`:
 - `PageTitle.astro` — bajo el título añade los metadatos con sus enlaces:
   categoría, subcategoría, tipo, tags, comando o instalación, campos propios del
   tipo, tecnologías, enlaces externos y avisos.
-- `Sidebar.astro` — el menú de Starlight con el icono y el color de cada
-  categoría en el primer nivel.
+- `Header.astro` — la cabecera: marca, atajos (Inicio, Categorías, Tipos, Tags),
+  buscador centrado e iconos sociales.
+- `Sidebar.astro` — el menú en bloques, con el icono y el color de cada categoría
+  y el botón «Contraer todo».
 - `Footer.astro` — añade las relaciones de la entrada sobre el pie normal.
 - `ThemeSelect.astro` — vacío: el sitio es solo oscuro.
 

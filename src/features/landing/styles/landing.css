@@ -150,7 +150,7 @@
     min-height: 3.875rem;
     margin-top: 2.5rem;
     border-radius: var(--radius-field);
-    background: color-mix(in oklab, var(--blue-800) 16%, #000000);
+    background: color-mix(in oklab, var(--blue-800) 22%, #000000);
     padding: 0 0.875rem 0 1.125rem;
     text-align: left;
     cursor: pointer;
@@ -161,7 +161,7 @@
   }
   .wall-index:hover,
   .wall-index:focus-visible {
-    background: color-mix(in oklab, var(--blue-800) 28%, #000000);
+    background: color-mix(in oklab, var(--blue-800) 36%, #000000);
   }
   .wall-index__icon {
     flex-shrink: 0;
