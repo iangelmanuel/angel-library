@@ -1,52 +1,105 @@
+<div align="center">
+
 # angel.library
 
-`angel.library` es un segundo cerebro técnico para desarrolladores: una biblioteca personal para aprender desde cero, recordar conceptos rápidamente y reutilizar soluciones en proyectos reales.
+**Segundo cerebro técnico para desarrollo web.**
 
-El sitio está construido con Astro y organiza el conocimiento por contexto, no como una colección plana de enlaces:
+Una biblioteca personal de conocimiento sobre desarrollo de software: guías,
+comandos, recetas y recursos organizados por contexto, listos para copiar y
+reutilizar en proyectos reales.
 
-- General: HTML moderno, CSS avanzado y JavaScript.
-- Frontend: Astro, React y Next.js.
-- Backend: Node.js, Express y APIs.
-- Bases de datos, arquitectura, DevOps, Git & GitHub, terminal, seguridad, performance, accesibilidad, testing, UI/UX, SEO, IA, herramientas y recursos.
+[**Ver el sitio →**](https://angel-library.vercel.app)
 
-## Desarrollo local
+[![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build)
+[![Starlight](https://img.shields.io/badge/Starlight-0.42-4F46E5?logo=astro&logoColor=white)](https://starlight.astro.build)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Licencia MIT](https://img.shields.io/badge/c%C3%B3digo-MIT-005187)](LICENSE)
 
-Requisitos: Node.js `22.12.0` o superior y pnpm `11`.
+</div>
+
+---
+
+## Qué es
+
+**718 entradas** repartidas en **23 categorías**, publicadas como sitio estático
+en español. No es un blog: cada entrada existe para que puedas recuperar algo
+concreto —un comando, un patrón, una receta— sin releer un artículo entero.
+
+- **La carpeta es la clasificación.** `frontend/astro/astro-islands.md` vive en
+  la categoría Frontend, subcategoría Astro, y se publica en esa misma ruta.
+  Mover el archivo lo recategoriza: no hay base de datos ni panel.
+- **Catorce tipos editoriales.** Cada entrada declara si es una guía, un
+  comando, una receta, un recurso… y el tipo decide qué campos son obligatorios.
+- **Todo se cruza.** Tags, relaciones explícitas, retroenlaces automáticos y
+  afinidad por etiquetas conectan entradas de cualquier categoría.
+- **El build es la red de seguridad.** Una carpeta desconocida, una referencia
+  rota o un enlace interno muerto detienen la compilación.
+
+## Stack
+
+[Astro](https://astro.build) en modo estático con
+[Starlight](https://starlight.astro.build) para la documentación,
+[Pagefind](https://pagefind.app) para la búsqueda,
+[Expressive Code](https://expressive-code.com) para los bloques de código y
+Tailwind v4 en la portada. Sin backend y sin JavaScript de framework en cliente.
+
+## Empezar
+
+Requisitos: Node.js `>=22.12` y pnpm `11`.
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Comandos útiles:
+| Comando               | Qué hace                                          |
+| --------------------- | ------------------------------------------------- |
+| `pnpm dev`            | Servidor de desarrollo                            |
+| `pnpm build`          | Sitio estático de producción (y sus validaciones) |
+| `pnpm preview`        | Sirve la salida generada                          |
+| `pnpm check`          | Diagnósticos de Astro y TypeScript                |
+| `pnpm eslint`         | Linter                                            |
+| `pnpm prettier:check` | Formato                                           |
 
-```bash
-pnpm check             # valida Astro, TypeScript y Content Collections
-pnpm build             # genera el sitio estático de producción
-pnpm preview           # sirve la salida generada localmente
+## Añadir una entrada
+
+Crea un `.md` dentro de `src/content/docs/<categoría>/<subcategoría>/` con su
+frontmatter mínimo:
+
+```markdown
+---
+title: View Transitions en Astro
+description: Transiciones entre páginas sin volverse una SPA.
+type: guides
+tags: [astro, navegación]
+---
 ```
 
-El contenido vive en `src/content/`. La navegación, categorías, iconos y orden editorial se centralizan en `src/config/site.ts`. El sitio genera las rutas y los índices automáticamente.
+El menú, los listados por tipo y las páginas de tags se actualizan solos. El
+paso a paso completo está en [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md).
 
-Para añadir una entrada basta con crear un `.md` en `src/content/<categoría>/<subcategoría>/`. La [guía para añadir contenido](docs/CONTENT_GUIDE.md) explica el frontmatter de cada tipo, cómo relacionar entradas y cómo ampliar la estructura editorial. La [documentación de arquitectura](docs/ARCHITECTURE.md) describe el flujo interno.
+## Documentación
 
-## Convenciones rápidas
-
-- Escribe en español latinoamericano claro.
-- Explica primero el concepto y después muestra código, salida esperada y caso de uso.
-- Usa nombres de archivo descriptivos y tags consistentes.
-- Coloca fundamentos antes de integraciones y recetas completas.
-- No guardes secretos, tokens ni datos reales en el repositorio.
-- Usa bloques de instalación que puedan mostrarse con tabs para npm, pnpm y Bun.
+| Documento                                        | Contenido                               |
+| ------------------------------------------------ | --------------------------------------- |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)   | Cómo está montado el proyecto y por qué |
+| [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) | Crear contenido, paso a paso            |
+| [`DESIGN.md`](DESIGN.md)                         | El sistema visual «El Esmalte»          |
+| [`CHANGELOG.md`](CHANGELOG.md)                   | Historial de versiones                  |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md)             | Cómo contribuir                         |
 
 ## Licencias
 
-- Código de la aplicación: [MIT](LICENSE).
-- Contenido educativo propio: [CC BY-NC-SA 4.0](LICENSE-CONTENT.md).
-- Dependencias, marcas y recursos externos: conservan sus propias licencias.
+- Código: [MIT](LICENSE).
+- Contenido educativo: [CC BY-NC-SA 4.0](LICENSE-CONTENT.md).
+- Marcas y recursos de terceros: conservan la suya.
 
-Consulta también [CONTRIBUTING.md](CONTRIBUTING.md) y [SECURITY.md](SECURITY.md).
+---
 
-## Estado del proyecto
+<div align="center">
 
-Proyecto personal en evolución. La versión actual es `0.1.0`. Las mejoras de contenido y estructura se registran en [CHANGELOG.md](CHANGELOG.md).
+Hecho por [**Angel DM**](https://github.com/iangelmanuel) ·
+[X](https://x.com/iangelmanuel) ·
+[LinkedIn](https://linkedin.com/in/iangelmanuel)
+
+</div>

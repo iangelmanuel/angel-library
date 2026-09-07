@@ -8,6 +8,24 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.30.0] — 2026-09-07
+
+Cierra el ciclo de la migración a Starlight y prepara el repositorio para
+publicarse: todo lo que llegó en las 0.28.x y 0.29.x se consolida en esta
+versión.
+
+### Cambiado
+
+- **`README.md` reescrito como presentación del proyecto**: qué es la
+  biblioteca, cómo se clasifica el contenido, el stack, los comandos, el
+  frontmatter mínimo para crear una entrada y los enlaces a la documentación.
+  La documentación larga se queda en `docs/`.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+
 ## [0.29.7] — 2026-09-07
 
 ### Cambiado
@@ -1990,7 +2008,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.7...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.30.0...HEAD
+[0.30.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.30.0
 [0.29.7]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.7
 [0.29.6]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.6
 [0.29.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.5
