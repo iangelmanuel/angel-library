@@ -372,6 +372,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     align-content: center;
+    align-items: center;
     gap: 2.5rem;
     border-top: 1px solid var(--thread);
     padding-block: 6rem;

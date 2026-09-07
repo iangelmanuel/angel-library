@@ -8,6 +8,26 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.7] — 2026-09-07
+
+### Cambiado
+
+- **El contraer se muda a cada categoría**: el botón deja de ocupar una barra
+  propia arriba del menú y aparece dentro de la fila de la categoría, solo
+  cuando está abierta. Cierra esa categoría y todo lo que tuviera desplegado.
+- **El buscador de la documentación deja de parecer texto seleccionado**: el
+  distintivo del atajo era doble —un campo dentro de otro— porque el estilo
+  alcanzaba también a las teclas interiores. Ahora solo lo lleva el de fuera.
+- **Las secciones de la portada se centran con su contenido**: el título y su
+  columna comparten eje vertical (`align-items: center`).
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Medido: los tres títulos de sección coinciden al píxel con el centro de su
+  contenido; el contraer cierra la categoría y sus subcarpetas.
+
 ## [0.29.6] — 2026-09-07
 
 ### Corregido
@@ -1970,7 +1990,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.6...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.7...HEAD
+[0.29.7]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.7
 [0.29.6]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.6
 [0.29.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.5
 [0.29.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.4

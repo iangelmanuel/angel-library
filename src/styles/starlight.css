@@ -89,9 +89,18 @@ site-search button[data-open-modal] > kbd {
   margin-left: auto;
 }
 
-site-search button[data-open-modal] kbd {
+site-search button[data-open-modal] > kbd {
+  gap: 0.15rem;
+  padding: 0.15rem 0.4rem;
   background: color-mix(in srgb, var(--blue-400) 12%, transparent);
   color: var(--blue-300);
+}
+
+/* Las teclas de dentro no llevan campo propio. */
+site-search button[data-open-modal] kbd kbd {
+  padding: 0;
+  background: transparent;
+  color: inherit;
 }
 site-search kbd {
   background: color-mix(in srgb, var(--blue-400) 10%, transparent);
