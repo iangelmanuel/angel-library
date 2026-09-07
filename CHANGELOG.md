@@ -8,6 +8,56 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.0] — 2026-09-06
+
+Cierra la migración: recupera las pestañas de instalación, aplana el menú,
+quita todo lo que dejó de usarse y documenta el proyecto.
+
+### Añadido
+
+- **Los metadatos vuelven a la cabecera de cada entrada**, con sus enlaces:
+  categoría, subcategoría y tipo llevan a sus listados, los tags a `/tags/<tag>`,
+  y debajo van el comando o la instalación, los campos propios del tipo, las
+  tecnologías relacionadas, los enlaces externos y los avisos. Es el override
+  `src/components/starlight/PageTitle.astro`.
+- **El buscador de Pagefind adopta el sistema visual**: panel sin canto con la
+  sombra de ventana, campo de búsqueda esmaltado, resultados que se rellenan al
+  pasar, coincidencias resaltadas en azul y el contador en monoespaciada.
+- **Pestañas pnpm · bun · npm** otra vez en los bloques de instalación. El plugin
+  `src/markdown/package-manager.mjs` traduce el comando y envuelve los tres
+  bloques en pestañas; `public/pm-tabs.js` cambia de pestaña y recuerda la
+  elección. Cada bloque lo sigue resaltando Expressive Code.
+- `docs/ARCHITECTURE.md`: la lógica del proyecto en nueve pasos, del contenido a
+  las validaciones que rompen el build.
+- `docs/CONTENT_GUIDE.md`: cómo crear una entrada, paso a paso, con la tabla de
+  campos obligatorios por tipo y los errores frecuentes.
+
+### Cambiado
+
+- **El menú vuelve a su segmentación completa**: grupo → categoría →
+  subcategoría → entradas, con las entradas listadas una a una y ordenadas por
+  título. Las privadas y los borradores no salen. Lo construye
+  `src/config/sidebar.ts` leyendo el config y las carpetas reales.
+- El menú se ve como el resto del sitio: el grupo es un rótulo en monoespaciada,
+  la categoría abre, las entradas cuelgan de un hilo y la activa se rellena.
+- Las validaciones de contenido (estructura, relaciones y enlaces internos)
+  vuelven a correr: `getAllEntries()` las ejecuta una vez por build.
+- Los puntos del marco de terminal de Expressive Code quedan invisibles.
+
+### Eliminado
+
+- **React entero**: `@astrojs/react`, `react`, `react-dom`, sus tipos,
+  `lucide-react`, `@radix-ui/react-dialog`, `fuse.js` y `tw-animate-css`. No
+  quedaba ninguna isla tras sustituir la terminal por Pagefind.
+- `DynamicIcon.tsx`, `src/markdown/code-blocks.mjs` y
+  `src/markdown/external-links.mjs`, sin consumidores desde la migración.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Pestañas, menú, portada y entrada de lectura revisadas sobre el build.
+
 ## [0.28.0] — 2026-09-06
 
 Migra el sitio a **Starlight**. La documentación pasa a su layout, su menú y su
@@ -1740,7 +1790,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.28.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.0...HEAD
+[0.29.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.0
 [0.28.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.28.0
 [0.27.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.1
 [0.27.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.0

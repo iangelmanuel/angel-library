@@ -80,24 +80,58 @@ site-search kbd {
 
 /* ----------------------------------------------------------------- menú */
 
+.sidebar-pane {
+  border-inline-end: 1px solid var(--thread);
+}
+
 .sidebar-content {
+  padding-top: 1.25rem;
   scrollbar-color: var(--scrollbar) transparent;
   scrollbar-width: thin;
 }
 
-.sidebar-content summary {
-  padding-block: 0.35rem;
+/* Bloque: un rótulo pequeño, no un título. */
+.sidebar-content ul.top-level > li > details > summary .large {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue-600);
 }
 
+/* Categoría: el nivel que se abre. */
 .sidebar-content .large {
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: var(--blue-300);
+  color: var(--blue-200);
+}
+
+.sidebar-content summary {
+  border-radius: var(--radius-thin);
+  padding: 0.35rem 0.4rem;
+  transition: background-color var(--dur-fast) var(--ease-enamel);
+}
+
+.sidebar-content summary:hover {
+  background: color-mix(in oklab, var(--blue-800) 14%, #000000);
+}
+
+.sidebar-content ul.top-level > li + li {
+  margin-top: 0.75rem;
+}
+
+/* Las entradas cuelgan de un hilo, sin sangría dura. */
+.sidebar-content ul ul {
+  border-inline-start: 1px solid var(--thread);
+  padding-inline-start: 0.6rem;
 }
 
 .sidebar-content a {
   border-radius: var(--radius-thin);
-  font-size: 0.8rem;
+  padding: 0.3rem 0.45rem;
+  font-size: 0.79rem;
+  line-height: 1.45;
   color: var(--gray-400);
   transition:
     background-color var(--dur-fast) var(--ease-enamel),
@@ -112,7 +146,7 @@ site-search kbd {
 /* Activa: campo lleno, sin canto. */
 .sidebar-content a[aria-current="page"],
 .sidebar-content a[aria-current="page"]:hover {
-  background: color-mix(in oklab, var(--blue-800) 34%, #000000);
+  background: color-mix(in oklab, var(--blue-800) 40%, #000000);
   color: var(--white);
   font-weight: 500;
 }
@@ -203,4 +237,158 @@ site-search kbd {
 }
 .pagination-links a:hover {
   background: color-mix(in oklab, var(--blue-800) 28%, #000000);
+}
+
+/* ------------------------------------------------ pestañas de instalación */
+
+.pm-tabs {
+  margin: 1.5rem 0;
+}
+
+.pm-tabs__list {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.pm-tabs__tab {
+  border: 0;
+  border-radius: var(--radius-thin);
+  background: transparent;
+  padding: 0.28rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--gray-450);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-enamel),
+    color var(--dur-fast) var(--ease-enamel);
+}
+
+.pm-tabs__tab:hover {
+  color: var(--gray-300);
+}
+
+.pm-tabs__tab.is-active {
+  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
+  color: var(--white);
+}
+
+.pm-tabs__panel .expressive-code {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------- buscador */
+
+/* El modal de Pagefind, con la materia del sitio. */
+dialog[aria-label*="Buscar"],
+site-search dialog {
+  border: 0;
+  border-radius: 0.625rem;
+  background: var(--enamel-950);
+  padding: 0;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--white) 8%, transparent),
+    0 2px 6px rgb(0 0 0 / 0.5),
+    0 42px 90px -32px rgb(0 0 0 / 0.95);
+}
+
+site-search dialog::backdrop {
+  background: rgb(0 0 0 / 0.72);
+}
+
+site-search .dialog-frame {
+  border: 0;
+  background: transparent;
+  padding: 1rem;
+}
+
+site-search #starlight__search {
+  --pagefind-ui-primary: var(--blue-200);
+  --pagefind-ui-text: var(--reading-text);
+  --pagefind-ui-background: transparent;
+  --pagefind-ui-border: transparent;
+  --pagefind-ui-tag: var(--enamel-800);
+  --pagefind-ui-border-width: 0;
+  --pagefind-ui-border-radius: var(--radius-field);
+  --pagefind-ui-font: var(--font-sans);
+}
+
+/* Campo de búsqueda: un solo objeto, sin canto. */
+site-search .pagefind-ui__search-input {
+  border-radius: var(--radius-field);
+  background: color-mix(in oklab, var(--blue-800) 16%, #000000);
+  padding-inline: 2.75rem 1rem;
+  font-size: 1rem;
+  color: var(--white);
+}
+
+site-search .pagefind-ui__search-input::placeholder {
+  color: var(--gray-450);
+}
+
+site-search .pagefind-ui__search-clear {
+  border-radius: var(--radius-thin);
+  background: transparent;
+  color: var(--gray-450);
+}
+
+site-search .pagefind-ui__search-clear:hover {
+  color: var(--white);
+}
+
+/* Resultados: filas que se rellenan. */
+site-search .pagefind-ui__result {
+  border: 0;
+  border-radius: var(--radius-field);
+  padding: 0.75rem 0.85rem;
+  transition: background-color var(--dur-fast) var(--ease-enamel);
+}
+
+site-search .pagefind-ui__result:hover,
+site-search .pagefind-ui__result:focus-within {
+  background: color-mix(in oklab, var(--blue-800) 24%, #000000);
+}
+
+site-search .pagefind-ui__result-title a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+}
+
+site-search .pagefind-ui__result-excerpt {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--gray-400);
+}
+
+site-search mark {
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--blue-400) 22%, transparent);
+  color: var(--blue-100);
+}
+
+site-search .pagefind-ui__result-nested {
+  padding-inline-start: 1rem;
+  border-inline-start: 1px solid var(--thread);
+}
+
+site-search .pagefind-ui__message {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-450);
+}
+
+site-search .pagefind-ui__button {
+  border: 0;
+  border-radius: var(--radius-field);
+  background: color-mix(in oklab, var(--blue-800) 20%, #000000);
+  color: var(--blue-200);
+}
+
+site-search .pagefind-ui__button:hover {
+  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
 }

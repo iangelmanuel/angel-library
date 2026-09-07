@@ -28,6 +28,16 @@ export default [
     }
   },
   {
+    // Scripts que sirve el navegador tal cual.
+    files: ["public/**/*.js"],
+    languageOptions: {
+      globals: {
+        document: "readonly",
+        localStorage: "readonly"
+      }
+    }
+  },
+  {
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": [

@@ -1,113 +1,151 @@
 # Arquitectura
 
-## Qué es la aplicación
+Cómo está montado `angel.library` y por qué. Si vas a tocar código, empieza por
+aquí; si solo vas a escribir una entrada, ve a [CONTENT_GUIDE.md](./CONTENT_GUIDE.md).
 
-`angel.library` es un sitio privado y estático construido con Astro 7. Funciona como segundo cerebro técnico: el contenido es Markdown local organizado por categoría, Astro genera todas las páginas en build y React se limita a lo que necesita estado en el cliente (la terminal y el menú móvil).
+## La idea en una frase
 
-## Estructura
+Es un sitio estático de Astro con **Starlight** encima: Starlight pone el layout,
+el menú y el buscador; el proyecto pone la organización del contenido (carpetas,
+tipos, tags y relaciones).
 
-```text
-.
-├── astro.config.mjs         # Integraciones y pipeline de Markdown
-├── public/                  # Archivos estáticos servidos sin transformación
-├── src/
-│   ├── assets/              # Imágenes procesadas por Astro
-│   ├── components/
-│   │   ├── content/         # Tarjetas, metadatos y relaciones de las entradas
-│   │   ├── layout/          # Header, sidebar, navegación móvil, TOC y footer
-│   │   ├── shared/          # Iconos, logo y botón de copiar
-│   ├── config/
-│   │   ├── site.ts          # Tipos, categorías, subcategorías y orden
-│   │   └── icons.ts         # Tabla única de iconos (Astro y React)
-│   ├── content/             # <categoría>/<subcategoría>/<módulo>.md
-│   ├── content.config.ts    # Esquema único, unión discriminada por `type`
-│   ├── features/terminal/   # La consola: componentes, hooks, comandos y datos
-│   ├── layouts/             # Documento base y composición de páginas
-│   ├── lib/                 # Contenido, relaciones, navegación e iconos
-│   ├── markdown/            # Transformaciones de Markdown y bloques de código
-│   ├── pages/               # Rutas y endpoints estáticos
-│   ├── scripts/             # Interacciones globales del navegador
-│   └── styles/              # Tokens y parciales de estilo
-└── docs/                    # Documentación interna
-```
-
-## El modelo de contenido
-
-**La carpeta manda.** El id de una entrada es su ruta dentro de `src/content/`, y esa ruta es también su URL:
+## El mapa
 
 ```
-src/content/frontend/react/react-context-api.md
-        →  categoría "frontend", subcategoría "react"
-        →  /frontend/react/react-context-api
+src/
+├─ content/docs/          las 718 entradas, en carpetas
+├─ config/                categorías, subcategorías, tipos, iconos, menú
+├─ lib/                   leer y relacionar entradas
+├─ pages/                 la portada y las páginas propias
+├─ components/            tarjeta de entrada y overrides de Starlight
+├─ features/landing/      la portada, aislada del resto
+├─ markdown/              el plugin de pestañas pnpm · bun · npm
+└─ styles/                tokens y las dos hojas de estilo
 ```
 
-Hay **una sola colección** (`library`). Su schema es una unión discriminada por `type`, así que cada tipo de documento conserva sus campos obligatorios sin necesidad de una colección por tipo. Mover un archivo de carpeta es todo lo que hace falta para recategorizarlo.
+## 1. El contenido vive en carpetas
 
-Cómo crear y modificar categorías, subcategorías, módulos y secciones está en [CONTENT_GUIDE.md](CONTENT_GUIDE.md).
+```
+src/content/docs/<categoría>/<subcategoría>/<archivo>.md
+```
 
-## Flujo
+La carpeta **es** la clasificación. `frontend/astro/astro-islands.md` es de la
+categoría `frontend`, la subcategoría `astro`, y su URL es
+`/frontend/astro/astro-islands`. Mover el archivo lo recategoriza: no hay base
+de datos ni panel donde repetir esa información.
 
-1. `src/config/site.ts` define el vocabulario: tipos, categorías, subcategorías, grupos de navegación y orden.
-2. `src/content.config.ts` valida el frontmatter y Astro carga el Markdown de `src/content/`.
-3. `src/lib/content.ts` carga las entradas, deduce categoría y subcategoría del id, ordena y agrupa. Es el único sitio donde vive esa lógica.
-4. `src/lib/relations.ts` valida el contenido y calcula las relaciones entre entradas.
-5. Las rutas de `src/pages/` piden los datos que necesitan y los renderizan.
-6. `DocsLayout.astro` compone navegación, contenido y TOC; `BaseLayout.astro` define el documento y carga las interacciones globales.
-7. React hidrata solo la terminal y el menú móvil.
-8. `pnpm build` genera el sitio estático y falla si el contenido es inválido.
+El frontmatter solo añade lo que la carpeta no sabe: el **tipo** editorial
+(`guides`, `commands`, `resources`…), los tags y las relaciones.
 
-## Rutas
+## 2. El esquema: Starlight más lo nuestro
 
-| Ruta                                             | Genera                                           |
-| ------------------------------------------------ | ------------------------------------------------ |
-| `src/pages/[...slug].astro`                      | Cada entrada. La URL es su id                    |
-| `src/pages/categories/[category].astro`          | Listado por categoría, agrupado por subcategoría |
-| `src/pages/tipos/[type].astro`                   | Listado por tipo de documento                    |
-| `src/pages/tags/index.astro`, `tags/[tag].astro` | Nube de tags y listado por tag                   |
-| `src/pages/index.astro`, `search.astro`          | Home y consola de búsqueda                       |
-| `src/pages/search-index.json.ts`                 | Índice de búsqueda, generado en build            |
+`src/content.config.ts` declara una sola colección, `docs`, con
+`docsSchema({ extend: … })`:
 
-## Validación en build
+- **De Starlight**: `title`, `description`, `sidebar`, `draft`, `tableOfContents`…
+- **Nuestros**: `type`, `tags`, `related`, `private`, `updatedAt` y los campos
+  propios de cada tipo (`command`, `url`, `technologies`…).
 
-Las tres corren dentro de `getStaticPaths()` de `[...slug].astro` y paran el build con un mensaje en español:
+Las tres reglas por tipo viven en un `superRefine` al final del archivo:
 
-- `validateContentStructure` — la carpeta debe ser una categoría y subcategoría declaradas.
-- `validateContentRelations` — `related`, `technologies` y `libraries` deben apuntar a ids existentes.
-- `validateInternalLinks` — los enlaces `](/…)` del cuerpo deben llevar a algún sitio.
+| Tipo           | Exige                      |
+| -------------- | -------------------------- |
+| `commands`     | `command`                  |
+| `resources`    | `url` y `resourceCategory` |
+| `integrations` | 2+ `technologies`          |
 
-A eso se suman dos redes de seguridad en configuración: una categoría fuera de `CATEGORY_GROUPS` y un comando de terminal fuera de `PUBLIC_COMMANDS` también rompen el build.
+`type` es opcional en el esquema porque las páginas propias (tags, categorías,
+tipos) usan el mismo layout y no son entradas de contenido. Quien exige que toda
+entrada real lo declare es `getAllEntries()`.
 
-## Módulos importantes
+## 3. El config manda sobre la interfaz
 
-- `src/config/site.ts` — fuente de verdad del vocabulario. Los ids son las claves de sus mapas; no hay listas paralelas.
-- `src/config/icons.ts` — tabla única de iconos: `BRAND_ICONS` (logos propios) y `RECOLORED_ICONS` (lucide con color fijo).
-- `src/content.config.ts` — contrato de frontmatter por tipo, en una colección.
-- `src/lib/content.ts` — cargar, ubicar, ordenar, agrupar y tags.
-- `src/lib/relations.ts` — validaciones y relaciones explícitas, inversas y por afinidad de tags.
-- `src/lib/nav.ts` — convierte configuración y contenido en el árbol de la sidebar y el menú móvil.
-- `src/lib/icons.ts` — construye el SVG en build para `<Icon>`; `DynamicIcon.tsx` hace lo mismo en React desde la misma tabla.
-- `src/markdown/package-manager.mjs` — traduce instalaciones y crea las pestañas pnpm, Bun y npm.
-- `src/markdown/code-blocks.mjs` — conserva metadatos de Shiki y construye las cabeceras de los bloques.
-- `src/markdown/external-links.mjs` — asegura y abre aparte los enlaces externos del Markdown.
-- `src/features/terminal/` — la consola de `/search` y de Ctrl/Cmd + K, incluido su índice de búsqueda. Su propio README explica cómo añadir un comando.
-- `src/scripts/site-interactions.ts` — eventos globales: copiar código, abrir la terminal, tabs de package manager y estado de la sidebar.
+`src/config/` es la única fuente de verdad de la clasificación:
 
-## Límites entre capas
+- `categories.ts` — las 23 categorías, su color y su grupo (`CATEGORY_GROUPS`).
+- `subcategories.ts` — la etiqueta legible de cada subcarpeta.
+- `content-types.ts` — los 14 tipos editoriales.
+- `resources.ts` — las categorías de recurso.
+- `icons.ts` — la tabla de iconos.
+- `sidebar.ts` — construye el menú de Starlight leyendo lo anterior **y** las
+  carpetas reales.
 
-- **Configuración:** `site.ts` e `icons.ts` definen el vocabulario y nada más.
-- **Contenido:** los cuatro archivos de `src/lib/` cargan, validan, ordenan, relacionan, preparan la navegación y resuelven iconos sin conocer componentes.
-- **Markdown:** `src/markdown/` transforma el contenido durante el build; nada de esa carpeta llega al cliente.
-- **Presentación:** rutas, layouts y componentes renderizan modelos ya preparados; no repiten filtros ni agrupaciones.
-- **Cliente:** React y `src/scripts/` solo contienen lo que debe correr en el navegador.
-- **Features:** una parte de la interfaz con estado, datos y reglas propias vive completa en `src/features/<nombre>/`.
+El menú tiene tres niveles: **grupo → categoría → subcategoría → entradas**.
+Las entradas se listan una a una, ordenadas por título; las privadas y los
+borradores no salen.
 
-## Estilos
+## 4. Leer y relacionar
 
-Tailwind v4 (`@tailwindcss/vite`), sin `tailwind.config`. Todos los tokens son variables CSS en `src/styles/tokens.css`; `global.css` solo importa parciales en orden de general a específico. Tema oscuro fijo y `--radius: 0rem`. Las fuentes (Geist Sans, Mono y Pixel) se sirven desde el propio sitio con Fontsource.
+`src/lib/content.ts` es la puerta de entrada al contenido:
 
-## Reglas de mantenimiento
+- `getAllEntries()` — todas las entradas visibles. Filtra privadas y borradores,
+  y **valida el contenido una vez por build**.
+- `categoryOf()`, `subcategoryOf()`, `typeOf()` — de dónde sale cada cosa.
+- `getCategoryEntries()`, `getEntriesByType()`, `getAllTags()`,
+  `getEntriesByTag()` — lo que consumen las páginas propias.
 
-- Node.js `>=22.12.0` y pnpm 11. No añadas otro gestor de paquetes.
-- `site.ts` es la fuente de verdad: no dupliques configuración en componentes.
-- Después de cambiar el esquema, `pnpm sync`. Para cualquier cambio, `pnpm check` y `pnpm build`.
-- No guardes secretos ni datos reales en el repositorio.
+`src/lib/relations.ts` hace dos cosas:
+
+1. **Relaciona**: `getRelated()` devuelve las entradas conectadas por seis vías —
+   `related` explícitas, retroenlaces, integraciones y recetas que la citan,
+   recursos, y afinidad por tags (máximo 6).
+2. **Valida**: `validateContentStructure()` (carpetas desconocidas),
+   `validateContentRelations()` (referencias rotas) y `validateInternalLinks()`
+   (enlaces `](/…)` que no llevan a ninguna parte). Si algo falla, **el build se
+   rompe** con un mensaje en español.
+
+## 5. Las páginas
+
+Starlight genera las 718 páginas de documentación. Además hay cinco páginas
+propias, todas envueltas en `<StarlightPage>` para heredar cabecera, menú y TOC:
+
+| Ruta                     | Qué muestra                            |
+| ------------------------ | -------------------------------------- |
+| `/`                      | La portada (layout propio)             |
+| `/categories`            | Las 23 categorías con su conteo        |
+| `/categories/[category]` | Sus entradas, agrupadas por subcarpeta |
+| `/tipos/[type]`          | Todo lo declarado con ese tipo         |
+| `/tags` y `/tags/[tag]`  | El cruce por tags                      |
+| `/buscar`                | Abre el buscador de Starlight          |
+
+## 6. Los overrides de Starlight
+
+En `src/components/starlight/`:
+
+- `PageTitle.astro` — bajo el título añade los metadatos con sus enlaces:
+  categoría, subcategoría, tipo, tags, comando o instalación, campos propios del
+  tipo, tecnologías, enlaces externos y avisos.
+- `Footer.astro` — añade las relaciones de la entrada sobre el pie normal.
+- `ThemeSelect.astro` — vacío: el sitio es solo oscuro.
+
+Se declaran en `astro.config.mjs`, en `starlight.components`.
+
+## 7. Markdown
+
+Starlight se encarga de casi todo (Expressive Code para los bloques de código).
+Lo único propio es `src/markdown/package-manager.mjs`: detecta un bloque de
+instalación y lo convierte en **pestañas pnpm · bun · npm**, traduciendo el
+comando. El cambio de pestaña lo maneja `public/pm-tabs.js`, que recuerda la
+elección en `localStorage`.
+
+## 8. Estilos
+
+Dos hojas, según quién pinte la página:
+
+- `src/styles/starlight.css` — traduce los tokens a las variables de Starlight
+  (`--sl-color-*`) y ajusta menú, buscador, código y paginación. La cargan las
+  páginas de documentación.
+- `src/styles/global.css` — Tailwind y las primitivas propias. Solo la portada.
+
+Los tokens (`src/styles/tokens.css`) son la fuente común. `DESIGN.md` explica el
+sistema visual: color que rellena, un hilo de 1px, sin cantos.
+
+## 9. Qué rompe el build a propósito
+
+- Una entrada sin `type`.
+- Una carpeta que no existe en el config.
+- Una referencia de `related` a una entrada que no existe.
+- Un enlace interno a una ruta muerta.
+- Un tipo sin su campo obligatorio.
+
+Es la red de seguridad: nada se degrada en silencio.

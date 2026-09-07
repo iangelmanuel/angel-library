@@ -1,10 +1,10 @@
 import { defineConfig } from "astro/config"
-import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
 import starlight from "@astrojs/starlight"
 import tailwindcss from "@tailwindcss/vite"
 import { buildSidebar } from "@/config/sidebar"
 import { SITE } from "@/config/site"
+import { remarkPackageManagerTabs } from "./src/markdown/package-manager.mjs"
 
 const { SITE_URL } = SITE.config
 
@@ -38,6 +38,7 @@ export default defineConfig({
       components: {
         // Relaciones al pie y sin selector de tema.
         Footer: "./src/components/starlight/Footer.astro",
+        PageTitle: "./src/components/starlight/PageTitle.astro",
         ThemeSelect: "./src/components/starlight/ThemeSelect.astro"
       },
 
@@ -49,6 +50,7 @@ export default defineConfig({
           borderRadius: "var(--radius-field)",
           borderWidth: "0",
           frames: {
+            terminalTitlebarDotsOpacity: "0",
             editorTabBarBackground: "var(--code-chrome)",
             editorActiveTabBackground: "var(--code-chrome)",
             editorActiveTabIndicatorTopColor: "transparent",
@@ -60,13 +62,23 @@ export default defineConfig({
         }
       },
 
+      head: [
+        {
+          tag: "script",
+          attrs: { src: "/pm-tabs.js", defer: true }
+        }
+      ],
+
       lastUpdated: true,
       credits: false,
       pagination: true
     }),
-    react(),
     sitemap()
   ],
+
+  markdown: {
+    remarkPlugins: [remarkPackageManagerTabs]
+  },
 
   vite: {
     plugins: [tailwindcss()]

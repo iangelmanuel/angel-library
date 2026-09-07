@@ -5,6 +5,11 @@ import {
   type SubcategoryId,
   getSubcategoriesForCategory
 } from "@/config/subcategories"
+import {
+  validateContentRelations,
+  validateContentStructure,
+  validateInternalLinks
+} from "./relations"
 
 /** Una entrada de la biblioteca. */
 export type AnyEntry = CollectionEntry<"docs">
@@ -12,21 +17,35 @@ export type AnyEntry = CollectionEntry<"docs">
 // ── Cargar ──
 
 /** Todas las entradas; los borradores solo en dev. */
+let checked = false
+
 export async function getAllEntries(
   includePrivate = false
 ): Promise<AnyEntry[]> {
   const entries = await getCollection("docs")
 
-  for (const entry of entries) {
-    if (!entry.data.type) {
-      throw new Error(`[contenido] "${entry.id}" no declara "type".`)
-    }
+  if (!checked) {
+    checked = true
+    validateContent(entries)
   }
 
   return entries.filter((entry) => {
     if (!includePrivate && entry.data.private) return false
     return import.meta.env.DEV || !entry.data.draft
   })
+}
+
+/** Rompe el build si el contenido está mal. */
+function validateContent(entries: AnyEntry[]): void {
+  for (const entry of entries) {
+    if (!entry.data.type) {
+      throw new Error(`[contenido] "${entry.id}" no declara "type".`)
+    }
+  }
+
+  validateContentStructure(entries)
+  validateContentRelations(entries)
+  validateInternalLinks(entries)
 }
 
 /** Tipo editorial de la entrada. */

@@ -1,0 +1,257 @@
+---
+import Default from "@astrojs/starlight/components/PageTitle.astro"
+import { CATEGORIES, type CategoryId } from "@/config/categories"
+import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
+import {
+  RESOURCE_CATEGORIES,
+  type ResourceCategoryId
+} from "@/config/resources"
+import { SUBCATEGORIES, type SubcategoryId } from "@/config/subcategories"
+import { formatDate, getAllEntries } from "@/lib/content"
+
+const { entry } = Astro.locals.starlightRoute
+const data = entry.data as Record<string, unknown>
+
+const [category, subcategory] = entry.id.split("/")
+const categoryMeta = CATEGORIES[category as CategoryId]
+const subcategoryMeta = SUBCATEGORIES[subcategory as SubcategoryId]
+const typeMeta = data.type
+  ? CONTENT_TYPES[data.type as ContentTypeId]
+  : undefined
+
+const tags = Array.isArray(data.tags) ? (data.tags as string[]) : []
+const warnings = Array.isArray(data.warnings) ? (data.warnings as string[]) : []
+const text = (field: string) =>
+  typeof data[field] === "string" ? (data[field] as string) : null
+
+// Tecnologías: de la ruta al título de la entrada.
+const techRefs = Array.isArray(data.technologies)
+  ? (data.technologies as string[])
+  : []
+const entries = techRefs.length > 0 ? await getAllEntries(true) : []
+const technologies = techRefs
+  .map((ref) => entries.find((item) => item.id === ref))
+  .filter((item) => item !== undefined)
+
+const links = [
+  { label: "Sitio oficial", href: text("website") },
+  { label: "Repositorio", href: text("github") },
+  { label: "Abrir el recurso", href: text("url") }
+].filter((link) => link.href !== null)
+
+const facts = [
+  { label: "Problema", value: text("problem") },
+  { label: "Cuándo usarlo", value: text("whenToUse") },
+  { label: "Herramienta", value: text("tool") },
+  { label: "Lenguaje", value: text("language") },
+  { label: "Framework", value: text("framework") },
+  { label: "Runtime", value: text("runtime") },
+  { label: "Devuelve", value: text("returns") },
+  {
+    label: "Categoría de recurso",
+    value: data.resourceCategory
+      ? RESOURCE_CATEGORIES[data.resourceCategory as ResourceCategoryId]
+      : null
+  }
+].filter((fact) => fact.value !== null)
+
+const command = text("command")
+const install = text("install")
+const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
+---
+
+<Default><slot /></Default>
+
+<div class="entry-meta not-content">
+  <div class="entry-meta__chips">
+    {
+      categoryMeta && (
+        <a
+          href={`/categories/${category}`}
+          style={`--chip-accent: var(${categoryMeta.color})`}
+        >
+          {categoryMeta.label}
+        </a>
+      )
+    }
+    {
+      subcategoryMeta && (
+        <a href={`/categories/${category}#${subcategory}`}>
+          {subcategoryMeta.label}
+        </a>
+      )
+    }
+    {typeMeta && <a href={`/tipos/${data.type}`}>{typeMeta.singular}</a>}
+    {
+      updatedAt && (
+        <time
+          class="entry-meta__date"
+          datetime={updatedAt.toISOString()}
+        >
+          {formatDate(updatedAt)}
+        </time>
+      )
+    }
+  </div>
+
+  {
+    tags.length > 0 && (
+      <div class="entry-meta__tags">
+        {tags.map((tag) => (
+          <a href={`/tags/${tag}`}>#{tag}</a>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    (command || install) && (
+      <pre class="entry-meta__command">{command ?? install}</pre>
+    )
+  }
+
+  {
+    facts.length > 0 && (
+      <dl class="entry-meta__facts">
+        {facts.map((fact) => (
+          <div>
+            <dt>{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
+  {
+    technologies.length > 0 && (
+      <div class="entry-meta__tags">
+        {technologies.map((tech) => (
+          <a href={`/${tech.id}`}>{tech.data.title}</a>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    links.length > 0 && (
+      <div class="entry-meta__links">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {link.label} ↗
+          </a>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    warnings.length > 0 && (
+      <ul class="entry-meta__warnings">
+        {warnings.map((warning) => (
+          <li>{warning}</li>
+        ))}
+      </ul>
+    )
+  }
+</div>
+
+<style>
+  .entry-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+  }
+
+  .entry-meta__chips,
+  .entry-meta__tags,
+  .entry-meta__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.75rem;
+  }
+
+  .entry-meta__chips a {
+    --chip-accent: var(--blue-400);
+    border-radius: var(--radius-thin);
+    background: color-mix(in oklab, var(--chip-accent) 20%, #000000);
+    padding: 0.22rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--white);
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-enamel);
+  }
+
+  .entry-meta__chips a:hover {
+    background: color-mix(in oklab, var(--chip-accent) 32%, #000000);
+  }
+
+  .entry-meta__date {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gray-450);
+  }
+
+  .entry-meta__tags a {
+    font-size: 0.75rem;
+    color: var(--reading-link);
+    text-decoration: none;
+  }
+
+  .entry-meta__tags a:hover {
+    color: var(--white);
+  }
+
+  .entry-meta__command {
+    margin: 0;
+    border-radius: var(--radius);
+    background: var(--code-bg);
+    padding: 0.6rem 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--blue-200);
+    overflow-x: auto;
+  }
+
+  .entry-meta__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .entry-meta__facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-450);
+  }
+
+  .entry-meta__facts dd {
+    margin: 0.2rem 0 0;
+    font-size: 0.85rem;
+    color: var(--gray-300);
+  }
+
+  .entry-meta__links a {
+    font-size: 0.8rem;
+    color: var(--blue-300);
+  }
+
+  .entry-meta__warnings {
+    margin: 0;
+    border-radius: var(--radius);
+    background: color-mix(in oklab, var(--destructive) 12%, #000000);
+    padding: 0.6rem 0.8rem 0.6rem 1.8rem;
+    font-size: 0.82rem;
+    color: var(--gray-300);
+  }
+</style>

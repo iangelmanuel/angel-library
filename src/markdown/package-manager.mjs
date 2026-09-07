@@ -112,10 +112,24 @@ export function translateBlock(text) {
   }
 }
 
-/** Expande instalaciones bash en tres bloques que Shiki resaltará por igual. */
-export function remarkPackageManagerTabs() {
-  let counter = 0
+/** Pestañas: un panel por gestor, cada uno con su bloque. */
+function openTabs() {
+  const tabs = ["pnpm", "bun", "npm"]
+    .map(
+      (pm, index) =>
+        `<button type="button" class="pm-tabs__tab${index === 0 ? " is-active" : ""}" data-pm-tab="${pm}">${pm}</button>`
+    )
+    .join("")
 
+  return `<div class="pm-tabs" data-pm-tabs><div class="pm-tabs__list">${tabs}</div>`
+}
+
+function openPanel(pm, isDefault) {
+  return `<div class="pm-tabs__panel" data-pm="${pm}"${isDefault ? "" : " hidden"}>`
+}
+
+/** Convierte una instalación en pestañas pnpm · bun · npm. */
+export function remarkPackageManagerTabs() {
   return (tree) => {
     visit(tree, "code", (node, index, parent) => {
       if (!parent || index === undefined || !PM_LANGS.has(node.lang)) return
@@ -123,21 +137,25 @@ export function remarkPackageManagerTabs() {
       const translated = translateBlock(node.value ?? "")
       if (!translated) return
 
-      const group = `pm${counter++}`
-      const variants = [
-        { pm: "pnpm", value: translated.pnpm, isDefault: true },
-        { pm: "bun", value: translated.bun, isDefault: false },
-        { pm: "npm", value: translated.npm, isDefault: false }
-      ]
-      const blocks = variants.map((variant) => ({
-        type: "code",
-        lang: node.lang,
-        meta: `pm="${variant.pm}" pmGroup="${group}"${variant.isDefault ? " pmDefault" : ""}`,
-        value: variant.value
-      }))
+      const html = (value) => ({ type: "html", value })
+      const nodes = [html(openTabs())]
 
-      parent.children.splice(index, 1, ...blocks)
-      return [SKIP, index + blocks.length]
+      for (const pm of ["pnpm", "bun", "npm"]) {
+        nodes.push(
+          html(openPanel(pm, pm === "pnpm")),
+          {
+            type: "code",
+            lang: node.lang,
+            meta: node.meta,
+            value: translated[pm]
+          },
+          html("</div>")
+        )
+      }
+
+      nodes.push(html("</div>"))
+      parent.children.splice(index, 1, ...nodes)
+      return [SKIP, index + nodes.length]
     })
   }
 }
