@@ -178,6 +178,7 @@ La paleta es monocroma por convicción: veintitrés esmaltes de categoría, todo
 Anti-referencia confirmada, sustituida por completo: el sitio anterior era negro con bordes grises de 1px, cero relleno, titulares en Geist Pixel, sombras duras desplazadas (`4px 4px 0`), scanlines de CRT y glifos de shell (`❯ $ ~/ _`). Nada de eso sobrevive. Tampoco entran degradados, glow de color, cristal ni sombra difusa coloreada.
 
 **Key Characteristics:**
+
 - Campos rellenos sobre negro puro; el color rellena, la línea solo separa.
 - **Ninguna tarjeta lleva canto.** Ni en reposo ni al encenderse: el estado sube el vidriado y nada más. El hilo de 1px queda para separar, no para cercar.
 - Un único hilo, azul a baja alfa, nunca gris.
@@ -191,16 +192,19 @@ Anti-referencia confirmada, sustituida por completo: el sitio anterior era negro
 Una sola familia azul quemada contra el negro, con grises neutros como contrapeso de prosa y cromo.
 
 ### Primary
+
 - **Esmalte pleno** (`--primary` / `--blue-800`): el relleno saturado de la marca. Aparece en el botón del índice de la portada, en el pie de la ruta ilustrada de la landing, en el filtro seleccionado (`[aria-pressed="true"]`) y en la pestaña activa de gestor de paquetes. Es el único azul que se usa como fondo pleno de una acción.
 - **Azul vivo** (`--blue-400`): el azul de trabajo. Anillo de foco, caret, barra de progreso de lectura, hilo del TOC activo, enlaces de prosa, acento por defecto de cualquier campo (`--card-accent`).
 - **Azul de título** (`--blue-200`) y **azul medio** (`--blue-500`): los otros dos escalones de la rampa de títulos y de los estados hover del texto azul.
 
 ### Secondary
+
 - **Esmaltes de superficie** (`--enamel-950` → `--enamel-600`): azules quemados hacia el negro. No son «fondos de tarjeta»: son rellenos que definen profundidad por luminosidad. `--enamel-950` es el campo más hondo (panel del índice, consola de tags), `--enamel-800` el chrome de UI (badges, código inline, barra de filtro, botón de copiar), `--enamel-600` el escalón encendido en hover.
 - **Esmaltes de categoría** (23 tokens `--cat-*`, de `#7fd4ff` a `#4f7fd0`): el **origen** del relleno de cada campo. Son valores vivos a propósito porque se mezclan contra negro antes de pintarse. Tres de ellos salen del anillo azul estricto y se quedan así por decisión del autor.
 - **Acentos de tipo de contenido** (11 tokens `--accent-*`): apuntan a la misma escala azul; solo tiñen badges e iconos de tipo, nunca títulos.
 
 ### Neutral
+
 - **Blanco de letra** (`#ffffff`): todo texto principal — títulos de card, etiquetas de tesela, fila activa, `<strong>` de prosa.
 - **Gris de prosa** (`--gray-300`): texto de segundo nivel dentro de un campo (barra de ruta de la card, cita, etiqueta de bloque de código).
 - **Gris apagado** (`--gray-400` / `--muted-foreground`): descripciones, contadores, metadatos. No compite con los azules.
@@ -229,6 +233,7 @@ Una sola familia azul quemada contra el negro, con grises neutros como contrapes
 **Character:** Una sola voz geométrica y neutra, apretada en los títulos (`letter-spacing: -0.018em` global, `-0.02em` en markdown, `-0.035em` en el wordmark) y suelta en los micro-rótulos (`0.11em` en mayúsculas). El mono no decora: aparece únicamente donde el dato es una ruta, una cifra o un comando.
 
 ### Hierarchy
+
 - **Display** (600, `clamp(2.6rem, 5.4vw, 4.875rem)`, line-height 1.02, `-0.045em`): el titular de la portada, partido en dos líneas. Es el único texto de ese tamaño en todo el sitio.
 - **Section** (600, `clamp(1.8rem, 3.2vw, 2.5rem)`, `-0.03em`): los títulos de sección de la portada, en azul de título. Van solos: sin rótulo, sin numeración, sin antetítulo.
 - **Headline** (700, 1.85rem, `text-wrap: balance`): `h1` del markdown, en azul de título.
@@ -255,6 +260,7 @@ El layout de lectura es de tres columnas: barra lateral de 18rem (`w-72`, `stick
 La portada tiene su propio armazón: hero a `calc(100svh - 4.25rem)` —el buscador y las cifras caben enteros sobre el pliegue— y, debajo, secciones de dos columnas (`23.75rem` de título + resto de contenido) desde `lg`, cada una abierta por un hilo de 1px al ancho del contenido.
 
 Cuadrículas observadas:
+
 - **Muro de categorías** (`/categories`): 6 columnas, `gap: 4px`. Las teselas ocupan 3 / 2 / 1 columnas según el volumen de la categoría. Bajo 768px: 2 columnas, y la tesela grande ocupa las dos.
 - **Índice de la portada**: `repeat(auto-fill, minmax(12.5rem, 1fr))`, `gap: 0.5rem` — las veintitrés categorías más la salida al listado completo.
 - **Tipos de la portada** y **relaciones de una entrada**: `repeat(auto-fill, minmax(15rem, 1fr))` y `minmax(17rem, 1fr)`, ambos con `gap: 0.5rem`.
@@ -278,6 +284,7 @@ Este sistema es plano y la profundidad la hace la **luminosidad sobre un único 
 Las sombras se usan poco y solo donde algo flota de verdad: el buscador del hero, el botón blanco del cierre y la ventana de la terminal. Todas son desplazamiento + desenfoque suave sobre negro; el único color admitido es un azul muy abierto y sin contorno bajo la ventana flotante.
 
 ### Shadow Vocabulary
+
 - **Campo** (`--shadow-field`: `0 1px 2px rgb(0 0 0 / 0.6), 0 12px 32px -18px rgb(0 0 0 / 0.9)`): un campo que se despega apenas.
 - **Elevado** (`--shadow-lifted`: `0 2px 4px rgb(0 0 0 / 0.5), 0 24px 56px -28px rgb(0 0 0 / 0.95)`): lo que flota sobre el muro.
 - **Ventana** (terminal de búsqueda): `inset 0 1px 0` de blanco al 8% como reflejo del canto superior, más `0 2px 6px`, `0 42px 90px -32px` en negro y `0 0 120px -60px` del esmalte pleno. Sin anillo: la ventana se sostiene por sombra, no por borde.
@@ -300,7 +307,9 @@ Las viñetas de lista del markdown son cuadraditos de 0.34rem con radio de 2px, 
 ## Components
 
 ### Card de contenido (rellena, sin borde)
+
 Es la pieza matriz. Campo de esmalte lleno, sin canto — el relleno ya la separa del lienzo.
+
 - **Forma:** canto de campo (6px), `overflow: hidden`, `isolation: isolate`.
 - **Color:** `color-mix(in oklab, var(--card-accent) var(--glaze), #000000)`, donde `--card-accent` lo inyecta el markup con el token de tipo de contenido o de categoría.
 - **Estructura:** barra de ruta arriba (mono 0.68rem, gris de prosa, fondo `color-mix(… 12%, transparent)`), cuerpo con badge de tipo, título blanco 1rem/600, descripción gris 0.85rem a tres líneas, y los tags al fondo (máximo 3 + contador `+N`).
@@ -308,27 +317,34 @@ Es la pieza matriz. Campo de esmalte lleno, sin canto — el relleno ya la separ
 - **Padding:** 1rem; alto mínimo 12.5rem en la variante de entrada.
 
 ### Tesela de categoría (rellena, sin canto)
+
 La misma materia que la card, con el vidriado más bajo del sistema: en `/categories` hay veintitrés colores a la vez y cualquier valor más alto satura.
+
 - **Fondo:** `color-mix(in oklab, var(--card-accent) 18%, #000000)`, radio de campo (6px). Ningún borde en ningún estado.
 - **Contenido:** icono suelto en el color de la categoría, etiqueta blanca, contador en mono **gris** a la derecha — el color ya está dicho dos veces, no hace falta una tercera.
 - **Hover:** sube a 30%.
 - **Peso:** `--lg` (3 columnas, 5.5rem), `--md` (2 columnas, 4.5rem), base (2 columnas, 3.6rem).
 
 ### Tarjetas de relación (rejilla, esmalte rebajado)
+
 Cierre de entrada: la misma tarjeta de un listado, pero un paso más apagada — es el pie de la lectura, no su contenido.
+
 - **Rejilla:** `repeat(auto-fill, minmax(17rem, 1fr))`, `gap: 0.5rem`.
 - **Fondo:** `color-mix(in oklab, var(--card-accent) 16%, #000000)`; 26% al pasar. Sin canto.
 - **Barra de ruta:** el mismo tinte, al 12%.
 - Precedida por el rótulo de la relación (`Seguir leyendo`, `Recetas que lo usan`…) en 0.95rem/600, azul de relación.
 
 ### Badges y tags
+
 - **Badge de tipo:** campo esmaltado tenue (`--enamel-800`), radio 2px, 0.68rem/500, texto gris de prosa. Hover: `--enamel-600` y letra blanca.
 - **Badge de categoría:** `color-mix(in srgb, var(--card-accent) 16%, var(--enamel-900))` con la letra en el color de la categoría; el color va en CSS y no inline, porque un estilo inline gana siempre sobre `:hover`.
 - **Tag suelto:** solo texto azul (`--reading-link`) con un `#` al 55% de opacidad; sin campo propio. Hover: blanco.
 - **Tag tesela** (en `/tags`): ahí sí es un campo pulsable — fondo `--enamel-900`, radio 4px, letra azul de título, contador en mono empujado a la derecha.
 
 ### Barra lateral (tres niveles)
+
 Categoría → subcategoría → entrada. La jerarquía la dan el tamaño y la luz, nunca la sangría ni un filete de color.
+
 - **Categoría:** 0.83rem/500, blanca, icono en el color de la categoría, chevron que rota 90° al abrir.
 - **Subcategoría:** 0.75rem/400, gris de prosa; blanca al abrirse.
 - **Entrada:** 0.78rem, gris apagado, hasta tres líneas (`-webkit-line-clamp: 3`) — truncar escondía lo que distingue cada entrada.
@@ -337,6 +353,7 @@ Categoría → subcategoría → entrada. La jerarquía la dan el tamaño y la l
 - **Anidamiento:** un hilo cae bajo el icono del padre, `border-left: 1px solid color-mix(in srgb, var(--cat-accent) 20%, transparent)`.
 
 ### Campos de entrada
+
 - **Barra de filtro:** fondo `--enamel-800`, radio 4px, alto 2.75rem, sin borde. `:focus-within` pinta `inset 0 0 0 1px var(--blue-400)`; el contador de resultados vive dentro, en mono.
 - **Toggle de filtro:** fondo `--enamel-800`, radio 2px. Seleccionado (`[aria-pressed="true"]`) se esmalta pleno con `--primary` y peso 600 — el estado es materia, no matiz.
 - **Foco global:** `outline: 2px solid var(--ring)` con `outline-offset: 2px` y radio 2px.
@@ -344,7 +361,9 @@ Categoría → subcategoría → entrada. La jerarquía la dan el tamaño y la l
 - **Buscador del cromo** (`.chrome-search`, cabecera de portada y de docs, y menú móvil): `color-mix(in oklab, var(--blue-800) 10%, #000000)`, 20% al pasar, con la tecla `ctrl K` en azul al 10%. Vive junto al logo: no debe pesar más que él.
 
 ### Bloque de código
+
 Dos alturas del mismo azul, nunca dos colores.
+
 - **Cuerpo:** `--code-bg` = `color-mix(in oklab, var(--blue-800) 20%, #000000)`. Se lee azul, pero rebajado: no compite con la prosa que lo rodea. Sin canto.
 - **Rótulo:** `--code-chrome` = el mismo azul al 32% — un solo escalón por encima del cuerpo. Nombre de archivo en mono 0.72rem azul de título, alineado a la sangría del código (1.1rem), y el botón de copiar como pastilla de blanco al 7% (16% al pasar).
 - **Pestañas pnpm/Bun/npm:** viven en ese rótulo, en mono; la activa se rellena con blanco al 12%, no con el esmalte pleno.
@@ -353,7 +372,9 @@ Dos alturas del mismo azul, nunca dos colores.
 - **Código inline** en prosa: el mismo `--code-chrome`, radio 2px.
 
 ### Índice (Ctrl/Cmd + K) — componente insignia
+
 Una terminal **moderna**, no un emulador de CRT: sin scanlines, sin pixel art, sin cursor parpadeante. Es una ventana de verdad, con la materia de un emulador actual.
+
 - **Ventana:** `top: 10vh`, ancho `min(92vw, 58rem)`, radio **10px** —la única excepción a los cantos de 2/4/6— y la sombra de ventana descrita arriba. Sin anillo.
 - **Centrado:** el `translate: -50% 0` va en su propia propiedad, no en `transform`, para que la animación de entrada pueda mover la ventana en vertical sin perder el centro. Entra **desde arriba** (`slide-in-from-top`), nunca de lado.
 - **Barra de título:** tres puntos apagados en azul (30 / 22 / 14%, dibujados con una sola pieza y su sombra), el nombre de la sesión y el modo como pastilla redonda.
@@ -364,6 +385,7 @@ Una terminal **moderna**, no un emulador de CRT: sin scanlines, sin pixel art, s
 - **Cinco paletas** (`data-terminal-theme`): `angel` (negro pleno), `esmalte` (el azul del sitio), `tinta` (negro y un solo azul vivo), `niebla` (grises neutros, el azul solo marca lo activo), `hielo` (el extremo claro sobre azul muy hondo). Las cinco viven dentro del mundo: negro, escala azul, grises.
 
 ### Hero de la portada
+
 - **Buscador:** el único objeto grande del hero. `color-mix(in oklab, var(--blue-800) 16%, #000000)` (28% al pasar), radio de campo, alto 3.875rem, sin borde, con la sombra azul que lo separa del halo.
 - **CTA:** botón de esmalte pleno (`--primary`) con «Leer la documentación», alto 3rem; al encender pasa a `color-mix(in srgb, var(--blue-700) 82%, var(--blue-500))`.
 - **Acción secundaria:** enlace azul medio con flecha, sin campo.
@@ -371,11 +393,13 @@ Una terminal **moderna**, no un emulador de CRT: sin scanlines, sin pixel art, s
 - **Sin antetítulo:** el hero abre directamente con el titular. Ni rótulo en mayúsculas ni numeración.
 
 ### Movimiento
+
 Una sola curva (`--ease-enamel`: `cubic-bezier(0.16, 1, 0.3, 1)`) y dos duraciones: 140ms para estado (`--dur-fast`) y 320ms para lo que se despega (`--dur-slow`). Las view transitions duran 140ms. `prefers-reduced-motion` reduce todo a 0.01ms.
 
 ## Do's and Don'ts
 
 ### Do:
+
 - **Do** rellenar todo campo nuevo con `color-mix(in oklab, var(--card-accent) var(--glaze), #000000)` y encenderlo a `--glaze-lit` en hover. El espacio oklab es el material.
 - **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (18% en `/categories`, 16% en las relaciones): el número a mover es el vidriado, no el color.
 - **Do** decir el estado subiendo el vidriado, y solo eso.
@@ -389,6 +413,7 @@ Una sola curva (`--ease-enamel`: `cubic-bezier(0.16, 1, 0.3, 1)`) y dos duracion
 - **Do** mantener el texto más apagado en `--gray-450` o por encima: 4.5:1 es el suelo.
 
 ### Don't:
+
 - **Don't** mezclar el vidriado en sRGB: da pizarra gris y mata la croma. Siempre `in oklab`.
 - **Don't** rellenar un campo con gris. Los grises son prosa secundaria, scrollbars y separadores neutros.
 - **Don't** ponerle canto a una tarjeta, tesela, bloque de código o panel — ni en reposo ni en hover. El relleno ya la separa del lienzo.

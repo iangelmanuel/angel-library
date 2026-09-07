@@ -8,3 +8,12 @@ bun.lock
 bun.lockb
 package-lock.json
 pnpm-lock.yaml
+
+# Contenido: markdown de autor. Prettier reformatearía los bloques de código
+# de ejemplo, que se muestran tal y como se enseñan.
+src/content
+
+# Herramientas de agentes: scripts vendorizados y capturas.
+.agents
+.claude
+.impeccable

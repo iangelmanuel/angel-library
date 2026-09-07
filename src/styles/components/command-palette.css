@@ -101,14 +101,14 @@
       0 42px 90px -32px rgb(0 0 0 / 0.95),
       0 0 120px -60px color-mix(in srgb, var(--blue-800) 90%, transparent);
   }
-  /* Barra de título: tres puntos apagados, el nombre de la sesión y el modo.
-     Los puntos se dibujan con una sola pieza y su sombra. */
+  /* Barra de título: el nombre de la sesión y el modo. Sin semáforo de
+     ventana — esto no imita a ningún sistema operativo. */
   .search-terminal__bar {
     display: flex;
     min-height: 2.75rem;
     align-items: center;
     gap: 0.7rem;
-    padding: 0.55rem 0.9rem;
+    padding: 0.55rem 0.9rem 0.55rem 1.1rem;
     background: linear-gradient(
       180deg,
       color-mix(in srgb, var(--white) 5%, var(--field-chrome)) 0%,
@@ -117,18 +117,6 @@
     font-size: 0.72rem;
     letter-spacing: 0.02em;
     color: var(--gray-300);
-  }
-  .search-terminal__bar::before {
-    content: "";
-    flex-shrink: 0;
-    width: 0.5rem;
-    height: 0.5rem;
-    margin-right: 1.5rem;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--blue-400) 30%, transparent);
-    box-shadow:
-      0.8rem 0 0 color-mix(in srgb, var(--blue-400) 22%, transparent),
-      1.6rem 0 0 color-mix(in srgb, var(--blue-400) 14%, transparent);
   }
   .search-terminal__mode {
     margin-left: auto;

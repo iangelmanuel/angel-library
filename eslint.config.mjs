@@ -9,7 +9,11 @@ export default [
       ".astro/**",
       ".vercel/**",
       "node_modules/**",
-      "src/env.d.ts"
+      "src/env.d.ts",
+      // Herramientas de agentes: scripts vendorizados que no son código del sitio.
+      ".agents/**",
+      ".claude/**",
+      ".impeccable/**"
     ]
   },
   jseslint.configs.recommended,

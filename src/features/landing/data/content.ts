@@ -15,7 +15,7 @@ export const HERO = {
   titleTop: "Un segundo cerebro",
   titleBottom: "técnico, en disco.",
   claim:
-    "Todo lo que aprendo sobre desarrollo web, escrito a mano y clasificado por carpetas. Sin base de datos y sin panel: la ruta del archivo es el sistema.",
+    "Todo lo que aprendo sobre desarrollo web, clasificado por carpetas y listo para copiar. Sin base de datos y sin panel: la ruta del archivo es el sistema.",
   searchCommand: "Buscar en toda la biblioteca…",
   primaryCta: "Leer la documentación",
   secondaryCta: "Ver cómo se organiza",
@@ -43,6 +43,7 @@ export const ROUTE = {
 
 export const FLOW = {
   title: "Cómo se recorre",
+  lead: "Tres gestos, siempre los mismos y desde cualquier página: abrir la terminal, leer la entrada y llevarte el fragmento que necesitas. No hay menús que aprender.",
   legs: [
     {
       id: "buscar",

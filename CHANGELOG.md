@@ -8,6 +8,36 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.27.1] — 2026-09-06
+
+Arregla la integración continua, que fallaba desde la publicación de 0.27.0, y
+pule tres detalles de la portada y de la terminal.
+
+### Corregido
+
+- **CI en verde otra vez.** `pnpm eslint` fallaba con 1442 errores, todos de los
+  scripts vendorizados de `.agents/` y `.claude/`; ahora esas carpetas están en
+  los `ignores` de `eslint.config.mjs`. `pnpm prettier:check` fallaba con 249
+  archivos, todos de `src/content/`: el contenido pasa a `.prettierignore` —es
+  prosa de autor y Prettier reformatearía los bloques de código de ejemplo, que
+  se muestran tal como se enseñan. Los siete archivos restantes fuera de
+  contenido sí se formatearon.
+
+### Cambiado
+
+- La ventana de la terminal de búsqueda pierde los tres círculos de la barra de
+  título: recordaban demasiado al semáforo de macOS y esto no imita a ningún
+  sistema operativo.
+- «Cómo se recorre» estrena entradilla, como las otras dos secciones, y sus tres
+  pasos se alinean al centro en lugar de por la línea base.
+- El texto del hero ya no dice que el contenido esté «escrito a mano».
+
+### Verificado
+
+- `pnpm eslint`, `pnpm prettier:check` y `pnpm check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Portada y terminal revisadas sobre el build de producción (`pnpm preview`).
+
 ## [0.27.0] — 2026-09-06
 
 Rehace el sistema visual del sitio entero bajo «El Esmalte» —color que rellena,
@@ -1654,7 +1684,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.27.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.27.1...HEAD
+[0.27.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.1
 [0.27.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.0
 [0.26.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.26.0
 [0.25.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.25.0
