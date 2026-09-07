@@ -24,3 +24,8 @@ pnpm-debug.log*
 
 # windows
 Thumbs.db
+
+# Herramientas y notas de sesión, fuera del producto
+.impeccable/
+handoff.md
+skills-lock.json
