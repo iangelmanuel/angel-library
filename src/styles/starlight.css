@@ -436,8 +436,13 @@ site-search .pagefind-ui__button:hover {
 }
 
 /* Cabecera de la documentación: la misma caja que la de la portada. */
+/* La cabecera de Starlight ya reserva su alto: el interior solo lo rellena. */
 header.header {
-  padding-inline: 1.5rem;
+  padding-inline: 0;
+}
+
+header.header .chrome-header__inner {
+  height: 100%;
 }
 
 header.header .social-icons::after {

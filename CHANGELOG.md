@@ -8,6 +8,23 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.6] — 2026-09-07
+
+### Corregido
+
+- La cabecera de la documentación se salía de su barra: al pasar sus estilos a
+  la hoja compartida, el interior heredó un alto fijo de 3.75rem que se sumaba
+  al relleno vertical que Starlight ya reserva. Ahora ese alto fijo es solo de
+  la portada y en la documentación el interior rellena su barra (`height: 100%`),
+  con el relleno lateral en un único sitio.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Medido en las dos: barra de 60px, contenido en una sola línea y buscador de
+  256×36.
+
 ## [0.29.5] — 2026-09-06
 
 La cabecera pasa a ser una sola pieza compartida y el menú recupera el contraer.
@@ -1953,7 +1970,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.5...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.6...HEAD
+[0.29.6]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.6
 [0.29.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.5
 [0.29.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.4
 [0.29.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.3
