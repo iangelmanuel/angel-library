@@ -37,8 +37,8 @@ export default function TerminalDialog() {
       onOpenChange={handleOpenChange}
     >
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
-        <Dialog.Content className="search-terminal-dialog fixed top-1/2 left-1/2 z-50 grid w-[calc(100vw-1rem)] max-w-none -translate-x-1/2 -translate-y-1/2 gap-4 border border-border bg-background shadow-lg data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 sm:w-[min(92vw,56rem)] sm:max-w-none">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+        <Dialog.Content className="search-terminal-dialog fixed z-50 grid gap-0 border-0 bg-transparent p-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-4 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-6">
           <Dialog.Title className="sr-only text-lg leading-none font-medium">
             Terminal de angel.library
           </Dialog.Title>

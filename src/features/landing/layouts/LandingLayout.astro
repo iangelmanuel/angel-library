@@ -1,0 +1,33 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import type { JsonLdBlock, SeoProps } from "@/lib/seo"
+import LandingHeader from "../components/LandingHeader.astro"
+import LandingFooter from "../components/LandingFooter.astro"
+
+import "../styles/landing.css"
+
+interface Props extends SeoProps {
+  jsonLd?: readonly JsonLdBlock[]
+}
+
+const { title, description, ...seoProps } = Astro.props
+---
+
+<BaseLayout
+  {...seoProps}
+  title={title}
+  description={description}
+>
+  <div class="flex min-h-svh flex-col">
+    <LandingHeader />
+
+    <main
+      id="contenido"
+      class="flex-1"
+    >
+      <slot />
+    </main>
+
+    <LandingFooter />
+  </div>
+</BaseLayout>

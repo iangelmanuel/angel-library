@@ -13,7 +13,7 @@ const HELP_LINES = [
   "/stats            mostrar estadísticas del índice local",
   "/random           abrir un documento al azar",
   "/theme [nombre]   cambiar el fondo; usa /theme list para ver todos",
-  "/scanlines [on|off] · /reset · /motd · /tree",
+  "/theme [nombre] · /reset · /motd · /tree",
   "/pwd · /whoami · /date · /url · /echo <texto>",
   "/history          mostrar los últimos comandos ejecutados",
   "/clear | /cls     limpiar la salida de la terminal",

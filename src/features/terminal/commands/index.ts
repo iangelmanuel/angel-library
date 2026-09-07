@@ -41,7 +41,6 @@ export const PUBLIC_COMMANDS = [
   "cd",
   "random",
   "theme",
-  "scanlines",
   "reset",
   "motd",
   "whoami",

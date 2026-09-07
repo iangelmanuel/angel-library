@@ -1,4 +1,5 @@
-/* Primitivas: piezas pequeñas reutilizadas en todo el sitio */
+/* Primitivas: piezas pequeñas reutilizadas en todo el sitio.
+   Todas son campos de esmalte: relleno primero, hilo de 1px después. */
 @layer components {
   /* Skip link accesible */
   .skip-link {
@@ -6,131 +7,132 @@
     left: 1rem;
     top: -100%;
     z-index: 100;
-    background: var(--foreground);
-    color: var(--background);
-    padding: 0.5rem 0.75rem;
-    font-family: var(--font-pixel);
-    font-size: 0.7rem;
-    text-transform: uppercase;
+    border-radius: var(--radius);
+    background: var(--primary);
+    color: var(--primary-foreground);
+    padding: 0.55rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
   .skip-link:focus-visible {
     top: 1rem;
   }
 
-  /* Micro-título de UI. */
+  /* Micro-título de UI: el rótulo de un campo. */
   .section-label {
-    font-family: var(--font-pixel);
-    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: var(--heading-secondary);
+    letter-spacing: 0.11em;
+    color: var(--label-accent);
   }
   .section-label::before {
-    content: "$ ";
-    color: var(--accent-green);
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    flex-shrink: 0;
+    border-radius: var(--radius-thin);
+    background: var(--accent-blue);
   }
 
-  /* Teclas */
+  /* Teclas: un campo hundido, no una tapa de plástico. */
   .kbd {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 1.35rem;
-    padding: 0.1rem 0.35rem;
-    border: 1px solid var(--border);
-    background: var(--muted);
-    color: var(--muted-foreground);
+    min-width: 1.5rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-thin);
+    background: var(--gray-900);
+    color: var(--gray-300);
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     line-height: 1.4;
-    box-shadow: inset 0 -2px 0 rgb(255 255 255 / 0.06);
   }
 
-  /* Badge de tipo de contenido */
+  /* Buscador del cromo (cabecera del muro y de la documentación): un campo
+     apenas teñido — vive junto al logo, no debe pesar más que él. */
+  .chrome-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-field);
+    background: color-mix(in oklab, var(--blue-800) 10%, #000000);
+    padding: 0.4rem 0.5rem 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--gray-450);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-fast) var(--ease-enamel),
+      color var(--dur-fast) var(--ease-enamel);
+  }
+  .chrome-search:hover,
+  .chrome-search:focus-visible {
+    background: color-mix(in oklab, var(--blue-800) 20%, #000000);
+    color: var(--gray-300);
+  }
+  .chrome-search .kbd {
+    background: color-mix(in srgb, var(--blue-400) 10%, transparent);
+    color: var(--blue-300);
+  }
+
+  /* Badge de tipo de contenido: campo esmaltado tenue. */
   .badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    border: 1px solid var(--border);
-    background: transparent;
-    padding: 0.2rem 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--muted-foreground);
+    gap: 0.4rem;
+    border-radius: var(--radius-thin);
+    background: var(--enamel-800);
+    padding: 0.25rem 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--gray-300);
     white-space: nowrap;
     transition:
-      color 150ms ease,
-      border-color 150ms ease,
-      box-shadow 150ms ease,
-      transform 150ms ease;
+      background-color var(--dur-fast) var(--ease-enamel),
+      color var(--dur-fast) var(--ease-enamel);
   }
   a.badge:hover,
   button.badge:hover {
-    color: var(--foreground);
-    border-color: var(--border-strong);
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0
-      color-mix(in srgb, var(--border-strong) 55%, transparent);
+    background: var(--enamel-600);
+    color: var(--white);
   }
 
-  /* Badge de categoría: hover de card. El color va aquí, no inline:
-   un estilo inline gana siempre sobre :hover. */
+  /* Badge de categoría: toma el color del campo al que pertenece.
+     El color va aquí, no inline: un estilo inline gana siempre sobre :hover. */
   .badge--category {
+    background: color-mix(in srgb, var(--card-accent) 16%, var(--enamel-900));
     color: var(--card-accent);
-    border-color: color-mix(in srgb, var(--card-accent) 35%, var(--border));
-    transition:
-      color 150ms ease,
-      border-color 150ms ease,
-      box-shadow 150ms ease,
-      transform 150ms ease;
   }
   a.badge--category:hover {
-    color: var(--card-accent);
-    border-color: var(--card-accent);
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0
-      color-mix(in srgb, var(--card-accent) 38%, transparent);
+    background: color-mix(in srgb, var(--card-accent) 28%, var(--enamel-900));
+    color: var(--white);
   }
 
-  /* Tag suelto: sin borde, solo cambia de color. */
+  /* Tag suelto: solo texto azul, sin campo propio. */
   .tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
-    border: none;
+    gap: 0.25rem;
     background: transparent;
     padding: 0;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     line-height: 1.35;
     color: var(--reading-link);
-    transition: color 120ms ease;
-  }
-
-  /* El logo avanza por la paleta en cada hover. */
-  .logo-cycle {
-    --logo-hover-color: var(--accent-blue);
-  }
-  .logo-cycle__text {
-    transition:
-      color 100ms steps(2, end),
-      text-shadow 100ms steps(2, end);
-  }
-  .logo-cycle:hover .logo-cycle__text,
-  .logo-cycle:focus-visible .logo-cycle__text {
-    color: var(--logo-hover-color);
-    text-shadow: 2px 0 0
-      color-mix(in srgb, var(--logo-hover-color) 25%, transparent);
+    transition: color var(--dur-fast) var(--ease-enamel);
   }
   .tag::before {
     content: "#";
-    opacity: 0.65;
+    opacity: 0.55;
   }
   a.tag:hover,
   a.tag:focus-visible {
-    color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
+    color: var(--white);
   }
   .tag__name {
     min-width: 0;
@@ -138,91 +140,82 @@
     text-overflow: ellipsis;
   }
   .tag__count {
-    margin-left: 0.1rem;
+    margin-left: 0.15rem;
     color: var(--muted-foreground);
-    font-size: 0.62rem;
-    opacity: 0.8;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
   }
 
-  /* Tile de /tags: es un botón, conserva borde. */
+  /* Tile de /tags: aquí el tag sí es un campo pulsable. */
   .tag--tile {
     justify-content: flex-start;
     min-width: 0;
-    border: 1px solid var(--border);
-    padding: 0.55rem 0.65rem;
-    color: var(--reading-link);
+    border-radius: var(--radius);
+    background: var(--enamel-900);
+    padding: 0.6rem 0.7rem;
+    color: var(--blue-300);
     transition:
-      border-color 120ms ease,
-      color 120ms ease,
-      box-shadow 120ms ease,
-      transform 120ms ease;
+      background-color var(--dur-fast) var(--ease-enamel),
+      color var(--dur-fast) var(--ease-enamel);
   }
   .tag--tile:hover,
   .tag--tile:focus-visible {
-    border-color: var(--reading-link);
-    color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0
-      color-mix(in srgb, var(--reading-link) 38%, transparent);
+    background: var(--enamel-700);
+    color: var(--white);
   }
   .tag--tile .tag__count {
     margin-left: auto;
   }
 
+  /* El logo enciende su esmalte al pasar. */
+  .logo-cycle {
+    --logo-hover-color: var(--blue-400);
+  }
+  .logo-cycle__text {
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+  .logo-cycle:hover .logo-cycle__text,
+  .logo-cycle:focus-visible .logo-cycle__text {
+    color: var(--logo-hover-color);
+  }
+
   /* Acentos por tipo: solo badges. Los títulos usan --heading-*. */
-  .type-technologies {
+  .type-technologies,
+  .type-libraries,
+  .type-utilities,
+  .type-patterns {
     color: var(--accent-blue);
   }
-  .type-libraries {
-    color: var(--accent-blue);
-  }
-  .type-integrations {
+  .type-integrations,
+  .type-tricks {
     color: var(--accent-indigo);
   }
-  .type-recipes {
+  .type-recipes,
+  .type-practices {
     color: var(--accent-red);
   }
   .type-snippets {
     color: var(--accent-cyan);
   }
-  .type-hooks {
-    color: var(--accent-pink);
-  }
-  .type-utilities {
-    color: var(--accent-blue);
-  }
-  .type-resources {
-    color: var(--accent-pink);
-  }
+  .type-hooks,
+  .type-resources,
   .type-skills {
     color: var(--accent-pink);
   }
-  .type-commands {
-    color: var(--accent-lime);
-  }
-  .type-patterns {
-    color: var(--accent-blue);
-  }
-  .type-practices {
-    color: var(--accent-red);
-  }
+  .type-commands,
   .type-guides {
     color: var(--accent-lime);
   }
-  .type-tricks {
-    color: var(--accent-indigo);
-  }
 
-  /* Título de entrada: violeta de --heading-primary. */
+  /* Título de entrada y subtítulo. */
   main h1 {
     color: var(--heading-primary);
   }
   main header > p {
-    color: var(--reading-muted);
+    color: var(--gray-400);
   }
 
-  /* Título del TOC: color de los subtítulos. */
   .toc-title {
-    color: var(--heading-secondary);
+    color: var(--label-accent);
   }
 }

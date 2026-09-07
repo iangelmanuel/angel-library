@@ -1,25 +1,30 @@
-/* Bloques de código, TOC, progreso de lectura y callouts */
+/* Bloques de código, TOC, progreso de lectura y callouts.
+   El código es un campo hondo: un azul muy rebajado sobre el negro, cerrado
+   por su hilo, con el rótulo de copia esmaltado arriba. */
 @layer components {
-  /* Bloques de código (generados por rehype-code-blocks) */
   .code-block {
-    margin: 1.25rem 0;
-    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+    border-radius: var(--radius-field);
     background: var(--code-bg);
     overflow: hidden;
+  }
+  /* Sin rótulo no hay escalón: el bloque es un solo campo. */
+  .code-block:not(:has(.code-block__header)) pre {
+    padding-block: 1.05rem;
   }
   .code-block__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    border-bottom: 1px solid var(--border);
-    background: var(--zinc-950);
-    padding: 0.35rem 0.75rem;
+    min-height: 2.35rem;
+    background: var(--code-chrome);
+    padding: 0.4rem 0.5rem 0.4rem 1.1rem;
   }
   .code-block__label {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--muted-foreground);
+    font-size: 0.72rem;
+    color: var(--blue-200);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -29,33 +34,29 @@
     align-items: center;
     gap: 0.35rem;
     flex-shrink: 0;
-    border: 1px solid transparent;
-    background: transparent;
-    padding: 0.2rem 0.45rem;
-    font-family: var(--font-pixel);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--muted-foreground);
+    border-radius: var(--radius-thin);
+    background: color-mix(in srgb, var(--white) 7%, transparent);
+    padding: 0.28rem 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--blue-200);
     cursor: pointer;
     transition:
-      color 120ms ease,
-      border-color 120ms ease,
-      box-shadow 120ms ease;
+      background-color var(--dur-fast) var(--ease-enamel),
+      color var(--dur-fast) var(--ease-enamel);
   }
   .code-block__copy:hover {
-    color: var(--foreground);
-    border-color: var(--border-strong);
-    box-shadow: 0 0 0 1px var(--border-strong);
+    background: color-mix(in srgb, var(--white) 16%, transparent);
+    color: var(--white);
   }
   .code-block pre {
     margin: 0;
-    padding: 0.9rem 1rem;
+    padding: 0.95rem 1.1rem 1.05rem;
     overflow-x: auto;
     background: transparent !important;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    line-height: 1.65;
+    font-size: 0.82rem;
+    line-height: 1.7;
   }
   .code-block code {
     font-family: var(--font-mono);
@@ -64,30 +65,30 @@
   /* Resaltado de líneas: ```ts {1,3-5} */
   .code-block .line.highlighted {
     display: inline-block;
-    width: calc(100% + 2rem);
-    margin: 0 -1rem;
-    padding: 0 1rem;
-    background: rgb(255 255 255 / 0.05);
+    width: calc(100% + 2.2rem);
+    margin: 0 -1.1rem;
+    padding: 0 1.1rem;
+    background: color-mix(in srgb, var(--blue-400) 12%, transparent);
   }
 
   /* Notación diff: ```ts + linea / - linea */
   .code-block .line.diff {
     display: inline-block;
-    width: calc(100% + 2rem);
-    margin: 0 -1rem;
-    padding: 0 1rem;
+    width: calc(100% + 2.2rem);
+    margin: 0 -1.1rem;
+    padding: 0 1.1rem;
   }
   .code-block .line.diff.add {
-    background: rgb(255 255 255 / 0.06);
+    background: color-mix(in srgb, var(--blue-400) 16%, transparent);
   }
   .code-block .line.diff.remove {
-    opacity: 0.45;
+    opacity: 0.42;
   }
 
-  /* Bloque especial para comandos (páginas de tipo Comando) */
+  /* Bloque de comandos (páginas de tipo Comando). */
   .command-line::before {
     content: "$ ";
-    color: var(--accent-green);
+    color: var(--blue-500);
     user-select: none;
   }
 
@@ -95,43 +96,40 @@
   .code-block__pm-tabs {
     display: flex;
     align-items: center;
-    gap: 0.15rem;
+    gap: 0.2rem;
   }
   .code-block__pm-tab {
-    border: 1px solid transparent;
+    border-radius: var(--radius-thin);
     background: transparent;
-    padding: 0.2rem 0.5rem;
-    font-family: var(--font-pixel);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--muted-foreground);
+    padding: 0.26rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--gray-400);
     cursor: pointer;
     transition:
-      color 120ms ease,
-      border-color 120ms ease,
-      box-shadow 120ms ease;
+      background-color var(--dur-fast) var(--ease-enamel),
+      color var(--dur-fast) var(--ease-enamel);
   }
   .code-block__pm-tab:hover {
-    color: var(--foreground);
+    color: var(--white);
   }
   .code-block__pm-tab.is-active {
-    border-color: var(--accent-blue);
-    color: var(--accent-blue);
-    box-shadow: 0 0 0 1px var(--accent-blue);
+    background: color-mix(in srgb, var(--white) 12%, transparent);
+    color: var(--white);
   }
   .code-block--pm pre[hidden] {
     display: none;
   }
 
-  /* Scroll-spy del TOC: el borde del link tapa el del <ul>. */
+  /* Scroll-spy del TOC: el hilo del link tapa el del <ul>. */
   .toc-link {
     border-left: 1px solid transparent;
     margin-left: -1px;
+    transition: color var(--dur-fast) var(--ease-enamel);
   }
   .toc-link.is-active {
-    border-left-color: var(--accent-blue);
-    color: var(--foreground);
+    border-left-color: var(--blue-400);
+    color: var(--white);
     font-weight: 500;
   }
 
@@ -148,20 +146,20 @@
   }
   .reading-progress__bar {
     height: 100%;
-    width: 0%;
-    background: var(--accent-blue);
-    transition: width 0.1s linear;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: var(--blue-400);
+    transition: transform 0.1s linear;
   }
 
-  /* Callouts */
+  /* Callouts: campo esmaltado, sin filete lateral. */
   .callout {
-    margin: 1.25rem 0;
-    border: 1px solid var(--border);
-    border-left-width: 2px;
-    border-left-color: var(--border-strong);
-    background: var(--card);
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
-    color: var(--zinc-300);
+    margin: 1.5rem 0;
+    border-radius: var(--radius);
+    background: var(--enamel-900);
+    padding: 0.85rem 1.1rem;
+    font-size: 0.88rem;
+    color: var(--reading-text);
   }
 }

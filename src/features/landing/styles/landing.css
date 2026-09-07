@@ -1,0 +1,852 @@
+/* Portada — «Luz y regla».
+   El mismo esmalte de todo el sitio, pero sin campos rellenos: aquí la
+   profundidad la hace la LUZ (un halo azul detrás del titular y otro en el
+   horizonte del cierre) y el orden lo hacen las REGLAS de 1px. Ningún bloque
+   lleva caja: lo único que separa es un hilo. */
+
+:root {
+  /* El hilo más leve del sistema: solo para filas de listas largas, donde el
+     hilo normal ya pesaría demasiado. */
+  --thread-soft: color-mix(in srgb, var(--blue-400) 10%, transparent);
+}
+
+/* Todo lo de la portada vive en la capa `components`, igual que el resto de
+   hojas del sitio: así una utilidad de Tailwind escrita en el marcado sigue
+   ganando, y estas reglas nunca se cuelan por encima sin querer. */
+@layer components {
+  .wall-shell {
+    width: 100%;
+    max-width: 78rem;
+    margin: 0 auto;
+    padding-inline: 1.5rem;
+  }
+
+  /* ---------------------------------------------------------------- cabecera */
+
+  .wall-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid var(--thread);
+    background: color-mix(in srgb, var(--background) 88%, transparent);
+    backdrop-filter: blur(12px);
+  }
+  .wall-header__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 78rem;
+    height: 4.25rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .wall-header__nav {
+    display: none;
+    align-items: center;
+    gap: 1.75rem;
+    margin-left: auto;
+    font-size: 0.84rem;
+    color: var(--muted-foreground);
+  }
+  .wall-header__nav a {
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-header__nav a:hover,
+  .wall-header__nav a:focus-visible {
+    color: var(--white);
+  }
+  .wall-header__search {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .wall-header__repo {
+    color: var(--muted-foreground);
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-header__repo:hover {
+    color: var(--white);
+  }
+
+  /* ------------------------------------------------------------------- hero */
+
+  /* El hero ocupa la altura de la ventana: el buscador y las cifras caben
+   enteros y todo lo demás empieza por debajo del pliegue. */
+  .wall-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - 4.25rem);
+    overflow: hidden;
+  }
+  /* El halo: la única fuente de luz de la página, y lo único que hay detrás
+   del contenido — ninguna retícula, ningún cuadro. */
+  .wall-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        58% 76% at 14% -6%,
+        color-mix(in srgb, var(--blue-800) 55%, transparent) 0%,
+        color-mix(in srgb, var(--blue-800) 14%, transparent) 42%,
+        transparent 72%
+      ),
+      radial-gradient(
+        38% 52% at 86% 8%,
+        color-mix(in srgb, var(--cat-frontend) 10%, transparent) 0%,
+        transparent 70%
+      );
+  }
+  .wall-hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+    padding-block: 5rem 3.5rem;
+  }
+  .wall-hero__identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wall-hero__title {
+    margin-top: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5.4vw, 4.875rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+    color: var(--blue-100);
+    text-wrap: pretty;
+  }
+  .wall-hero__title span {
+    display: block;
+  }
+  .wall-hero__claim {
+    max-width: 47ch;
+    margin-top: 1.75rem;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--gray-300);
+  }
+
+  /* El índice: el único objeto grande del hero. Un campo apenas vidriado, sin
+   canto — la sombra y el tamaño bastan para que sea lo primero que se toca. */
+  .wall-index {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    max-width: 35rem;
+    min-height: 3.875rem;
+    margin-top: 2.5rem;
+    border-radius: var(--radius-field);
+    background: color-mix(in oklab, var(--blue-800) 16%, #000000);
+    padding: 0 0.875rem 0 1.125rem;
+    text-align: left;
+    cursor: pointer;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.6),
+      0 24px 56px -28px color-mix(in srgb, var(--blue-800) 90%, transparent);
+    transition: background-color var(--dur-slow) var(--ease-enamel);
+  }
+  .wall-index:hover,
+  .wall-index:focus-visible {
+    background: color-mix(in oklab, var(--blue-800) 28%, #000000);
+  }
+  .wall-index__icon {
+    flex-shrink: 0;
+    color: var(--blue-400);
+  }
+  .wall-index__text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1rem;
+    color: var(--muted-foreground);
+  }
+  .wall-index .kbd {
+    flex-shrink: 0;
+    background: color-mix(in srgb, var(--blue-400) 12%, transparent);
+    color: var(--blue-300);
+  }
+  /* Las dos salidas del hero: leer, o ver cómo está montado. */
+  .wall-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.25rem;
+  }
+  .wall-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    border-radius: var(--radius-field);
+    background: var(--primary);
+    padding-inline: 1.25rem;
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--primary-foreground);
+    transition: background-color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-hero__cta:hover,
+  .wall-hero__cta:focus-visible {
+    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
+    color: var(--white);
+  }
+  .wall-hero__secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-size: 0.9rem;
+    color: var(--blue-500);
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-hero__secondary:hover,
+  .wall-hero__secondary:focus-visible {
+    color: var(--white);
+  }
+
+  /* Lo último editado: una lista rayada, sin tarjetas. */
+  .wall-recent__heading {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .wall-recent__heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--thread);
+  }
+  .wall-recent {
+    display: flex;
+    flex-direction: column;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .wall-recent__row {
+    --card-accent: var(--blue-400);
+    display: grid;
+    grid-template-columns: 0.375rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--thread-soft);
+    padding: 0.9rem 0;
+    transition: border-color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-recent li:last-child .wall-recent__row {
+    border-bottom: 0;
+  }
+  .wall-recent__row:hover,
+  .wall-recent__row:focus-visible {
+    border-color: var(--thread-strong);
+  }
+  .wall-recent__chip {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 999px;
+    background: var(--card-accent);
+  }
+  .wall-recent__title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    color: var(--white);
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-recent__row:hover .wall-recent__title {
+    color: var(--card-accent);
+  }
+  .wall-recent__date {
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--gray-450);
+  }
+
+  /* Las cifras: una sola línea, sin celdas. */
+  .wall-figures {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 0;
+    border-top: 1px solid var(--thread);
+    padding-block: 2rem 2.25rem;
+  }
+  .wall-figure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .wall-figure + .wall-figure {
+    border-left: 1px solid var(--thread-soft);
+    padding-left: 1.75rem;
+  }
+  .wall-figure__value {
+    font-family: var(--font-mono);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--blue-200);
+  }
+
+  /* --------------------------------------------------------- micro-etiquetas */
+
+  .wall-micro {
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray-450);
+  }
+
+  /* -------------------------------------------------------------- el índice */
+
+  .wall-catalog {
+    display: grid;
+    align-content: center;
+    border-top: 1px solid var(--thread);
+    padding-block: 6rem;
+    scroll-margin-top: 4.25rem;
+  }
+  .wall-catalog__head {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+  }
+  .wall-catalog__head h2 {
+    font-size: 0.94rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--blue-300);
+  }
+  .wall-catalog__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--thread);
+  }
+  .wall-catalog__count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--blue-600);
+  }
+  .wall-catalog__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    gap: 0.5rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Cada categoría es un campo esmaltado: el color rellena, no bordea. */
+  .wall-entry {
+    --field-accent: var(--blue-400);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    height: 100%;
+    min-height: 3.25rem;
+    border-radius: var(--radius-field);
+    background: color-mix(in oklab, var(--field-accent) var(--glaze), #000000);
+    padding-inline: 0.9rem;
+    transition: background-color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-entry:hover,
+  .wall-entry:focus-visible {
+    background: color-mix(
+      in oklab,
+      var(--field-accent) var(--glaze-lit),
+      #000000
+    );
+  }
+  .wall-entry__chip {
+    flex-shrink: 0;
+    width: 0.3125rem;
+    height: 0.3125rem;
+    border-radius: 999px;
+    background: var(--field-accent);
+  }
+  .wall-entry__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+  .wall-entry__count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--gray-300);
+  }
+  /* La salida al listado completo: mismo campo, pero neutro — no es una
+   categoría más, así que no toma color de ninguna. */
+  .wall-entry--all {
+    justify-content: space-between;
+    background: var(--enamel-900);
+    color: var(--blue-500);
+  }
+  .wall-entry--all:hover,
+  .wall-entry--all:focus-visible {
+    background: var(--enamel-700);
+  }
+  .wall-entry--all .wall-entry__label {
+    flex: 0 1 auto;
+    color: var(--blue-500);
+  }
+  .wall-entry--all:hover .wall-entry__label {
+    color: var(--white);
+  }
+
+  /* ---------------------------------------------------------------- secciones */
+
+  /* Cada sección es una parada: se abre con su propio hilo y, en pantallas
+   holgadas, ocupa la ventana entera con el contenido centrado. */
+  .wall-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: 2.5rem;
+    border-top: 1px solid var(--thread);
+    padding-block: 6rem;
+    scroll-margin-top: 4.25rem;
+  }
+  .wall-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wall-title__text {
+    margin-top: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    color: var(--blue-200);
+  }
+  .wall-title__lead {
+    margin-top: 1.375rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--muted-foreground);
+  }
+
+  /* ------------------------------------------------------------------- ruta */
+
+  .wall-route {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  /* La ruta: cuatro segmentos sobre una misma línea base. */
+  .wall-path {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1.25rem 0;
+    border-bottom: 1px solid var(--thread-strong);
+    padding-bottom: 1.125rem;
+  }
+  .wall-path__segment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5625rem;
+    min-width: 0;
+    padding-right: 1.375rem;
+  }
+  .wall-path__segment + .wall-path__segment {
+    border-left: 1px solid var(--thread);
+    padding-left: 1.375rem;
+  }
+  .wall-path__segment b {
+    overflow-wrap: anywhere;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gray-300);
+  }
+  .wall-path__segment i {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-450);
+  }
+  .wall-path__segment--root b {
+    color: var(--muted-foreground);
+  }
+  .wall-path__segment--file b {
+    color: var(--blue-400);
+  }
+  .wall-path__segment--file i {
+    color: var(--blue-500);
+  }
+
+  .wall-route__outputs-title {
+    margin-top: 1.875rem;
+  }
+  .wall-outputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1.75rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .wall-output__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5625rem;
+    height: 100%;
+    border-top: 1px solid var(--thread);
+    padding-top: 1rem;
+    transition: border-color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-output__link:hover,
+  .wall-output__link:focus-visible {
+    border-color: var(--thread-bright);
+  }
+  .wall-output__from {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-450);
+  }
+  .wall-output__value {
+    overflow-wrap: anywhere;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    color: var(--blue-300);
+  }
+  .wall-output__note {
+    font-size: 0.81rem;
+    color: var(--gray-450);
+  }
+  .wall-route__note {
+    max-width: 68ch;
+    margin-top: 2.125rem;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--gray-450);
+  }
+
+  /* -------------------------------------------------------------- recorrido */
+
+  .wall-legs {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .wall-leg {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.75rem 1.5rem;
+    border-top: 1px solid var(--thread);
+    padding-block: 1.625rem;
+  }
+  .wall-leg:last-child {
+    border-bottom: 1px solid var(--thread);
+  }
+  .wall-leg__index {
+    font-family: var(--font-mono);
+    font-size: 0.81rem;
+    color: var(--blue-600);
+  }
+  .wall-leg__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .wall-leg__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--white);
+  }
+  .wall-leg__line {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+  .wall-leg__detail {
+    grid-column: 2;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--gray-450);
+  }
+
+  /* --------------------------------------------------------------- inventario */
+
+  .wall-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Cada tipo es una tarjeta cuya barra mide su proporción real. */
+  .wall-board__cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 100%;
+    min-height: 3rem;
+    border-radius: var(--radius-field);
+    background: var(--surface);
+    padding-inline: 0.9rem;
+    overflow: hidden;
+    isolation: isolate;
+    transition: background-color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-board__cell:hover,
+  .wall-board__cell:focus-visible {
+    background: var(--surface-raised);
+  }
+  .wall-board__bar {
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: -1;
+    width: calc(var(--row-share) * 100%);
+    background: color-mix(in oklab, var(--blue-800) 40%, #000000);
+    transition: background-color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-board__cell:hover .wall-board__bar {
+    background: color-mix(in oklab, var(--blue-700) 54%, #000000);
+  }
+  .wall-board__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+  .wall-board__count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--gray-300);
+  }
+  .wall-inventory__all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--blue-500);
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-inventory__all:hover,
+  .wall-inventory__all:focus-visible {
+    color: var(--white);
+  }
+  .wall-inventory__all b {
+    font-family: var(--font-mono);
+    font-weight: 400;
+  }
+
+  /* ------------------------------------------------------------------ cierre */
+
+  .wall-close {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: 1px solid var(--thread);
+    overflow: hidden;
+  }
+  /* El horizonte: la segunda y última luz de la página. */
+  .wall-close::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      70% 130% at 50% 128%,
+      color-mix(in srgb, var(--blue-800) 85%, transparent) 0%,
+      color-mix(in srgb, var(--blue-800) 22%, transparent) 38%,
+      transparent 74%
+    );
+  }
+  .wall-close__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 6.5rem 7rem;
+  }
+  .wall-close__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 4.4vw, 3.625rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    text-align: center;
+    color: var(--white);
+  }
+  .wall-close__text {
+    max-width: 52ch;
+    margin-top: 1.375rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: center;
+    color: var(--blue-300);
+  }
+  .wall-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 3.25rem;
+    margin-top: 2.375rem;
+    border-radius: var(--radius-field);
+    background: var(--white);
+    padding-inline: 1.375rem;
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--enamel-950);
+    transition:
+      background-color var(--dur-fast) var(--ease-enamel),
+      box-shadow var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-btn:hover,
+  .wall-btn:focus-visible {
+    background: var(--blue-200);
+    box-shadow: var(--shadow-lifted);
+  }
+
+  /* --------------------------------------------------------------------- pie */
+
+  .wall-footer {
+    border-top: 1px solid var(--thread);
+  }
+  .wall-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.875rem 2rem;
+    width: 100%;
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 1.875rem 1.5rem;
+  }
+  .wall-footer__fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem 2rem;
+    margin: 0;
+  }
+  .wall-footer__cell {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .wall-footer__cell dt {
+    color: var(--gray-450);
+  }
+  .wall-footer__cell dd {
+    margin: 0;
+    color: var(--gray-400);
+  }
+  .wall-footer__repo {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--blue-600);
+    transition: color var(--dur-fast) var(--ease-enamel);
+  }
+  .wall-footer__repo:hover,
+  .wall-footer__repo:focus-visible {
+    color: var(--white);
+  }
+
+  /* --------------------------------------------------------- adaptación */
+
+  @media (min-width: 640px) {
+    .wall-header__nav {
+      display: flex;
+    }
+    .wall-figures {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .wall-leg {
+      grid-template-columns: 2.75rem minmax(0, 1fr) 18.75rem;
+    }
+    .wall-leg__detail {
+      grid-column: 3;
+      grid-row: 1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .wall-header__search {
+      display: inline-flex;
+    }
+    .wall-hero__inner {
+      grid-template-columns: minmax(0, 1fr) 26.25rem;
+      gap: 5.5rem;
+      padding-block: 6.5rem 4.75rem;
+    }
+    .wall-hero__stack {
+      padding-top: 0.5rem;
+    }
+    .wall-section {
+      grid-template-columns: 23.75rem minmax(0, 1fr);
+      gap: 5rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .wall-shell,
+    .wall-header__inner,
+    .wall-footer__inner {
+      padding-inline: 1.25rem;
+    }
+    .wall-figure:nth-child(odd) {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .wall-path__segment {
+      flex-basis: 100%;
+      border-left: 1px solid var(--thread);
+      padding-left: 0.875rem;
+    }
+    .wall-path__segment + .wall-path__segment {
+      padding-left: 0.875rem;
+    }
+  }
+}

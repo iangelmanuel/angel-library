@@ -1,13 +1,14 @@
 /* Hoja de entrada: solo imports.
    Orden: tokens → base → keyframes → componentes, de general a específico. */
 
-/* Fuentes: Sans texto, Mono código, Pixel títulos. */
+/* Fuentes: Sans para todo el texto y los títulos, Mono solo para código,
+   rutas y datos medidos. */
 @import "@fontsource/geist-sans/latin-400.css";
 @import "@fontsource/geist-sans/latin-500.css";
 @import "@fontsource/geist-sans/latin-600.css";
+@import "@fontsource/geist-sans/latin-700.css";
 @import "@fontsource/geist-mono/latin-400.css";
 @import "@fontsource/geist-mono/latin-500.css";
-@import "@fontsource/geist-pixel/latin-400.css";
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -20,7 +21,7 @@
 @import "./components/sidebar.css";
 @import "./components/code.css";
 @import "./components/markdown.css";
-@import "./components/terminal.css";
-@import "./components/search-terminal.css";
+@import "./components/fields.css";
+@import "./components/command-palette.css";
 
 @custom-variant dark (&:is(.dark *));

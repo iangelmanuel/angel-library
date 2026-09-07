@@ -1,74 +1,169 @@
-/* Tokens de diseño: fondo negro y escala zinc; la jerarquía la dan los bordes. */
+/* Tokens de diseño — «El Esmalte».
+   Lienzo negro, campos rellenos de esmalte azul, un hilo claro de 1px como
+   única línea. El color rellena; la línea solo separa. Ningún gris entra a un
+   campo: los grises viven solo en prosa secundaria. */
 
 :root {
-  /* Escala zinc: ningún gris se escribe fuera de aquí. */
-  --zinc-50: #fafafa;
-  --zinc-100: #f4f4f5;
-  --zinc-200: #e4e4e7;
-  --zinc-300: #d4d4d8;
-  --zinc-400: #a1a1aa;
-  --zinc-500: #71717a;
-  --zinc-600: #52525b;
-  --zinc-700: #3f3f46;
-  --zinc-800: #27272a;
-  --zinc-900: #18181b;
-  --zinc-950: #09090b;
+  /* Escala azul: la paleta de marca. 100 y 200 son literales; el resto
+     interpola entre ellos. 700/800 son rellenos, nunca color de letra:
+     contra el lienzo no llegan a 4.5:1 como texto. */
+  --blue-100: #fcffff;
+  --blue-200: #c4dafa;
+  --blue-300: #a9cbf8;
+  --blue-400: #84b6f4;
+  --blue-500: #699fe0;
+  --blue-600: #4d82bc;
+  --blue-700: #35659a;
+  --blue-800: #005187;
 
-  /* Superficies: sin relleno, solo borde. */
+  /* Esmalte: azules quemados hacia el negro. Son RELLENOS de superficie,
+     no fondos de tarjeta: definen la profundidad por luminosidad, sin caja. */
+  --enamel-950: #030a11;
+  --enamel-900: #05121d;
+  --enamel-800: #071b2b;
+  --enamel-700: #0a2438;
+  --enamel-600: #0d2e46;
+
+  /* Hilo de metal: la única línea del sistema. Un azul claro a baja alfa,
+     nunca un gris. El fuerte solo cierra campos activos o elevados. */
+  --thread: color-mix(in srgb, var(--blue-400) 16%, transparent);
+  --thread-strong: color-mix(in srgb, var(--blue-400) 34%, transparent);
+  --thread-bright: color-mix(in srgb, var(--blue-300) 58%, transparent);
+
+  /* Grises neutros: el contrapeso del azul. Solo texto secundario, scrollbars
+     y separadores neutros — nunca un relleno de campo. */
+  --white: #ffffff;
+  --gray-300: #d4d4d8;
+  --gray-400: #a1a1aa;
+  /* El gris más apagado que sigue siendo legible sobre negro: 5.9:1, por
+     encima del 4.5:1 que pide la AA para texto pequeño. Nada de texto baja
+     de aquí. */
+  --gray-450: #8e8e99;
+  --gray-800: #27272a;
+  --gray-900: #18181b;
+
+  /* Superficies. Tres niveles de luz sobre el mismo negro. */
   --background: #000000;
-  --foreground: var(--zinc-100);
-  --card: transparent;
-  --card-foreground: var(--zinc-100);
-  --popover: #000000;
-  --popover-foreground: var(--zinc-100);
-  --primary: var(--zinc-50);
-  --primary-foreground: #000000;
-  --secondary: var(--zinc-950);
-  --secondary-foreground: var(--zinc-200);
-  --muted: var(--zinc-950);
-  --muted-foreground: var(--zinc-400);
-  --accent: var(--zinc-900);
-  --accent-foreground: var(--zinc-50);
-  --destructive: #fda4af;
-  --destructive-foreground: #000000;
-  --border: var(--zinc-800);
-  --border-strong: var(--zinc-700);
-  --input: var(--zinc-800);
-  --ring: var(--zinc-500);
-  --code-bg: transparent;
+  --foreground: var(--white);
+  --surface: var(--enamel-900);
+  --surface-raised: var(--enamel-800);
+  --surface-active: var(--enamel-700);
+  --card: var(--enamel-950);
+  --card-foreground: var(--white);
+  --popover: var(--enamel-900);
+  --popover-foreground: var(--white);
 
-  /* Lectura: el azul del enlace es el mismo de los tags. */
-  --reading-text: var(--zinc-300);
-  --reading-muted: var(--zinc-400);
-  --reading-link: color-mix(in srgb, var(--accent-blue) 78%, var(--foreground));
+  /* Esmalte pleno: el relleno saturado de la marca. */
+  --primary: var(--blue-800);
+  --primary-foreground: var(--white);
+  --secondary: var(--enamel-800);
+  --secondary-foreground: var(--gray-300);
+  --accent: var(--enamel-700);
+  --accent-foreground: var(--white);
 
-  /* Jerarquía de títulos: módulo → sección → apartado. */
-  --heading-primary: var(--accent-purple);
-  --heading-secondary: #eab308;
-  --heading-tertiary: #facc15;
-  --heading-quaternary: var(--zinc-400);
+  /* Texto apagado: gris neutro leve. El azul se reserva para títulos,
+     iconos y rellenos; las descripciones no compiten con ellos. */
+  --muted: var(--enamel-800);
+  --muted-foreground: var(--gray-400);
+  --destructive: #ffb3ba;
+  --destructive-foreground: #12060a;
 
-  /* Apartados finales: color de los subtítulos. */
-  --related-accent: var(--heading-secondary);
+  --border: var(--thread);
+  --border-strong: var(--thread-strong);
+  --input: var(--enamel-800);
+  --ring: var(--blue-400);
 
-  /* Acentos: 1:1 con CategoryMeta.color y con los badges .type-X. */
-  --accent-blue: #60a5fa;
-  --accent-cyan: #67e8f9;
-  --accent-green: #86efac;
-  --accent-pink: #f0abfc;
-  --accent-purple: #c4b5fd;
-  --accent-red: #fda4af;
-  --accent-teal: #5eead4;
-  --accent-indigo: #a5b4fc;
-  --accent-lime: #bef264;
-  --accent-yellow: #fde047;
-  --accent-orange: #fdba74;
-  --radius: 0rem;
+  /* Código: negro esmaltado. El cuerpo se lee azul —leve, pero azul— y su
+     rótulo va un paso por encima: dos alturas del mismo color, nunca dos
+     colores distintos. */
+  --code-bg: color-mix(in oklab, var(--blue-800) 20%, #000000);
+  --code-chrome: color-mix(in oklab, var(--blue-800) 32%, #000000);
+
+  /* Lectura. La medida es fija; los márgenes se recortan, la medida no. */
+  --reading-measure: 68ch;
+  --reading-text: #ededf0;
+  --reading-link: var(--blue-400);
+
+  /* Jerarquía de títulos: una sola rampa de azul, de vivo a apagado. */
+  --heading-primary: var(--blue-200);
+  --heading-secondary: var(--blue-400);
+  --heading-tertiary: var(--blue-500);
+  --heading-quaternary: var(--gray-300);
+  --related-accent: var(--blue-400);
+  --label-accent: var(--gray-400);
+
+  /* Esmaltes de categoría: 23 piezas de la misma familia azul, separadas por
+     tono Y por luz para que dos campos vecinos nunca se confundan. Son el
+     ORIGEN del relleno: el campo se mezcla en oklab contra el negro, así que
+     estos valores son vivos a propósito. */
+  --cat-general: #7fd4ff;
+  --cat-languages: #4fc4f0;
+  --cat-frontend: #4aa8f5;
+  --cat-backend: #2f86e0;
+  --cat-database: #2f6fd0;
+  --cat-architecture: #5a6fe0;
+  --cat-devops: #7a86f2;
+  --cat-terminal: #43b8c8;
+  --cat-git: #6ad2d0;
+  --cat-applications: #8fb8ff;
+  --cat-ai: #9a8ff5;
+  --cat-agents: #b49bf0;
+  --cat-skills: #6f9ae8;
+  --cat-testing: #2fa9b8;
+  --cat-security: #3f8fd8;
+  --cat-performance: #5fc0e8;
+  --cat-accessibility: #86c9f0;
+  --cat-seo: #3f9ac0;
+  --cat-ui-ux: #a4c4ff;
+  --cat-resources: #6fb0e0;
+  --cat-courses: #90a8f0;
+  --cat-findings: #58c8e0;
+  --cat-benchmarks: #4f7fd0;
+
+  /* Acentos de TIPO de contenido: los consume content-types.ts. */
+  --accent-blue: var(--blue-600);
+  --accent-cyan: var(--blue-500);
+  --accent-green: var(--blue-400);
+  --accent-pink: var(--blue-300);
+  --accent-indigo: #2f6fb8;
+  --accent-lime: #5aa7d8;
+  --accent-red: #3f8fc4;
+  --accent-purple: #b6d9f5;
+
+  /* Cromo del navegador: gris oscuro, nunca azul. */
+  --scrollbar: var(--gray-800);
+  --scrollbar-hover: #3f3f46;
+
+  /* El esmalte: un campo se rellena mezclando su color contra el negro en
+     oklab. Rebajado a propósito — en reposo 20%, encendido 30%: se lee el
+     color, pero veinte campos juntos no saturan la pantalla. */
+  --glaze: 20%;
+  --glaze-lit: 30%;
+
+  /* Cantos: finos, nunca cero, nunca de píldora. */
+  --radius: 4px;
+  --radius-thin: 2px;
+  --radius-field: 6px;
+
+  /* Profundidad: sombra con desplazamiento y desenfoque suave, jamás un halo
+     de color ni un bloque sin blur. Se usa poco: la luz hace casi todo. */
+  --shadow-field:
+    0 1px 2px rgb(0 0 0 / 0.6), 0 12px 32px -18px rgb(0 0 0 / 0.9);
+  --shadow-lifted:
+    0 2px 4px rgb(0 0 0 / 0.5), 0 24px 56px -28px rgb(0 0 0 / 0.95);
+
+  /* Movimiento: una sola curva, dos duraciones. */
+  --ease-enamel: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 140ms;
+  --dur-slow: 320ms;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-active: var(--surface-active);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -87,13 +182,18 @@
   --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-800: var(--blue-800);
 
   --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --font-pixel: "Geist Pixel", "Geist Mono", ui-monospace, monospace;
+  --font-display: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
 
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
+  --radius-sm: var(--radius-thin);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-field);
+  --radius-xl: var(--radius-field);
 }

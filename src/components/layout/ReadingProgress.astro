@@ -1,7 +1,3 @@
----
-/** Barra de progreso; solo en la página de una entrada. */
----
-
 <div
   class="reading-progress"
   aria-hidden="true"
@@ -26,7 +22,7 @@
       Math.max((window.scrollY - articleTop) / scrollable, 0),
       1
     )
-    bar.style.width = `${progress * 100}%`
+    bar.style.transform = `scaleX(${progress})`
   }
 
   window.addEventListener("scroll", updateReadingProgress, { passive: true })

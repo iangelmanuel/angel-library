@@ -1,5 +1,5 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { ChevronRight, X } from "lucide-react"
+import { ChevronRight, Search, X } from "lucide-react"
 import { type CSSProperties, useEffect, useState } from "react"
 import { DynamicIcon } from "@/components/shared/DynamicIcon"
 import type { NavData } from "@/lib/nav"
@@ -40,7 +40,7 @@ export default function MobileNav({ data }: { data: NavData }) {
           </DialogPrimitive.Description>
 
           <div className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4">
-            <span className="font-pixel text-[0.65rem] tracking-wider text-muted-foreground uppercase">
+            <span className="font-display text-[0.72rem] font-semibold tracking-wider text-muted-foreground uppercase">
               menú
             </span>
             <DialogPrimitive.Close
@@ -61,15 +61,13 @@ export default function MobileNav({ data }: { data: NavData }) {
                 close()
                 window.dispatchEvent(new CustomEvent("angel:open-search"))
               }}
-              className="mb-4 flex w-full items-center gap-2 border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+              className="chrome-search mb-4 w-full"
             >
-              <span
-                className="font-mono font-semibold text-[var(--accent-green)]"
+              <Search
+                className="size-4"
                 aria-hidden="true"
-              >
-                $
-              </span>
-              <span className="flex-1 text-left">grep docs</span>
+              />
+              <span className="flex-1 text-left">Buscar</span>
               <kbd className="kbd">/</kbd>
             </button>
 

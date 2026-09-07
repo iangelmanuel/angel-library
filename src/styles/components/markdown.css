@@ -1,9 +1,12 @@
-/* Contenido markdown */
+/* Contenido markdown.
+   La medida es fija y no se negocia: en pantallas angostas se recortan los
+   márgenes, nunca la medida. Los títulos bajan por una sola rampa de azul y
+   se separan por espacio, no por reglas dibujadas. */
 @layer components {
   .markdown {
     font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 1.02rem;
+    line-height: 1.75;
     color: var(--reading-text);
     text-wrap: pretty;
   }
@@ -11,85 +14,84 @@
   .markdown > ul,
   .markdown > ol,
   .markdown > blockquote {
-    max-width: 68ch;
+    max-width: var(--reading-measure);
   }
   .markdown > *:first-child {
     margin-top: 0;
   }
 
-  /* h1 módulo → h2 sección → h3 apartado → h4 detalle: cambian color y borde. */
+  /* h1 módulo → h2 sección → h3 apartado → h4 detalle. */
   .markdown h1,
   .markdown h2,
   .markdown h3,
   .markdown h4 {
-    font-family: var(--font-pixel);
-    font-weight: 400;
-    color: var(--foreground);
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
     text-wrap: balance;
     scroll-margin-top: 5rem;
   }
   .markdown h1 {
-    font-size: 1.75rem;
-    margin: 3rem 0 1.25rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid
-      color-mix(in srgb, var(--heading-primary) 30%, var(--border-strong));
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin: 3.25rem 0 1.25rem;
     color: var(--heading-primary);
   }
   .markdown h2 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    font-weight: 600;
     margin: 3.5rem 0 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px dashed
-      color-mix(in srgb, var(--heading-secondary) 45%, var(--border));
     color: var(--heading-secondary);
   }
   .markdown h3 {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     margin: 2.5rem 0 0.85rem;
-    padding-left: 0.6rem;
-    border-left: 2px solid var(--heading-tertiary);
     color: var(--heading-tertiary);
   }
   .markdown h4 {
-    font-size: 0.82rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     margin: 2rem 0 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.01em;
     color: var(--heading-quaternary);
   }
 
   .markdown p {
-    margin: 1.1rem 0;
+    margin: 1.15rem 0;
   }
   .markdown p + h2,
   .markdown p + h3,
   .markdown p + h4 {
     margin-top: 3rem;
   }
-  /* Enlaces: azul de los tags, subrayado siempre visible. */
+
+  /* Enlaces: azul de la escala, subrayado siempre visible. */
   .markdown a {
     color: var(--reading-link);
     text-decoration: underline;
     text-decoration-color: color-mix(
       in srgb,
-      var(--reading-link) 70%,
+      var(--reading-link) 45%,
       transparent
     );
     text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
-    border-radius: 2px;
+    text-underline-offset: 0.22em;
+    border-radius: var(--radius-thin);
+    transition:
+      color var(--dur-fast) var(--ease-enamel),
+      background-color var(--dur-fast) var(--ease-enamel);
   }
   .markdown a:hover,
   .markdown a:focus-visible {
-    color: color-mix(in srgb, var(--reading-link) 60%, var(--foreground));
-    background: color-mix(in srgb, var(--reading-link) 10%, transparent);
+    color: var(--blue-200);
+    background: color-mix(in srgb, var(--blue-400) 14%, transparent);
     text-decoration-color: currentColor;
   }
   .markdown strong {
-    color: var(--foreground);
+    color: var(--white);
     font-weight: 600;
   }
+
   .markdown ul,
   .markdown ol {
     margin: 1rem 0;
@@ -102,77 +104,89 @@
     position: relative;
   }
   .markdown ul > li::before {
-    content: "▪";
+    content: "";
     position: absolute;
-    left: -1.1rem;
-    color: var(--heading-secondary);
-    font-size: 0.7em;
-    top: 0.35em;
+    left: -1rem;
+    top: 0.72em;
+    width: 0.34rem;
+    height: 0.34rem;
+    border-radius: var(--radius-thin);
+    background: var(--blue-500);
   }
   .markdown ol {
     list-style: decimal;
   }
   .markdown ol::marker,
   .markdown li::marker {
-    color: var(--muted-foreground);
-    font-family: var(--font-mono);
-    font-size: 0.85em;
+    color: var(--blue-500);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9em;
   }
   .markdown li {
-    margin: 0.35rem 0;
+    margin: 0.4rem 0;
   }
-  /* Cita: solo borde izquierdo. */
+
+  /* Cita: campo esmaltado tenue, sin filete. */
   .markdown blockquote {
-    margin: 1.25rem 0;
-    border-left: 3px solid var(--heading-tertiary);
-    padding: 0.8rem 1rem;
-    color: var(--reading-muted);
+    margin: 1.5rem 0;
+    border-radius: var(--radius);
+    background: var(--enamel-900);
+    padding: 0.9rem 1.15rem;
+    color: var(--gray-300);
   }
-  /* Código inline: solo borde. */
+
+  /* Código inline: un campo pequeño, relleno. */
   .markdown :not(pre) > code {
-    background: transparent;
-    border: 1px solid var(--border);
-    padding: 0.12rem 0.35rem;
+    border-radius: var(--radius-thin);
+    background: var(--code-chrome);
+    padding: 0.14rem 0.4rem;
     font-family: var(--font-mono);
-    font-size: 0.84em;
-    color: var(--foreground);
+    font-size: 0.86em;
+    color: var(--white);
   }
+
   .markdown hr {
     border: none;
-    height: 4px;
-    margin: 2.5rem 0;
-    background: repeating-linear-gradient(
-      90deg,
-      var(--border) 0 6px,
-      transparent 6px 12px
-    );
+    height: 1px;
+    margin: 3rem 0;
+    background: var(--thread);
   }
+
   .markdown table {
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 1.75rem 0;
     border-collapse: collapse;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
+    font-variant-numeric: tabular-nums;
   }
   .markdown th {
-    font-family: var(--font-pixel);
-    font-weight: 400;
-    font-size: 0.65rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-align: left;
-    color: var(--heading-secondary);
-    border-bottom: 1px solid var(--border-strong);
-    padding: 0.5rem 0.75rem;
+    color: var(--white);
+    background: var(--enamel-800);
+    padding: 0.55rem 0.8rem;
+  }
+  .markdown th:first-child {
+    border-top-left-radius: var(--radius-thin);
+    border-bottom-left-radius: var(--radius-thin);
+  }
+  .markdown th:last-child {
+    border-top-right-radius: var(--radius-thin);
+    border-bottom-right-radius: var(--radius-thin);
   }
   .markdown td {
-    border-bottom: 1px solid var(--border);
-    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--thread);
+    padding: 0.55rem 0.8rem;
   }
-  /* Cebra de tabla: velo blanco, no color. */
   .markdown tbody tr:nth-child(even) {
-    background: rgb(255 255 255 / 0.018);
+    background: color-mix(in srgb, var(--blue-400) 4%, transparent);
   }
+
   .markdown img {
-    border: 1px solid var(--border);
+    border-radius: var(--radius);
   }
 }

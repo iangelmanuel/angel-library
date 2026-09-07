@@ -14,56 +14,40 @@ const tags = entry.data.tags ?? []
 
 <a
   href={getEntryUrl(entry)}
-  class="card terminal-card"
+  class="card entry-card"
   style={`--card-accent: var(${meta.color})`}
 >
   <div
-    class="terminal-card__bar"
+    class="entry-card__bar"
     aria-hidden="true"
   >
-    <span class="terminal-card__path"><span>~/</span>{entry.id}</span>
-    <span class="terminal-card__status">
-      <i></i><i></i><i></i>
-    </span>
+    <span class="entry-card__path">{entry.id}</span>
   </div>
-  <div class="terminal-card__body">
-    <div class="terminal-card__meta">
+  <div class="entry-card__body">
+    <div class="entry-card__meta">
       <span
         class:list={["flex items-center gap-1.5", `type-${entry.data.type}`]}
       >
         <Icon
           name={meta.icon}
-          class="size-3"
+          class="size-3.5"
         />
         <span>{meta.singular}</span>
       </span>
-      <span aria-hidden="true">.md</span>
     </div>
-    <h3>
-      <span
-        class="terminal-card__prompt"
-        aria-hidden="true"
-        >❯</span
-      >
-      {entry.data.title}
-    </h3>
+    <h3>{entry.data.title}</h3>
     <p class="line-clamp-3">{entry.data.description}</p>
     {
       tags.length > 0 && (
-        <div class="terminal-card__tags">
+        <div class="entry-card__tags">
           {tags.slice(0, 3).map((tag) => (
             <span class="tag">{tag}</span>
           ))}
           {tags.length > 3 && (
-            <span class="terminal-card__more">+{tags.length - 3}</span>
+            <span class="entry-card__more">+{tags.length - 3}</span>
           )}
         </div>
       )
     }
   </div>
-  <span
-    class="terminal-card__open"
-    aria-hidden="true"
-    >↗</span
-  >
 </a>

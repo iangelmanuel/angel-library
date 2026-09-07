@@ -1,0 +1,60 @@
+---
+import Logo from "@/components/shared/Logo.astro"
+import Icon from "@/components/shared/Icon.astro"
+import { SITE } from "@/config/site"
+---
+
+<header class="wall-header">
+  <div class="wall-header__inner">
+    <Logo />
+
+    <nav
+      class="wall-header__nav"
+      aria-label="Secciones de la página"
+    >
+      <a href="#la-ruta">La ruta</a>
+      <a href="#recorrido">Recorrido</a>
+      <a href="#tipos">Tipos</a>
+    </nav>
+
+    <button
+      type="button"
+      data-open-search
+      class="wall-header__search chrome-search"
+      aria-label="Abrir la búsqueda (Control K)"
+    >
+      <Icon
+        name="search"
+        class="size-3.5"
+      />
+      <span class="wall-header__search-text">Buscar</span>
+      <kbd class="kbd">ctrl K</kbd>
+    </button>
+
+    <a
+      href={SITE.social.x}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="wall-header__repo"
+      aria-label="Ver el perfil de X (Twitter)"
+    >
+      <Icon
+        name="brand-x"
+        class="size-4"
+      />
+    </a>
+
+    <a
+      href={SITE.social.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="wall-header__repo"
+      aria-label="Ver el repositorio en GitHub"
+    >
+      <Icon
+        name="brand-github"
+        class="size-4"
+      />
+    </a>
+  </div>
+</header>

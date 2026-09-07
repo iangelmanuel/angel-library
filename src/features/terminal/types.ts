@@ -44,23 +44,17 @@ export type InputMode =
   | { kind: "tags"; needle: string }
   | { kind: "command"; name: string; args: string }
 
+/** Temas del índice. Todos viven dentro del mundo del sitio: negro, la
+    escala azul, grises neutros y blanco. Ninguno sale de la paleta. */
 export const TERMINAL_THEMES = [
-  "default",
-  "matrix",
-  "midnight",
-  "violet",
-  "amber",
-  "crimson",
-  "ocean",
-  "forest",
-  "synthwave",
-  "ice",
-  "mono",
-  "retro",
-  "angel"
+  "angel",
+  "esmalte",
+  "tinta",
+  "niebla",
+  "hielo"
 ] as const
 
 export type TerminalTheme = (typeof TERMINAL_THEMES)[number]
-export type TerminalEffect = "none" | "rainbow"
+export type TerminalEffect = "none"
 
 export const MAX_RESULTS = 12

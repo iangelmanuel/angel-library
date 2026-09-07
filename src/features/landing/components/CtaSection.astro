@@ -1,0 +1,22 @@
+---
+import Icon from "@/components/shared/Icon.astro"
+import { CTA } from "../data/content"
+---
+
+<section class="wall-close">
+  <div class="wall-shell wall-close__inner">
+    <h2 class="wall-close__title">{CTA.title}</h2>
+    <p class="wall-close__text">{CTA.description}</p>
+
+    <a
+      href="/search"
+      class="wall-btn"
+    >
+      {CTA.action}
+      <Icon
+        name="arrow-right"
+        class="size-4"
+      />
+    </a>
+  </div>
+</section>

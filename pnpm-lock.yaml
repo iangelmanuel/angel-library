@@ -17,9 +17,6 @@ importers:
       '@fontsource/geist-mono':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource/geist-pixel':
-        specifier: ^5.3.0
-        version: 5.3.0
       '@fontsource/geist-sans':
         specifier: ^5.3.0
         version: 5.3.0
@@ -596,9 +593,6 @@ packages:
 
   '@fontsource/geist-mono@5.3.0':
     resolution: {integrity: sha512-UtJ1BBBCVpMYdIcW7nEB45UAoAw5M53ZXs2t0ciPW+IokuAAIc56M8+kW5tXbRJCTpDw4XTtU7proT6NdQAHTg==}
-
-  '@fontsource/geist-pixel@5.3.0':
-    resolution: {integrity: sha512-lno6MaxiPlE8ex9T8GMXvU9ZzGBdt1GSQ7ub00RMrhd7SUs9Qy/L6f3sLwzs1F7YcwAZiIa8pxW5dIqZz3zgCg==}
 
   '@fontsource/geist-sans@5.3.0':
     resolution: {integrity: sha512-AmG7cE1AvE4NHROPaOl1sN+a02cB5xy6pA/ZV76HXqWTCsJTV2SCBc9DTFHfJqnVOODm7HhXIYtUIb75NP5QXQ==}
@@ -3811,8 +3805,6 @@ snapshots:
       levn: 0.4.1
 
   '@fontsource/geist-mono@5.3.0': {}
-
-  '@fontsource/geist-pixel@5.3.0': {}
 
   '@fontsource/geist-sans@5.3.0': {}
 

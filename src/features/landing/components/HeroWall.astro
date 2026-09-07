@@ -1,0 +1,117 @@
+---
+import Icon from "@/components/shared/Icon.astro"
+import { formatDate } from "@/lib/content"
+import { FIGURE_LABELS, HERO } from "../data/content"
+import type { LandingStats } from "../lib/stats"
+
+interface Props {
+  stats: LandingStats
+}
+
+const { stats } = Astro.props
+
+const figures = [
+  { value: stats.docs, label: FIGURE_LABELS.docs },
+  { value: stats.categories, label: FIGURE_LABELS.categories },
+  { value: stats.subcategories, label: FIGURE_LABELS.subcategories },
+  { value: stats.tags, label: FIGURE_LABELS.tags }
+]
+---
+
+<section class="wall-hero">
+  <div class="wall-shell wall-hero__inner">
+    <div class="wall-hero__identity">
+      <h1 class="wall-hero__title">
+        <span>{HERO.titleTop}</span>
+        <span>{HERO.titleBottom}</span>
+      </h1>
+
+      <p class="wall-hero__claim">{HERO.claim}</p>
+
+      <button
+        type="button"
+        data-open-search
+        class="wall-index"
+        aria-label="Abrir el índice de búsqueda (Control K)"
+      >
+        <Icon
+          name="search"
+          class="wall-index__icon size-[1.125rem]"
+        />
+        <span class="wall-index__text">{HERO.searchCommand}</span>
+        <kbd class="kbd">ctrl K</kbd>
+      </button>
+
+      <div class="wall-hero__actions">
+        <a
+          href="/tipos/guides"
+          class="wall-hero__cta"
+        >
+          {HERO.primaryCta}
+          <Icon
+            name="arrow-right"
+            class="size-4"
+          />
+        </a>
+
+        <a
+          href="#la-ruta"
+          class="wall-hero__secondary"
+        >
+          {HERO.secondaryCta}
+          <Icon
+            name="arrow-down"
+            class="size-3.5"
+          />
+        </a>
+      </div>
+    </div>
+
+    {
+      stats.recent.length > 0 && (
+        <div class="wall-hero__stack">
+          <h2 class="wall-recent__heading wall-micro">{HERO.recentTitle}</h2>
+          <ol class="wall-recent">
+            {stats.recent.map((item) => (
+              <li>
+                <a
+                  href={item.url}
+                  class="wall-recent__row"
+                  style={`--card-accent: var(${item.category.color})`}
+                >
+                  <span
+                    class="wall-recent__chip"
+                    aria-hidden="true"
+                  />
+                  <span class="wall-recent__title">{item.title}</span>
+                  <time
+                    class="wall-recent__date"
+                    datetime={item.updatedAt.toISOString()}
+                  >
+                    {formatDate(item.updatedAt)}
+                  </time>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="wall-shell wall-figures">
+    {
+      figures.map((figure) => (
+        <div class="wall-figure">
+          <span
+            class="wall-figure__value"
+            data-numeric
+          >
+            {figure.value}
+          </span>
+          <span class="wall-micro">{figure.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>

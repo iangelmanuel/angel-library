@@ -1,0 +1,63 @@
+---
+import Icon from "@/components/shared/Icon.astro"
+import SectionHeading from "./SectionHeading.astro"
+import { INVENTORY } from "../data/content"
+import type { LandingStats } from "../lib/stats"
+
+interface Props {
+  stats: LandingStats
+}
+
+const { stats } = Astro.props
+---
+
+<section
+  class="wall-shell wall-section"
+  aria-labelledby="tipos"
+>
+  <SectionHeading
+    id="tipos"
+    title={INVENTORY.title}
+    lead={INVENTORY.lead}
+  />
+
+  <div class="wall-inventory">
+    <ul class="wall-board">
+      {
+        stats.types.map((type) => (
+          <li>
+            <a
+              href={`/tipos/${type.id}`}
+              class="wall-board__cell"
+              style={`--row-share: ${type.share}`}
+            >
+              <span
+                class="wall-board__bar"
+                aria-hidden="true"
+              />
+              <span class="wall-board__label">{type.label}</span>
+              <span
+                class="wall-board__count"
+                data-numeric
+              >
+                {type.count}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      href="/categories"
+      class="wall-inventory__all"
+    >
+      {INVENTORY.allCategories}
+      <b data-numeric>{stats.categories}</b>
+      <Icon
+        name="arrow-right"
+        class="size-3.5"
+      />
+    </a>
+  </div>
+</section>

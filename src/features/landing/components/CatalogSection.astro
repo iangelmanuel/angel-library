@@ -1,0 +1,64 @@
+---
+import Icon from "@/components/shared/Icon.astro"
+import { CATALOG } from "../data/content"
+import type { LandingStats } from "../lib/stats"
+
+interface Props {
+  stats: LandingStats
+}
+
+const { stats } = Astro.props
+const listed = stats.categoryList
+---
+
+<section
+  class="wall-shell wall-catalog"
+  aria-labelledby="el-indice"
+>
+  <div class="wall-catalog__head">
+    <h2 id="el-indice">{CATALOG.title}</h2>
+    <span
+      class="wall-catalog__rule"
+      aria-hidden="true"
+    ></span>
+    <span class="wall-catalog__count">{stats.categories} categorías</span>
+  </div>
+
+  <ul class="wall-catalog__list">
+    {
+      listed.map((category) => (
+        <li>
+          <a
+            href={`/categories/${category.id}`}
+            class="wall-entry"
+            style={`--field-accent: var(${category.color})`}
+          >
+            <span
+              class="wall-entry__chip"
+              aria-hidden="true"
+            />
+            <span class="wall-entry__label">{category.label}</span>
+            <span
+              class="wall-entry__count"
+              data-numeric
+            >
+              {category.count}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a
+        href="/categories"
+        class="wall-entry wall-entry--all"
+      >
+        <span class="wall-entry__label">{CATALOG.all}</span>
+        <Icon
+          name="arrow-right"
+          class="size-3.5 text-[var(--blue-500)]"
+        />
+      </a>
+    </li>
+  </ul>
+</section>

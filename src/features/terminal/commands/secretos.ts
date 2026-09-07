@@ -63,7 +63,7 @@ export const secretosCommands: CommandMap = {
 
   matrix: {
     run: (ctx) => {
-      ctx.setTheme("matrix")
+      ctx.setTheme("tinta")
       ctx.setEffect("none")
       ctx.print(
         [
@@ -82,22 +82,7 @@ export const secretosCommands: CommandMap = {
         TERMINAL_THEMES.filter((item) => item !== ctx.theme)
       )
       ctx.setTheme(theme)
-      ctx.setEffect("rainbow")
-      ctx.print(
-        [`♪ tema ${theme} desbloqueado · /rainbow para detener ♪`],
-        "success"
-      )
-    }
-  },
-
-  rainbow: {
-    run: (ctx) => {
-      const next = ctx.effect === "rainbow" ? "none" : "rainbow"
-      ctx.setEffect(next)
-      ctx.print(
-        [`rainbow mode: ${next === "rainbow" ? "on" : "off"}`],
-        "success"
-      )
+      ctx.print([`♪ tema ${theme} desbloqueado ♪`], "success")
     }
   }
 }

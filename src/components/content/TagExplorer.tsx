@@ -1,3 +1,4 @@
+import { Search } from "lucide-react"
 import { useMemo, useState } from "react"
 
 interface TagItem {
@@ -28,13 +29,11 @@ export default function TagExplorer({ tags }: { tags: TagItem[] }) {
 
   return (
     <div className="tag-explorer">
-      <div className="terminal-toolbar">
-        <span
-          className="terminal-toolbar__prompt"
+      <div className="filter-bar">
+        <Search
+          className="size-4 shrink-0 text-muted-foreground"
           aria-hidden="true"
-        >
-          $
-        </span>
+        />
         <label
           className="sr-only"
           htmlFor="tag-filter"
@@ -46,11 +45,11 @@ export default function TagExplorer({ tags }: { tags: TagItem[] }) {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="grep --tags nombre"
+          placeholder="Filtrar tags…"
           autoComplete="off"
         />
         <span
-          className="terminal-toolbar__count"
+          className="filter-bar__count"
           aria-hidden="true"
         >
           {visibleTags.length}/{tags.length}
@@ -61,7 +60,7 @@ export default function TagExplorer({ tags }: { tags: TagItem[] }) {
         <span className="text-muted-foreground">orden:</span>
         <button
           type="button"
-          className="terminal-toggle"
+          className="filter-toggle"
           aria-pressed={sortMode === "frequency"}
           onClick={() => setSortMode("frequency")}
         >
@@ -69,7 +68,7 @@ export default function TagExplorer({ tags }: { tags: TagItem[] }) {
         </button>
         <button
           type="button"
-          className="terminal-toggle"
+          className="filter-toggle"
           aria-pressed={sortMode === "alphabetical"}
           onClick={() => setSortMode("alphabetical")}
         >
@@ -104,10 +103,7 @@ export default function TagExplorer({ tags }: { tags: TagItem[] }) {
           ))}
         </div>
       ) : (
-        <p className="terminal-empty">
-          <span aria-hidden="true">exit 1:</span> no hay tags que coincidan con
-          “{query}”
-        </p>
+        <p className="empty-field">Ningún tag coincide con “{query}”.</p>
       )}
     </div>
   )

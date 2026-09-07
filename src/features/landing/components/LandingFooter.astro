@@ -1,0 +1,35 @@
+---
+import { SITE } from "@/config/site"
+import { FOOTER_FIELDS } from "../data/content"
+import { REPOSITORY_LABEL, REPOSITORY_URL, VERSION } from "../lib/project"
+
+const fields = [
+  ...FOOTER_FIELDS,
+  { label: "versión", value: `v${VERSION}`, note: "" },
+  { label: "autor", value: SITE.info.author, note: "" }
+]
+---
+
+<footer class="wall-footer">
+  <div class="wall-footer__inner">
+    <dl class="wall-footer__fields">
+      {
+        fields.map((field) => (
+          <div class="wall-footer__cell">
+            <dt>{field.label}</dt>
+            <dd>{field.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <a
+      href={REPOSITORY_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="wall-footer__repo"
+    >
+      {REPOSITORY_LABEL}
+    </a>
+  </div>
+</footer>

@@ -1,20 +1,24 @@
 /* @keyframes compartidos por varios componentes */
 
-@keyframes cursor-blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
+@keyframes rise-in {
+  from {
     opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-@keyframes terminal-rainbow {
-  from {
-    filter: hue-rotate(0deg);
+/* Un campo que se vidria: la luz entra por el borde y llena. */
+
+@keyframes pulse-thread {
+  0%,
+  100% {
+    opacity: 0.35;
   }
-  to {
-    filter: hue-rotate(360deg);
+  50% {
+    opacity: 1;
   }
 }

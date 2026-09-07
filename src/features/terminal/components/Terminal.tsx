@@ -168,7 +168,6 @@ export function Terminal({
       results: lastResults.current,
       theme: appearance.theme,
       effect: appearance.effect,
-      scanlines: appearance.scanlines,
       quiz,
       print: (lines, tone) => output.print(typed, lines, tone),
       fail: (lines) => output.print(typed, lines, "error"),
@@ -179,7 +178,6 @@ export function Terminal({
       openExternal,
       close: onRequestClose,
       setTheme: appearance.setTheme,
-      setScanlines: appearance.setScanlines,
       setEffect: appearance.setEffect,
       setQuiz
     }
@@ -305,27 +303,20 @@ export function Terminal({
   if (history.cursor !== null) {
     status = `historial ${history.cursor + 1}/${history.history.length}`
   }
-  if (index.docs === null) status = "montando índice…"
+  if (index.docs === null) status = "Preparando el índice…"
   if (index.failed) status = "error al montar el índice"
 
   return (
     <div
       className={`search-terminal search-terminal--${variant}`}
       data-terminal-theme={appearance.theme}
-      data-scanlines={appearance.scanlines ? "on" : "off"}
-      data-terminal-effect={appearance.effect}
     >
       <div
         className="search-terminal__bar"
         aria-hidden="true"
       >
-        <span className="terminal-window__lights">
-          <i></i>
-          <i></i>
-          <i></i>
-        </span>
-        <span>angel.library/{variant === "dialog" ? "command" : "search"}</span>
-        <span className="search-terminal__mode">mode: {terminalMode}</span>
+        <span>Índice de la biblioteca</span>
+        <span className="search-terminal__mode">{terminalMode}</span>
       </div>
 
       <div className="search-terminal__screen">
@@ -334,11 +325,15 @@ export function Terminal({
           aria-hidden="true"
         >
           <p>
-            <span>[ok]</span> angel.shell v2.0 · sesión local de solo lectura
+            Busca por texto, filtra con <strong>#tag</strong> o escribe{" "}
+            <strong>/help</strong> para ver los comandos.
           </p>
           <p>
-            <span>[ok]</span> índice{" "}
-            {index.docs === null ? "montando…" : "montado"} · escribe /help
+            <span>
+              {index.docs === null
+                ? "Preparando el índice…"
+                : `${index.docs.length} documentos indexados`}
+            </span>
           </p>
         </div>
 
@@ -398,30 +393,17 @@ export function Terminal({
             index.docs !== null &&
             menuItems.length === 0 && (
               <p className="search-terminal__empty">
-                <span>exit 1</span>: sin coincidencias para “{inputMode.needle}”
+                Sin coincidencias para “{inputMode.needle}”
               </p>
             )}
         </div>
 
         <div className="search-terminal__prompt-line">
           <span
-            className="search-terminal__user"
-            aria-hidden="true"
-          >
-            dev@workspace
-          </span>
-          <span aria-hidden="true">:</span>
-          <span
-            className="search-terminal__cwd"
-            aria-hidden="true"
-          >
-            ~/angel.library
-          </span>
-          <span
             className="search-terminal__prompt"
             aria-hidden="true"
           >
-            $
+            ›
           </span>
           <input
             ref={inputRef}

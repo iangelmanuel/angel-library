@@ -105,19 +105,20 @@ const next =
   <article
     class:list={["mx-auto w-full max-w-3xl", `knowledge-${entry.data.type}`]}
   >
-    <Breadcrumbs
-      items={[
-        { label: "inicio", href: "/" },
-        {
-          label: categoryMeta.label.toLowerCase(),
-          href: `/categories/${categoryMeta.id}`,
-          segment: categoryMeta.id
-        },
-        { label: entry.data.title, segment: entry.id.split("/").at(-1) }
-      ]}
-    />
+    <header
+      class="entry-head mb-8"
+      style={`--card-accent: var(${categoryMeta.color})`}
+    >
+      <Breadcrumbs
+        items={[
+          {
+            label: categoryMeta.label,
+            href: `/categories/${categoryMeta.id}`
+          },
+          { label: entry.data.title }
+        ]}
+      />
 
-    <header class="mb-8 border-b border-border pb-8">
       <div class="mb-4 flex flex-wrap items-center gap-2">
         <TypeBadge type={entry.data.type} />
         <a
@@ -133,8 +134,8 @@ const next =
         </a>
       </div>
 
-      <div class="flex flex-wrap items-start justify-between gap-3">
-        <h1 class="font-pixel text-2xl leading-snug md:text-3xl">
+      <div class="entry-head__title-row">
+        <h1 class="font-display text-2xl leading-snug md:text-3xl">
           {entry.data.title}
         </h1>
         {
@@ -162,8 +163,11 @@ const next =
         <TagList tags={entry.data.tags ?? []} />
         {
           entry.data.updatedAt && (
-            <span class="font-mono text-[0.68rem] text-muted-foreground/70">
-              actualizado: {formatDate(entry.data.updatedAt)}
+            <span
+              class="font-mono text-[0.74rem] text-muted-foreground"
+              data-numeric
+            >
+              Actualizado {formatDate(entry.data.updatedAt)}
             </span>
           )
         }

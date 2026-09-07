@@ -1,4 +1,6 @@
-/* Base: lienzo del documento, selection, scrollbars, accesibilidad */
+/* Base: lienzo del documento, selección, scrollbars, accesibilidad.
+   Las superficies del navegador también llevan el esmalte: selección, caret,
+   barras y anillo de foco salen de la paleta, no del sistema operativo. */
 @layer base {
   * {
     border-color: var(--border);
@@ -7,9 +9,8 @@
   html {
     color-scheme: dark;
     scroll-behavior: smooth;
-    scrollbar-color: var(--zinc-800) transparent;
+    scrollbar-color: var(--scrollbar) transparent;
     scrollbar-width: thin;
-    /* Mantiene el texto en escala de grises y evita halos de color del subpíxel. */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -21,6 +22,7 @@
     font-size: 1rem;
     line-height: 1.6;
     font-synthesis: none;
+    caret-color: var(--blue-400);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -32,8 +34,10 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-pixel);
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
   }
 
   code,
@@ -43,14 +47,22 @@
     font-family: var(--font-mono);
   }
 
+  /* Cifras alineadas en cualquier dato tabulado. */
+  table,
+  time,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+
   ::selection {
-    background: var(--zinc-100);
-    color: #000000;
+    background: var(--blue-800);
+    color: var(--white);
   }
 
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
+    border-radius: var(--radius-thin);
   }
 
   ::-webkit-scrollbar {
@@ -61,11 +73,12 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--zinc-800);
+    background: var(--scrollbar);
     border: 2px solid var(--background);
+    border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--border-strong);
+    background: var(--scrollbar-hover);
   }
 
   @media (prefers-reduced-motion: reduce) {

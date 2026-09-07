@@ -26,7 +26,6 @@ export interface TerminalContext {
 
   theme: TerminalTheme
   effect: TerminalEffect
-  scanlines: boolean
   quiz: QuizQuestion | null
 
   /** Responde en la salida. */
@@ -46,7 +45,6 @@ export interface TerminalContext {
   close: (() => void) | undefined
 
   setTheme: (theme: TerminalTheme) => void
-  setScanlines: (enabled: boolean) => void
   setEffect: (effect: TerminalEffect) => void
   setQuiz: (question: QuizQuestion | null) => void
 }

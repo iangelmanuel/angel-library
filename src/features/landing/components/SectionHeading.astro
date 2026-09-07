@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string
+  lead?: string
+  id?: string
+}
+
+const { title, lead, id } = Astro.props
+---
+
+<div class="wall-title">
+  <h2
+    id={id}
+    class="wall-title__text"
+  >
+    {title}
+  </h2>
+  {lead && <p class="wall-title__lead">{lead}</p>}
+</div>

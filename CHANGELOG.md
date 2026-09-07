@@ -8,6 +8,106 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.27.0] — 2026-09-06
+
+Rehace el sistema visual del sitio entero bajo «El Esmalte» —color que rellena,
+un hilo de 1px como única línea— y reconstruye portada, terminal de búsqueda y
+bloques de código sobre esa base.
+
+### Añadido
+
+- **Sistema visual «El Esmalte»** en `tokens.css`: escala azul de marca, cuatro
+  esmaltes de superficie, los hilos `--thread` / `--thread-strong` /
+  `--thread-bright` y un color propio por categoría (`--cat-*`) en lugar de
+  reutilizar la rampa `--accent-*`.
+- `src/styles/components/fields.css` y `src/styles/components/command-palette.css`,
+  que recogen las piezas repartidas por las hojas antiguas.
+- `/categories`: página índice con el muro completo de categorías en tres pesos
+  según cuánto guarda cada una.
+- Portada reconstruida en `src/features/landing/`: `HeroWall`, `CatalogSection`,
+  `RouteSection`, `FlowSection`, `InventorySection` y `CtaSection`, con
+  `SectionHeading` como columna de título y `data/content.ts` para todo el texto.
+- Botón principal **«Leer la documentación»** en el hero, junto al buscador.
+- Enlace al perfil de X en las dos cabeceras, con el icono `brand-x` nuevo en
+  `icons.ts`.
+- Primitiva `.chrome-search`: el buscador de cabecera, compartido por la portada,
+  la documentación y el menú móvil.
+- Tokens `--gray-450` (el gris más apagado que sigue cumpliendo AA),
+  `--code-chrome` y `--thread-soft`.
+- `DESIGN.md` y `PRODUCT.md`.
+
+### Cambiado
+
+- **Portada**: la profundidad la hace la luz (un halo azul tras el titular y otro
+  en el horizonte del cierre) y el orden lo hacen las reglas de 1px. El hero
+  ocupa la ventana; cada sección se abre con su hilo y respira 6rem arriba y
+  abajo. Las cifras van en una línea, las categorías en campos esmaltados y los
+  tipos en tarjetas con su barra de proporción.
+- **Terminal de búsqueda**: ventana moderna con barra de título, tres puntos
+  apagados, alto fijo de sesión, monoespaciada en todo y el renglón de entrada
+  como campo propio. Entra desde arriba —el centrado pasó a `translate` para que
+  la animación no lo pisara— y ya no depende de cromo CRT.
+- **Tarjetas**: el esmalte baja de 34% a 20% en reposo y de 50% a 30% encendido,
+  y ningún estado dibuja canto: el relleno es todo. Vale para listados,
+  categorías, relaciones y cabecera de entrada.
+- **Relaciones al final de cada entrada**: vuelven a una rejilla de tarjetas, con
+  el esmalte más rebajado que un listado.
+- **Bloques de código**: fondo azul leve (`--code-bg` al 20%) con el rótulo un
+  solo paso por encima (`--code-chrome` al 32%), botón de copiar como pastilla y
+  pestañas pnpm/bun/npm en el mismo registro.
+- `landing.css` pasa a `@layer components`: las utilidades de Tailwind vuelven a
+  ganar sobre las reglas de la portada, como en el resto del sitio.
+- Contraste del texto más apagado: de 4.38:1 a **5.9:1** sobre negro, por encima
+  del mínimo AA para texto pequeño.
+- La portada pierde los antetítulos: fuera el rótulo del hero y las anotaciones
+  numeradas (`01 — src/content/`) de cada sección. Cada bloque abre con su
+  título y nada más.
+
+### Eliminado
+
+- `src/styles/components/terminal.css` y `src/styles/components/search-terminal.css`,
+  sustituidos por `command-palette.css`.
+- Los efectos CRT: scanlines, cursor parpadeante y el comando `/scanlines`.
+- Código muerto: la variante `.card--outlined`, el bloque `.tag-console*`, el
+  keyframe `field-glaze`, las reglas de terminal sin marcado vivo y los tokens
+  `--accent-teal`, `--accent-orange`, `--accent-yellow`, `--reading-muted` y
+  `--gray-500`.
+- La precarga de Geist Pixel en `BaseHead.astro`: ninguna hoja la declaraba ya,
+  así que cada una de las 1719 páginas descargaba una fuente que no se usaba.
+  Con ella se va también la dependencia `@fontsource/geist-pixel`.
+- La variante `bare` de `ContentCard` y su CSS: sin uso desde que las relaciones
+  volvieron a la rejilla de tarjetas.
+
+### Verificado
+
+- `pnpm check`: 0 errores y 0 avisos.
+- `pnpm build`: 1719 páginas generadas, con la validación de estructura,
+  relaciones y enlaces internos en verde.
+- Portada, `/categories`, listados por tipo, entrada de lectura y terminal
+  revisados en escritorio (1440) y móvil (390).
+
+## [0.26.0] — 2026-09-05
+
+Reconstruye la portada del sitio como una feature autocontenida en vez de un
+único archivo monolítico.
+
+### Añadido
+
+- `src/features/landing/`: portada dividida en `HeroSection`, `AboutSection`,
+  `StepsSection`, `TypesSection`, `StackSection`, `PrinciplesSection` y
+  `CtaSection`, compuestas por `LandingLayout` con cabecera y pie propios.
+- `data/content.ts` centraliza todos los textos fijos de la portada;
+  `lib/stats.ts` calcula docs, categorías, tags y conteo por tipo desde la
+  colección `library`; `lib/project.ts` lee versión y repositorio.
+- `styles/landing.css`, deliberadamente fuera de `global.css` y sin `@layer`,
+  para reutilizar `.terminal-window`, `.library-stats`, `.card` y demás piezas
+  del sistema visual sin tocarlas.
+
+### Cambiado
+
+- `src/pages/index.astro` pasa de componer la portada entera a solo cargar las
+  cifras y montar `LandingLayout` con sus secciones.
+
 ## [0.25.0] — 2026-09-04
 
 Incorpora una sección dedicada a interpretar benchmarks técnicos con contexto,
@@ -1554,7 +1654,11 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.23.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.27.0...HEAD
+[0.27.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.27.0
+[0.26.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.26.0
+[0.25.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.25.0
+[0.24.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.24.0
 [0.23.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.23.0
 [0.22.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.22.1
 [0.22.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.22.0

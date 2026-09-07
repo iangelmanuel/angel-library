@@ -44,28 +44,10 @@ export const aparienciaCommands: CommandMap = {
     }
   },
 
-  scanlines: {
-    description: "activar o desactivar las líneas CRT",
-    args: true,
-    run: (ctx) => {
-      const option = ctx.args.toLocaleLowerCase("es")
-      if (option && !["on", "off", "toggle"].includes(option)) {
-        ctx.fail(["uso: /scanlines <on|off|toggle>"])
-        return
-      }
-
-      const enabled =
-        option === "on" ? true : option === "off" ? false : !ctx.scanlines
-      ctx.setScanlines(enabled)
-      ctx.print([`scanlines: ${enabled ? "on" : "off"}`], "success")
-    }
-  },
-
   reset: {
     description: "restaurar la apariencia de la terminal",
     run: (ctx) => {
-      ctx.setTheme("default")
-      ctx.setScanlines(true)
+      ctx.setTheme("angel")
       ctx.setEffect("none")
       ctx.print(["apariencia restaurada"], "success")
     }

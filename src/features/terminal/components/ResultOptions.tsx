@@ -51,12 +51,6 @@ export function ResultOptions({
                 { "--result-accent": "var(--accent-lime)" } as CSSProperties
               }
             >
-              <span
-                className="search-terminal__cursor"
-                aria-hidden="true"
-              >
-                ❯
-              </span>
               <DynamicIcon
                 name="tags"
                 className="size-3.5 text-[var(--accent-lime)]"
@@ -65,7 +59,7 @@ export function ResultOptions({
                 <strong>
                   {index + 1}. #{item.tag.tag}
                 </strong>
-                <small>~/tags/{item.tag.tag}</small>
+                <small>/tags/{item.tag.tag}</small>
               </span>
               <span className="search-terminal__result-meta">
                 {item.tag.count} doc{item.tag.count === 1 ? "" : "s"}
@@ -85,12 +79,6 @@ export function ResultOptions({
               } as CSSProperties
             }
           >
-            <span
-              className="search-terminal__cursor"
-              aria-hidden="true"
-            >
-              ❯
-            </span>
             <span style={{ color: `var(${doc.categoryColor})` }}>
               <DynamicIcon
                 name={doc.categoryIcon}
@@ -101,7 +89,7 @@ export function ResultOptions({
               <strong>
                 {index + 1}. {doc.title}
               </strong>
-              <small>~/{documentPath(doc)}</small>
+              <small>/{documentPath(doc)}</small>
             </span>
             <span className="search-terminal__result-meta">
               {doc.typeSingular}

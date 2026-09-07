@@ -1,32 +1,31 @@
-/* Navegación lateral */
+/* Navegación lateral: tres niveles — categoría → subcategoría → entrada.
+   La jerarquía la dan el tamaño y la luz del campo, nunca la sangría ni un
+   filete de color. La fila activa se esmalta entera. */
 @layer components {
-  /* Tres niveles: categoría → subcategoría → entrada.
-   Jerarquía por tamaño y guía vertical, no por sangría; la activa lleva `❯`. */
-
-  /* Bloques de CATEGORY_GROUPS; el separador va arriba. */
+  /* Bloques de CATEGORY_GROUPS. */
   .nav-group {
-    margin-top: 0.7rem;
-    border-top: 1px solid var(--border);
-    padding-top: 0.7rem;
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--thread);
   }
 
   /* Fila de categoría y de subcategoría */
   .nav-summary {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
     width: 100%;
-    padding: 0.34rem 0.45rem;
-    font-size: 0.82rem;
+    padding: 0.38rem 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.83rem;
     font-weight: 500;
-    color: var(--zinc-300);
+    color: var(--white);
     cursor: pointer;
     list-style: none;
     user-select: none;
-    border-radius: 2px;
     transition:
-      color 120ms ease,
-      background-color 120ms ease;
+      color var(--dur-fast) var(--ease-enamel),
+      background-color var(--dur-fast) var(--ease-enamel);
   }
   .nav-summary::-webkit-details-marker {
     display: none;
@@ -38,32 +37,26 @@
     white-space: nowrap;
   }
   .nav-summary:hover {
-    color: var(--foreground);
     background: color-mix(
       in srgb,
-      var(--cat-accent, var(--foreground)) 8%,
+      var(--cat-accent, var(--blue-400)) 12%,
       transparent
     );
+    color: var(--foreground);
   }
   details[open] > .nav-summary {
-    color: var(--cat-accent, var(--foreground));
+    color: var(--white);
   }
 
   /* Subcategoría: un escalón por debajo. */
   .nav-summary--sub {
-    padding: 0.26rem 0.4rem;
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
+    padding: 0.28rem 0.45rem;
+    font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 0.01em;
-    color: var(--muted-foreground);
+    color: var(--gray-300);
   }
   .nav-sub[open] > .nav-summary--sub {
-    color: color-mix(
-      in srgb,
-      var(--cat-accent, var(--foreground)) 70%,
-      var(--foreground)
-    );
+    color: var(--white);
   }
 
   /* Iconos, contador y chevron */
@@ -72,10 +65,9 @@
     height: 0.875rem;
     flex-shrink: 0;
   }
-  /* Iconos de categoría: acento vivo y profundo para orientar sin competir con el texto. */
   .nav-icon--cat,
   .nav-link--quick .nav-icon {
-    color: color-mix(in srgb, var(--cat-accent) 55%, var(--zinc-800));
+    color: var(--cat-accent, var(--blue-400));
   }
   .nav-chevron {
     margin-left: auto;
@@ -83,23 +75,23 @@
     height: 0.8rem;
     flex-shrink: 0;
     color: var(--muted-foreground);
-    transition: transform 150ms ease;
+    transition: transform var(--dur-fast) var(--ease-enamel);
   }
   details[open] > .nav-summary .nav-chevron {
     transform: rotate(90deg);
   }
 
-  /* Anidados: la guía cae bajo el icono del padre. */
+  /* Anidados: un hilo cae bajo el icono del padre. */
   .nav-children {
-    margin-left: 0.62rem;
+    margin-left: 0.68rem;
+    padding: 0.15rem 0 0.15rem 0.55rem;
     border-left: 1px solid
-      color-mix(in srgb, var(--cat-accent) 22%, transparent);
-    padding: 0.15rem 0 0.15rem 0.5rem;
+      color-mix(in srgb, var(--cat-accent) 20%, transparent);
   }
   .nav-children--deep {
-    margin-left: 0.3rem;
-    border-left-color: var(--border);
-    padding-left: 0.45rem;
+    margin-left: 0.35rem;
+    padding-left: 0.5rem;
+    border-left-color: var(--thread);
   }
 
   /* Entrada */
@@ -107,25 +99,15 @@
     display: flex;
     align-items: flex-start;
     gap: 0.45rem;
-    padding: 0.26rem 0.4rem;
+    padding: 0.28rem 0.45rem;
+    border-radius: var(--radius-thin);
     font-size: 0.78rem;
-    line-height: 1.4;
-    color: var(--muted-foreground);
-    border-radius: 2px;
+    line-height: 1.45;
+    color: var(--gray-400);
     scroll-margin: 4rem 0;
     transition:
-      color 120ms ease,
-      background-color 120ms ease;
-  }
-  .nav-link::before {
-    content: "❯";
-    flex-shrink: 0;
-    width: 0.75em;
-    font-family: var(--font-pixel);
-    line-height: inherit;
-    color: var(--cat-accent, var(--accent-blue));
-    opacity: 0;
-    transition: opacity 120ms ease;
+      color var(--dur-fast) var(--ease-enamel),
+      background-color var(--dur-fast) var(--ease-enamel);
   }
   /* Hasta tres líneas: truncar escondía lo que distingue cada entrada. */
   .nav-link__label {
@@ -136,78 +118,51 @@
     overflow-wrap: anywhere;
   }
   .nav-link .nav-icon {
-    margin-top: 0.12rem;
+    margin-top: 0.14rem;
   }
   .nav-link--quick {
     align-items: center;
-    padding: 0.32rem 0.45rem;
+    padding: 0.34rem 0.5rem;
     font-size: 0.82rem;
   }
   .nav-link--loose {
-    padding-block: 0.3rem;
+    padding-block: 0.32rem;
   }
   .nav-link:hover {
-    color: var(--foreground);
     background: color-mix(
       in srgb,
-      var(--cat-accent, var(--foreground)) 8%,
+      var(--cat-accent, var(--blue-400)) 10%,
       transparent
     );
+    color: var(--foreground);
   }
+  /* Activa: campo pleno del color de su categoría. */
   .nav-link.is-active {
-    color: var(--foreground);
     background: color-mix(
-      in srgb,
-      var(--cat-accent, var(--accent-blue)) 12%,
-      transparent
+      in oklab,
+      var(--cat-accent, var(--blue-400)) var(--glaze-lit),
+      #000000
     );
-  }
-  .nav-link.is-active::before {
-    opacity: 1;
+    color: var(--white);
+    font-weight: 500;
   }
 
-  /* Scrollbar lateral: fino, cuadrado y discreto como una guía de terminal. */
+  /* Scrollbar lateral */
   #sidebar nav {
-    scrollbar-color: var(--zinc-800) var(--zinc-950);
+    scrollbar-color: var(--scrollbar) transparent;
     scrollbar-width: thin;
   }
   #sidebar nav::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
   }
   #sidebar nav::-webkit-scrollbar-track {
-    border-left: 1px solid var(--zinc-900);
-    background: var(--zinc-950);
+    background: transparent;
   }
   #sidebar nav::-webkit-scrollbar-thumb {
-    background: var(--zinc-800);
+    border-radius: 999px;
+    background: var(--scrollbar);
   }
   #sidebar nav::-webkit-scrollbar-thumb:hover {
-    background: var(--border-strong);
-  }
-
-  /* Botón "copiar código completo", junto al título de la entrada */
-  .copy-all-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-shrink: 0;
-    border: 1px solid var(--border);
-    background: var(--card);
-    padding: 0.4rem 0.7rem;
-    font-family: var(--font-pixel);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--muted-foreground);
-    cursor: pointer;
-    transition:
-      color 120ms ease,
-      border-color 120ms ease,
-      box-shadow 120ms ease;
-  }
-  .copy-all-btn:hover {
-    color: var(--foreground);
-    border-color: var(--border-strong);
-    box-shadow: 0 0 0 1px var(--border-strong);
+    background: var(--scrollbar-hover);
   }
 }
