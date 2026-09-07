@@ -8,6 +8,40 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.29.3] — 2026-09-06
+
+Iguala las dos cabeceras, devuelve el azul pleno al botón principal y ajusta el
+peso del color.
+
+### Cambiado
+
+- **El botón principal vuelve al azul pleno** (`--primary`, sin transparencia):
+  el CTA del hero, el del cierre y el enlace externo de una entrada. Solo ese;
+  las tarjetas y los campos siguen translúcidos.
+- **Las dos cabeceras miden lo mismo** (3.75rem) y comparten estructura: marca y
+  atajos a la izquierda, buscador e iconos sociales juntos **a la derecha**. El
+  buscador ya no va centrado.
+- **El buscador se ve sin necesidad de hover**: esmalte al 18% en reposo y 30% al
+  pasar, en la portada y en la documentación.
+- **Los iconos sociales van en blanco** y pasan a azul al posarse.
+- **La marca deja de cambiar de color al azar**: blanco fijo y un único azul
+  (`--blue-400`) al pasar, con la utilidad de Tailwind en el propio componente.
+- **La cabecera de una entrada aprovecha el ancho**: los datos del tipo y el
+  botón del recurso comparten fila con `justify-content: space-between`, así que
+  ya no queda un hueco grande a la derecha.
+- Las teselas de categoría bajan de 24% a 20% de esmalte (32% al pasar): a medio
+  camino entre lo que había y lo de antes.
+
+### Eliminado
+
+- El ciclo de color del logo (`logo-cycle`) y sus estilos.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm prettier:check`: sin errores.
+- `pnpm build`: 1719 páginas.
+- Cabeceras, buscador, botón del recurso y teselas revisados sobre el build.
+
 ## [0.29.2] — 2026-09-06
 
 Arregla el menú, iguala las dos cabeceras y termina de quitar código muerto.
@@ -1858,7 +1892,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.2...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.29.3...HEAD
+[0.29.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.3
 [0.29.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.2
 [0.29.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.1
 [0.29.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.0

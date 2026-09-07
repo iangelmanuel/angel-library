@@ -111,19 +111,6 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
   }
 
   {
-    facts.length > 0 && (
-      <dl class="entry-meta__facts">
-        {facts.map((fact) => (
-          <div>
-            <dt>{fact.label}</dt>
-            <dd>{fact.value}</dd>
-          </div>
-        ))}
-      </dl>
-    )
-  }
-
-  {
     technologies.length > 0 && (
       <div class="entry-meta__tags">
         {technologies.map((tech) => (
@@ -134,32 +121,47 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
   }
 
   {
-    links.length > 0 && (
-      <div class="entry-meta__links">
-        {links.map((link) => (
-          <a
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M15 3h6v6" />
-              <path d="M10 14 21 3" />
-              <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
-            </svg>
-            {link.label}
-          </a>
-        ))}
+    (facts.length > 0 || links.length > 0) && (
+      <div class="entry-meta__row">
+        {facts.length > 0 && (
+          <dl class="entry-meta__facts">
+            {facts.map((fact) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
+        {links.length > 0 && (
+          <div class="entry-meta__links">
+            {links.map((link) => (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M15 3h6v6" />
+                  <path d="M10 14 21 3" />
+                  <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+                </svg>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     )
   }
@@ -235,7 +237,17 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     overflow-x: auto;
   }
 
+  /* Datos a la izquierda, acción a la derecha. */
+  .entry-meta__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+  }
+
   .entry-meta__facts {
+    flex: 1 1 16rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
     gap: 0.5rem;
@@ -263,7 +275,7 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     gap: 0.5rem;
     min-height: 2.75rem;
     border-radius: var(--radius-field);
-    background: color-mix(in oklab, var(--blue-800) 44%, #000000);
+    background: var(--primary);
     padding-inline: 1.1rem;
     font-size: 0.88rem;
     font-weight: 500;
@@ -273,7 +285,7 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
   }
 
   .entry-meta__links a:hover {
-    background: color-mix(in oklab, var(--blue-800) 58%, #000000);
+    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
   }
 
   .entry-meta__links svg {

@@ -167,18 +167,6 @@
     margin-left: auto;
   }
 
-  /* El logo enciende su esmalte al pasar. */
-  .logo-cycle {
-    --logo-hover-color: var(--blue-400);
-  }
-  .logo-cycle__text {
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-  .logo-cycle:hover .logo-cycle__text,
-  .logo-cycle:focus-visible .logo-cycle__text {
-    color: var(--logo-hover-color);
-  }
-
   /* Acentos por tipo: solo badges. Los títulos usan --heading-*. */
   .type-technologies,
   .type-libraries,

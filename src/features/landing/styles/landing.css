@@ -34,10 +34,10 @@
   .wall-header__inner {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.9rem;
     width: 100%;
     max-width: 87.5rem;
-    height: 4.25rem;
+    height: 3.75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
@@ -48,11 +48,22 @@
     font-size: 0.8rem;
     color: var(--muted-foreground);
   }
-  /* El buscador ocupa el centro, como en la documentación. */
+  /* El buscador va a la derecha, junto a las redes. */
   .wall-header__search {
     width: 100%;
-    max-width: 22rem;
-    margin-inline: auto;
+    max-width: 16rem;
+    margin-left: auto;
+    background: color-mix(in oklab, var(--blue-800) 18%, #000000);
+  }
+  .wall-header__search:hover,
+  .wall-header__search:focus-visible {
+    background: color-mix(in oklab, var(--blue-800) 30%, #000000);
+  }
+  .wall-header__repo {
+    color: var(--white);
+  }
+  .wall-header__repo:hover {
+    color: var(--blue-400);
   }
   .wall-header__nav a {
     transition: color var(--dur-fast) var(--ease-enamel);
@@ -195,7 +206,7 @@
     gap: 0.6rem;
     min-height: 2.85rem;
     border-radius: var(--radius-field);
-    background: color-mix(in oklab, var(--blue-800) 34%, #000000);
+    background: var(--primary);
     padding-inline: 1.15rem;
     font-size: 0.9rem;
     font-weight: 500;
@@ -204,7 +215,7 @@
   }
   .wall-hero__cta:hover,
   .wall-hero__cta:focus-visible {
-    background: color-mix(in oklab, var(--blue-800) 48%, #000000);
+    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
   }
   .wall-hero__secondary {
     display: inline-flex;
@@ -735,7 +746,7 @@
     min-height: 3rem;
     margin-top: 2.25rem;
     border-radius: var(--radius-field);
-    background: color-mix(in oklab, var(--blue-800) 40%, #000000);
+    background: var(--primary);
     padding-inline: 1.3rem;
     font-size: 0.92rem;
     font-weight: 500;
@@ -744,7 +755,7 @@
   }
   .wall-btn:hover,
   .wall-btn:focus-visible {
-    background: color-mix(in oklab, var(--blue-800) 55%, #000000);
+    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
   }
 
   /* --------------------------------------------------------------------- pie */

@@ -35,7 +35,7 @@
   --sl-font: var(--font-sans);
   --sl-font-mono: var(--font-mono);
 
-  --sl-nav-height: 4.25rem;
+  --sl-nav-height: 3.75rem;
   --sl-content-width: 50rem;
   --sl-sidebar-width: 16rem;
 
@@ -67,13 +67,15 @@ site-search button[data-open-modal] {
   width: 100%;
   border: 0;
   border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
+  background: color-mix(in oklab, var(--blue-800) 18%, #000000);
+  padding-block: 0.35rem;
+  font-size: 0.8rem;
   color: var(--gray-400);
   transition: background-color var(--dur-fast) var(--ease-enamel);
 }
 header.header site-search button[data-open-modal]:hover,
 site-search button[data-open-modal]:hover {
-  background: color-mix(in oklab, var(--blue-800) 34%, #000000);
+  background: color-mix(in oklab, var(--blue-800) 30%, #000000);
   color: var(--white);
 }
 site-search kbd {
@@ -419,23 +421,33 @@ site-search .pagefind-ui__button:hover {
 }
 
 /* Cabecera de la documentación: la misma caja que la de la portada. */
-header.header > .header {
-  max-width: 87.5rem;
-  margin-inline: auto;
-  gap: 1rem;
+header.header {
+  padding-inline: 1.5rem;
 }
 
 header.header .social-icons::after {
   display: none;
 }
 
-/* El buscador ocupa el centro. */
-header.header > .header > div:nth-child(2) {
-  flex: 1;
-  justify-content: center;
+/* Iconos sociales: blancos, azules al pasar. */
+header.header .chrome-header__social a,
+header.header .social-icons a {
+  color: var(--white);
+  opacity: 1;
+  transition: color var(--dur-fast) var(--ease-enamel);
 }
 
-header.header site-search {
-  width: 100%;
-  max-width: 22rem;
+header.header .chrome-header__social a:hover,
+header.header .social-icons a:hover {
+  color: var(--blue-400);
+}
+
+/* La marca: blanca, con un solo azul al pasar. */
+.site-title {
+  color: var(--white);
+  transition: color var(--dur-fast) var(--ease-enamel);
+}
+
+.site-title:hover {
+  color: var(--blue-400);
 }
