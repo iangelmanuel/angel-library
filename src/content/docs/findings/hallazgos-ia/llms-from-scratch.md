@@ -7,10 +7,10 @@ tags: [ia, llm, pytorch, python, deep-learning, aprendizaje, github]
 url: https://github.com/rasbt/LLMs-from-scratch
 resourceCategory: learning
 personalNote: "La mejor forma de dejar de tratar un modelo como una caja negra; construirlo entero explica de golpe por qué existe la ventana de contexto y qué cuesta cada token."
-updatedAt: 2026-08-30
+updatedAt: 2026-09-07
 ---
 
-> Escrito por **Sebastian Raschka** ([rasbt](https://github.com/rasbt)). Es el repositorio oficial de código de su libro _Build a Large Language Model (From Scratch)_. Unas 104.000 estrellas, en cuadernos de Jupyter.
+Escrito por **Sebastian Raschka** ([rasbt](https://github.com/rasbt)). Es el repositorio oficial de código de su libro _Build a Large Language Model (From Scratch)_, con cuadernos de Jupyter y scripts. La popularidad del repositorio cambia y no demuestra por sí sola la calidad de una implementación.
 
 Repositorio para **desarrollar, preentrenar y ajustar un modelo de lenguaje grande de tipo GPT**, escrito desde cero en PyTorch y explicado paso a paso.
 
@@ -40,4 +40,4 @@ Está pensado para correr en hardware modesto: los modelos que se construyen son
 ## Qué tener en cuenta
 
 - **Requiere base de Python y algo de PyTorch.** No es un primer contacto con programación.
-- **La licencia no es una estándar reconocida** por GitHub, cosa habitual en repositorios que acompañan a un libro. Para leer y aprender no hay problema; para reutilizar el código en un producto conviene revisarla.
+- Consulta el [archivo de licencia del repositorio](https://github.com/rasbt/LLMs-from-scratch/blob/main/LICENSE.txt) para los términos del código que vayas a reutilizar. La licencia del código no debe confundirse con la del texto del libro o los datos de entrenamiento.

@@ -2,13 +2,14 @@
 title: Date Utils — Referencia rápida
 description: Utilidades tipadas para formatear fechas y tiempo relativo con Intl, sin librerías.
 type: utilities
+tags: [typescript, date, intl]
 runtime: universal
 language: typescript
 related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para trabajar con fechas usando `Intl`, nativo del navegador y de Node. Importa siempre desde `@/libs/date`.
+Utilidades mínimas para trabajar con fechas usando `Intl`, nativo del navegador y de Node. Tras configurar el alias `@/*` hacia `src/*`, importa desde `@/lib/date`.
 
 No hace falta `date-fns` ni `dayjs` para lo básico: formatear, calcular diferencias, comparar días y generar secuencias de fechas (por ejemplo, para pintar un calendario).
 
@@ -18,7 +19,7 @@ No hace falta `date-fns` ni `dayjs` para lo básico: formatear, calcular diferen
 
 Formatea una fecha con `Intl.DateTimeFormat`. Por defecto usa locale `es` y estilo `medium`, pero ambos son configurables por si necesitas otro formato puntual.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function formatDate(
   date: Date,
   options: Intl.DateTimeFormatOptions = { dateStyle: "medium" },
@@ -29,7 +30,7 @@ export function formatDate(
 ```
 
 ```ts
-import { formatDate } from "@/libs/date"
+import { formatDate } from "@/lib/date"
 
 formatDate(new Date())
 // "15 ago 2026"
@@ -42,7 +43,7 @@ formatDate(new Date(), { dateStyle: "full" })
 
 Igual que `formatDate()`, pero para la hora. Por defecto usa estilo `short` (sin segundos).
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function formatTime(
   date: Date,
   options: Intl.DateTimeFormatOptions = { timeStyle: "short" },
@@ -53,7 +54,7 @@ export function formatTime(
 ```
 
 ```ts
-import { formatTime } from "@/libs/date"
+import { formatTime } from "@/lib/date"
 
 formatTime(new Date())
 // "14:32"
@@ -63,7 +64,7 @@ formatTime(new Date())
 
 Formatea la diferencia entre una fecha y ahora como texto relativo ("hace 3 días", "en 2 horas"), eligiendo automáticamente la unidad más grande que tenga sentido con `Intl.RelativeTimeFormat`.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 const RELATIVE_UNITS: { unit: Intl.RelativeTimeFormatUnit; ms: number }[] = [
   { unit: "year", ms: 31536000000 },
   { unit: "month", ms: 2592000000 },
@@ -89,7 +90,7 @@ export function formatRelativeTime(date: Date, locale = "es"): string {
 ```
 
 ```ts
-import { formatRelativeTime } from "@/libs/date"
+import { formatRelativeTime } from "@/lib/date"
 
 const haceTresDias = new Date(Date.now() - 3 * 86400000)
 formatRelativeTime(haceTresDias)
@@ -100,7 +101,7 @@ formatRelativeTime(haceTresDias)
 
 Formatea dos fechas como un rango legible con `Intl.DateTimeFormat.prototype.formatRange`, que evita repetir el mes o el año cuando ambas fechas caen en el mismo período.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function formatDateRange(
   start: Date,
   end: Date,
@@ -112,7 +113,7 @@ export function formatDateRange(
 ```
 
 ```ts
-import { formatDateRange } from "@/libs/date"
+import { formatDateRange } from "@/lib/date"
 
 formatDateRange(new Date("2026-08-15"), new Date("2026-08-20"))
 // "15–20 ago 2026"
@@ -124,7 +125,7 @@ formatDateRange(new Date("2026-08-15"), new Date("2026-08-20"))
 
 Compara si dos fechas caen en el mismo día calendario (año, mes y día), ignorando la hora. Útil para resaltar "hoy" en un calendario o agrupar eventos por día.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function isSameDay(a: Date, b: Date): boolean {
   return (
     a.getFullYear() === b.getFullYear() &&
@@ -135,7 +136,7 @@ export function isSameDay(a: Date, b: Date): boolean {
 ```
 
 ```ts
-import { isSameDay } from "@/libs/date"
+import { isSameDay } from "@/lib/date"
 
 const esHoy = isSameDay(evento.fecha, new Date())
 ```
@@ -144,7 +145,7 @@ const esHoy = isSameDay(evento.fecha, new Date())
 
 Devuelve una nueva fecha desplazada por la cantidad de días indicada (negativa para restar). No muta la fecha original.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function addDays(date: Date, amount: number): Date {
   const result = new Date(date)
   result.setDate(result.getDate() + amount)
@@ -153,7 +154,7 @@ export function addDays(date: Date, amount: number): Date {
 ```
 
 ```ts
-import { addDays } from "@/libs/date"
+import { addDays } from "@/lib/date"
 
 const vencimiento = addDays(new Date(), 30)
 ```
@@ -162,7 +163,7 @@ const vencimiento = addDays(new Date(), 30)
 
 Calcula la cantidad de días entre dos fechas, normalizando ambas a UTC antes de restar para evitar desfases por cambios de horario de verano.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function daysBetween(a: Date, b: Date): number {
   const msPerDay = 86400000
   const utcA = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
@@ -172,7 +173,7 @@ export function daysBetween(a: Date, b: Date): number {
 ```
 
 ```ts
-import { daysBetween } from "@/libs/date"
+import { daysBetween } from "@/lib/date"
 
 const diasRestantes = daysBetween(new Date(), vencimiento)
 ```
@@ -183,7 +184,7 @@ const diasRestantes = daysBetween(new Date(), vencimiento)
 
 Devuelve una nueva fecha con la hora en `00:00:00.000`, sin mutar la original. Base para comparar fechas ignorando la hora y para `dateRange()`.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function startOfDay(date: Date): Date {
   const result = new Date(date)
   result.setHours(0, 0, 0, 0)
@@ -192,7 +193,7 @@ export function startOfDay(date: Date): Date {
 ```
 
 ```ts
-import { startOfDay } from "@/libs/date"
+import { startOfDay } from "@/lib/date"
 
 const hoyDesdeCero = startOfDay(new Date())
 ```
@@ -201,7 +202,7 @@ const hoyDesdeCero = startOfDay(new Date())
 
 Devuelven el primer y el último día del mes de la fecha dada, con la hora en cero. `endOfMonth()` aprovecha que el "día 0" de un mes en JS es el último día del mes anterior.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function startOfMonth(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), 1)
 }
@@ -212,7 +213,7 @@ export function endOfMonth(date: Date): Date {
 ```
 
 ```ts
-import { endOfMonth, startOfMonth } from "@/libs/date"
+import { endOfMonth, startOfMonth } from "@/lib/date"
 
 const inicio = startOfMonth(new Date())
 const fin = endOfMonth(new Date())
@@ -222,7 +223,7 @@ const fin = endOfMonth(new Date())
 
 Genera un array de fechas entre `start` y `end` (ambos extremos incluidos), avanzando de a `stepDays` días. Reutiliza `startOfDay()` y `addDays()` de esta misma librería para no repetir la lógica de avanzar días.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function dateRange(start: Date, end: Date, stepDays = 1): Date[] {
   const dates: Date[] = []
   let current = startOfDay(start)
@@ -238,7 +239,7 @@ export function dateRange(start: Date, end: Date, stepDays = 1): Date[] {
 ```
 
 ```ts
-import { dateRange } from "@/libs/date"
+import { dateRange } from "@/lib/date"
 
 const semana = dateRange(new Date("2026-08-10"), new Date("2026-08-16"))
 // [10, 11, 12, 13, 14, 15, 16] de agosto
@@ -248,14 +249,14 @@ const semana = dateRange(new Date("2026-08-10"), new Date("2026-08-16"))
 
 Devuelve un array con todas las fechas del mes de la fecha dada. Es `dateRange()` aplicado entre `startOfMonth()` y `endOfMonth()` — el caso típico para pintar una grilla de calendario.
 
-```ts title="lib/date.ts"
+```ts title="src/lib/date.ts"
 export function eachDayOfMonth(date: Date): Date[] {
   return dateRange(startOfMonth(date), endOfMonth(date))
 }
 ```
 
 ```ts
-import { eachDayOfMonth } from "@/libs/date"
+import { eachDayOfMonth } from "@/lib/date"
 
 const diasDeAgosto = eachDayOfMonth(new Date("2026-08-01"))
 // 31 fechas, una por día

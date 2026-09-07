@@ -1,0 +1,26 @@
+{
+  "label": "Performance",
+  "icon": "gauge",
+  "description": "Rendimiento de carga, renderizado, tiempo de ejecución y optimización de recursos.",
+  "color": "--cat-performance",
+  "group": "calidad",
+  "order": 2,
+  "subcategories": {
+    "performance-fundamentos": {
+      "label": "Fundamentos y métricas",
+      "description": "Qué se mide y con qué métricas."
+    },
+    "performance-carga": {
+      "label": "Carga y recursos",
+      "description": "Que la página aparezca antes: recursos, imágenes y fuentes."
+    },
+    "performance-runtime": {
+      "label": "JavaScript y renderizado",
+      "description": "Que la página responda rápido una vez cargada."
+    },
+    "performance-operacion": {
+      "label": "Red y operación",
+      "description": "Red, caché y entrega desde el servidor."
+    }
+  }
+}

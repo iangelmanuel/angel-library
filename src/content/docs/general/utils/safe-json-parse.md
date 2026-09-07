@@ -11,7 +11,7 @@ related:
 updatedAt: 2026-08-18
 ---
 
-```ts title="lib/json.ts"
+```ts title="src/lib/json.ts"
 type Result<T> = { ok: true; data: T } | { ok: false; error: SyntaxError }
 
 export function safeJsonParse<T = unknown>(input: string): Result<T> {

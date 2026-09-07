@@ -1,18 +1,5 @@
 /** Configuración de identidad y SEO global del sitio. */
 
-export interface Service {
-  id: string
-  eyebrow: string
-  h3: string
-  body: string
-  items: string[]
-}
-
-export interface FaqItem {
-  q: string
-  a: string
-}
-
 const PRODUCTION_URL = "https://angel-library.vercel.app"
 const DEV_URL = "http://localhost:4321"
 const isDev = process.argv.includes("dev")
@@ -116,7 +103,3 @@ export const SITE = {
     areaServed: null as Array<{ type: string; name: string }> | null
   }
 } as const
-
-export const SERVICES: Service[] = []
-
-export const FAQ_ITEMS: FaqItem[] = []

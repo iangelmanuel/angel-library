@@ -1,0 +1,42 @@
+{
+  "label": "Testing",
+  "icon": "test-tube-2",
+  "description": "Pruebas unitarias, de integración y de extremo a extremo (E2E), además de estrategias de validación.",
+  "color": "--cat-testing",
+  "group": "construir",
+  "order": 5,
+  "subcategories": {
+    "testing-fundamentos": {
+      "label": "Fundamentos y estrategia",
+      "description": "Qué probar y por qué, antes de elegir una herramienta."
+    },
+    "testing-unitario": {
+      "label": "Pruebas unitarias",
+      "description": "Probar funciones y componentes de forma aislada."
+    },
+    "testing-integracion": {
+      "label": "Integración y contratos",
+      "description": "Probar que varias piezas funcionan juntas y respetan su contrato."
+    },
+    "react": {
+      "label": "React",
+      "description": "Construir interfaces con componentes y estado."
+    },
+    "astro": {
+      "label": "Astro",
+      "description": "Framework orientado a sitios de contenido, con muy poco JavaScript en el cliente."
+    },
+    "nextjs": {
+      "label": "Next.js",
+      "description": "Framework sobre React con renderizado en servidor y enrutado por archivos."
+    },
+    "testing-e2e": {
+      "label": "Pruebas E2E",
+      "description": "Probar la aplicación completa simulando a una persona usándola."
+    },
+    "testing-ai": {
+      "label": "Testing asistido por IA",
+      "description": "Usar IA para escribir y mantener pruebas, con sus límites."
+    }
+  }
+}

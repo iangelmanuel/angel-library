@@ -1,0 +1,34 @@
+{
+  "label": "Git & GitHub",
+  "icon": "git-branch",
+  "description": "Git, GitHub y su ecosistema: comandos, repositorios, colaboración, perfil y automatización con Actions.",
+  "color": "--cat-git",
+  "group": "flujo",
+  "order": 0,
+  "subcategories": {
+    "git": {
+      "label": "Git",
+      "description": "Control de versiones: guardar historia y trabajar en paralelo."
+    },
+    "github-platform": {
+      "label": "GitHub",
+      "description": "La plataforma: repositorios, issues y pull requests."
+    },
+    "repository-management": {
+      "label": "Gestión de repositorios",
+      "description": "Dejar un repositorio listo para que otros colaboren."
+    },
+    "github-profile": {
+      "label": "Perfil y cuenta",
+      "description": "Tu perfil público, claves SSH y commits verificados."
+    },
+    "github": {
+      "label": "GitHub CLI",
+      "description": "Manejar GitHub desde la terminal."
+    },
+    "github-actions": {
+      "label": "GitHub Actions",
+      "description": "Automatizar tareas que se disparan con cada cambio."
+    }
+  }
+}

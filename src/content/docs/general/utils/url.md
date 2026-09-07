@@ -19,7 +19,7 @@ Usa `URL` y `URLSearchParams` como primitivas; estas utilidades solo encapsulan 
 
 Agrega o actualiza parámetros de consulta en una URL (string o `URL`) sin concatenar strings a mano. Un valor `null`, `undefined` o string vacío elimina ese parámetro en vez de agregarlo como `key=undefined`.
 
-```ts title="lib/url.ts"
+```ts title="src/lib/url.ts"
 type QueryValue = string | number | boolean | null | undefined
 
 export function withQuery(

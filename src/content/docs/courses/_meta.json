@@ -1,0 +1,34 @@
+{
+  "label": "Cursos",
+  "icon": "book-open",
+  "description": "Cursos, programas, plataformas y certificaciones cuyo propósito principal es enseñar o validar el aprendizaje sobre una tecnología o herramienta.",
+  "color": "--cat-courses",
+  "group": "referencia",
+  "order": 1,
+  "subcategories": {
+    "cursos-midudev": {
+      "label": "Midudev",
+      "description": "Cursos y materiales gratuitos en español de Miguel Ángel Durán, con rutas desde fundamentos hasta proyectos completos."
+    },
+    "cursos-microsoft": {
+      "label": "Microsoft",
+      "description": "Sesiones, currículos y certificados de Microsoft sobre desarrollo, nube e inteligencia artificial."
+    },
+    "cursos-google": {
+      "label": "Google",
+      "description": "Programas guiados de Google sobre inteligencia artificial y computación en la nube, algunos con requisitos o convocatorias."
+    },
+    "cursos-mongodb": {
+      "label": "MongoDB",
+      "description": "Rutas, sesiones y credenciales oficiales para aprender MongoDB y validar conocimientos prácticos."
+    },
+    "cursos-amazon": {
+      "label": "Amazon",
+      "description": "Certificaciones y evaluaciones prácticas de AWS para validar conocimientos dentro de entornos reales de la nube de Amazon."
+    },
+    "cursos-plataformas": {
+      "label": "Plataformas educativas",
+      "description": "Sitios con cursos y ejercicios guiados para alcanzar un objetivo de aprendizaje concreto."
+    }
+  }
+}

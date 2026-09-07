@@ -5,7 +5,7 @@ type: guides
 order: 14
 tags: [react, hooks, forms]
 scope: react (useOptimistic)
-updatedAt: 2026-08-25
+updatedAt: 2026-09-07
 ---
 
 Marcar una publicación y esperar la respuesta del servidor antes de actualizar el icono se siente lento, aunque la petición tarde pocos milisegundos. `useOptimistic` muestra inmediatamente el estado que se espera obtener y luego lo reconcilia con el valor real cuando termina la acción.
@@ -17,7 +17,7 @@ La actualización optimista es una predicción visual, no una confirmación. Acc
 Recibe el valor real (`name`) y devuelve un valor optimista que, cuando no hay una acción en curso, coincide con ese valor real. `setOptimisticName` se usa dentro de una Action, como una función pasada a `startTransition` o al prop `action` de un `<form>`.
 
 ```tsx
-import { startTransition, useOptimistic } from "react"
+import { startTransition, useActionState, useOptimistic } from "react"
 import { actualizarNombre } from "./api"
 
 function EditarNombre({
@@ -29,31 +29,43 @@ function EditarNombre({
 }) {
   const [nombreOptimista, setNombreOptimista] = useOptimistic(nombre)
 
-  async function enviar(formData: FormData) {
-    const nuevoNombre = formData.get("nombre") as string
+  const [error, enviar, pendiente] = useActionState(async (
+    _anterior: string | null, formData: FormData
+  ): Promise<string | null> => {
+    const entrada = formData.get("nombre")
+    if (typeof entrada !== "string" || !entrada.trim()) return "Escribe un nombre."
+    const nuevoNombre = entrada.trim()
     setNombreOptimista(nuevoNombre) // se muestra ya, antes de la respuesta
 
-    const confirmado = await actualizarNombre(nuevoNombre)
-
-    startTransition(() => {
-      onActualizado(confirmado) // el estado real se actualiza; si falló, nombreOptimista vuelve a "nombre"
-    })
-  }
+    try {
+      const confirmado = await actualizarNombre(nuevoNombre)
+      startTransition(() => onActualizado(confirmado))
+      return null
+    } catch {
+      return "No se pudo guardar. Inténtalo de nuevo."
+    }
+  }, null)
 
   return (
     <form action={enviar}>
       <p>Nombre: {nombreOptimista}</p>
+      <label htmlFor="nombre">Nuevo nombre</label>
       <input
+        id="nombre"
         name="nombre"
-        disabled={nombre !== nombreOptimista}
+        required
+        disabled={pendiente}
       />
-      <button>Guardar</button>
+      <button disabled={pendiente}>{pendiente ? "Guardando…" : "Guardar"}</button>
+      <p role="status">{error}</p>
     </form>
   )
 }
 ```
 
-Si `actualizarNombre` lanza un error y `onActualizado` nunca llega a llamarse con el valor nuevo, `nombreOptimista` vuelve solo al valor real (`nombre`) — no hace falta un `catch` que revierta el estado a mano.
+Requiere React 19. El módulo `./api` es propio: `actualizarNombre(nombre)` debe devolver una promesa con el nombre confirmado y rechazarla si falla la petición. `onActualizado` actualiza el estado del componente padre. En Next.js este componente necesita una frontera `"use client"`.
+
+Si la petición falla, el `catch` comunica el error y la proyección vuelve al nombre real al terminar la Action. El estado pendiente procede de `useActionState`: comparar los nombres no detectaría una petición que guarda el mismo nombre.
 
 ## Con reducer — actualizaciones más complejas
 
@@ -84,3 +96,12 @@ const [mensajesOptimistas, agregarMensajeOptimista] = useOptimistic(
 - Está diseñado para respuestas visuales inmediatas sobre una acción asíncrona; no reemplaza `useState` para estado independiente de una operación de servidor.
 - Conserva una forma de comunicar el error. Revertir sin explicación puede hacer que la interfaz parezca ignorar el clic.
 - Para listas, asigna una identidad temporal estable a cada elemento optimista y reemplázala por la identidad canónica del servidor al confirmar.
+
+## Comprobación
+
+Simula una respuesta lenta: el nombre cambia antes de confirmar y el formulario queda deshabilitado. Haz rechazar la promesa: reaparece el nombre anterior y se explica el error. Envía el mismo nombre: también debe mostrarse el estado pendiente.
+
+## Recursos
+
+- [React: useOptimistic](https://react.dev/reference/react/useOptimistic)
+- [Estado de una Action](/frontend/react/react-useactionstate)

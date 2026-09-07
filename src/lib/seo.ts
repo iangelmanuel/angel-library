@@ -55,15 +55,3 @@ export function webSiteLd() {
     publisher: { "@id": `${SITE_URL}/#organization` }
   } as const
 }
-
-export interface ArticleLdInput {
-  title: string
-  description: string
-  url: string
-  dateModified?: Date
-}
-
-export interface BreadcrumbItem {
-  name: string
-  url: string
-}

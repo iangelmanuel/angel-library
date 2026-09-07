@@ -6,7 +6,7 @@ order: 15
 tags: [express, rbac, authorization, permissions]
 scope: modelado de autorización
 related: [backend/express/express-auth-middleware]
-updatedAt: 2026-08-16
+updatedAt: 2026-09-07
 ---
 
 El [middleware de autorización](/backend/express/express-auth-middleware) que chequea `req.user.rol === 'admin'` alcanza para casos simples — pero a medida que un sistema crece, "rol único" suele quedarse corto. Esta guía cubre los niveles siguientes, y cuándo realmente hacen falta.
@@ -24,7 +24,7 @@ Un campo `rol` en la tabla de usuarios, una comparación directa. Correcto para 
 
 ## Nivel 2: varios roles por usuario
 
-Cuando un usuario puede tener más de un rol a la vez (por ejemplo, "editor" de un proyecto y "admin" de otro):
+Cuando un usuario puede tener varios roles globales, por ejemplo editor y moderador. Si los roles cambian por proyecto, añade también el identificador de proyecto a la asignación y a la consulta: el siguiente esquema de roles globales no representa ese alcance.
 
 ```prisma title="schema.prisma"
 model User {
@@ -100,6 +100,7 @@ Ni siquiera un permiso granular resuelve "un usuario puede editar **sus propios*
 ```ts
 app.put("/posts/:id", requireAuth, async (req, res) => {
   const post = await buscarPost(req.params.id)
+  if (!post) return res.status(404).json({ error: "Publicación no encontrada" })
 
   const esDueño = post.authorId === req.user!.id
   const esAdmin = req.user!.rol === "admin"

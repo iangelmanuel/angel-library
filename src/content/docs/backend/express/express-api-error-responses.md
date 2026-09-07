@@ -5,7 +5,7 @@ type: guides
 order: 11
 tags: [express, api, errors]
 related: [backend/express/express-error-handling]
-updatedAt: 2026-08-16
+updatedAt: 2026-09-07
 ---
 
 El [manejo de errores centralizado](/backend/express/express-error-handling) resuelve _dónde_ se atrapan los errores — esta guía es sobre _qué forma_ tiene la respuesta que el cliente recibe, para que sea consistente en toda la API.
@@ -108,4 +108,4 @@ Un error de base de datos, un stack trace o el mensaje real de una excepción in
 ## Exposición segura de errores
 
 - Mensajes en el idioma de la API (o traducidos del lado del cliente usando `code`) — mezclar textos hardcodeados en un idioma con `code`s en inglés es común y está bien, siempre que el cliente pueda decidir qué mostrar.
-- Este formato es una convención propia, no un estándar universal — existen estándares más formales (`application/problem+json`, RFC 7807) si el proyecto necesita interoperar con clientes que esperan ese formato específico.
+- Este formato es una convención propia. Para interoperabilidad existe `application/problem+json`, definido en [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html), que reemplaza RFC 7807. Elige un contrato y aplícalo también a errores del parser, autenticación y límites de tráfico.

@@ -15,6 +15,8 @@ updatedAt: 2026-08-19
 
 ## Modelo mental
 
+Si es tu primer contacto, sigue [el laboratorio paso a paso](/general/typescript/typescript-primer-proyecto) para instalar, comprobar y ejecutar. Esta página sirve como mapa de conceptos para volver a consultar.
+
 TypeScript analiza el programa antes de ejecutarlo y luego elimina los tipos. Si un dato llega desde HTTP, storage, variables de entorno o JSON, sigue siendo desconocido hasta validarlo en runtime.
 
 **TypeScript (TS)** es un superconjunto de JavaScript: todo JavaScript válido puede analizarse como TypeScript, pero los tipos añadidos deben transformarse antes de ejecutarse en un runtime de JavaScript. El compilador no cambia automáticamente la lógica ni valida una respuesta de red.

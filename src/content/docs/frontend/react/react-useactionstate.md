@@ -7,7 +7,7 @@ tags: [react, hooks, forms]
 scope: react (useActionState)
 related:
   - frontend/react/react-useoptimistic
-updatedAt: 2026-08-25
+updatedAt: 2026-09-07
 ---
 
 `useActionState` es la API actual de React para conservar el resultado de una Action. Si encuentras `useFormState` de `react-dom` en un tutorial anterior, revisa la versión del proyecto y migra el ejemplo conscientemente: el nombre, el módulo y el valor devuelto cambiaron.
@@ -27,10 +27,14 @@ async function crearComentario(
   estadoPrevio: string | null,
   formData: FormData
 ) {
-  const texto = formData.get("texto") as string
-  if (!texto.trim()) return "El comentario no puede estar vacío"
+  const texto = formData.get("texto")
+  if (typeof texto !== "string" || !texto.trim()) return "El comentario no puede estar vacío"
 
-  await guardarComentario(texto)
+  try {
+    await guardarComentario(texto.trim())
+  } catch {
+    return "No se pudo guardar. Inténtalo de nuevo."
+  }
   return null // sin error
 }
 
@@ -39,11 +43,13 @@ function FormularioComentario() {
 
   return (
     <form action={formAction}>
+      <label htmlFor="texto">Comentario</label>
       <textarea
+        id="texto"
         name="texto"
         disabled={isPending}
       />
-      {error && <p>{error}</p>}
+      <p role="status">{error}</p>
       <button disabled={isPending}>
         {isPending ? "Enviando…" : "Comentar"}
       </button>
@@ -56,7 +62,7 @@ La función de acción recibe el **estado anterior** como primer argumento (no s
 
 ## Con Server Actions
 
-`useActionState` no depende de dónde vive la función — funciona igual con una función async cliente o con una Server Action (de Next.js, o de [Astro](/frontend/astro/astro-server-actions)). Es el hook del lado del cliente que coordina el estado alrededor de cualquiera de las dos.
+En React 19 puedes usar una acción cliente o una Server Function de un framework compatible, como Next.js. Las [Actions de Astro](/frontend/astro/astro-server-actions) tienen un contrato propio: no se pasan indistintamente como una Server Action de Next.js. La integración oficial de React para Astro ofrece `withState`/`getActionState` para conectar ambos mecanismos.
 
 ```tsx
 "use client"
@@ -94,3 +100,14 @@ Los ejemplos con `useFormState` devolvían `[state, formAction]` y solían combi
 - Para mostrar un resultado _optimista_ mientras la acción corre (antes de que `useActionState` actualice el estado real), se combina con [`useOptimistic`](/frontend/react/react-useoptimistic) — son complementarios, no alternativas.
 - El estado devuelto debe representar resultados serializables y útiles para la UI, por ejemplo errores por campo o un mensaje de éxito.
 - Deshabilitar todo el formulario durante la solicitud no siempre es la mejor experiencia; impide solo las acciones que producirían duplicados y comunica `aria-busy` cuando corresponda.
+
+## Requisitos y comprobación
+
+El primer bloque presupone un helper `guardarComentario(texto): Promise<void>` importado desde tu capa de API; debe rechazar si no se guarda. En una demo puedes reemplazarlo por una función asíncrona controlada, pero eso no comprueba persistencia. En Next.js, el componente que llama al Hook debe ser cliente.
+
+Prueba comentario vacío, guardado correcto y rechazo del helper. Durante la espera el botón debe indicar progreso; ante un error debe mostrarse feedback y habilitar el reintento. La Server Action sigue necesitando autenticación, autorización y validación aunque la UI haya comprobado el formulario.
+
+## Fuentes
+
+- [React: useActionState](https://react.dev/reference/react/useActionState)
+- [Astro: React y Actions](https://docs.astro.build/en/guides/integrations-guide/react/)

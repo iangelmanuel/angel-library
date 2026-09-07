@@ -2,6 +2,7 @@
 title: SOLID
 description: Cinco principios de diseño orientado a objetos para escribir código más mantenible, cada uno con su propia trampa cuando se aplica sin criterio.
 type: practices
+tags: [architecture, solid, design]
 order: 6
 practice: Diseñar clases y módulos con una sola responsabilidad, abiertos a extensión, con contratos consistentes, interfaces chicas y dependencias sobre abstracciones.
 why: Sin estos límites, cualquier cambio pequeño obliga a tocar código que no debería verse afectado.

@@ -1,279 +1,131 @@
 ---
 title: Prisma en Express
-description: Instalación, schema, client, CRUD completo, transacciones y el patrón de repository — todo lo necesario para usar Prisma en un backend Express.
+description: Conectar Prisma 7 a Express 5, servir consultas acotadas y separar persistencia, permisos y errores.
 type: guides
 order: 18
 tags: [express, prisma, database, orm]
 website: https://www.prisma.io
-related: [backend/express/backend-mvc-structure]
-updatedAt: 2026-08-17
+related: [database/database-prisma/prisma-configuracion, backend/express/backend-mvc-structure, backend/express/express-api-protegida]
+updatedAt: 2026-09-07
 ---
 
-Prisma es un ORM con schema declarativo: el `schema.prisma` es la única fuente de verdad, y de ahí genera un client con métodos y tipos exactos para cada modelo — no hay que escribir SQL a mano ni mantener tipos sincronizados por separado.
+Prisma resuelve el acceso a los datos; Express recibe la petición y construye la respuesta HTTP. El ORM no valida automáticamente los datos del navegador ni decide qué registros puede modificar cada usuario.
 
-## Instalación
+## Requisitos
 
-```bash
-npm install prisma --save-dev
-npm install @prisma/client
-npx prisma init
-```
-
-`prisma init` crea `prisma/schema.prisma` y un `.env` con `DATABASE_URL` de ejemplo.
-
-## Configuración rápida — de cero a un modelo funcionando
-
-**1. Apuntar `DATABASE_URL` a una base real.** Para desarrollo local rápido sin instalar Postgres a mano, un contenedor de un solo comando alcanza:
+Completa [Prisma 7 con PostgreSQL](/database/database-prisma/prisma-configuracion): esquema `User`/`Post`, migraciones, cliente compartido y prueba con `tsx`. Esta integración usa **Express 5** en Node y un proyecto TypeScript ESM.
 
 ```bash
-docker run --name postgres-dev -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
+pnpm add express@5
+pnpm add -D @types/express@5
 ```
 
-```bash title=".env"
-DATABASE_URL="postgresql://postgres:password@localhost:5432/miapp"
-```
+## Implementación: servidor de lectura
 
-**2. Definir el schema:**
-
-```prisma title="prisma/schema.prisma"
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
-
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  posts     Post[]
-  createdAt DateTime @default(now())
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-}
-```
-
-Cada `model` es una tabla; `@relation` describe una foreign key; `@id`, `@unique`, `@default` son constraints declarativos.
-
-**3. Migrar** (crea la tabla en la base y genera el client con los tipos correspondientes):
-
-```bash
-npx prisma migrate dev --name init
-```
-
-**4. El client, como singleton:**
-
-```ts title="lib/prisma.ts"
-import { PrismaClient } from "@prisma/client"
-
-export const prisma = new PrismaClient()
-```
-
-En una app Express de proceso largo (no serverless), esto alcanza tal cual — el proceso vive mientras el servidor corre, así que una instancia global no se recrea en cada request.
-
-**5. Un endpoint real, para confirmar que anda:**
-
-```ts title="app.ts"
-import express from "express"
+```ts title="src/server.ts"
+import express, { type ErrorRequestHandler } from "express"
 import { prisma } from "./lib/prisma"
 
 const app = express()
-app.use(express.json())
 
-app.get("/posts", async (req, res) => {
-  const posts = await prisma.post.findMany()
+app.get("/posts", async (_req, res) => {
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+    take: 20,
+    select: { id: true, title: true }
+  })
   res.json(posts)
 })
 
-app.post("/posts", async (req, res) => {
-  const post = await prisma.post.create({ data: req.body })
-  res.status(201).json(post)
+const onError: ErrorRequestHandler = (error, _req, res, next) => {
+  if (res.headersSent) return next(error)
+  console.error(error)
+  res.status(500).json({ error: "No se pudo completar la petición" })
+}
+app.use(onError)
+
+const server = app.listen(3000, "127.0.0.1", () => {
+  console.log("http://127.0.0.1:3000/posts")
 })
 
-app.listen(3000)
-```
+let closing = false
+function shutdown() {
+  if (closing) return
+  closing = true
+  const deadline = setTimeout(() => process.exit(1), 10000)
+  deadline.unref()
 
-## CRUD básico
-
-```ts
-await prisma.user.create({ data: { email: "a@b.com", name: "Angel" } })
-await prisma.user.findUnique({ where: { id: "..." } })
-await prisma.user.findMany({ where: { name: { contains: "an" } } })
-await prisma.user.update({
-  where: { id: "..." },
-  data: { name: "Nuevo nombre" }
-})
-await prisma.user.delete({ where: { id: "..." } })
-```
-
-## Métodos que se usan seguido y no son solo CRUD básico
-
-```ts
-// findFirst: el primero que matchea, sin buscar por un campo único
-await prisma.post.findFirst({
-  where: { published: true },
-  orderBy: { createdAt: "desc" }
-})
-
-// upsert: actualiza si existe, crea si no — un solo viaje a la base en vez de find + if + create/update
-await prisma.user.upsert({
-  where: { email: "a@b.com" },
-  update: { name: "Nombre actualizado" },
-  create: { email: "a@b.com", name: "Nombre nuevo" }
-})
-
-// createMany / updateMany / deleteMany: operan sobre varios registros en una sola query
-await prisma.post.createMany({ data: [{ title: "Uno" }, { title: "Dos" }] })
-await prisma.post.updateMany({
-  where: { published: false },
-  data: { published: true }
-})
-await prisma.post.deleteMany({ where: { authorId: "..." } })
-
-// count: contar sin traer los registros
-await prisma.post.count({ where: { published: true } })
-
-// aggregate: min/max/avg/sum sobre un campo numérico
-await prisma.post.aggregate({ _count: true, _avg: { views: true } })
-
-// groupBy: agrupar y agregar, el equivalente a GROUP BY de SQL
-await prisma.post.groupBy({ by: ["authorId"], _count: { id: true } })
-```
-
-`createMany`/`updateMany`/`deleteMany` no devuelven los registros afectados, solo `{ count: number }` — si hace falta el resultado completo de cada uno, la alternativa es un `$transaction` con varias operaciones individuales (ver abajo).
-
-## Relaciones: incluir datos relacionados
-
-Por defecto, una consulta **no** trae las relaciones — hay que pedirlas explícitamente con `include`.
-
-```ts
-const userConPosts = await prisma.user.findUnique({
-  where: { id: "..." },
-  include: { posts: true }
-})
-```
-
-`select` hace lo opuesto: en vez de traer el modelo completo, eliges exactamente qué campos quieres.
-
-```ts
-const soloEmail = await prisma.user.findMany({ select: { email: true } })
-```
-
-## Transacciones con `$transaction`
-
-Cuando varias operaciones tienen que ejecutarse **todas o ninguna** (si una falla, se revierten todas), `$transaction` las agrupa de forma atómica. Prisma ofrece dos formas.
-
-### Forma secuencial (array de promesas)
-
-La más simple — un array de operaciones independientes entre sí, que Prisma ejecuta todas dentro de la misma transacción:
-
-```ts
-const [post, contador] = await prisma.$transaction([
-  prisma.post.create({ data: { title: "Nuevo post", authorId: userId } }),
-  prisma.user.update({
-    where: { id: userId },
-    data: { postsCount: { increment: 1 } }
+  // Deja terminar las peticiones antes de cerrar la base.
+  server.close(async error => {
+    try {
+      await prisma.$disconnect()
+      process.exitCode = error ? 1 : 0
+    } catch {
+      process.exitCode = 1
+    } finally {
+      clearTimeout(deadline)
+    }
   })
-])
+}
+process.on("SIGINT", shutdown)
+process.on("SIGTERM", shutdown)
 ```
 
-Si `prisma.user.update` falla (por ejemplo, el usuario no existe), el `create` del post **también se revierte** — no queda un post huérfano sin su contador actualizado.
-
-### Forma interactiva (callback)
-
-Para cuando una operación depende del **resultado** de la anterior — el array secuencial no sirve porque ahí todas las operaciones se arman de antemano, sin poder usar el resultado directamente en la siguiente:
-
-```ts
-const resultado = await prisma.$transaction(async (tx) => {
-  const cuentaOrigen = await tx.account.findUnique({ where: { id: origenId } })
-
-  if (!cuentaOrigen || cuentaOrigen.balance < monto) {
-    throw new Error("Fondos insuficientes") // esto revierte TODA la transacción
-  }
-
-  await tx.account.update({
-    where: { id: origenId },
-    data: { balance: { decrement: monto } }
-  })
-  await tx.account.update({
-    where: { id: destinoId },
-    data: { balance: { increment: monto } }
-  })
-
-  return { ok: true }
-})
+```bash
+pnpm exec tsx src/server.ts
 ```
 
-Dentro del callback se usa `tx` (el client transaccional que Prisma pasa como argumento), **no** `prisma` directo — usar `prisma.account.update(...)` por error adentro del callback ejecutaría esa operación **fuera** de la transacción, sin las garantías de atomicidad.
+Express 5 pasa automáticamente al middleware los rechazos de handlers que devuelven promesas. En Express 4 ese comportamiento requiere un wrapper o `next(error)` explícito.
 
-Un `throw` dentro del callback revierte automáticamente todo lo que la transacción llevaba hecho hasta ese punto — es el mecanismo para cancelar por una regla de negocio (como el chequeo de fondos insuficientes arriba), no solo por errores de la base.
+El listado devuelve solo campos públicos y hasta 20 filas. La escucha local sirve para practicar; la configuración de despliegue debe definir host, proxy, límites y observabilidad.
 
-## Uso dentro de un repository (patrón de capas)
+## Escrituras: validación y autorización
 
-Siguiendo la [estructura MVC](/backend/express/backend-mvc-structure): el repository es la única capa que importa `prisma` directamente.
+Antes de añadir POST/PATCH, conecta la [API protegida](/backend/express/express-api-protegida). El flujo debe ser:
 
-```ts title="repositories/users.repository.ts"
+1. Limitar y parsear el cuerpo.
+2. Verificar sesión e identidad.
+3. Validar los campos editables, como `title`.
+4. Comprobar los permisos sobre el recurso.
+5. Llamar al servicio con datos explícitos: `crearPostConLimite(usuario.id, tituloValidado)`.
+6. Devolver una respuesta que seleccione los campos públicos.
+
+El servicio `src/lib/posts.ts` de la guía compartida aplica el límite de posts con aislamiento serializable. El ID de usuario y el título que recibe no sustituyen las comprobaciones HTTP anteriores. No uses `prisma.post.create({ data: req.body })`: permitiría al cliente elegir campos que deberían controlar el servidor y la sesión.
+
+## Separación mediante repository
+
+Esta capa resulta útil cuando varias rutas comparten consultas. Es opcional para una aplicación pequeña:
+
+```ts title="src/repositories/users.repository.ts"
 import { prisma } from "../lib/prisma"
 
 export const usersRepository = {
-  findById: (id: string) => prisma.user.findUnique({ where: { id } }),
-  findAll: () => prisma.user.findMany(),
-  create: (data: { email: string; name?: string }) =>
-    prisma.user.create({ data })
+  findPublicById: (id: string) => prisma.user.findUnique({
+    where: { id },
+    select: { id: true, name: true }
+  }),
+  create: (data: { email: string; name?: string }) => prisma.user.create({
+    data,
+    select: { id: true, name: true }
+  })
 }
 ```
 
-```ts title="services/users.service.ts"
-import { usersRepository } from "../repositories/users.repository"
+Un service decide qué hacer cuando `findPublicById` devuelve `null`; el controller traduce ese resultado a 404. Una violación de unicidad (`P2002`) puede convertirse en un conflicto de negocio. No expongas el error completo de Prisma a quien hace la petición.
 
-export const usersService = {
-  async obtenerUsuario(id: string) {
-    const usuario = await usersRepository.findById(id)
-    if (!usuario) throw new AppError(404, "Usuario no encontrado")
-    return usuario
-  }
-}
-```
+Separar capas reduce acoplamiento, pero cambiar de ORM puede afectar consultas, transacciones y modelos. Un repository no garantiza por sí solo una migración trivial.
 
-El controller nunca importa `prisma` directamente — pasa por service → repository, así que cambiar de ORM en el futuro solo toca la capa de repository.
+## Comprobación
 
-## Cierre limpio al apagar el servidor
+1. Abre `http://127.0.0.1:3000/posts`: sin publicaciones devuelve `[]`.
+2. Publica un registro de desarrollo y repite: aparece con `id` y `title`, sin datos del autor.
+3. Detén PostgreSQL: la petición devuelve 500; el proceso debe seguir atendiendo peticiones y el detalle queda en el log local.
+4. Pulsa Ctrl+C: el servidor deja de aceptar peticiones y luego cierra el cliente. Una operación colgada tiene un plazo de diez segundos.
+5. Al integrar escrituras, prueba petición anónima, título inválido e intento de cambiar `authorId` desde el cuerpo: no deben crear un post con otra identidad.
 
-```ts title="server.ts"
-process.on("SIGTERM", async () => {
-  await prisma.$disconnect()
-  process.exit(0)
-})
-```
+## Límites y recursos
 
-Ver [process y señales](/backend/node/node-process) para el patrón completo de shutdown limpio.
+Reutiliza el cliente por proceso; no conectes y desconectes en cada handler. En producción, configura logs para evitar secretos y datos personales, dimensiona conexiones y añade paginación.
 
-## Flujo de Prisma
-
-| API                                                        | Qué hace                                                        |
-| ---------------------------------------------------------- | --------------------------------------------------------------- |
-| `create` / `findUnique` / `findMany` / `update` / `delete` | CRUD básico                                                     |
-| `findFirst`                                                | Primer match, sin depender de un campo único                    |
-| `upsert`                                                   | Update si existe, create si no, en un solo viaje                |
-| `createMany` / `updateMany` / `deleteMany`                 | Operan sobre varios registros, devuelven solo `{ count }`       |
-| `count` / `aggregate` / `groupBy`                          | Conteos y agregaciones sin traer los registros completos        |
-| `include` / `select`                                       | Traer relaciones / elegir campos específicos                    |
-| `$transaction([...])`                                      | Varias operaciones independientes, atómicas, secuenciales       |
-| `$transaction(async (tx) => {...})`                        | Operaciones que dependen del resultado de la anterior, atómicas |
-
-## Conexiones, transacciones y capas
-
-- El cliente se genera a partir del schema (`prisma generate`) — si editas el schema y no regeneras, TypeScript sigue viendo los tipos anteriores. `migrate dev` lo hace automáticamente; en CI o producción hace falta ejecutarlo después de instalar dependencias.
-- `npx prisma migrate dev` **no** es el comando de producción — en un deploy real se usa `npx prisma migrate deploy`, que aplica migraciones existentes sin generar nuevas interactivamente.
-- Una sola instancia de `PrismaClient` por proceso — crear una nueva en cada request agota las conexiones a la base.
-- Dentro de un callback de `$transaction` interactiva, usar siempre `tx`, nunca `prisma` — es el error más común al escribir una transacción de este tipo.
-- `DATABASE_URL` es un secreto — nunca commitear `.env`, ver [Variables de entorno en Node](/backend/node/node-env-vars).
+La [guía compartida](/database/database-prisma/prisma-configuracion) concentra CRUD, relaciones, transacciones y migraciones. Para el servidor: [manejo de errores de Express](https://expressjs.com/en/guide/error-handling.html) y [cierre mediante señales](/backend/node/node-process).

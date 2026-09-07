@@ -2,6 +2,7 @@
 title: DOM Utils — Referencia rápida
 description: Utilidades mínimas y declarativas para seleccionar y manipular el DOM desde scripts de navegador.
 type: utilities
+tags: [typescript, dom, browser]
 runtime: browser
 language: typescript
 related:
@@ -9,7 +10,7 @@ related:
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas y declarativas para manipular el DOM. Importa siempre desde `@/libs/dom`.
+Utilidades mínimas y declarativas para manipular el DOM. Tras configurar el alias `@/*` hacia `src/*`, importa desde `@/lib/dom`.
 
 Solo existen aquí las funciones que el sitio realmente usa. Si necesitas algo que no está, primero considera si `element.querySelector` directo es más claro que agregar otro helper.
 
@@ -20,7 +21,7 @@ Solo existen aquí las funciones que el sitio realmente usa. Si necesitas algo q
 Con `HTMLElement` de default, esto ya funciona sin genéricos explícitos:
 
 ```ts
-import { $, on } from "@/libs/dom"
+import { $, on } from "@/lib/dom"
 
 const boton = $("[data-submit]")
 on(boton, "click", () => {})
@@ -34,7 +35,7 @@ Solo especifica el genérico cuando necesites propiedades de un subtipo concreto
 
 Busca el primer elemento que coincida con el selector dentro del ámbito indicado. A diferencia de `querySelector`, garantiza que el resultado exista: lanza un error si no encuentra el elemento. Úsala cuando el elemento sea imprescindible para que el script funcione correctamente.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function $<T extends Element = HTMLElement>(
   selector: string,
   root: ParentNode = document
@@ -46,7 +47,7 @@ export function $<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $ } from "@/libs/dom"
+import { $ } from "@/lib/dom"
 
 // Selector global
 const boton = $<HTMLButtonElement>("[data-submit]")
@@ -59,7 +60,7 @@ const input = $<HTMLInputElement>("[data-email]", formulario)
 
 Busca el primer elemento que coincida con el selector, pero permite que no exista. Retorna el elemento encontrado o `null` cuando no hay coincidencias. Es útil para componentes, páginas o estados donde un elemento puede estar ausente de forma válida.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function $opt<T extends Element = HTMLElement>(
   selector: string,
   root: ParentNode = document
@@ -69,7 +70,7 @@ export function $opt<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $opt } from "@/libs/dom"
+import { $opt } from "@/lib/dom"
 
 const modal = $opt<HTMLDivElement>("[data-modal]")
 if (modal) show(modal)
@@ -79,7 +80,7 @@ if (modal) show(modal)
 
 Busca todos los elementos que coincidan con el selector dentro del ámbito indicado. Siempre retorna un array real, vacío si no hay coincidencias, en lugar de un `NodeList`. Esto permite recorrer los resultados directamente con `forEach`, transformarlos con `map` o filtrarlos con `filter`.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function $$<T extends Element = HTMLElement>(
   selector: string,
   root: ParentNode = document
@@ -89,7 +90,7 @@ export function $$<T extends Element = HTMLElement>(
 ```
 
 ```ts
-import { $$ } from "@/libs/dom"
+import { $$ } from "@/lib/dom"
 
 const items = $$<HTMLLIElement>("[data-item]")
 items.forEach((item) => console.log(item.textContent))
@@ -114,7 +115,7 @@ export function show(el: HTMLElement | HTMLElement[]): void {
 ```
 
 ```ts
-import { show } from "@/libs/dom"
+import { show } from "@/lib/dom"
 
 show(mensajeFinal)
 ```
@@ -133,7 +134,7 @@ export function hide(el: HTMLElement | HTMLElement[]): void {
 ```
 
 ```ts
-import { hide } from "@/libs/dom"
+import { hide } from "@/lib/dom"
 
 hide([cargador1, cargador2])
 ```
@@ -144,7 +145,7 @@ hide([cargador1, cargador2])
 
 Lee el valor calculado directamente custom property CSS desde el elemento indicado. El tercer argumento permite proporcionar un valor por defecto cuando la variable no está definida o no produce un valor útil, evitando repetir comprobaciones en cada llamada.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function getCssVar(
   el: Element | null | undefined,
   varName: string,
@@ -156,7 +157,7 @@ export function getCssVar(
 ```
 
 ```ts
-import { getCssVar } from "@/libs/dom"
+import { getCssVar } from "@/lib/dom"
 
 const azul = getCssVar(elemento, "--color-verlun-blue", "#2547FF")
 ```
@@ -169,7 +170,7 @@ Ambas funciones retornan una función para desuscribirse.
 
 Registra un event listener sobre un elemento y retorna una función de limpieza. Guarda esa función cuando el listener deba eliminarse al desmontar un componente, cambiar de página o finalizar un ciclo de vida.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function on<K extends keyof HTMLElementEventMap>(
   el: HTMLElement | Window | Document | null | undefined,
   type: K,
@@ -185,7 +186,7 @@ export function on<K extends keyof HTMLElementEventMap>(
 ```
 
 ```ts
-import { on } from "@/libs/dom"
+import { on } from "@/lib/dom"
 
 const limpiar = on(boton, "click", () => console.log("Clickeado"))
 
@@ -197,7 +198,7 @@ limpiar()
 
 Registra el mismo handler para varios tipos de evento y retorna una única función para desuscribirlos todos. Es útil cuando una actualización debe reaccionar, por ejemplo, tanto a cambios de texto como a cambios de selección en un formulario.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function onAll<K extends keyof HTMLElementEventMap>(
   el: HTMLElement | Window | Document | null | undefined,
   types: K[],
@@ -210,7 +211,7 @@ export function onAll<K extends keyof HTMLElementEventMap>(
 ```
 
 ```ts
-import { onAll } from "@/libs/dom"
+import { onAll } from "@/lib/dom"
 
 const limpiar = onAll(formulario, ["input", "change"], actualizarContador)
 ```
@@ -223,7 +224,7 @@ Todos retornan una función para dejar de observar.
 
 Observa si un elemento entra o sale del viewport usando `IntersectionObserver`. El handler recibe un booleano con el estado actual de visibilidad y la función retornada detiene la observación. Las opciones permiten controlar qué proporción del elemento debe ser visible antes de activar el callback.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function onVisible(
   el: Element | null | undefined,
   callback: (visible: boolean) => void,
@@ -240,7 +241,7 @@ export function onVisible(
 ```
 
 ```ts
-import { onVisible } from "@/libs/dom"
+import { onVisible } from "@/lib/dom"
 
 const limpiar = onVisible(seccion, (visible) => {
   if (visible) iniciarAnimacion()
@@ -254,7 +255,7 @@ onVisible(elemento, handler, { threshold: 0.5 })
 
 Observa los cambios de tamaño de un elemento mediante `ResizeObserver`. Cada vez que cambia, el handler recibe su rectángulo calculado para poder sincronizar un canvas, recalcular un layout o actualizar medidas derivadas. La función retornada desconecta el observer.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function onResize(
   el: Element | null | undefined,
   callback: (rect: DOMRect) => void
@@ -269,7 +270,7 @@ export function onResize(
 ```
 
 ```ts
-import { $, onResize } from "@/libs/dom"
+import { $, onResize } from "@/lib/dom"
 
 const canvas = $<HTMLCanvasElement>("[data-canvas]")
 
@@ -284,7 +285,7 @@ const limpiar = onResize(canvas, (rect) => {
 
 Observa mutaciones en el elemento indicado, como cambios de atributos, texto o nodos hijos, según las opciones configuradas. El handler se ejecuta cuando ocurre una mutación y la función retornada deja de observar. Por ejemplo, sirve para reaccionar a cambios de `data-theme` en `<html>`.
 
-```ts title="lib/dom.ts"
+```ts title="src/lib/dom.ts"
 export function onMutation(
   el: Element | null | undefined,
   callback: (cambios: MutationRecord[]) => void,
@@ -302,7 +303,7 @@ export function onMutation(
 ```
 
 ```ts
-import { onMutation } from "@/libs/dom"
+import { onMutation } from "@/lib/dom"
 
 const limpiar = onMutation(document.documentElement, actualizarColores, {
   attributes: true,

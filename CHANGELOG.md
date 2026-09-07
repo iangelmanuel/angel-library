@@ -8,6 +8,64 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.31.0] — 2026-09-07
+
+Simplifica la incorporación de contenido y reúne las mejoras de documentación
+realizadas después de la migración a Starlight.
+
+### Añadido
+
+- Ruta de aprendizaje web, laboratorio inicial de TypeScript y guía compartida
+  de Prisma 7 con PostgreSQL. La biblioteca pasa de 718 a 721 entradas.
+- Inventario y auditoría editorial en `docs/`, con hallazgos, correcciones y
+  alcance de la verificación técnica.
+- Descubrimiento de categorías y subcategorías desde las carpetas. Un archivo
+  opcional `_meta.json` por categoría reúne etiquetas, descripciones, icono,
+  color, grupo y orden sin registrar cada carpeta en varias constantes.
+- Comando `pnpm check:catalog` para comprobar descubrimiento, orden y validación
+  de metadatos con carpetas temporales.
+
+### Cambiado
+
+- Catálogo central derivado del disco y construcción del menú a partir de ese
+  catálogo; los metadatos existentes se trasladan conservando sus valores.
+- Requisitos, ejemplos, comprobaciones y referencias más uniformes en las
+  guías revisadas de autenticación, HTTP, utilidades, React y Prisma.
+- Integraciones de Prisma en Astro, Express y Next.js apoyadas en un mismo
+  esquema, cliente y servicio de escritura.
+- Validaciones separadas de las relaciones de lectura, agrupaciones y conteos
+  simplificados, y prioridad editorial definida junto a cada tipo.
+- Guías de contenido y arquitectura actualizadas; nueva tabla de complejidad y
+  riesgos de retirar funciones en `docs/COMPLEXITY_REVIEW.md`.
+
+### Eliminado
+
+- Registros globales duplicados de categorías y subcategorías y helpers
+  genéricos que solo los transformaban.
+- Tipos y arrays de servicios/FAQ sin uso, tipos SEO sin consumidores,
+  opciones JSX de React y la dependencia directa `@shikijs/transformers`.
+- Módulo de datos del proyecto y reexportaciones de la portada sin consumidores.
+
+### Corregido
+
+- Asignación de roles desde datos del cliente, validación de cuerpos HTTP,
+  manejo de JSON inválido y límites del servidor de archivos de ejemplo.
+- Contratos de Fetch, reintentos, cancelación, lotes y utilidades de formularios.
+- Hidratación y sincronización de almacenamiento y media queries en Hooks;
+  listeners con refs vacíos y explicaciones de efectos y Actions.
+- Configuraciones incompatibles de Prisma, Better Auth, daisyUI y Flowbite;
+  ejemplos de persistencia Docker, puertos, caché HTTP y GitHub Actions.
+
+### Verificado
+
+- `pnpm check`, `pnpm check:catalog` y `pnpm eslint`: sin errores.
+- `pnpm build`: 1.728 páginas generadas.
+- Refactorización interna: las 1.728 páginas HTML son idénticas a la referencia
+  previa; los 721 Markdown, las siete hojas de estilo y los archivos públicos
+  permanecen intactos respecto al inicio de esa refactorización.
+- `pnpm prettier:check` detecta archivos con formato pendiente; no se considera
+  una comprobación superada.
+
 ## [0.30.0] — 2026-09-07
 
 Cierra el ciclo de la migración a Starlight y prepara el repositorio para
@@ -2008,7 +2066,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.30.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.31.0...HEAD
+[0.31.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.31.0
 [0.30.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.30.0
 [0.29.7]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.7
 [0.29.6]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.6

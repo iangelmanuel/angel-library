@@ -22,7 +22,7 @@ pnpm check
 `src/content.config.ts`. `pnpm preview` sirve `dist/`. `pnpm eslint` y
 `pnpm prettier:check` son lo que corre el CI.
 
-No hay tests: `pnpm build` es la validación real.
+No hay un test runner general. `pnpm check:catalog` comprueba el descubrimiento de carpetas y los metadatos en un directorio temporal. `pnpm build` valida la integración del contenido. El informe editorial anterior está en `docs/CONTENT_AUDIT.md`.
 
 ## Qué es esto
 
@@ -51,14 +51,13 @@ Las reglas por tipo (`commands` exige `command`, `resources` exige `url` y
 `resourceCategory`, `integrations` exige dos tecnologías) viven en un
 `superRefine` al final del esquema.
 
-### Config: la única fuente
+### Configuración y catálogo
 
-`src/config/` define categorías, subcategorías, tipos de contenido, categorías
-de recurso e iconos. De ahí salen el menú, las páginas de listado y los colores.
+`src/config/catalog.ts` descubre categorías y subcategorías desde las carpetas de `src/content/docs/`. Cada categoría puede incluir `_meta.json` para personalizar etiquetas, descripciones, icono, color, grupo y orden. No registres ids en listas paralelas.
 
-`src/config/sidebar.ts` construye el menú de Starlight leyendo esas listas y las
-carpetas reales de `src/content/docs/`. Grupo → categoría → subcategoría →
-entradas (`autogenerate`).
+`src/config/content-types.ts` mantiene los tipos editoriales y su prioridad de aprendizaje. `src/config/sidebar.ts` adapta el catálogo al menú de Starlight, con artículos ordenados por título. El campo `order` de los artículos se usa en los listados propios.
+
+Reinicia el servidor tras añadir, renombrar o eliminar entradas/carpetas o modificar metadatos del menú. Consulta `docs/ARCHITECTURE.md` y `docs/COMPLEXITY_REVIEW.md` antes de modificar esta lógica.
 
 ### Rutas
 
@@ -77,6 +76,8 @@ en `src/pages/`, todas envueltas en `<StarlightPage>` para heredar el layout:
 explícitas, retroenlaces, integraciones y recetas que la citan, y afinidad por
 tags. Se pintan al pie de cada entrada mediante el override
 `src/components/starlight/Footer.astro`.
+
+Las validaciones de estructura, relaciones y enlaces viven en `src/lib/validation.ts`, separadas del cálculo de recomendaciones.
 
 ### Búsqueda
 
@@ -103,7 +104,7 @@ Expressive Code, el de Starlight. Los colores se ajustan desde
 
 `src/config/icons.ts` es la tabla única: `BRAND_ICONS` (logos propios) y
 `RECOLORED_ICONS` (un icono de lucide con color fijo). `<Icon name="…" />`
-resuelve en build; `DynamicIcon` hace lo mismo en las islas de React.
+resuelve los iconos del sitio en build.
 
 ## Escribir contenido
 

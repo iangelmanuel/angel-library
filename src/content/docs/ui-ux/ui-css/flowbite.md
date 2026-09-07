@@ -7,14 +7,14 @@ tags: [html, tailwindcss, components]
 website: https://flowbite.com
 github: https://github.com/themesberg/flowbite
 install: npm install flowbite
-updatedAt: 2026-08-17
+updatedAt: 2026-09-07
 ---
 
 Componentes en HTML plano con clases de Tailwind (dropdowns, modales, carousels, datepicker) más un plugin de JS propio para la interactividad — no requiere React ni ningún framework.
 
 ## Configuración inicial
 
-Agregar el plugin y que Tailwind escanee las clases que usa Flowbite:
+La siguiente configuración corresponde a **Tailwind 3**. Fija una versión de Flowbite compatible con ese proyecto. En Tailwind 4, utiliza la configuración CSS descrita en la documentación de Flowbite; no crees un `tailwind.config.js` solo para copiar este bloque.
 
 ```js title="tailwind.config.js"
 module.exports = {
@@ -25,11 +25,17 @@ module.exports = {
 
 Importar el JS (una sola vez, ej. en el layout base) para que dropdowns/modales funcionen:
 
-```html
-<script src="node_modules/flowbite/dist/flowbite.min.js"></script>
+```js title="src/main.js (entrada de navegador procesada por el bundler)"
+import "flowbite"
 ```
 
-## Tips
+`node_modules/` no suele publicarse como ruta del sitio. El bundler resuelve el import y genera el archivo que recibirá el navegador. En Astro, coloca el import dentro de un `<script>` procesado de tu layout.
+
+## Comprobación
+
+Monta un dropdown de la documentación correspondiente a tu versión. Comprueba que se abra, cierre y responda al teclado. Si aparece estilizado pero no responde, revisa el JavaScript; si responde sin estilos, revisa el escaneo de clases y la hoja CSS. En navegación cliente, verifica la reinicialización de componentes.
+
+## Recomendaciones
 
 - Los componentes se activan por atributos `data-*` (`data-modal-toggle`, `data-dropdown-trigger`), sin escribir JS propio para lo básico.
 - Existe `flowbite-react` si el mismo proyecto también usa React — mismo diseño, API de componentes en vez de HTML+atributos.

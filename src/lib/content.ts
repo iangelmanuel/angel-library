@@ -1,15 +1,11 @@
 import { type CollectionEntry, getCollection } from "astro:content"
-import { CATEGORY_LIST, type CategoryId } from "@/config/categories"
-import { type ContentTypeId } from "@/config/content-types"
-import {
-  type SubcategoryId,
-  getSubcategoriesForCategory
-} from "@/config/subcategories"
+import { CATEGORY_LIST, getSubcategoriesForCategory } from "@/config/catalog"
+import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
 import {
   validateContentRelations,
   validateContentStructure,
   validateInternalLinks
-} from "./relations"
+} from "./validation"
 
 /** Una entrada de la biblioteca. */
 export type AnyEntry = CollectionEntry<"docs">
@@ -25,8 +21,8 @@ export async function getAllEntries(
   const entries = await getCollection("docs")
 
   if (!checked) {
-    checked = true
     validateContent(entries)
+    checked = true
   }
 
   return entries.filter((entry) => {
@@ -56,14 +52,14 @@ export function typeOf(entry: AnyEntry): ContentTypeId {
 // ── Ubicación ──
 
 /** Categoría = primera carpeta del id. */
-export function categoryOf(entry: AnyEntry): CategoryId {
-  return entry.id.split("/")[0] as CategoryId
+export function categoryOf(entry: AnyEntry): string {
+  return entry.id.split("/")[0]
 }
 
 /** Subcategoría = segunda carpeta, si la hay. */
-export function subcategoryOf(entry: AnyEntry): SubcategoryId | undefined {
+export function subcategoryOf(entry: AnyEntry): string | undefined {
   const segments = entry.id.split("/")
-  return segments.length > 2 ? (segments[1] as SubcategoryId) : undefined
+  return segments.length > 2 ? segments[1] : undefined
 }
 
 /** URL pública: el id. */
@@ -72,24 +68,6 @@ export function getEntryUrl(entry: AnyEntry): string {
 }
 
 // ── Ordenar ──
-
-/** Curva de lectura: fundamentos primero. */
-const LEARNING_TYPE_ORDER: ContentTypeId[] = [
-  "technologies",
-  "guides",
-  "practices",
-  "patterns",
-  "libraries",
-  "integrations",
-  "hooks",
-  "utilities",
-  "snippets",
-  "commands",
-  "tricks",
-  "recipes",
-  "resources",
-  "skills"
-]
 
 function byTitle(a: AnyEntry, b: AnyEntry): number {
   return a.data.title.localeCompare(b.data.title, "es")
@@ -100,10 +78,7 @@ export function sortByTitle<T extends AnyEntry>(entries: T[]): T[] {
 }
 
 export function sortByLearningPath<T extends AnyEntry>(entries: T[]): T[] {
-  const rank = (entry: AnyEntry) => {
-    const index = LEARNING_TYPE_ORDER.indexOf(typeOf(entry))
-    return index === -1 ? Infinity : index
-  }
+  const rank = (entry: AnyEntry) => CONTENT_TYPES[typeOf(entry)].learningOrder
   const order = (entry: AnyEntry) => entry.data.order ?? Infinity
 
   return [...entries].sort(
@@ -122,33 +97,42 @@ interface EntryGroup {
 }
 
 /** Entradas de una categoría, agrupadas por subcategoría. */
-export function getCategoryEntries(all: AnyEntry[], category: CategoryId) {
+export function getCategoryEntries(all: AnyEntry[], category: string) {
   const entries = all.filter((entry) => categoryOf(entry) === category)
+  const bySubcategory = new Map<string | undefined, AnyEntry[]>()
+  for (const entry of entries) {
+    const id = subcategoryOf(entry)
+    const group = bySubcategory.get(id) ?? []
+    group.push(entry)
+    bySubcategory.set(id, group)
+  }
+
   const groups: EntryGroup[] = getSubcategoriesForCategory(category)
     .map(({ id, label, description }) => ({
       id,
       label,
       description,
-      entries: sortByLearningPath(
-        entries.filter((entry) => subcategoryOf(entry) === id)
-      )
+      entries: sortByLearningPath(bySubcategory.get(id) ?? [])
     }))
     .filter((group) => group.entries.length > 0)
 
   return {
     entries,
     groups,
-    ungrouped: sortByLearningPath(
-      entries.filter((entry) => !subcategoryOf(entry))
-    )
+    ungrouped: sortByLearningPath(bySubcategory.get(undefined) ?? [])
   }
 }
 
 /** Categorías con contenido y su conteo. */
 export function getCategoryCounts(entries: AnyEntry[]) {
+  const counts = new Map<string, number>()
+  for (const entry of entries) {
+    const category = categoryOf(entry)
+    counts.set(category, (counts.get(category) ?? 0) + 1)
+  }
   return CATEGORY_LIST.map((meta) => ({
     ...meta,
-    count: entries.filter((entry) => categoryOf(entry) === meta.id).length
+    count: counts.get(meta.id) ?? 0
   })).filter((category) => category.count > 0)
 }
 

@@ -2,6 +2,7 @@
 title: Clipboard Utils — Referencia rápida
 description: Copiar y leer el portapapeles con detección de soporte y fallback, sin librerías.
 type: utilities
+tags: [typescript, clipboard, browser]
 runtime: browser
 language: typescript
 related:
@@ -9,7 +10,7 @@ related:
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas sobre el portapapeles. Importa siempre desde `@/libs/clipboard`.
+Utilidades mínimas sobre el portapapeles. Tras configurar el alias `@/*` hacia `src/*`, importa desde `@/lib/clipboard`.
 
 La Clipboard API async (`navigator.clipboard`) no está disponible en todos los contextos (requiere HTTPS y a veces permiso explícito), así que `copyToClipboard()` cae a un fallback con `<textarea>` + `execCommand` cuando hace falta.
 
@@ -19,14 +20,14 @@ La Clipboard API async (`navigator.clipboard`) no está disponible en todos los 
 
 Comprueba si `navigator.clipboard` existe. Sirve para decidir si mostrar un botón de "copiar" o si directamente usar el fallback.
 
-```ts title="lib/clipboard.ts"
+```ts title="src/lib/clipboard.ts"
 export function isClipboardSupported(): boolean {
   return typeof navigator !== "undefined" && !!navigator.clipboard
 }
 ```
 
 ```ts
-import { isClipboardSupported } from "@/libs/clipboard"
+import { isClipboardSupported } from "@/lib/clipboard"
 
 if (!isClipboardSupported()) {
   console.warn("Clipboard API no disponible, usando fallback")
@@ -39,7 +40,7 @@ if (!isClipboardSupported()) {
 
 Copia un texto al portapapeles usando la Clipboard API cuando está disponible, y cae al fallback de `<textarea>` oculto si falla o no existe. Retorna `true`/`false` en vez de lanzar, para que el llamador decida cómo mostrar el resultado sin un `try/catch`.
 
-```ts title="lib/clipboard.ts"
+```ts title="src/lib/clipboard.ts"
 export async function copyToClipboard(text: string): Promise<boolean> {
   if (isClipboardSupported()) {
     try {
@@ -62,7 +63,7 @@ export async function copyToClipboard(text: string): Promise<boolean> {
 ```
 
 ```ts
-import { copyToClipboard } from "@/libs/clipboard"
+import { copyToClipboard } from "@/lib/clipboard"
 
 const copiado = await copyToClipboard("npm install zod")
 mostrarToast(copiado ? "Copiado" : "No se pudo copiar")
@@ -72,7 +73,7 @@ mostrarToast(copiado ? "Copiado" : "No se pudo copiar")
 
 Lee el texto del portapapeles. Retorna `null` si la API no está disponible o si el usuario no dio permiso — leer el portapapeles siempre requiere permiso explícito, a diferencia de escribir.
 
-```ts title="lib/clipboard.ts"
+```ts title="src/lib/clipboard.ts"
 export async function readFromClipboard(): Promise<string | null> {
   if (!isClipboardSupported()) return null
 
@@ -85,7 +86,7 @@ export async function readFromClipboard(): Promise<string | null> {
 ```
 
 ```ts
-import { readFromClipboard } from "@/libs/clipboard"
+import { readFromClipboard } from "@/lib/clipboard"
 
 const texto = await readFromClipboard()
 if (texto) input.value = texto

@@ -2,8 +2,8 @@ import { z } from "astro/zod"
 import { docsLoader } from "@astrojs/starlight/loaders"
 import { docsSchema } from "@astrojs/starlight/schema"
 import { defineCollection } from "astro:content"
+import { RESOURCE_CATEGORY_IDS } from "./config/catalog"
 import { CONTENT_TYPE_IDS } from "./config/content-types"
-import { RESOURCE_CATEGORY_IDS } from "./config/resources"
 
 // Ids de otras entradas: su ruta.
 const refs = z

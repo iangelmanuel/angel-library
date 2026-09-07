@@ -6,15 +6,21 @@ order: 16
 tags: [express, better-auth, auth]
 website: https://www.better-auth.com
 related: [backend/express/express-jwt]
-updatedAt: 2026-08-17
+updatedAt: 2026-09-07
 ---
 
 better-auth es un framework de autenticación TypeScript-first y agnóstico de framework: resuelve lo mismo que [JWT + bcrypt + cookies armado a mano](/backend/express/express-jwt) (hashear contraseñas, emitir y validar una sesión, manejar providers OAuth), pero como solución lista — tú configuras qué métodos de login quieres, y la librería maneja el resto. A diferencia de Auth.js (históricamente atado a Next.js), su core es agnóstico desde el diseño, con integración oficial para Express, Astro y Next.js por igual.
 
+## Antes de empezar
+
+Esta integración parte de un proyecto Express 5 y un cliente Prisma configurado para PostgreSQL. Sigue primero [Prisma en express](/backend/express/express-prisma). Mantén una sola carpeta de helpers e imports coherentes. Define `BETTER_AUTH_SECRET` y `BETTER_AUTH_URL` en el entorno del servidor; configura las credenciales GitHub solo si activarás ese proveedor.
+
+Con Prisma, la CLI de Better Auth **genera el esquema**, y Prisma crea/aplica la migración. Hazlo en desarrollo y revisa el diff antes de aplicar las migraciones versionadas en producción. `auth@latest` sigue el canal actual: registra la versión resuelta cuando reproduzcas esta guía.
+
 ## Instalación
 
 ```bash
-npm install better-auth
+pnpm add better-auth @better-auth/prisma-adapter
 ```
 
 ## Configuración rápida — de cero a un endpoint funcionando
@@ -45,8 +51,9 @@ El `database` usa un **adapter** — better-auth no impone un ORM: hay adapters 
 **2. Generar y aplicar las migraciones del schema de auth** (better-auth necesita tablas propias de usuario/sesión):
 
 ```bash
-npx @better-auth/cli generate   # genera el schema de Prisma/Drizzle necesario
-npx @better-auth/cli migrate    # aplica la migración
+pnpm dlx auth@latest generate
+pnpm exec prisma migrate dev --name add-auth
+pnpm exec prisma generate
 ```
 
 **3. Montar el handler — sí necesita una ruta, un catch-all para toda `/api/auth/*`:**
@@ -59,7 +66,7 @@ import { auth } from "./lib/auth"
 const app = express()
 
 // Tiene que ir ANTES de express.json() — better-auth necesita el body sin parsear
-app.all("/api/auth/*", toNodeHandler(auth))
+app.all("/api/auth/{*splat}", toNodeHandler(auth))
 
 app.use(express.json())
 // ... el resto de las rutas ...
@@ -137,20 +144,20 @@ export const auth = betterAuth({
   // ...
   user: {
     additionalFields: {
-      rol: { type: "string", defaultValue: "user" }
+      rol: { type: "string", defaultValue: "user", input: false }
     }
   }
 })
 ```
 
-Después de correr `npx @better-auth/cli generate` de nuevo (para que la migración incluya el campo nuevo), `session.user.rol` queda disponible donde sea que se lea la sesión.
+Después de correr `pnpm dlx auth@latest generate` de nuevo (para que la migración incluya el campo nuevo), `session.user.rol` queda disponible donde sea que se lea la sesión.
 
 ## Piezas de la integración
 
 | Pieza                                    | Rol                                                       |
 | ---------------------------------------- | --------------------------------------------------------- |
 | `betterAuth({ database, ...providers })` | Configuración central                                     |
-| `@better-auth/cli generate` / `migrate`  | Genera y aplica el schema de auth                         |
+| `auth generate` + `prisma migrate dev`  | Genera y aplica el schema de auth                         |
 | `toNodeHandler(auth)` en `/api/auth/*`   | Expone todos los endpoints de auth, sin rutas propias     |
 | `auth.api.getSession({ headers })`       | Leer la sesión actual dentro de un middleware/ruta propia |
 | `user.additionalFields`                  | Agregar campos custom (como `rol`) al usuario             |
@@ -160,3 +167,14 @@ Después de correr `npx @better-auth/cli generate` de nuevo (para que la migraci
 - Requiere una base de datos configurada desde el inicio (vía el adapter que corresponda) — el trade-off frente a JWT manual es menos control fino a cambio de no reinventar hashing, expiración, refresh y providers OAuth.
 - Sesión server-side significa una consulta a la base (o cache) por request autenticado, a diferencia de un JWT que se valida sin tocar la base.
 - Los endpoints que genera (`/api/auth/*`) reemplazan por completo rutas propias de `/login`, `/registro`, etc. — no conviene tener ambos sistemas (JWT manual y better-auth) activos para el mismo flujo al mismo tiempo.
+
+## Comprobación y límites
+
+Prueba registro, login incorrecto, login correcto, lectura de sesión y logout. Sin sesión, una página protegida debe redirigir y una API debe devolver 401. Prueba también un usuario autenticado sin permiso: debe recibir 403 y no modificar datos.
+
+El campo `rol` usa `input: false` para que el formulario no pueda asignar privilegios. Cambia permisos solo desde una operación autorizada en el servidor. Un campo adicional por sí solo no implementa control de acceso; valida permisos y pertenencia del recurso en cada operación. Si expones roles al cliente, configura también la inferencia de campos adicionales según la API del cliente utilizada.
+
+## Fuentes
+
+- [Better Auth: adapter de Prisma y migraciones](https://better-auth.com/docs/adapters/prisma)
+- [Better Auth: campos adicionales de usuario](https://better-auth.com/docs/concepts/users-accounts)

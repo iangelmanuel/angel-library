@@ -21,11 +21,15 @@ Una entrada debe incluir título, descripción, `type`, tags y, cuando correspon
 
 Los bloques de instalación deben escribirse una sola vez con npm, pnpm o Bun para que el sitio pueda generar las pestañas automáticamente.
 
-Para crear una entrada, copia el frontmatter de una similar y colócala en `src/content/<categoría>/<subcategoría>/`. Los ids válidos de categoría, subcategoría y categoría de recurso están en `src/config/site.ts`, y `pnpm build` falla indicando cuál no existe.
+Para crear una entrada, copia el frontmatter de una similar y colócala en `src/content/docs/<categoría>/<subcategoría>/`. Las carpetas se descubren automáticamente; no hay que registrarlas en TypeScript. El archivo opcional `<categoría>/_meta.json` permite personalizar presentación y orden. Lee `src/content.config.ts` para conocer los campos de cada tipo. `pnpm build` valida estructura, referencias y enlaces internos.
+
+Usa las plantillas y los criterios editoriales de [CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md). Una receta que depende de otra guía debe enlazar sus requisitos antes del primer bloque. Indica si el código es completo o un fragmento, dónde se ejecuta y cómo reconocer que funcionó. Las fuentes oficiales y la versión de las APIs forman parte de la explicación cuando condicionan el ejemplo.
 
 Consulta la [guía de contenido](docs/CONTENT_GUIDE.md) para crear o modificar categorías, subcategorías, módulos y secciones.
 
 ## Validación local
+
+Si cambias el catálogo, ejecuta también `pnpm check:catalog`. Reinicia el servidor de desarrollo después de cambios estructurales o de metadatos del menú.
 
 ```bash
 pnpm check

@@ -8,10 +8,10 @@ runtime: universal
 language: typescript
 related:
   - general/utils/fetch
-updatedAt: 2026-08-18
+updatedAt: 2026-09-07
 ---
 
-Utilidades mínimas para controlar tiempo y concurrencia en código async. Importa siempre desde `@/libs/promise`.
+Utilidades para controlar tiempo y concurrencia en código asíncrono. Copia los bloques en `src/lib/promise.ts` e importa desde su ruta relativa; `@/lib/promise` solo funciona si configuraste ese alias.
 
 ## Espera y timeout
 
@@ -19,19 +19,20 @@ Utilidades mínimas para controlar tiempo y concurrencia en código async. Impor
 
 Espera la cantidad de milisegundos indicada, como una versión con Promise de `setTimeout`. Acepta un `AbortSignal` opcional para cancelar la espera antes de tiempo, algo que `setTimeout` por sí solo no ofrece.
 
-```ts title="lib/promise.ts"
+```ts title="src/lib/promise.ts"
 export function delay(ms: number, signal?: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
     if (signal?.aborted) return reject(signal.reason)
-    const id = setTimeout(resolve, ms)
-    signal?.addEventListener(
-      "abort",
-      () => {
-        clearTimeout(id)
-        reject(signal.reason)
-      },
-      { once: true }
-    )
+    if (!Number.isFinite(ms) || ms < 0) return reject(new RangeError("ms debe ser finito y no negativo"))
+    const onAbort = () => {
+      clearTimeout(id)
+      reject(signal?.reason)
+    }
+    const id = setTimeout(() => {
+      signal?.removeEventListener("abort", onAbort)
+      resolve()
+    }, ms)
+    signal?.addEventListener("abort", onAbort, { once: true })
   })
 }
 ```
@@ -45,6 +46,7 @@ export async function withTimeout<T>(
   promise: Promise<T>,
   ms: number
 ): Promise<T> {
+  if (!Number.isFinite(ms) || ms < 0) throw new RangeError("ms debe ser finito y no negativo")
   let timeoutId: ReturnType<typeof setTimeout>
   const timeout = new Promise<never>((_, reject) => {
     timeoutId = setTimeout(
@@ -75,6 +77,7 @@ export async function mapBatches<T, R>(
   size: number,
   mapper: (item: T) => Promise<R>
 ) {
+  if (!Number.isInteger(size) || size < 1) throw new RangeError("size debe ser un entero positivo")
   const results: R[] = []
   for (let index = 0; index < items.length; index += size) {
     results.push(
@@ -94,6 +97,16 @@ Los lotes limitan presión sobre una API o base de datos, aunque no mantienen un
 | `delay()`       | Espera cancelable con `AbortSignal`            |
 | `withTimeout()` | Limita cuánto puede tardar una promesa         |
 | `mapBatches()`  | Procesa un array async en lotes de tamaño fijo |
+
+## Comprobación
+
+```ts
+console.log(await mapBatches([1, 2, 3], 2, async n => n * 2)) // [2, 4, 6]
+console.log(await mapBatches([], 2, async n => n)) // []
+await mapBatches([1], 0, async n => n) // rechaza con RangeError; no entra en un bucle infinito
+```
+
+Ejecuta el caso inválido por separado o dentro de `try/catch`. En `delay`, prueba una señal ya cancelada y otra que se cancela durante la espera. El listener se elimina también cuando la espera termina normalmente, para no acumular suscripciones al reutilizar una señal.
 
 ## Consideraciones
 

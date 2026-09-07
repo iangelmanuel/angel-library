@@ -1,0 +1,54 @@
+{
+  "label": "DevOps",
+  "icon": "container",
+  "description": "Desarrollo y operaciones (DevOps): entrega continua, despliegue, infraestructura y observabilidad.",
+  "color": "--cat-devops",
+  "group": "construir",
+  "order": 6,
+  "subcategories": {
+    "devops-fundamentos": {
+      "label": "Fundamentos de DevOps",
+      "description": "Llevar código a producción y mantenerlo funcionando."
+    },
+    "cloud-fundamentos": {
+      "label": "Fundamentos de nube",
+      "description": "Conceptos de la nube: qué se alquila y qué se paga."
+    },
+    "infraestructura-codigo": {
+      "label": "Infraestructura como código",
+      "description": "Declarar servidores y servicios en archivos versionables."
+    },
+    "docker-conceptos": {
+      "label": "Conceptos básicos",
+      "description": "Qué es un contenedor y qué problema resuelve."
+    },
+    "docker-imagenes": {
+      "label": "Imágenes",
+      "description": "Construir la plantilla desde la que arranca un contenedor."
+    },
+    "docker-contenedores": {
+      "label": "Contenedores",
+      "description": "Ejecutar, inspeccionar y depurar contenedores."
+    },
+    "docker-redes-volumenes": {
+      "label": "Redes y volúmenes",
+      "description": "Comunicar contenedores entre sí y guardar datos que sobrevivan."
+    },
+    "docker-compose": {
+      "label": "Docker Compose",
+      "description": "Levantar varios contenedores a la vez con un solo archivo."
+    },
+    "docker-bases-datos": {
+      "label": "Bases de datos",
+      "description": "Correr bases de datos en contenedores para desarrollo local."
+    },
+    "ci-cd": {
+      "label": "CI/CD y despliegue",
+      "description": "Automatizar pruebas y despliegues en cada cambio."
+    },
+    "observabilidad": {
+      "label": "Observabilidad y operación",
+      "description": "Ver qué hace un sistema en producción: registros, métricas y alertas."
+    }
+  }
+}

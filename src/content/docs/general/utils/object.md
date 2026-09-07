@@ -9,7 +9,7 @@ language: typescript
 updatedAt: 2026-08-18
 ---
 
-Utilidades mínimas para transformar objetos sin mutar el original. Importa siempre desde `@/libs/object`.
+Utilidades mínimas para transformar objetos sin mutar el original. Tras configurar el alias `@/*` hacia `src/*`, importa desde `@/lib/object`.
 
 ## Seleccionar propiedades
 
@@ -17,7 +17,7 @@ Utilidades mínimas para transformar objetos sin mutar el original. Importa siem
 
 Selecciona un subconjunto de propiedades de un objeto, devolviendo un nuevo objeto tipado con solo esas claves. Las claves pedidas que no existen en el objeto original se omiten en vez de aparecer como `undefined`.
 
-```ts title="lib/object.ts"
+```ts title="src/lib/object.ts"
 export function pick<T extends object, K extends keyof T>(
   object: T,
   keys: readonly K[]

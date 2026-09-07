@@ -78,15 +78,20 @@ tags: [astro, navegación]
 El menú, los listados por tipo y las páginas de tags se actualizan solos. El
 paso a paso completo está en [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md).
 
+Las categorías y subcategorías se descubren desde las carpetas, sin registros
+manuales en TypeScript. Su archivo opcional `_meta.json` permite ajustar textos,
+icono, color y orden. Reinicia `pnpm dev` cuando cambies la estructura del menú.
+
 ## Documentación
 
-| Documento                                        | Contenido                               |
-| ------------------------------------------------ | --------------------------------------- |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)   | Cómo está montado el proyecto y por qué |
-| [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) | Crear contenido, paso a paso            |
-| [`DESIGN.md`](DESIGN.md)                         | El sistema visual «El Esmalte»          |
-| [`CHANGELOG.md`](CHANGELOG.md)                   | Historial de versiones                  |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md)             | Cómo contribuir                         |
+| Documento                                                | Contenido                                  |
+| -------------------------------------------------------- | ------------------------------------------ |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)           | Cómo está montado el proyecto y por qué    |
+| [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md)         | Crear contenido, paso a paso               |
+| [`docs/COMPLEXITY_REVIEW.md`](docs/COMPLEXITY_REVIEW.md) | Complejidad y riesgos de retirar funciones |
+| [`DESIGN.md`](DESIGN.md)                                 | El sistema visual «El Esmalte»             |
+| [`CHANGELOG.md`](CHANGELOG.md)                           | Historial de versiones                     |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md)                     | Cómo contribuir                            |
 
 ## Licencias
 

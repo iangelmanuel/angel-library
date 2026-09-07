@@ -10,7 +10,7 @@ related:
   - languages/javascript/javascript-async-promises
   - languages/javascript/javascript-url-web-apis
   - security/security-aplicacion/security-common-web-attacks
-updatedAt: 2026-08-25
+updatedAt: 2026-09-07
 ---
 
 ## Para recordar
@@ -161,8 +161,11 @@ El cache del navegador y el cache de una librería de datos son capas distintas.
 ## Cancelación y tiempo máximo
 
 ```js
-async function fetchJSON(url, { timeout = 8_000, ...options } = {}) {
-  const signal = AbortSignal.timeout(timeout)
+async function fetchJSON(url, { timeout = 8_000, signal: externalSignal, ...options } = {}) {
+  const timeoutSignal = AbortSignal.timeout(timeout)
+  const signal = externalSignal
+    ? AbortSignal.any([externalSignal, timeoutSignal])
+    : timeoutSignal
   const response = await fetch(url, { ...options, signal })
 
   if (!response.ok) {

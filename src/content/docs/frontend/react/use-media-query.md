@@ -1,12 +1,12 @@
 ---
 title: useMediaQuery
-description: Suscribirse a un media query de CSS desde JS — breakpoints reactivos sin re-renderizar de más ni perder el valor inicial correcto.
+description: Consultar media queries desde React con suscripciones y un valor inicial coherente durante la hidratación.
 type: hooks
 order: 2
 tags: [react, hooks, responsive, typescript]
 framework: React
 language: typescript
-updatedAt: 2026-08-25
+updatedAt: 2026-09-07
 ---
 
 ## Cuándo usarlo
@@ -20,29 +20,16 @@ Si el cambio es puramente visual (ocultar/mostrar, reordenar), prefiere CSS (`@m
 ## Código
 
 ```ts title="hooks/useMediaQuery.ts"
-import { useEffect, useState } from "react"
+import { useCallback, useSyncExternalStore } from "react"
 
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(() => {
-    if (typeof window === "undefined") return false
-    return window.matchMedia(query).matches
-  })
-
-  useEffect(() => {
-    const mediaQueryList = window.matchMedia(query)
-
-    // Re-sincroniza al montar: el query pudo cambiar entre el render inicial y el efecto
-    setMatches(mediaQueryList.matches)
-
-    function handleChange(event: MediaQueryListEvent) {
-      setMatches(event.matches)
-    }
-
-    mediaQueryList.addEventListener("change", handleChange)
-    return () => mediaQueryList.removeEventListener("change", handleChange)
+  const subscribe = useCallback((notify: () => void) => {
+    const media = window.matchMedia(query)
+    media.addEventListener("change", notify)
+    return () => media.removeEventListener("change", notify)
   }, [query])
-
-  return matches
+  const getSnapshot = useCallback(() => window.matchMedia(query).matches, [query])
+  return useSyncExternalStore(subscribe, getSnapshot, () => false)
 }
 ```
 
@@ -59,7 +46,15 @@ Breakpoints comunes que conviene mantener consistentes con los de Tailwind (`sm`
 
 ## SSR, accesibilidad y fuente de verdad
 
-- **`typeof window === 'undefined'`** en el estado inicial: en SSR, el primer render del servidor no puede saber el tamaño real del viewport del cliente — el valor por defecto es una suposición (`false`), y el efecto corrige apenas monta en el navegador. Esto puede causar un flash de un layout al otro en el primer render; si eso importa, combinalo con `useEffect` + un estado `mounted` para no renderizar nada dependiente del breakpoint hasta estar montado.
+- **Snapshot del servidor**: `false` se usa tanto en SSR como durante la hidratación inicial; después React lee el valor del navegador. Evita el desacuerdo de HTML que produciría leer un valor distinto directamente en el primer render cliente. Puede haber un cambio visual posterior: reserva espacio o usa CSS si solo cambia la presentación.
 - **`addEventListener('change', ...)`** es la API moderna de `MediaQueryList`; el método viejo (`addListener`/`removeListener`) está deprecado — no hace falta soportarlo salvo que el proyecto todavía deba correr en Safari muy viejo.
 - El hook re-suscribe si `query` cambia (por ejemplo, un breakpoint calculado dinámicamente) — si el string es literal y fijo, no hay overhead extra en re-renders.
 - No reemplaza CSS para la mayoría de los casos responsive — úsalo solo cuando la decisión afecta qué componente se monta, no cómo se ve uno que ya está montado.
+
+## Requisitos y comprobación
+
+Requiere React 18+ y `matchMedia` en el navegador. Pruébalo en una página prerenderizada con un viewport que cumpla la consulta: no debe aparecer una advertencia de hidratación. Cambia el ancho, cambia `query` y desmonta el componente; el valor debe actualizarse y la suscripción anterior debe retirarse.
+
+## Fuentes
+
+- [React: useSyncExternalStore y renderizado de servidor](https://react.dev/reference/react/useSyncExternalStore)

@@ -1,0 +1,38 @@
+{
+  "label": "Bases de datos",
+  "icon": "database",
+  "description": "Bases de datos, mapeadores objeto-relacionales (ORM), consultas y persistencia.",
+  "color": "--cat-database",
+  "group": "construir",
+  "order": 4,
+  "subcategories": {
+    "database-fundamentos": {
+      "label": "Fundamentos",
+      "description": "Qué es una base de datos y cómo se decide entre los tipos que existen."
+    },
+    "database-modelado": {
+      "label": "Modelado y relaciones",
+      "description": "Diseñar tablas y relaciones para que los datos se mantengan coherentes."
+    },
+    "database-sql": {
+      "label": "SQL y consultas",
+      "description": "Escribir consultas para leer y modificar datos."
+    },
+    "database-postgresql": {
+      "label": "PostgreSQL",
+      "description": "El motor relacional más usado: configuración, mantenimiento y seguridad."
+    },
+    "database-nosql": {
+      "label": "NoSQL",
+      "description": "Bases de datos sin tablas: documentos y clave-valor."
+    },
+    "database-prisma": {
+      "label": "Prisma ORM",
+      "description": "Esquemas, consultas e integración de Prisma con servidores JavaScript."
+    },
+    "database-operacion": {
+      "label": "Operación y recuperación",
+      "description": "Mantener una base de datos viva: copias, migraciones y diagnóstico."
+    }
+  }
+}

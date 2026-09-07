@@ -1,216 +1,119 @@
 ---
 title: Prisma en Astro
-description: Instalación, schema, client, CRUD completo y transacciones — usado desde endpoints y Server Actions con output "server".
+description: Conectar Prisma 7 a endpoints y Actions de Astro usando una base compartida y autorización en el servidor.
 type: guides
 order: 7
 tags: [astro, prisma, database, orm]
 website: https://www.prisma.io
-related: [backend/astro/astro-backend-arquitectura]
-updatedAt: 2026-08-17
+related: [database/database-prisma/prisma-configuracion, backend/astro/astro-backend-arquitectura, frontend/astro/astro-server-actions]
+updatedAt: 2026-09-07
 ---
 
-Prisma es un ORM con schema declarativo: el `schema.prisma` es la única fuente de verdad, y de ahí genera un client con métodos y tipos exactos para cada modelo. En Astro se usa exactamente igual que en cualquier entorno Node — la diferencia está en **desde dónde** se llama (endpoints, Server Actions), no en la API del client en sí.
+Astro puede consultar Prisma desde páginas de servidor, endpoints y Actions. La consulta ocurre donde se ejecuta esa ruta: durante el build si se prerenderiza, o en cada petición si se renderiza bajo demanda.
 
-## Instalación
+## Requisitos
 
-```bash
-npm install prisma --save-dev
-npm install @prisma/client
-npx prisma init
-```
+Completa [Prisma 7 con PostgreSQL](/database/database-prisma/prisma-configuracion): esquema, migraciones, cliente `src/lib/prisma.ts` y prueba de lectura/escritura. Esta integración usa un servidor Node y el mismo esquema `User`/`Post`.
 
-## Configuración rápida — de cero a un endpoint funcionando
-
-**1. `DATABASE_URL` en `.env`:**
-
-```bash title=".env"
-DATABASE_URL="postgresql://postgres:password@localhost:5432/miapp"
-```
-
-**2. El schema:**
-
-```prisma title="prisma/schema.prisma"
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  authorId  String
-  createdAt DateTime @default(now())
-}
-```
-
-**3. Migrar:**
+Para atender peticiones en ejecución necesitas un adapter. En un proyecto Astro existente:
 
 ```bash
-npx prisma migrate dev --name init
+pnpm exec astro add node
 ```
 
-**4. El client, como singleton:**
+Comprueba que el adapter quede configurado y elige `output: "server"` si la mayoría de las rutas son dinámicas. También puedes conservar salida estática y marcar las rutas necesarias con `prerender = false`.
 
-```ts title="src/libs/prisma.ts"
-import { PrismaClient } from "@prisma/client"
-
-export const prisma = new PrismaClient()
-```
-
-Nada específico de Astro aquí — con `output: 'server'` sobre un adapter Node tradicional, el proceso vive igual que un servidor Express, así que el mismo singleton alcanza.
-
-**5. Un endpoint real:**
+## Implementación: endpoint de lectura
 
 ```ts title="src/pages/api/posts.ts"
 import type { APIRoute } from "astro"
 import { prisma } from "../../lib/prisma"
 
+export const prerender = false
+
 export const GET: APIRoute = async () => {
-  const posts = await prisma.post.findMany()
-  return new Response(JSON.stringify(posts), {
-    headers: { "Content-Type": "application/json" }
-  })
+  try {
+    const posts = await prisma.post.findMany({
+      where: { published: true },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      take: 20,
+      select: { id: true, title: true }
+    })
+    return Response.json(posts)
+  } catch {
+    return Response.json({ error: "No se pudieron cargar los posts" }, { status: 500 })
+  }
 }
 ```
 
-Requiere `output: 'server'` o mantener `output: 'static'` y marcar esta ruta con `export const prerender = false` — en una ruta prerenderizada no hay servidor corriendo para atender el endpoint en runtime. El antiguo modo `hybrid` se reemplazó por esta selección por ruta.
+La respuesta pública incluye solo posts publicados y dos campos. Limitar filas evita devolver toda la tabla, pero no implementa navegación entre páginas; añade paginación cuando el listado la necesite.
 
-## CRUD básico
+## Implementación: Action autenticada
 
-```ts
-await prisma.post.create({ data: { title: "Nuevo", authorId: userId } })
-await prisma.post.findUnique({ where: { id } })
-await prisma.post.findMany({ where: { authorId: userId } })
-await prisma.post.update({ where: { id }, data: { title: "Editado" } })
-await prisma.post.delete({ where: { id } })
-```
+Esta parte requiere [autenticación en Astro](/backend/astro/astro-better-auth): middleware que verifica la sesión, `App.Locals` tipado y `locals.user.id` correspondiente a un `User` persistido. No basta con aceptar un identificador enviado por el navegador.
 
-## Métodos que se usan seguido y no son solo CRUD básico
-
-```ts
-await prisma.post.findFirst({
-  where: { published: true },
-  orderBy: { createdAt: "desc" }
-})
-
-await prisma.user.upsert({
-  where: { email: "a@b.com" },
-  update: { name: "Nombre actualizado" },
-  create: { email: "a@b.com", name: "Nombre nuevo" }
-})
-
-await prisma.post.createMany({
-  data: [
-    { title: "Uno", authorId },
-    { title: "Dos", authorId }
-  ]
-})
-await prisma.post.updateMany({ where: { authorId }, data: { published: true } })
-await prisma.post.deleteMany({ where: { authorId } })
-
-await prisma.post.count({ where: { published: true } })
-await prisma.post.groupBy({ by: ["authorId"], _count: { id: true } })
-```
-
-## Relaciones: `include` y `select`
-
-```ts
-const postConAutor = await prisma.post.findUnique({
-  where: { id },
-  include: { author: true }
-})
-
-const soloTitulos = await prisma.post.findMany({ select: { title: true } })
-```
-
-## Transacciones con `$transaction`
-
-### Forma secuencial (array de promesas)
-
-```ts
-const [post, contador] = await prisma.$transaction([
-  prisma.post.create({ data: { title: "Nuevo", authorId: userId } }),
-  prisma.user.update({
-    where: { id: userId },
-    data: { postsCount: { increment: 1 } }
-  })
-])
-```
-
-Si una operación del array falla, **todas** se revierten — ninguna queda aplicada a medias.
-
-### Forma interactiva (callback), para lógica que depende de un paso anterior
+Crea también el servicio `src/lib/posts.ts` de la guía compartida, que valida el título y aplica el límite con una transacción serializable.
 
 ```ts title="src/actions/posts.ts"
-import { defineAction } from "astro:actions"
-import { z } from "zod"
-import { prisma } from "../lib/prisma"
-
-export const posts = {
-  crearConLimite: defineAction({
-    input: z.object({ title: z.string().min(1) }),
-    handler: async (input, context) => {
-      if (!context.locals.user) throw new Error("No autenticado")
-
-      return prisma.$transaction(async (tx) => {
-        const cantidad = await tx.post.count({
-          where: { authorId: context.locals.user!.id }
-        })
-
-        if (cantidad >= 100) {
-          throw new Error("Límite de posts alcanzado") // revierte toda la transacción
-        }
-
-        return tx.post.create({
-          data: { ...input, authorId: context.locals.user!.id }
-        })
-      })
-    }
-  })
-}
-```
-
-Dentro del callback se usa `tx` (el client transaccional), **nunca** `prisma` directo — usar `prisma` por error adentro ejecutaría esa operación fuera de la transacción.
-
-## Uso en una Server Action
-
-```ts title="src/actions/posts.ts"
-import { defineAction } from "astro:actions"
-import { z } from "zod"
-import { prisma } from "../lib/prisma"
+import { ActionError, defineAction } from "astro:actions"
+import { z } from "astro/zod"
+import { crearPostConLimite } from "../lib/posts"
 
 export const posts = {
   crear: defineAction({
-    input: z.object({ title: z.string().min(1) }),
+    accept: "form",
+    input: z.object({ title: z.string().trim().min(1).max(200) }),
     handler: async (input, context) => {
-      if (!context.locals.user) throw new Error("No autenticado")
-      return prisma.post.create({
-        data: { ...input, authorId: context.locals.user.id }
-      })
+      const user = context.locals.user
+      if (!user) throw new ActionError({ code: "UNAUTHORIZED", message: "Inicia sesión" })
+
+      const post = await crearPostConLimite(user.id, input.title)
+      return { id: post.id, title: post.title }
     }
   })
 }
 ```
 
-Ver [Server Actions](/frontend/astro/astro-server-actions) para el resto del mecanismo (`input` con Zod integrado, cómo se llaman desde un formulario).
+Registra el grupo para que Astro lo exponga:
 
-## Flujo de Prisma en Astro
+```ts title="src/actions/index.ts"
+import { posts } from "./posts"
 
-| API                                                           | Qué hace                                               |
-| ------------------------------------------------------------- | ------------------------------------------------------ |
-| `create` / `findUnique` / `findMany` / `update` / `delete`    | CRUD básico                                            |
-| `upsert`, `findFirst`, `createMany`/`updateMany`/`deleteMany` | Casos comunes fuera del CRUD básico                    |
-| `include` / `select`                                          | Relaciones / campos específicos                        |
-| `$transaction([...])`                                         | Operaciones independientes, atómicas                   |
-| `$transaction(async (tx) => {...})`                           | Operaciones que dependen de un paso anterior, atómicas |
+export const server = { posts }
+```
 
-## Conexiones y runtime del adapter
+Si ya hay otras Actions, añade `posts` al objeto existente. No sobrescribas sus registros.
 
-- Si el hosting elegido para el deploy es un adapter **serverless/edge** (Vercel Edge, Cloudflare) en vez de un adapter Node tradicional, el patrón de singleton de Prisma necesita ajustes específicos de esa plataforma.
-- `npx prisma migrate deploy` (no `migrate dev`) es el comando de producción — se corre como paso de build/deploy.
-- Dentro de un callback de `$transaction` interactiva, usar siempre `tx`, nunca `prisma`.
+```astro title="src/pages/nuevo-post.astro"
+---
+import { actions } from "astro:actions"
+export const prerender = false
+const result = Astro.getActionResult(actions.posts.crear)
+---
+<form method="POST" action={actions.posts.crear}>
+  <label for="title">Título</label>
+  <input id="title" name="title" required maxlength="200" />
+  <button>Crear post</button>
+</form>
+{result?.error && <p role="alert">No se pudo crear el post. Revisa el título y tu sesión.</p>}
+{result?.data && <p role="status">Creado: {result.data.title}</p>}
+```
+
+La acción vuelve a verificar la identidad aunque la página ya la haya comprobado. El formulario ofrece feedback sin necesitar una isla React. Añade errores de negocio específicos y protección ante envíos duplicados si el flujo lo requiere.
+
+## Comprobación
+
+1. Abre `/api/posts`: devuelve `[]` en una base sin posts publicados.
+2. Publica un post desde un entorno de desarrollo y repite la petición: aparece con `id` y `title`.
+3. Envía el formulario sin sesión: la Action lo rechaza y la tabla no cambia.
+4. Con sesión válida, crea un título y comprueba su `authorId` en la base. Un título vacío o mayor de 200 caracteres debe rechazarse también sin depender de HTML.
+5. Detén la base: el endpoint responde 500 con un mensaje público; registra el diagnóstico detallado en el servidor.
+
+## Límites y recursos
+
+No importes Prisma desde scripts del navegador ni componentes hidratados. Esta receta corresponde a Node; otro adapter puede requerir otro driver y otra estrategia de conexiones.
+
+El CRUD, las relaciones, las migraciones y las transacciones están en la [guía compartida](/database/database-prisma/prisma-configuracion), para que las tres integraciones usen el mismo contrato.
+
+- [Astro: renderizado bajo demanda](https://docs.astro.build/en/guides/on-demand-rendering/)
+- [Astro Actions](https://docs.astro.build/en/guides/actions/)

@@ -1,20 +1,21 @@
 ---
 import Default from "@astrojs/starlight/components/PageTitle.astro"
-import { CATEGORIES, type CategoryId } from "@/config/categories"
-import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
 import {
+  CATEGORIES,
   RESOURCE_CATEGORIES,
-  type ResourceCategoryId
-} from "@/config/resources"
-import { SUBCATEGORIES, type SubcategoryId } from "@/config/subcategories"
+  SUBCATEGORY_BADGES,
+  getSubcategory
+} from "@/config/catalog"
+import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
 import { formatDate, getAllEntries } from "@/lib/content"
 
 const { entry } = Astro.locals.starlightRoute
 const data = entry.data as Record<string, unknown>
 
 const [category, subcategory] = entry.id.split("/")
-const categoryMeta = CATEGORIES[category as CategoryId]
-const subcategoryMeta = SUBCATEGORIES[subcategory as SubcategoryId]
+const categoryMeta = CATEGORIES[category]
+const subcategoryMeta =
+  getSubcategory(category, subcategory) ?? SUBCATEGORY_BADGES[subcategory]
 const typeMeta = data.type
   ? CONTENT_TYPES[data.type as ContentTypeId]
   : undefined
@@ -50,7 +51,7 @@ const facts = [
   {
     label: "Categoría de recurso",
     value: data.resourceCategory
-      ? RESOURCE_CATEGORIES[data.resourceCategory as ResourceCategoryId]
+      ? RESOURCE_CATEGORIES[String(data.resourceCategory)]
       : null
   }
 ].filter((fact) => fact.value !== null)
@@ -75,7 +76,7 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
       )
     }
     {
-      subcategoryMeta && (
+      subcategoryMeta?.badge && (
         <a href={`/categories/${category}#${subcategory}`}>
           {subcategoryMeta.label}
         </a>

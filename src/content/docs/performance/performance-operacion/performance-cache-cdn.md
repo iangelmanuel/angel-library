@@ -8,7 +8,7 @@ related:
   - performance/performance-carga/performance-resource-loading
   - backend/backend-fundamentos/backend-idempotencia-cache
   - performance/performance-fundamentos/core-web-vitals
-updatedAt: 2026-08-25
+updatedAt: 2026-09-07
 ---
 
 Una **CDN** (_Content Delivery Network_ o red de distribución de contenido) mantiene copias cerca de las personas y absorbe parte del tráfico del origen. Solo ayuda cuando la respuesta se puede almacenar y la clave de caché representa correctamente sus variantes.
@@ -18,7 +18,7 @@ Una **CDN** (_Content Delivery Network_ o red de distribución de contenido) man
 Los assets generados suelen incluir un hash de contenido:
 
 ```http
-GET /assets/app.a81f92.js
+HTTP/1.1 200 OK
 Cache-Control: public, max-age=31536000, immutable
 Content-Encoding: br
 ```
@@ -40,7 +40,15 @@ Una respuesta puede variar por host, ruta, query, idioma, dispositivo o autoriza
 
 ```http
 Cache-Control: public, max-age=60, s-maxage=300
+```
+
+Estas son **tres políticas alternativas**, no tres encabezados para pegar en una misma respuesta:
+
+```http
 Cache-Control: private, max-age=60
+```
+
+```http
 Cache-Control: no-store
 ```
 

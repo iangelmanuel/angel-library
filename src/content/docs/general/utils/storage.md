@@ -2,13 +2,14 @@
 title: Storage Utils — Referencia rápida
 description: Wrapper tipado sobre localStorage/sessionStorage con parseo JSON seguro y detección de disponibilidad.
 type: utilities
+tags: [typescript, storage, browser]
 runtime: browser
 language: typescript
 related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas sobre `localStorage`/`sessionStorage`. Importa siempre desde `@/libs/storage`.
+Utilidades mínimas sobre `localStorage`/`sessionStorage`. Tras configurar el alias `@/*` hacia `src/*`, importa desde `@/lib/storage`.
 
 `Storage` guarda solo strings: estas funciones agregan `JSON.parse`/`JSON.stringify` con manejo de errores, para no repetir el mismo `try/catch` cada vez que lees o escribes algo.
 
@@ -18,7 +19,7 @@ Utilidades mínimas sobre `localStorage`/`sessionStorage`. Importa siempre desde
 
 Comprueba si el almacenamiento indicado está disponible escribiendo y borrando una clave de prueba. `localStorage` puede lanzar un error en Safari con navegación privada (cuota 0) o no existir en un contexto sin `window`, como el código del servidor. Llama a esta función antes de depender del almacenamiento para algo crítico.
 
-```ts title="lib/storage.ts"
+```ts title="src/lib/storage.ts"
 export function isStorageAvailable(storage: Storage): boolean {
   try {
     const testKey = "__storage_test__"
@@ -32,7 +33,7 @@ export function isStorageAvailable(storage: Storage): boolean {
 ```
 
 ```ts
-import { isStorageAvailable } from "@/libs/storage"
+import { isStorageAvailable } from "@/lib/storage"
 
 if (isStorageAvailable(localStorage)) {
   // guardar preferencias del usuario
@@ -45,7 +46,7 @@ if (isStorageAvailable(localStorage)) {
 
 Lee una clave, la parsea como JSON y la tipa según el genérico `T`. Si la clave no existe o el valor guardado no es JSON válido, retorna `fallback` en vez de lanzar. El tercer argumento permite elegir `sessionStorage` en vez de `localStorage`.
 
-```ts title="lib/storage.ts"
+```ts title="src/lib/storage.ts"
 export function getStorageItem<T>(
   key: string,
   fallback: T,
@@ -61,7 +62,7 @@ export function getStorageItem<T>(
 ```
 
 ```ts
-import { getStorageItem } from "@/libs/storage"
+import { getStorageItem } from "@/lib/storage"
 
 interface Preferencias {
   tema: "claro" | "oscuro"
@@ -74,7 +75,7 @@ const prefs = getStorageItem<Preferencias>("preferencias", { tema: "oscuro" })
 
 Serializa el valor con `JSON.stringify` y lo guarda. Si falla (cuota excedida, storage no disponible), no lanza: falla en silencio, ya que guardar una preferencia nunca debería romper el flujo principal de la página.
 
-```ts title="lib/storage.ts"
+```ts title="src/lib/storage.ts"
 export function setStorageItem<T>(
   key: string,
   value: T,
@@ -87,16 +88,16 @@ export function setStorageItem<T>(
 ```
 
 ```ts
-import { setStorageItem } from "@/libs/storage"
+import { setStorageItem } from "@/lib/storage"
 
 setStorageItem("preferencias", { tema: "claro" })
 ```
 
 ### `removeStorageItem()` — Eliminar una clave
 
-Elimina una clave del storage indicado. Es un alias directo de `storage.removeItem()`, incluido para no mezclar imports de `@/libs/storage` con llamadas directas a la API nativa.
+Elimina una clave del storage indicado. Es un alias directo de `storage.removeItem()`, incluido para no mezclar imports de `@/lib/storage` con llamadas directas a la API nativa.
 
-```ts title="lib/storage.ts"
+```ts title="src/lib/storage.ts"
 export function removeStorageItem(
   key: string,
   storage: Storage = localStorage
@@ -106,7 +107,7 @@ export function removeStorageItem(
 ```
 
 ```ts
-import { removeStorageItem } from "@/libs/storage"
+import { removeStorageItem } from "@/lib/storage"
 
 removeStorageItem("preferencias")
 ```

@@ -7,5 +7,4 @@ export { default as FlowSection } from "./components/FlowSection.astro"
 export { default as InventorySection } from "./components/InventorySection.astro"
 export { default as CtaSection } from "./components/CtaSection.astro"
 
-export { loadStats, getStats } from "./lib/stats"
-export type { LandingStats } from "./lib/stats"
+export { loadStats } from "./lib/stats"

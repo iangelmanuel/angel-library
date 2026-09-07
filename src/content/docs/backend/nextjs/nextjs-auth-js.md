@@ -6,15 +6,20 @@ order: 5
 tags: [nextjs, auth-js, nextauth, auth]
 website: https://authjs.dev
 related: [backend/nextjs/nextjs-backend-arquitectura, backend/express/bcrypt]
-updatedAt: 2026-08-17
+updatedAt: 2026-09-07
 ---
 
-Next.js es donde Auth.js nació (como NextAuth.js) — el paquete `next-auth` sigue siendo el más documentado y probado en producción de las tres integraciones (Next.js, Express, Astro).
+Auth.js gestiona proveedores de identidad y sesiones en Next.js. Esta guía usa la API de Auth.js v5 (`handlers`, `auth`, `signIn`) con App Router; no mezcles estos ejemplos con configuración de NextAuth v4. La instalación usa el canal beta: fija la versión resuelta y consulta su documentación al actualizar.
 
 ## Instalación
 
+Parte de App Router con `src/app`, alias `@/*` hacia `src/*` y el [cliente de Prisma 7](/database/database-prisma/prisma-configuracion) en `src/lib/prisma.ts`. Guarda la configuración siguiente en `src/auth.ts`. Para Credentials, el modelo `User` necesita además `passwordHash String?` y `rol String @default("user")`: añade esos campos al esquema, migra y regenera el cliente. El registro debe guardar un hash, nunca la contraseña original.
+
+El modelo compartido usa `name`; conserva ese nombre en el código y en el esquema. Si tu aplicación usa `nombre`, adapta ambas partes. El proveedor GitHub de este ejemplo inicia una sesión OAuth; para usar esa identidad como autor en tu base, configura un adapter de Auth.js o un vínculo local verificado. El identificador del proveedor no equivale automáticamente al ID de tu tabla `User`.
+
 ```bash
-npm install next-auth@beta
+pnpm add next-auth@beta bcrypt
+pnpm add -D @types/bcrypt
 ```
 
 ## Configuración rápida — de cero a una sesión funcionando
@@ -26,7 +31,7 @@ import bcrypt from "bcrypt"
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GitHub from "next-auth/providers/github"
-import { prisma } from "@/libs/prisma"
+import { prisma } from "@/lib/prisma"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -37,12 +42,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Contraseña", type: "password" }
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials?.password) return null
+        if (typeof credentials?.email !== "string" || typeof credentials?.password !== "string") return null
 
         const usuario = await prisma.user.findUnique({
           where: { email: credentials.email as string }
         })
-        if (!usuario) return null
+        if (!usuario?.passwordHash) return null
 
         const passwordValida = await bcrypt.compare(
           credentials.password as string,
@@ -53,7 +58,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return {
           id: usuario.id,
           email: usuario.email,
-          name: usuario.nombre,
+          name: usuario.name,
           rol: usuario.rol
         }
       }
@@ -63,7 +68,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-`GitHub` sin argumentos toma `AUTH_GITHUB_ID`/`AUTH_GITHUB_SECRET` del entorno automáticamente — convención de Auth.js v5 para providers OAuth conocidos. `authorize` es donde vive la verificación real para `Credentials`; devolver `null` (nunca lanzar) es la forma correcta de decir "credenciales inválidas".
+`GitHub` toma `AUTH_GITHUB_ID`/`AUTH_GITHUB_SECRET` del entorno. Define además `AUTH_SECRET` en el servidor. En `authorize`, devuelve `null` para credenciales rechazadas; un fallo inesperado de la base de datos es otro tipo de error y debe registrarse sin exponer detalles al cliente.
 
 **2. El Route Handler** — sí hace falta crear este archivo, expone signin/callback/session:
 
@@ -73,11 +78,11 @@ import { handlers } from "@/auth"
 export const { GET, POST } = handlers
 ```
 
-**No hace falta escribir rutas propias de login/registro.**
+Auth.js expone las rutas de sesión. Con `Credentials`, el registro de usuarios, la validación de contraseñas, la recuperación y la protección frente a intentos masivos siguen siendo responsabilidad de tu aplicación.
 
 ## Los callbacks `jwt` y `session` — meter datos propios en la sesión
 
-Por default, `session.user` solo trae `id`/`name`/`email`/`image` — el `rol` devuelto en `authorize` (o cualquier dato extra de un provider OAuth) no aparece solo. Auth.js separa esto en dos callbacks a propósito, cada uno con una responsabilidad distinta:
+La sesión expone un conjunto reducido de datos, habitualmente `name`, `email` e `image`; no asumas que `id` y `rol` aparecen automáticamente. Este fragmento muestra cómo añadirlos con estrategia JWT. Parte de usuarios y roles que ya fueron resueltos por el servidor; un proveedor OAuth no implica por sí solo un rol local.
 
 ```ts title="auth.ts"
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -88,7 +93,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         // "user" solo está disponible en el login inicial (de authorize() o el provider OAuth)
         token.id = user.id
-        token.rol = (user as { rol: string }).rol
+        token.rol = user.rol ?? "user"
       }
       return token
     },
@@ -111,14 +116,18 @@ Si algo cambia el `rol` de un usuario ya logueado (un admin lo promueve), el JWT
 
 ```ts
 // callbacks.jwt, extendido
-async jwt({ token, user, trigger, session }) {
+async jwt({ token, user, trigger }) {
   if (user) {
     token.id = user.id;
-    token.rol = (user as { rol: string }).rol;
+    token.rol = user.rol ?? "user";
   }
 
-  if (trigger === 'update' && session?.rol) {
-    token.rol = session.rol; // actualiza el token con el nuevo valor pasado a update()
+  if (trigger === 'update' && typeof token.id === 'string') {
+    const usuario = await prisma.user.findUnique({
+      where: { id: token.id },
+      select: { rol: true }
+    });
+    token.rol = usuario?.rol ?? 'user';
   }
 
   return token;
@@ -130,9 +139,13 @@ async jwt({ token, user, trigger, session }) {
 
 import { useSession } from "next-auth/react"
 
-const { update } = useSession()
-await update({ rol: "admin" }) // dispara jwt({ trigger: 'update', session: { rol: 'admin' } })
+export function ActualizarPermisos() {
+  const { update } = useSession() // Dentro de un componente y un SessionProvider.
+  return <button onClick={() => update()}>Actualizar sesión</button>
+}
 ```
+
+El cliente solo solicita una actualización; **nunca decide su rol**. Copiar `session.rol` desde `update({ rol: "admin" })` al JWT permitiría elevar privilegios. Los roles se leen de datos controlados por el servidor. Para revocación inmediata o cuentas eliminadas, comprueba además el usuario vigente en cada operación sensible: refrescar la interfaz no es una barrera de autorización.
 
 ## Tipar `session.user.rol` y `token.rol` (module augmentation)
 
@@ -150,7 +163,7 @@ declare module "next-auth" {
   }
 
   interface User {
-    rol: string
+    rol?: string
   }
 }
 
@@ -185,7 +198,14 @@ export default async function PerfilPage() {
 ## Proteger rutas en `proxy.ts`
 
 ```ts title="proxy.ts"
-export { auth as default } from "@/auth"
+import { NextResponse } from "next/server"
+import { auth } from "@/auth"
+
+export default auth(request => {
+  if (!request.auth?.user) {
+    return NextResponse.redirect(new URL("/login", request.url))
+  }
+})
 
 export const config = {
   matcher: ["/dashboard/:path*"]
@@ -226,6 +246,8 @@ export function LogoutButton() {
 
 ## Leer la sesión en un Route Handler propio
 
+Este fragmento presupone un repositorio `postsRepository` implementado e importado. Valida un esquema de campos permitidos antes de persistir; la autenticación no valida el cuerpo.
+
 ```ts title="app/api/posts/route.ts"
 import { NextResponse } from "next/server"
 import { auth } from "@/auth"
@@ -236,9 +258,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 })
   }
 
-  const body = await request.json()
+  let body: unknown
+  try { body = await request.json() } catch {
+    return NextResponse.json({ error: "JSON inválido" }, { status: 400 })
+  }
+  if (!body || typeof body !== "object" || !("title" in body) ||
+      typeof body.title !== "string" || !body.title.trim()) {
+    return NextResponse.json({ error: "Falta title" }, { status: 400 })
+  }
   const post = await postsRepository.create({
-    ...body,
+    title: body.title.trim(),
     authorId: session.user.id
   })
   return NextResponse.json(post, { status: 201 })
@@ -258,6 +287,15 @@ export async function POST(request: Request) {
 
 ## Callbacks, sesión y protección
 
-- Este es el paquete más maduro de los tres frameworks documentados — más terreno probado para necesidades de auth avanzadas o de producción crítica.
+- Evalúa los proveedores, la estrategia de sesión y la compatibilidad de la versión instalada con tu aplicación; una librería de autenticación no elimina las políticas de autorización de tu dominio.
 - Olvidar el callback `jwt` (y solo agregar `session`) es el error más común: `session` solo puede leer lo que `jwt` ya haya copiado al `token`, no accede a `user` directamente.
 - `strategy: 'jwt'` (default) no necesita adapter de base de datos para las sesiones; `strategy: 'database'` sí, pero permite revocar sesiones activas borrando la fila — con `'jwt'`, revocar antes de que expire requiere lógica propia.
+
+## Comprobación
+
+Sin cookie, visita `/dashboard`: debe redirigir. Prueba una API directamente sin pasar por la página y verifica que también rechace la operación. Desde una cuenta de usuario, enviar un rol inventado al refrescar la sesión no debe conceder permisos. Cambia el rol en la base de datos de desarrollo y comprueba que el servidor aplica la política vigente.
+
+## Fuentes
+
+- [Auth.js: instalación y handlers](https://authjs.dev/getting-started/installation)
+- [Auth.js: control de acceso por roles](https://authjs.dev/guides/role-based-access-control)

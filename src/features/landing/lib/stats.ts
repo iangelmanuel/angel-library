@@ -1,8 +1,6 @@
-import { CATEGORIES, CATEGORY_IDS } from "@/config/categories"
-import type { CategoryId } from "@/config/categories"
+import { CATEGORIES, CATEGORY_IDS, getSubcategory } from "@/config/catalog"
 import { CONTENT_TYPES, CONTENT_TYPE_IDS } from "@/config/content-types"
 import type { ContentTypeId } from "@/config/content-types"
-import { SUBCATEGORIES } from "@/config/subcategories"
 import {
   type AnyEntry,
   categoryOf,
@@ -21,7 +19,7 @@ export interface LandingTypeCount {
 }
 
 export interface LandingCategoryCount {
-  id: CategoryId
+  id: string
   label: string
   icon: string
   description: string
@@ -89,7 +87,8 @@ function buildRoute(entries: AnyEntry[]): LandingRoute | null {
     },
     subcategory: {
       segment: `${subcategory}/`,
-      label: subcategoryId ? SUBCATEGORIES[subcategoryId].label : subcategory
+      label:
+        getSubcategory(categoryId, subcategoryId ?? "")?.label ?? subcategory
     },
     file: { segment: `${file}.md`, title: entry.data.title },
     url: `/${entry.id}`,
@@ -120,7 +119,7 @@ function buildRecent(entries: AnyEntry[]): LandingRecent[] {
     })
 }
 
-export function getStats(entries: AnyEntry[]): LandingStats {
+function getStats(entries: AnyEntry[]): LandingStats {
   const counted = CONTENT_TYPE_IDS.map((id) => ({
     id,
     label: CONTENT_TYPES[id].label,

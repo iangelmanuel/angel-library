@@ -1,6 +1,6 @@
 ---
 title: Pipeline Node.js con GitHub Actions
-description: Workflow práctico con permisos mínimos, cache de pnpm, checks paralelos, build y artefacto verificable.
+description: Workflow con permisos mínimos, caché de pnpm y comprobaciones secuenciales para un proyecto Node.js.
 type: guides
 order: 3
 tags: [github-actions, nodejs, pnpm, ci]
@@ -9,8 +9,12 @@ related:
   - devops/ci-cd/cicd-pipeline-fundamentals
   - security/security-infra/security-secrets-supply-chain
   - git/github-actions/github-actions-fundamentos
-updatedAt: 2026-08-18
+updatedAt: 2026-09-07
 ---
+
+## Antes de empezar
+
+Versiona `pnpm-lock.yaml` y declara `packageManager` en `package.json` (por ejemplo `pnpm@11.25.0`). Este ejemplo requiere scripts `check` y `build`; añade `test` solo si tu proyecto tiene pruebas. Los pasos dentro de un job se ejecutan secuencialmente y un fallo bloquea los siguientes.
 
 ```yaml title=".github/workflows/ci.yml"
 name: ci
@@ -40,7 +44,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
-      - run: pnpm test
+      # Añade aquí `pnpm test` si existe ese script.
       - run: pnpm build
 ```
 
@@ -58,3 +62,11 @@ jobs:
 Guarda en caché el store del package manager, no `node_modules` a ciegas. La clave debe cambiar con sistema, versión del runtime y lockfile. El cache acelera; nunca debe ser requisito para que el build funcione.
 
 Separa E2E si necesita servicios o navegador, pero mantén un check obligatorio del flujo crítico antes de publicar.
+
+## Comprobación
+
+Abre una rama de prueba con un error de tipos: el job debe fallar en `check` y no ejecutar el build. Corrígelo y comprueba un run sin caché. Este workflow valida, pero no publica ni sube artefactos; añade un paso de upload si necesitas conservar `dist/`.
+
+## Fuentes
+
+- [GitHub: compilar y probar Node.js](https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs)

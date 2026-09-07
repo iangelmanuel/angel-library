@@ -11,10 +11,12 @@ related:
     devops/docker-bases-datos/docker-postgres-compose,
     devops/docker-bases-datos/docker-postgres-conectar
   ]
-updatedAt: 2026-08-17
+updatedAt: 2026-09-07
 ---
 
 ## El comando completo
+
+Requiere Docker Engine activo y el puerto 5432 disponible. El bloque multilínea usa Bash/zsh; en PowerShell escríbelo en una sola línea o utiliza su carácter de continuación. La contraseña mostrada es solo para un laboratorio local.
 
 ```bash
 docker run -d \
@@ -22,7 +24,7 @@ docker run -d \
   -e POSTGRES_USER=user \
   -e POSTGRES_PASSWORD=secreto \
   -e POSTGRES_DB=miapp \
-  -p 5432:5432 \
+  -p 127.0.0.1:5432:5432 \
   -v datos-postgres:/var/lib/postgresql/data \
   postgres:16
 ```
@@ -45,7 +47,7 @@ Estas variables solo tienen efecto la **primera vez** que el contenedor arranca 
 -v datos-postgres:/var/lib/postgresql/data
 ```
 
-`/var/lib/postgresql/data` es la ruta interna donde Postgres guarda sus archivos de datos dentro de la imagen oficial — es la que hay que montar. Arrancar sin este flag "funciona" igual de bien al principio, pero cualquier `docker rm` posterior borra la base de datos entera — mejor incluirlo desde el comando inicial que acordarse después de perder datos una vez.
+En la imagen `postgres:16`, monta `/var/lib/postgresql/data`. Sin un volumen nombrado, la imagen puede crear un volumen anónimo: eliminar el contenedor no siempre elimina ese volumen, pero un contenedor nuevo no lo reutiliza automáticamente. Un nombre estable facilita reconectar los datos; no es un backup. Revisa la ruta documentada antes de cambiar de versión principal.
 
 ## Verificar que está corriendo
 
@@ -70,3 +72,11 @@ Fijar al menos la versión mayor (`postgres:16`) evita sorpresas si en algún mo
 
 - Para uso diario en un proyecto real, el patrón recomendado es declarar esto en un `docker-compose.yml` en vez de repetir el comando largo cada vez — ver [Postgres con Compose](/devops/docker-bases-datos/docker-postgres-compose).
 - `-p 5432:5432` solo hace falta si quieres conectarte desde **afuera** de Docker (un cliente en tu máquina, o la app corriendo nativa) — si la app que consume esta base de datos también corre en un contenedor en la misma red, no hace falta publicar el puerto (ver [Redes](/devops/docker-redes-volumenes/docker-redes)).
+
+## Comprobación de persistencia
+
+Crea una tabla y una fila de prueba con [la guía de conexión](/devops/docker-bases-datos/docker-postgres-conectar), reinicia con `docker restart mi-postgres` y vuelve a consultarla. La fila debe seguir allí. Para una prueba de recreación, conserva y vuelve a montar el mismo volumen; no ejecutes `docker volume rm` sobre los datos que quieres conservar.
+
+## Fuentes
+
+- [Imagen oficial de PostgreSQL: variables y almacenamiento](https://github.com/docker-library/docs/tree/master/postgres)

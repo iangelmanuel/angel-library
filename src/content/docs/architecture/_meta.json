@@ -1,0 +1,22 @@
+{
+  "label": "Arquitectura",
+  "icon": "network",
+  "description": "Decisiones estructurales y patrones para proyectos mantenibles.",
+  "color": "--cat-architecture",
+  "group": "calidad",
+  "order": 0,
+  "subcategories": {
+    "principios": {
+      "label": "Principios",
+      "description": "Reglas generales para que el código siga siendo mantenible."
+    },
+    "patrones-diseno": {
+      "label": "Patrones de diseño",
+      "description": "Soluciones conocidas a problemas que se repiten en el código."
+    },
+    "patrones-arquitectonicos": {
+      "label": "Patrones arquitectónicos",
+      "description": "Cómo se organiza un sistema completo por dentro."
+    }
+  }
+}

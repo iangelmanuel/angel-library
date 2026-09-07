@@ -1,9 +1,4 @@
-import { CATEGORY_IDS, type CategoryId } from "@/config/categories"
-import { CONTENT_TYPE_IDS, type ContentTypeId } from "@/config/content-types"
-import { getSubcategoriesForCategory } from "@/config/subcategories"
 import type { AnyEntry } from "./content"
-
-/** Relaciones entre entradas y validaciones de build. */
 
 interface RelatedData {
   /** Declaradas en `related`. */
@@ -18,102 +13,6 @@ interface RelatedData {
   resources: AnyEntry[]
   /** Hasta 6, por tags en común. */
   byTags: AnyEntry[]
-}
-
-interface Refs {
-  related?: string[]
-  technologies?: string[]
-  libraries?: string[]
-}
-
-function referencesOf(entry: AnyEntry): string[] {
-  const data = entry.data as Refs
-  return [
-    ...(data.related ?? []),
-    ...(data.technologies ?? []),
-    ...(data.libraries ?? [])
-  ]
-}
-
-/** Falla si una referencia no existe. */
-export function validateContentRelations(all: AnyEntry[]): void {
-  const entryMap = new Map(all.map((entry) => [entry.id, entry]))
-  const errors = all.flatMap((entry) =>
-    referencesOf(entry)
-      .filter((ref) => !entryMap.has(ref))
-      .map((ref) => `  ${entry.id} → "${ref}" no existe`)
-  )
-
-  if (errors.length > 0) {
-    throw new Error(`[contenido] Referencias rotas:\n${errors.join("\n")}`)
-  }
-}
-
-/** Falla si la carpeta no está declarada en la configuración editorial. */
-export function validateContentStructure(all: AnyEntry[]): void {
-  const errors = all.flatMap((entry) => {
-    const segments = entry.id.split("/")
-    if (segments.length < 2 || segments.length > 3) {
-      return [
-        `  ${entry.id} → se esperaba <categoría>/<subcategoría>/<archivo>`
-      ]
-    }
-
-    const [category, subcategory] = segments
-    if (!CATEGORY_IDS.includes(category as CategoryId)) {
-      return [`  ${entry.id} → "${category}" no es una categoría`]
-    }
-
-    if (segments.length === 3) {
-      const valid = getSubcategoriesForCategory(category as CategoryId)
-      if (!valid.some((group) => group.id === subcategory)) {
-        return [
-          `  ${entry.id} → "${subcategory}" no es una subcategoría de "${category}"`
-        ]
-      }
-    }
-
-    return []
-  })
-
-  if (errors.length > 0) {
-    throw new Error(
-      `[contenido] Carpetas desconocidas (declara la categoría o la subcategoría en src/config/):\n${errors.join("\n")}`
-    )
-  }
-}
-
-/** Enlaces internos del cuerpo. */
-const INTERNAL_LINK = /\]\((\/[^)\s#]*)(?:#[^)]*)?\)/g
-
-/** Falla si un enlace interno no existe. */
-export function validateInternalLinks(all: AnyEntry[]): void {
-  const ids = new Set(all.map((entry) => entry.id))
-  const errors: string[] = []
-
-  for (const entry of all) {
-    for (const [, href] of (entry.body ?? "").matchAll(INTERNAL_LINK)) {
-      const target = href.replace(/\/$/, "").slice(1)
-      const [first, second] = target.split("/")
-
-      const exists =
-        target === "" ||
-        target === "search" ||
-        first === "tags" ||
-        ids.has(target) ||
-        (first === "categories" &&
-          CATEGORY_IDS.includes(second as CategoryId)) ||
-        (first === "tipos" &&
-          CONTENT_TYPE_IDS.includes(second as ContentTypeId))
-
-      if (!exists)
-        errors.push(`  ${entry.id} → "${href}" no lleva a ninguna parte`)
-    }
-  }
-
-  if (errors.length > 0) {
-    throw new Error(`[contenido] Enlaces internos rotos:\n${errors.join("\n")}`)
-  }
 }
 
 export function getRelated(
@@ -139,7 +38,7 @@ export function getRelated(
 
   for (const other of all) {
     if (other.id === self) continue
-    const data = other.data as Refs
+    const data = other.data
     const asTech = data.technologies?.includes(self) ?? false
     const asRelated = data.related?.includes(self) ?? false
 
@@ -156,7 +55,7 @@ export function getRelated(
   }
 
   const explicit: AnyEntry[] = []
-  for (const ref of (entry.data as Refs).related ?? []) {
+  for (const ref of entry.data.related ?? []) {
     const target = entryMap.get(ref)
     take(target?.data.type === "resources" ? resources : explicit, target)
   }

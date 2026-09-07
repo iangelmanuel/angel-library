@@ -1,0 +1,30 @@
+{
+  "label": "Agentes",
+  "icon": "bot",
+  "description": "Asistentes de programación con IA: configuración, memoria, comandos, extensiones y flujos de trabajo.",
+  "color": "--cat-agents",
+  "group": "producto",
+  "order": 1,
+  "subcategories": {
+    "agents-fundamentos": {
+      "label": "Fundamentos de agentes",
+      "description": "Cómo trabaja un agente de programación: contexto, herramientas, permisos, autonomía, subagentes y verificación."
+    },
+    "claude-code": {
+      "label": "Claude Code",
+      "description": "El asistente de Anthropic en la terminal: configuración y flujos."
+    },
+    "codex": {
+      "label": "Codex CLI",
+      "description": "El asistente de OpenAI en la terminal."
+    },
+    "cursor": {
+      "label": "Cursor",
+      "description": "Editor de código con IA integrada."
+    },
+    "opencode": {
+      "label": "OpenCode",
+      "description": "Asistente de código abierto para la terminal."
+    }
+  }
+}

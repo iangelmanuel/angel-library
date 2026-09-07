@@ -1,18 +1,18 @@
 ---
 title: useEventListener
-description: addEventListener declarativo y tipado — sobre window, document o un ref, con cleanup automático y sin handlers obsoletos.
+description: Escuchar eventos de window o un elemento referenciado, con limpieza automática y callback actualizado.
 type: hooks
 order: 3
 tags: [react, hooks, dom, typescript]
 framework: React
 language: typescript
 related: [frontend/react/react-useeffect]
-updatedAt: 2026-08-25
+updatedAt: 2026-09-07
 ---
 
 ## Cuándo usarlo
 
-- Escuchar eventos de `window`/`document` (scroll, resize, keydown) desde un componente, con cleanup garantizado.
+- Escuchar eventos de `window` (scroll, resize, keydown) desde un componente, con limpieza garantizada.
 - Suscribirse a un evento de un elemento del DOM vía `ref` sin escribir `useEffect` + `addEventListener` + `removeEventListener` cada vez.
 - Reemplazar los `useEffect` repetidos que solo existen para un listener — este hook es ese `useEffect`, escrito una vez y reutilizado.
 
@@ -21,7 +21,7 @@ updatedAt: 2026-08-25
 ```ts title="hooks/useEventListener.ts"
 import { type RefObject, useEffect, useRef } from "react"
 
-type Target = Window | Document | HTMLElement
+type Target = Window | HTMLElement
 
 export function useEventListener<K extends keyof WindowEventMap>(
   eventName: K,
@@ -42,7 +42,7 @@ export function useEventListener(
   }, [handler])
 
   useEffect(() => {
-    const el: Target = target?.current ?? window
+    const el: Target | null = target ? target.current : window
     if (!el || !el.addEventListener) return
 
     function eventListener(event: Event) {
@@ -76,3 +76,7 @@ El overload tipado (`K extends keyof WindowEventMap`) hace que `event` en el cal
 - **`target` es opcional**: sin él, escucha en `window` — el caso más común (scroll, resize, teclas globales). Con un `ref`, escucha en ese elemento puntual.
 - **Ojo con un `ref` que todavía no existe**: si `target.current` es `null` cuando corre el efecto (el elemento se monta condicionalmente, o el ref se asigna después), el hook no engancha nada — y como la identidad del objeto `ref` no cambia cuando `.current` sí, el efecto no se vuelve a ejecutar solo. Si el elemento puede aparecer después del montaje inicial, necesitas otra señal en las dependencias (un `useState` que marque "ya montado", por ejemplo) para forzar la re-suscripción.
 - No lo uses para eventos de React ya cubiertos por props (`onClick`, `onChange`) — sirve para eventos que no tienen equivalente como prop de JSX, o para escuchar fuera del elemento que renderiza el componente.
+
+## Comprobación
+
+Monta y desmonta el componente varias veces: una tecla debe ejecutar un solo callback. Con un ref vacío no debe instalarse un listener global. Cambia un valor que lea el callback y verifica que no quede congelado. Este contrato cubre `window` y un ref de elemento; para `document` o nodos que cambian durante el montaje, adapta una API con target reactivo explícito.

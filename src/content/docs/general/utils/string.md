@@ -2,13 +2,14 @@
 title: String Utils — Referencia rápida
 description: Utilidades tipadas para slugs, truncado, capitalización y escape de HTML sin librerías.
 type: utilities
+tags: [typescript, strings, utilities]
 runtime: universal
 language: typescript
 related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para trabajar con strings. Importa siempre desde `@/libs/string`.
+Utilidades mínimas para trabajar con strings. Tras configurar el alias `@/*` hacia `src/*`, importa desde `@/lib/string`.
 
 Nada de esto depende del DOM: funciona igual en el browser, en Node o en un endpoint de Astro.
 
@@ -18,7 +19,7 @@ Nada de esto depende del DOM: funciona igual en el browser, en Node o en un endp
 
 Convierte un texto a un slug seguro para URLs: quita acentos, pasa a minúsculas y reemplaza cualquier secuencia de caracteres que no sea letra o número por un guion, sin guiones al inicio o al final.
 
-```ts title="lib/string.ts"
+```ts title="src/lib/string.ts"
 export function slugify(text: string): string {
   return text
     .normalize("NFD")
@@ -31,7 +32,7 @@ export function slugify(text: string): string {
 ```
 
 ```ts
-import { slugify } from "@/libs/string"
+import { slugify } from "@/lib/string"
 
 slugify("Referencias entre contenidos")
 // "referencias-entre-contenidos"
@@ -44,7 +45,7 @@ slugify("¿Cómo usar useDebounce?")
 
 Corta un texto a un largo máximo y agrega un sufijo (por defecto `…`) cuando lo recorta. El sufijo cuenta dentro del `maxLength`, así el resultado nunca supera ese largo.
 
-```ts title="lib/string.ts"
+```ts title="src/lib/string.ts"
 export function truncate(
   text: string,
   maxLength: number,
@@ -56,7 +57,7 @@ export function truncate(
 ```
 
 ```ts
-import { truncate } from "@/libs/string"
+import { truncate } from "@/lib/string"
 
 truncate("Utilidades mínimas y declarativas para manipular el DOM", 20)
 // "Utilidades mínimas…"
@@ -66,7 +67,7 @@ truncate("Utilidades mínimas y declarativas para manipular el DOM", 20)
 
 Convierte a mayúscula solo la primera letra del texto, dejando el resto tal cual. No toca el resto de palabras si el texto tiene varias.
 
-```ts title="lib/string.ts"
+```ts title="src/lib/string.ts"
 export function capitalize(text: string): string {
   if (!text) return text
   return text[0].toUpperCase() + text.slice(1)
@@ -74,7 +75,7 @@ export function capitalize(text: string): string {
 ```
 
 ```ts
-import { capitalize } from "@/libs/string"
+import { capitalize } from "@/lib/string"
 
 capitalize("componente de formulario")
 // "Componente de formulario"
@@ -86,7 +87,7 @@ capitalize("componente de formulario")
 
 Escapa los caracteres especiales de HTML (`& < > " '`) en un texto. Úsala siempre que vayas a insertar contenido dinámico con `innerHTML` en vez de `textContent`, para evitar inyección de HTML.
 
-```ts title="lib/string.ts"
+```ts title="src/lib/string.ts"
 const HTML_ESCAPES: Record<string, string> = {
   "&": "&amp;",
   "<": "&lt;",
@@ -101,7 +102,7 @@ export function escapeHtml(text: string): string {
 ```
 
 ```ts
-import { escapeHtml } from "@/libs/string"
+import { escapeHtml } from "@/lib/string"
 
 const seguro = escapeHtml(comentarioDelUsuario)
 elemento.innerHTML = `<p>${seguro}</p>`
@@ -113,7 +114,7 @@ elemento.innerHTML = `<p>${seguro}</p>`
 
 Genera un id corto y aleatorio a partir de `crypto.randomUUID()`, con un prefijo opcional. Útil para `id`/`aria-describedby` de elementos generados dinámicamente que necesitan un identificador único.
 
-```ts title="lib/string.ts"
+```ts title="src/lib/string.ts"
 export function randomId(prefix = ""): string {
   const id = crypto.randomUUID().slice(0, 8)
   return prefix ? `${prefix}-${id}` : id
@@ -121,7 +122,7 @@ export function randomId(prefix = ""): string {
 ```
 
 ```ts
-import { randomId } from "@/libs/string"
+import { randomId } from "@/lib/string"
 
 const inputId = randomId("campo")
 // "campo-3f1a9c02"

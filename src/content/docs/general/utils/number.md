@@ -2,13 +2,14 @@
 title: Number Utils — Referencia rápida
 description: Utilidades tipadas para formatear moneda, porcentajes, números compactos y tamaños de archivo con Intl.
 type: utilities
+tags: [typescript, numbers, utilities]
 runtime: universal
 language: typescript
 related: []
 updatedAt: 2026-08-15
 ---
 
-Utilidades mínimas para formatear números. Importa siempre desde `@/libs/number`.
+Utilidades mínimas para formatear números. Tras configurar el alias `@/*` hacia `src/*`, importa desde `@/lib/number`.
 
 El formateo usa `Intl.NumberFormat`, nativo del navegador y de Node — no hace falta `numeral` ni similares.
 
@@ -18,7 +19,7 @@ El formateo usa `Intl.NumberFormat`, nativo del navegador y de Node — no hace 
 
 Formatea un número como moneda usando `Intl.NumberFormat` con `style: 'currency'`. `amount` siempre en la unidad base de la moneda (dólares, no centavos).
 
-```ts title="lib/number.ts"
+```ts title="src/lib/number.ts"
 export function formatCurrency(
   amount: number,
   currency = "USD",
@@ -31,7 +32,7 @@ export function formatCurrency(
 ```
 
 ```ts
-import { formatCurrency } from "@/libs/number"
+import { formatCurrency } from "@/lib/number"
 
 formatCurrency(1250.5)
 // "US$ 1,250.50"
@@ -44,7 +45,7 @@ formatCurrency(1250.5, "EUR", "es-ES")
 
 Formatea un número con separadores de miles según el locale. `options` acepta cualquier opción de `Intl.NumberFormat` (decimales fijos, notación, etc.) para casos puntuales.
 
-```ts title="lib/number.ts"
+```ts title="src/lib/number.ts"
 export function formatNumber(
   value: number,
   options: Intl.NumberFormatOptions = {},
@@ -55,7 +56,7 @@ export function formatNumber(
 ```
 
 ```ts
-import { formatNumber } from "@/libs/number"
+import { formatNumber } from "@/lib/number"
 
 formatNumber(1234567.891, { maximumFractionDigits: 2 })
 // "1,234,567.89"
@@ -65,7 +66,7 @@ formatNumber(1234567.891, { maximumFractionDigits: 2 })
 
 Formatea un número como porcentaje. El valor va como fracción (`0.42`, no `42`), igual que `style: 'percent'` de `Intl.NumberFormat`.
 
-```ts title="lib/number.ts"
+```ts title="src/lib/number.ts"
 export function formatPercent(
   value: number,
   options: Intl.NumberFormatOptions = { maximumFractionDigits: 1 },
@@ -78,7 +79,7 @@ export function formatPercent(
 ```
 
 ```ts
-import { formatPercent } from "@/libs/number"
+import { formatPercent } from "@/lib/number"
 
 formatPercent(0.4256)
 // "42.6%"
@@ -88,7 +89,7 @@ formatPercent(0.4256)
 
 Formatea un número grande de forma compacta ("1.2K", "3.4M"), usando `notation: 'compact'`. Útil para contadores y estadísticas donde el número exacto no importa.
 
-```ts title="lib/number.ts"
+```ts title="src/lib/number.ts"
 export function formatCompact(value: number, locale = "es"): string {
   return new Intl.NumberFormat(locale, {
     notation: "compact",
@@ -98,7 +99,7 @@ export function formatCompact(value: number, locale = "es"): string {
 ```
 
 ```ts
-import { formatCompact } from "@/libs/number"
+import { formatCompact } from "@/lib/number"
 
 formatCompact(1500)
 // "1.5K"
@@ -111,7 +112,7 @@ formatCompact(2300000)
 
 Convierte un número de bytes a la unidad legible más adecuada (B, KB, MB, GB, TB). `Intl` no tiene esto nativo, así que es la única función aquí que no usa `Intl.NumberFormat`.
 
-```ts title="lib/number.ts"
+```ts title="src/lib/number.ts"
 export function formatFileSize(bytes: number, decimals = 1): string {
   if (bytes === 0) return "0 B"
 
@@ -127,7 +128,7 @@ export function formatFileSize(bytes: number, decimals = 1): string {
 ```
 
 ```ts
-import { formatFileSize } from "@/libs/number"
+import { formatFileSize } from "@/lib/number"
 
 formatFileSize(2_500_000)
 // "2.4 MB"
@@ -139,14 +140,14 @@ formatFileSize(2_500_000)
 
 Restringe un número a un rango mínimo y máximo. Sirve para validar inputs numéricos, porcentajes de progreso o coordenadas antes de usarlas.
 
-```ts title="lib/number.ts"
+```ts title="src/lib/number.ts"
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max)
 }
 ```
 
 ```ts
-import { clamp } from "@/libs/number"
+import { clamp } from "@/lib/number"
 
 const progreso = clamp(porcentajeCalculado, 0, 100)
 ```

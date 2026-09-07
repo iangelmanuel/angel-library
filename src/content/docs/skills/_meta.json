@@ -1,0 +1,30 @@
+{
+  "label": "IA Tools",
+  "icon": "sparkles",
+  "description": "Recursos reutilizables para asistentes de IA: fundamentos, comandos, skills, plugins y protocolos.",
+  "color": "--cat-skills",
+  "group": "producto",
+  "order": 2,
+  "subcategories": {
+    "skills-fundamentos": {
+      "label": "Fundamentos de IA Tools",
+      "description": "Cómo elegir y combinar comandos, skills, plugins, hooks y conexiones MCP sin ampliar permisos innecesariamente."
+    },
+    "ia-comandos": {
+      "label": "Comandos",
+      "description": "Comandos propios que automatizan tareas repetidas con el asistente."
+    },
+    "ia-skills": {
+      "label": "Skills",
+      "description": "Instrucciones empaquetadas que enseñan al asistente a hacer algo concreto."
+    },
+    "ia-plugins": {
+      "label": "Plugins",
+      "description": "Extensiones que añaden capacidades al asistente."
+    },
+    "ia-mcp": {
+      "label": "MCP",
+      "description": "El protocolo que conecta un modelo con herramientas y datos externos."
+    }
+  }
+}

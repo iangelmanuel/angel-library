@@ -1,8 +1,7 @@
-import { keysOf, withIds } from "./helpers"
-
-/** Tipos editoriales disponibles en la colección `library`. */
-const CONTENT_TYPE_DEFINITIONS = {
+/** Tipos editoriales disponibles en la colección `docs`. */
+export const CONTENT_TYPES = {
   technologies: {
+    learningOrder: 0,
     label: "Tecnologías",
     singular: "Tecnología",
     icon: "cpu",
@@ -11,6 +10,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-blue"
   },
   libraries: {
+    learningOrder: 4,
     label: "Librerías",
     singular: "Librería",
     icon: "package",
@@ -19,6 +19,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-blue"
   },
   integrations: {
+    learningOrder: 5,
     label: "Integraciones",
     singular: "Integración",
     icon: "blocks",
@@ -27,6 +28,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-indigo"
   },
   recipes: {
+    learningOrder: 11,
     label: "Recetas",
     singular: "Receta",
     icon: "list-checks",
@@ -35,6 +37,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-red"
   },
   snippets: {
+    learningOrder: 8,
     label: "Snippets",
     singular: "Snippet",
     icon: "code",
@@ -43,6 +46,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-cyan"
   },
   hooks: {
+    learningOrder: 6,
     label: "Hooks",
     singular: "Hook",
     icon: "repeat-2",
@@ -51,6 +55,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-pink"
   },
   utilities: {
+    learningOrder: 7,
     label: "Utilities",
     singular: "Utility",
     icon: "wrench",
@@ -59,6 +64,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-blue"
   },
   resources: {
+    learningOrder: 12,
     label: "Recursos",
     singular: "Recurso",
     icon: "link",
@@ -66,6 +72,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-pink"
   },
   skills: {
+    learningOrder: 13,
     label: "Skills",
     singular: "Skill",
     icon: "sparkles",
@@ -74,6 +81,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-pink"
   },
   commands: {
+    learningOrder: 9,
     label: "Comandos",
     singular: "Comando",
     icon: "terminal",
@@ -82,6 +90,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-lime"
   },
   patterns: {
+    learningOrder: 3,
     label: "Patrones",
     singular: "Patrón",
     icon: "layout-template",
@@ -90,6 +99,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-blue"
   },
   practices: {
+    learningOrder: 2,
     label: "Buenas prácticas",
     singular: "Buena práctica",
     icon: "badge-check",
@@ -98,6 +108,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-red"
   },
   guides: {
+    learningOrder: 1,
     label: "Guías prácticas",
     singular: "Guía",
     icon: "book-open",
@@ -106,6 +117,7 @@ const CONTENT_TYPE_DEFINITIONS = {
     color: "--accent-lime"
   },
   tricks: {
+    learningOrder: 10,
     label: "Trucos",
     singular: "Truco",
     icon: "zap",
@@ -115,23 +127,5 @@ const CONTENT_TYPE_DEFINITIONS = {
   }
 } as const
 
-export type ContentTypeId = keyof typeof CONTENT_TYPE_DEFINITIONS
-
-export interface ContentTypeMeta {
-  id: ContentTypeId
-  /** Plural. */
-  label: string
-  /** Singular. */
-  singular: string
-  /** Icono lucide. */
-  icon: string
-  description: string
-  /** Variable CSS del color. */
-  color: string
-}
-
-export const CONTENT_TYPES = withIds(CONTENT_TYPE_DEFINITIONS) as Record<
-  ContentTypeId,
-  ContentTypeMeta
->
-export const CONTENT_TYPE_IDS = keysOf(CONTENT_TYPE_DEFINITIONS)
+export type ContentTypeId = keyof typeof CONTENT_TYPES
+export const CONTENT_TYPE_IDS = Object.keys(CONTENT_TYPES) as ContentTypeId[]
