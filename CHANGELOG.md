@@ -8,6 +8,17 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.35.3] — 2026-09-08
+
+### Mejorado
+
+- Rediseñada la interfaz del buscador integrado de Starlight/Pagefind sin
+  cambiar su motor ni su índice.
+- Los resultados ahora se presentan como grupos por página, con coincidencias
+  internas separadas horizontalmente y sin líneas verticales ramificadas.
+- Mejorados el foco visible, el contraste, el espaciado, el botón de limpiar,
+  el botón de cargar más y el comportamiento responsive del modal.
+
 ## [0.35.2] — 2026-09-08
 
 ### Documentación
@@ -2238,7 +2249,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.35.2...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.35.3...HEAD
+[0.35.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.3
 [0.35.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.2
 [0.35.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.1
 [0.35.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.0
