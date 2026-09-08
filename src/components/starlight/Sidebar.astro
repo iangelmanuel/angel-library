@@ -166,17 +166,19 @@ function hasCurrent(entries: Entry[]): boolean {
     list-style: none;
   }
 
+  /* El aire separa grupos, no categorías: dentro de un bloque las filas van
+     seguidas y lo que respira es el salto de un bloque al siguiente. */
   .sidebar-blocks {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 2.25rem;
   }
 
   .sidebar-block__list {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
-    margin-top: 0.3rem;
+    gap: 0;
+    margin-top: 0.35rem;
   }
 
   /* El bloque es un rótulo, no un desplegable. */

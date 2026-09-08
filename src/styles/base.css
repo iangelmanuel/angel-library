@@ -9,8 +9,6 @@
   html {
     color-scheme: dark;
     scroll-behavior: smooth;
-    scrollbar-color: var(--scrollbar) transparent;
-    scrollbar-width: thin;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -63,22 +61,6 @@
     outline: 2px solid var(--ring);
     outline-offset: 2px;
     border-radius: var(--radius-thin);
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--scrollbar);
-    border: 2px solid var(--background);
-    border-radius: 999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-hover);
   }
 
   @media (prefers-reduced-motion: reduce) {

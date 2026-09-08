@@ -265,6 +265,12 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     gap: 0.75rem 1.5rem;
   }
 
+  /* Sin datos a la izquierda el botón se quedaba pegado al margen: que sea
+     él quien empuje, no el hueco de al lado. */
+  .entry-meta__links {
+    margin-inline-start: auto;
+  }
+
   .entry-meta__facts {
     flex: 1 1 16rem;
     display: grid;

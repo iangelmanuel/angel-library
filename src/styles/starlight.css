@@ -116,8 +116,6 @@ site-search kbd {
 
 .sidebar-content {
   padding-top: 1.25rem;
-  scrollbar-color: var(--scrollbar) transparent;
-  scrollbar-width: thin;
 }
 
 /* La fila que abre: icono, etiqueta y flecha en una línea. */
@@ -143,29 +141,30 @@ site-search kbd {
   min-width: 0;
 }
 
-/* Categoría: el primer nivel. */
-.sidebar-content ul.top-level > li > details > summary .large {
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--blue-200);
-}
-
+/* Categoría: el primer nivel de cada bloque. En blanco, para que el azul
+   signifique una sola cosa: subcategoría. */
 .sidebar-content .large {
   font-size: 0.8rem;
   font-weight: 500;
-  color: var(--blue-200);
+  color: var(--white);
 }
 
-/* Subcategoría: un escalón por debajo. */
-.sidebar-content ul ul .large {
+.sidebar-content .sidebar-block__list > li > details > summary .large {
+  font-size: 0.82rem;
+}
+
+/* Subcategoría: lo que aparece al desplegar una categoría. Es lo único azul
+   del menú, así se separa de la categoría (blanca) y de las entradas .md
+   (grises). */
+.sidebar-content .sidebar-block__list ul .large {
   font-size: 0.76rem;
   font-weight: 400;
-  color: var(--gray-300);
+  color: var(--branch);
 }
 
 .sidebar-content summary {
   border-radius: var(--radius-thin);
-  padding: 0.35rem 0.4rem;
+  padding: 0.22rem 0.4rem;
   /* Abre y cierra la categoría: el cursor tiene que anunciarlo, y el icono
      y la etiqueta de dentro no deben devolverlo a la flecha. */
   cursor: pointer;
@@ -478,4 +477,26 @@ header.header .social-icons a {
 header.header .chrome-header__social a:hover,
 header.header .social-icons a:hover {
   color: var(--blue-400);
+}
+
+/* En pantallas anchas el contenido queda centrado, pero el menú se quedaba
+   pegado al borde izquierdo y el índice al derecho. Aquí ambos toman el mismo
+   margen que la cabecera, así los tres bordes coinciden. */
+@media (min-width: 87.5rem) {
+  :root {
+    --shell-gutter: calc((100vw - 87.5rem) / 2);
+    --sl-sidebar-width: calc(16rem + var(--shell-gutter));
+    --sl-content-inline-start: calc(16rem + var(--shell-gutter));
+  }
+
+  .sidebar-content {
+    padding-inline-start: calc(var(--sl-sidebar-pad-x) + var(--shell-gutter));
+  }
+
+  /* El índice se reparte el espacio sobrante, así que con el menú desplazado
+     crecía hacia el borde. Se le fija un ancho cómodo y su borde derecho
+     cae donde termina la cabecera. */
+  .right-sidebar .sl-container {
+    max-width: 17.5rem;
+  }
 }

@@ -8,6 +8,69 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.34.0] — 2026-09-07
+
+Afina la lectura del menú lateral y termina de unificar la cabecera de las
+entradas.
+
+### Añadido
+
+- Token `--branch`: el azul del menú rebajado con gris, para que la rama se lea
+  como carpeta sin pesar más que la categoría ni que las entradas.
+
+### Cambiado
+
+- **Tres niveles legibles de un vistazo en el menú**: la categoría en blanco,
+  la subcategoría en `--branch` y las entradas `.md` en gris. El color pasa a
+  significar una sola cosa.
+- Barras de desplazamiento de 5 px, sin pista, sin borde y con el pulgar
+  redondeado, definidas una sola vez para la portada y la documentación.
+
+### Corregido
+
+- Los botones de la cabecera de una entrada se quedaban a la izquierda cuando
+  la entrada no tenía ficha de datos; ahora los empuja su propio margen y van
+  siempre pegados al borde derecho, haya ficha o no.
+- El menú pintaba de azul también las categorías: el selector `ul ul` alcanzaba
+  el primer nivel, porque cada categoría ya cuelga de dos listas anidadas.
+- La barra de desplazamiento se quedaba en el tamaño del sistema: al declarar
+  `scrollbar-width`, Chrome descarta las reglas `::-webkit-scrollbar`. Ahora la
+  propiedad estándar vive dentro de `@supports not selector(::-webkit-scrollbar)`
+  y solo la usa Firefox.
+
+### Verificado
+
+- `pnpm check` y `pnpm eslint`: sin errores.
+- `pnpm build`: 1.735 páginas generadas.
+
+## [0.33.0] — 2026-09-07
+
+Ajusta la maqueta de la documentación en pantallas anchas y reescribe la
+presentación del repositorio.
+
+### Añadido
+
+- Captura de la portada (`public/angel-library.webp`) como presentación en el
+  `README.md`, con la estructura de cabecera al uso: imagen, una frase que
+  resume el proyecto, los distintivos de versión y una fila de accesos.
+- Sección **Autor** en el `README.md` con GitHub, LinkedIn, X y sitio personal,
+  y cierre invitando a dejar una estrella.
+
+### Cambiado
+
+- **El menú lateral acompaña al contenido centrado.** A partir de 1400 px, el
+  menú y el índice toman el mismo margen que la cabecera, de modo que los tres
+  bordes coinciden en lugar de quedar pegados a los extremos de la ventana.
+- El índice de la derecha deja de repartirse el espacio sobrante y mantiene un
+  ancho fijo de 17,5 rem en pantallas anchas.
+- El aire del menú separa grupos, no categorías: las filas de un mismo bloque
+  van seguidas (28 px de paso) y el salto entre bloques sube a 2,25 rem.
+
+### Verificado
+
+- `pnpm check` y `pnpm eslint`: sin errores.
+- `pnpm build`: 1.735 páginas generadas.
+
 ## [0.32.0] — 2026-09-07
 
 Unifica los botones del sitio en un solo componente, migra los iconos a
@@ -2127,7 +2190,9 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.32.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.34.0...HEAD
+[0.34.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.34.0
+[0.33.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.33.0
 [0.32.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.32.0
 [0.31.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.31.0
 [0.30.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.30.0

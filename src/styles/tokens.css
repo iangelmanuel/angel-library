@@ -146,6 +146,11 @@
   --accent-purple: #b6d9f5;
 
   /* Cromo del navegador: gris oscuro, nunca azul. */
+  /* La rama del menú: azul rebajado con gris. Tiene que leerse como carpeta
+     entre la categoría (blanca) y las entradas (grises) sin pesar más que
+     ninguna de las dos. */
+  --branch: color-mix(in oklab, var(--blue-400) 58%, var(--gray-400));
+
   --scrollbar: var(--gray-800);
   --scrollbar-hover: #3f3f46;
 

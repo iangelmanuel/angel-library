@@ -1,3 +1,40 @@
+/* Barras de desplazamiento: finas, sin pista y sin canto. Viven aquí, no en
+   la hoja de la portada, porque la documentación también las usa. */
+/* Firefox no tiene los pseudo-elementos; ahí manda la propiedad estándar.
+   En los navegadores que sí los tienen NO puede declararse `scrollbar-width`:
+   en cuanto aparece, Chrome descarta las reglas de abajo y vuelve a su barra
+   ancha. */
+@supports not selector(::-webkit-scrollbar) {
+  html,
+  body,
+  .sidebar-content,
+  .right-sidebar-panel,
+  pre {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar) transparent;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 0;
+  border-radius: 999px;
+  background: var(--scrollbar);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
+}
+
 /* Cabecera del sitio: la misma pieza en la portada y en la documentación. */
 
 .chrome-header {

@@ -1,19 +1,18 @@
 <div align="center">
 
-# angel.library
+<img src="public/angel-library.webp" alt="Portada de angel.library: el titular «Un segundo cerebro técnico, en disco.», el buscador de toda la biblioteca y las cifras del catálogo" width="880">
 
-**Segundo cerebro técnico para desarrollo web.**
-
-Una biblioteca personal de conocimiento sobre desarrollo de software: guías,
-comandos, recetas y recursos organizados por contexto, listos para copiar y
-reutilizar en proyectos reales.
-
-[**Ver el sitio →**](https://angel-library.vercel.app)
+### Biblioteca personal de conocimiento técnico: 720 entradas en 23 categorías, publicadas como sitio estático en español
 
 [![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build)
 [![Starlight](https://img.shields.io/badge/Starlight-0.42-4F46E5?logo=astro&logoColor=white)](https://starlight.astro.build)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Licencia MIT](https://img.shields.io/badge/c%C3%B3digo-MIT-005187)](LICENSE)
+
+[**Ver el sitio**](https://angel-library.vercel.app) &nbsp;•&nbsp;
+[**Documentación**](docs/ARCHITECTURE.md) &nbsp;•&nbsp;
+[**Añadir contenido**](docs/CONTENT_GUIDE.md) &nbsp;•&nbsp;
+[**Sistema visual**](DESIGN.md)
 
 </div>
 
@@ -21,7 +20,7 @@ reutilizar en proyectos reales.
 
 ## Qué es
 
-**718 entradas** repartidas en **23 categorías**, publicadas como sitio estático
+**720 entradas** repartidas en **23 categorías**, publicadas como sitio estático
 en español. No es un blog: cada entrada existe para que puedas recuperar algo
 concreto —un comando, un patrón, una receta— sin releer un artículo entero.
 
@@ -99,12 +98,21 @@ icono, color y orden. Reinicia `pnpm dev` cuando cambies la estructura del menú
 - Contenido educativo: [CC BY-NC-SA 4.0](LICENSE-CONTENT.md).
 - Marcas y recursos de terceros: conservan la suya.
 
+## Autor
+
+**Angel De La Torre**
+
+- GitHub: [@iangelmanuel](https://github.com/iangelmanuel)
+- LinkedIn: [@iangelmanuel](https://www.linkedin.com/in/iangelmanuel)
+- X: [@iangelmanuel](https://x.com/iangelmanuel)
+- Website: [angeldm.dev](https://angel-website-pi.vercel.app)
+
 ---
 
 <div align="center">
 
-Hecho por [**Angel DM**](https://github.com/iangelmanuel) ·
-[X](https://x.com/iangelmanuel) ·
-[LinkedIn](https://linkedin.com/in/iangelmanuel)
+Si te gusta este proyecto, no olvides darle una estrella ⭐
+<br />
+Hecho por **Angel DM**
 
 </div>
