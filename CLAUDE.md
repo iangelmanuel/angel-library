@@ -55,7 +55,7 @@ Las reglas por tipo (`commands` exige `command`, `resources` exige `url` y
 
 `src/config/catalog.ts` descubre categorías y subcategorías desde las carpetas de `src/content/docs/`. Cada categoría puede incluir `_meta.json` para personalizar etiquetas, descripciones, icono, color, grupo y orden. No registres ids en listas paralelas.
 
-`src/config/content-types.ts` mantiene los tipos editoriales y su prioridad de aprendizaje. `src/config/sidebar.ts` adapta el catálogo al menú de Starlight, con artículos ordenados por título. El campo `order` de los artículos se usa en los listados propios.
+`src/config/content-types.ts` mantiene los tipos editoriales y marca cuáles forman una ruta de aprendizaje. `src/config/sidebar.ts` adapta el catálogo al menú de Starlight: primero ordena los tipos didácticos por prioridad y después por `order`; los módulos de consulta se mantienen alfabéticos.
 
 Reinicia el servidor tras añadir, renombrar o eliminar entradas/carpetas o modificar metadatos del menú. Consulta `docs/ARCHITECTURE.md` y `docs/COMPLEXITY_REVIEW.md` antes de modificar esta lógica.
 
@@ -102,9 +102,9 @@ Expressive Code, el de Starlight. Los colores se ajustan desde
 
 ### Iconos
 
-`src/config/icons.ts` es la tabla única: `BRAND_ICONS` (logos propios) y
-`RECOLORED_ICONS` (un icono de lucide con color fijo). `<Icon name="…" />`
-resuelve los iconos del sitio en build.
+`src/config/icons.ts` contiene los iconos Lucide que necesitan un color fijo.
+Los logos propios son archivos SVG en `src/icons/`. `<Icon name="…" />`
+resuelve ambos casos durante el build.
 
 ## Escribir contenido
 

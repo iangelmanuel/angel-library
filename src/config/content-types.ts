@@ -1,6 +1,7 @@
 /** Tipos editoriales disponibles en la colección `docs`. */
 export const CONTENT_TYPES = {
   technologies: {
+    learning: true,
     learningOrder: 0,
     label: "Tecnologías",
     singular: "Tecnología",
@@ -10,6 +11,7 @@ export const CONTENT_TYPES = {
     color: "--accent-blue"
   },
   libraries: {
+    learning: true,
     learningOrder: 4,
     label: "Librerías",
     singular: "Librería",
@@ -19,6 +21,7 @@ export const CONTENT_TYPES = {
     color: "--accent-blue"
   },
   integrations: {
+    learning: true,
     learningOrder: 5,
     label: "Integraciones",
     singular: "Integración",
@@ -28,6 +31,7 @@ export const CONTENT_TYPES = {
     color: "--accent-indigo"
   },
   recipes: {
+    learning: true,
     learningOrder: 11,
     label: "Recetas",
     singular: "Receta",
@@ -37,6 +41,7 @@ export const CONTENT_TYPES = {
     color: "--accent-red"
   },
   snippets: {
+    learning: false,
     learningOrder: 8,
     label: "Snippets",
     singular: "Snippet",
@@ -46,6 +51,7 @@ export const CONTENT_TYPES = {
     color: "--accent-cyan"
   },
   hooks: {
+    learning: true,
     learningOrder: 6,
     label: "Hooks",
     singular: "Hook",
@@ -55,6 +61,7 @@ export const CONTENT_TYPES = {
     color: "--accent-pink"
   },
   utilities: {
+    learning: false,
     learningOrder: 7,
     label: "Utilities",
     singular: "Utility",
@@ -64,6 +71,7 @@ export const CONTENT_TYPES = {
     color: "--accent-blue"
   },
   resources: {
+    learning: false,
     learningOrder: 12,
     label: "Recursos",
     singular: "Recurso",
@@ -72,6 +80,7 @@ export const CONTENT_TYPES = {
     color: "--accent-pink"
   },
   skills: {
+    learning: false,
     learningOrder: 13,
     label: "Skills",
     singular: "Skill",
@@ -81,6 +90,7 @@ export const CONTENT_TYPES = {
     color: "--accent-pink"
   },
   commands: {
+    learning: false,
     learningOrder: 9,
     label: "Comandos",
     singular: "Comando",
@@ -90,6 +100,7 @@ export const CONTENT_TYPES = {
     color: "--accent-lime"
   },
   patterns: {
+    learning: true,
     learningOrder: 3,
     label: "Patrones",
     singular: "Patrón",
@@ -99,6 +110,7 @@ export const CONTENT_TYPES = {
     color: "--accent-blue"
   },
   practices: {
+    learning: true,
     learningOrder: 2,
     label: "Buenas prácticas",
     singular: "Buena práctica",
@@ -108,6 +120,7 @@ export const CONTENT_TYPES = {
     color: "--accent-red"
   },
   guides: {
+    learning: true,
     learningOrder: 1,
     label: "Guías prácticas",
     singular: "Guía",
@@ -117,6 +130,7 @@ export const CONTENT_TYPES = {
     color: "--accent-lime"
   },
   tricks: {
+    learning: false,
     learningOrder: 10,
     label: "Trucos",
     singular: "Truco",
@@ -128,4 +142,26 @@ export const CONTENT_TYPES = {
 } as const
 
 export type ContentTypeId = keyof typeof CONTENT_TYPES
+export type LearningContentTypeId = Extract<
+  ContentTypeId,
+  | "technologies"
+  | "guides"
+  | "practices"
+  | "patterns"
+  | "libraries"
+  | "integrations"
+  | "hooks"
+  | "recipes"
+>
 export const CONTENT_TYPE_IDS = Object.keys(CONTENT_TYPES) as ContentTypeId[]
+
+/** Tipos que forman una ruta de aprendizaje dentro de una subcategoría. */
+export const LEARNING_CONTENT_TYPES = Object.keys(CONTENT_TYPES).filter(
+  (type) => CONTENT_TYPES[type as ContentTypeId].learning
+) as LearningContentTypeId[]
+
+export function isLearningContentType(
+  type: string
+): type is LearningContentTypeId {
+  return (LEARNING_CONTENT_TYPES as readonly string[]).includes(type)
+}

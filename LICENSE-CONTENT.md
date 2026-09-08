@@ -1,6 +1,6 @@
 # Licencia del contenido educativo
 
-El contenido editorial de `src/content/` —guías, explicaciones, ejemplos, recetas, snippets, tablas y notas— se comparte bajo la licencia **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**.
+El contenido editorial de `src/content/docs/` —guías, explicaciones, ejemplos, recetas, snippets, tablas y notas— se comparte bajo la licencia **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**.
 
 Puedes:
 

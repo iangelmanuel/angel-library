@@ -1,13 +1,38 @@
 import { defineConfig } from "astro/config"
+import { unified } from "@astrojs/markdown-remark"
 import sitemap from "@astrojs/sitemap"
 import starlight from "@astrojs/starlight"
 import tailwindcss from "@tailwindcss/vite"
 import icon from "astro-icon"
-import { buildSidebar } from "@/config/sidebar"
-import { SITE } from "@/config/site"
+import { buildSidebar } from "./src/config/sidebar.ts"
+import { SITE } from "./src/config/site.ts"
 import { remarkPackageManagerTabs } from "./src/markdown/package-manager.mjs"
 
 const { SITE_URL } = SITE.config
+
+const picomatchCjsAdapter = {
+  name: "picomatch-cjs-adapter",
+  enforce: "pre",
+  async resolveId(source, importer) {
+    if (source !== "picomatch") return undefined
+    const resolved = await this.resolve(source, importer, { skipSelf: true })
+    return resolved?.id
+  },
+  load(id) {
+    if (!id.replaceAll("\\", "/").endsWith("/picomatch/index.js")) {
+      return undefined
+    }
+
+    return `import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
+const picomatch = require(${JSON.stringify(id)});
+export default picomatch;
+export const scan = picomatch.scan;
+export const parse = picomatch.parse;
+export const makeRe = picomatch.makeRe;
+export const test = picomatch.test;`
+  }
+}
 
 export default defineConfig({
   site: SITE_URL,
@@ -30,6 +55,7 @@ export default defineConfig({
         src: "./src/assets/logo/angel-library-logo.webp",
         alt: SITE.info.name
       },
+      favicon: "/favicon.png",
 
       social: [
         { icon: "github", label: "GitHub", href: SITE.social.github },
@@ -69,6 +95,17 @@ export default defineConfig({
 
       head: [
         {
+          tag: "link",
+          attrs: { rel: "manifest", href: "/manifest.webmanifest" }
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "theme-color",
+            content: SITE.seo.themeColor.dark
+          }
+        },
+        {
           tag: "script",
           attrs: { src: "/pm-tabs.js", defer: true }
         }
@@ -82,10 +119,10 @@ export default defineConfig({
   ],
 
   markdown: {
-    remarkPlugins: [remarkPackageManagerTabs]
+    processor: unified({ remarkPlugins: [remarkPackageManagerTabs] })
   },
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [picomatchCjsAdapter, tailwindcss()]
   }
 })

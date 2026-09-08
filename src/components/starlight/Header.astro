@@ -2,15 +2,9 @@
 import Search from "@astrojs/starlight/components/Search.astro"
 import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro"
 import Logo from "@/components/shared/Logo.astro"
+import { SITE_NAV } from "@/config/navigation"
 
 // La misma cabecera que la portada: marca, atajos, buscador e iconos.
-
-const NAV = [
-  { label: "Inicio", href: "/" },
-  { label: "Categorías", href: "/categories" },
-  { label: "Tipos", href: "/tipos/guides" },
-  { label: "Tags", href: "/tags" }
-]
 ---
 
 <div class="header chrome-header__inner">
@@ -18,7 +12,7 @@ const NAV = [
 
   <nav class="chrome-header__nav">
     {
-      NAV.map((item) => (
+      SITE_NAV.map((item) => (
         <a
           href={item.href}
           class:list={{

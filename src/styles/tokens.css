@@ -155,7 +155,7 @@
   --scrollbar-hover: #3f3f46;
 
   /* El esmalte: un campo se rellena mezclando su color contra el negro en
-     oklab. Rebajado a propósito — en reposo 20%, encendido 30%: se lee el
+     oklab. Rebajado a propósito — en reposo 26%, encendido 36%: se lee el
      color, pero veinte campos juntos no saturan la pantalla. */
   --glaze: 26%;
   --glaze-lit: 36%;

@@ -7,7 +7,7 @@
 - Personal command/configuration entries carry `private: true` and live in their category folder; they still get the standard detail route but are excluded from public navigation, listings, tags, and search.
 - Content references are the target entry id, i.e. its path: `frontend/react/react-context-api`. `src/lib/validation.ts` checks structure, references and internal links during static generation. New valid folders are discovered automatically; malformed metadata or broken references fail the build. Integrations and recipes discover technology relationships through `technologies` rather than duplicated reverse links.
 - Starlight generates every documentation entry page (URL = entry id); `categories/[category].astro` and `tipos/[type].astro` generate the custom listings. Adding a Markdown file needs no route change.
-- Icons live in one table, `src/config/icons.ts`: `BRAND_ICONS` for own logos and `RECOLORED_ICONS` for tinted lucide icons. `src/lib/icons.ts` reads it at build time; plain lucide names need no registration on the Astro side.
+- Icons live in `src/config/icons.ts`: `RECOLORED_ICONS` maps tinted Lucide icons. Own logos are SVG files in `src/icons/`; `src/components/shared/Icon.astro` resolves both sources, and plain Lucide names need no registration on the Astro side.
 - Astro and Starlight own the site UI. Tailwind is v4 via `@tailwindcss/vite`; there is no `tailwind.config`.
 - Match the repository’s Spanish-language content and UI conventions. Do not commit secrets or real data; environment files are ignored except `.env.example`.
 - For the fuller verified architecture notes and content-authoring conventions, consult `CLAUDE.md` and `CONTRIBUTING.md`.

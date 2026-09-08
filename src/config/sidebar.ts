@@ -1,6 +1,11 @@
 import fs from "node:fs"
 import path from "node:path"
-import { CATEGORY_LIST, DOCS_DIR, NAVIGATION_GROUPS } from "./catalog"
+import { CATEGORY_LIST, DOCS_DIR, NAVIGATION_GROUPS } from "./catalog.ts"
+import {
+  CONTENT_TYPES,
+  type ContentTypeId,
+  isLearningContentType
+} from "./content-types.ts"
 
 /** Datos de presentación para el override de Starlight. */
 export const SIDEBAR_GROUPS = NAVIGATION_GROUPS.map((group) => ({
@@ -22,28 +27,70 @@ interface SidebarLink {
   link: string
 }
 
+interface ParsedSidebarLink extends SidebarLink {
+  type?: ContentTypeId
+  order?: number
+}
+
 interface SidebarGroup {
   label: string
   collapsed: true
   items: (SidebarLink | SidebarGroup)[]
 }
 
+function frontmatterValue(
+  frontmatter: string,
+  field: string
+): string | undefined {
+  return new RegExp(`^${field}:\\s*(.+)$`, "m").exec(frontmatter)?.[1]?.trim()
+}
+
 /** Título del frontmatter; privadas y borradores no aparecen en el menú. */
-function readDoc(file: string): SidebarLink | null {
+function readDoc(file: string): ParsedSidebarLink | null {
   const raw = fs.readFileSync(file, "utf8")
   const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(raw)?.[1]
-  if (!frontmatter || /^(private|draft):\s*true\s*$/m.test(frontmatter))
-    return null
+  if (!frontmatter) return null
 
-  const title = /^title:\s*(.+)$/m.exec(frontmatter)?.[1]?.trim()
+  const isHidden = ["private", "draft"].some(
+    (field) => frontmatterValue(frontmatter, field) === "true"
+  )
+  if (isHidden) {
+    return null
+  }
+
+  const title = frontmatterValue(frontmatter, "title")
   if (!title) return null
+
+  const type = frontmatterValue(frontmatter, "type") as
+    ContentTypeId | undefined
+  const orderValue = frontmatterValue(frontmatter, "order")
+  const order = orderValue === undefined ? undefined : Number(orderValue)
 
   return {
     label: title.replace(/^["']|["']$/g, ""),
     link:
       "/" +
-      path.relative(DOCS_DIR, file).replace(/\\/g, "/").replace(/\.md$/, "")
+      path.relative(DOCS_DIR, file).replace(/\\/g, "/").replace(/\.md$/, ""),
+    type,
+    order: Number.isFinite(order) ? order : undefined
   }
+}
+
+function compareDocs(a: ParsedSidebarLink, b: ParsedSidebarLink): number {
+  const aLearning = a.type !== undefined && isLearningContentType(a.type)
+  const bLearning = b.type !== undefined && isLearningContentType(b.type)
+
+  if (aLearning && bLearning) {
+    const typeOrder =
+      CONTENT_TYPES[a.type as ContentTypeId].learningOrder -
+      CONTENT_TYPES[b.type as ContentTypeId].learningOrder
+    const moduleOrder = (a.order ?? Infinity) - (b.order ?? Infinity)
+    return typeOrder || moduleOrder || a.label.localeCompare(b.label, "es")
+  }
+
+  // Los módulos de consulta no reciben una prioridad didáctica nueva.
+  if (aLearning !== bLearning) return aLearning ? -1 : 1
+  return a.label.localeCompare(b.label, "es")
 }
 
 function docsIn(directory: string): SidebarLink[] {
@@ -51,8 +98,9 @@ function docsIn(directory: string): SidebarLink[] {
     .readdirSync(directory, { withFileTypes: true })
     .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
     .map((entry) => readDoc(path.join(directory, entry.name)))
-    .filter((entry): entry is SidebarLink => entry !== null)
-    .sort((a, b) => a.label.localeCompare(b.label, "es"))
+    .filter((entry): entry is ParsedSidebarLink => entry !== null)
+    .sort(compareDocs)
+    .map(({ label, link }) => ({ label, link }))
 }
 
 /** Categoría → subcategoría → artículos, sin registrar las carpetas otra vez. */

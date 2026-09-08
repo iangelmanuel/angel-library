@@ -13,6 +13,7 @@ src/
 ├─ config/
 │  ├─ catalog.ts                  descubre carpetas y lee sus metadatos
 │  ├─ content-types.ts            tipos editoriales y orden de aprendizaje
+│  ├─ navigation.ts               enlaces compartidos de cabecera y pie
 │  ├─ sidebar.ts                  adapta el catálogo al menú de Starlight
 │  ├─ site.ts                     identidad, URLs y SEO
 │  └─ icons.ts                    iconos propios y excepciones
@@ -20,7 +21,6 @@ src/
 │  ├─ content.ts                  cargar, filtrar, ordenar y agrupar entradas
 │  ├─ validation.ts               comprobar estructura, referencias y enlaces
 │  ├─ relations.ts                calcular recomendaciones de lectura
-│  ├─ icons.ts                    resolver iconos durante el build
 │  └─ seo.ts                      metadatos y datos estructurados
 ├─ pages/                        portada y listados propios
 ├─ components/                   componentes compartidos y overrides
@@ -62,7 +62,7 @@ Los metadatos se validan con Zod: un campo desconocido, un grupo inexistente o u
 
 Los ids de carpetas son `string` porque se conocen al leer el disco. Sus valores se validan al construir el catálogo. Mantener una unión TypeScript de ids obligaría a volver a escribir en código cada carpeta nueva.
 
-Los tipos editoriales sí son un conjunto cerrado: `ContentTypeId` se deriva de las claves de `CONTENT_TYPES`. Cada registro incluye su `learningOrder`; ya no hay una segunda lista de prioridades en `content.ts`.
+Los tipos editoriales sí son un conjunto cerrado: `ContentTypeId` se deriva de las claves de `CONTENT_TYPES`. Cada registro indica si participa en la ruta de aprendizaje con `learning` y, cuando corresponde, incluye su `learningOrder`. La lista de tipos de aprendizaje se deriva de ese mismo registro.
 
 ## 2. El menú y la colección tienen trabajos distintos
 
@@ -75,7 +75,7 @@ carpetas + _meta.json → catalog.ts → sidebar.ts → configuración de Starli
 Markdown → docsLoader + schema → content.ts → páginas y relaciones
 ```
 
-El lector del menú espera `title` en una línea, como muestran las plantillas. Excluye `private: true` y `draft: true` y ordena artículos alfabéticamente por título, conservando el comportamiento existente. El esquema de Starlight valida el documento completo después.
+El lector del menú espera `title`, `type`, `order`, `private` y `draft` en líneas simples, como muestran las plantillas. Excluye `private: true` y `draft: true`. Los tipos de aprendizaje se ordenan por `order` y después por título; los tipos informativos mantienen el orden alfabético. El esquema de Starlight valida el documento completo después.
 
 El catálogo se lee al iniciar Astro o compilar. Reinicia `pnpm dev` tras crear, borrar o renombrar entradas/carpetas o cambiar metadatos del menú. Esto evita un watcher propio, recargas globales ocultas y otra capa de estado que mantener.
 

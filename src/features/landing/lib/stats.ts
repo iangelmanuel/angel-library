@@ -79,7 +79,7 @@ function buildRoute(entries: AnyEntry[]): LandingRoute | null {
   const subcategoryId = subcategoryOf(entry)
 
   return {
-    root: "src/content/",
+    root: "src/content/docs/",
     category: {
       segment: `${category}/`,
       label: CATEGORIES[categoryId].label,

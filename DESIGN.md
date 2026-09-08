@@ -24,8 +24,8 @@ colors:
   hilo-fuerte: "color-mix(in srgb, #84b6f4 34%, transparent)"
   hilo-claro: "color-mix(in srgb, #a9cbf8 58%, transparent)"
   texto-lectura: "#ededf0"
-  codigo-fondo: "color-mix(in oklab, #005187 20%, #000000)"
-  codigo-rotulo: "color-mix(in oklab, #005187 32%, #000000)"
+  codigo-fondo: "color-mix(in oklab, #005187 34%, #000000)"
+  codigo-rotulo: "color-mix(in oklab, #005187 48%, #000000)"
   destructivo: "#ffb3ba"
 typography:
   display:
@@ -173,7 +173,7 @@ Azulejo / cloisonné. La biblioteca es un muro de esmalte: campos de color sobre
 
 El sitio tiene dos registros. En las superficies de trabajo —barra lateral de tres niveles, listados, resultados del índice— la densidad es alta y deliberada: campos contiguos separados por 2–8px y nada que respire por decoración. La portada es el otro registro: ahí manda la luz —un halo azul tras el titular y otro en el horizonte del cierre— y las secciones se separan con un hilo y 6rem de aire, porque quien llega a la portada todavía no sabe qué busca.
 
-La paleta es monocroma por convicción: veintitrés esmaltes de categoría, todos de la misma familia azul, separados por tono **y** por luz para que dos campos vecinos nunca se confundan. El vidriado es bajo a propósito (20% en reposo, 30% encendido): con veintitrés colores en pantalla, la saturación es el enemigo. Los grises no son parte del esmalte — son el contrapeso: prosa secundaria, scrollbars y separadores neutros, jamás un relleno de campo.
+La paleta es monocroma por convicción: veintitrés esmaltes de categoría, todos de la misma familia azul, separados por tono **y** por luz para que dos campos vecinos nunca se confundan. El vidriado general es bajo a propósito (26% en reposo, 36% encendido); las rejillas con muchos campos lo rebajan todavía más. Los grises no son parte del esmalte — son el contrapeso: prosa secundaria, scrollbars y separadores neutros, jamás un relleno de campo.
 
 Anti-referencia confirmada, sustituida por completo: el sitio anterior era negro con bordes grises de 1px, cero relleno, titulares en Geist Pixel, sombras duras desplazadas (`4px 4px 0`), scanlines de CRT y glifos de shell (`❯ $ ~/ _`). Nada de eso sobrevive. Tampoco entran degradados, glow de color, cristal ni sombra difusa coloreada.
 
@@ -201,7 +201,7 @@ Una sola familia azul quemada contra el negro, con grises neutros como contrapes
 
 - **Esmaltes de superficie** (`--enamel-950` → `--enamel-600`): azules quemados hacia el negro. No son «fondos de tarjeta»: son rellenos que definen profundidad por luminosidad. `--enamel-950` es el campo más hondo (panel del índice, consola de tags), `--enamel-800` el chrome de UI (badges, código inline, barra de filtro, botón de copiar), `--enamel-600` el escalón encendido en hover.
 - **Esmaltes de categoría** (23 tokens `--cat-*`, de `#7fd4ff` a `#4f7fd0`): el **origen** del relleno de cada campo. Son valores vivos a propósito porque se mezclan contra negro antes de pintarse. Tres de ellos salen del anillo azul estricto y se quedan así por decisión del autor.
-- **Acentos de tipo de contenido** (11 tokens `--accent-*`): apuntan a la misma escala azul; solo tiñen badges e iconos de tipo, nunca títulos.
+- **Acentos de tipo de contenido** (8 tokens `--accent-*`): apuntan a la misma escala azul; solo tiñen badges e iconos de tipo, nunca títulos.
 
 ### Neutral
 
@@ -214,9 +214,9 @@ Una sola familia azul quemada contra el negro, con grises neutros como contrapes
 
 ### Named Rules
 
-**The Enamel Fill Rule.** Un campo se rellena mezclando su acento contra el negro **en oklab**: `background: color-mix(in oklab, var(--card-accent) var(--glaze), #000000)`, y al encenderse sube a `var(--glaze-lit)` — **20% → 30%**. El espacio de mezcla no es opcional: en sRGB la misma fórmula da pizarra gris y la croma se pierde. Todo campo nuevo se pinta así.
+**The Enamel Fill Rule.** Un campo se rellena mezclando su acento contra el negro **en oklab**: `background: color-mix(in oklab, var(--card-accent) var(--glaze), #000000)`, y al encenderse sube a `var(--glaze-lit)` — **26% → 36%**. El espacio de mezcla no es opcional: en sRGB la misma fórmula da pizarra gris y la croma se pierde. Todo campo nuevo se pinta así.
 
-**The Low-Glaze Rule.** El vidriado se mide por lo que se ve junto, no por una pieza aislada. Una rejilla de veintitrés categorías, un listado de tarjetas o un cierre de relaciones bajan del valor por defecto: 18% en las teselas de `/categories`, 16% en las tarjetas de relación (26% encendidas). Si una pantalla se ve «colorida», el número a bajar es el vidriado, nunca el color.
+**The Low-Glaze Rule.** El vidriado se mide por lo que se ve junto, no por una pieza aislada. Una rejilla de veintitrés categorías, un listado de tarjetas o un cierre de relaciones bajan del valor por defecto: 17% en las teselas de `/categories`, 16% en las tarjetas de relación (26% encendidas). Si una pantalla se ve «colorida», el número a bajar es el vidriado, nunca el color.
 
 **The Thread Rule.** El sistema tiene una sola línea: el hilo (`--thread`, `--thread-strong`, `--thread-bright`), un azul claro a baja alfa. Un separador nunca es gris salvo en el cromo del navegador. El hilo separa; jamás sustituye al relleno como portador del color.
 
@@ -279,7 +279,7 @@ Ritmo: 0.25 / 0.5 / 0.85 / 1 / 1.5rem dentro de las piezas; **6rem** arriba y ab
 
 ## Elevation & Depth
 
-Este sistema es plano y la profundidad la hace la **luminosidad sobre un único negro**. Tres niveles de luz (`--surface`, `--surface-raised`, `--surface-active` = enamel 900 / 800 / 700) y el propio porcentaje del vidriado (34% en reposo, 50% encendido) construyen todo el relieve. No hay bordes apilados, no hay cristal, no hay glow.
+Este sistema es plano y la profundidad la hace la **luminosidad sobre un único negro**. Tres niveles de luz (`--surface`, `--surface-raised`, `--surface-active` = enamel 900 / 800 / 700) y el propio porcentaje del vidriado (26% en reposo, 36% encendido) construyen todo el relieve. No hay bordes apilados, no hay cristal, no hay glow.
 
 Las sombras se usan poco y solo donde algo flota de verdad: el buscador del hero, el botón blanco del cierre y la ventana de la terminal. Todas son desplazamiento + desenfoque suave sobre negro; el único color admitido es un azul muy abierto y sin contorno bajo la ventana flotante.
 
@@ -320,9 +320,9 @@ Es la pieza matriz. Campo de esmalte lleno, sin canto — el relleno ya la separ
 
 La misma materia que la card, con el vidriado más bajo del sistema: en `/categories` hay veintitrés colores a la vez y cualquier valor más alto satura.
 
-- **Fondo:** `color-mix(in oklab, var(--card-accent) 18%, #000000)`, radio de campo (6px). Ningún borde en ningún estado.
+- **Fondo:** `color-mix(in oklab, var(--card-accent) 17%, #000000)`, radio de campo (6px). Ningún borde en ningún estado.
 - **Contenido:** icono suelto en el color de la categoría, etiqueta blanca, contador en mono **gris** a la derecha — el color ya está dicho dos veces, no hace falta una tercera.
-- **Hover:** sube a 30%.
+- **Hover:** sube a 27%.
 - **Peso:** `--lg` (3 columnas, 5.5rem), `--md` (2 columnas, 4.5rem), base (2 columnas, 3.6rem).
 
 ### Tarjetas de relación (rejilla, esmalte rebajado)
@@ -364,8 +364,8 @@ Categoría → subcategoría → entrada. La jerarquía la dan el tamaño y la l
 
 Dos alturas del mismo azul, nunca dos colores.
 
-- **Cuerpo:** `--code-bg` = `color-mix(in oklab, var(--blue-800) 20%, #000000)`. Se lee azul, pero rebajado: no compite con la prosa que lo rodea. Sin canto.
-- **Rótulo:** `--code-chrome` = el mismo azul al 32% — un solo escalón por encima del cuerpo. Nombre de archivo en mono 0.72rem azul de título, alineado a la sangría del código (1.1rem), y el botón de copiar como pastilla de blanco al 7% (16% al pasar).
+- **Cuerpo:** `--code-bg` = `color-mix(in oklab, var(--blue-800) 34%, #000000)`. Se lee azul, pero rebajado: no compite con la prosa que lo rodea. Sin canto.
+- **Rótulo:** `--code-chrome` = el mismo azul al 48% — un solo escalón por encima del cuerpo. Nombre de archivo en mono 0.72rem azul de título, alineado a la sangría del código (1.1rem), y el botón de copiar como pastilla de blanco al 7% (16% al pasar).
 - **Pestañas pnpm/Bun/npm:** viven en ese rótulo, en mono; la activa se rellena con blanco al 12%, no con el esmalte pleno.
 - **Cuerpo tipográfico:** Shiki `tokyo-night`, mono 0.82rem, line-height 1.7, padding `0.95rem 1.1rem 1.05rem`.
 - **Realce de líneas:** `color-mix(in srgb, var(--blue-400) 12%)`; diff añadido 16%; diff eliminado por opacidad 0.42.
@@ -401,7 +401,7 @@ Una sola curva (`--ease-enamel`: `cubic-bezier(0.16, 1, 0.3, 1)`) y dos duracion
 ### Do:
 
 - **Do** rellenar todo campo nuevo con `color-mix(in oklab, var(--card-accent) var(--glaze), #000000)` y encenderlo a `--glaze-lit` en hover. El espacio oklab es el material.
-- **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (18% en `/categories`, 16% en las relaciones): el número a mover es el vidriado, no el color.
+- **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (17% en `/categories`, 16% en las relaciones): el número a mover es el vidriado, no el color.
 - **Do** decir el estado subiendo el vidriado, y solo eso.
 - **Do** ordenar la jerarquía por celdas — cuántas columnas ocupa una pieza — y dejar el tamaño de letra en dos escalones.
 - **Do** mantener la medida de lectura en 68ch y recortar los márgenes cuando falte espacio.

@@ -1,21 +1,9 @@
 ---
 import Icon from "@/components/shared/Icon.astro"
 import Logo from "@/components/shared/Logo.astro"
-import { SITE } from "@/config/site"
+import { SEARCH_LINK, SITE_NAV, SOCIAL_LINKS } from "@/config/navigation"
 
 // La misma cabecera que la documentación.
-
-const NAV = [
-  { label: "Inicio", href: "/" },
-  { label: "Categorías", href: "/categories" },
-  { label: "Tipos", href: "/tipos/guides" },
-  { label: "Tags", href: "/tags" }
-]
-
-const SOCIAL = [
-  { label: "GitHub", icon: "brand-github", href: SITE.social.github },
-  { label: "X", icon: "brand-x", href: SITE.social.x }
-]
 ---
 
 <header class="chrome-header">
@@ -27,7 +15,7 @@ const SOCIAL = [
       aria-label="Secciones de la biblioteca"
     >
       {
-        NAV.map((item) => (
+        SITE_NAV.map((item) => (
           <a
             href={item.href}
             class:list={{ "is-current": item.href === "/" }}
@@ -40,9 +28,9 @@ const SOCIAL = [
 
     <div class="chrome-header__right">
       <a
-        href="/buscar"
+        href={SEARCH_LINK.href}
         class="chrome-header__search chrome-search"
-        aria-label="Abrir la búsqueda"
+        aria-label={SEARCH_LINK.label}
       >
         <Icon
           name="search"
@@ -54,7 +42,7 @@ const SOCIAL = [
 
       <div class="chrome-header__social">
         {
-          SOCIAL.map((item) => (
+          SOCIAL_LINKS.map((item) => (
             <a
               href={item.href}
               target="_blank"

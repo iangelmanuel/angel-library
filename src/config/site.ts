@@ -3,22 +3,23 @@
 const PRODUCTION_URL = "https://angel-library.vercel.app"
 const DEV_URL = "http://localhost:4321"
 const isDev = process.argv.includes("dev")
+const SITE_NAME = "angel.library"
 
 const SITE_URL = (
   process.env.SITE ?? (isDev ? DEV_URL : PRODUCTION_URL)
 ).replace(/\/$/, "")
-const IS_LOCAL = SITE_URL.startsWith("http://localhost")
+const IS_LOCAL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(SITE_URL)
 const DESCRIPTION =
   "Biblioteca personal de conocimiento técnico: snippets, recetas, comandos y referencias rápidas para desarrollo web."
 
 export const SITE = {
-  name: "angel.library",
+  name: SITE_NAME,
   description: DESCRIPTION,
   locale: "es",
 
   info: {
-    name: "angel.library",
-    legalName: "angel.library",
+    name: SITE_NAME,
+    legalName: SITE_NAME,
     description: DESCRIPTION,
     slogan: "Segundo cerebro técnico para desarrollo web.",
     founded: 2026,

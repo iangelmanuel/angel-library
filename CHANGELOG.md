@@ -8,6 +8,54 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.35.2] — 2026-09-08
+
+### Documentación
+
+- Sincronizados `DESIGN.md`, `AGENTS.md` y los comentarios de tokens con los
+  porcentajes reales de esmalte, código y tarjetas del sitio.
+- Actualizada la referencia de iconos para reflejar `RECOLORED_ICONS`, los SVG
+  de `src/icons/` y el resolver de `src/components/shared/Icon.astro`.
+
+## [0.35.1] — 2026-09-08
+
+### Corregido
+
+- Astro vuelve a sincronizar, comprobar y compilar el contenido con Vite 8: el
+  adaptador local carga `picomatch` como CommonJS sin cambiar el contenido ni
+  el resultado visual.
+- El favicon usa una versión ligera del mismo logo del navbar y ya no apunta a
+  un `/favicon.svg` inexistente.
+- Todo el repositorio cumple el formato de Prettier y los diagnósticos de
+  Astro quedan en cero.
+
+## [0.35.0] — 2026-09-08
+
+### Cambiado
+
+- La navegación compartida de la portada y Starlight vive en un único archivo
+  (`src/config/navigation.ts`), sin repetir enlaces ni redes sociales.
+- Las categorías, el menú y los listados descubren su estructura desde las
+  carpetas; los módulos de aprendizaje respetan su prioridad y `order`, y los
+  módulos de consulta se ordenan alfabéticamente.
+- Las relaciones entre entradas usan índices en memoria para evitar recorrer
+  todo el catálogo varias veces al construir cada página.
+- La documentación de arquitectura, autoría, landing e inventario refleja la
+  ruta real `src/content/docs/`, el buscador `/buscar` y las 723 entradas
+  actuales.
+- Astro carga la configuración desde rutas relativas y usa el procesador
+  `unified` recomendado para Markdown, sin la opción deprecada de Astro.
+
+### Corregido
+
+- Se eliminaron colisiones de insignias entre subcategorías con el mismo id en
+  distintas categorías.
+- La validación de enlaces internos reconoce rutas con query/hash, tags y las
+  rutas reales del sitio.
+- El manifest y el color del tema quedan declarados en el head de Starlight.
+- Los iconos SVG de Express, TypeScript y Zod ya no dependen de texto SVG que
+  fallaba durante la optimización.
+
 ## [0.34.0] — 2026-09-07
 
 Afina la lectura del menú lateral y termina de unificar la cabecera de las
@@ -2190,7 +2238,10 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.34.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.35.2...HEAD
+[0.35.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.2
+[0.35.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.1
+[0.35.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.0
 [0.34.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.34.0
 [0.33.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.33.0
 [0.32.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.32.0

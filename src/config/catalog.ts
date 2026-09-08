@@ -159,20 +159,11 @@ export function getSubcategoriesForCategory(category: string): Subcategory[] {
   return CATEGORIES[category]?.subcategories ?? []
 }
 
-/** Las páginas de tags conservan las insignias de subcategorías coincidentes. */
-export const SUBCATEGORY_BADGES: Record<string, Subcategory> =
-  Object.fromEntries(
-    CATEGORY_LIST.flatMap((category) =>
-      category.subcategories
-        .filter((subcategory) => subcategory.badge)
-        .map((subcategory) => [subcategory.id, subcategory])
-    )
-  )
-
 export function getSubcategory(
   category: string,
-  subcategory: string
+  subcategory?: string
 ): Subcategory | undefined {
+  if (!subcategory) return undefined
   return getSubcategoriesForCategory(category).find(
     (item) => item.id === subcategory
   )

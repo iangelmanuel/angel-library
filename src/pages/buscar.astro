@@ -1,11 +1,14 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+import { getAllEntries } from "@/lib/content"
+
+const entries = await getAllEntries()
 ---
 
 <StarlightPage
   frontmatter={{
     title: "Buscar",
-    description: "Busca en las 718 entradas de la biblioteca.",
+    description: `Busca en las ${entries.length} entradas de la biblioteca.`,
     template: "splash",
     tableOfContents: false
   }}
@@ -16,11 +19,14 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
 </StarlightPage>
 
 <script>
-  // Abre el buscador nada más entrar.
-  document.addEventListener("DOMContentLoaded", () => {
+  function openSearch() {
     const button = document.querySelector<HTMLButtonElement>(
       "site-search button[data-open-modal]"
     )
     button?.click()
-  })
+  }
+
+  // Abre el buscador tanto en la primera carga como tras una transición.
+  document.addEventListener("DOMContentLoaded", openSearch, { once: true })
+  document.addEventListener("astro:page-load", openSearch)
 </script>

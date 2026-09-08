@@ -1,6 +1,6 @@
 # Revisión de complejidad interna
 
-Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código de coordinación, conservando el contenido y la interfaz existentes. La complejidad se valora por cuántas piezas hay que entender o sincronizar; no es una puntuación automática por líneas.
+Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código de coordinación, conservando el contenido y la interfaz existentes. La complejidad se valora por cuántas piezas hay que entender o sincronizar; no es una puntuación automática por líneas. Las cifras de 721 Markdown y 1.728 páginas corresponden a ese snapshot histórico; el catálogo actual tiene 723 entradas y 1.735 páginas generadas en el último build.
 
 ## Cambios aplicados
 
@@ -12,6 +12,17 @@ Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código
 - Conteos y agrupaciones mediante un recorrido de entradas.
 - Eliminados tipos y arrays de servicios/FAQ sin consumidores, tipos SEO sin uso, opciones JSX de React sin componentes React y la dependencia directa `@shikijs/transformers` sin imports.
 - Se conservan las URLs, etiquetas, descripciones, orden visible y funciones de la interfaz. La versión de `package.json` se actualiza a 0.31.0 a petición del usuario; no se añade un indicador de versión a la página.
+
+## Correcciones aplicadas en 0.35.0
+
+- Los enlaces de cabecera y pie se derivan de `src/config/navigation.ts`; una
+  ruta nueva se cambia en un solo lugar.
+- `content.ts` separa el orden didáctico del alfabético con una función pequeña,
+  y `relations.ts` crea un índice en memoria reutilizable durante el build.
+- La validación reconoce las rutas reales (`/buscar`, categorías, tipos y tags)
+  y acepta query strings y fragmentos sin ocultar enlaces rotos.
+- El inventario conserva sus 723 entradas actuales y las guías internas apuntan
+  a `src/content/docs/`, sin introducir otro registro de contenido.
 
 ## Tabla de revisión
 

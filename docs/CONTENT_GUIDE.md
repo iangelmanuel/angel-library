@@ -47,6 +47,29 @@ Opcionales que se usan mucho: `updatedAt` (fecha), `related` (paso 4),
 `draft: true` (no se publica) y `private: true` (conserva su URL pero sale de
 menús, listados y buscador).
 
+### Orden de aprendizaje
+
+Los módulos didácticos pueden declarar `order` para indicar su posición dentro
+de la ruta de su subcategoría:
+
+```yaml
+type: guides
+order: 3
+```
+
+El menú y los listados colocan primero los tipos que forman la ruta de
+aprendizaje (tecnología, guía, práctica, patrón, librería, integración, hook y
+receta). Dentro de esa ruta se respeta la prioridad del tipo y después `order`.
+El número más pequeño aparece primero. Esto permite que una guía de fundamentos
+preceda a una integración sin renombrar archivos ni cambiar sus URLs. Si dos
+módulos comparten número, se ordenan por título. Los módulos de consulta quedan
+después y se ordenan alfabéticamente.
+
+Los módulos de consulta —recursos, skills, comandos, snippets, utilities y
+trucos— no forman parte de esta ruta. Los valores `order` que ya tengan se
+conservan para no romper el contenido, pero no se usan para convertirlos en una
+secuencia de aprendizaje.
+
 ## Paso 3 · Elige el tipo y sus campos
 
 El `type` decide qué campos extra pide el esquema:

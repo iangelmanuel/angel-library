@@ -8,7 +8,8 @@ Para principiantes faltaban un punto de entrada transversal, requisitos explíci
 
 ## Alcance y evidencia
 
-- Inventario estructural de **718 Markdown originales**, en **23 categorías**. Se añadieron tres guías: quedan **721 entradas**.
+- Este documento conserva la fotografía editorial de la auditoría del 7 de septiembre: partía de 718 Markdown y terminó con 721. El catálogo actual tiene **723 entradas**, **23 categorías** y **133 subcategorías**; las cifras históricas que aparecen en los resultados no describen el estado actual.
+- Inventario estructural de **721 Markdown del snapshot auditado**, en **23 categorías**. Se añadieron tres guías en esa revisión.
 - Lectura editorial de páginas representativas y revisión técnica priorizada de autenticación, HTTP, utilidades, React, Prisma, configuración, terminal y recetas de infraestructura. El inventario por archivo está en [content-inventory.json](content-inventory.json).
 - Correcciones apoyadas en documentación primaria de Node.js, MDN, TypeScript, React, Prisma, Astro, Better Auth, Auth.js, GitHub, Docker y daisyUI, enlazada en las entradas correspondientes.
 - Ejecución de casos de los dos servidores Node, Fetch y promesas; comprobación estricta de tipos de esos bloques, utilidades de formularios y el laboratorio TypeScript.
@@ -16,7 +17,7 @@ Para principiantes faltaban un punto de entrada transversal, requisitos explíci
 - Prisma 7.10.0: validación del esquema, generación del cliente y tipos estrictos de configuración, cliente, consultas, servicio, demo, servidor Express y repository. Sin conexión a PostgreSQL ni ejecución de migraciones.
 - Comprobación de integridad global mediante `pnpm check` y `pnpm build`.
 
-Última validación: `pnpm check` revisó 58 archivos sin errores, advertencias ni sugerencias de diagnóstico. `pnpm build` terminó correctamente con **1.728 páginas**, índice de búsqueda y sitemap. `git diff --check` no encontró errores de espacios. La ruta local de la nueva guía de Prisma respondió HTTP 200. Las advertencias de configuración de herramientas se detallan al final.
+Última validación de aquel snapshot: `pnpm check` revisó 58 archivos sin errores, advertencias ni sugerencias de diagnóstico. `pnpm build` terminó correctamente con **1.728 páginas**, índice de búsqueda y sitemap. La validación actual debe ejecutarse con los comandos de [ARCHITECTURE.md](ARCHITECTURE.md), porque el catálogo ya cambió.
 
 **El inventario abarca todos los archivos, pero no equivale a una certificación técnica individual de las 721 entradas.** No se ejecutaron todas las integraciones con bases de datos, proveedores OAuth, servicios externos o herramientas de terceros. Tampoco se validaron exhaustivamente todos los enlaces externos ni todas las versiones de los productos catalogados. Los cambios de autenticación tienen revisión de código y fuentes; aún necesitan pruebas integradas en aplicaciones con su base de datos y credenciales de prueba.
 

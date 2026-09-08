@@ -19,7 +19,7 @@ const libraryFields = z.object({
   tags: z.array(z.string()).default([]),
   related: refs,
   private: z.boolean().default(false),
-  order: z.number().optional(),
+  order: z.number().int().nonnegative().optional(),
   updatedAt: z.coerce.date().optional(),
 
   // Enlaces

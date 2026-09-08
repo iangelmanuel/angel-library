@@ -1,6 +1,10 @@
 import { type CollectionEntry, getCollection } from "astro:content"
 import { CATEGORY_LIST, getSubcategoriesForCategory } from "@/config/catalog"
-import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
+import {
+  CONTENT_TYPES,
+  type ContentTypeId,
+  isLearningContentType
+} from "@/config/content-types"
 import {
   validateContentRelations,
   validateContentStructure,
@@ -86,6 +90,17 @@ export function sortByLearningPath<T extends AnyEntry>(entries: T[]): T[] {
   )
 }
 
+/** Orden visible: aprendizaje primero; consulta alfabética después. */
+export function sortForDisplay<T extends AnyEntry>(entries: T[]): T[] {
+  const learning = entries.filter((entry) =>
+    isLearningContentType(entry.data.type ?? "")
+  )
+  const reference = entries.filter(
+    (entry) => !isLearningContentType(entry.data.type ?? "")
+  )
+  return [...sortByLearningPath(learning), ...sortByTitle(reference)]
+}
+
 // ── Agrupar ──
 
 interface EntryGroup {
@@ -112,14 +127,14 @@ export function getCategoryEntries(all: AnyEntry[], category: string) {
       id,
       label,
       description,
-      entries: sortByLearningPath(bySubcategory.get(id) ?? [])
+      entries: sortForDisplay(bySubcategory.get(id) ?? [])
     }))
     .filter((group) => group.entries.length > 0)
 
   return {
     entries,
     groups,
-    ungrouped: sortByLearningPath(bySubcategory.get(undefined) ?? [])
+    ungrouped: sortForDisplay(bySubcategory.get(undefined) ?? [])
   }
 }
 

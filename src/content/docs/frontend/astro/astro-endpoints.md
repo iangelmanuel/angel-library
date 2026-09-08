@@ -5,10 +5,10 @@ type: guides
 order: 18
 tags: [astro, api, backend]
 scope: astro:pages
-updatedAt: 2026-08-25
+updatedAt: 2026-09-08
 ---
 
-Un endpoint es un archivo `.ts`/`.js` dentro de `src/pages` que, en vez de exportar un componente `.astro` que renderiza HTML, exporta funciones con nombre de método HTTP (`GET`, `POST`...) que devuelven una `Response`. Astro lo trata como una ruta más: convive con páginas normales en la misma carpeta, solo que responde JSON, XML, una imagen o cualquier otro contenido en vez de HTML. Este mismo sitio usa uno para `/search-index.json` (ver `src/pages/search-index.json.ts`), que arma el índice de búsqueda que consume el Command Palette.
+Un endpoint es un archivo `.ts`/`.js` dentro de `src/pages` que, en vez de exportar un componente `.astro` que renderiza HTML, exporta funciones con nombre de método HTTP (`GET`, `POST`...) que devuelven una `Response`. Astro lo trata como una ruta más: convive con páginas normales en la misma carpeta, solo que responde JSON, XML, una imagen o cualquier otro contenido en vez de HTML. Esta biblioteca no necesita un endpoint de búsqueda propio: Starlight genera el índice de Pagefind y la ruta `/buscar` abre su interfaz.
 
 ## Endpoint básico
 

@@ -4,7 +4,6 @@ import Button from "@/components/shared/Button.astro"
 import {
   CATEGORIES,
   RESOURCE_CATEGORIES,
-  SUBCATEGORY_BADGES,
   getSubcategory
 } from "@/config/catalog"
 import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
@@ -15,8 +14,7 @@ const data = entry.data as Record<string, unknown>
 
 const [category, subcategory] = entry.id.split("/")
 const categoryMeta = CATEGORIES[category]
-const subcategoryMeta =
-  getSubcategory(category, subcategory) ?? SUBCATEGORY_BADGES[subcategory]
+const subcategoryMeta = getSubcategory(category, subcategory)
 const typeMeta = data.type
   ? CONTENT_TYPES[data.type as ContentTypeId]
   : undefined
@@ -85,7 +83,9 @@ const facts = [
       ? RESOURCE_CATEGORIES[String(data.resourceCategory)]
       : null
   }
-].filter((fact) => fact.value !== null)
+].filter((fact): fact is { label: string; value: string } =>
+  Boolean(fact.value)
+)
 
 const command = text("command")
 const install = text("install")

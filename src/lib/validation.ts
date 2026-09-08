@@ -60,26 +60,37 @@ export function validateContentStructure(all: AnyEntry[]): void {
 }
 
 /** Enlaces internos del cuerpo. */
-const INTERNAL_LINK = /\]\((\/[^)\s#]*)(?:#[^)]*)?\)/g
+const INTERNAL_LINK = /\]\((\/[^)\s]+)\)/g
+
+function decodedTag(value: string): string | null {
+  try {
+    return decodeURIComponent(value)
+  } catch {
+    return null
+  }
+}
 
 /** Falla si un enlace interno no existe. */
 export function validateInternalLinks(all: AnyEntry[]): void {
   const ids = new Set(all.map((entry) => entry.id))
+  const tags = new Set(all.flatMap((entry) => entry.data.tags ?? []))
   const errors: string[] = []
 
   for (const entry of all) {
     for (const [, href] of (entry.body ?? "").matchAll(INTERNAL_LINK)) {
-      const target = href.replace(/\/$/, "").slice(1)
+      const target = href.split(/[?#]/, 1)[0].replace(/\/$/, "").slice(1)
       const [first, second] = target.split("/")
+      const tag = second ? decodedTag(second) : null
 
       const exists =
         target === "" ||
-        target === "search" ||
-        first === "tags" ||
+        target === "buscar" ||
         ids.has(target) ||
-        (first === "categories" && CATEGORY_IDS.includes(second)) ||
+        (first === "tags" && (!second || (tag !== null && tags.has(tag)))) ||
+        (first === "categories" &&
+          (!second || CATEGORY_IDS.includes(second))) ||
         (first === "tipos" &&
-          CONTENT_TYPE_IDS.includes(second as ContentTypeId))
+          (!second || CONTENT_TYPE_IDS.includes(second as ContentTypeId)))
 
       if (!exists)
         errors.push(`  ${entry.id} → "${href}" no lleva a ninguna parte`)

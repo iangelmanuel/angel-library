@@ -1,18 +1,7 @@
 ---
 import Icon from "@/components/shared/Icon.astro"
+import { SEARCH_LINK, SITE_NAV, SOCIAL_LINKS } from "@/config/navigation"
 import { SITE } from "@/config/site"
-
-const NAV = [
-  { label: "Categorías", href: "/categories" },
-  { label: "Tipos", href: "/tipos/guides" },
-  { label: "Tags", href: "/tags" },
-  { label: "Buscar", href: "/buscar" }
-]
-
-const SOCIAL = [
-  { label: "GitHub", icon: "brand-github", href: SITE.social.github },
-  { label: "X", icon: "brand-x", href: SITE.social.x }
-]
 
 const year = new Date().getFullYear()
 ---
@@ -28,12 +17,16 @@ const year = new Date().getFullYear()
       class="wall-footer__nav"
       aria-label="Secciones de la biblioteca"
     >
-      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+      {
+        [...SITE_NAV.slice(1), SEARCH_LINK].map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))
+      }
     </nav>
 
     <div class="wall-footer__social chrome-social">
       {
-        SOCIAL.map((item) => (
+        SOCIAL_LINKS.map((item) => (
           <a
             href={item.href}
             target="_blank"

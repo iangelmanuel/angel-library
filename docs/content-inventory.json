@@ -1,5 +1,5 @@
 {
-  "total": 721,
+  "total": 723,
   "entries": [
     {
       "id": "accessibility/a11y-contenido/accessibility-contenido-multimedia",
@@ -4491,6 +4491,21 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
+      "id": "findings/hallazgos-ia/portal-shunt-spotify",
+      "type": "resources",
+      "private": false,
+      "words": 646,
+      "headings": [
+        "La idea",
+        "Las tres capas del enrutador",
+        "Los dos modos",
+        "El resultado medido",
+        "Replicarlo",
+        "Qué mirar de cerca"
+      ],
+      "signals": []
+    },
+    {
       "id": "findings/hallazgos-recursos/chuletas-git-css",
       "type": "resources",
       "private": false,
@@ -4545,6 +4560,19 @@
       "private": false,
       "words": 332,
       "headings": ["Qué demuestra", "Cómo usarlo", "Qué tener en cuenta"],
+      "signals": []
+    },
+    {
+      "id": "findings/hallazgos-web/cloud-in-a-bottle",
+      "type": "resources",
+      "private": false,
+      "words": 751,
+      "headings": [
+        "Qué resuelve realmente",
+        "Cómo funciona por dentro",
+        "Montarlo",
+        "Qué mirar de cerca"
+      ],
       "signals": []
     },
     {
@@ -4637,7 +4665,7 @@
       "id": "frontend/astro/astro-endpoints",
       "type": "guides",
       "private": false,
-      "words": 382,
+      "words": 498,
       "headings": [
         "Endpoint básico",
         "El contexto: params, request, url",

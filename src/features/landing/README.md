@@ -10,7 +10,7 @@ documentación, **dibuja el mecanismo** de la biblioteca — carpeta → tipo �
 
 ```
 LandingLayout          layouts/  BaseLayout + cabecera y pie propios, sin Sidebar
-  HeroPlan             identidad + el plano de archivado + el nodo «índice» (ctrl K)
+  HeroWall             identidad + el plano de archivado + el nodo «índice» (ctrl K)
   RouteSection         una ruta real despiezada en lo que el sistema produce
   FlowSection          una línea con tres tomas: buscar → leer → reutilizar
   InventorySection     tablero de tipos editoriales con su conteo real
@@ -22,12 +22,12 @@ LandingLayout          layouts/  BaseLayout + cabecera y pie propios, sin Sideba
 - **Textos fijos** → `data/content.ts`. Ningún componente escribe copy propio y
   ninguna cifra vive ahí.
 - **Cifras y la ruta de ejemplo** → `lib/stats.ts`. `loadStats()` lee la
-  colección `library` y devuelve documentos, categorías, subcarpetas con
+  colección `docs` y devuelve documentos, categorías, subcarpetas con
   contenido, tags, el conteo por tipo y `route`: una entrada real despiezada en
   raíz / categoría / subcategoría / archivo. Si esa entrada desaparece se elige
   otra automáticamente.
-- **Versión y repositorio** → `lib/project.ts`, leídos de `package.json` y de
-  `SITE.social.github`.
+- **Identidad y repositorio** → `config/site.ts`, que centraliza el nombre del
+  sitio y los enlaces del repositorio.
 - **Estilos propios** → `styles/landing.css`, importado por `LandingLayout`.
   Deliberadamente fuera de `src/styles/global.css`: solo esta página lo usa.
 
@@ -49,9 +49,8 @@ anulado bajo `prefers-reduced-motion`.
 
 ## Detalles que importan
 
-- La cabecera y el nodo «índice» usan `data-open-search`, el mismo gancho global
-  del resto del sitio: abre la terminal (`src/scripts/site-interactions.ts`), no
-  monta nada.
+- La cabecera y el nodo «índice» enlazan a `/buscar`, el buscador estático de
+  Starlight. No necesitan un script propio de la portada.
 - El relleno azul sólido aparece dos veces y en ningún sitio más: el prompt `$`
   del nodo índice y la banda de cierre. Es la regla del sistema, no una
   excepción de esta página.
