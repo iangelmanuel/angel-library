@@ -8,6 +8,67 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.32.0] — 2026-09-07
+
+Unifica los botones del sitio en un solo componente, migra los iconos a
+astro-icon y añade dos hallazgos.
+
+### Añadido
+
+- **Componente `Button`** (`src/components/shared/Button.astro`) con cuatro
+  variantes y ninguna más: `primary`, `secondary`, `outline` y `link`, en tres
+  tamaños. Con `href` renderiza un enlace; sin él, un `<button>`. Sus estilos
+  viven en `src/styles/components/button.css`, que cargan tanto la portada como
+  la documentación.
+- **astro-icon** como sistema de iconos, con la colección `@iconify-json/lucide`
+  y los diecisiete logos propios como archivos en `src/icons/`.
+- Dos hallazgos: **Cloud in a Bottle** (nube personal sobre hardware propio) y
+  **Portal de Spotify** (enrutar el trabajo de entrada/salida de un agente hacia
+  modelos más baratos). La biblioteca pasa de 721 a 723 entradas.
+- Tokens de relleno para los botones: `--primary-fill`, `--primary-fill-hover`,
+  `--neutral-fill`, `--neutral-fill-hover` y `--gray-700`.
+
+### Cambiado
+
+- **Los enlaces de una entrada son siempre dos como máximo y en el mismo sitio**:
+  el recurso a la izquierda con el botón primario y el repositorio a la derecha
+  con el secundario y el logo de GitHub. Un enlace a `github.com` cuenta como
+  repositorio venga del campo que venga (`github`, `url` o `website`). Sin
+  repositorio queda solo «Abrir el recurso». Desaparece el tercer botón,
+  «Sitio oficial».
+- Primario y secundario son campos de color planos, sin borde, degradado ni
+  relieve; al pasar por encima el primario se quema hacia el negro y el
+  secundario sube un escalón de gris.
+- `<Icon>` recibe el tamaño en píxeles (`size`) en lugar de una clase de
+  Tailwind, y los logos monocromos (`brand-github`, `brand-x`) usan
+  `currentColor`, de modo que heredan el color de su contexto.
+- La portada usa el botón compartido en el hero, el inventario y el cierre.
+
+### Eliminado
+
+- `src/lib/icons.ts`, la tabla `BRAND_ICONS` y la dependencia `lucide-static`,
+  reemplazados por astro-icon.
+- Las reglas de botón duplicadas en la hoja de la portada y en la cabecera de
+  entrada (`.wall-btn`, `.wall-hero__cta`, `.wall-hero__secondary`,
+  `.wall-inventory__all`, `.entry-meta__links a`).
+
+### Corregido
+
+- Los iconos de la documentación se dibujaban a 24 px —y el logo de GitHub a
+  81 px— porque `size-4` es una utilidad de Tailwind y las páginas de
+  documentación no cargan Tailwind.
+- El logo de GitHub salía gris dentro del botón secundario: `svgo` traslada el
+  `fill` del `<svg>` al `<path>`, y ese atributo ganaba al color heredado.
+- Las categorías del menú lateral no mostraban el cursor de mano al pasar por
+  encima, ni sobre su icono ni sobre su etiqueta.
+- Botón duplicado cuando `website` y `github` apuntaban al mismo repositorio.
+- El cierre de la portada enlazaba a `/search`, una ruta que ya no existe.
+
+### Verificado
+
+- `pnpm check` y `pnpm eslint`: sin errores.
+- `pnpm build`: 1.735 páginas generadas.
+
 ## [0.31.0] — 2026-09-07
 
 Simplifica la incorporación de contenido y reúne las mejoras de documentación
@@ -2066,7 +2127,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.31.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.32.0...HEAD
+[0.32.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.32.0
 [0.31.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.31.0
 [0.30.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.30.0
 [0.29.7]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.29.7

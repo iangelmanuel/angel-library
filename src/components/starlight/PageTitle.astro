@@ -1,5 +1,6 @@
 ---
 import Default from "@astrojs/starlight/components/PageTitle.astro"
+import Button from "@/components/shared/Button.astro"
 import {
   CATEGORIES,
   RESOURCE_CATEGORIES,
@@ -34,11 +35,41 @@ const technologies = techRefs
   .map((ref) => entries.find((item) => item.id === ref))
   .filter((item) => item !== undefined)
 
-const links = [
-  { label: "Sitio oficial", href: text("website") },
-  { label: "Repositorio", href: text("github") },
-  { label: "Abrir el recurso", href: text("url") }
-].filter((link) => link.href !== null)
+const isRepo = (href: string | null): href is string =>
+  href !== null && /^https:\/\/(www\.)?github\.com\/.+/.test(href)
+
+const website = text("website")
+const url = text("url")
+
+const repoHref = text("github") ?? [url, website].find(isRepo) ?? null
+const resourceHref =
+  [website, url].find(
+    (href) => href !== null && href !== repoHref && !isRepo(href)
+  ) ?? null
+
+// El recurso lleva el botón primario; el repositorio, el secundario.
+const links: {
+  label: string
+  href: string
+  icon: string
+  variant: "primary" | "secondary"
+}[] = []
+if (resourceHref) {
+  links.push({
+    label: "Abrir el recurso",
+    href: resourceHref,
+    icon: "external-link",
+    variant: "primary"
+  })
+}
+if (repoHref) {
+  links.push({
+    label: "Repositorio",
+    href: repoHref,
+    icon: isRepo(repoHref) ? "brand-github" : "external-link",
+    variant: "secondary"
+  })
+}
 
 const facts = [
   { label: "Problema", value: text("problem") },
@@ -138,28 +169,15 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
         {links.length > 0 && (
           <div class="entry-meta__links">
             {links.map((link) => (
-              <a
+              <Button
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                variant={link.variant}
+                icon={link.icon}
+                iconPosition="start"
+                external
               >
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M15 3h6v6" />
-                  <path d="M10 14 21 3" />
-                  <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
-                </svg>
                 {link.label}
-              </a>
+              </Button>
             ))}
           </div>
         )}
@@ -267,31 +285,6 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     margin: 0.2rem 0 0;
     font-size: 0.85rem;
     color: var(--gray-300);
-  }
-
-  /* Enlace externo: el botón principal del sitio. */
-  .entry-meta__links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.75rem;
-    border-radius: var(--radius-field);
-    background: var(--primary);
-    padding-inline: 1.1rem;
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--white);
-    text-decoration: none;
-    transition: background-color var(--dur-fast) var(--ease-enamel);
-  }
-
-  .entry-meta__links a:hover {
-    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
-  }
-
-  .entry-meta__links svg {
-    flex-shrink: 0;
-    color: var(--blue-200);
   }
 
   .entry-meta__warnings {

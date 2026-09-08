@@ -39,8 +39,23 @@
      encima del 4.5:1 que pide la AA para texto pequeño. Nada de texto baja
      de aquí. */
   --gray-450: #8e8e99;
+  --gray-700: #3f3f46;
   --gray-800: #27272a;
   --gray-900: #18181b;
+
+  /* La única excepción a la regla anterior: el relleno del botón secundario.
+     Un negro grisáceo que se despega del lienzo sin entrar en el azul. */
+  --neutral-fill: color-mix(in oklab, var(--gray-900) 65%, var(--gray-800));
+  --neutral-fill-hover: color-mix(
+    in oklab,
+    var(--gray-800) 55%,
+    var(--gray-700)
+  );
+
+  /* Esmalte pleno del botón primario: el mismo azul, un punto más vivo para
+     que el campo tenga cuerpo sin recurrir a un degradado. */
+  --primary-fill: color-mix(in oklab, var(--primary) 82%, var(--blue-700));
+  --primary-fill-hover: color-mix(in oklab, var(--primary) 78%, #000000);
 
   /* Superficies. Tres niveles de luz sobre el mismo negro. */
   --background: #000000;

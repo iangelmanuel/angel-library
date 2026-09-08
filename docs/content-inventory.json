@@ -34,9 +34,7 @@
         "Checklist visual",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "accessibility/a11y-fundamentos/accessibility-fundamentals-terminology",
@@ -100,10 +98,7 @@
         "Detalles de implementación",
         "Casos que suelen romperse"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar límites"
-      ]
+      "signals": ["sin fuente externa", "revisar límites"]
     },
     {
       "id": "accessibility/a11y-interaccion/accessibility-forms-validation",
@@ -119,9 +114,7 @@
         "Formularios que cruzan el servidor",
         "Checklist de revisión"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "accessibility/a11y-interaccion/accessibility-semantics-keyboard-focus",
@@ -137,9 +130,7 @@
         "Caso: navegación en una SPA",
         "Matriz de prueba"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "accessibility/a11y-testing/accessibility-checklist",
@@ -156,9 +147,7 @@
         "Componentes y cambios de contexto",
         "Puerta de calidad"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "accessibility/a11y-testing/accessibility-testing-manual-automatico",
@@ -172,9 +161,7 @@
         "Criterio de salida",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "agents/agents-fundamentos/agent-safe-workflow",
@@ -190,9 +177,7 @@
         "Acciones de alto impacto",
         "Aprender del trabajo"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "agents/agents-fundamentos/coding-agents-fundamentals",
@@ -209,9 +194,7 @@
         "Qué debe verificar una persona",
         "Primer flujo recomendado"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "agents/claude-code/claude-code-claude-md",
@@ -224,10 +207,7 @@
         "Importar otros archivos",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/claude-code/claude-code-comandos-nativos",
@@ -242,9 +222,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "agents/claude-code/claude-code-hooks",
@@ -258,10 +236,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/claude-code/claude-code-mcp",
@@ -275,9 +250,7 @@
         "Comandos útiles",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "agents/claude-code/claude-code-plugins",
@@ -292,10 +265,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/claude-code/claude-code-settings",
@@ -325,25 +295,15 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "agents/claude-code/claude-code-slash-commands",
       "type": "skills",
       "private": false,
       "words": 98,
-      "headings": [
-        "Qué son",
-        "Ubicación",
-        "Anatomía",
-        "Claves"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Qué son", "Ubicación", "Anatomía", "Claves"],
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/claude-code/claude-code-subagentes",
@@ -358,10 +318,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/codex/codex-agents-md",
@@ -376,10 +333,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/codex/codex-config",
@@ -394,9 +348,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "agents/codex/codex-hooks",
@@ -410,10 +362,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/codex/codex-mcp",
@@ -427,9 +376,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "agents/codex/codex-plugins",
@@ -442,10 +389,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/codex/codex-skills",
@@ -461,9 +405,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "agents/codex/codex-subagentes",
@@ -479,10 +421,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-agents-md",
@@ -495,10 +434,7 @@
         "`AGENTS.md` vs `.mdc`: cuándo cada uno",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-comandos-nativos",
@@ -513,10 +449,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-comandos",
@@ -530,9 +463,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "agents/cursor/cursor-config",
@@ -547,10 +478,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-hooks",
@@ -564,10 +492,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-mcp",
@@ -581,9 +506,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-plugins",
@@ -598,10 +521,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-rules",
@@ -615,10 +535,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/cursor/cursor-subagentes",
@@ -633,10 +550,7 @@
         "Built-ins sin configurar nada",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/opencode/opencode-agentes",
@@ -651,10 +565,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/opencode/opencode-comandos",
@@ -669,10 +580,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/opencode/opencode-config",
@@ -699,9 +607,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "agents/opencode/opencode-mcp",
@@ -715,9 +621,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "agents/opencode/opencode-plugins",
@@ -732,10 +636,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "agents/opencode/opencode-skills",
@@ -750,9 +651,7 @@
         "Controlar el acceso",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "ai/ai-agentes/ai-agentes-herramientas-evaluacion",
@@ -805,9 +704,7 @@
         "Seguridad, privacidad y _prompt injection_",
         "Flujo recomendado para una funcionalidad con IA"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "ai/ai-fundamentos/ai-multimodal-privacidad",
@@ -850,10 +747,7 @@
         "Evaluar por capas",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "ai/ai-sdk/ai-sdk-fundamentos",
@@ -1042,9 +936,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "applications/apps-cli/cli-supabase",
@@ -1184,9 +1076,7 @@
         "Bots — cuando un webhook no alcanza",
         "Cuándo usarlo"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "applications/apps-design/application-excalidraw",
@@ -1201,10 +1091,7 @@
         "Guardar y exportar",
         "Cuándo usarlo"
       ],
-      "signals": [
-        "revisar comprobación",
-        "revisar límites"
-      ]
+      "signals": ["revisar comprobación", "revisar límites"]
     },
     {
       "id": "applications/apps-design/application-figma",
@@ -1275,9 +1162,7 @@
         "Profiles y Settings Sync",
         "Workspace Trust y seguridad"
       ],
-      "signals": [
-        "revisar límites"
-      ]
+      "signals": ["revisar límites"]
     },
     {
       "id": "applications/apps-editors/myastro",
@@ -1351,10 +1236,7 @@
         "Mapa rápido de la configuración",
         "Privacidad de esta página"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "applications/apps-editors/mynext",
@@ -1443,9 +1325,7 @@
         "La API de Notion",
         "Cuándo usarlo"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "applications/apps-terminal/application-warp",
@@ -1475,9 +1355,7 @@
         "Cuándo encaja",
         "Antes de comprar"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "applications/apps-video/application-voicestudio",
@@ -1493,9 +1371,7 @@
         "Uso responsable",
         "Cuándo encaja"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "architecture/patrones-arquitectonicos/dependency-injection",
@@ -1507,9 +1383,7 @@
         "La solución: recibirla de afuera",
         "No hace falta un framework de DI"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-arquitectonicos/event-driven",
@@ -1521,9 +1395,7 @@
         "No es lo mismo que el patrón Observer",
         "El trade-off honesto"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-arquitectonicos/hexagonal-architecture",
@@ -1536,9 +1408,7 @@
         "Ejemplo: un caso de uso que no sabe qué ORM existe",
         "Cuándo NO usar esto"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-arquitectonicos/layered-architecture",
@@ -1550,9 +1420,7 @@
         "Layered vs. MVC",
         "La regla que más se rompe"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-arquitectonicos/monolith-vs-microservices",
@@ -1565,9 +1433,7 @@
         "Microservicios",
         "Regla práctica"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-arquitectonicos/mvc-overview",
@@ -1580,9 +1446,7 @@
         "MVC clásico vs. frontend moderno",
         "Implementación real"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-arquitectonicos/repository-pattern",
@@ -1595,9 +1459,7 @@
         "Qué compra esto",
         "Cuándo NO vale la pena"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-diseno/adapter",
@@ -1612,9 +1474,7 @@
         "Uso",
         "Cuándo NO usarlo"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-diseno/builder",
@@ -1627,10 +1487,7 @@
         "Cuándo un objeto de opciones alcanza",
         "Cuándo Builder vale la pena"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "architecture/patrones-diseno/command",
@@ -1643,10 +1500,7 @@
         "Ejemplo: cola de jobs",
         "Cuándo NO usarlo"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "architecture/patrones-diseno/decorator",
@@ -1659,23 +1513,15 @@
         "Ejemplo: middleware de Express",
         "Cuándo NO usarlo"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-diseno/facade",
       "type": "patterns",
       "private": false,
       "words": 186,
-      "headings": [
-        "Problema",
-        "Ejemplo: checkout",
-        "Cuándo NO usarlo"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Problema", "Ejemplo: checkout", "Cuándo NO usarlo"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-diseno/factory",
@@ -1702,10 +1548,7 @@
         "El mismo patrón, en todas partes",
         "Cuándo NO usarlo"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "architecture/patrones-diseno/proxy",
@@ -1731,9 +1574,7 @@
         "Cómo se ve en lenguajes sin este cacheo",
         "Cuándo NO usarlo (o usarlo con cuidado)"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/patrones-diseno/strategy",
@@ -1747,9 +1588,7 @@
         "En JS/TS es un objeto o Map de funciones, no clases",
         "Cuándo NO usarlo"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/adr",
@@ -1762,9 +1601,7 @@
         "Reglas de uso",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/architecture-decision-guide",
@@ -1779,10 +1616,7 @@
         "Señales de sobrediseño",
         "Spike y ADR"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "architecture/principios/architecture-fundamentals-terminology",
@@ -1802,9 +1636,7 @@
         "ADR y documentación",
         "Evaluar una decisión"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/architecture-modulos-limites",
@@ -1835,9 +1667,7 @@
         "Caso de uso",
         "Para aprender y recordar"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/cohesion-acoplamiento",
@@ -1851,9 +1681,7 @@
         "Cuándo el bajo acoplamiento se lleva al extremo",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/composicion-sobre-herencia",
@@ -1867,9 +1695,7 @@
         "Cuándo SÍ tiene sentido un poco de herencia",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/deuda-tecnica",
@@ -1896,9 +1722,7 @@
         "Cuándo estos principios se vuelven dogma (y eso es el problema)",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/solid",
@@ -1914,9 +1738,7 @@
         "Cuándo NO aplica (o aplica distinto)",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "architecture/principios/validate-at-boundaries",
@@ -1930,9 +1752,7 @@
         "Límites antes del schema",
         "Regla práctica"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/astro/astro-api-protegida",
@@ -2005,10 +1825,7 @@
         "Piezas de Auth.js en Astro",
         "Callbacks, sesión y rutas"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "backend/astro/astro-backend-arquitectura",
@@ -2026,9 +1843,7 @@
         "Seguridad mínima",
         "Señal de que la arquitectura funciona"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/astro/astro-better-auth",
@@ -2114,9 +1929,7 @@
         "Streaming",
         "Verificación de despliegue"
       ],
-      "signals": [
-        "revisar límites"
-      ]
+      "signals": ["revisar límites"]
     },
     {
       "id": "backend/astro/astro-supabase",
@@ -2147,9 +1960,7 @@
         "Idempotencia y errores",
         "Operación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/backend-fundamentos/backend-archivos-object-storage",
@@ -2173,15 +1984,8 @@
       "type": "guides",
       "private": false,
       "words": 220,
-      "headings": [
-        "Semántica de entrega",
-        "Reintentos",
-        "Operación"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "headings": ["Semántica de entrega", "Reintentos", "Operación"],
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "backend/backend-fundamentos/backend-fundamentals-terminology",
@@ -2205,10 +2009,7 @@
         "Cierre ordenado",
         "Checklist de una operación"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "backend/backend-fundamentos/backend-idempotencia-cache",
@@ -2221,10 +2022,7 @@
         "Caché de aplicación",
         "Regla de decisión"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "backend/backend-fundamentos/backend-resiliencia-dependencias",
@@ -2240,24 +2038,15 @@
         "Caso de uso: endpoint con dependencia remota",
         "Lista de comprobación"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "backend/backend-fundamentos/backend-webhooks-tiempo-real",
       "type": "guides",
       "private": false,
       "words": 206,
-      "headings": [
-        "Recibir un webhook",
-        "Server-Sent Events",
-        "WebSocket"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Recibir un webhook", "Server-Sent Events", "WebSocket"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/backend-mvc-structure",
@@ -2270,10 +2059,7 @@
         "Reglas",
         "Error handler central"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "backend/express/bcrypt",
@@ -2287,9 +2073,7 @@
         "Resumen",
         "Consideraciones — por qué NO comparar con `===`"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-api-error-responses",
@@ -2304,9 +2088,7 @@
         "Contrato de referencia",
         "Exposición segura de errores"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "backend/express/express-api-paginacion",
@@ -2343,9 +2125,7 @@
         "Consideraciones",
         "Comprobación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-auth-completa",
@@ -2362,9 +2142,7 @@
         "Consideraciones",
         "Comprobación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-auth-js",
@@ -2380,9 +2158,7 @@
         "Piezas de Auth.js",
         "Sesión, callbacks y adaptación"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "backend/express/express-auth-middleware",
@@ -2434,9 +2210,7 @@
         "Comparación de modelos",
         "Elegir transporte y revocación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-cors",
@@ -2452,10 +2226,7 @@
         "Configuración rápida",
         "Lo que CORS no resuelve"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "backend/express/express-crud-completo",
@@ -2486,9 +2257,7 @@
         "Por qué responder igual exista o no el email",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-error-handling",
@@ -2503,10 +2272,7 @@
         "Flujo de un error",
         "Frontera y exposición segura"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "backend/express/express-jwt-paso-a-paso",
@@ -2575,9 +2341,7 @@
         "Cadena de consulta",
         "Reglas de orden y terminación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-mvc-completo",
@@ -2613,10 +2377,7 @@
         "Orden inicial recomendado",
         "Qué Express no crea por ti"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "backend/express/express-prisma-completo",
@@ -2664,10 +2425,7 @@
         "Mapa CRUD",
         "Errores comunes"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "backend/express/express-roles-permisos",
@@ -2703,9 +2461,7 @@
         "404 y métodos no permitidos",
         "Caso de uso y frontera HTTP"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-seguridad",
@@ -2742,9 +2498,7 @@
         "Por qué el filtro `.eq('author_id', ...)` es explícito aquí",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "backend/express/express-supabase",
@@ -2778,10 +2532,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "backend/express/express-validacion-contratos",
@@ -2796,9 +2547,7 @@
         "Errores útiles y seguros",
         "Límites antes del schema"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/express/express-validator",
@@ -2850,9 +2599,7 @@
         "Resumen",
         "Consideraciones — cuándo un template engine server-side sigue teniendo sentido"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "backend/express/resend",
@@ -2962,9 +2709,7 @@
         "Operación segura",
         "Señal de una buena separación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/nextjs/nextjs-better-auth",
@@ -3001,9 +2746,7 @@
         "Impacto en renderizado",
         "Errores comunes"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "backend/nextjs/nextjs-crud-prisma",
@@ -3067,10 +2810,7 @@
         "Capacidades de Supabase en Next.js",
         "Claves, RLS y Server Components"
       ],
-      "signals": [
-        "revisar comprobación",
-        "revisar límites"
-      ]
+      "signals": ["revisar comprobación", "revisar límites"]
     },
     {
       "id": "backend/node/node-buffer-binario",
@@ -3084,10 +2824,7 @@
         "Copias y vistas",
         "Buffer o stream"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "backend/node/node-child-process",
@@ -3102,9 +2839,7 @@
         "Elegir entre `exec`, `spawn` y `fork`",
         "Consideraciones — seguridad"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/node/node-commonjs-vs-esm",
@@ -3141,9 +2876,7 @@
         "Mapa de configuración",
         "Reglas de despliegue"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/node/node-errores-asincronia",
@@ -3158,9 +2891,7 @@
         "Combinadores de promesas",
         "Fronteras finales"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "backend/node/node-events",
@@ -3210,10 +2941,7 @@
         "Referencia de filesystem",
         "Rutas, tamaños y errores"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "backend/node/node-http-server",
@@ -3229,10 +2957,7 @@
         "Referencia de HTTP nativo",
         "Qué añade un framework"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "backend/node/node-package-json",
@@ -3248,10 +2973,7 @@
         "Campos de consulta",
         "Lockfile y consistencia"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar límites"
-      ]
+      "signals": ["sin fuente externa", "revisar límites"]
     },
     {
       "id": "backend/node/node-primeros-pasos",
@@ -3267,9 +2989,7 @@
         "Primer recorrido recomendado",
         "Comprobación rápida"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/node/node-process",
@@ -3284,10 +3004,7 @@
         "Referencia del proceso",
         "Reglas de cierre"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "backend/node/node-rest-api-minima",
@@ -3320,9 +3037,7 @@
         "Observar el loop",
         "Regla práctica"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "backend/node/node-servidor-estatico",
@@ -3354,10 +3069,7 @@
         "Referencia de streams",
         "Cuándo usar streams"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "backend/node/node-worker-threads",
@@ -3370,10 +3082,7 @@
         "Worker thread, child process o job queue",
         "Seguridad y operación"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "backend/node/nodejs",
@@ -3408,9 +3117,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-databases/clickbench",
@@ -3424,9 +3131,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-frameworks/js-framework-benchmark",
@@ -3440,9 +3145,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-frameworks/techempower-framework-benchmarks",
@@ -3456,9 +3159,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-hardware/openbenchmarking",
@@ -3472,9 +3173,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-ia/artificial-analysis",
@@ -3492,9 +3191,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-ia/cursorbench",
@@ -3508,9 +3205,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-web/speedometer",
@@ -3524,9 +3219,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "benchmarks/benchmarks-web/webpagetest",
@@ -3540,9 +3233,7 @@
         "Credibilidad",
         "Cómo usarlo bien"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-amazon/aws-microcredenciales",
@@ -3555,20 +3246,14 @@
         "Sobre el idioma",
         "Cuándo tiene sentido"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-google/google-ai-professional-certificate",
       "type": "resources",
       "private": false,
       "words": 263,
-      "headings": [
-        "Qué cubre",
-        "Precio",
-        "Cuándo tiene sentido"
-      ],
+      "headings": ["Qué cubre", "Precio", "Cuándo tiene sentido"],
       "signals": []
     },
     {
@@ -3582,9 +3267,7 @@
         "Cohortes y disponibilidad",
         "Si no cumples los requisitos"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-microsoft/microsoft-learn-student-hub",
@@ -3596,19 +3279,14 @@
         "Ventajas si eres estudiante",
         "Qué esperar del portal"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-microsoft/microsoft-linkedin-skills",
       "type": "resources",
       "private": false,
       "words": 208,
-      "headings": [
-        "Qué esperar",
-        "Cómo encaja para alguien que ya programa"
-      ],
+      "headings": ["Qué esperar", "Cómo encaja para alguien que ya programa"],
       "signals": []
     },
     {
@@ -3628,14 +3306,8 @@
       "type": "resources",
       "private": false,
       "words": 254,
-      "headings": [
-        "Qué cubre",
-        "Por qué destaca",
-        "Si llegas tarde"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Qué cubre", "Por qué destaca", "Si llegas tarde"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-midudev/libropython-think-python",
@@ -3655,12 +3327,7 @@
       "type": "resources",
       "private": false,
       "words": 307,
-      "headings": [
-        "Qué incluye",
-        "Temario",
-        "El certificado",
-        "Cómo encaja"
-      ],
+      "headings": ["Qué incluye", "Temario", "El certificado", "Cómo encaja"],
       "signals": []
     },
     {
@@ -3668,10 +3335,7 @@
       "type": "resources",
       "private": false,
       "words": 167,
-      "headings": [
-        "Cómo usarlo",
-        "Nota sobre las versiones"
-      ],
+      "headings": ["Cómo usarlo", "Nota sobre las versiones"],
       "signals": []
     },
     {
@@ -3742,18 +3406,14 @@
         "Qué esperar",
         "Sobre esta playlist"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-plataformas/curso-ingles",
       "type": "resources",
       "private": false,
       "words": 162,
-      "headings": [
-        "Cómo encaja"
-      ],
+      "headings": ["Cómo encaja"],
       "signals": []
     },
     {
@@ -3761,14 +3421,8 @@
       "type": "resources",
       "private": false,
       "words": 254,
-      "headings": [
-        "Qué lo diferencia",
-        "Cómo usarlo",
-        "Detalles prácticos"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Qué lo diferencia", "Cómo usarlo", "Detalles prácticos"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-plataformas/freecodecamp-a2-english",
@@ -3786,25 +3440,15 @@
       "type": "resources",
       "private": false,
       "words": 198,
-      "headings": [
-        "Qué es exactamente",
-        "Los cursos",
-        "Antes de empezar"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Qué es exactamente", "Los cursos", "Antes de empezar"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "courses/cursos-plataformas/replit-learn",
       "type": "resources",
       "private": false,
       "words": 207,
-      "headings": [
-        "Cursos",
-        "Qué enseña",
-        "Qué tener en cuenta"
-      ],
+      "headings": ["Cursos", "Qué enseña", "Qué tener en cuenta"],
       "signals": []
     },
     {
@@ -3817,9 +3461,7 @@
         "Lo que todavía no está",
         "Por qué merece la pena igual"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "database/database-fundamentos/database-data-integrity-types-null",
@@ -3884,9 +3526,7 @@
         "Cómo evaluar un patrón",
         "Referencias"
       ],
-      "signals": [
-        "revisar límites"
-      ]
+      "signals": ["revisar límites"]
     },
     {
       "id": "database/database-modelado/database-modelado-relacional",
@@ -3951,9 +3591,7 @@
         "Lista de comprobación",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "database/database-nosql/database-redis-practico",
@@ -4040,9 +3678,7 @@
         "Evitar N+1 y consultas sin límite",
         "Lista de comprobación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "database/database-postgresql/postgresql-mantenimiento-seguridad",
@@ -4105,9 +3741,7 @@
         "Lista de comprobación",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "database/database-prisma/prisma-configuracion",
@@ -4219,10 +3853,7 @@
         "Criterios de éxito",
         "Rollback y roll-forward"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/ci-cd/cicd-pipeline-fundamentals",
@@ -4235,10 +3866,7 @@
         "Feedback y seguridad",
         "Fallos"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "devops/cloud-fundamentos/devops-cloud-fundamentals",
@@ -4252,9 +3880,7 @@
         "Costos y límites",
         "Diseño inicial razonable"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/devops-fundamentos/devops-environments-releases",
@@ -4269,9 +3895,7 @@
         "Rollback y roll-forward",
         "Criterio de confianza"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/devops-fundamentos/devops-fundamentals-terminology",
@@ -4292,9 +3916,7 @@
         "Incidentes y recuperación",
         "Flujo recomendado"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/docker-bases-datos/docker-postgres-compose",
@@ -4385,10 +4007,7 @@
         "Ciclo típico de desarrollo",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-compose/docker-compose-multi-servicio",
@@ -4403,10 +4022,7 @@
         "Solo levantar un subconjunto de servicios",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-compose/docker-compose-variables",
@@ -4420,10 +4036,7 @@
         "Valor por defecto si la variable no está definida",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-conceptos/docker-arquitectura",
@@ -4436,10 +4049,7 @@
         "Imagen → contenedor, en más detalle",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "devops/docker-conceptos/docker-contenedores-vs-vms",
@@ -4453,9 +4063,7 @@
         "Por qué esto importa en la práctica",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/docker-conceptos/docker-instalacion",
@@ -4484,10 +4092,7 @@
         "Qué NO es Docker",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-contenedores/docker-exec-logs",
@@ -4521,9 +4126,7 @@
         "Limpiar contenedores detenidos",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/docker-contenedores/docker-ps-inspect",
@@ -4538,10 +4141,7 @@
         "`docker top`: procesos dentro de un contenedor",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-contenedores/docker-run-basico",
@@ -4557,9 +4157,7 @@
         "`--rm`: para pruebas descartables",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/docker-contenedores/docker-variables-entorno",
@@ -4574,10 +4172,7 @@
         "Ver las variables de un contenedor corriendo",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-imagenes/docker-build-tags",
@@ -4632,10 +4227,7 @@
         "Forma de array vs forma de string",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-imagenes/docker-dockerignore",
@@ -4649,10 +4241,7 @@
         "Efecto en el cache de build",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "devops/docker-imagenes/docker-multi-stage",
@@ -4666,10 +4255,7 @@
         "Ejemplo con más de dos etapas",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "devops/docker-imagenes/docker-registry-hub",
@@ -4684,10 +4270,7 @@
         "Registries privados / alternativos",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "devops/docker-redes-volumenes/docker-persistencia-datos",
@@ -4720,10 +4303,7 @@
         "Inspeccionar una red",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "devops/docker-redes-volumenes/docker-volumenes",
@@ -4756,9 +4336,7 @@
         "Secretos",
         "Cambios seguros"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/observabilidad/observability-fundamentals",
@@ -4773,10 +4351,7 @@
         "Alertas",
         "Para aprender y recordar"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "devops/observabilidad/observability-health-shutdown",
@@ -4789,9 +4364,7 @@
         "Timeouts coordinados",
         "Prueba de despliegue"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "devops/observabilidad/observability-incident-response",
@@ -4805,20 +4378,14 @@
         "Postmortem",
         "Kit mínimo"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "findings/hallazgos-codigo/30-days-of-javascript-asabeneh",
       "type": "resources",
       "private": false,
       "words": 195,
-      "headings": [
-        "Qué recorre",
-        "Cómo seguirlo",
-        "Nota sobre la licencia"
-      ],
+      "headings": ["Qué recorre", "Cómo seguirlo", "Nota sobre la licencia"],
       "signals": []
     },
     {
@@ -4826,11 +4393,7 @@
       "type": "resources",
       "private": false,
       "words": 221,
-      "headings": [
-        "Cuál enlazar",
-        "Qué cubre",
-        "Cómo leerlo"
-      ],
+      "headings": ["Cuál enlazar", "Qué cubre", "Cómo leerlo"],
       "signals": []
     },
     {
@@ -4855,19 +4418,14 @@
         "Cómo estudiarlo",
         "Aviso sobre entrevistas"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "findings/hallazgos-codigo/javascript-questions-lydiahallie",
       "type": "resources",
       "private": false,
       "words": 226,
-      "headings": [
-        "Cómo aprovecharlo",
-        "Aviso sobre mantenimiento"
-      ],
+      "headings": ["Cómo aprovecharlo", "Aviso sobre mantenimiento"],
       "signals": []
     },
     {
@@ -4875,11 +4433,7 @@
       "type": "resources",
       "private": false,
       "words": 271,
-      "headings": [
-        "Qué cubre",
-        "Cómo usarlo",
-        "Sobre la traducción"
-      ],
+      "headings": ["Qué cubre", "Cómo usarlo", "Sobre la traducción"],
       "signals": []
     },
     {
@@ -4894,9 +4448,7 @@
         "Cómo usarlo",
         "Qué tener en cuenta"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "findings/hallazgos-ia/llms-from-scratch",
@@ -4909,9 +4461,7 @@
         "Cómo usarlo",
         "Qué tener en cuenta"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "findings/hallazgos-ia/nodeterm",
@@ -4924,9 +4474,7 @@
         "Probarlo",
         "Qué mirar de cerca"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "findings/hallazgos-ia/open-executive",
@@ -4940,20 +4488,14 @@
         "Cómo usarlo",
         "Qué tener en cuenta"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "findings/hallazgos-recursos/chuletas-git-css",
       "type": "resources",
       "private": false,
       "words": 209,
-      "headings": [
-        "Git y GitHub",
-        "Flexbox y Grid",
-        "Por qué en PDF"
-      ],
+      "headings": ["Git y GitHub", "Flexbox y Grid", "Por qué en PDF"],
       "signals": []
     },
     {
@@ -4961,10 +4503,7 @@
       "type": "resources",
       "private": false,
       "words": 163,
-      "headings": [
-        "Por qué complementa a los otros recursos",
-        "Cómo usarla"
-      ],
+      "headings": ["Por qué complementa a los otros recursos", "Cómo usarla"],
       "signals": []
     },
     {
@@ -4977,18 +4516,14 @@
         "Para qué sirven y para qué no",
         "Dos avisos prácticos"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "findings/hallazgos-recursos/midudev-plantillas-cv",
       "type": "resources",
       "private": false,
       "words": 238,
-      "headings": [
-        "Lo que realmente cambia el resultado"
-      ],
+      "headings": ["Lo que realmente cambia el resultado"],
       "signals": []
     },
     {
@@ -5009,11 +4544,7 @@
       "type": "resources",
       "private": false,
       "words": 332,
-      "headings": [
-        "Qué demuestra",
-        "Cómo usarlo",
-        "Qué tener en cuenta"
-      ],
+      "headings": ["Qué demuestra", "Cómo usarlo", "Qué tener en cuenta"],
       "signals": []
     },
     {
@@ -5045,9 +4576,7 @@
         "Errores frecuentes",
         "Decisiones prácticas"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "frontend/astro/astro-content-collections",
@@ -5083,9 +4612,7 @@
         "Caché y frescura",
         "Errores frecuentes"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "frontend/astro/astro-directivas",
@@ -5195,10 +4722,7 @@
         "Propiedades de `Astro` en una mirada",
         "Disponibilidad y límites de seguridad"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "frontend/astro/astro-i18n",
@@ -5229,10 +4753,7 @@
         "Props y formatos en una mirada",
         "Rendimiento, dimensiones y accesibilidad"
       ],
-      "signals": [
-        "sin enlace de continuidad",
-        "revisar comprobación"
-      ]
+      "signals": ["sin enlace de continuidad", "revisar comprobación"]
     },
     {
       "id": "frontend/astro/astro-integrations",
@@ -5308,9 +4829,7 @@
         "Seguridad",
         "Errores frecuentes"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "frontend/astro/astro-middleware",
@@ -5325,24 +4844,15 @@
         "Contexto y helpers en una mirada",
         "Orden, alcance y seguridad"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "frontend/astro/astro-prefetch",
       "type": "guides",
       "private": false,
       "words": 384,
-      "headings": [
-        "Estrategias",
-        "Cómo medirlo",
-        "Cuándo desactivarlo"
-      ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "headings": ["Estrategias", "Cómo medirlo", "Cuándo desactivarlo"],
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "frontend/astro/astro-project-configuration",
@@ -5360,9 +4870,7 @@
         "Configuración frente a datos de aplicación",
         "Checklist de configuración"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "frontend/astro/astro-rendering-modes",
@@ -5381,9 +4889,7 @@
         "Caso de uso: catálogo con cuenta",
         "Diagnóstico rápido"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "frontend/astro/astro-routing",
@@ -5430,9 +4936,7 @@
         "API de Actions en una mirada",
         "Validación, autorización e idempotencia"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "frontend/astro/astro-server-islands",
@@ -5565,10 +5069,7 @@
         "Mejora progresiva y resiliencia",
         "Curva de aprendizaje recomendada"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "frontend/nextjs/nextjs-cache-components",
@@ -5599,9 +5100,7 @@
         "Directivas en una mirada",
         "Fronteras y errores de alcance"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "frontend/nextjs/nextjs-endpoints",
@@ -5635,9 +5134,7 @@
         "Validar al iniciar",
         "Seguridad"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "frontend/nextjs/nextjs-fetching-revalidate",
@@ -5655,9 +5152,7 @@
         "Mapa del modelo clásico",
         "Pruebas, frescura y migración"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "frontend/nextjs/nextjs-font",
@@ -5742,10 +5237,7 @@
         "API en una mirada",
         "Carga, seguridad y errores"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "frontend/nextjs/nextjs-internationalization",
@@ -5760,9 +5252,7 @@
         "SEO y formato",
         "Errores frecuentes"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "frontend/nextjs/nextjs-layouts",
@@ -5818,10 +5308,7 @@
         "Convenciones de archivo en una mirada",
         "Recuperación, estado y límites de error"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "frontend/nextjs/nextjs-parallel-intercepting-routes",
@@ -5872,9 +5359,7 @@
         "Separar código por entorno",
         "Criterio para decidir ubicación"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "frontend/nextjs/nextjs-proxy",
@@ -5889,9 +5374,7 @@
         "API de Proxy en una mirada",
         "Alcance, latencia y seguridad"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "frontend/nextjs/nextjs-redirect-notfound",
@@ -5992,10 +5475,7 @@
         "Contrato de una Action en una mirada",
         "Seguridad, errores y consistencia"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "frontend/nextjs/nextjs-server-client-components",
@@ -6008,10 +5488,7 @@
         "Composición correcta",
         "Errores comunes"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "frontend/nextjs/nextjs-streaming-suspense",
@@ -6045,9 +5522,7 @@
         "Evitar cambios de layout",
         "Errores frecuentes"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "frontend/nextjs/nextjs-usepathname",
@@ -6171,10 +5646,7 @@
         "URL como estado",
         "Revisión de arquitectura"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "frontend/react/motion",
@@ -6311,21 +5783,14 @@
         "Flujo de formulario en una mirada",
         "Errores comunes"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "frontend/react/react-hook-form",
       "type": "libraries",
       "private": false,
       "words": 186,
-      "headings": [
-        "Uso básico",
-        "Cuándo uso qué",
-        "Tips",
-        "Errores comunes"
-      ],
+      "headings": ["Uso básico", "Cuándo uso qué", "Tips", "Errores comunes"],
       "signals": []
     },
     {
@@ -6399,9 +5864,7 @@
         "Caso de uso: formulario editable",
         "Señales de un modelo incorrecto"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "frontend/react/react-suspense-lazy-use",
@@ -6419,9 +5882,7 @@
         "Casos de uso",
         "Errores frecuentes"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "frontend/react/react-useactionstate",
@@ -6522,10 +5983,7 @@
         "API de estado en una mirada",
         "Identidad, closures y estado derivado"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "frontend/react/react-usetransition",
@@ -6578,9 +6036,7 @@
         "Particularidades",
         "Flujo validado en una mirada"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "frontend/react/tanstack-query",
@@ -6608,9 +6064,7 @@
         "Búsqueda con cancelación",
         "Límites y decisiones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "frontend/react/use-event-listener",
@@ -6624,9 +6078,7 @@
         "Targets, limpieza y closures",
         "Comprobación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "frontend/react/use-intersection-observer",
@@ -6690,9 +6142,7 @@
         "Requisitos y comprobación",
         "Fuentes"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "frontend/react/use-on-click-outside",
@@ -6739,10 +6189,7 @@
         "Semántica de la API",
         "Casos apropiados"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "frontend/react/zustand",
@@ -6780,9 +6227,7 @@
         "Configuración para Astro",
         "Configuración para Next.js"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "general/config/site-config-global",
@@ -6858,9 +6303,7 @@
         "npm — necesita `concurrently`",
         "Verificar que funciona"
       ],
-      "signals": [
-        "revisar límites"
-      ]
+      "signals": ["revisar límites"]
     },
     {
       "id": "general/monorepo/monorepo-npm",
@@ -6876,9 +6319,7 @@
         "5. --workspace — ejecutar comandos en paquetes concretos",
         "6. Scripts recomendados en la raíz"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "general/monorepo/monorepo-pnpm",
@@ -6895,9 +6336,7 @@
         "7. Catalogs — una versión, un solo lugar",
         "8. Scripts recomendados en la raíz"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "general/monorepo/monorepo-que-es",
@@ -6912,10 +6351,7 @@
         "Herramientas de orquestación: más allá de los workspaces",
         "Siguiente paso"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar límites"
-      ]
+      "signals": ["revisar requisitos", "revisar límites"]
     },
     {
       "id": "general/packages/npm-check-updates",
@@ -6934,9 +6370,7 @@
         "CI: `--errorLevel`",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "general/packages/zod",
@@ -7038,10 +6472,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "general/utils/clipboard",
@@ -7057,10 +6488,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "general/utils/date",
@@ -7085,9 +6513,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "general/utils/dom",
@@ -7115,9 +6541,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "general/utils/fetch",
@@ -7177,10 +6601,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "general/utils/object",
@@ -7217,9 +6638,7 @@
         "Comprobación",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "general/utils/safe-json-parse",
@@ -7227,10 +6646,7 @@
       "private": false,
       "words": 28,
       "headings": [],
-      "signals": [
-        "sin secciones",
-        "sin fuente externa"
-      ]
+      "signals": ["sin secciones", "sin fuente externa"]
     },
     {
       "id": "general/utils/storage",
@@ -7247,9 +6663,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "general/utils/string",
@@ -7268,10 +6682,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "general/utils/url",
@@ -7285,10 +6696,7 @@
         "Resumen",
         "Seguridad"
       ],
-      "signals": [
-        "revisar comprobación",
-        "revisar límites"
-      ]
+      "signals": ["revisar comprobación", "revisar límites"]
     },
     {
       "id": "general/whatsapp/openwa-instalacion",
@@ -7307,10 +6715,7 @@
         "Podman en vez de Docker",
         "Siguiente paso"
       ],
-      "signals": [
-        "revisar comprobación",
-        "revisar límites"
-      ]
+      "signals": ["revisar comprobación", "revisar límites"]
     },
     {
       "id": "general/whatsapp/openwa-mcp",
@@ -7324,9 +6729,7 @@
         "Seguridad",
         "Un riesgo que no es del gateway"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "general/whatsapp/openwa-que-es",
@@ -7361,9 +6764,7 @@
         "Control de acceso",
         "Recordatorio"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "general/whatsapp/openwa-webhooks",
@@ -7377,9 +6778,7 @@
         "Eventos útiles",
         "Buenas prácticas del receptor"
       ],
-      "signals": [
-        "revisar límites"
-      ]
+      "signals": ["revisar límites"]
     },
     {
       "id": "git/git/git-bisect",
@@ -7393,10 +6792,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "git/git/git-cherry-pick",
@@ -7412,10 +6808,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "git/git/git-commits-parciales",
@@ -7429,9 +6822,7 @@
         "Si preparaste de más",
         "Regla práctica"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/git/git-configuracion-inicial",
@@ -7468,10 +6859,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "git/git/git-flujo-basico",
@@ -7509,10 +6897,7 @@
         "Resumen",
         "Errores comunes"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "git/git/git-hooks",
@@ -7528,9 +6913,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "git/git/git-inspeccionar-cambios-historial",
@@ -7544,9 +6927,7 @@
         "Entrar al detalle de un commit",
         "Checklist de revisión"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/git/git-mental-model-terminology",
@@ -7565,10 +6946,7 @@
         "Restaurar, revertir y resetear",
         "Flujo seguro"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar límites"
-      ]
+      "signals": ["sin fuente externa", "revisar límites"]
     },
     {
       "id": "git/git/git-merge-vs-rebase",
@@ -7603,10 +6981,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "git/git/git-rebase-interactivo",
@@ -7622,9 +6997,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/git/git-reflog",
@@ -7639,10 +7012,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "git/git/git-remotos",
@@ -7675,9 +7045,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/git/git-stash",
@@ -7714,10 +7082,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "git/git/git-undo-commit-keep-changes",
@@ -7730,10 +7095,7 @@
         "Recuperación de emergencia",
         "Comandos relacionados"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "git/git/git-workflow-colaborativo",
@@ -7748,9 +7110,7 @@
         "Estrategias de merge",
         "Emergencias"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/git/git-worktree",
@@ -7763,10 +7123,7 @@
         "Caso de uso: revisar un Pull Request",
         "Restricciones importantes"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar límites"
-      ]
+      "signals": ["sin fuente externa", "revisar límites"]
     },
     {
       "id": "git/github-actions/cicd-github-actions-node",
@@ -7806,9 +7163,7 @@
         "Eventos manuales y filtros",
         "Errores comunes"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "git/github-actions/github-actions-matrices-cache",
@@ -7821,9 +7176,7 @@
         "Cache de dependencias",
         "Diagnóstico"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/github-actions/github-actions-secretos-permisos",
@@ -7836,9 +7189,7 @@
         "Pull Requests desde forks",
         "Dependencias de terceros"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "git/github-actions/github-actions-workflows-reutilizables",
@@ -7850,9 +7201,7 @@
         "Acción compuesta",
         "No abstraer demasiado"
       ],
-      "signals": [
-        "revisar límites"
-      ]
+      "signals": ["revisar límites"]
     },
     {
       "id": "git/github-platform/github-clone-pull-push",
@@ -7866,9 +7215,7 @@
         "Publicar cambios: `push`",
         "Tabla mental"
       ],
-      "signals": [
-        "revisar límites"
-      ]
+      "signals": ["revisar límites"]
     },
     {
       "id": "git/github-platform/github-forks-upstream",
@@ -7881,9 +7228,7 @@
         "Proponer un cambio",
         "Sincronizar durante la revisión"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "git/github-platform/github-repositorio-configuracion",
@@ -7896,9 +7241,7 @@
         "Archivos que conviene versionar",
         "Seguridad mínima"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/github-platform/github-repositorio-local-remoto",
@@ -7943,9 +7286,7 @@
         "Si prefieres GPG",
         "Diagnóstico"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/github-profile/github-perfil-presentacion",
@@ -7961,9 +7302,7 @@
         "Organizaciones y visibilidad",
         "Qué mirar antes de darlo por terminado"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/github-profile/github-perfil-readme",
@@ -7978,10 +7317,7 @@
         "Mantenerlo actualizado",
         "Un aviso sobre privacidad"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "git/github/gh-cli-issues",
@@ -8020,10 +7356,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "git/github/gh-cli-repos",
@@ -8064,10 +7397,7 @@
         "Resumen del ciclo completo",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "git/repository-management/git-colaboracion-pull-requests",
@@ -8116,9 +7446,7 @@
         "Milestones y Projects",
         "Relación con la Pull Request"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "git/repository-management/repository-licenses",
@@ -8132,9 +7460,7 @@
         "Cómo añadirla",
         "Dependencias y recursos"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "git/repository-management/repository-management-fundamentals",
@@ -8149,9 +7475,7 @@
         "Repositorio público, privado o archivado",
         "Auditoría rápida antes de compartir"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "git/repository-management/repository-rules-security",
@@ -8181,9 +7505,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/css/css-cascade-layers-container",
@@ -8196,10 +7518,7 @@
         "Container queries",
         "`@scope` y nesting"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "languages/css/css-flex-wrap-balance",
@@ -8215,9 +7534,7 @@
         "Cuándo vale la pena",
         "Errores frecuentes"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "languages/css/css-fonts",
@@ -8231,9 +7548,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "languages/css/css-full-bleed",
@@ -8241,10 +7556,7 @@
       "private": false,
       "words": 73,
       "headings": [],
-      "signals": [
-        "sin secciones",
-        "sin fuente externa"
-      ]
+      "signals": ["sin secciones", "sin fuente externa"]
     },
     {
       "id": "languages/css/css-gradients",
@@ -8259,10 +7571,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "languages/css/css-layout-advanced",
@@ -8276,9 +7585,7 @@
         "Stacking contexts",
         "Subir de nivel"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/css/css-layout-tricks",
@@ -8294,10 +7601,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "languages/css/css-rendering-performance",
@@ -8310,23 +7614,15 @@
         "Animaciones resistentes",
         "Diagnóstico"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/css/css-reset",
       "type": "snippets",
       "private": false,
       "words": 315,
-      "headings": [
-        "Qué hace cada regla",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Qué hace cada regla", "Consideraciones"],
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "languages/css/css-scroll",
@@ -8340,9 +7636,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/css/css-variables",
@@ -8357,9 +7651,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/css/css",
@@ -8390,10 +7682,7 @@
         "Imágenes adaptables",
         "Audio, video y subtítulos"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "languages/html/html-modern-elements",
@@ -8406,10 +7695,7 @@
         "Estados medibles",
         "Relaciones y componentes"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "languages/html/html-web-components-metadata",
@@ -8422,9 +7708,7 @@
         "Shadow DOM y slots",
         "Metadatos útiles"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/html/html",
@@ -8449,10 +7733,7 @@
       "private": false,
       "words": 88,
       "headings": [],
-      "signals": [
-        "sin secciones",
-        "sin fuente externa"
-      ]
+      "signals": ["sin secciones", "sin fuente externa"]
     },
     {
       "id": "languages/javascript/browser-storage-and-web-apis",
@@ -8476,10 +7757,7 @@
         "Web Locks",
         "Checklist de persistencia"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "languages/javascript/http-browser-fundamentals",
@@ -8569,9 +7847,7 @@
         "Iteración",
         "Arrays dispersos y copias superficiales"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-async-promises",
@@ -8588,9 +7864,7 @@
         "Cancelar trabajo obsoleto",
         "Carreras"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-audio-recording",
@@ -8699,9 +7973,7 @@
         "Compatibilidad de APIs modernas",
         "Método de consulta rápida"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-collections",
@@ -8720,10 +7992,7 @@
         "`WeakRef` y `FinalizationRegistry`",
         "Caso de uso: contar frecuencias"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar límites"
-      ]
+      "signals": ["sin fuente externa", "revisar límites"]
     },
     {
       "id": "languages/javascript/javascript-control-functions",
@@ -8746,9 +8015,7 @@
         "Recursión",
         "Caso de uso: validar antes de transformar"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-date-regexp-intl",
@@ -8771,9 +8038,7 @@
         "Listas, tiempo relativo y orden",
         "Caso de uso: fecha legible y consistente"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-dom-events",
@@ -8885,9 +8150,7 @@
         "Procesar un body como stream",
         "Caso de uso: paginación por cursor"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "languages/javascript/javascript-fundamentals",
@@ -8918,9 +8181,7 @@
         "Comparación y operadores lógicos",
         "Acceso opcional y asignación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-getting-started",
@@ -8985,9 +8246,7 @@
         "IndexedDB y `structuredClone`",
         "Caso de uso: preferencias resilientes"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-loops-iteration",
@@ -9059,9 +8318,7 @@
         "Cliente, servidor y secretos",
         "Caso de uso: API pública pequeña"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-numbers-math",
@@ -9086,9 +8343,7 @@
         "`BigInt`",
         "Caso de uso: calcular paginación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-objects",
@@ -9111,9 +8366,7 @@
         "Descriptores de propiedades",
         "Caso de uso: actualizar sin mutar"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-permissions-notifications",
@@ -9172,9 +8425,7 @@
         "`queueMicrotask`, timers y animación",
         "Caso de uso: ceder entre lotes"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-strings",
@@ -9195,9 +8446,7 @@
         "Strings Unicode bien formados",
         "Caso de uso: crear un slug"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "languages/javascript/javascript-url-web-apis",
@@ -9280,10 +8529,7 @@
         "Responsive sin sorpresas",
         "Casos especiales"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "performance/performance-carga/performance-resource-loading",
@@ -9300,9 +8546,7 @@
         "Terceros y fuentes",
         "Estrategia por tipo de página"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "performance/performance-fundamentos/core-web-vitals",
@@ -9320,10 +8564,7 @@
         "Laboratorio reproducible",
         "Validación después del despliegue"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "performance/performance-fundamentos/performance-fundamentals-terminology",
@@ -9342,9 +8583,7 @@
         "Presupuesto de rendimiento",
         "Método de optimización"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "performance/performance-operacion/performance-backend-database",
@@ -9360,10 +8599,7 @@
         "Serialización y payload",
         "Optimizar con perfil"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "performance/performance-operacion/performance-budgets-monitoring",
@@ -9379,10 +8615,7 @@
         "Cómo llevarlo a CI",
         "Monitorear sin datos sensibles"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "performance/performance-operacion/performance-cache-cdn",
@@ -9400,9 +8633,7 @@
         "Medir",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "performance/performance-runtime/performance-javascript-runtime",
@@ -9418,20 +8649,14 @@
         "Ejemplo: dividir trabajo",
         "Memoria y limpieza"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "resources/animations/animated-icons",
       "type": "resources",
       "private": false,
       "words": 96,
-      "headings": [
-        "Cuándo aporta valor",
-        "Antes de incorporarlo"
-      ],
+      "headings": ["Cuándo aporta valor", "Antes de incorporarlo"],
       "signals": []
     },
     {
@@ -9439,9 +8664,7 @@
       "type": "resources",
       "private": false,
       "words": 82,
-      "headings": [
-        "Cómo aprovecharlo"
-      ],
+      "headings": ["Cómo aprovecharlo"],
       "signals": []
     },
     {
@@ -9461,10 +8684,7 @@
       "type": "resources",
       "private": false,
       "words": 97,
-      "headings": [
-        "Para qué sirve",
-        "Antes de depender de una API"
-      ],
+      "headings": ["Para qué sirve", "Antes de depender de una API"],
       "signals": []
     },
     {
@@ -9485,10 +8705,7 @@
       "type": "resources",
       "private": false,
       "words": 95,
-      "headings": [
-        "Qué comprueba",
-        "Cuándo usarlo"
-      ],
+      "headings": ["Qué comprueba", "Cuándo usarlo"],
       "signals": []
     },
     {
@@ -9496,10 +8713,7 @@
       "type": "resources",
       "private": false,
       "words": 82,
-      "headings": [
-        "Qué resuelve",
-        "Cómo usar el resultado"
-      ],
+      "headings": ["Qué resuelve", "Cómo usar el resultado"],
       "signals": []
     },
     {
@@ -9520,10 +8734,7 @@
       "type": "resources",
       "private": false,
       "words": 112,
-      "headings": [
-        "Qué es una escala de color",
-        "Flujo recomendado"
-      ],
+      "headings": ["Qué es una escala de color", "Flujo recomendado"],
       "signals": []
     },
     {
@@ -9531,10 +8742,7 @@
       "type": "resources",
       "private": false,
       "words": 105,
-      "headings": [
-        "Qué puedes ajustar",
-        "Cuándo evitarlo"
-      ],
+      "headings": ["Qué puedes ajustar", "Cuándo evitarlo"],
       "signals": []
     },
     {
@@ -9542,9 +8750,7 @@
       "type": "resources",
       "private": false,
       "words": 84,
-      "headings": [
-        "Cómo leer el resultado"
-      ],
+      "headings": ["Cómo leer el resultado"],
       "signals": []
     },
     {
@@ -9552,10 +8758,7 @@
       "type": "resources",
       "private": false,
       "words": 86,
-      "headings": [
-        "Qué genera",
-        "Límite importante"
-      ],
+      "headings": ["Qué genera", "Límite importante"],
       "signals": []
     },
     {
@@ -9582,19 +8785,14 @@
         "Cuándo lo uso",
         "Sus límites"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/developer-tools/omatsuri",
       "type": "resources",
       "private": false,
       "words": 89,
-      "headings": [
-        "Qué encontrarás",
-        "Cómo usarlo"
-      ],
+      "headings": ["Qué encontrarás", "Cómo usarlo"],
       "signals": []
     },
     {
@@ -9602,10 +8800,7 @@
       "type": "resources",
       "private": false,
       "words": 106,
-      "headings": [
-        "Qué produce",
-        "Flujo recomendado"
-      ],
+      "headings": ["Qué produce", "Flujo recomendado"],
       "signals": []
     },
     {
@@ -9626,10 +8821,7 @@
       "type": "resources",
       "private": false,
       "words": 93,
-      "headings": [
-        "Cómo funciona",
-        "Antes de aceptar una propuesta"
-      ],
+      "headings": ["Cómo funciona", "Antes de aceptar una propuesta"],
       "signals": []
     },
     {
@@ -9637,25 +8829,16 @@
       "type": "resources",
       "private": false,
       "words": 85,
-      "headings": [
-        "Cómo interpretar el resultado"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Cómo interpretar el resultado"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/ia/claude-directory",
       "type": "resources",
       "private": false,
       "words": 86,
-      "headings": [
-        "Qué agrupa",
-        "Límite de confianza"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Qué agrupa", "Límite de confianza"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/ia/higgsfield",
@@ -9680,9 +8863,7 @@
         "Ejemplos de lo que lista",
         "Qué revisar antes de apoyarte en uno"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/ia/midjourney",
@@ -9714,10 +8895,7 @@
       "type": "resources",
       "private": false,
       "words": 105,
-      "headings": [
-        "Qué es una skill",
-        "Antes de instalar"
-      ],
+      "headings": ["Qué es una skill", "Antes de instalar"],
       "signals": []
     },
     {
@@ -9725,13 +8903,8 @@
       "type": "resources",
       "private": false,
       "words": 98,
-      "headings": [
-        "Qué permite encontrar",
-        "Antes de conectar uno"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Qué permite encontrar", "Antes de conectar uno"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/ia/vibiz-ai",
@@ -9751,10 +8924,7 @@
       "type": "resources",
       "private": false,
       "words": 89,
-      "headings": [
-        "Cuándo elegirlo",
-        "Qué revisar"
-      ],
+      "headings": ["Cuándo elegirlo", "Qué revisar"],
       "signals": []
     },
     {
@@ -9762,22 +8932,15 @@
       "type": "resources",
       "private": false,
       "words": 97,
-      "headings": [
-        "Cómo elegir una variante"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Cómo elegir una variante"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/icons/iconmonstr",
       "type": "resources",
       "private": false,
       "words": 87,
-      "headings": [
-        "Cuándo encaja",
-        "Antes de publicarlo"
-      ],
+      "headings": ["Cuándo encaja", "Antes de publicarlo"],
       "signals": []
     },
     {
@@ -9785,10 +8948,7 @@
       "type": "resources",
       "private": false,
       "words": 95,
-      "headings": [
-        "Qué lo diferencia",
-        "Integración"
-      ],
+      "headings": ["Qué lo diferencia", "Integración"],
       "signals": []
     },
     {
@@ -9796,10 +8956,7 @@
       "type": "resources",
       "private": false,
       "words": 95,
-      "headings": [
-        "Cómo aprovechar el catálogo",
-        "Antes de publicar"
-      ],
+      "headings": ["Cómo aprovechar el catálogo", "Antes de publicar"],
       "signals": []
     },
     {
@@ -9807,10 +8964,7 @@
       "type": "resources",
       "private": false,
       "words": 90,
-      "headings": [
-        "Estado",
-        "Antes de usar cualquier optimizador online"
-      ],
+      "headings": ["Estado", "Antes de usar cualquier optimizador online"],
       "signals": []
     },
     {
@@ -9830,11 +8984,7 @@
       "type": "resources",
       "private": false,
       "words": 271,
-      "headings": [
-        "Qué ofrece",
-        "Frente a PostSpark",
-        "Qué tener en cuenta"
-      ],
+      "headings": ["Qué ofrece", "Frente a PostSpark", "Qué tener en cuenta"],
       "signals": []
     },
     {
@@ -9842,10 +8992,7 @@
       "type": "resources",
       "private": false,
       "words": 70,
-      "headings": [
-        "Cuándo usarlo",
-        "Privacidad"
-      ],
+      "headings": ["Cuándo usarlo", "Privacidad"],
       "signals": []
     },
     {
@@ -9853,22 +9000,15 @@
       "type": "resources",
       "private": false,
       "words": 204,
-      "headings": [
-        "Antes de descargar"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Antes de descargar"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/loaders/spinkit",
       "type": "resources",
       "private": false,
       "words": 86,
-      "headings": [
-        "Cuándo usarlo",
-        "Integración mínima"
-      ],
+      "headings": ["Cuándo usarlo", "Integración mínima"],
       "signals": []
     },
     {
@@ -9876,9 +9016,7 @@
       "type": "resources",
       "private": false,
       "words": 91,
-      "headings": [
-        "Cómo estudiar la galería"
-      ],
+      "headings": ["Cómo estudiar la galería"],
       "signals": []
     },
     {
@@ -9916,19 +9054,14 @@
         "Cómo está organizado",
         "Cómo usarlo"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "resources/ui-inspiration/uiverse",
       "type": "resources",
       "private": false,
       "words": 106,
-      "headings": [
-        "Cómo usar la galería",
-        "Antes de copiar"
-      ],
+      "headings": ["Cómo usar la galería", "Antes de copiar"],
       "signals": []
     },
     {
@@ -9944,10 +9077,7 @@
         "APIs de terceros",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "security/security-aplicacion/security-auth-access-control",
@@ -9963,10 +9093,7 @@
         "Matriz de autorización",
         "Recuperación segura"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "security/security-aplicacion/security-common-web-attacks",
@@ -9982,9 +9109,7 @@
         "Archivos y traversal",
         "Respuesta y aprendizaje"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "security/security-aplicacion/security-headers-csp",
@@ -9998,9 +9123,7 @@
         "CSP por etapas",
         "Cookies, CORS y framing"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "security/security-fundamentos/security-fundamentals-terminology",
@@ -10020,9 +9143,7 @@
         "Registros, detección y respuesta",
         "Preguntas para cada funcionalidad"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "security/security-fundamentos/security-threat-modeling",
@@ -10038,9 +9159,7 @@
         "Del riesgo al requisito",
         "Revisión liviana en cada feature"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "security/security-infra/security-ddos-resilience",
@@ -10056,9 +9175,7 @@
         "Proteger el origen y el costo",
         "Runbook de disponibilidad"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "security/security-infra/security-secrets-supply-chain",
@@ -10073,9 +9190,7 @@
         "Errores habituales",
         "Rotación paso a paso"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "security/security-testing/security-response-incidents",
@@ -10092,9 +9207,7 @@
         "Ejercicio de mesa",
         "Checklist inmediato"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "security/security-testing/security-sdlc-testing",
@@ -10126,9 +9239,7 @@
         "Antes de publicar",
         "Cuando aparece una señal"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "seo/astro/astro-seo-completo",
@@ -10148,9 +9259,7 @@
         "Paso 9 — Caso de uso: una página real",
         "Consideraciones"
       ],
-      "signals": [
-        "posible placeholder"
-      ]
+      "signals": ["posible placeholder"]
     },
     {
       "id": "seo/nextjs/nextjs-metadata-seo",
@@ -10165,9 +9274,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "seo/nextjs/nextjs-seo-completo",
@@ -10231,9 +9338,7 @@
         "JSON-LD",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "seo/seo-tecnico/seo-rastreo-indexacion",
@@ -10247,10 +9352,7 @@
         "Status HTTP y contenido",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "seo/seo-tecnico/seo-rendering-international",
@@ -10267,9 +9369,7 @@
         "Decisión",
         "Fuentes y comprobación"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "seo/seo/seo-fundamentals-terminology",
@@ -10297,29 +9397,16 @@
       "type": "skills",
       "private": false,
       "words": 96,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-comandos/comando-changelog",
       "type": "skills",
       "private": false,
       "words": 88,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-comandos/comando-claude-command-suite",
@@ -10332,137 +9419,78 @@
         "Fuente",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-comandos/comando-code-audit",
       "type": "skills",
       "private": false,
       "words": 95,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-comandos/comando-commit",
       "type": "skills",
       "private": false,
       "words": 100,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-comandos/comando-explain",
       "type": "skills",
       "private": false,
       "words": 98,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-comandos/comando-fix-tests",
       "type": "skills",
       "private": false,
       "words": 86,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-comandos/comando-pr-description",
       "type": "skills",
       "private": false,
       "words": 88,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-comandos/comando-refactor",
       "type": "skills",
       "private": false,
       "words": 96,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-comandos/comando-review",
       "type": "skills",
       "private": false,
       "words": 85,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-comandos/comando-security-audit",
       "type": "skills",
       "private": false,
       "words": 83,
-      "headings": [
-        "Copiar y pegar",
-        "Resumen",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Copiar y pegar", "Resumen", "Consideraciones"],
+      "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-mcp/mcp-context7",
       "type": "skills",
       "private": false,
       "words": 160,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10484,30 +9512,16 @@
       "type": "skills",
       "private": false,
       "words": 127,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-mcp/mcp-notion",
       "type": "skills",
       "private": false,
       "words": 143,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-mcp/mcp-playwright",
@@ -10534,54 +9548,31 @@
         "Cuándo usarlo",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-mcp/mcp-sequential-thinking",
       "type": "skills",
       "private": false,
       "words": 137,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-mcp/mcp-supabase",
       "type": "skills",
       "private": false,
       "words": 156,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-plugins/plugin-code-review",
       "type": "skills",
       "private": false,
       "words": 111,
-      "headings": [
-        "Instalar",
-        "Qué hace",
-        "Fuente",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Instalar", "Qué hace", "Fuente", "Consideraciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-plugins/plugin-commit-commands",
@@ -10593,62 +9584,38 @@
         "Cuándo preferirlo sobre copiar el comando a mano",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-plugins/plugin-cursor-figma",
       "type": "skills",
       "private": false,
       "words": 103,
-      "headings": [
-        "Instalar",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Instalar", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-plugins/plugin-cursor-linear",
       "type": "skills",
       "private": false,
       "words": 95,
-      "headings": [
-        "Instalar",
-        "Qué hace",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Instalar", "Qué hace", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-plugins/plugin-github-integration",
       "type": "skills",
       "private": false,
       "words": 103,
-      "headings": [
-        "Instalar",
-        "Qué trae",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "headings": ["Instalar", "Qué trae", "Consideraciones"],
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/ia-plugins/plugin-security-guidance",
       "type": "skills",
       "private": false,
       "words": 69,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Consideraciones"],
       "signals": []
     },
     {
@@ -10656,12 +9623,7 @@
       "type": "skills",
       "private": false,
       "words": 118,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10669,12 +9631,7 @@
       "type": "skills",
       "private": false,
       "words": 142,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10694,12 +9651,7 @@
       "type": "skills",
       "private": false,
       "words": 120,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10707,12 +9659,7 @@
       "type": "skills",
       "private": false,
       "words": 155,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10720,12 +9667,7 @@
       "type": "skills",
       "private": false,
       "words": 119,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10733,30 +9675,16 @@
       "type": "skills",
       "private": false,
       "words": 125,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-skills/skill-frontend-design",
       "type": "skills",
       "private": false,
       "words": 142,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-skills/skill-impeccable",
@@ -10777,12 +9705,7 @@
       "type": "skills",
       "private": false,
       "words": 103,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10790,12 +9713,7 @@
       "type": "skills",
       "private": false,
       "words": 109,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10835,12 +9753,7 @@
       "type": "skills",
       "private": false,
       "words": 134,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10848,12 +9761,7 @@
       "type": "skills",
       "private": false,
       "words": 137,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10874,27 +9782,15 @@
       "type": "skills",
       "private": false,
       "words": 137,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "skills/ia-skills/skill-vercel-composition-patterns",
       "type": "skills",
       "private": false,
       "words": 112,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10902,12 +9798,7 @@
       "type": "skills",
       "private": false,
       "words": 116,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10915,12 +9806,7 @@
       "type": "skills",
       "private": false,
       "words": 129,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10928,12 +9814,7 @@
       "type": "skills",
       "private": false,
       "words": 109,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10941,12 +9822,7 @@
       "type": "skills",
       "private": false,
       "words": 129,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10954,12 +9830,7 @@
       "type": "skills",
       "private": false,
       "words": 106,
-      "headings": [
-        "Instalar",
-        "Fuente",
-        "Cuándo usarlo",
-        "Consideraciones"
-      ],
+      "headings": ["Instalar", "Fuente", "Cuándo usarlo", "Consideraciones"],
       "signals": []
     },
     {
@@ -10978,9 +9849,7 @@
         "Cómo se combinan",
         "Flujo de incorporación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "skills/skills-fundamentos/design-md",
@@ -11008,9 +9877,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "terminal/cli/cli-aws",
@@ -11026,9 +9893,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "terminal/cli/cli-cloudflare-wrangler",
@@ -11064,10 +9929,7 @@
         "Comandos esenciales",
         "Consideraciones"
       ],
-      "signals": [
-        "sin enlace de continuidad",
-        "revisar comprobación"
-      ]
+      "signals": ["sin enlace de continuidad", "revisar comprobación"]
     },
     {
       "id": "terminal/cli/cli-neon",
@@ -11094,9 +9956,7 @@
         "Comandos de ejemplo",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "terminal/cli/cli-openrouter",
@@ -11108,21 +9968,14 @@
         "Usar el SDK de OpenAI apuntando a OpenRouter",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "terminal/cli/cli-playwright",
       "type": "guides",
       "private": false,
       "words": 276,
-      "headings": [
-        "Setup inicial",
-        "Comandos esenciales",
-        "Consideraciones"
-      ],
+      "headings": ["Setup inicial", "Comandos esenciales", "Consideraciones"],
       "signals": [
         "sin enlace de continuidad",
         "revisar requisitos",
@@ -11144,10 +9997,7 @@
         "Resumen",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "terminal/cli/cli-turso",
@@ -11161,9 +10011,7 @@
         "Flujo típico: crear una base y conectarse desde la app",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-archivos-carpetas",
@@ -11178,10 +10026,7 @@
         "Eliminar",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-comprimir-archivos",
@@ -11219,10 +10064,7 @@
         "Comillas en PowerShell",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-docker-cli",
@@ -11235,10 +10077,7 @@
         "Documentación completa",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "terminal/terminal/terminal-fundamentals-terminology",
@@ -11258,9 +10097,7 @@
         "TTY e interacción",
         "Comandos seguros y reproducibles"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "terminal/terminal/terminal-historial-atajos",
@@ -11276,9 +10113,7 @@
         "Windows (PowerShell)",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "terminal/terminal/terminal-linux-cli",
@@ -11292,10 +10127,7 @@
         "Ejemplo típico",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-navegacion",
@@ -11311,10 +10143,7 @@
         "Atajos de ruta",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-npm",
@@ -11329,10 +10158,7 @@
         "`npm ci`: instalación reproducible",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-permisos",
@@ -11350,10 +10176,7 @@
         "La diferencia de fondo",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-pipes-redirection-processes",
@@ -11366,9 +10189,7 @@
         "Procesos y señales",
         "Datos seguros"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "terminal/terminal/terminal-powershell",
@@ -11402,9 +10223,7 @@
         "Matar un proceso por nombre",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "terminal/terminal/terminal-puertos",
@@ -11419,9 +10238,7 @@
         "Consideraciones",
         "Comprobación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "terminal/terminal/terminal-red-basica",
@@ -11434,9 +10251,7 @@
         "Resolución DNS",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "terminal/terminal/terminal-scoop",
@@ -11451,9 +10266,7 @@
         "Ejemplo",
         "Consideraciones"
       ],
-      "signals": [
-        "revisar comprobación"
-      ]
+      "signals": ["revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-shell-scripting",
@@ -11468,10 +10281,7 @@
         "Scripts como producto pequeño",
         "Regla portable"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "terminal/terminal/terminal-ssh",
@@ -11509,10 +10319,7 @@
         "Ver el `PATH` completo",
         "Consideraciones"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "terminal/terminal/terminal-ver-contenido",
@@ -11615,9 +10422,7 @@
         "Errores frecuentes",
         "Referencias"
       ],
-      "signals": [
-        "revisar requisitos"
-      ]
+      "signals": ["revisar requisitos"]
     },
     {
       "id": "testing/testing-ai/midscene",
@@ -11654,9 +10459,7 @@
         "Pipeline de regresión",
         "Lista de comprobación"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "testing/testing-ai/testing-ai-principles",
@@ -11672,9 +10475,7 @@
         "Estrategia híbrida",
         "Revisión de pruebas generadas"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "testing/testing-e2e/testing-e2e-reliable-ci",
@@ -11761,9 +10562,7 @@
         "Qué conviene probar",
         "Qué no demuestra una prueba"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "testing/testing-fundamentos/testing-quality-plan-nonfunctional",
@@ -11804,9 +10603,7 @@
         "Presupuesto de retroalimentación",
         "Criterio de salida"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "testing/testing-fundamentos/testing-test-design-techniques",
@@ -11824,9 +10621,7 @@
         "Del requisito al conjunto de pruebas",
         "Plantilla breve de diseño"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "testing/testing-integracion/msw",
@@ -11900,9 +10695,7 @@
         "CI confiable",
         "Fallos que merece reproducir"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "testing/testing-integracion/testing-doubles-contracts",
@@ -11922,9 +10715,7 @@
         "Falsos positivos",
         "Lista de decisión"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "testing/testing-unitario/testing-fixtures-snapshots",
@@ -12007,26 +10798,16 @@
       "type": "libraries",
       "private": false,
       "words": 86,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Configuración inicial", "Tips"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "ui-ux/ui-css/bulma",
       "type": "libraries",
       "private": false,
       "words": 98,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Configuración inicial", "Tips"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "ui-ux/ui-css/daisyui",
@@ -12039,72 +10820,46 @@
         "Recomendaciones y límites",
         "Fuentes"
       ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "ui-ux/ui-css/flowbite",
       "type": "libraries",
       "private": false,
       "words": 208,
-      "headings": [
-        "Configuración inicial",
-        "Comprobación",
-        "Recomendaciones"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Configuración inicial", "Comprobación", "Recomendaciones"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "ui-ux/ui-css/hyperui",
       "type": "libraries",
       "private": false,
       "words": 128,
-      "headings": [
-        "Cuándo la uso",
-        "Tips"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Cuándo la uso", "Tips"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "ui-ux/ui-css/pico-css",
       "type": "libraries",
       "private": false,
       "words": 81,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Configuración inicial", "Tips"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "ui-ux/ui-css/preline",
       "type": "libraries",
       "private": false,
       "words": 88,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
-      "signals": [
-        "sin enlace de continuidad"
-      ]
+      "headings": ["Configuración inicial", "Tips"],
+      "signals": ["sin enlace de continuidad"]
     },
     {
       "id": "ui-ux/ui-css/tailwind-plus",
       "type": "libraries",
       "private": false,
       "words": 136,
-      "headings": [
-        "Cómo lo uso",
-        "Tips"
-      ],
+      "headings": ["Cómo lo uso", "Tips"],
       "signals": []
     },
     {
@@ -12112,10 +10867,7 @@
       "type": "libraries",
       "private": false,
       "words": 79,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
+      "headings": ["Configuración inicial", "Tips"],
       "signals": []
     },
     {
@@ -12136,10 +10888,7 @@
       "type": "libraries",
       "private": false,
       "words": 73,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
+      "headings": ["Configuración inicial", "Tips"],
       "signals": []
     },
     {
@@ -12160,10 +10909,7 @@
       "type": "libraries",
       "private": false,
       "words": 81,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
+      "headings": ["Configuración inicial", "Tips"],
       "signals": []
     },
     {
@@ -12171,10 +10917,7 @@
       "type": "libraries",
       "private": false,
       "words": 102,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
+      "headings": ["Configuración inicial", "Tips"],
       "signals": []
     },
     {
@@ -12182,10 +10925,7 @@
       "type": "libraries",
       "private": false,
       "words": 73,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
+      "headings": ["Configuración inicial", "Tips"],
       "signals": []
     },
     {
@@ -12193,10 +10933,7 @@
       "type": "libraries",
       "private": false,
       "words": 80,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
+      "headings": ["Configuración inicial", "Tips"],
       "signals": []
     },
     {
@@ -12204,10 +10941,7 @@
       "type": "libraries",
       "private": false,
       "words": 140,
-      "headings": [
-        "Configuración inicial",
-        "Tips"
-      ],
+      "headings": ["Configuración inicial", "Tips"],
       "signals": []
     },
     {
@@ -12236,9 +10970,7 @@
         "Para aprender",
         "Para recordar"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "ui-ux/ui-ux-design-systems/ui-ux-design-systems",
@@ -12252,10 +10984,7 @@
         "Documentar un componente",
         "Adopción"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "ui-ux/ui-ux-design-systems/ui-ux-jerarquia-visual",
@@ -12269,10 +10998,7 @@
         "Color semántico",
         "Revisión práctica"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "ui-ux/ui-ux-estilos/ui-ux-estilo-brutalism",
@@ -12298,17 +11024,8 @@
       "type": "guides",
       "private": false,
       "words": 348,
-      "headings": [
-        "Cómo se ve",
-        "El CSS",
-        "Cuándo usarlo",
-        "Accesibilidad"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos",
-        "revisar límites"
-      ]
+      "headings": ["Cómo se ve", "El CSS", "Cuándo usarlo", "Accesibilidad"],
+      "signals": ["sin fuente externa", "revisar requisitos", "revisar límites"]
     },
     {
       "id": "ui-ux/ui-ux-estilos/ui-ux-estilo-glassmorphism",
@@ -12340,10 +11057,7 @@
         "El costo",
         "Cuándo usarlo"
       ],
-      "signals": [
-        "revisar requisitos",
-        "revisar comprobación"
-      ]
+      "signals": ["revisar requisitos", "revisar comprobación"]
     },
     {
       "id": "ui-ux/ui-ux-estilos/ui-ux-estilo-maximalism",
@@ -12356,10 +11070,7 @@
         "Cuándo usarlo",
         "Accesibilidad"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "ui-ux/ui-ux-estilos/ui-ux-estilo-minimalism",
@@ -12391,26 +11102,15 @@
         "Cómo mitigarlo",
         "Cuándo usarlo"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "ui-ux/ui-ux-estilos/ui-ux-estilo-skeuomorphism",
       "type": "guides",
       "private": false,
       "words": 331,
-      "headings": [
-        "Cómo se ve",
-        "El CSS",
-        "Cuándo usarlo",
-        "Accesibilidad"
-      ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos",
-        "revisar límites"
-      ]
+      "headings": ["Cómo se ve", "El CSS", "Cuándo usarlo", "Accesibilidad"],
+      "signals": ["sin fuente externa", "revisar requisitos", "revisar límites"]
     },
     {
       "id": "ui-ux/ui-ux-estilos/ui-ux-estilo-spatial-ui",
@@ -12425,10 +11125,7 @@
         "Accesibilidad y ergonomía",
         "Cuándo usarlo"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar comprobación"
-      ]
+      "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
       "id": "ui-ux/ui-ux-estilos/ui-ux-estilos-visuales",
@@ -12466,9 +11163,7 @@
         "Usabilidad y accesibilidad",
         "Heurísticas prácticas"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "ui-ux/ui-ux-interaccion/ui-ux-component-anatomy",
@@ -12483,10 +11178,7 @@
         "Validación",
         "Regla de diseño"
       ],
-      "signals": [
-        "sin fuente externa",
-        "revisar requisitos"
-      ]
+      "signals": ["sin fuente externa", "revisar requisitos"]
     },
     {
       "id": "ui-ux/ui-ux-interaccion/ui-ux-estados-interfaz",
@@ -12501,9 +11193,7 @@
         "Éxito",
         "Accesibilidad"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "ui-ux/ui-ux-interaccion/ui-ux-forms-feedback",
@@ -12518,9 +11208,7 @@
         "Prevención",
         "Caso completo"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     },
     {
       "id": "ui-ux/ui-ux-interaccion/ui-ux-responsive-layout",
@@ -12534,9 +11222,7 @@
         "Densidad y prioridad",
         "Probar extremos"
       ],
-      "signals": [
-        "sin fuente externa"
-      ]
+      "signals": ["sin fuente externa"]
     }
   ]
 }

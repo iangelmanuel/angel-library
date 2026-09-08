@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import starlight from "@astrojs/starlight"
 import tailwindcss from "@tailwindcss/vite"
+import icon from "astro-icon"
 import { buildSidebar } from "@/config/sidebar"
 import { SITE } from "@/config/site"
 import { remarkPackageManagerTabs } from "./src/markdown/package-manager.mjs"
@@ -15,6 +16,8 @@ export default defineConfig({
   compressHTML: true,
 
   integrations: [
+    // Iconos: lucide vía iconify y los logos propios de src/icons.
+    icon({ iconDir: "src/icons" }),
     starlight({
       title: SITE.info.name,
       description: SITE.seo.description,

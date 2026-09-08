@@ -16,6 +16,7 @@
 @import "./base.css";
 @import "./keyframes.css";
 @import "./chrome.css";
+@import "./components/button.css";
 @import "./components/primitives.css";
 
 @custom-variant dark (&:is(.dark *));

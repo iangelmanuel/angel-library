@@ -1,4 +1,5 @@
 ---
+import Button from "@/components/shared/Button.astro"
 import Icon from "@/components/shared/Icon.astro"
 import { formatDate } from "@/lib/content"
 import { FIGURE_LABELS, HERO } from "../data/content"
@@ -35,34 +36,29 @@ const figures = [
       >
         <Icon
           name="search"
-          class="wall-index__icon size-[1.125rem]"
+          class="wall-index__icon"
+          size={18}
         />
         <span class="wall-index__text">{HERO.searchCommand}</span>
         <kbd class="kbd">ctrl K</kbd>
       </a>
 
       <div class="wall-hero__actions">
-        <a
+        <Button
           href="/categories"
-          class="wall-hero__cta"
+          icon="arrow-right"
         >
           {HERO.primaryCta}
-          <Icon
-            name="arrow-right"
-            class="size-4"
-          />
-        </a>
+        </Button>
 
-        <a
+        <Button
           href="#la-ruta"
-          class="wall-hero__secondary"
+          variant="outline"
+          icon="arrow-down"
+          iconSize={14}
         >
           {HERO.secondaryCta}
-          <Icon
-            name="arrow-down"
-            class="size-3.5"
-          />
-        </a>
+        </Button>
       </div>
     </div>
 

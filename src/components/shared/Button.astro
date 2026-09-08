@@ -1,0 +1,76 @@
+---
+import Icon from "@/components/shared/Icon.astro"
+
+/** El único botón del sitio: cuatro variantes, tres tamaños.
+    Con `href` sale un <a>; sin él, un <button>. */
+
+interface Props {
+  variant?: "primary" | "secondary" | "outline" | "link"
+  size?: "sm" | "md" | "lg"
+  href?: string
+  type?: "button" | "submit" | "reset"
+  /** Nombre del icono; el mismo que acepta <Icon>. */
+  icon?: string
+  iconPosition?: "start" | "end"
+  iconSize?: number
+  /** Abre en otra pestaña y añade el rel seguro. */
+  external?: boolean
+  class?: string
+  [key: string]: unknown
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  href,
+  type = "button",
+  icon,
+  iconPosition = "end",
+  iconSize = 16,
+  external = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const Tag = href ? "a" : "button"
+
+const attrs = href
+  ? {
+      href,
+      ...(external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : undefined)
+    }
+  : { type }
+---
+
+<Tag
+  class:list={[
+    "btn",
+    `btn--${variant}`,
+    variant !== "link" && `btn--${size}`,
+    className
+  ]}
+  {...attrs}
+  {...rest}
+>
+  {
+    icon && iconPosition === "start" && (
+      <Icon
+        name={icon}
+        class="btn__icon"
+        size={iconSize}
+      />
+    )
+  }
+  <slot />
+  {
+    icon && iconPosition === "end" && (
+      <Icon
+        name={icon}
+        class="btn__icon"
+        size={iconSize}
+      />
+    )
+  }
+</Tag>

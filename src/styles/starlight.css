@@ -1,6 +1,7 @@
 /* El Esmalte sobre Starlight: sus variables, nuestros valores. */
 @import "./tokens.css";
 @import "./chrome.css";
+@import "./components/button.css";
 
 :root,
 [data-theme="dark"] {
@@ -165,7 +166,15 @@ site-search kbd {
 .sidebar-content summary {
   border-radius: var(--radius-thin);
   padding: 0.35rem 0.4rem;
+  /* Abre y cierra la categoría: el cursor tiene que anunciarlo, y el icono
+     y la etiqueta de dentro no deben devolverlo a la flecha. */
+  cursor: pointer;
   transition: background-color var(--dur-fast) var(--ease-enamel);
+}
+
+.sidebar-content summary,
+.sidebar-content summary * {
+  cursor: pointer;
 }
 
 .sidebar-content summary:hover {

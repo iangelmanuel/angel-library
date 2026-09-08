@@ -136,36 +136,6 @@
     gap: 0.5rem 1.25rem;
     margin-top: 1.25rem;
   }
-  .wall-hero__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    min-height: 2.85rem;
-    border-radius: var(--radius-field);
-    background: var(--primary);
-    padding-inline: 1.15rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--white);
-    transition: background-color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-hero__cta:hover,
-  .wall-hero__cta:focus-visible {
-    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
-  }
-  .wall-hero__secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.75rem;
-    font-size: 0.9rem;
-    color: var(--blue-500);
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-hero__secondary:hover,
-  .wall-hero__secondary:focus-visible {
-    color: var(--white);
-  }
 
   /* Lo último editado: una lista rayada, sin tarjetas. */
   .wall-recent__heading {
@@ -607,18 +577,7 @@
     color: var(--gray-300);
   }
   .wall-inventory__all {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.75rem;
     margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: var(--blue-500);
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-inventory__all:hover,
-  .wall-inventory__all:focus-visible {
-    color: var(--white);
   }
   .wall-inventory__all b {
     font-family: var(--font-mono);
@@ -672,23 +631,8 @@
     text-align: center;
     color: var(--blue-300);
   }
-  .wall-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    min-height: 3rem;
+  .wall-close__action {
     margin-top: 2.25rem;
-    border-radius: var(--radius-field);
-    background: var(--primary);
-    padding-inline: 1.3rem;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--white);
-    transition: background-color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-btn:hover,
-  .wall-btn:focus-visible {
-    background: color-mix(in srgb, var(--blue-700) 82%, var(--blue-500));
   }
 
   /* --------------------------------------------------------------------- pie */

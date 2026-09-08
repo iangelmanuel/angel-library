@@ -1,5 +1,5 @@
 ---
-import Icon from "@/components/shared/Icon.astro"
+import Button from "@/components/shared/Button.astro"
 import SectionHeading from "./SectionHeading.astro"
 import { INVENTORY } from "../data/content"
 import type { LandingStats } from "../lib/stats"
@@ -48,16 +48,15 @@ const { stats } = Astro.props
       }
     </ul>
 
-    <a
+    <Button
       href="/categories"
+      variant="link"
+      icon="arrow-right"
+      iconSize={14}
       class="wall-inventory__all"
     >
       {INVENTORY.allCategories}
       <b data-numeric>{stats.categories}</b>
-      <Icon
-        name="arrow-right"
-        class="size-3.5"
-      />
-    </a>
+    </Button>
   </div>
 </section>

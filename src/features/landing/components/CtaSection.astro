@@ -1,5 +1,5 @@
 ---
-import Icon from "@/components/shared/Icon.astro"
+import Button from "@/components/shared/Button.astro"
 import { CTA } from "../data/content"
 ---
 
@@ -8,15 +8,13 @@ import { CTA } from "../data/content"
     <h2 class="wall-close__title">{CTA.title}</h2>
     <p class="wall-close__text">{CTA.description}</p>
 
-    <a
-      href="/search"
-      class="wall-btn"
+    <Button
+      href="/buscar"
+      size="lg"
+      icon="arrow-right"
+      class="wall-close__action"
     >
       {CTA.action}
-      <Icon
-        name="arrow-right"
-        class="size-4"
-      />
-    </a>
+    </Button>
   </div>
 </section>
