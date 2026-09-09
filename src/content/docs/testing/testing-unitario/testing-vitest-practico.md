@@ -5,7 +5,7 @@ type: guides
 order: 1
 tags: [testing, vitest, unit-testing, mocks, coverage]
 related:
-  - testing/testing-unitario/vitest-backend
+  - packages/node-vitest/vitest-backend
   - testing/testing-fundamentos/testing-strategy
   - testing/testing-integracion/testing-doubles-contracts
 updatedAt: 2026-08-28

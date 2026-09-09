@@ -7,8 +7,8 @@ tags: [express, validation, api, typescript]
 scope: validación HTTP
 related:
   - architecture/principios/validate-at-boundaries
-  - backend/express/express-validator
-  - general/packages/zod
+  - packages/node-express-validator/express-validator
+  - packages/javascript-zod/zod
 updatedAt: 2026-08-25
 ---
 

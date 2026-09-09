@@ -8,7 +8,7 @@ problem: Ver todas las capas de protección combinadas en una sola ruta real, en
 technologies:
   - backend/express/express-auth-middleware
   - backend/express/express-roles-permisos
-  - general/packages/zod
+  - packages/javascript-zod/zod
   - backend/express/express-cors
   - backend/express/express-seguridad
 updatedAt: 2026-09-07

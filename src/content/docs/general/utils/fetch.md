@@ -6,7 +6,7 @@ tags: [typescript, fetch, http, errors]
 runtime: universal
 language: typescript
 related:
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-09-07
 ---
 
@@ -151,7 +151,7 @@ const datos = await withRetry(
 
 ## Consideraciones
 
-- Combina `fetchJson()` con [Zod](/general/packages/zod) para validar la forma de la respuesta. Un error de esquema se corrige revisando el contrato, no repitiendo la solicitud.
+- Combina `fetchJson()` con [Zod](/packages/javascript-zod/zod) para validar la forma de la respuesta. Un error de esquema se corrige revisando el contrato, no repitiendo la solicitud.
 - El ejemplo no reintenta 400, 401, 403, errores de JSON ni cancelaciones. Una política para 429 debe respetar `Retry-After`. La espera de este helper no es cancelable; para un presupuesto global combina una espera cancelable y comprobaciones de señal entre intentos.
 - El `delayMs` crece linealmente con el intento (`delayMs * attempt`), no exponencialmente — para casos con mucho tráfico considera un backoff exponencial en su lugar.
 

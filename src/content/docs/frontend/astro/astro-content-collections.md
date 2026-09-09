@@ -6,7 +6,7 @@ order: 13
 tags: [astro, content, zod]
 scope: astro:content
 related:
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-08-25
 ---
 

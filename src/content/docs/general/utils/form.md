@@ -7,7 +7,7 @@ runtime: browser
 language: typescript
 related:
   - general/utils/dom
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-09-07
 ---
 
@@ -203,7 +203,7 @@ const limpiar = onFormSubmit(form, (datos) => {
 
 ## Consideraciones
 
-- `formToObject()` no valida nada: los strings llegan tal cual, sin `trim` ni coerción de tipos. Para números, booleanos y validación real, combina con [Zod](/general/packages/zod) y `z.coerce`.
+- `formToObject()` no valida nada: los strings llegan tal cual, sin `trim` ni coerción de tipos. Para números, booleanos y validación real, combina con [Zod](/packages/javascript-zod/zod) y `z.coerce`.
 - Los inputs `disabled` no aparecen en `FormData` (los `readonly` sí) — ni `formToObject()` ni `getCheckedValues()` pueden verlos.
 - Un checkbox marcado sin `value` explícito en el HTML llega como el string `"on"`. Ponle siempre `value` a los checkboxes que vayas a leer.
 - `setFormValues()` solo asigna campos que existan en el formulario; claves del objeto sin campo correspondiente se ignoran silenciosamente.

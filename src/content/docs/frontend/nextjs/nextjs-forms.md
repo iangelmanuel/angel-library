@@ -9,7 +9,7 @@ related:
   - frontend/nextjs/nextjs-server-actions
   - frontend/react/react-useactionstate
   - frontend/react/react-useoptimistic
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-08-25
 ---
 

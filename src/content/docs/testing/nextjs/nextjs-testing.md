@@ -6,7 +6,7 @@ order: 10
 tags: [nextjs, testing, vitest, playwright]
 scope: next.js app router (testing)
 related:
-  - testing/testing-unitario/vitest-backend
+  - packages/node-vitest/vitest-backend
   - terminal/cli/cli-playwright
 updatedAt: 2026-08-28
 ---

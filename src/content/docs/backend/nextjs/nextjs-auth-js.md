@@ -5,7 +5,7 @@ type: guides
 order: 5
 tags: [nextjs, auth-js, nextauth, auth]
 website: https://authjs.dev
-related: [backend/nextjs/nextjs-backend-arquitectura, backend/express/bcrypt]
+related: [backend/nextjs/nextjs-backend-arquitectura, packages/node-bcrypt/bcrypt]
 updatedAt: 2026-09-07
 ---
 

@@ -5,11 +5,11 @@ type: skills
 order: 17
 tags: [ai, skill, zod]
 tool: Cross-tool
-related: [general/packages/zod, backend/express/express-jwt]
+related: [packages/javascript-zod/zod, backend/express/express-jwt]
 updatedAt: 2026-08-17
 ---
 
-Referencia completa de la API de Zod 4 — incluye una guía de migración desde Zod 3 (relevante porque muchos ejemplos/tutoriales viejos todavía usan sintaxis 3, como ya se nota en [la guía de Zod de esta biblioteca](/general/packages/zod)), discriminated unions, e integración específica con React Hook Form.
+Referencia completa de la API de Zod 4 — incluye una guía de migración desde Zod 3 (relevante porque muchos ejemplos/tutoriales viejos todavía usan sintaxis 3, como ya se nota en [la guía de Zod de esta biblioteca](/packages/javascript-zod/zod)), discriminated unions, e integración específica con React Hook Form.
 
 ## Instalar
 

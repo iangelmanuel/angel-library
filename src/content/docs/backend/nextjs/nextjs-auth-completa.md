@@ -152,4 +152,4 @@ Visita `/dashboard` sin sesión, inicia sesión con un usuario de prueba y vuelv
 - [Auth.js: instalación](https://authjs.dev/getting-started/installation)
 
 - Cada pieza está documentada a fondo en [Auth.js en Next.js](/backend/nextjs/nextjs-auth-js) — aquí solo el ensamblado end-to-end.
-- El provider `Credentials` sigue necesitando [bcrypt](/backend/express/bcrypt) a mano dentro de `authorize` — Auth.js no reemplaza esa parte del flujo, solo el manejo de sesión alrededor.
+- El provider `Credentials` sigue necesitando [bcrypt](/packages/node-bcrypt/bcrypt) a mano dentro de `authorize` — Auth.js no reemplaza esa parte del flujo, solo el manejo de sesión alrededor.

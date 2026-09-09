@@ -21,14 +21,6 @@
     "ui-ux-interaccion": {
       "label": "Diseño de interacción",
       "description": "Cómo responde la interfaz: estados, feedback y formularios."
-    },
-    "ui-css": {
-      "label": "UI con CSS",
-      "description": "Catálogos de componentes que se usan con CSS y HTML."
-    },
-    "ui-react": {
-      "label": "UI con React",
-      "description": "Librerías de componentes para proyectos React."
     }
   }
 }

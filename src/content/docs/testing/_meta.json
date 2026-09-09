@@ -4,7 +4,7 @@
   "description": "Pruebas unitarias, de integración y de extremo a extremo (E2E), además de estrategias de validación.",
   "color": "--cat-testing",
   "group": "construir",
-  "order": 5,
+  "order": 6,
   "subcategories": {
     "testing-fundamentos": {
       "label": "Fundamentos y estrategia",

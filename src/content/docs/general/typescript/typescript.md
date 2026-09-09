@@ -7,7 +7,7 @@ tags: [typescript, types, javascript]
 website: https://www.typescriptlang.org
 github: https://github.com/microsoft/TypeScript
 related:
-  - general/packages/zod
+  - packages/javascript-zod/zod
   - general/typescript/typescript-path-aliases
   - architecture/principios/validate-at-boundaries
 updatedAt: 2026-08-19

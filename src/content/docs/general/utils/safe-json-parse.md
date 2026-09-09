@@ -7,7 +7,7 @@ tags: [typescript, json, errors, validation]
 problem: JSON.parse lanza excepciones y obliga a repetir try/catch en storage, requests y archivos.
 related:
   - general/utils/storage
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-08-18
 ---
 

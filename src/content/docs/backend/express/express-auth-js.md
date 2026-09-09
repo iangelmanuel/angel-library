@@ -5,7 +5,7 @@ type: guides
 order: 17
 tags: [express, auth-js, nextauth, auth]
 website: https://authjs.dev
-related: [backend/express/bcrypt, backend/express/express-auth-middleware]
+related: [packages/node-bcrypt/bcrypt, backend/express/express-auth-middleware]
 updatedAt: 2026-08-17
 ---
 
@@ -191,4 +191,4 @@ app.get("/perfil", requireAuth, (req, res) => {
 
 - El paquete `@auth/express` es más nuevo que la integración de Next.js (`next-auth`) — menos superficie probada en producción a gran escala.
 - Olvidar el callback `jwt` (y solo agregar `session`) es un error común: `session` solo puede leer lo que ya esté en `token` — si `jwt` no lo copió ahí primero, `session` no tiene de dónde sacarlo.
-- `Credentials` con contraseñas propias sigue necesitando hashear con [bcrypt](/backend/express/bcrypt) a mano dentro de `authorize` — Auth.js no reemplaza esa parte, solo el manejo de sesión/providers alrededor.
+- `Credentials` con contraseñas propias sigue necesitando hashear con [bcrypt](/packages/node-bcrypt/bcrypt) a mano dentro de `authorize` — Auth.js no reemplaza esa parte, solo el manejo de sesión/providers alrededor.

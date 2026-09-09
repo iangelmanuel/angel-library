@@ -6,7 +6,7 @@ order: 19
 tags: [astro, forms, backend]
 scope: astro:actions
 related:
-  - general/packages/zod
+  - packages/javascript-zod/zod
   - general/utils/form
 updatedAt: 2026-08-25
 ---

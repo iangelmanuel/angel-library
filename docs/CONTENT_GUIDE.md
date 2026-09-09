@@ -22,6 +22,23 @@ src/content/docs/frontend/astro/astro-view-transitions.md
 Si la carpeta no existe en el config, el build falla. Para crear una nueva mira
 el [paso 6](#paso-6--si-necesitas-una-carpeta-nueva).
 
+### Fichas de paquetes
+
+Las librerías instalables viven en la categoría `packages`, dentro del bloque
+`Construir`. Cada paquete tiene su propia subcategoría para que pueda crecer con
+más artículos sin mezclarlo con otras herramientas:
+
+```text
+src/content/docs/packages/<ecosistema>-<paquete>/<articulo>.md
+```
+
+Usa como prefijo el ecosistema principal (`react`, `node`, `javascript`,
+`astro` o `css`) y conserva el nombre del paquete en el id. La etiqueta visible
+se define en `src/content/docs/packages/_meta.json` con el formato
+`React - Nombre del paquete`, `Node - Nombre del paquete`, etc. Express y otras
+tecnologías que son frameworks permanecen en sus categorías tecnológicas; solo
+se trasladan aquí sus dependencias instalables.
+
 ## Paso 2 · Copia el frontmatter mínimo
 
 ```markdown

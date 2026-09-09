@@ -4,7 +4,7 @@ description: Validar la respuesta directamente API dentro de queryFn — datos t
 type: integrations
 order: 2
 tags: [react, api, validation, zod, typescript]
-technologies: [frontend/react/tanstack-query, general/packages/zod]
+technologies: [packages/react-tanstack-query/tanstack-query, packages/javascript-zod/zod]
 updatedAt: 2026-08-25
 ---
 
@@ -88,7 +88,7 @@ const mutacion = useMutation({
 
 - **La cache guarda el dato ya validado**: como el `parse()` corre dentro de `queryFn`, lo que queda en la cache de Query es el resultado tipado y correcto, no el JSON crudo — cualquier componente que lea esa `queryKey` después recibe datos de confianza, sin volver a parsear.
 - **`staleTime`/reintentos no cubren esto**: reintentar una petición no arregla una respuesta con forma inválida — si la API realmente cambió, todos los reintentos van a fallar igual. Es un error real, no algo transitorio de red.
-- **Con [React Hook Form](/frontend/react/react-hook-form)**: si el formulario que dispara la mutación ya valida con `zodResolver` (ver [React Hook Form + Zod](/frontend/react/react-hook-form-zod)), el `.parse()` del lado de la mutación es una segunda capa, no trabajo repetido — protege contra bugs en el código que arma el payload, no contra input de usuario mal escrito (eso ya lo filtró el formulario).
+- **Con [React Hook Form](/packages/react-hook-form/react-hook-form)**: si el formulario que dispara la mutación ya valida con `zodResolver` (ver [React Hook Form + Zod](/frontend/react/react-hook-form-zod)), el `.parse()` del lado de la mutación es una segunda capa, no trabajo repetido — protege contra bugs en el código que arma el payload, no contra input de usuario mal escrito (eso ya lo filtró el formulario).
 
 ## Flujo validado en una mirada
 

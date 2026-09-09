@@ -7,7 +7,7 @@ tags: [typescript, javascript, learning, validation]
 related:
   - general/typescript/typescript
   - general/typescript/typescript-path-aliases
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-09-07
 ---
 
@@ -100,7 +100,7 @@ Ejecuta las variantes una por una y restaura el archivo después. Un cast `paylo
 
 Si ejecutar funciona pero `check` falla, has transformado el código sin demostrar que sus tipos son correctos. Si `check` funciona pero los datos fallan, revisa el contrato real de la entrada. No introduzcas `any` para evitar ambas responsabilidades.
 
-Para esquemas grandes, usa [Zod](/general/packages/zod) y deriva el tipo del esquema. Para imports entre archivos, continúa con [módulos de Node](/backend/node/node-commonjs-vs-esm). Los [alias](/general/typescript/typescript-path-aliases) requieren configurar también el ejecutor o bundler; TypeScript no reescribe por sí solo esos imports.
+Para esquemas grandes, usa [Zod](/packages/javascript-zod/zod) y deriva el tipo del esquema. Para imports entre archivos, continúa con [módulos de Node](/backend/node/node-commonjs-vs-esm). Los [alias](/general/typescript/typescript-path-aliases) requieren configurar también el ejecutor o bundler; TypeScript no reescribe por sí solo esos imports.
 
 ## Fuentes
 

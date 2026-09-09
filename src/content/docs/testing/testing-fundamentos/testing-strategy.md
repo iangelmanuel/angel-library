@@ -8,8 +8,8 @@ order: 2
 related:
   - testing/nextjs/nextjs-testing
   - testing/astro/astro-testing
-  - testing/testing-unitario/vitest-backend
-  - testing/testing-integracion/supertest
+  - packages/node-vitest/vitest-backend
+  - packages/node-supertest/supertest
 updatedAt: 2026-08-28
 ---
 

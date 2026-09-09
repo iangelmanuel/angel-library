@@ -2,7 +2,7 @@
 
 <img src="public/angel-library.webp" alt="Portada de angel.library: el titular «Un segundo cerebro técnico, en disco.», el buscador de toda la biblioteca y las cifras del catálogo" width="880">
 
-### Biblioteca personal de conocimiento técnico: 723 entradas en 23 categorías, publicadas como sitio estático en español
+### Biblioteca personal de conocimiento técnico: 726 entradas en 24 categorías, publicadas como sitio estático en español
 
 [![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build)
 [![Starlight](https://img.shields.io/badge/Starlight-0.42-4F46E5?logo=astro&logoColor=white)](https://starlight.astro.build)
@@ -20,7 +20,7 @@
 
 ## Qué es
 
-**723 entradas** repartidas en **23 categorías**, publicadas como sitio estático
+**726 entradas** repartidas en **24 categorías**, publicadas como sitio estático
 en español. No es un blog: cada entrada existe para que puedas recuperar algo
 concreto —un comando, un patrón, una receta— sin releer un artículo entero.
 

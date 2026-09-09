@@ -68,7 +68,7 @@ app.post("/login", async (req, res) => {
 })
 ```
 
-`compararPassword` usa [bcrypt](/backend/express/bcrypt) — nunca se guarda ni se compara la contraseña en texto plano.
+`compararPassword` usa [bcrypt](/packages/node-bcrypt/bcrypt) — nunca se guarda ni se compara la contraseña en texto plano.
 
 ## Expiración y refresh tokens
 

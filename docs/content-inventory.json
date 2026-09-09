@@ -2062,7 +2062,7 @@
       "signals": ["sin fuente externa", "sin enlace de continuidad"]
     },
     {
-      "id": "backend/express/bcrypt",
+      "id": "packages/node-bcrypt/bcrypt",
       "type": "libraries",
       "private": false,
       "words": 395,
@@ -2550,7 +2550,7 @@
       "signals": ["sin fuente externa"]
     },
     {
-      "id": "backend/express/express-validator",
+      "id": "packages/node-express-validator/express-validator",
       "type": "libraries",
       "private": false,
       "words": 308,
@@ -2587,7 +2587,7 @@
       "signals": []
     },
     {
-      "id": "backend/express/pug",
+      "id": "packages/node-pug/pug",
       "type": "libraries",
       "private": false,
       "words": 306,
@@ -2602,7 +2602,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "backend/express/resend",
+      "id": "packages/node-resend/resend",
       "type": "libraries",
       "private": false,
       "words": 292,
@@ -5049,7 +5049,7 @@
       "signals": []
     },
     {
-      "id": "frontend/astro/gsap",
+      "id": "packages/astro-gsap/gsap",
       "type": "libraries",
       "private": false,
       "words": 346,
@@ -5065,7 +5065,7 @@
       "signals": []
     },
     {
-      "id": "frontend/astro/nanostores",
+      "id": "packages/astro-nanostores/nanostores",
       "type": "libraries",
       "private": false,
       "words": 337,
@@ -5630,7 +5630,7 @@
       "signals": []
     },
     {
-      "id": "frontend/react/atropos",
+      "id": "packages/react-atropos/atropos",
       "type": "libraries",
       "private": false,
       "words": 271,
@@ -5645,7 +5645,7 @@
       "signals": []
     },
     {
-      "id": "frontend/react/axios",
+      "id": "packages/react-axios/axios",
       "type": "libraries",
       "private": false,
       "words": 329,
@@ -5677,7 +5677,7 @@
       "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
-      "id": "frontend/react/motion",
+      "id": "packages/react-motion/motion",
       "type": "libraries",
       "private": false,
       "words": 345,
@@ -5728,7 +5728,7 @@
       "signals": []
     },
     {
-      "id": "frontend/react/react-dropzone",
+      "id": "packages/react-dropzone/react-dropzone",
       "type": "libraries",
       "private": false,
       "words": 291,
@@ -5742,7 +5742,7 @@
       "signals": []
     },
     {
-      "id": "frontend/react/react-email",
+      "id": "packages/react-email/react-email",
       "type": "libraries",
       "private": false,
       "words": 326,
@@ -5814,7 +5814,7 @@
       "signals": ["sin fuente externa"]
     },
     {
-      "id": "frontend/react/react-hook-form",
+      "id": "packages/react-hook-form/react-hook-form",
       "type": "libraries",
       "private": false,
       "words": 186,
@@ -5861,7 +5861,7 @@
       "signals": []
     },
     {
-      "id": "frontend/react/react-router",
+      "id": "packages/react-router/react-router",
       "type": "libraries",
       "private": false,
       "words": 324,
@@ -6067,7 +6067,7 @@
       "signals": ["sin fuente externa"]
     },
     {
-      "id": "frontend/react/tanstack-query",
+      "id": "packages/react-tanstack-query/tanstack-query",
       "type": "libraries",
       "private": false,
       "words": 333,
@@ -6220,7 +6220,7 @@
       "signals": ["sin fuente externa", "revisar comprobación"]
     },
     {
-      "id": "frontend/react/zustand",
+      "id": "packages/react-zustand/zustand",
       "type": "libraries",
       "private": false,
       "words": 343,
@@ -6382,7 +6382,7 @@
       "signals": ["revisar requisitos", "revisar límites"]
     },
     {
-      "id": "general/packages/npm-check-updates",
+      "id": "packages/node-npm-check-updates/npm-check-updates",
       "type": "libraries",
       "private": false,
       "words": 658,
@@ -6401,7 +6401,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "general/packages/zod",
+      "id": "packages/javascript-zod/zod",
       "type": "libraries",
       "private": false,
       "words": 1264,
@@ -10453,7 +10453,7 @@
       "signals": ["revisar requisitos"]
     },
     {
-      "id": "testing/testing-ai/midscene",
+      "id": "packages/node-midscene/midscene",
       "type": "libraries",
       "private": false,
       "words": 529,
@@ -10652,7 +10652,7 @@
       "signals": ["sin fuente externa"]
     },
     {
-      "id": "testing/testing-integracion/msw",
+      "id": "packages/node-msw/msw",
       "type": "libraries",
       "private": false,
       "words": 403,
@@ -10670,7 +10670,7 @@
       "signals": []
     },
     {
-      "id": "testing/testing-integracion/supertest",
+      "id": "packages/node-supertest/supertest",
       "type": "libraries",
       "private": false,
       "words": 406,
@@ -10687,7 +10687,7 @@
       "signals": []
     },
     {
-      "id": "testing/testing-integracion/testcontainers-node",
+      "id": "packages/node-testcontainers/testcontainers-node",
       "type": "libraries",
       "private": false,
       "words": 474,
@@ -10806,7 +10806,7 @@
       "signals": []
     },
     {
-      "id": "testing/testing-unitario/vitest-backend",
+      "id": "packages/node-vitest/vitest-backend",
       "type": "libraries",
       "private": false,
       "words": 338,
@@ -10822,7 +10822,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-css/bootstrap",
+      "id": "packages/css-bootstrap/bootstrap",
       "type": "libraries",
       "private": false,
       "words": 86,
@@ -10830,7 +10830,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "ui-ux/ui-css/bulma",
+      "id": "packages/css-bulma/bulma",
       "type": "libraries",
       "private": false,
       "words": 98,
@@ -10838,7 +10838,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "ui-ux/ui-css/daisyui",
+      "id": "packages/css-daisyui/daisyui",
       "type": "libraries",
       "private": false,
       "words": 176,
@@ -10851,7 +10851,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "ui-ux/ui-css/flowbite",
+      "id": "packages/css-flowbite/flowbite",
       "type": "libraries",
       "private": false,
       "words": 208,
@@ -10859,7 +10859,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "ui-ux/ui-css/hyperui",
+      "id": "packages/css-hyperui/hyperui",
       "type": "libraries",
       "private": false,
       "words": 128,
@@ -10867,7 +10867,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "ui-ux/ui-css/pico-css",
+      "id": "packages/css-pico-css/pico-css",
       "type": "libraries",
       "private": false,
       "words": 81,
@@ -10875,7 +10875,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "ui-ux/ui-css/preline",
+      "id": "packages/css-preline/preline",
       "type": "libraries",
       "private": false,
       "words": 88,
@@ -10883,7 +10883,7 @@
       "signals": ["sin enlace de continuidad"]
     },
     {
-      "id": "ui-ux/ui-css/tailwind-plus",
+      "id": "packages/css-tailwind-plus/tailwind-plus",
       "type": "libraries",
       "private": false,
       "words": 136,
@@ -10891,7 +10891,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/ant-design",
+      "id": "packages/react-ant-design/ant-design",
       "type": "libraries",
       "private": false,
       "words": 79,
@@ -10899,7 +10899,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/boneyard",
+      "id": "packages/react-boneyard/boneyard",
       "type": "libraries",
       "private": false,
       "words": 363,
@@ -10912,7 +10912,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/chakra-ui",
+      "id": "packages/react-chakra-ui/chakra-ui",
       "type": "libraries",
       "private": false,
       "words": 73,
@@ -10920,7 +10920,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/gridstack",
+      "id": "packages/react-gridstack/gridstack",
       "type": "libraries",
       "private": false,
       "words": 269,
@@ -10933,7 +10933,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/heroui",
+      "id": "packages/react-heroui/heroui",
       "type": "libraries",
       "private": false,
       "words": 81,
@@ -10941,7 +10941,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/magic-ui",
+      "id": "packages/react-magic-ui/magic-ui",
       "type": "libraries",
       "private": false,
       "words": 102,
@@ -10949,7 +10949,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/mantine",
+      "id": "packages/react-mantine/mantine",
       "type": "libraries",
       "private": false,
       "words": 73,
@@ -10957,7 +10957,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/material-ui",
+      "id": "packages/react-material-ui/material-ui",
       "type": "libraries",
       "private": false,
       "words": 80,
@@ -10965,7 +10965,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/shadcn-ui",
+      "id": "packages/react-shadcn-ui/shadcn-ui",
       "type": "libraries",
       "private": false,
       "words": 140,
@@ -10973,7 +10973,7 @@
       "signals": []
     },
     {
-      "id": "ui-ux/ui-react/untitled-ui-react",
+      "id": "packages/react-untitled-ui-react/untitled-ui-react",
       "type": "libraries",
       "private": false,
       "words": 323,

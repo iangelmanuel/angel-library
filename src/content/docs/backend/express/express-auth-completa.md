@@ -7,7 +7,7 @@ tags: [express, auth, jwt, bcrypt, cookies]
 problem: Armar autenticación manual completa, sin ninguna librería de auth managed, entendiendo cada pieza.
 technologies:
   - backend/express/express-jwt
-  - backend/express/bcrypt
+  - packages/node-bcrypt/bcrypt
   - backend/express/express-cookies-sesiones
   - backend/express/express-auth-middleware
 updatedAt: 2026-09-07
@@ -15,7 +15,7 @@ updatedAt: 2026-09-07
 
 ## Piezas que se combinan
 
-Esta receta junta [JWT](/backend/express/express-jwt), [bcrypt](/backend/express/bcrypt), [cookies httpOnly](/backend/express/express-cookies-sesiones) y el [middleware de auth](/backend/express/express-auth-middleware) en un flujo completo — cada pieza por separado ya está documentada a fondo en su propia guía; aquí solo el ensamblado.
+Esta receta junta [JWT](/backend/express/express-jwt), [bcrypt](/packages/node-bcrypt/bcrypt), [cookies httpOnly](/backend/express/express-cookies-sesiones) y el [middleware de auth](/backend/express/express-auth-middleware) en un flujo completo — cada pieza por separado ya está documentada a fondo en su propia guía; aquí solo el ensamblado.
 
 ## Setup
 

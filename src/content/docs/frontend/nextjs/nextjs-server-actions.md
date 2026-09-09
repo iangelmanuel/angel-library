@@ -8,7 +8,7 @@ scope: next.js (use server)
 related:
   - frontend/nextjs/nextjs-directivas
   - frontend/react/react-useactionstate
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-08-25
 ---
 
@@ -99,6 +99,6 @@ export async function borrarPost(postId: string) {
 
 ## Seguridad, errores y consistencia
 
-- Validar `formData` con [Zod](/general/packages/zod) antes de tocar la base de datos — nada de lo que llega a una action es confiable solo porque vino de tu propio formulario.
+- Validar `formData` con [Zod](/packages/javascript-zod/zod) antes de tocar la base de datos — nada de lo que llega a una action es confiable solo porque vino de tu propio formulario.
 - Mandar solo el ID desde el cliente y volver a buscar el resto de los datos del lado del servidor (con el usuario de la sesión) evita que alguien mande un objeto completo con un `ownerId` falso.
 - `redirect()` dentro de una Action interrumpe el flujo. Ejecuta `revalidatePath()` o `revalidateTag()` antes del redirect para que la invalidación ocurra.

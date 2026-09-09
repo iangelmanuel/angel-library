@@ -5,7 +5,7 @@ type: skills
 order: 18
 tags: [ai, skill, zod]
 tool: Cross-tool
-related: [general/packages/zod]
+related: [packages/javascript-zod/zod]
 updatedAt: 2026-08-17
 ---
 

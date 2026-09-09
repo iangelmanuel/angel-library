@@ -27,4 +27,4 @@ npx skills add https://github.com/anthropics/skills --skill webapp-testing
 
 ## Consideraciones
 
-- Complementa, no reemplaza, conocer el test runner específico del proyecto — para Vitest en un backend Express, ver [Vitest (backend)](/testing/testing-unitario/vitest-backend) y [Supertest](/testing/testing-integracion/supertest) para el detalle de esa combinación puntual.
+- Complementa, no reemplaza, conocer el test runner específico del proyecto — para Vitest en un backend Express, ver [Vitest (backend)](/packages/node-vitest/vitest-backend) y [Supertest](/packages/node-supertest/supertest) para el detalle de esa combinación puntual.

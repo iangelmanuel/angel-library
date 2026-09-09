@@ -7,7 +7,7 @@ tags: [astro, security, auth]
 problem: Ver todas las capas de protección aplicadas dentro de un endpoint de Astro, sin la cadena de middlewares por ruta que tiene Express.
 technologies:
   - backend/astro/astro-backend-arquitectura
-  - general/packages/zod
+  - packages/javascript-zod/zod
   - backend/express/express-roles-permisos
 updatedAt: 2026-08-16
 ---

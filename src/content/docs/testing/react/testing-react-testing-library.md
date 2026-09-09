@@ -97,7 +97,7 @@ render(<ProjectList />)
 expect(await screen.findByRole("link", { name: "Library" })).toBeVisible()
 ```
 
-[MSW](/testing/testing-integracion/msw) conserva el `fetch` del componente y simula la frontera HTTP. Es más representativo que reemplazar el hook de datos o `global.fetch` con una respuesta incompleta.
+[MSW](/packages/node-msw/msw) conserva el `fetch` del componente y simula la frontera HTTP. Es más representativo que reemplazar el hook de datos o `global.fetch` con una respuesta incompleta.
 
 ## Formularios, validación y foco
 

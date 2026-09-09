@@ -7,7 +7,7 @@ tags: [astro, testing, vitest, playwright]
 scope: testing de proyectos Astro
 related:
   - terminal/cli/cli-playwright
-  - testing/testing-unitario/vitest-backend
+  - packages/node-vitest/vitest-backend
   - frontend/astro/astro-endpoints
 updatedAt: 2026-08-28
 ---

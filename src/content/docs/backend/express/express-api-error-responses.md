@@ -58,7 +58,7 @@ if (error.code === "EMAIL_YA_REGISTRADO") {
 
 ## Errores de validación: detalle por campo
 
-Para errores que vienen de [Zod](/general/packages/zod) o [express-validator](/backend/express/express-validator), el cliente generalmente necesita saber **qué campo** falló, no solo que "algo" falló:
+Para errores que vienen de [Zod](/packages/javascript-zod/zod) o [express-validator](/packages/node-express-validator/express-validator), el cliente generalmente necesita saber **qué campo** falló, no solo que "algo" falló:
 
 ```ts
 app.use((err, req, res, next) => {

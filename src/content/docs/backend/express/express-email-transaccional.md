@@ -5,7 +5,7 @@ type: recipes
 order: 31
 tags: [express, email, resend]
 problem: Los dos casos de uso de email transaccional que casi todo backend termina necesitando, con tokens de un solo uso.
-technologies: [backend/express/resend, backend/express/express-prisma]
+technologies: [packages/node-resend/resend, backend/express/express-prisma]
 updatedAt: 2026-08-16
 ---
 

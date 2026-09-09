@@ -69,4 +69,4 @@ Este mismo sitio usa `client:only="react"` para el `CommandPalette`, justamente 
 
 - Sin directiva, el componente renderiza su HTML pero **cero** JS viaja al cliente — ideal para el 90% de un sitio de contenido.
 - `client:only` necesita el nombre exacto del framework (`"react"`, `"vue"`, `"svelte"`, `"preact"`, `"solid-js"`) tal como está configurado en `astro.config.mjs`.
-- Cada isla hidrata de forma completamente aislada: dos islas de React en la misma página **no** comparten estado entre sí a menos que lo saques del componente (ver [Nanostores](/frontend/astro/nanostores)).
+- Cada isla hidrata de forma completamente aislada: dos islas de React en la misma página **no** comparten estado entre sí a menos que lo saques del componente (ver [Nanostores](/packages/astro-nanostores/nanostores)).

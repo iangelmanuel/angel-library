@@ -7,7 +7,7 @@ order: 9
 practice: Validar requests, formularios, variables de entorno y respuestas de terceros antes de usarlas.
 why: Los tipos de TypeScript desaparecen en runtime y las fronteras reciben datos que no controlamos.
 related:
-  - general/packages/zod
+  - packages/javascript-zod/zod
 updatedAt: 2026-08-25
 ---
 

@@ -4,7 +4,7 @@
   "description": "Desarrollo y operaciones (DevOps): entrega continua, despliegue, infraestructura y observabilidad.",
   "color": "--cat-devops",
   "group": "construir",
-  "order": 6,
+  "order": 7,
   "subcategories": {
     "devops-fundamentos": {
       "label": "Fundamentos de DevOps",

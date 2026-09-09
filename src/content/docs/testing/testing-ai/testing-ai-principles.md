@@ -5,7 +5,7 @@ type: guides
 order: 1
 tags: [testing, ai, e2e, visual-testing]
 related:
-  - testing/testing-ai/midscene
+  - packages/node-midscene/midscene
   - testing/testing-e2e/testing-e2e-reliable-ci
   - agents/agents-fundamentos/agent-safe-workflow
 updatedAt: 2026-08-28

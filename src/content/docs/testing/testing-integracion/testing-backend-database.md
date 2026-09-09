@@ -6,7 +6,7 @@ order: 2
 tags: [testing, backend, database, integration, api]
 related:
   - testing/testing-fundamentos/testing-strategy
-  - testing/testing-integracion/supertest
+  - packages/node-supertest/supertest
   - database/database-operacion/database-migraciones-backups
 updatedAt: 2026-08-28
 ---
@@ -69,7 +69,7 @@ El sufijo no es una garantía completa, pero añade una barrera. Usa credenciale
 
 ## Contenedor o servicio compartido
 
-Un contenedor efímero entrega versión y configuración reproducibles. Un servicio compartido arranca más rápido, pero puede filtrar datos entre suites. Consulta [Testcontainers](/testing/testing-integracion/testcontainers-node) para un ejemplo con PostgreSQL.
+Un contenedor efímero entrega versión y configuración reproducibles. Un servicio compartido arranca más rápido, pero puede filtrar datos entre suites. Consulta [Testcontainers](/packages/node-testcontainers/testcontainers-node) para un ejemplo con PostgreSQL.
 
 | Opción           | Inicio     | Aislamiento         | Fidelidad                                       |
 | ---------------- | ---------- | ------------------- | ----------------------------------------------- |

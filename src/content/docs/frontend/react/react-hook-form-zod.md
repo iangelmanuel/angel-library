@@ -4,7 +4,7 @@ description: Cómo se conectan de verdad — zodResolver, tipos end-to-end, arra
 type: integrations
 order: 1
 tags: [react, forms, validation, zod, typescript]
-technologies: [frontend/react/react-hook-form, general/packages/zod]
+technologies: [packages/react-hook-form/react-hook-form, packages/javascript-zod/zod]
 updatedAt: 2026-08-25
 ---
 

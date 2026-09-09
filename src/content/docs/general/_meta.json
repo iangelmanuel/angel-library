@@ -1,7 +1,7 @@
 {
   "label": "General",
   "icon": "globe",
-  "description": "Librerías, TypeScript, utilidades, snippets y patrones reutilizables para el desarrollo diario.",
+  "description": "TypeScript, utilidades, snippets y patrones reutilizables para el desarrollo diario.",
   "color": "--cat-general",
   "group": "construir",
   "order": 0,
@@ -16,10 +16,6 @@
     "monorepo": {
       "label": "Monorepo",
       "description": "Varios paquetes conviviendo en un mismo repositorio y cómo se coordinan."
-    },
-    "packages": {
-      "label": "Paquetes",
-      "description": "Paquetes de npm que se instalan como dependencia del proyecto."
     },
     "typescript": {
       "label": "TypeScript",

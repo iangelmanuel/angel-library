@@ -1,6 +1,6 @@
 # Revisión de complejidad interna
 
-Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código de coordinación, conservando el contenido y la interfaz existentes. La complejidad se valora por cuántas piezas hay que entender o sincronizar; no es una puntuación automática por líneas. Las cifras de 721 Markdown y 1.728 páginas corresponden a ese snapshot histórico; el catálogo actual tiene 723 entradas y 1.735 páginas generadas en el último build.
+Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código de coordinación, conservando el contenido y la interfaz existentes. La complejidad se valora por cuántas piezas hay que entender o sincronizar; no es una puntuación automática por líneas. Las cifras de 721 Markdown y 1.728 páginas corresponden a ese snapshot histórico; el catálogo actual tiene 726 entradas y 1.751 páginas generadas en el último build.
 
 ## Cambios aplicados
 
@@ -21,7 +21,7 @@ Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código
   y `relations.ts` crea un índice en memoria reutilizable durante el build.
 - La validación reconoce las rutas reales (`/buscar`, categorías, tipos y tags)
   y acepta query strings y fragmentos sin ocultar enlaces rotos.
-- El inventario conserva sus 723 entradas actuales y las guías internas apuntan
+- El inventario conserva el snapshot de 723 entradas y las guías internas apuntan
   a `src/content/docs/`, sin introducir otro registro de contenido.
 
 ## Tabla de revisión

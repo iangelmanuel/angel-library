@@ -8,7 +8,7 @@ Para principiantes faltaban un punto de entrada transversal, requisitos explíci
 
 ## Alcance y evidencia
 
-- Este documento conserva la fotografía editorial de la auditoría del 7 de septiembre: partía de 718 Markdown y terminó con 721. El catálogo actual tiene **723 entradas**, **23 categorías** y **133 subcategorías**; las cifras históricas que aparecen en los resultados no describen el estado actual.
+- Este documento conserva la fotografía editorial de la auditoría del 7 de septiembre: partía de 718 Markdown y terminó con 721. El catálogo actual tiene **726 entradas**, **24 categorías** y **170 subcategorías**; las cifras históricas que aparecen en los resultados no describen el estado actual.
 - Inventario estructural de **721 Markdown del snapshot auditado**, en **23 categorías**. Se añadieron tres guías en esa revisión.
 - Lectura editorial de páginas representativas y revisión técnica priorizada de autenticación, HTTP, utilidades, React, Prisma, configuración, terminal y recetas de infraestructura. El inventario por archivo está en [content-inventory.json](content-inventory.json).
 - Correcciones apoyadas en documentación primaria de Node.js, MDN, TypeScript, React, Prisma, Astro, Better Auth, Auth.js, GitHub, Docker y daisyUI, enlazada en las entradas correspondientes.
@@ -16,6 +16,12 @@ Para principiantes faltaban un punto de entrada transversal, requisitos explíci
 - Pruebas con React 19.2.8 y JSDOM 26.1.0 de tres Hooks: SSR/hidratación, almacenamiento y suscripciones. No equivalen a una prueba visual en todos los navegadores.
 - Prisma 7.10.0: validación del esquema, generación del cliente y tipos estrictos de configuración, cliente, consultas, servicio, demo, servidor Express y repository. Sin conexión a PostgreSQL ni ejecución de migraciones.
 - Comprobación de integridad global mediante `pnpm check` y `pnpm build`.
+
+Actualización del 9 de septiembre: las 40 entradas de tipo `libraries` se
+consolidaron en `packages`, con una subcategoría por paquete y etiquetas que
+indican su ecosistema. Los frameworks, incluido Express, se conservaron en sus
+categorías tecnológicas; las referencias internas se trasladaron a las nuevas
+rutas.
 
 Última validación de aquel snapshot: `pnpm check` revisó 58 archivos sin errores, advertencias ni sugerencias de diagnóstico. `pnpm build` terminó correctamente con **1.728 páginas**, índice de búsqueda y sitemap. La validación actual debe ejecutarse con los comandos de [ARCHITECTURE.md](ARCHITECTURE.md), porque el catálogo ya cambió.
 

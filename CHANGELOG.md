@@ -8,6 +8,48 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.35.5] — 2026-09-09
+
+### Cambiado
+
+- Creada la categoría **Paquetes** dentro de «Construir», con una subcategoría
+  independiente para cada una de las 40 librerías documentadas.
+- Migradas las fichas de librerías de General, Frontend, Backend, Testing y UI /
+  UX a rutas `packages/<ecosistema>-<paquete>/`, con referencias internas
+  actualizadas.
+- Express y las demás tecnologías que son frameworks permanecen en sus
+  categorías tecnológicas; solo se movieron dependencias instalables.
+- Reordenado el bloque «Construir» para colocar Paquetes entre Backend y Bases
+  de datos, manteniendo un orden explícito para las categorías siguientes.
+- Retiradas las subcategorías vacías de paquetes en General y UI / UX, y
+  ajustadas sus descripciones para que no dupliquen el nuevo catálogo.
+- Actualizada la guía de autoría, el inventario y los metadatos del catálogo
+  para reflejar la nueva organización, junto con README, PRODUCT y los datos
+  actuales de 726 entradas, 24 categorías y 170 subcategorías.
+- Añadida la carpeta local de almacén de pnpm al `.gitignore` para evitar que
+  artefactos de instalación aparezcan como cambios del proyecto.
+
+### Verificado
+
+- Catálogo validado con `pnpm check:catalog`.
+- Astro Check completado con 0 errores, advertencias ni sugerencias.
+- Build estático completado con 1.751 páginas y el índice de Pagefind.
+
+## [0.35.4] — 2026-09-09
+
+### Añadido
+
+- Documentado **tgrep**, la herramienta de búsqueda indexada de Microsoft, con
+  arquitectura cliente-servidor, actualización por observador de archivos,
+  instalación, criterios para compararla con ripgrep y límites de sus
+  benchmarks.
+- Añadido **K2 Horizon** de IFM/MBZUAI con la tabla de sus seis modelos,
+  arquitecturas densas, MoE y MoVA, licencias, evaluación, despliegue y
+  responsabilidades de los datos.
+- Añadida la guía de **React Compiler con Oxc y Vite**, incluida la
+  configuración `react({ compiler: true })`, las reglas de Oxlint, el flujo de
+  adopción gradual y las restricciones de la integración.
+
 ## [0.35.3] — 2026-09-08
 
 ### Mejorado
@@ -2249,7 +2291,9 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.35.3...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.35.5...HEAD
+[0.35.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.5
+[0.35.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.4
 [0.35.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.3
 [0.35.2]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.2
 [0.35.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.1

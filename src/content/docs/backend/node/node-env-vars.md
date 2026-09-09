@@ -5,7 +5,7 @@ type: guides
 order: 10
 tags: [node, env, config, dotenv]
 scope: process.env / dotenv
-related: [general/packages/zod, architecture/principios/validate-at-boundaries]
+related: [packages/javascript-zod/zod, architecture/principios/validate-at-boundaries]
 updatedAt: 2026-08-16
 ---
 
@@ -94,7 +94,7 @@ export const env = envSchema.parse(process.env)
 // falla aquí, al arrancar, con un mensaje claro — no 500 requests después.
 ```
 
-Con esto, el resto de la app importa `env` (tipado, ya validado) en vez de tocar `process.env` directo en cualquier archivo — ver [Zod](/general/packages/zod) para el resto de la API de validación.
+Con esto, el resto de la app importa `env` (tipado, ya validado) en vez de tocar `process.env` directo en cualquier archivo — ver [Zod](/packages/javascript-zod/zod) para el resto de la API de validación.
 
 ## Mapa de configuración
 
