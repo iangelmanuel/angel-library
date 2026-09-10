@@ -6,7 +6,6 @@ order: 3
 tags: [testing, testcontainers, docker, database, integration]
 website: https://node.testcontainers.org/
 github: https://github.com/testcontainers/testcontainers-node
-install: npm install --save-dev testcontainers @testcontainers/postgresql
 related:
   - testing/testing-integracion/testing-backend-database
   - database/database-operacion/database-migraciones-backups
@@ -15,6 +14,12 @@ updatedAt: 2026-08-28
 ---
 
 Testcontainers inicia dependencias reales dentro de contenedores durante la suite. Permite probar contra la misma familia y versión de PostgreSQL, Redis, MongoDB o un broker sin exigir una instalación manual compartida.
+
+## Instalación
+
+```bash
+pnpm add -D testcontainers @testcontainers/postgresql
+```
 
 ## Cuándo aporta valor
 

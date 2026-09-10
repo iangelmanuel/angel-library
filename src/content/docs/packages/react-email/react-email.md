@@ -5,12 +5,17 @@ type: libraries
 order: 9
 tags: [react, email]
 website: https://react.email
-install: npx create-email@latest
 related: []
 updatedAt: 2026-08-25
 ---
 
 El HTML de un email no es HTML normal: los clientes (Gmail, Outlook) requieren tablas anidadas y estilos inline porque no soportan CSS moderno de forma consistente. React Email genera ese HTML pesado a partir de componentes declarativos, probados contra los clientes principales — se escribe como un componente React normal, sale como el HTML retorcido que un email necesita.
+
+## Instalación
+
+```bash
+pnpm dlx create-email@latest
+```
 
 ## Setup inicial
 

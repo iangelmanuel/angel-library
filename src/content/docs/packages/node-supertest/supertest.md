@@ -5,14 +5,18 @@ type: libraries
 order: 2
 tags: [express, testing, supertest, http]
 website: https://github.com/ladjs/supertest
-install: |
-  npm install --save-dev supertest
-  npm install --save-dev @types/supertest
 related: [packages/node-vitest/vitest-backend]
 updatedAt: 2026-08-28
 ---
 
 [Vitest](/packages/node-vitest/vitest-backend) ejecuta la suite y prueba funciones aisladas. Supertest envía solicitudes contra la aplicación Express, atravesando middlewares, routing y manejo de errores sin necesitar un puerto público.
+
+## Instalación
+
+```bash
+pnpm add -D supertest
+pnpm add -D @types/supertest
+```
 
 ## Requisito: exportar `app` sin llamar a `.listen()`
 

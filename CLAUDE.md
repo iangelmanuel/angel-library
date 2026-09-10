@@ -68,7 +68,9 @@ en `src/pages/`, todas envueltas en `<StarlightPage>` para heredar el layout:
 - `/categories` y `/categories/[category]`
 - `/tipos/[type]`
 - `/tags` y `/tags/[tag]`
-- `/buscar` — abre el buscador de Starlight al entrar.
+
+No hay página de búsqueda: el buscador de Starlight (Pagefind) se abre desde
+la cabecera y, en la portada, también desde el campo del hero.
 
 ### Relaciones
 

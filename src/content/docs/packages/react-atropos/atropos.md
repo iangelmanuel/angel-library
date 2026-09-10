@@ -5,13 +5,18 @@ type: libraries
 order: 7
 tags: [react, animation, 3d]
 website: https://atroposjs.com
-install: npm i atropos
 related:
   - packages/react-motion/motion
 updatedAt: 2026-08-25
 ---
 
 Atropos inclina un elemento en 3D siguiendo el mouse (o el dedo, en touch — usa Pointer Events, así que ambos casos son el mismo código) y da profundidad a sus capas internas moviéndolas a distinta velocidad. Es liviano (~2kb) y no depende de nada más.
+
+## Instalación
+
+```bash
+pnpm add atropos
+```
 
 ## Uso básico
 

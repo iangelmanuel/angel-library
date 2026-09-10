@@ -6,11 +6,16 @@ order: 7
 tags: [html, css]
 website: https://bulma.io
 github: https://github.com/jgthms/bulma
-install: npm install bulma
 updatedAt: 2026-08-17
 ---
 
 Solo CSS: cero JavaScript propio, así que interactividad (dropdowns, modales, navbar burger) hay que cablearla a mano con unas pocas líneas. A cambio, el HTML queda muy legible (`box`, `card`, `notification`, `tag`).
+
+## Instalación
+
+```bash
+pnpm add bulma
+```
 
 ## Configuración inicial
 

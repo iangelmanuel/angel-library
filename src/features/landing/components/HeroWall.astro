@@ -1,7 +1,6 @@
 ---
 import Button from "@/components/shared/Button.astro"
 import Icon from "@/components/shared/Icon.astro"
-import { SEARCH_LINK } from "@/config/navigation"
 import { formatDate } from "@/lib/content"
 import { FIGURE_LABELS, HERO } from "../data/content"
 import type { LandingStats } from "../lib/stats"
@@ -30,10 +29,12 @@ const figures = [
 
       <p class="wall-hero__claim">{HERO.claim}</p>
 
-      <a
-        href={SEARCH_LINK.href}
+      <button
+        type="button"
         class="wall-index"
-        aria-label="Abrir el índice de búsqueda (Control K)"
+        data-open-search
+        aria-label="Abrir el buscador (Control K)"
+        aria-keyshortcuts="Control+K"
       >
         <Icon
           name="search"
@@ -42,7 +43,7 @@ const figures = [
         />
         <span class="wall-index__text">{HERO.searchCommand}</span>
         <kbd class="kbd">ctrl K</kbd>
-      </a>
+      </button>
 
       <div class="wall-hero__actions">
         <Button

@@ -6,13 +6,18 @@ order: 4
 tags: [react, state, typescript]
 website: https://zustand.docs.pmnd.rs
 github: https://github.com/pmndrs/zustand
-install: npm install zustand
 related:
   - frontend/react/react-context-api
 updatedAt: 2026-08-25
 ---
 
 A diferencia de Context, un store de Zustand vive fuera del árbol de React: no hace falta envolver nada en un `<Provider>`, y un componente que lee una sola propiedad del store solo se re-renderiza cuando esa propiedad cambia — no cuando cambia cualquier otra parte del store, como sí pasa con Context.
+
+## Instalación
+
+```bash
+pnpm add zustand
+```
 
 ## Crear el store
 

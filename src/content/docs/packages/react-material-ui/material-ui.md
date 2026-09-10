@@ -6,12 +6,17 @@ order: 6
 tags: [react, components, material-design]
 website: https://mui.com
 github: https://github.com/mui/material-ui
-install: npm install @mui/material @emotion/react @emotion/styled
 technologies: [frontend/react/react]
 updatedAt: 2026-08-17
 ---
 
 La opción más "enterprise" del ecosistema React: componentes maduros, tablas y date pickers avanzados en `@mui/x` (parte de pago), y años de estabilidad.
+
+## Instalación
+
+```bash
+pnpm add @mui/material @emotion/react @emotion/styled
+```
 
 ## Configuración inicial
 

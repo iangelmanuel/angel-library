@@ -8,6 +8,7 @@
 @import "./tokens.css";
 @import "./chrome.css";
 @import "./components/button.css";
+@import "./search.css";
 
 :root,
 [data-theme="dark"] {
@@ -67,51 +68,6 @@ header.header {
   border-bottom: 1px solid var(--thread);
   background: color-mix(in srgb, var(--background) 88%, transparent);
   backdrop-filter: blur(12px);
-}
-
-/* Buscador: campo teñido, sin canto. */
-/* El mismo campo que el buscador del hero, en pequeño. */
-header.header site-search button[data-open-modal],
-site-search button[data-open-modal] {
-  width: 100%;
-  height: 2.25rem;
-  min-height: 2.25rem;
-  gap: 0.6rem;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
-  padding: 0 0.5rem 0 0.85rem;
-  font-size: 0.82rem;
-  color: var(--muted-foreground);
-  transition: background-color var(--dur-fast) var(--ease-enamel);
-}
-header.header site-search button[data-open-modal]:hover,
-site-search button[data-open-modal]:hover {
-  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
-}
-site-search button[data-open-modal] > svg {
-  color: var(--blue-400);
-}
-site-search button[data-open-modal] > kbd {
-  margin-left: auto;
-}
-
-site-search button[data-open-modal] > kbd {
-  gap: 0.15rem;
-  padding: 0.15rem 0.4rem;
-  background: color-mix(in srgb, var(--blue-400) 12%, transparent);
-  color: var(--blue-300);
-}
-
-/* Las teclas de dentro no llevan campo propio. */
-site-search button[data-open-modal] kbd kbd {
-  padding: 0;
-  background: transparent;
-  color: inherit;
-}
-site-search kbd {
-  background: color-mix(in srgb, var(--blue-400) 10%, transparent);
-  color: var(--blue-300);
 }
 
 /* ----------------------------------------------------------------- menú */
@@ -292,37 +248,178 @@ site-search kbd {
   color: var(--blue-300);
 }
 
-/* Paginación: dos campos, sin cantos. */
+/* Paginación: dos campos, sin cantos. Mismo vidriado que las tarjetas de
+   relaciones que quedan justo encima. */
 .pagination-links a {
   border: 0;
   border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 16%, #000000);
+  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
   box-shadow: none;
   transition: background-color var(--dur-fast) var(--ease-enamel);
 }
-.pagination-links a:hover {
-  background: color-mix(in oklab, var(--blue-800) 28%, #000000);
+.pagination-links a:hover,
+.pagination-links a:focus-visible {
+  background: color-mix(in oklab, var(--blue-800) 36%, #000000);
+}
+
+/* --------------------------------------------------- copiar y anclas */
+
+/* El botón de copiar habla el idioma del sitio: el icono es el mismo lucide
+   que el resto de la interfaz, el campo sube de vidriado al encenderse y no
+   dibuja canto. */
+.expressive-code {
+  --ec-frm-copyIcon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'2'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Crect%20width%3D'14'%20height%3D'14'%20x%3D'8'%20y%3D'8'%20rx%3D'2'%20ry%3D'2'%2F%3E%3Cpath%20d%3D'M4%2016c-1.1%200-2-.9-2-2V4c0-1.1.9-2%202-2h10c1.1%200%202%20.9%202%202'%2F%3E%3C%2Fsvg%3E");
+  --ec-copiedIcon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'2'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M20%206L9%2017l-5-5'%2F%3E%3C%2Fsvg%3E");
+  --ec-frm-inlBtnFg: var(--blue-300);
+  /* Esmalte pleno, no azul claro: al pulsar el campo se hunde, no se lava. */
+  --ec-frm-inlBtnBg: var(--blue-800);
+  --ec-frm-inlBtnBgIdleOpa: 0.18;
+  --ec-frm-inlBtnBgHoverOrFocusOpa: 0.52;
+  --ec-frm-inlBtnBgActOpa: 0.72;
+  /* Sin anillo: aquí manda el relleno. */
+  --ec-frm-inlBtnBrdOpa: 0;
+}
+
+.expressive-code .copy button {
+  border-radius: var(--radius-thin);
+}
+
+/* El aviso no es un globo verde flotando fuera del bloque: el propio botón
+   confirma cambiando el icono por un visto. */
+.expressive-code .copy .feedback {
+  display: none;
+}
+
+/* El aviso vive en la región `aria-live` que Expressive Code rellena al
+   copiar: los lectores de pantalla lo oyen, la vista no lo lee dos veces. */
+.expressive-code .copy > [aria-live] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.expressive-code .copy:has(> [aria-live]:not(:empty)) button {
+  opacity: 1;
+}
+
+.expressive-code .copy:has(> [aria-live]:not(:empty)) button div {
+  animation: ec-copiado-campo 0.8s var(--ease-enamel) forwards;
+  opacity: 0.6;
+}
+
+@keyframes ec-copiado-campo {
+  0%,
+  62% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: var(--ec-frm-inlBtnBgIdleOpa);
+  }
+}
+
+/* El cambio de máscara no se puede interpolar: se hace de golpe. Para que no
+   se note, el visto se apaga antes del cambio y el icono de copiar entra ya
+   cambiado. Dos animaciones a la vez: una discreta para la forma, otra suave
+   para la entrada y la salida. */
+@keyframes ec-copiado {
+  0% {
+    background-color: var(--blue-100);
+    -webkit-mask-image: var(--ec-copiedIcon);
+    mask-image: var(--ec-copiedIcon);
+  }
+  80% {
+    background-color: var(--ec-frm-inlBtnFg);
+    -webkit-mask-image: var(--ec-frm-copyIcon);
+    mask-image: var(--ec-frm-copyIcon);
+  }
+}
+
+@keyframes ec-copiado-relevo {
+  0%,
+  60% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  76% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  84% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* El visto se queda 0,8s y vuelve al icono de copiar por su cuenta: el aviso
+   de Expressive Code dura dos segundos y se hacía eterno. */
+.expressive-code .copy .feedback.show ~ button::after,
+.expressive-code .copy:has(> [aria-live]:not(:empty)) button::after {
+  animation:
+    ec-copiado 0.8s step-end forwards,
+    ec-copiado-relevo 0.8s var(--ease-enamel) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expressive-code .copy .feedback.show ~ button::after,
+  .expressive-code .copy:has(> [aria-live]:not(:empty)) button::after {
+    animation: ec-copiado 0.8s step-end forwards;
+  }
+}
+
+/* Ancla del título: aparece en blanco al pasar por el encabezado y toma el
+   color del propio título cuando el puntero llega al icono. */
+.sl-markdown-content .sl-anchor-link {
+  color: var(--white);
+  transition:
+    opacity var(--dur-fast) var(--ease-enamel),
+    color var(--dur-fast) var(--ease-enamel);
+}
+
+.sl-markdown-content .sl-anchor-link:hover,
+.sl-markdown-content .sl-anchor-link:focus-visible {
+  color: var(--heading-secondary);
 }
 
 /* ------------------------------------------------ pestañas de instalación */
 
 .pm-tabs {
+  position: relative;
   margin: 1.5rem 0;
+  border-radius: var(--radius-field);
+  background: var(--code-bg);
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .pm-tabs__list {
   display: flex;
-  gap: 0.25rem;
-  margin-bottom: 0.35rem;
+  gap: 2px;
+  align-items: center;
+  background: var(--code-chrome);
+  /* Casi la misma altura que la cabecera de cualquier otro bloque de código,
+     y el texto de la pestaña a plomo con la primera letra del comando. */
+  padding: 0.3rem 0.5rem;
 }
 
 .pm-tabs__tab {
   border: 0;
   border-radius: var(--radius-thin);
   background: transparent;
-  padding: 0.28rem 0.65rem;
+  /* El margen entre hermanos de la prosa no entra aquí: empujaba las dos
+     últimas pestañas 16px hacia abajo y estiraba la primera hasta el doble
+     de alto. Las tres miden lo mismo. */
+  margin: 0;
+  padding: 0.2rem 0.6rem;
   font-family: var(--font-mono);
   font-size: 0.72rem;
+  line-height: 1.5;
   color: var(--gray-450);
   cursor: pointer;
   transition:
@@ -330,308 +427,52 @@ site-search kbd {
     color var(--dur-fast) var(--ease-enamel);
 }
 
+/* El estado sube el vidriado; no aparece ningún canto. */
 .pm-tabs__tab:hover {
+  background: color-mix(in oklab, var(--blue-800) 30%, #000000);
   color: var(--gray-300);
 }
 
+/* La activa no se destaca: es solo la que está abierta —y pnpm es la primera
+   por orden, no por rango—. Un escalón de luz y la letra en blanco bastan. */
 .pm-tabs__tab.is-active {
-  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
+  background: color-mix(in oklab, var(--blue-800) 26%, #000000);
   color: var(--white);
 }
 
-.pm-tabs__panel .expressive-code {
-  margin: 0;
-}
-
-/* ------------------------------------------------------------- buscador */
-
-/* El modal de Pagefind, con la materia del sitio. */
-dialog[aria-label*="Buscar"],
-site-search dialog {
-  width: min(46rem, calc(100vw - 2rem));
-  max-width: none;
-  max-height: min(44rem, calc(100dvh - 2rem));
-  border: 0;
-  border-radius: var(--radius-field);
-  background: var(--enamel-950);
-  overflow: hidden;
-  padding: 0;
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--white) 8%, transparent),
-    0 2px 6px rgb(0 0 0 / 0.5),
-    0 42px 90px -32px rgb(0 0 0 / 0.95);
-}
-
-site-search dialog::backdrop {
-  background: rgb(0 0 0 / 0.72);
-}
-
-site-search .dialog-frame {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-height: inherit;
-  border: 0;
-  background: transparent;
-  padding: 1rem;
-}
-
-site-search .search-container {
-  min-width: 0;
-}
-
-site-search [data-close-modal] {
-  align-self: flex-end;
-  border: 0;
-  border-radius: var(--radius-thin);
-  background: transparent;
-  padding: 0.35rem 0.55rem;
-  color: var(--gray-400);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-site-search [data-close-modal]:hover,
-site-search [data-close-modal]:focus-visible {
-  background: color-mix(in oklab, var(--blue-800) 18%, #000000);
-  color: var(--white);
-}
-
-site-search #starlight__search {
-  --pagefind-ui-primary: var(--blue-200);
-  --pagefind-ui-text: var(--reading-text);
-  --pagefind-ui-background: transparent;
-  --pagefind-ui-border: transparent;
-  --pagefind-ui-tag: var(--enamel-800);
-  --pagefind-ui-border-width: 0;
-  --pagefind-ui-border-radius: var(--radius-field);
-  --pagefind-ui-font: var(--font-sans);
-}
-
-site-search .pagefind-ui__form {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Campo de búsqueda: un solo objeto, sin canto. */
-site-search .pagefind-ui__search-input {
-  min-height: 3.25rem;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 18%, #000000);
-  padding-inline: 2.75rem 1rem;
-  font-size: 1rem;
-  color: var(--white);
-  transition:
-    background-color var(--dur-fast) var(--ease-enamel),
-    box-shadow var(--dur-fast) var(--ease-enamel);
-}
-
-site-search .pagefind-ui__search-input:focus {
-  outline: 0;
-  background: color-mix(in oklab, var(--blue-800) 24%, #000000);
-  box-shadow: inset 0 0 0 2px var(--ring);
-}
-
-site-search .pagefind-ui__search-input::placeholder {
-  color: var(--gray-450);
-}
-
-site-search .pagefind-ui__search-clear {
-  border-radius: var(--radius-thin);
-  background: transparent;
-  padding: 0.35rem 0.55rem;
-  color: var(--gray-450);
-}
-
-site-search .pagefind-ui__search-clear:hover {
-  background: color-mix(in oklab, var(--blue-400) 10%, transparent);
-  color: var(--white);
-}
-
-site-search .pagefind-ui__drawer {
-  margin-top: 1rem;
-}
-
-site-search .pagefind-ui__results-area {
-  min-width: 0;
-}
-
-site-search .pagefind-ui__message {
-  margin: 0 0 0.75rem;
-  padding-inline: 0.25rem;
-  color: var(--gray-450);
-}
-
-site-search .pagefind-ui__results {
-  display: grid;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Cada página es un grupo; sus coincidencias internas son filas, no ramas. */
-site-search .pagefind-ui__result {
-  margin: 0;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 8%, #000000);
-  overflow: hidden;
-  padding: 0;
-  transition:
-    background-color var(--dur-fast) var(--ease-enamel),
-    box-shadow var(--dur-fast) var(--ease-enamel);
-}
-
-site-search .pagefind-ui__result:hover,
-site-search .pagefind-ui__result:focus-within {
-  background: color-mix(in oklab, var(--blue-800) 12%, #000000);
-  box-shadow: inset 0 0 0 1px var(--thread-strong);
-}
-
-site-search .pagefind-ui__result-inner {
-  min-width: 0;
-}
-
-/* El primer título identifica la página que contiene las coincidencias. */
-site-search
-  .pagefind-ui__result-inner
-  > .pagefind-ui__result-title:first-child {
-  background: color-mix(in oklab, var(--blue-800) 18%, #000000);
-  padding: 0.85rem 1rem;
-}
-
-site-search
-  .pagefind-ui__result-inner
-  > .pagefind-ui__result-title:first-child::before {
-  width: 1.125rem;
-  height: 1.125rem;
-  margin-right: 0.7rem;
-  background-color: var(--blue-300);
-}
-
-site-search
-  .pagefind-ui__result-inner
-  > .pagefind-ui__result-title:first-child
-  a {
-  color: var(--white);
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-/* Cada sección encontrada queda separada por un hilo horizontal sutil. */
-site-search .pagefind-ui__result-nested {
-  position: relative;
-  margin: 0;
-  border: 0;
-  border-top: 1px solid var(--thread);
-  padding: 0.75rem 1rem 0.8rem 2.65rem;
-}
-
-site-search .pagefind-ui__result-nested::before {
-  position: absolute;
-  top: 1.15rem;
-  left: 1.15rem;
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 999px;
-  background: var(--blue-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue-400) 12%, transparent);
-  content: "";
-}
-
-site-search .pagefind-ui__result-nested .pagefind-ui__result-title {
-  margin: 0;
-}
-
-site-search .pagefind-ui__result-nested .pagefind-ui__result-title a {
-  color: var(--blue-200);
-  font-size: 0.84rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-site-search .pagefind-ui__result-nested .pagefind-ui__result-title a:hover {
-  color: var(--white);
-}
-
-site-search .pagefind-ui__result-excerpt {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  margin: 0.35rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.55;
-  color: var(--gray-400);
-}
-
-site-search mark {
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--blue-400) 22%, transparent);
-  color: var(--blue-100);
-}
-
-site-search .pagefind-ui__button {
-  align-self: flex-start;
-  margin-top: 0.75rem;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 20%, #000000);
-  padding: 0.6rem 0.85rem;
-  color: var(--blue-200);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-site-search .pagefind-ui__button:hover {
-  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
-}
-
-@media (max-width: 767px) {
-  site-search dialog {
-    width: calc(100vw - 1rem);
-    max-height: calc(100dvh - 1rem);
-    margin: 0.5rem auto;
-  }
-
-  site-search .dialog-frame {
-    padding: 0.75rem;
-  }
-
-  site-search [data-close-modal] {
-    display: inline-flex;
+/* Con ratón la barra mide lo mismo que la cabecera de cualquier otro bloque
+   de código; con dedo, el control conserva su área de toque. */
+@media (pointer: fine) {
+  .pm-tabs__tab {
+    min-height: 1.6rem;
   }
 }
 
-/* Cabecera de la documentación: la misma caja que la de la portada. */
-/* La cabecera de Starlight ya reserva su alto: el interior solo lo rellena. */
-header.header {
-  padding-inline: 0;
+.pm-tabs__panel,
+.pm-tabs__panel .expressive-code,
+.pm-tabs__panel .expressive-code .frame {
+  margin: 0;
 }
 
-header.header .chrome-header__inner {
-  height: 100%;
-}
-
-header.header .social-icons::after {
+/* La cabecera propia del marco sobra: su sitio lo ocupan las pestañas. */
+.pm-tabs__panel .frame.is-terminal .header {
   display: none;
 }
 
-/* Iconos sociales: blancos, azules al pasar. */
-header.header .chrome-header__social a,
-header.header .social-icons a {
-  color: var(--white);
-  opacity: 1;
-  transition: color var(--dur-fast) var(--ease-enamel);
+.pm-tabs__panel .frame.is-terminal pre {
+  border-radius: 0;
 }
 
-header.header .chrome-header__social a:hover,
-header.header .social-icons a:hover {
-  color: var(--blue-400);
+/* Sin cabecera propia, el botón de copiar de Expressive Code caía fuera del
+   bloque: contaba con los 38px del rótulo que ya no existe. Vuelve arriba y
+   el código le reserva su carril. */
+.pm-tabs__panel .expressive-code .frame.is-terminal .copy {
+  top: 0.4rem;
+  bottom: auto;
+}
+
+.pm-tabs__panel .frame.is-terminal pre {
+  padding-inline-end: 3rem;
 }
 
 /* En pantallas anchas el contenido queda centrado, pero el menú se quedaba

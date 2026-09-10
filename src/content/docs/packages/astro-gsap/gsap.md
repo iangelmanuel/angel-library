@@ -5,7 +5,6 @@ type: libraries
 order: 2
 tags: [astro, animation, scroll]
 website: https://gsap.com
-install: npm install gsap
 related:
   - frontend/astro/astro-view-transitions
   - languages/css/css-animations
@@ -13,6 +12,12 @@ updatedAt: 2026-08-25
 ---
 
 Animaciones imperativas con control fino (timelines, secuencias, scroll) que CSS puro no cubre bien. En un proyecto Astro corre normalmente en un `<script>` de cliente o dentro directamente isla.
+
+## Instalación
+
+```bash
+pnpm add gsap
+```
 
 ## Lo básico: `to`, `from`, `fromTo`
 

@@ -8,8 +8,6 @@ export const SITE_NAV = [
   { label: "Tags", href: "/tags" }
 ] as const
 
-export const SEARCH_LINK = { label: "Buscar", href: "/buscar" } as const
-
 export const SOCIAL_LINKS = [
   { label: "GitHub", icon: "brand-github", href: SITE.social.github },
   { label: "X", icon: "brand-x", href: SITE.social.x }

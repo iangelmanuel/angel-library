@@ -6,13 +6,18 @@ order: 2
 tags: [react, tailwindcss, components, accessibility]
 website: https://www.heroui.com
 github: https://github.com/heroui-inc/heroui
-install: npm install @heroui/react framer-motion
 technologies: [frontend/react/react]
 updatedAt: 2026-08-17
 related: [packages/react-shadcn-ui/shadcn-ui]
 ---
 
 Se renombró de NextUI a HeroUI en 2024 (mismo equipo, mismo proyecto). A diferencia de shadcn/ui, sí es un paquete npm normal: se instala y se importa, no se copia código.
+
+## Instalación
+
+```bash
+pnpm add @heroui/react framer-motion
+```
 
 ## Configuración inicial
 

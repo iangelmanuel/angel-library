@@ -6,12 +6,17 @@ order: 5
 tags: [react, components, hooks]
 website: https://mantine.dev
 github: https://github.com/mantinedev/mantine
-install: npm install @mantine/core @mantine/hooks
 technologies: [frontend/react/react]
 updatedAt: 2026-08-17
 ---
 
 Cubre casos que otras librerías dejan para paquetes aparte: fechas, notificaciones, dropzone, rich text editor, todos bajo el mismo sistema de theming.
+
+## Instalación
+
+```bash
+pnpm add @mantine/core @mantine/hooks
+```
 
 ## Configuración inicial
 

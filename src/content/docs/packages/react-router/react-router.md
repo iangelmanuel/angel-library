@@ -6,7 +6,6 @@ order: 1
 tags: [react, routing]
 website: https://reactrouter.com
 github: https://github.com/remix-run/react-router
-install: npm i react-router
 related:
   - packages/react-tanstack-query/tanstack-query
 updatedAt: 2026-08-25
@@ -15,6 +14,12 @@ updatedAt: 2026-08-25
 Desde la versión 7, React Router es **un solo paquete**: `react-router` — `react-router-dom` ya no existe como paquete separado, todo se importa de `react-router` directo. Si ves `react-router-dom` en un tutorial o proyecto viejo, es la sintaxis anterior; los componentes/hooks son básicamente los mismos, cambia el import.
 
 Esta guía cubre **Declarative Mode**: rutas declaradas en el árbol de componentes, la forma más simple de agregar routing a una SPA existente. Para una app nueva completa, React Router también ofrece un "Framework Mode" con convenciones de archivos (más parecido a Next.js/Astro), pero Declarative Mode es lo que hace falta la mayoría de las veces.
+
+## Instalación
+
+```bash
+pnpm add react-router
+```
 
 ## Setup
 

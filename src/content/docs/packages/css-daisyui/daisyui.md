@@ -6,7 +6,6 @@ order: 3
 tags: [html, tailwindcss, css]
 website: https://daisyui.com
 github: https://github.com/saadeghi/daisyui
-install: npm install -D daisyui
 updatedAt: 2026-09-07
 ---
 

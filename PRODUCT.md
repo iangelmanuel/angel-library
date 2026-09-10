@@ -23,7 +23,7 @@ Audiencia secundaria confirmada: otros desarrolladores hispanohablantes que lleg
 Dos cosas la separan de un blog o de notas en Notion, confirmadas por el autor:
 
 - **Reutilizable, no leíble.** El contenido son snippets, comandos y recetas listos para copiar en proyectos reales, no artículos largos para leer de corrido.
-- **La terminal es la interfaz.** Buscar y navegar se hace por comandos (Ctrl/Cmd+K, `/buscar`), no por menús de blog.
+- **La terminal es la interfaz.** Buscar y navegar se hace por comandos (Ctrl/Cmd+K), no por menús de blog.
 
 ## Operating Context
 
@@ -41,10 +41,10 @@ Restricciones vinculantes confirmadas por el autor:
 
 Capacidades y hechos técnicos actuales (implementación incumbente, no declarada inmutable por el autor):
 
-- 737 entradas en 24 categorías y 170 subcategorías; el último build generó 1794 páginas.
+- 737 entradas en 24 categorías y 170 subcategorías; el último build generó 1793 páginas.
 - Tipos editoriales en uso: guides (419), resources (105), skills (80), libraries (40), patterns (19), recipes (19), utilities (12), hooks (9), practices (9), technologies (9), snippets (7), commands (4), tricks (3), integrations (2).
 - `src/config/` reúne la configuración: `site.ts` (identidad y SEO), `catalog.ts` (categorías y subcategorías), `content-types.ts`, `sidebar.ts`, `icons.ts` y `navigation.ts`. Las rutas, el menú y la validación de build se derivan de esas fuentes.
-- Starlight genera las páginas de documentación y el proyecto añade `/`, `/categories`, `/tipos/[type]`, `/tags`, `/buscar`, 404, sitemap, robots y manifest.
+- Starlight genera las páginas de documentación y el proyecto añade `/`, `/categories`, `/tipos/[type]`, `/tags`, 404, sitemap, robots y manifest.
 - El build valida estructura de carpetas, relaciones rotas y enlaces internos muertos, y falla con mensaje en español.
 - Búsqueda estática gestionada por Starlight y Pagefind; no existe un índice paralelo que mantener.
 - Tema oscuro único (`<html class="dark">`), cantos finos (`--radius-thin: 2px`, `--radius: 4px`, `--radius-field: 6px`), Tailwind v4 sin config: los tokens son variables CSS en `src/styles/tokens.css` y `global.css` solo encadena los imports. Fuentes Geist Sans y Geist Mono autoalojadas — la Pixel salió del diseño.

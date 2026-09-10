@@ -193,7 +193,7 @@ Una sola familia azul quemada contra el negro, con grises neutros como contrapes
 
 ### Primary
 
-- **Esmalte pleno** (`--primary` / `--blue-800`): el relleno saturado de la marca. Aparece en el botón del índice de la portada, en el pie de la ruta ilustrada de la landing, en el filtro seleccionado (`[aria-pressed="true"]`) y en la pestaña activa de gestor de paquetes. Es el único azul que se usa como fondo pleno de una acción.
+- **Esmalte pleno** (`--primary` / `--blue-800`): el relleno saturado de la marca. Aparece en el botón del índice de la portada, en el pie de la ruta ilustrada de la landing, y en el filtro seleccionado (`[aria-pressed="true"]`). Es el único azul que se usa como fondo pleno de una acción. La pestaña activa del gestor de paquetes **no** lo usa: es la que está abierta, no la recomendada, y se dice con un escalón de luz.
 - **Azul vivo** (`--blue-400`): el azul de trabajo. Anillo de foco, caret, barra de progreso de lectura, hilo del TOC activo, enlaces de prosa, acento por defecto de cualquier campo (`--card-accent`).
 - **Azul de título** (`--blue-200`) y **azul medio** (`--blue-500`): los otros dos escalones de la rampa de títulos y de los estados hover del texto azul.
 
@@ -216,7 +216,7 @@ Una sola familia azul quemada contra el negro, con grises neutros como contrapes
 
 **The Enamel Fill Rule.** Un campo se rellena mezclando su acento contra el negro **en oklab**: `background: color-mix(in oklab, var(--card-accent) var(--glaze), #000000)`, y al encenderse sube a `var(--glaze-lit)` — **26% → 36%**. El espacio de mezcla no es opcional: en sRGB la misma fórmula da pizarra gris y la croma se pierde. Todo campo nuevo se pinta así.
 
-**The Low-Glaze Rule.** El vidriado se mide por lo que se ve junto, no por una pieza aislada. Una rejilla de veintitrés categorías, un listado de tarjetas o un cierre de relaciones bajan del valor por defecto: 17% en las teselas de `/categories`, 16% en las tarjetas de relación (26% encendidas). Si una pantalla se ve «colorida», el número a bajar es el vidriado, nunca el color.
+**The Low-Glaze Rule.** El vidriado se mide por lo que se ve junto, no por una pieza aislada. Un listado de tarjetas o un cierre de relaciones bajan del valor por defecto: 16% en las tarjetas de relación (26% encendidas). Las teselas de categoría son la excepción declarada: van al 30% (44% encendidas) mediante `--glaze-tile` y `--glaze-tile-lit`, porque el color de la categoría **es** la información y en `/categories` y en el índice de la portada tiene que leerse de lejos. Si una pantalla se ve «colorida», el número a bajar es el vidriado, nunca el color.
 
 **The Thread Rule.** El sistema tiene una sola línea: el hilo (`--thread`, `--thread-strong`, `--thread-bright`), un azul claro a baja alfa. Un separador nunca es gris salvo en el cromo del navegador. El hilo separa; jamás sustituye al relleno como portador del color.
 
@@ -248,6 +248,8 @@ Una sola familia azul quemada contra el negro, con grises neutros como contrapes
 **The Two-Sizes Rule.** La jerarquía dentro de un listado la hace el tamaño del campo, no el de la letra: dos tamaños de texto (≈1rem para el título de la pieza, ≈0.85rem para su descripción) sostienen casi toda la UI. Si una pantalla necesita un tercer tamaño para dejarse leer, el problema es la cuadrícula.
 
 **The Tabular Rule.** Toda cifra tabulada — `table`, `time`, `[data-numeric]`, contadores, fechas — va en `tabular-nums`. Las columnas de números no bailan.
+
+**The Anchor Rule.** El enlace de ancla de un título no se ve hasta que el puntero entra en el encabezado, y entonces aparece **en blanco**: no compite con el título ni lo tiñe. Solo cuando el puntero llega al propio icono toma el color del título. Nunca al revés.
 
 **The Blue-Headings Rule.** Los títulos de prosa bajan por una única rampa azul; los títulos dentro de un campo esmaltado son blancos. Un título nunca toma el color de su categoría: ese color ya está en el relleno y en el icono.
 
@@ -320,7 +322,7 @@ Es la pieza matriz. Campo de esmalte lleno, sin canto — el relleno ya la separ
 
 La misma materia que la card, con el vidriado más bajo del sistema: en `/categories` hay veintitrés colores a la vez y cualquier valor más alto satura.
 
-- **Fondo:** `color-mix(in oklab, var(--card-accent) 17%, #000000)`, radio de campo (6px). Ningún borde en ningún estado.
+- **Fondo:** `color-mix(in oklab, var(--card-accent) var(--glaze-tile), #000000)` — 30%, y 44% encendida. Radio de campo (6px). Ningún borde en ningún estado.
 - **Contenido:** icono suelto en el color de la categoría, etiqueta blanca, contador en mono **gris** a la derecha — el color ya está dicho dos veces, no hace falta una tercera.
 - **Hover:** sube a 27%.
 - **Peso:** `--lg` (3 columnas, 5.5rem), `--md` (2 columnas, 4.5rem), base (2 columnas, 3.6rem).
@@ -365,8 +367,9 @@ Categoría → subcategoría → entrada. La jerarquía la dan el tamaño y la l
 Dos alturas del mismo azul, nunca dos colores.
 
 - **Cuerpo:** `--code-bg` = `color-mix(in oklab, var(--blue-800) 34%, #000000)`. Se lee azul, pero rebajado: no compite con la prosa que lo rodea. Sin canto.
-- **Rótulo:** `--code-chrome` = el mismo azul al 48% — un solo escalón por encima del cuerpo. Nombre de archivo en mono 0.72rem azul de título, alineado a la sangría del código (1.1rem), y el botón de copiar como pastilla de blanco al 7% (16% al pasar).
-- **Pestañas pnpm/Bun/npm:** viven en ese rótulo, en mono; la activa se rellena con blanco al 12%, no con el esmalte pleno.
+- **Rótulo:** `--code-chrome` = el mismo azul al 48% — un solo escalón por encima del cuerpo. Nombre de archivo en mono 0.72rem azul de título, alineado a la sangría del código (1.1rem).
+- **Botón de copiar:** icono `copy` de lucide, el mismo repertorio que el resto de la interfaz. Campo de esmalte pleno al 18% (52% al pasar, 72% al pulsar), radio de 2px y **sin anillo** — el borde que trae Expressive Code se apaga. Al copiar no aparece ningún globo: el icono se convierte en un visto durante 0,8s y vuelve solo; el «¡Copiado!» se queda en la región `aria-live` para quien use lector de pantalla.
+- **Pestañas pnpm/Bun/npm:** son la cabecera del bloque, no una barra flotando encima: ocupan el sitio del rótulo de la ventana de terminal y el código va soldado debajo, dentro del mismo campo. Las tres miden lo mismo y la abierta solo sube un escalón de luz (esmalte al 26%) con la letra en blanco — **pnpm es la primera por orden, no por rango**. El texto de la pestaña cae a plomo con la primera letra del comando.
 - **Cuerpo tipográfico:** Shiki `tokyo-night`, mono 0.82rem, line-height 1.7, padding `0.95rem 1.1rem 1.05rem`.
 - **Realce de líneas:** `color-mix(in srgb, var(--blue-400) 12%)`; diff añadido 16%; diff eliminado por opacidad 0.42.
 - **Código inline** en prosa: el mismo `--code-chrome`, radio 2px.
@@ -401,7 +404,8 @@ Una sola curva (`--ease-enamel`: `cubic-bezier(0.16, 1, 0.3, 1)`) y dos duracion
 ### Do:
 
 - **Do** rellenar todo campo nuevo con `color-mix(in oklab, var(--card-accent) var(--glaze), #000000)` y encenderlo a `--glaze-lit` en hover. El espacio oklab es el material.
-- **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (17% en `/categories`, 16% en las relaciones): el número a mover es el vidriado, no el color.
+- **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (16% en las relaciones): el número a mover es el vidriado, no el color. Las teselas de categoría suben en vez de bajar (30% / 44%) porque ahí el color es el dato.
+- **Do** tocar `--glaze-tile` y `--glaze-tile-lit` para cambiar las teselas: `/categories` y el índice de la portada leen los mismos dos tokens y no pueden separarse.
 - **Do** decir el estado subiendo el vidriado, y solo eso.
 - **Do** ordenar la jerarquía por celdas — cuántas columnas ocupa una pieza — y dejar el tamaño de letra en dos escalones.
 - **Do** mantener la medida de lectura en 68ch y recortar los márgenes cuando falte espacio.

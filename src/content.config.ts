@@ -28,7 +28,6 @@ const libraryFields = z.object({
   url: z.url().optional(),
 
   // Campos por tipo
-  install: z.string().optional(),
   command: z.string().optional(),
   whenToUse: z.string().optional(),
   warnings: z.array(z.string()).default([]),

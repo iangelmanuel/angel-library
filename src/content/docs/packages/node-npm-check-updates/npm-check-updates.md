@@ -6,7 +6,6 @@ order: 2
 tags: [npm, dependencies, cli, maintenance]
 website: https://www.npmjs.com/package/npm-check-updates
 github: https://github.com/raineorshine/npm-check-updates
-install: npm install -g npm-check-updates
 updatedAt: 2026-08-27
 ---
 

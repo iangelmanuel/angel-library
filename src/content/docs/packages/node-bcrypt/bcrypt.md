@@ -4,14 +4,18 @@ description: Hashear y comparar contraseñas — por qué nunca se guardan en te
 type: libraries
 order: 18
 tags: [express, bcrypt, security, passwords]
-install: |
-  npm install bcrypt
-  npm install --save-dev @types/bcrypt
 related: [backend/express/express-jwt]
 updatedAt: 2026-08-16
 ---
 
 Guardar contraseñas en texto plano significa que cualquiera con acceso a la base de datos (un atacante, un empleado malicioso, un backup filtrado) tiene la contraseña real de cada usuario. `bcrypt` hashea la contraseña de forma que **no se puede revertir** — solo se puede comparar un intento contra el hash guardado.
+
+## Instalación
+
+```bash
+pnpm add bcrypt
+pnpm add -D @types/bcrypt
+```
 
 ## Hashear al registrar
 

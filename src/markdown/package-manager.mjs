@@ -112,37 +112,57 @@ export function translateBlock(text) {
   }
 }
 
-/** Pestañas: un panel por gestor, cada uno con su bloque. */
-function openTabs() {
+/** Pestañas: un panel por gestor, cada uno con su bloque.
+    Es un `tablist` de verdad: el foco entra una sola vez y las flechas
+    cambian de gestor, como en cualquier pestaña nativa. */
+function openTabs(id) {
   const tabs = ["pnpm", "bun", "npm"]
-    .map(
-      (pm, index) =>
-        `<button type="button" class="pm-tabs__tab${index === 0 ? " is-active" : ""}" data-pm-tab="${pm}">${pm}</button>`
-    )
+    .map((pm, index) => {
+      const active = index === 0
+      return [
+        `<button type="button" role="tab" id="${id}-tab-${pm}"`,
+        ` class="pm-tabs__tab${active ? " is-active" : ""}"`,
+        ` aria-selected="${active}" aria-controls="${id}-panel-${pm}"`,
+        ` tabindex="${active ? "0" : "-1"}" data-pm-tab="${pm}">${pm}</button>`
+      ].join("")
+    })
     .join("")
 
-  return `<div class="pm-tabs" data-pm-tabs><div class="pm-tabs__list">${tabs}</div>`
+  return [
+    `<div class="pm-tabs" data-pm-tabs>`,
+    `<div class="pm-tabs__list" role="tablist" aria-label="Gestor de paquetes">`,
+    tabs,
+    `</div>`
+  ].join("")
 }
 
-function openPanel(pm, isDefault) {
-  return `<div class="pm-tabs__panel" data-pm="${pm}"${isDefault ? "" : " hidden"}>`
+function openPanel(id, pm, isDefault) {
+  return [
+    `<div class="pm-tabs__panel" role="tabpanel" id="${id}-panel-${pm}"`,
+    ` aria-labelledby="${id}-tab-${pm}" data-pm="${pm}"`,
+    isDefault ? "" : " hidden",
+    `>`
+  ].join("")
 }
 
 /** Convierte una instalación en pestañas pnpm · bun · npm. */
 export function remarkPackageManagerTabs() {
   return (tree) => {
+    let count = 0
+
     visit(tree, "code", (node, index, parent) => {
       if (!parent || index === undefined || !PM_LANGS.has(node.lang)) return
 
       const translated = translateBlock(node.value ?? "")
       if (!translated) return
 
+      const id = `pm-${(count += 1)}`
       const html = (value) => ({ type: "html", value })
-      const nodes = [html(openTabs())]
+      const nodes = [html(openTabs(id))]
 
       for (const pm of ["pnpm", "bun", "npm"]) {
         nodes.push(
-          html(openPanel(pm, pm === "pnpm")),
+          html(openPanel(id, pm, pm === "pnpm")),
           {
             type: "code",
             lang: node.lang,

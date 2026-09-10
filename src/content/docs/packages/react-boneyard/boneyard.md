@@ -6,7 +6,6 @@ order: 6
 tags: [react, skeleton, loading, ui, vue, svelte]
 website: https://boneyard.vercel.app/
 github: https://github.com/0xGF/boneyard
-install: npm install boneyard-js
 technologies: [frontend/react/react]
 updatedAt: 2026-08-30
 ---

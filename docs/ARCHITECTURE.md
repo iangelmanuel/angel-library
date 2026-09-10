@@ -108,13 +108,12 @@ Los conteos por categoría y la agrupación por subcategoría recorren las entra
 
 Starlight genera los artículos. El proyecto añade:
 
-| Ruta                                     | Qué muestra                     |
-| ---------------------------------------- | ------------------------------- |
-| `/`                                      | Portada con layout propio       |
-| `/categories` y `/categories/[category]` | Categorías y sus artículos      |
-| `/tipos/[type]`                          | Entradas de un tipo editorial   |
-| `/tags` y `/tags/[tag]`                  | Índice y cruces por tags        |
-| `/buscar`                                | Acceso al buscador de Starlight |
+| Ruta                                     | Qué muestra                   |
+| ---------------------------------------- | ----------------------------- |
+| `/`                                      | Portada con layout propio     |
+| `/categories` y `/categories/[category]` | Categorías y sus artículos    |
+| `/tipos/[type]`                          | Entradas de un tipo editorial |
+| `/tags` y `/tags/[tag]`                  | Índice y cruces por tags      |
 
 Los overrides de `src/components/starlight/` conservan la presentación de cabecera, menú, metadatos y lecturas relacionadas. `ThemeSelect.astro` está vacío deliberadamente: desactiva el selector en un sitio de tema oscuro único.
 

@@ -5,13 +5,18 @@ type: libraries
 order: 6
 tags: [react, animation]
 website: https://motion.dev
-install: npm install motion
 related:
   - languages/css/css-animations
 updatedAt: 2026-08-25
 ---
 
 Esta librería se llamaba **Framer Motion** — se renombró a **Motion**. El paquete de npm cambió de `framer-motion` a `motion`, y el import pasó a `motion/react` (antes `framer-motion`). Si ves `framer-motion` en un tutorial o proyecto viejo, es la misma librería, la sintaxis del componente `motion.*` no cambió.
+
+## Instalación
+
+```bash
+pnpm add motion
+```
 
 ## Import
 

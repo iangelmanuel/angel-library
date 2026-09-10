@@ -5,11 +5,16 @@ type: libraries
 order: 20
 tags: [express, email, resend]
 website: https://resend.com
-install: npm install resend
 updatedAt: 2026-08-16
 ---
 
 Resend es un servicio de envío de emails transaccionales (confirmaciones, recuperación de contraseña, notificaciones) con una API HTTP simple — evita lidiar con SMTP, autenticación de servidores de correo, y la reputación de IP que hace que Gmail/Outlook no manden un email directo desde un servidor propio a spam.
+
+## Instalación
+
+```bash
+pnpm add resend
+```
 
 ## Setup
 

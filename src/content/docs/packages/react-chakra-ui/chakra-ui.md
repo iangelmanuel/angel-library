@@ -6,12 +6,17 @@ order: 4
 tags: [react, components, accessibility]
 website: https://www.chakra-ui.com
 github: https://github.com/chakra-ui/chakra-ui
-install: npm install @chakra-ui/react @emotion/react
 technologies: [frontend/react/react]
 updatedAt: 2026-08-17
 ---
 
 Estilos vía props (`<Box p={4} bg="gray.100">`) en vez de clases utilitarias — no necesita Tailwind ni convive mal con él si ya está en el proyecto.
+
+## Instalación
+
+```bash
+pnpm add @chakra-ui/react @emotion/react
+```
 
 ## Configuración inicial
 

@@ -88,7 +88,6 @@ const facts = [
 )
 
 const command = text("command")
-const install = text("install")
 const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
 ---
 
@@ -136,11 +135,7 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     )
   }
 
-  {
-    (command || install) && (
-      <pre class="entry-meta__command">{command ?? install}</pre>
-    )
-  }
+  {command && <pre class="entry-meta__command">{command}</pre>}
 
   {
     technologies.length > 0 && (
