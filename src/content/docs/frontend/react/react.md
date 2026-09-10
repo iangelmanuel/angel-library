@@ -13,8 +13,9 @@ related:
   - frontend/react/react-hooks-reference
   - frontend/react/react-custom-hooks
   - frontend/react/react-suspense-lazy-use
+  - frontend/react/react-19-3
   - frontend/react/react-performance-compiler
-updatedAt: 2026-08-25
+updatedAt: 2026-09-10
 ---
 
 ## Qué estás estudiando
@@ -66,6 +67,7 @@ No memorices Hooks como recetas aisladas. Cada uno responde a una necesidad del 
 | prioridad de actualizaciones                       | [`useTransition`](/frontend/react/react-usetransition)                    |
 | UI optimista                                       | [`useOptimistic`](/frontend/react/react-useoptimistic)                    |
 | estado de formularios y Actions                    | [`useActionState`](/frontend/react/react-useactionstate)                  |
+| APIs nuevas de React 19.3                          | [React 19.3](/frontend/react/react-19-3)                                  |
 | memoización, Profiler y compiler                   | [Rendimiento](/frontend/react/react-performance-compiler)                 |
 
 ## Curva de aprendizaje

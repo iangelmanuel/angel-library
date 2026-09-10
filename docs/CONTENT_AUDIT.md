@@ -8,7 +8,7 @@ Para principiantes faltaban un punto de entrada transversal, requisitos explíci
 
 ## Alcance y evidencia
 
-- Este documento conserva la fotografía editorial de la auditoría del 7 de septiembre: partía de 718 Markdown y terminó con 721. El catálogo actual tiene **736 entradas**, **24 categorías** y **170 subcategorías**; las cifras históricas que aparecen en los resultados no describen el estado actual.
+- Este documento conserva la fotografía editorial de la auditoría del 7 de septiembre: partía de 718 Markdown y terminó con 721. El catálogo actual tiene **737 entradas**, **24 categorías** y **170 subcategorías**; las cifras históricas que aparecen en los resultados no describen el estado actual.
 - Inventario estructural de **721 Markdown del snapshot auditado**, en **23 categorías**. Se añadieron tres guías en esa revisión.
 - Lectura editorial de páginas representativas y revisión técnica priorizada de autenticación, HTTP, utilidades, React, Prisma, configuración, terminal y recetas de infraestructura. El inventario por archivo está en [content-inventory.json](content-inventory.json).
 - Correcciones apoyadas en documentación primaria de Node.js, MDN, TypeScript, React, Prisma, Astro, Better Auth, Auth.js, GitHub, Docker y daisyUI, enlazada en las entradas correspondientes.

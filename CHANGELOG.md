@@ -8,6 +8,24 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.35.8] — 2026-09-10
+
+### Añadido
+
+- Añadida la guía completa de React 19.3 en `frontend/react/react-19-3`.
+- Documentadas las View Transitions, `addTransitionType`, Fragment Refs,
+  `browser()`, Trusted Types y el uso de Context desde Server Components.
+- Incluidos ejemplos de TypeScript/JSX, CSS, SSR, Suspense, hidratación,
+  accesibilidad, migración y diagnóstico de errores.
+- Resumidos los cambios relevantes de React y React DOM incluidos en React 19.3,
+  con enlaces a la documentación oficial.
+- Enlazada la nueva guía desde la ficha principal de React.
+
+### Verificado
+
+- Catálogo comprobado con `node --experimental-strip-types scripts/check-catalog.mjs`.
+- Astro Check y build estático ejecutados para validar el nuevo contenido.
+
 ## [0.35.7] — 2026-09-10
 
 ### Ajustado
