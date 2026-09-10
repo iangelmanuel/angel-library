@@ -160,6 +160,11 @@
   --glaze: 26%;
   --glaze-lit: 36%;
 
+  /* Teselas de categoría (/categories y el índice de la portada). Un único par
+     de valores para las dos: si aquí se sube, se sube en las dos a la vez. */
+  --glaze-tile: 30%;
+  --glaze-tile-lit: 44%;
+
   /* Cantos: finos, nunca cero, nunca de píldora. */
   --radius: 4px;
   --radius-thin: 2px;
@@ -176,6 +181,9 @@
   --ease-enamel: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 140ms;
   --dur-slow: 320ms;
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {

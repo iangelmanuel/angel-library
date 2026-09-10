@@ -6,11 +6,16 @@ order: 2
 tags: [html, tailwindcss, components]
 website: https://flowbite.com
 github: https://github.com/themesberg/flowbite
-install: npm install flowbite
 updatedAt: 2026-09-07
 ---
 
 Componentes en HTML plano con clases de Tailwind (dropdowns, modales, carousels, datepicker) más un plugin de JS propio para la interactividad — no requiere React ni ningún framework.
+
+## Instalación
+
+```bash
+pnpm add flowbite
+```
 
 ## Configuración inicial
 

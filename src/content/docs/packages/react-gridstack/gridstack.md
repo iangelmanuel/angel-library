@@ -6,7 +6,6 @@ order: 7
 tags: [react, dashboard, grid, drag-and-drop, typescript]
 website: https://gridstackjs.com
 github: https://github.com/gridstack/gridstack.js
-install: npm install gridstack
 technologies: [frontend/react/react]
 updatedAt: 2026-08-30
 ---

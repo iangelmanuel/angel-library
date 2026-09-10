@@ -6,7 +6,6 @@ order: 3
 tags: [react, tailwindcss, animations, components]
 website: https://magicui.design
 github: https://github.com/magicuidesign/magicui
-install: npx shadcn@latest add "https://magicui.design/r/[component].json"
 technologies: [frontend/react/react]
 updatedAt: 2026-08-17
 related: [packages/react-shadcn-ui/shadcn-ui]

@@ -49,8 +49,9 @@ anulado bajo `prefers-reduced-motion`.
 
 ## Detalles que importan
 
-- La cabecera y el nodo «índice» enlazan a `/buscar`, el buscador estático de
-  Starlight. No necesitan un script propio de la portada.
+- La cabecera y el campo del hero abren el mismo modal de Pagefind: el layout
+  monta `<Search>` de Starlight sin su botón y un único listener delegado
+  (`[data-open-search]`) lo dispara. No hay página de búsqueda.
 - El relleno azul sólido aparece dos veces y en ningún sitio más: el prompt `$`
   del nodo índice y la banda de cierre. Es la regla del sistema, no una
   excepción de esta página.

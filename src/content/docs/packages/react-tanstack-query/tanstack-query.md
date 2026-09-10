@@ -6,7 +6,6 @@ order: 3
 tags: [react, state, api]
 website: https://tanstack.com/query
 github: https://github.com/TanStack/query
-install: npm install @tanstack/react-query
 related:
   - packages/react-axios/axios
   - frontend/react/react-useeffect
@@ -14,6 +13,12 @@ updatedAt: 2026-08-25
 ---
 
 El patrón "`useState` para los datos + `useState` para loading + `useState` para error + `useEffect` que hace el fetch" se repite en cada componente que pide datos, y no cachea nada: navegar a otra pantalla y volver vuelve a pedir todo de cero. TanStack Query reemplaza ese patrón entero: cachea por `queryKey`, refetchea solo cuando hace falta, y da `isLoading`/`isError`/`data` ya resueltos.
+
+## Instalación
+
+```bash
+pnpm add @tanstack/react-query
+```
 
 ## Setup
 

@@ -8,6 +8,71 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.36.0] — 2026-09-09
+
+Ordena los paquetes como ruta de aprendizaje, saca la instalación de las
+cabeceras y retira la página de búsqueda.
+
+### Añadido
+
+- Sección **Instalación** en las 32 entradas que declaraban el comando solo en
+  el frontmatter y no lo explicaban en ningún sitio, con las pestañas
+  pnpm · Bun · npm que ya genera el plugin de Markdown.
+- Tokens `--glaze-tile` y `--glaze-tile-lit`: un único par de valores para las
+  teselas de categoría de `/categories` y del índice de la portada.
+- Hoja compartida `src/styles/search.css` con el cromo del buscador, que ahora
+  cargan tanto la portada como la documentación.
+
+### Cambiado
+
+- **Las 40 subcategorías de Paquetes siguen una línea de aprendizaje** en vez
+  del orden de escritura: JavaScript, CSS, Astro, React y Node, y dentro de
+  cada bloque de lo fundamental a lo específico. El orden lo da el orden de las
+  claves en `_meta.json`, que es lo que lee el catálogo.
+- **La instalación vive en el cuerpo de la entrada, no en su cabecera.** El
+  campo `install` desaparece del esquema y del encabezado; el comando se
+  escribe en pnpm y el plugin genera las otras dos pestañas.
+- **Las pestañas del gestor de paquetes son la cabecera del bloque de código**:
+  ocupan el sitio del rótulo de la ventana de terminal y el código va soldado
+  debajo. Las tres miden lo mismo y la abierta solo sube un escalón de luz.
+- Botón de copiar con el icono `copy` de lucide, campo de esmalte pleno, sin
+  anillo y con el visto sustituyendo al globo «¡Copiado!» durante 0,8s.
+- El ancla de los títulos aparece en blanco al pasar por el encabezado y toma
+  el color del título cuando el puntero llega al icono.
+- Teselas de categoría más visibles: el vidriado sube de 17% a 30% (44%
+  encendidas) en las dos superficies a la vez.
+- Menú lateral con tres niveles legibles: categoría en blanco, subcategoría en
+  `--branch` y entradas `.md` en gris.
+
+### Eliminado
+
+- **La página `/buscar`.** El buscador de Pagefind se abre desde la cabecera y,
+  en la portada, también desde el campo del hero: el layout monta `<Search>`
+  sin su botón y un listener delegado lo dispara. Con ella se retiran
+  `SEARCH_LINK`, el enlace del pie y la excepción de la validación de rutas.
+
+### Corregido
+
+- Los tokens de fuente vivían solo dentro de `@theme`, que únicamente procesa
+  Tailwind: en toda la documentación `var(--font-mono)` quedaba vacío y el
+  navegador caía a su fuente por defecto.
+- `::selection` estaba definido solo en la hoja de la portada, así que la
+  documentación seleccionaba texto con el azul de fábrica del navegador.
+- Barras de desplazamiento de 5 px: al declarar `scrollbar-width`, Chrome
+  descarta las reglas `::-webkit-scrollbar`, así que la propiedad estándar
+  queda para Firefox mediante `@supports`.
+- Los botones de la cabecera de una entrada se quedaban a la izquierda cuando
+  la entrada no tenía ficha de datos.
+- El menú pintaba de azul también las categorías: el selector `ul ul` alcanzaba
+  el primer nivel.
+- El cierre de la portada enlazaba a `/search`, una ruta que no existe.
+
+### Verificado
+
+- `pnpm check`, `pnpm eslint`, `pnpm check:catalog` y `pnpm prettier:check`:
+  sin errores.
+- `pnpm build`: 1.750 páginas generadas.
+
 ## [0.35.5] — 2026-09-09
 
 ### Cambiado
@@ -2291,7 +2356,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.35.5...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.36.0...HEAD
+[0.36.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.36.0
 [0.35.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.5
 [0.35.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.4
 [0.35.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.3

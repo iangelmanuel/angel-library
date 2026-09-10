@@ -6,7 +6,6 @@ order: 1
 tags: [testing, msw, api, mocks, integration]
 website: https://mswjs.io/
 github: https://github.com/mswjs/msw
-install: npm install --save-dev msw
 related:
   - testing/testing-integracion/testing-doubles-contracts
   - testing/react/testing-react-testing-library
@@ -15,6 +14,12 @@ updatedAt: 2026-08-28
 ---
 
 MSW (_Mock Service Worker_) intercepta solicitudes HTTP con handlers declarativos. En navegador utiliza un Service Worker; en Node intercepta la red del proceso. El código de aplicación continúa usando `fetch`, Axios u otro cliente real, por lo que la prueba conserva URL, método, headers, serialización y manejo de respuesta.
+
+## Instalación
+
+```bash
+pnpm add -D msw
+```
 
 ## Cuándo usarlo
 

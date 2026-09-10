@@ -6,12 +6,17 @@ order: 5
 tags: [react, forms, typescript]
 website: https://react-hook-form.com
 github: https://github.com/react-hook-form/react-hook-form
-install: npm install react-hook-form
 related: [packages/javascript-zod/zod]
 updatedAt: 2026-08-25
 ---
 
 React Hook Form evita el problema clásico de un formulario controlado con `useState` por campo: cada tecla vuelve a renderizar el componente completo. RHF registra los inputs de forma no controlada —mediante refs— y actualiza únicamente lo necesario. Un formulario puede tener decenas de campos sin que escribir en uno obligue a renderizar los demás.
+
+## Instalación
+
+```bash
+pnpm add react-hook-form
+```
 
 ## Uso básico
 

@@ -6,13 +6,18 @@ order: 1
 tags: [astro, react, state]
 website: https://github.com/nanostores/nanostores
 github: https://github.com/nanostores/nanostores
-install: npm install nanostores
 related:
   - frontend/astro/astro-islas
 updatedAt: 2026-08-25
 ---
 
 Las islas de Astro hidratan de forma aislada: dos componentes de React en la misma página no comparten estado por defecto, ni aunque estén uno al lado del otro. Nanostores resuelve justo eso — un store minúsculo (bajo 1kb) que cualquier framework puede leer, fuera del árbol de componentes de ninguno.
+
+## Instalación
+
+```bash
+pnpm add nanostores
+```
 
 ## `atom()` — Un valor simple
 

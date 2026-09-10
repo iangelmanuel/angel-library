@@ -6,7 +6,6 @@ order: 2
 tags: [testing, ai, playwright, e2e, midscene]
 website: https://www.midscenejs.com/
 github: https://github.com/web-infra-dev/midscene
-install: npm install -D @midscene/web
 related:
   - testing/testing-ai/testing-ai-principles
   - testing/testing-e2e/testing-e2e-reliable-ci
@@ -14,6 +13,12 @@ updatedAt: 2026-08-28
 ---
 
 Midscene.js es una herramienta de automatización de interfaz guiada por visión y lenguaje natural. Puede integrarse con Playwright y Vitest para localizar, operar y consultar elementos sin codificar cada selector. Sigue necesitando un navegador, un modelo compatible y una señal de éxito clara.
+
+## Instalación
+
+```bash
+pnpm add -D @midscene/web
+```
 
 ## Decisión rápida
 

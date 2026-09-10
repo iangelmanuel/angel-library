@@ -6,11 +6,16 @@ order: 4
 tags: [html, tailwindcss, components]
 website: https://preline.co
 github: https://github.com/htmlstreamofficial/preline
-install: npm install preline
 updatedAt: 2026-08-17
 ---
 
 Alternativa a Flowbite con más componentes de tipo "aplicación" (sidebars, steps, file upload) además de los básicos. El JS es un solo paquete propio, sin dependencias externas.
+
+## Instalación
+
+```bash
+pnpm add preline
+```
 
 ## Configuración inicial
 

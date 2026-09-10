@@ -84,7 +84,6 @@ export function validateInternalLinks(all: AnyEntry[]): void {
 
       const exists =
         target === "" ||
-        target === "buscar" ||
         ids.has(target) ||
         (first === "tags" && (!second || (tag !== null && tags.has(tag)))) ||
         (first === "categories" &&

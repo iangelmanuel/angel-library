@@ -6,12 +6,17 @@ order: 1
 tags: [typescript, validation, schema, forms]
 website: https://zod.dev
 github: https://github.com/colinhacks/zod
-install: npm install zod
 related: [general/utils/form]
 updatedAt: 2026-09-01
 ---
 
 Zod valida datos en runtime y deriva el tipo TypeScript del schema — una sola fuente de verdad en vez de escribir el `interface` a mano y esperar que no se desincronice con la validación real.
+
+## Instalación
+
+```bash
+pnpm add zod
+```
 
 ## Crear un schema
 

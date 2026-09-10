@@ -5,11 +5,16 @@ type: libraries
 order: 21
 tags: [express, templates, pug, ssr]
 website: https://pugjs.org
-install: npm install pug
 updatedAt: 2026-08-16
 ---
 
 Pug (antes Jade) es un motor de plantillas que Express reconoce: genera HTML en el servidor a partir de una sintaxis compacta basada en indentación y sin etiquetas de cierre.
+
+## Instalación
+
+```bash
+pnpm add pug
+```
 
 ## Setup en Express
 

@@ -5,12 +5,17 @@ type: libraries
 order: 2
 tags: [express, testing, vitest]
 website: https://vitest.dev
-install: npm install --save-dev vitest
 related: [packages/node-supertest/supertest]
 updatedAt: 2026-08-28
 ---
 
 Vitest no es exclusivo de frontend. Como runner para proyectos TypeScript y Node, sirve para probar servicios, repositorios y lógica de negocio de un backend Express. Esta guía cubre la configuración específica; para endpoints HTTP completos consulta [Supertest](/packages/node-supertest/supertest).
+
+## Instalación
+
+```bash
+pnpm add -D vitest
+```
 
 ## Config
 

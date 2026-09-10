@@ -6,12 +6,17 @@ order: 7
 tags: [react, components, enterprise]
 website: https://ant.design
 github: https://github.com/ant-design/ant-design
-install: npm install antd
 technologies: [frontend/react/react]
 updatedAt: 2026-08-17
 ---
 
 Fuerte en dashboards internos y back-offices: `Table` con paginación/orden/filtrado server-side, `Form` con validación integrada, y layouts de admin listos (`ProComponents`, paquete aparte).
+
+## Instalación
+
+```bash
+pnpm add antd
+```
 
 ## Configuración inicial
 

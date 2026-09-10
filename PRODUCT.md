@@ -41,7 +41,7 @@ Restricciones vinculantes confirmadas por el autor:
 
 Capacidades y hechos técnicos actuales (implementación incumbente, no declarada inmutable por el autor):
 
-- 726 entradas en 24 categorías y 170 subcategorías; el último build generó 1751 páginas.
+- 726 archivos Markdown en 24 categorías y 170 subcategorías, de los que 723 se publican (tres son `private`); el último build generó 1750 páginas.
 - Tipos editoriales en uso: guides (418), resources (95), skills (80), libraries (40), patterns (19), recipes (19), utilities (12), hooks (9), practices (9), technologies (9), snippets (7), commands (4), tricks (3), integrations (2).
 - `src/config/` reúne la configuración: `site.ts` (identidad y SEO), `catalog.ts` (categorías y subcategorías), `content-types.ts`, `sidebar.ts`, `icons.ts` y `navigation.ts`. Las rutas, el menú y la validación de build se derivan de esas fuentes.
 - Starlight genera las páginas de documentación y el proyecto añade `/`, `/categories`, `/tipos/[type]`, `/tags`, `/buscar`, 404, sitemap, robots y manifest.
@@ -61,7 +61,7 @@ Decisión abierta: el español latinoamericano y el dark-only son la implementac
 
 ## Evidence on Hand
 
-- Contenido real: 726 entradas Markdown propias en `src/content/docs/`.
+- Contenido real: 726 archivos Markdown propios en `src/content/docs/` (723 publicados).
 - Documentación del repo: `README.md`, `docs/ARCHITECTURE.md`, `docs/CONTENT_GUIDE.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, `src/features/landing/README.md`.
 - Licencias reales: código MIT; contenido educativo CC BY-NC-SA 4.0.
 - No existen testimonios, clientes, métricas de tráfico, precios ni casos de estudio. No inventarlos.

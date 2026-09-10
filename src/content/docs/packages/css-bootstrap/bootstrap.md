@@ -6,11 +6,16 @@ order: 6
 tags: [html, css, components]
 website: https://getbootstrap.com
 github: https://github.com/twbs/bootstrap
-install: npm install bootstrap
 updatedAt: 2026-08-17
 ---
 
 El framework CSS más veterano y todavía el más usado fuera del mundo Tailwind: clases utilitarias propias, sistema de grid de 12 columnas, y componentes JS (modal, tooltip, carousel) sin dependencias externas desde la v5 (dejó jQuery).
+
+## Instalación
+
+```bash
+pnpm add bootstrap
+```
 
 ## Configuración inicial
 

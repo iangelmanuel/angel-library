@@ -1,6 +1,6 @@
 ---
 import Icon from "@/components/shared/Icon.astro"
-import { SEARCH_LINK, SITE_NAV, SOCIAL_LINKS } from "@/config/navigation"
+import { SITE_NAV, SOCIAL_LINKS } from "@/config/navigation"
 import { SITE } from "@/config/site"
 
 const year = new Date().getFullYear()
@@ -17,11 +17,15 @@ const year = new Date().getFullYear()
       class="wall-footer__nav"
       aria-label="Secciones de la biblioteca"
     >
-      {
-        [...SITE_NAV.slice(1), SEARCH_LINK].map((item) => (
-          <a href={item.href}>{item.label}</a>
-        ))
-      }
+      {SITE_NAV.slice(1).map((item) => <a href={item.href}>{item.label}</a>)}
+
+      <button
+        type="button"
+        data-open-search
+        aria-keyshortcuts="Control+K"
+      >
+        Buscar
+      </button>
     </nav>
 
     <div class="wall-footer__social chrome-social">

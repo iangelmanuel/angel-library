@@ -6,7 +6,6 @@ order: 1
 tags: [react, tailwindcss, radix, components]
 website: https://ui.shadcn.com
 github: https://github.com/shadcn-ui/ui
-install: npx shadcn@latest init
 technologies: [frontend/react/react]
 updatedAt: 2026-08-17
 ---

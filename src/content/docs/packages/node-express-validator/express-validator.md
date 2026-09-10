@@ -5,12 +5,17 @@ type: libraries
 order: 19
 tags: [express, validation]
 website: https://express-validator.github.io
-install: npm install express-validator
 related: [packages/javascript-zod/zod]
 updatedAt: 2026-08-16
 ---
 
 `express-validator` es un wrapper de [validator.js](https://github.com/validatorjs) diseñado específicamente como middleware de Express — reglas de validación declaradas por campo, que corren como parte de la cadena de middlewares antes de que la request llegue al handler.
+
+## Instalación
+
+```bash
+pnpm add express-validator
+```
 
 ## Uso básico
 

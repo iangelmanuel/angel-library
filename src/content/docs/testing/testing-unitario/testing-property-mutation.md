@@ -4,7 +4,6 @@ description: Generar entradas para comprobar invariantes y medir si la suite det
 type: guides
 order: 2
 tags: [testing, unit-testing, property-based, mutation-testing, fast-check]
-install: npm install -D fast-check
 related:
   - testing/testing-unitario/testing-vitest-practico
   - testing/testing-fundamentos/testing-test-design-techniques
@@ -12,6 +11,12 @@ updatedAt: 2026-08-28
 ---
 
 Los ejemplos concretos siguen siendo esenciales, pero no siempre descubren combinaciones inesperadas. El _property-based testing_ genera muchas entradas y comprueba una propiedad que debe cumplirse para todas. El _mutation testing_ modifica temporalmente el código para comprobar si la suite detecta el defecto. Son técnicas diferentes y complementarias.
+
+## Instalación
+
+```bash
+pnpm add -D fast-check
+```
 
 ## Propiedades en lugar de resultados aislados
 

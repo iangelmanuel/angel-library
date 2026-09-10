@@ -6,93 +6,13 @@
   "group": "construir",
   "order": 4,
   "subcategories": {
-    "node-bcrypt": {
-      "label": "Node - bcrypt",
-      "description": "Hash seguro de contraseñas en aplicaciones Node.js."
-    },
-    "node-express-validator": {
-      "label": "Node - express-validator",
-      "description": "Validar y sanitizar datos de entrada en APIs Node.js."
-    },
-    "node-pug": {
-      "label": "Node - PUG",
-      "description": "Motor de plantillas para generar HTML desde Node.js."
-    },
-    "node-resend": {
-      "label": "Node - Resend",
-      "description": "Enviar correos transaccionales desde aplicaciones Node.js."
-    },
-    "astro-gsap": {
-      "label": "Astro - GSAP",
-      "description": "Animaciones de alto rendimiento integradas en proyectos Astro."
-    },
-    "astro-nanostores": {
-      "label": "Astro - Nanostores",
-      "description": "Estado compartido y ligero para islas y componentes Astro."
-    },
-    "react-atropos": {
-      "label": "React - Atropos",
-      "description": "Efectos 3D y parallax para interfaces React."
-    },
-    "react-axios": {
-      "label": "React - Axios",
-      "description": "Cliente HTTP para consumir APIs desde aplicaciones React."
-    },
-    "react-motion": {
-      "label": "React - Motion",
-      "description": "Animaciones declarativas para interfaces React."
-    },
-    "react-dropzone": {
-      "label": "React - React Dropzone",
-      "description": "Cargas de archivos mediante arrastrar y soltar en React."
-    },
-    "react-email": {
-      "label": "React - React Email",
-      "description": "Crear plantillas de correo con componentes React."
-    },
-    "react-hook-form": {
-      "label": "React - React Hook Form",
-      "description": "Gestionar formularios React con poco código y buen rendimiento."
-    },
-    "react-router": {
-      "label": "React - React Router",
-      "description": "Enrutado declarativo para aplicaciones React."
-    },
-    "react-tanstack-query": {
-      "label": "React - TanStack Query",
-      "description": "Consultar, cachear y sincronizar datos remotos en React."
-    },
-    "react-zustand": {
-      "label": "React - Zustand",
-      "description": "Estado global sencillo para aplicaciones React."
-    },
-    "node-npm-check-updates": {
-      "label": "Node - npm-check-updates",
-      "description": "Revisar y actualizar dependencias declaradas en package.json."
-    },
     "javascript-zod": {
       "label": "JavaScript - Zod",
       "description": "Definir esquemas y validar datos en tiempo de ejecución."
     },
-    "node-midscene": {
-      "label": "Node - Midscene.js",
-      "description": "Automatización y pruebas de interfaces con ayuda de modelos de IA."
-    },
-    "node-msw": {
-      "label": "Node - MSW",
-      "description": "Interceptar solicitudes HTTP para pruebas y desarrollo."
-    },
-    "node-supertest": {
-      "label": "Node - Supertest",
-      "description": "Probar endpoints HTTP de servidores Node.js."
-    },
-    "node-testcontainers": {
-      "label": "Node - Testcontainers",
-      "description": "Levantar dependencias reales en contenedores durante las pruebas."
-    },
-    "node-vitest": {
-      "label": "Node - Vitest",
-      "description": "Ejecutar pruebas unitarias e integración en proyectos JavaScript."
+    "css-pico-css": {
+      "label": "CSS - Pico CSS",
+      "description": "Estilos semánticos y ligeros para HTML sin clases complejas."
     },
     "css-bootstrap": {
       "label": "CSS - Bootstrap",
@@ -114,10 +34,6 @@
       "label": "CSS - HyperUI",
       "description": "Ejemplos de componentes accesibles para Tailwind CSS."
     },
-    "css-pico-css": {
-      "label": "CSS - Pico CSS",
-      "description": "Estilos semánticos y ligeros para HTML sin clases complejas."
-    },
     "css-preline": {
       "label": "CSS - Preline UI",
       "description": "Componentes y plugins para construir interfaces con Tailwind CSS."
@@ -126,45 +42,129 @@
       "label": "CSS - Tailwind Plus",
       "description": "Plantillas y componentes premium basados en Tailwind CSS."
     },
-    "react-ant-design": {
-      "label": "React - Ant Design",
-      "description": "Sistema de componentes empresariales para aplicaciones React."
+    "astro-nanostores": {
+      "label": "Astro - Nanostores",
+      "description": "Estado compartido y ligero para islas y componentes Astro."
     },
-    "react-boneyard": {
-      "label": "React - Boneyard",
-      "description": "Colección de componentes y recursos experimentales para React."
+    "astro-gsap": {
+      "label": "Astro - GSAP",
+      "description": "Animaciones de alto rendimiento integradas en proyectos Astro."
     },
-    "react-chakra-ui": {
-      "label": "React - Chakra UI",
-      "description": "Componentes accesibles y composables para React."
+    "react-axios": {
+      "label": "React - Axios",
+      "description": "Cliente HTTP para consumir APIs desde aplicaciones React."
     },
-    "react-gridstack": {
-      "label": "React - GridStack.js",
-      "description": "Cuadrículas redimensionables y arrastrables para interfaces React."
+    "react-tanstack-query": {
+      "label": "React - TanStack Query",
+      "description": "Consultar, cachear y sincronizar datos remotos en React."
     },
-    "react-heroui": {
-      "label": "React - HeroUI",
-      "description": "Componentes modernos y accesibles para React."
+    "react-hook-form": {
+      "label": "React - React Hook Form",
+      "description": "Gestionar formularios React con poco código y buen rendimiento."
     },
-    "react-magic-ui": {
-      "label": "React - Magic UI",
-      "description": "Componentes visuales y animados para React."
+    "react-zustand": {
+      "label": "React - Zustand",
+      "description": "Estado global sencillo para aplicaciones React."
     },
-    "react-mantine": {
-      "label": "React - Mantine",
-      "description": "Biblioteca amplia de componentes y hooks para React."
-    },
-    "react-material-ui": {
-      "label": "React - Material UI",
-      "description": "Implementación de Material Design para aplicaciones React."
+    "react-router": {
+      "label": "React - React Router",
+      "description": "Enrutado declarativo para aplicaciones React."
     },
     "react-shadcn-ui": {
       "label": "React - shadcn/ui",
       "description": "Componentes editables y accesibles para construir interfaces React."
     },
+    "react-mantine": {
+      "label": "React - Mantine",
+      "description": "Biblioteca amplia de componentes y hooks para React."
+    },
+    "react-chakra-ui": {
+      "label": "React - Chakra UI",
+      "description": "Componentes accesibles y composables para React."
+    },
+    "react-material-ui": {
+      "label": "React - Material UI",
+      "description": "Implementación de Material Design para aplicaciones React."
+    },
+    "react-ant-design": {
+      "label": "React - Ant Design",
+      "description": "Sistema de componentes empresariales para aplicaciones React."
+    },
+    "react-heroui": {
+      "label": "React - HeroUI",
+      "description": "Componentes modernos y accesibles para React."
+    },
     "react-untitled-ui-react": {
       "label": "React - Untitled UI React",
       "description": "Sistema de componentes y pantallas reutilizables para React."
+    },
+    "react-magic-ui": {
+      "label": "React - Magic UI",
+      "description": "Componentes visuales y animados para React."
+    },
+    "react-boneyard": {
+      "label": "React - Boneyard",
+      "description": "Colección de componentes y recursos experimentales para React."
+    },
+    "react-motion": {
+      "label": "React - Motion",
+      "description": "Animaciones declarativas para interfaces React."
+    },
+    "react-atropos": {
+      "label": "React - Atropos",
+      "description": "Efectos 3D y parallax para interfaces React."
+    },
+    "react-dropzone": {
+      "label": "React - React Dropzone",
+      "description": "Cargas de archivos mediante arrastrar y soltar en React."
+    },
+    "react-gridstack": {
+      "label": "React - GridStack.js",
+      "description": "Cuadrículas redimensionables y arrastrables para interfaces React."
+    },
+    "react-email": {
+      "label": "React - React Email",
+      "description": "Crear plantillas de correo con componentes React."
+    },
+    "node-npm-check-updates": {
+      "label": "Node - npm-check-updates",
+      "description": "Revisar y actualizar dependencias declaradas en package.json."
+    },
+    "node-express-validator": {
+      "label": "Node - express-validator",
+      "description": "Validar y sanitizar datos de entrada en APIs Node.js."
+    },
+    "node-bcrypt": {
+      "label": "Node - bcrypt",
+      "description": "Hash seguro de contraseñas en aplicaciones Node.js."
+    },
+    "node-pug": {
+      "label": "Node - PUG",
+      "description": "Motor de plantillas para generar HTML desde Node.js."
+    },
+    "node-resend": {
+      "label": "Node - Resend",
+      "description": "Enviar correos transaccionales desde aplicaciones Node.js."
+    },
+    "node-vitest": {
+      "label": "Node - Vitest",
+      "description": "Ejecutar pruebas unitarias e integración en proyectos JavaScript."
+    },
+    "node-supertest": {
+      "label": "Node - Supertest",
+      "description": "Probar endpoints HTTP de servidores Node.js."
+    },
+    "node-msw": {
+      "label": "Node - MSW",
+      "description": "Interceptar solicitudes HTTP para pruebas y desarrollo."
+    },
+    "node-testcontainers": {
+      "label": "Node - Testcontainers",
+      "description": "Levantar dependencias reales en contenedores durante las pruebas."
+    },
+    "node-midscene": {
+      "label": "Node - Midscene.js",
+      "description": "Automatización y pruebas de interfaces con ayuda de modelos de IA."
     }
   }
 }

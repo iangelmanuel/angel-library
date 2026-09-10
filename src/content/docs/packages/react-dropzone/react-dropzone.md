@@ -6,13 +6,18 @@ order: 8
 tags: [react, forms, files]
 website: https://react-dropzone.js.org
 github: https://github.com/react-dropzone/react-dropzone
-install: npm install react-dropzone
 related:
   - packages/react-hook-form/react-hook-form
 updatedAt: 2026-08-25
 ---
 
 Es un hook, no un componente con estilos propios: `useDropzone` maneja toda la lógica de drag & drop, validación y accesibilidad (teclado, focus), y tú pones el markup completo. Nada de CSS impuesto ni de un `<Dropzone>` con apariencia fija que después hay que sobreescribir.
+
+## Instalación
+
+```bash
+pnpm add react-dropzone
+```
 
 ## Uso básico
 

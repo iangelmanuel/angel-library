@@ -6,13 +6,18 @@ order: 2
 tags: [react, http, api]
 website: https://axios-http.com
 github: https://github.com/axios/axios
-install: npm install axios
 related:
   - packages/react-tanstack-query/tanstack-query
 updatedAt: 2026-08-25
 ---
 
 `fetch` es nativo y alcanza para lo simple, pero `axios` ahorra código repetitivo: parsea JSON solo (no hace falta `await res.json()`), trata cualquier respuesta 4xx/5xx como error (con `fetch` hay que chequear `res.ok` a mano), y permite configurar una instancia una vez (base URL, headers, timeout) en vez de repetirlo en cada llamada.
+
+## Instalación
+
+```bash
+pnpm add axios
+```
 
 ## Uso básico
 

@@ -1,3 +1,10 @@
+/* La selección vive aquí y no en la hoja de la portada: la documentación
+   también se lee, y sin esto el navegador la pinta con su azul de fábrica. */
+::selection {
+  background: var(--blue-800);
+  color: var(--white);
+}
+
 /* Barras de desplazamiento: finas, sin pista y sin canto. Viven aquí, no en
    la hoja de la portada, porque la documentación también las usa. */
 /* Firefox no tiene los pseudo-elementos; ahí manda la propiedad estándar.
