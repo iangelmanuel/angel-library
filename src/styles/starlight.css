@@ -248,16 +248,18 @@ header.header {
   color: var(--blue-300);
 }
 
-/* Paginación: dos campos, sin cantos. */
+/* Paginación: dos campos, sin cantos. Mismo vidriado que las tarjetas de
+   relaciones que quedan justo encima. */
 .pagination-links a {
   border: 0;
   border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 16%, #000000);
+  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
   box-shadow: none;
   transition: background-color var(--dur-fast) var(--ease-enamel);
 }
-.pagination-links a:hover {
-  background: color-mix(in oklab, var(--blue-800) 28%, #000000);
+.pagination-links a:hover,
+.pagination-links a:focus-visible {
+  background: color-mix(in oklab, var(--blue-800) 36%, #000000);
 }
 
 /* --------------------------------------------------- copiar y anclas */
@@ -304,12 +306,13 @@ header.header {
 }
 
 .expressive-code .copy:has(> [aria-live]:not(:empty)) button div {
-  animation: ec-copiado-campo 0.8s step-end forwards;
+  animation: ec-copiado-campo 0.8s var(--ease-enamel) forwards;
   opacity: 0.6;
 }
 
 @keyframes ec-copiado-campo {
-  0% {
+  0%,
+  62% {
     opacity: 0.6;
   }
   100% {
@@ -317,16 +320,40 @@ header.header {
   }
 }
 
+/* El cambio de máscara no se puede interpolar: se hace de golpe. Para que no
+   se note, el visto se apaga antes del cambio y el icono de copiar entra ya
+   cambiado. Dos animaciones a la vez: una discreta para la forma, otra suave
+   para la entrada y la salida. */
 @keyframes ec-copiado {
   0% {
     background-color: var(--blue-100);
     -webkit-mask-image: var(--ec-copiedIcon);
     mask-image: var(--ec-copiedIcon);
   }
-  100% {
+  80% {
     background-color: var(--ec-frm-inlBtnFg);
     -webkit-mask-image: var(--ec-frm-copyIcon);
     mask-image: var(--ec-frm-copyIcon);
+  }
+}
+
+@keyframes ec-copiado-relevo {
+  0%,
+  60% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  76% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  84% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -334,7 +361,16 @@ header.header {
    de Expressive Code dura dos segundos y se hacía eterno. */
 .expressive-code .copy .feedback.show ~ button::after,
 .expressive-code .copy:has(> [aria-live]:not(:empty)) button::after {
-  animation: ec-copiado 0.8s step-end forwards;
+  animation:
+    ec-copiado 0.8s step-end forwards,
+    ec-copiado-relevo 0.8s var(--ease-enamel) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expressive-code .copy .feedback.show ~ button::after,
+  .expressive-code .copy:has(> [aria-live]:not(:empty)) button::after {
+    animation: ec-copiado 0.8s step-end forwards;
+  }
 }
 
 /* Ancla del título: aparece en blanco al pasar por el encabezado y toma el

@@ -8,6 +8,27 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.36.1] — 2026-09-09
+
+Dos retoques de acabado: la paginación se enciende como las tarjetas que tiene
+encima y el visto de copiar deja de irse de golpe.
+
+### Cambiado
+
+- **La paginación del pie usa el mismo vidriado que las tarjetas de
+  relaciones**: 22% en reposo y 36% al pasar por encima, en vez de 16% y 28%.
+  El hover ya no era casi invisible al lado de las tarjetas que lo preceden.
+  El foco de teclado ve lo mismo que el puntero.
+- **El visto del botón de copiar se retira con un fundido, no con un corte.**
+  La máscara SVG no se puede interpolar, así que el cambio de forma sigue
+  siendo discreto; lo que cambia es cuándo ocurre: el visto se apaga y se
+  encoge antes del relevo y el icono de copiar entra ya cambiado, de modo que
+  el salto pasa con el icono invisible. La duración sigue siendo 0,8s.
+- El fondo del campo del botón vuelve al reposo con la curva del proyecto en
+  lugar de caer de un escalón al final de la animación.
+- Con `prefers-reduced-motion: reduce` el botón conserva solo el cambio de
+  icono, sin fundido ni escala.
+
 ## [0.36.0] — 2026-09-09
 
 Ordena los paquetes como ruta de aprendizaje, saca la instalación de las
@@ -2357,6 +2378,7 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Referencias de contenido y schemas validados durante el build.
 
 [Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.36.0...HEAD
+[0.36.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.36.1
 [0.36.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.36.0
 [0.35.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.5
 [0.35.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.4
