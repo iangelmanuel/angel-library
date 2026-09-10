@@ -1,6 +1,6 @@
 # Revisión de complejidad interna
 
-Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código de coordinación, conservando el contenido y la interfaz existentes. La complejidad se valora por cuántas piezas hay que entender o sincronizar; no es una puntuación automática por líneas. Las cifras de 721 Markdown y 1.728 páginas corresponden a ese snapshot histórico; el catálogo actual tiene 726 entradas y 1.751 páginas generadas en el último build.
+Revisión de la versión 0.31.0. El objetivo es reducir pasos manuales y código de coordinación, conservando el contenido y la interfaz existentes. La complejidad se valora por cuántas piezas hay que entender o sincronizar; no es una puntuación automática por líneas. Las cifras de 721 Markdown y 1.728 páginas corresponden a ese snapshot histórico; el catálogo actual tiene 736 entradas y 1.789 páginas generadas en el último build.
 
 ## Cambios aplicados
 

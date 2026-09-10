@@ -8,6 +8,42 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.35.7] — 2026-09-10
+
+### Ajustado
+
+- Refinadas las fichas de Archify y OmniRoute con una explicación más precisa
+  del runtime, la integración compatible con OpenAI y los ejemplos iniciales.
+- Sincronizados README, PRODUCT y los informes internos con el catálogo actual:
+  736 entradas, 24 categorías, 170 subcategorías y 1.789 páginas generadas.
+
+### Verificado
+
+- Catálogo comprobado con `node --experimental-strip-types scripts/check-catalog.mjs`.
+- Astro Check completado con 0 errores, advertencias ni sugerencias.
+- Build estático completado y preview local disponible en `127.0.0.1:4321`.
+
+## [0.35.6] — 2026-09-10
+
+### Añadido
+
+- Documentados diez recursos investigados y organizados en Hallazgos:
+  Archify, Herdr, Omarchy y AnyDoc en «Código y desarrollo»; OmniRoute,
+  Orca, DeepSeek Harness, OpenMontage y Munder Difflin en «IA y agentes»;
+  y Matt Pocock Skills en «Recursos de la comunidad».
+- Añadidos en cada ficha el propósito, el modelo mental, un recorrido inicial,
+  límites operativos y enlaces a la fuente oficial o al repositorio.
+- Incluidas advertencias específicas para OCR hospedado, gateways y cuotas de
+  modelos, worktrees, terminales persistentes, permisos de agentes, licencias,
+  instalación de sistemas operativos y software en preview.
+
+### Verificado
+
+- Catálogo validado con `pnpm check:catalog`.
+- Astro Check completado con 0 errores, advertencias ni sugerencias.
+- Build estático completado y las nuevas rutas respondieron con HTTP 200 en el
+  servidor de preview local.
+
 ## [0.35.5] — 2026-09-09
 
 ### Cambiado
