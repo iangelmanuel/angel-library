@@ -17,6 +17,7 @@ const { entries, count } = Astro.props
 ---
 
 <StarlightPage
+  hasSidebar={false}
   frontmatter={{
     title: `#${tag}`,
     description: `${count} entradas etiquetadas con "${tag}".`

@@ -2,13 +2,6 @@
 import { Icon as AstroIcon } from "astro-icon/components"
 import { RECOLORED_ICONS } from "@/config/icons"
 
-/** Icono del sitio, resuelto en build por astro-icon.
-    - `brand-*` con archivo propio en `src/icons/` → se usa tal cual.
-    - `brand-*` recoloreado → el icono de lucide con su color fijo.
-    - cualquier otro nombre → la colección lucide.
-    El tamaño va en píxeles y no depende de Tailwind: la documentación no
-    carga utilidades y ahí `size-4` no existía. */
-
 interface Props {
   name: string
   size?: number

@@ -1,10 +1,8 @@
 import { SITE } from "./site"
 
-/** Enlaces que aparecen en las cabeceras y el pie del sitio. */
 export const SITE_NAV = [
   { label: "Inicio", href: "/" },
   { label: "Categorías", href: "/categories" },
-  { label: "Tipos", href: "/tipos/guides" },
   { label: "Tags", href: "/tags" }
 ] as const
 

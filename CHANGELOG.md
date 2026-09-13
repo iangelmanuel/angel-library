@@ -8,6 +8,39 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.37.0] — 2026-09-12
+
+Migración completa a un proyecto Starlight nativo, más el rediseño del
+sidebar que salió de usarlo a diario tras el cambio.
+
+### Cambiado
+
+- **Migración completa a un proyecto Starlight nativo.** Se retiró el
+  catálogo por `fs` (`catalog.ts`), los tipos editoriales
+  (`content-types.ts`, campo `type`, ruta `/tipos/[type]`), la validación de
+  contenido en build y las relaciones al pie de cada entrada. Categorías y
+  sidebar pasan a ser dos archivos estáticos escritos a mano
+  (`src/config/categories.ts`, `src/config/sidebar.ts`); el sidebar es el de
+  Starlight de fábrica, con un único override chico para que el primer nivel
+  (Construir, Producto…) sea un rótulo fijo en vez de colapsable.
+- **`/categories` y `/tags` (índices y páginas dinámicas) ya no cargan el
+  sidebar de documentación** (`hasSidebar={false}`): son listados, no
+  necesitan las 737 entradas del menú incrustadas. El build pasó de ~516MB a
+  ~248MB en `dist/`.
+- **Rediseño del sidebar: sangría progresiva por nivel.** El diseño original
+  no llevaba sangría (la jerarquía dependía solo de tamaño y color); con
+  cuatro niveles y letras a menos de 0.1rem de diferencia no se entendía de
+  un vistazo. Ahora cada nivel se sangra un paso más (categoría 0.4rem →
+  subcategoría 0.9rem → entrada 1.5rem) y los pesos se separan más
+  (categoría 600, subcategoría 500, entrada 400).
+- El azul de la subcategoría (`--branch`) pasa de un `color-mix` con gris
+  (demasiado apagado, se confundía con el blanco de la categoría) a
+  `--blue-400` puro.
+- `docs/ARCHITECTURE.md` y `docs/CONTENT_GUIDE.md` reescritos de punta a
+  punta para la arquitectura nueva; `docs/CONTENT_AUDIT.md`,
+  `docs/COMPLEXITY_REVIEW.md` y `docs/content-inventory.json` se retiraron
+  por describir un sistema que ya no existe.
+
 ## [0.36.1] — 2026-09-09
 
 Dos retoques de acabado: la paginación se enciende como las tarjetas que tiene

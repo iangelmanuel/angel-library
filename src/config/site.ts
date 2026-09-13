@@ -1,5 +1,3 @@
-/** Configuración de identidad y SEO global del sitio. */
-
 const PRODUCTION_URL = "https://angel-library.vercel.app"
 const DEV_URL = "http://localhost:4321"
 const isDev = process.argv.includes("dev")

@@ -135,7 +135,7 @@
   --cat-findings: #58c8e0;
   --cat-benchmarks: #4f7fd0;
 
-  /* Acentos de TIPO de contenido: los consume content-types.ts. */
+  /* Acentos disponibles para el color de una categoría en categories.ts. */
   --accent-blue: var(--blue-600);
   --accent-cyan: var(--blue-500);
   --accent-green: var(--blue-400);
@@ -146,10 +146,10 @@
   --accent-purple: #b6d9f5;
 
   /* Cromo del navegador: gris oscuro, nunca azul. */
-  /* La rama del menú: azul rebajado con gris. Tiene que leerse como carpeta
-     entre la categoría (blanca) y las entradas (grises) sin pesar más que
-     ninguna de las dos. */
-  --branch: color-mix(in oklab, var(--blue-400) 58%, var(--gray-400));
+  /* La rama del menú: tiene que leerse como carpeta entre la categoría
+     (blanca) y las entradas (grises), y leerse claramente azul — mezclarlo
+     con gris lo apagaba tanto que costaba distinguirlo de la categoría. */
+  --branch: var(--blue-400);
 
   --scrollbar: var(--gray-800);
   --scrollbar-hover: #3f3f46;

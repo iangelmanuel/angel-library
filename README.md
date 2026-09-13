@@ -26,13 +26,12 @@ concreto —un comando, un patrón, una receta— sin releer un artículo entero
 
 - **La carpeta es la clasificación.** `frontend/astro/astro-islands.md` vive en
   la categoría Frontend, subcategoría Astro, y se publica en esa misma ruta.
-  Mover el archivo lo recategoriza: no hay base de datos ni panel.
-- **Catorce tipos editoriales.** Cada entrada declara si es una guía, un
-  comando, una receta, un recurso… y el tipo decide qué campos son obligatorios.
-- **Todo se cruza.** Tags, relaciones explícitas, retroenlaces automáticos y
-  afinidad por etiquetas conectan entradas de cualquier categoría.
-- **El build es la red de seguridad.** Una carpeta desconocida, una referencia
-  rota o un enlace interno muerto detienen la compilación.
+  Mover el archivo lo recategoriza: no hay base de datos ni panel, y no hay
+  un "tipo" editorial aparte que mantener sincronizado.
+- **Tags cruzan categorías.** Cada entrada declara sus tags y `/tags` cruza
+  cualquier categoría con cualquier otra.
+- **Sidebar nativo de Starlight.** Un array estático por categoría, sin
+  descubrimiento por filesystem ni componente propio.
 
 ## Stack
 
@@ -69,28 +68,25 @@ frontmatter mínimo:
 ---
 title: View Transitions en Astro
 description: Transiciones entre páginas sin volverse una SPA.
-type: guides
 tags: [astro, navegación]
 ---
 ```
 
-El menú, los listados por tipo y las páginas de tags se actualizan solos. El
-paso a paso completo está en [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md).
+El menú, los listados de categoría y las páginas de tags se actualizan solos.
+El paso a paso completo está en [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md).
 
-Las categorías y subcategorías se descubren desde las carpetas, sin registros
-manuales en TypeScript. Su archivo opcional `_meta.json` permite ajustar textos,
-icono, color y orden. Reinicia `pnpm dev` cuando cambies la estructura del menú.
+Las categorías y subcategorías viven a mano en `src/config/categories.ts` y
+el menú en `src/config/sidebar.ts` — ver [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Documentación
 
-| Documento                                                | Contenido                                  |
-| -------------------------------------------------------- | ------------------------------------------ |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)           | Cómo está montado el proyecto y por qué    |
-| [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md)         | Crear contenido, paso a paso               |
-| [`docs/COMPLEXITY_REVIEW.md`](docs/COMPLEXITY_REVIEW.md) | Complejidad y riesgos de retirar funciones |
-| [`DESIGN.md`](DESIGN.md)                                 | El sistema visual «El Esmalte»             |
-| [`CHANGELOG.md`](CHANGELOG.md)                           | Historial de versiones                     |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md)                     | Cómo contribuir                            |
+| Documento                                        | Contenido                               |
+| ------------------------------------------------ | --------------------------------------- |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)   | Cómo está montado el proyecto y por qué |
+| [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) | Crear contenido, paso a paso            |
+| [`DESIGN.md`](DESIGN.md)                         | El sistema visual «El Esmalte»          |
+| [`CHANGELOG.md`](CHANGELOG.md)                   | Historial de versiones                  |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md)             | Cómo contribuir                         |
 
 ## Licencias
 

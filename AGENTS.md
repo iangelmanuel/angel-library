@@ -1,13 +1,14 @@
 # Agent Instructions
 
-- This is a single private Astro 7 site. Use Node.js `>=22.12.0` and pnpm `11` (`pnpm@11.25.0`); do not introduce another package manager.
-- Run `pnpm check` for Astro/TypeScript diagnostics and `pnpm build` for the real content-integrity check. There is no general test runner; focused documentation checks live in `scripts/`. ESLint and Prettier have package scripts. Run `pnpm sync` after changing `src/content.config.ts` or when generated Astro types are stale.
-- Site identity lives in `src/config/site.ts`. `src/config/catalog.ts` discovers categories and subcategories from folders; optional `src/content/docs/<category>/_meta.json` files customize labels, descriptions, grouping and order. Do not introduce parallel category registries. Editorial types live in `src/config/content-types.ts`; sidebar construction is in `src/config/sidebar.ts`. Run `pnpm check:catalog` after changing this logic.
-- Content is local Markdown in `src/content/docs/<category>/<subcategory>/<module>.md`: **the folder decides category and subcategory**, and frontmatter declares editorial `type`. The `docs` collection extends Starlight's schema with per-type validation; read `src/content.config.ts` before editing frontmatter. `draft: true` is excluded from production. Consult `docs/CONTENT_GUIDE.md` for editorial requirements and `docs/CONTENT_AUDIT.md` for verification scope.
-- Personal command/configuration entries carry `private: true` and live in their category folder; they still get the standard detail route but are excluded from public navigation, listings, tags, and search.
-- Content references are the target entry id, i.e. its path: `frontend/react/react-context-api`. `src/lib/validation.ts` checks structure, references and internal links during static generation. New valid folders are discovered automatically; malformed metadata or broken references fail the build. Integrations and recipes discover technology relationships through `technologies` rather than duplicated reverse links.
-- Starlight generates every documentation entry page (URL = entry id); `categories/[category].astro` and `tipos/[type].astro` generate the custom listings. Adding a Markdown file needs no route change.
-- Icons live in `src/config/icons.ts`: `RECOLORED_ICONS` maps tinted Lucide icons. Own logos are SVG files in `src/icons/`; `src/components/shared/Icon.astro` resolves both sources, and plain Lucide names need no registration on the Astro side.
-- Astro and Starlight own the site UI. Tailwind is v4 via `@tailwindcss/vite`; there is no `tailwind.config`.
-- Match the repository’s Spanish-language content and UI conventions. Do not commit secrets or real data; environment files are ignored except `.env.example`.
-- For the fuller verified architecture notes and content-authoring conventions, consult `CLAUDE.md` and `CONTRIBUTING.md`.
+- Astro 7 + Starlight 0.42 site. Use Node.js `>=22.12.0` and pnpm `11`; do not introduce another package manager.
+- `pnpm check` for Astro/TypeScript diagnostics, `pnpm build` for the real integration check. ESLint and Prettier have package scripts. Run `pnpm sync` after changing `src/content.config.ts`.
+- Site identity lives in `src/config/site.ts`. Categories/subcategories are a plain static object in `src/config/categories.ts` — no filesystem discovery, no per-folder metadata files. Adding a category means adding an entry there and creating the matching folder under `src/content/docs/`.
+- The sidebar is native Starlight: `src/config/sidebar.ts` exports a static `SIDEBAR` array using `autogenerate: { directory }` per subcategory, passed straight into `astro.config.mjs`. There is no custom Sidebar component.
+- Content is local Markdown in `src/content/docs/<category>/<subcategory>/<module>.md` — the folder is the only classification, there is no `type` field. `src/content.config.ts` extends Starlight's schema with a handful of optional fields; nothing is required by category.
+- There is no build-time link/reference validation and no "related content" feature — removed on purpose for simplicity.
+- Personal entries carry `private: true`: they keep their route but are excluded from public navigation, listings, tags, and search.
+- Starlight generates every documentation entry page; `categories/[category].astro` and `tags/[tag].astro` generate the custom listings.
+- Icons live in `src/config/icons.ts`. Own logos are SVG files in `src/icons/`; `src/components/shared/Icon.astro` resolves both sources.
+- Astro and Starlight own the site UI. Tailwind is v4 via `@tailwindcss/vite`, used only by the landing page.
+- Match the repository's Spanish-language content and UI conventions.
+- For fuller architecture notes, consult `docs/ARCHITECTURE.md` and `docs/CONTENT_GUIDE.md`.

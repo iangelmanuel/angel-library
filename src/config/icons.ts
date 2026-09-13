@@ -1,8 +1,3 @@
-/** Tabla de iconos recoloreados: un icono de lucide con un color fijo.
-    Los logos propios ya no viven aquí: son archivos en `src/icons/`, que es
-    donde astro-icon los busca. */
-
-/** Lucide con color fijo. */
 export const RECOLORED_ICONS: Record<string, { base: string; color: string }> =
   {
     "stack-component": { base: "component", color: "#facc15" },

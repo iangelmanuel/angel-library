@@ -1,23 +1,24 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
 import EntryList from "@/components/content/EntryList.astro"
-import { CATEGORIES, CATEGORY_IDS } from "@/config/catalog"
+import { CATEGORIES } from "@/config/categories"
 import { getAllEntries, getCategoryEntries } from "@/lib/content"
 
 export async function getStaticPaths() {
   const all = await getAllEntries()
 
-  return CATEGORY_IDS.map((category) => {
+  return Object.keys(CATEGORIES).map((category) => {
     const { groups, ungrouped } = getCategoryEntries(all, category)
     return { params: { category }, props: { groups, ungrouped, category } }
   })
 }
 
 const { category, groups, ungrouped } = Astro.props
-const meta = CATEGORIES[category]
+const meta = CATEGORIES[category as keyof typeof CATEGORIES]
 ---
 
 <StarlightPage
+  hasSidebar={false}
   frontmatter={{ title: meta.label, description: meta.description }}
 >
   {

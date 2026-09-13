@@ -5,7 +5,6 @@ import {
   CatalogSection,
   RouteSection,
   FlowSection,
-  InventorySection,
   CtaSection,
   loadStats
 } from "@/features/landing"
@@ -18,6 +17,5 @@ const stats = await loadStats()
   <CatalogSection stats={stats} />
   <RouteSection stats={stats} />
   <FlowSection />
-  <InventorySection stats={stats} />
   <CtaSection />
 </LandingLayout>

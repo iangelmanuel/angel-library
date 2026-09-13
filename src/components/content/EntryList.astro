@@ -1,6 +1,5 @@
 ---
-import { CONTENT_TYPES } from "@/config/content-types"
-import { getEntryUrl, typeOf, type AnyEntry } from "@/lib/content"
+import { getEntryUrl, type AnyEntry } from "@/lib/content"
 
 interface Props {
   entries: AnyEntry[]
@@ -14,9 +13,6 @@ const { entries } = Astro.props
     entries.map((entry) => (
       <li>
         <a href={getEntryUrl(entry)}>
-          <span class="entry-list__type">
-            {CONTENT_TYPES[typeOf(entry)].singular}
-          </span>
           <span class="entry-list__title">{entry.data.title}</span>
           <span class="entry-list__description">{entry.data.description}</span>
         </a>
@@ -49,14 +45,6 @@ const { entries } = Astro.props
 
   .entry-list a:hover {
     background: color-mix(in oklab, var(--blue-800) 36%, #000000);
-  }
-
-  .entry-list__type {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--blue-400);
   }
 
   .entry-list__title {

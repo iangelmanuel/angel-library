@@ -80,56 +80,15 @@ header.header {
   padding-top: 1.25rem;
 }
 
-/* La fila que abre: icono, etiqueta y flecha en una línea. */
+/* La fila que abre: etiqueta y flecha en una línea. */
 .sidebar-content summary {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  user-select: none;
-}
-
-/* La flecha gira al abrir. */
-.sidebar-content details > summary .caret {
-  flex-shrink: 0;
-  transition: transform var(--dur-fast) var(--ease-enamel);
-}
-
-.sidebar-content details[open] > summary .caret {
-  transform: rotate(90deg);
-}
-
-.sidebar-content .group-label {
-  flex: 1;
-  min-width: 0;
-}
-
-/* Categoría: el primer nivel de cada bloque. En blanco, para que el azul
-   signifique una sola cosa: subcategoría. */
-.sidebar-content .large {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--white);
-}
-
-.sidebar-content .sidebar-block__list > li > details > summary .large {
-  font-size: 0.82rem;
-}
-
-/* Subcategoría: lo que aparece al desplegar una categoría. Es lo único azul
-   del menú, así se separa de la categoría (blanca) y de las entradas .md
-   (grises). */
-.sidebar-content .sidebar-block__list ul .large {
-  font-size: 0.76rem;
-  font-weight: 400;
-  color: var(--branch);
-}
-
-.sidebar-content summary {
   border-radius: var(--radius-thin);
   padding: 0.22rem 0.4rem;
-  /* Abre y cierra la categoría: el cursor tiene que anunciarlo, y el icono
-     y la etiqueta de dentro no deben devolverlo a la flecha. */
   cursor: pointer;
+  user-select: none;
   transition: background-color var(--dur-fast) var(--ease-enamel);
 }
 
@@ -142,15 +101,107 @@ header.header {
   background: color-mix(in oklab, var(--blue-800) 14%, #000000);
 }
 
-/* Las entradas cuelgan de un hilo, sin sangría dura. */
-.sidebar-content .sidebar-block__list ul {
-  border-inline-start: 1px solid var(--thread);
-  padding-inline-start: 0.6rem;
+/* La flecha gira al abrir. */
+.sidebar-content details > summary .caret {
+  flex-shrink: 0;
+  color: var(--gray-450);
+  transition: transform var(--dur-fast) var(--ease-enamel);
 }
 
+.sidebar-content details[open] > summary .caret {
+  transform: rotate(90deg);
+}
+
+.sidebar-content .group-label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Tres niveles, tres pesos de luz: bloque (mono, apagado, fijo) → categoría
+   (blanca) → subcategoría (azul, blanca al abrirse). El bloque de
+   navegación es un rótulo propio (`.nav-group-label`, en Sidebar.astro), no
+   un `<details>` — no se puede cerrar. Categoría y subcategoría sí son
+   `<details>` nativos de Starlight; la profundidad se cuenta por
+   anidamiento real, no por una clase propia. */
+
+/* Nivel 1 — bloque de navegación (Construir, Producto…): rótulo fijo, sin
+   sangría — es el ancla de la que cuelgan los otros tres niveles, cada uno
+   un paso más adentro (0.4 → 0.9 → 1.5rem). */
+.sidebar-content .nav-group-label {
+  margin: 0 0 0.4rem;
+  padding: 0.22rem 0.4rem 0.22rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--blue-600);
+}
+
+/* Nivel 2 — categoría: blanca y la más pesada, es lo primero que hay que
+   distinguir. */
+.sidebar-content ul.top-level > li > ul > li > details > summary {
+  padding-inline-start: 0.4rem;
+}
+
+.sidebar-content ul.top-level > li > ul > li > details > summary .large {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+/* Nivel 3 — subcategoría: azul cerrada, blanca al abrirse. Es la única
+   etiqueta azul del menú, un paso más adentro que la categoría. */
+.sidebar-content
+  ul.top-level
+  > li
+  > ul
+  > li
+  > details
+  > ul
+  > li
+  > details
+  > summary {
+  padding-inline-start: 0.9rem;
+}
+
+.sidebar-content
+  ul.top-level
+  > li
+  > ul
+  > li
+  > details
+  > ul
+  > li
+  > details
+  > summary
+  .large {
+  font-size: 0.77rem;
+  font-weight: 500;
+  color: var(--branch);
+}
+
+.sidebar-content
+  ul.top-level
+  > li
+  > ul
+  > li
+  > details
+  > ul
+  > li
+  > details[open]
+  > summary
+  .large {
+  color: var(--white);
+}
+
+/* Nivel 4 — entrada: gris, una sola línea, el paso más profundo. */
 .sidebar-content a {
+  overflow: hidden;
   border-radius: var(--radius-thin);
-  padding: 0.26rem 0.45rem;
+  padding: 0.26rem 0.45rem 0.26rem 1.5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-size: 0.75rem;
   line-height: 1.45;
   color: var(--gray-400);

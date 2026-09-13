@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guía para Claude Code (claude.ai/code) al trabajar en este repositorio.
+Guía para Claude Code al trabajar en este repositorio.
 
 ## Comandos
 
@@ -8,21 +8,12 @@ Gestor de paquetes: **pnpm**.
 
 ```bash
 pnpm dev
-```
-
-```bash
 pnpm build
-```
-
-```bash
 pnpm check
 ```
 
-`pnpm check` = `astro check`. `pnpm sync` regenera los tipos tras tocar
-`src/content.config.ts`. `pnpm preview` sirve `dist/`. `pnpm eslint` y
-`pnpm prettier:check` son lo que corre el CI.
-
-No hay un test runner general. `pnpm check:catalog` comprueba el descubrimiento de carpetas y los metadatos en un directorio temporal. `pnpm build` valida la integración del contenido. El informe editorial anterior está en `docs/CONTENT_AUDIT.md`.
+`pnpm eslint` y `pnpm prettier:check` son lo que corre el CI. `pnpm sync`
+regenera los tipos tras tocar `src/content.config.ts`.
 
 ## Qué es esto
 
@@ -36,84 +27,45 @@ Los textos de interfaz, los comentarios y el contenido van **en español**.
 
 ### Contenido: la carpeta manda
 
-`src/content/docs/<categoría>/<subcategoría>/<archivo>.md`. La carpeta decide
-categoría y subcategoría; el frontmatter solo declara `type`. Mover un archivo
-lo recategoriza. La URL es la ruta: `/frontend/astro/astro-content-collections`.
+`src/content/docs/<categoría>/<subcategoría>/<archivo>.md`. La carpeta
+decide categoría y subcategoría — es la única clasificación, no hay un
+campo `type`. La URL es la ruta.
 
-Una sola colección, `docs`, la de Starlight. Su esquema
-(`src/content.config.ts`) es `docsSchema({ extend: … })`: los campos de
-Starlight más los propios (`type`, `tags`, `related`, `private`, `updatedAt` y
-los específicos de cada tipo). `type` es opcional en el esquema porque las
-páginas propias usan el mismo layout; `getAllEntries()` falla si una entrada de
-contenido no lo declara.
+Categorías y subcategorías están declaradas a mano en
+`src/config/categories.ts` (un objeto plano, sin descubrimiento por
+filesystem). El sidebar de Starlight es otro archivo estático,
+`src/config/sidebar.ts`, con `autogenerate: { directory }` por subcategoría
+— Starlight arma el árbol nativamente en build.
 
-Las reglas por tipo (`commands` exige `command`, `resources` exige `url` y
-`resourceCategory`, `integrations` exige dos tecnologías) viven en un
-`superRefine` al final del esquema.
+`src/content.config.ts` extiende `docsSchema` con campos opcionales
+(`tags`, `command`, `url`, `technologies`…). Nada se exige por tipo o
+categoría.
 
-### Configuración y catálogo
+### Sin validación ni relaciones (a propósito)
 
-`src/config/catalog.ts` descubre categorías y subcategorías desde las carpetas de `src/content/docs/`. Cada categoría puede incluir `_meta.json` para personalizar etiquetas, descripciones, icono, color, grupo y orden. No registres ids en listas paralelas.
-
-`src/config/content-types.ts` mantiene los tipos editoriales y marca cuáles forman una ruta de aprendizaje. `src/config/sidebar.ts` adapta el catálogo al menú de Starlight: primero ordena los tipos didácticos por prioridad y después por `order`; los módulos de consulta se mantienen alfabéticos.
-
-Reinicia el servidor tras añadir, renombrar o eliminar entradas/carpetas o modificar metadatos del menú. Consulta `docs/ARCHITECTURE.md` y `docs/COMPLEXITY_REVIEW.md` antes de modificar esta lógica.
+No hay chequeo de enlaces/referencias rotas en build, ni una sección de
+"relacionadas" al pie de cada entrada. Es una decisión deliberada por
+simplicidad — ver `docs/ARCHITECTURE.md`.
 
 ### Rutas
 
-Starlight genera todas las páginas de documentación. Además hay páginas propias
-en `src/pages/`, todas envueltas en `<StarlightPage>` para heredar el layout:
+Starlight genera los artículos. El proyecto añade `/`, `/categories`,
+`/categories/[category]`, `/tags`, `/tags/[tag]`.
 
-- `/` — la portada (`src/features/landing/`), con su propio layout.
-- `/categories` y `/categories/[category]`
-- `/tipos/[type]`
-- `/tags` y `/tags/[tag]`
+### Overrides de Starlight
 
-No hay página de búsqueda: el buscador de Starlight (Pagefind) se abre desde
-la cabecera y, en la portada, también desde el campo del hero.
-
-### Relaciones
-
-`src/lib/relations.ts` deriva las relaciones de una entrada: `related`
-explícitas, retroenlaces, integraciones y recetas que la citan, y afinidad por
-tags. Se pintan al pie de cada entrada mediante el override
-`src/components/starlight/Footer.astro`.
-
-Las validaciones de estructura, relaciones y enlaces viven en `src/lib/validation.ts`, separadas del cálculo de recomendaciones.
-
-### Búsqueda
-
-La de Starlight (Pagefind). No hay índice propio.
+Solo `Header.astro`, `PageTitle.astro` y `ThemeSelect.astro` en
+`src/components/starlight/`. El Sidebar y el Footer son los de Starlight
+sin tocar.
 
 ### Estilos
 
-Dos hojas, según quién pinte la página:
-
-- `src/styles/starlight.css` — mapea el sistema «El Esmalte» a las variables de
-  Starlight (`--sl-color-*`). La cargan las páginas de documentación.
-- `src/styles/global.css` — Tailwind v4 y las primitivas propias. Solo la usa la
-  portada.
-
-Los tokens viven en `src/styles/tokens.css` y los consumen las dos. `DESIGN.md`
-documenta el sistema visual.
-
-### Bloques de código
-
-Expressive Code, el de Starlight. Los colores se ajustan desde
-`expressiveCode.styleOverrides` en `astro.config.mjs`.
-
-### Iconos
-
-`src/config/icons.ts` contiene los iconos Lucide que necesitan un color fijo.
-Los logos propios son archivos SVG en `src/icons/`. `<Icon name="…" />`
-resuelve ambos casos durante el build.
+`src/styles/starlight.css` mapea el sistema visual a las variables de
+Starlight. `src/styles/global.css` (Tailwind v4) es solo para la portada.
 
 ## Escribir contenido
 
-Copia el frontmatter de una entrada parecida y lee `src/content.config.ts`.
-`docs/CONTENT_GUIDE.md` tiene plantillas. Usa `private: true` para entradas
-personales (conservan su ruta pero salen de listados y navegación) y
-`draft: true` para lo que aún no se publica.
+Ver `docs/CONTENT_GUIDE.md`. Copia el frontmatter de una entrada parecida.
 
 ## Notas
 

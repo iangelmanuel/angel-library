@@ -1,90 +1,34 @@
 ---
-import { Icon as StarlightIcon } from "@astrojs/starlight/components"
-import MobileMenuFooter from "@astrojs/starlight/components/MobileMenuFooter.astro"
+import MobileMenuFooter from "virtual:starlight/components/MobileMenuFooter"
 import SidebarPersister from "@astrojs/starlight/components/SidebarPersister.astro"
-import SidebarRestorePoint from "@astrojs/starlight/components/SidebarRestorePoint.astro"
 import SidebarSublist from "@astrojs/starlight/components/SidebarSublist.astro"
-import Icon from "@/components/shared/Icon.astro"
-import { CATEGORY_BY_LABEL, SIDEBAR_GROUPS } from "@/config/sidebar"
-
-// El menú de Starlight, en bloques y con el icono de cada categoría.
 
 const { sidebar } = Astro.locals.starlightRoute
-
-type Entry = (typeof sidebar)[number]
-
-const byLabel = new Map(sidebar.map((entry) => [entry.label, entry]))
-
-const blocks = SIDEBAR_GROUPS.map((group) => ({
-  label: group.label,
-  categories: group.categories
-    .map((label) => byLabel.get(label))
-    .filter((entry): entry is Entry => entry !== undefined)
-})).filter((block) => block.categories.length > 0)
-
-/** ¿Está la página actual dentro de esta rama? */
-function hasCurrent(entries: Entry[]): boolean {
-  return entries.some((entry) =>
-    entry.type === "link" ? entry.isCurrent : hasCurrent(entry.entries)
-  )
-}
 ---
 
 <SidebarPersister>
-  <ul class="top-level sidebar-blocks">
+  <ul class="top-level">
     {
-      blocks.map((block) => (
-        <li class="sidebar-block">
-          <span class="sidebar-block__label">{block.label}</span>
-          <ul class="sidebar-block__list">
-            {block.categories.map((category) => (
-              <li>
-                <details
-                  open={
-                    category.type === "group" && hasCurrent(category.entries)
-                  }
-                >
-                  <summary
-                    style={`--category-accent: var(${CATEGORY_BY_LABEL[category.label]?.color ?? "--blue-400"})`}
-                  >
-                    <span class="group-label">
-                      <Icon
-                        name={
-                          CATEGORY_BY_LABEL[category.label]?.icon ?? "book-open"
-                        }
-                        class="category-icon"
-                      />
-                      <span class="large">{category.label}</span>
-                    </span>
-                    <button
-                      type="button"
-                      class="category-collapse"
-                      data-collapse-category
-                      title={`Contraer ${category.label}`}
-                      aria-label={`Contraer ${category.label}`}
-                    >
-                      <Icon
-                        name="chevrons-down-up"
-                        size={14}
-                      />
-                    </button>
-                    <StarlightIcon
-                      name="right-caret"
-                      class="caret"
-                      size="1.25rem"
-                    />
-                  </summary>
-                  <SidebarRestorePoint />
-                  {category.type === "group" && (
-                    <SidebarSublist
-                      sublist={category.entries}
-                      nested
-                    />
-                  )}
-                </details>
-              </li>
-            ))}
-          </ul>
+      sidebar.map((entry) => (
+        <li>
+          {entry.type === "group" ? (
+            <>
+              <p class="nav-group-label">{entry.label}</p>
+              <SidebarSublist
+                sublist={entry.entries}
+                nested
+              />
+            </>
+          ) : (
+            <a
+              href={entry.href}
+              aria-current={entry.isCurrent ? "page" : undefined}
+              class="large"
+              {...entry.attrs}
+            >
+              {entry.label}
+            </a>
+          )}
         </li>
       ))
     }
@@ -95,113 +39,16 @@ function hasCurrent(entries: Entry[]): boolean {
   <MobileMenuFooter />
 </div>
 
-<script>
-  // Contraer una categoría y todo lo que tenga abierto dentro.
-  document.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement | null
-    const button = target?.closest("[data-collapse-category]")
-    if (!button) return
-
-    event.preventDefault()
-    const category = button.closest("details")
-    if (!category) return
-
-    category
-      .querySelectorAll<HTMLDetailsElement>("details[open]")
-      .forEach((details) => {
-        details.open = false
-      })
-    category.open = false
-  })
-
-  // Una categoría abierta a la vez: al abrir una, se cierran las demás.
-  function onlyOneOpen(event: Event) {
-    const opened = event.target as HTMLDetailsElement
-    if (!opened.open) return
-
-    const list = opened.closest(".sidebar-block__list")
-    if (!list) return
-
-    list
-      .querySelectorAll<HTMLDetailsElement>(":scope > li > details")
-      .forEach((details) => {
-        if (details !== opened) details.open = false
-      })
-  }
-
-  document
-    .querySelectorAll<HTMLDetailsElement>(".sidebar-block__list > li > details")
-    .forEach((details) => details.addEventListener("toggle", onlyOneOpen))
-</script>
-
 <style>
-  /* Contraer: solo aparece si la categoría está abierta. */
-  .category-collapse {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 1.35rem;
-    height: 1.35rem;
-    flex-shrink: 0;
-    border: 0;
-    border-radius: var(--radius-thin);
-    background: transparent;
-    color: var(--gray-450);
-    cursor: pointer;
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-
-  details[open] > summary .category-collapse {
-    display: inline-flex;
-  }
-
-  .category-collapse:hover {
-    color: var(--white);
-  }
-
-  .sidebar-blocks,
-  .sidebar-block__list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  /* El aire separa grupos, no categorías: dentro de un bloque las filas van
-     seguidas y lo que respira es el salto de un bloque al siguiente. */
-  .sidebar-blocks {
-    display: flex;
-    flex-direction: column;
-    gap: 2.25rem;
-  }
-
-  .sidebar-block__list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 0.35rem;
-  }
-
-  /* El bloque es un rótulo, no un desplegable. */
-  .sidebar-block__label {
-    display: block;
-    padding-inline: 0.45rem;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue-600);
-  }
-
-  .category-icon {
-    width: 0.9rem;
-    height: 0.9rem;
-    flex-shrink: 0;
-    color: var(--category-accent, var(--blue-400));
-  }
-
-  .group-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  @layer starlight.core {
+    ul.top-level {
+      list-style: none;
+      padding: 0;
+    }
+    /* Un bloque respira del siguiente; adentro no hay más aire que el
+       propio de las categorías. */
+    ul.top-level > li + li {
+      margin-top: 1.25rem;
+    }
   }
 </style>

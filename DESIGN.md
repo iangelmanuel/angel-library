@@ -343,16 +343,29 @@ Cierre de entrada: la misma tarjeta de un listado, pero un paso más apagada —
 - **Tag suelto:** solo texto azul (`--reading-link`) con un `#` al 55% de opacidad; sin campo propio. Hover: blanco.
 - **Tag tesela** (en `/tags`): ahí sí es un campo pulsable — fondo `--enamel-900`, radio 4px, letra azul de título, contador en mono empujado a la derecha.
 
-### Barra lateral (tres niveles)
+### Barra lateral (cuatro niveles)
 
-Categoría → subcategoría → entrada. La jerarquía la dan el tamaño y la luz, nunca la sangría ni un filete de color.
+Bloque de navegación → categoría → subcategoría → entrada. Un override
+mínimo de `Sidebar.astro` (sección 5.5 de `docs/ARCHITECTURE.md`) pinta el
+bloque de navegación como un rótulo fijo, no colapsable; todo lo de ahí
+para abajo es el `SidebarSublist` de Starlight sin tocar, con
+`collapsed: true` en cada categoría y cada subcategoría
+(`src/config/sidebar.ts`). La jerarquía la dicen tamaño, peso, luz **y**
+sangría — sin icono ni color por categoría, sin filete. La sangría es la
+corrección de un defecto real: con cuatro niveles y letras a menos de
+0.1rem de diferencia, tamaño y color solos no bastaban para leerse de un
+vistazo — el usuario lo señaló en varias rondas hasta que se agregó el
+escalón de sangría (0.4 → 0.9 → 1.5rem) que faltaba.
 
-- **Categoría:** 0.83rem/500, blanca, icono en el color de la categoría, chevron que rota 90° al abrir.
-- **Subcategoría:** 0.75rem/400, gris de prosa; blanca al abrirse.
-- **Entrada:** 0.78rem, gris apagado, hasta tres líneas (`-webkit-line-clamp: 3`) — truncar escondía lo que distingue cada entrada.
-- **Hover:** un vidriado mínimo, `color-mix(in srgb, var(--cat-accent) 10–12%, transparent)`.
-- **Activa:** campo pleno del color de su categoría, `color-mix(in oklab, var(--cat-accent) var(--glaze-lit), #000000)`, letra blanca, peso 500.
-- **Anidamiento:** un hilo cae bajo el icono del padre, `border-left: 1px solid color-mix(in srgb, var(--cat-accent) 20%, transparent)`.
+- **Bloque de navegación** (Construir, Producto…): mono 0.7rem/600, mayúsculas, azul apagado (`--blue-600`), sin sangría. No es un `<details>` — no se puede cerrar.
+- **Categoría:** 0.84rem/600, blanca, sangría 0.4rem. Colapsada por defecto; Starlight la abre solo si contiene la página actual.
+- **Subcategoría:** 0.77rem/500, azul de rama (`--branch`) — la única etiqueta azul del menú; blanca al abrirse. Sangría 0.9rem. También colapsada por defecto: abrir una categoría no despliega sus subcategorías, solo la que contiene la página actual.
+- **Entrada:** 0.75rem/400, gris (`--gray-400`), sangría 1.5rem, una sola línea.
+- **Hover** (cualquier nivel): `color-mix(in oklab, var(--blue-800) 14–16%, #000000)` sobre la fila.
+- **Activa:** campo lleno `color-mix(in oklab, var(--blue-800) 40%, #000000)`, letra blanca, peso 500.
+- **Anidamiento:** hilo tenue de Starlight (`--sl-color-hairline-light`) bajo cada nivel; sin color propio por categoría.
+
+Los selectores cuentan la profundidad por anidamiento real del DOM de Starlight (`ul.top-level > li > details > …`), no por una clase propia — el sidebar no tiene markup propio que targetear.
 
 ### Campos de entrada
 

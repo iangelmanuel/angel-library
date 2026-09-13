@@ -1,112 +1,88 @@
-# Crear una entrada, paso a paso
+# Crear contenido, paso a paso
 
-Guía para añadir contenido a la biblioteca. No hace falta tocar código.
+Esta guía tiene tres recorridos, de menor a mayor esfuerzo:
 
-## Paso 1 · Elige dónde va
+- **[A · Una entrada nueva en un apartado que ya existe](#a--una-entrada-nueva-en-un-apartado-que-ya-existe)** — el caso más común.
+- **[B · Una subcategoría nueva, dentro de una categoría que ya existe](#b--una-subcategoría-nueva-dentro-de-una-categoría-que-ya-existe)**
+- **[C · Una categoría completamente nueva](#c--una-categoría-completamente-nueva)** — el "apartado x" desde cero.
 
-La carpeta decide la clasificación:
+Al final: la [tabla completa de campos](#referencia-todos-los-campos-del-frontmatter) y los [errores más comunes](#errores-comunes).
 
-```
-src/content/docs/<categoría>/<subcategoría>/<nombre-del-archivo>.md
-```
+---
 
-- **Categoría**: la primera carpeta (`frontend`, `backend`, `git`…). Se descubre automáticamente.
-- **Subcategoría**: la carpeta de dentro (`astro`, `react`, `node`…). También se descubre automáticamente.
-- **Nombre del archivo**: en minúsculas y con guiones. Es la URL.
+## A · Una entrada nueva en un apartado que ya existe
 
-```
-src/content/docs/frontend/astro/astro-view-transitions.md
-        → https://angel-library.vercel.app/frontend/astro/astro-view-transitions
-```
+Ejemplo: agregar un artículo sobre `astro:actions` dentro de
+Frontend → Astro (`src/content/docs/frontend/astro/`, que ya existe).
 
-Si la carpeta no existe en el config, el build falla. Para crear una nueva mira
-el [paso 6](#paso-6--si-necesitas-una-carpeta-nueva).
-
-### Fichas de paquetes
-
-Las librerías instalables viven en la categoría `packages`, dentro del bloque
-`Construir`. Cada paquete tiene su propia subcategoría para que pueda crecer con
-más artículos sin mezclarlo con otras herramientas:
+### Paso 1 · Crea el archivo
 
 ```text
-src/content/docs/packages/<ecosistema>-<paquete>/<articulo>.md
+src/content/docs/frontend/astro/astro-actions.md
 ```
 
-Usa como prefijo el ecosistema principal (`react`, `node`, `javascript`,
-`astro` o `css`) y conserva el nombre del paquete en el id. La etiqueta visible
-se define en `src/content/docs/packages/_meta.json` con el formato
-`React - Nombre del paquete`, `Node - Nombre del paquete`, etc. Express y otras
-tecnologías que son frameworks permanecen en sus categorías tecnológicas; solo
-se trasladan aquí sus dependencias instalables.
+La ruta del archivo **es** la clasificación: primera carpeta = categoría,
+segunda carpeta = subcategoría, nombre de archivo = URL final
+(`/frontend/astro/astro-actions`). No hay que registrar el archivo en
+ningún lado — con crearlo alcanza.
 
-## Paso 2 · Copia el frontmatter mínimo
+### Paso 2 · Frontmatter mínimo
 
 ```markdown
 ---
-title: View Transitions en Astro
-description: Transiciones entre páginas sin volverse una SPA.
-type: guides
-tags: [astro, navegación]
-updatedAt: 2026-09-06
+title: Astro Actions
+description: Funciones de servidor que se llaman como si fueran locales.
+tags: [astro, backend]
 ---
 ```
 
-Cuatro campos forman el mínimo editorial de toda entrada (aunque algunos tengan valores opcionales o predeterminados en el esquema):
+Tres campos alcanzan para publicar:
 
 | Campo         | Qué es                                              |
 | ------------- | --------------------------------------------------- |
 | `title`       | El título. Sale en la página, el menú y el buscador |
 | `description` | Una frase. Sale en los listados y en el SEO         |
-| `type`        | El tipo editorial (paso 3)                          |
 | `tags`        | Lista de tags en minúsculas                         |
 
-Opcionales que se usan mucho: `updatedAt` (fecha), `related` (paso 4),
-`draft: true` (no se publica) y `private: true` (conserva su URL pero sale de
-menús, listados y buscador).
+Opcionales que se usan seguido:
 
-### Orden de aprendizaje
+- `updatedAt: 2026-09-12` — fecha, se muestra en la cabecera de la entrada.
+- `draft: true` — no se publica (solo se ve corriendo `pnpm dev`).
+- `private: true` — conserva su URL pero sale de menús, listados y
+  buscador. **No es control de acceso**: quien tenga el link igual la ve.
 
-Los módulos didácticos pueden declarar `order` para indicar su posición dentro
-de la ruta de su subcategoría:
+### Paso 3 · Orden dentro de la subcategoría (opcional)
+
+Por defecto, Starlight ordena alfabético. Si necesitás que un artículo
+aparezca primero (por ejemplo, una introducción antes que el resto), usá
+el campo nativo de Starlight:
 
 ```yaml
-type: guides
-order: 3
+---
+title: Astro Actions
+sidebar:
+  order: 1
+---
 ```
 
-El menú y los listados colocan primero los tipos que forman la ruta de
-aprendizaje (tecnología, guía, práctica, patrón, librería, integración, hook y
-receta). Dentro de esa ruta se respeta la prioridad del tipo y después `order`.
-El número más pequeño aparece primero. Esto permite que una guía de fundamentos
-preceda a una integración sin renombrar archivos ni cambiar sus URLs. Si dos
-módulos comparten número, se ordenan por título. Los módulos de consulta quedan
-después y se ordenan alfabéticamente.
+Cuanto más bajo el número, más arriba aparece. Las entradas sin `sidebar.order`
+quedan después, en orden alfabético.
 
-Los módulos de consulta —recursos, skills, comandos, snippets, utilities y
-trucos— no forman parte de esta ruta. Los valores `order` que ya tengan se
-conservan para no romper el contenido, pero no se usan para convertirlos en una
-secuencia de aprendizaje.
+### Paso 4 · Campos sueltos, según lo que necesite el artículo
 
-## Paso 3 · Elige el tipo y sus campos
+No existe un "tipo" de entrada que decida qué pedir. Usá los campos que
+tengan sentido para lo que estás escribiendo — todos son opcionales y cada
+uno aparece en la página solo si le pusiste valor:
 
-El `type` decide qué campos extra pide el esquema:
-
-| `type`         | Para qué                           | Campos que exige              |
-| -------------- | ---------------------------------- | ----------------------------- |
-| `guides`       | Explicar cómo se hace algo         | —                             |
-| `technologies` | Qué es una tecnología              | —                             |
-| `libraries`    | Una librería concreta              | —                             |
-| `recipes`      | Resolver un problema puntual       | —                             |
-| `patterns`     | Un patrón reutilizable             | —                             |
-| `practices`    | Una buena práctica                 | —                             |
-| `snippets`     | Un fragmento de código             | —                             |
-| `hooks`        | Un hook                            | —                             |
-| `utilities`    | Una función de utilidad            | —                             |
-| `tricks`       | Un truco corto                     | —                             |
-| `skills`       | Una skill de una herramienta       | —                             |
-| `commands`     | Un comando                         | **`command`**                 |
-| `resources`    | Un enlace externo                  | **`url`, `resourceCategory`** |
-| `integrations` | Usar una tecnología dentro de otra | **2+ `technologies`**         |
+| Campo                                                                         | Para qué                                                               |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `command`                                                                     | El comando, si la entrada es sobre un comando concreto                 |
+| `url`, `website`, `github`                                                    | Enlaces externos (se muestran como botones en la cabecera)             |
+| `resourceCategory`                                                            | Subcategoría de `resources/`, solo si la entrada vive en esa categoría |
+| `technologies`                                                                | Lista de ids de otras entradas relacionadas (cross-link)               |
+| `problem`, `whenToUse`, `tool`, `language`, `framework`, `runtime`, `returns` | Datos sueltos que aparecen como ficha en la cabecera                   |
+| `warnings`                                                                    | Lista de avisos que se muestran destacados                             |
+| `official`                                                                    | `true`/`false` — para recursos, indica si es la fuente oficial         |
 
 Ejemplo de un comando:
 
@@ -114,56 +90,43 @@ Ejemplo de un comando:
 ---
 title: git switch
 description: Cambiar de rama sin los efectos secundarios de checkout.
-type: commands
 command: git switch -c nueva-rama
 tags: [git, ramas]
 ---
 ```
 
-Ejemplo de un recurso:
+Ejemplo de un recurso, con `technologies` cruzando a otra entrada:
 
 ```markdown
 ---
 title: Astro Docs
 description: La documentación oficial de Astro.
-type: resources
 url: https://docs.astro.build
 resourceCategory: learning
 official: true
+technologies: [frontend/astro/astro-islands]
 tags: [astro, documentación]
 ---
 ```
 
-## Paso 4 · Conecta la entrada (opcional)
+`technologies` apunta al **id** de la otra entrada (su ruta, sin la
+extensión `.md` y sin barra inicial): `frontend/astro/astro-islands`.
 
-`related` apunta a otras entradas **por su ruta**, sin barra inicial:
+### Paso 5 · Escribe el cuerpo
 
-```yaml
-related:
-  - frontend/astro/astro-islands
-  - frontend/astro/astro-content-collections
+Markdown normal. Dos cosas que da el sitio automáticamente:
+
+**Enlaces internos**, con la ruta absoluta:
+
+```markdown
+Ver [Content Collections](/frontend/astro/astro-content-collections).
 ```
 
-No hace falta declarar la relación en las dos direcciones: el sitio calcula solo
-los retroenlaces. Tampoco hace falta listar las integraciones ni las recetas que
-citan a esta entrada: aparecen al pie automáticamente.
+No hay comprobación de enlaces rotos en build — revisá la ruta a mano
+antes de publicar.
 
-Si la ruta no existe, el build falla.
-
-## Paso 5 · Escribe el cuerpo
-
-Markdown normal. Tres cosas que da el sitio:
-
-**Bloques de código con nombre de archivo.**
-
-````markdown
-```ts title="src/content.config.ts"
-export const collections = { docs }
-```
-````
-
-**Pestañas de gestor de paquetes.** Escribe la instalación en un bloque `bash` y
-se convierte sola en pnpm · bun · npm:
+**Pestañas de instalación.** Escribí el comando en un bloque `bash` normal
+y el sitio lo convierte solo en pestañas pnpm/bun/npm:
 
 ````markdown
 ```bash
@@ -171,180 +134,252 @@ pnpm add astro
 ```
 ````
 
-**Enlaces internos** con la ruta absoluta:
-
-```markdown
-Ver [Content Collections](/frontend/astro/astro-content-collections).
-```
-
-Si el enlace apunta a una página que no existe, el build falla.
-
-## Paso 6 · Si necesitas una carpeta nueva
-
-**No hay que registrar categorías ni subcategorías en TypeScript.** Crea la carpeta con su primer artículo:
-
-```text
-src/content/docs/mi-categoria/primeros-pasos/introduccion.md
-```
-
-Con el frontmatter del paso 2 es suficiente para que el build la reconozca. Por defecto:
-
-- La etiqueta sale del nombre de la carpeta: `primeros-pasos` → «Primeros Pasos».
-- Una categoría nueva aparece al final del bloque «Referencia», con icono de carpeta y color azul.
-- Las subcategorías no personalizadas se colocan al final, por nombre de carpeta.
-- Un directorio vacío no aporta enlaces al menú. Git tampoco conserva carpetas vacías.
-
-### Personalizar una categoría, desde un solo archivo
-
-Este archivo es **opcional** y no crea una página:
-
-```json title="src/content/docs/mi-categoria/_meta.json"
-{
-  "label": "Mi categoría",
-  "description": "Lo que aprenderás en esta sección.",
-  "icon": "book-open",
-  "color": "--accent-blue",
-  "group": "construir",
-  "order": 8,
-  "subcategories": {
-    "primeros-pasos": {
-      "label": "Empieza aquí",
-      "description": "Conceptos y ejemplos iniciales."
-    }
-  }
-}
-```
-
-Puedes omitir cualquier campo. Para añadir otra subcategoría basta con su carpeta y un Markdown; edita este archivo únicamente si quieres cambiar su etiqueta, descripción u orden.
-
-| Campo           | Cómo se usa                                                                     |
-| --------------- | ------------------------------------------------------------------------------- |
-| `label`         | Nombre visible; conserva el id y la URL de la carpeta                           |
-| `description`   | Explicación en el listado                                                       |
-| `icon`          | Nombre de Lucide o un icono propio ya registrado en `src/config/icons.ts`       |
-| `color`         | Variable CSS existente, incluyendo `--`; no exige crear un color nuevo          |
-| `group`         | `construir`, `producto`, `flujo`, `calidad` o `referencia`                      |
-| `order`         | Entero desde 0; menor valor aparece antes dentro de su bloque. Por defecto 1000 |
-| `subcategories` | Personalización opcional; sus claves son nombres de carpetas reales             |
-
-El orden de las claves dentro de `subcategories` define el orden de esos grupos. Las carpetas nuevas que no estén en ese objeto se añaden al final. Los registros cuyo directorio ya no existe se ignoran; conviene retirarlos para evitar confusión.
-
-`badge: false` dentro de una subcategoría oculta su insignia bajo el título de los artículos. Se conserva en algunas fichas de recursos existentes para mantener su presentación; no hace falta usarlo al crear contenido.
-
-### Recursos y tipos editoriales
-
-Los valores de `resourceCategory` se obtienen de las subcarpetas de `resources/`. Para añadir uno nuevo, crea `resources/<nombre>/<articulo>.md` y usa ese nombre en el campo. El campo se conserva porque también clasifica recursos ubicados en categorías como cursos o hallazgos.
-
-Añadir un **tipo editorial** es distinto de añadir una carpeta: se hace en `src/config/content-types.ts`. Su entrada reúne etiquetas, descripción, icono, color y `learningOrder`. No añadas un tipo nuevo solo para organizar una tecnología.
-
-### Desarrollo
-
-El catálogo y el menú se calculan al iniciar Astro. **Reinicia `pnpm dev` cuando añadas, borres o renombres archivos/carpetas o cambies `_meta.json`**, y cuando quieras actualizar títulos o visibilidad del menú. Los cambios en el cuerpo de un artículo existente conservan la recarga habitual de Astro.
-
-No renombres una carpeta publicada solo para mejorar su etiqueta: cambiarías todas sus URLs. Modifica `label` en `_meta.json`.
-
-## Paso 7 · Comprueba
+### Paso 6 · Comprueba
 
 ```bash
 pnpm dev
 ```
 
-Y antes de publicar:
+Abrí la URL de la entrada y fijate que aparezca en el sidebar, en la
+categoría/subcategoría correctas. Antes de dar por terminado:
 
 ```bash
 pnpm check
 pnpm build
 ```
 
-El build valida el esquema, las carpetas, las relaciones y los enlaces internos.
-Si algo está mal, se detiene con un mensaje en español que dice qué archivo es.
+Si el frontmatter tiene un error (un campo con el tipo equivocado, por
+ejemplo `tags: astro` en vez de `tags: [astro]`), `pnpm build` se detiene
+señalando el archivo exacto.
 
-## Errores frecuentes
+---
 
-| Mensaje                              | Qué pasó                                                        |
-| ------------------------------------ | --------------------------------------------------------------- |
-| `no declara "type"`                  | Falta el campo `type` en el frontmatter                         |
-| `El tipo "commands" exige "command"` | El tipo pide un campo que no pusiste                            |
-| Error de catálogo                    | Revisa el nombre de la carpeta o el JSON indicado en el mensaje |
-| Referencia rota                      | Un `related` apunta a una ruta inexistente                      |
-| Enlace interno muerto                | Un `](/…)` del cuerpo no lleva a ninguna parte                  |
+## B · Una subcategoría nueva, dentro de una categoría que ya existe
 
-## Contrato editorial: aprender y volver a consultar
+Ejemplo: agregar la subcategoría "Svelte" dentro de la categoría Frontend,
+que ya existe.
 
-Escribe primero una respuesta breve a «qué resuelve y cuándo lo necesito». Después permite reproducir el caso. Una persona experimentada debe encontrar el código y sus límites sin leer toda la introducción; una principiante debe poder identificar los conocimientos previos y el resultado esperado.
+### Paso 1 · Crea la carpeta y el primer artículo
 
-Mantén títulos reconocibles, pero adapta la extensión al tipo de entrada. No agregues secciones vacías ni repitas una definición completa que ya tiene su propia guía.
-
-| Tipo                         | Secuencia de lectura                                                                                                     |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Guía o tecnología            | En pocas palabras → Antes de empezar → Conceptos → Ejemplo → Comprobación → Errores y límites → Siguiente paso y fuentes |
-| Receta o integración         | Objetivo → Requisitos con enlaces → Preparación → Implementación → Comprobación → Límites y variantes → Fuentes          |
-| Utilidad, snippet o hook     | Qué resuelve → Contrato de entrada/salida → Código → Uso y resultado → Casos límite                                      |
-| Patrón o práctica            | Problema → Decisión → Ejemplo → Consecuencias → Cuándo evitarlo                                                          |
-| Comando                      | Qué hace → Shell y directorio → Comando → Salida esperada → Efectos y recuperación                                       |
-| Recurso, curso o herramienta | Para qué sirve → A quién le ayuda → Cómo aprovecharlo → Límites, acceso y fuente                                         |
-
-### Plantilla de guía práctica
-
-````markdown
-## En pocas palabras
-
-Define el concepto, el problema que resuelve y cuándo conviene.
-
-## Antes de empezar
-
-Enlaza los conceptos previos e indica runtime, versión principal y dependencias.
-
-## Ejemplo paso a paso
-
-Indica la carpeta desde la que se ejecutan los comandos y el archivo que se crea.
-Declara si los bloques son consecutivos, alternativos o fragmentos independientes.
-
-```js title="ejemplo.mjs"
-const nombres = ["Ana", "Luis"]
-console.log(nombres.map((nombre) => nombre.toUpperCase()))
-// ["ANA", "LUIS"]
+```text
+src/content/docs/frontend/svelte/svelte-introduccion.md
 ```
 
-## Comprobación
+Con el frontmatter mínimo del [paso 2 de la sección A](#paso-2--frontmatter-mínimo).
+Astro va a leer este archivo sin problema — pero **todavía no va a
+aparecer en el menú**, porque el menú no descubre carpetas solo.
 
-Describe una entrada válida, otra inválida y el resultado observable de ambas.
+### Paso 2 · Registra la subcategoría en `src/config/categories.ts`
 
-## Errores y límites
+Buscá la entrada `frontend` y agregale una clave dentro de
+`subcategories`:
 
-Relaciona síntoma, causa y corrección. Explica qué queda fuera del ejemplo.
+```ts
+frontend: {
+  label: "Frontend",
+  // ...el resto igual...
+  subcategories: {
+    "frontend-fundamentos": { label: "Fundamentos de frontend", description: "..." },
+    astro: { label: "Astro", description: "..." },
+    react: { label: "React", description: "..." },
+    nextjs: { label: "Next.js", description: "..." },
+    svelte: {                                          // ← nueva
+      label: "Svelte",
+      description: "Framework con compilador propio, sin virtual DOM."
+    }
+  }
+}
+```
 
-## Siguiente paso
+**La clave (`svelte`) tiene que ser exactamente el nombre de la carpeta**
+que creaste en el paso 1. `label` es lo que se ve en `/categories/frontend`
+y en el chip de cada entrada; `description` es opcional.
 
-Enlaza la continuación y la documentación oficial pertinente.
-````
+### Paso 3 · Registra la subcategoría en `src/config/sidebar.ts`
 
-### Reglas para código que se puede copiar
+Buscá el bloque de la categoría `Frontend` y agregale un grupo más dentro
+de sus `items`:
 
-- No presentes `as Usuario`, un genérico o `!` como validación de datos externos.
-- Usa un solo directorio de ejemplo (`src/lib`, por ejemplo) y haz coincidir todos los imports. Un alias como `@/lib` requiere configuración y no existe automáticamente en cualquier proyecto.
-- Define los helpers importados o enlaza el archivo previo que los implementa. Identifica explícitamente el pseudocódigo.
-- En ejemplos de red incluye el estado HTTP de error y el formato esperado; en formularios, etiquetas y feedback; en almacenamiento, persistencia y limpieza.
-- Usa datos ficticios. Explica los efectos de comandos que borran, migran, publican o cambian cuentas antes de ejecutarlos.
-- Conserva la versión principal de una receta de extremo a extremo. Separa las variantes incompatibles; no combines la instalación actual con configuración de una versión anterior.
-- Una receta «completa» debe incluir las piezas que promete. Si reutiliza preparación previa, el título y los requisitos deben dejarlo claro.
+```ts
+{
+  label: "Frontend",
+  collapsed: true,
+  items: [
+    { label: "Fundamentos de frontend", collapsed: true, items: [{ autogenerate: { directory: "frontend/frontend-fundamentos" } }] },
+    { label: "Astro", collapsed: true, items: [{ autogenerate: { directory: "frontend/astro" } }] },
+    { label: "React", collapsed: true, items: [{ autogenerate: { directory: "frontend/react" } }] },
+    { label: "Next.js", collapsed: true, items: [{ autogenerate: { directory: "frontend/nextjs" } }] },
+    {                                                   // ← nuevo
+      label: "Svelte",
+      collapsed: true,
+      items: [{ autogenerate: { directory: "frontend/svelte" } }]
+    }
+  ]
+}
+```
 
-### Lenguaje, fuentes y mantenimiento
+El `directory` tiene que ser `<categoría>/<subcategoría>` exactamente como
+está en el disco. A partir de acá, Starlight arma solo los links de todos
+los `.md` que haya dentro de esa carpeta — no hace falta listarlos.
 
-Usa español latinoamericano. Introduce «solicitud HTTP (request)» o «tiempo de ejecución (runtime)» antes de utilizar el término técnico sin explicación. Conserva los identificadores exactos de las APIs. Prefiere «Preparación», «Recomendaciones» y «Comprobación» a títulos ambiguos como «Setup» o «Tips».
+### Paso 4 · Comprueba
 
-Enlaza páginas oficiales concretas al explicar APIs, compatibilidad o instalación. `updatedAt` registra una revisión real del texto; no cambies todas las fechas por una edición mecánica. Precios, planes y rankings requieren fecha y consulta del proveedor, no afirmaciones permanentes.
-
-`private: true` es una clasificación editorial, **no un control de acceso**: la entrada conserva su ruta. No guardes secretos ni información confidencial en una página servida públicamente.
-
-### Verificar cambios de estructura
+`pnpm dev` **no recarga solo** cuando cambiás `categories.ts` o
+`sidebar.ts` (son archivos de configuración, no contenido) — reiniciá el
+servidor. Después:
 
 ```bash
-pnpm check:catalog
 pnpm check
 pnpm build
 ```
 
-La prueba del catálogo crea carpetas temporales y comprueba descubrimiento automático, orden y errores de metadatos. El build comprueba la integración con el contenido real. Ninguno de estos comandos ejecuta las aplicaciones descritas en los bloques Markdown.
+---
 
-El [informe editorial](CONTENT_AUDIT.md) y su inventario conservan el alcance de la revisión de contenido anterior. Para la estructura interna y los riesgos de quitar funciones, consulta [COMPLEXITY_REVIEW.md](COMPLEXITY_REVIEW.md).
+## C · Una categoría completamente nueva
+
+Ejemplo: crear la categoría "Móvil" (apps nativas/híbridas), que hoy no
+existe en absoluto.
+
+### Paso 1 · Crea la carpeta y el primer artículo
+
+Una categoría necesita al menos una subcategoría con al menos un artículo
+adentro:
+
+```text
+src/content/docs/mobile/mobile-fundamentos/mobile-que-es.md
+```
+
+Con el frontmatter mínimo de siempre (`title`, `description`, `tags`).
+
+### Paso 2 · Regístrala en `src/config/categories.ts`
+
+Agregá una entrada nueva al objeto `CATEGORIES` (el orden dentro del
+archivo no importa, pero mantenerlo alfabético ayuda a encontrar cosas):
+
+```ts
+export const CATEGORIES = {
+  // ...categorías existentes...
+  mobile: {
+    label: "Móvil",
+    icon: "smartphone", // un nombre válido de lucide.dev/icons
+    description: "Apps nativas e híbridas: qué elegir y cómo empezar.",
+    color: "--cat-mobile", // ver paso 3
+    group: "construir", // construir | producto | flujo | calidad | referencia
+    order: 8, // más alto que el order más grande que ya exista en ese group
+    subcategories: {
+      "mobile-fundamentos": {
+        label: "Fundamentos de móvil",
+        description: "Nativo vs. híbrido vs. multiplataforma."
+      }
+    }
+  }
+} as const
+```
+
+Cada campo:
+
+| Campo           | Qué es                                                                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `label`         | Nombre visible en `/categories` y en los chips                                                                                                               |
+| `icon`          | Nombre de un icono de [lucide.dev/icons](https://lucide.dev/icons/) — se guarda pero hoy nada lo muestra; podés ponerlo por si en el futuro se vuelve a usar |
+| `description`   | Frase debajo del nombre en `/categories`                                                                                                                     |
+| `color`         | Variable CSS para el acento visual (paso 3)                                                                                                                  |
+| `group`         | En qué bloque del menú aparece: `construir`, `producto`, `flujo`, `calidad` o `referencia`                                                                   |
+| `order`         | Número; menor aparece antes dentro de su `group`                                                                                                             |
+| `subcategories` | Al menos una, con la clave igual al nombre real de la carpeta                                                                                                |
+
+### Paso 3 · Agrega el color en `src/styles/tokens.css`
+
+Buscá el bloque de acentos por categoría (comentario
+`/* Acentos disponibles para el color de una categoría en categories.ts. */`)
+y agregá uno:
+
+```css
+--cat-mobile: var(--blue-400); /* o cualquier otro color ya definido arriba */
+```
+
+Podés reutilizar un color que ya exista si no querés inventar uno nuevo —
+lo único que hace falta es que la variable exista.
+
+### Paso 4 · Regístrala en `src/config/sidebar.ts`
+
+Agregala dentro del bloque de navegación (`group`) que le corresponda —
+si en el paso 2 pusiste `group: "construir"`, va dentro del objeto
+`{ label: "Construir", items: [...] }`:
+
+```ts
+{
+  label: "Construir",
+  items: [
+    // ...categorías existentes de este bloque...
+    {
+      label: "Móvil",
+      collapsed: true,
+      items: [
+        {
+          label: "Fundamentos de móvil",
+          collapsed: true,
+          items: [{ autogenerate: { directory: "mobile/mobile-fundamentos" } }]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Paso 5 · Comprueba
+
+Reiniciá `pnpm dev` (tocaste archivos de configuración, no contenido) y
+fijate que "Móvil" aparezca en `/categories` con su color e icono, y que
+el sidebar muestre el bloque nuevo. Después:
+
+```bash
+pnpm check
+pnpm build
+```
+
+Si te olvidaste el color en `tokens.css`, no rompe el build — el chip de
+categoría simplemente no va a tener color (usa la variable como
+`color-mix`, que cae en transparente si la variable no existe).
+
+---
+
+## Referencia: todos los campos del frontmatter
+
+| Campo                      | Tipo                 | Para qué                                                     |
+| -------------------------- | -------------------- | ------------------------------------------------------------ |
+| `title`                    | string (obligatorio) | Título de la página, menú y buscador                         |
+| `description`              | string (obligatorio) | Frase para listados y SEO                                    |
+| `tags`                     | string[]             | Tags en minúsculas, para `/tags`                             |
+| `sidebar.order`            | número               | Orden manual dentro de su subcategoría (nativo de Starlight) |
+| `sidebar.label`            | string               | Etiqueta distinta a `title` solo para el menú                |
+| `updatedAt`                | fecha (`2026-09-12`) | Se muestra en la cabecera de la entrada                      |
+| `draft`                    | booleano             | Oculta la entrada fuera de `pnpm dev`                        |
+| `private`                  | booleano             | Oculta de menús/listados/buscador; **la URL sigue pública**  |
+| `command`                  | string               | El comando, para entradas de tipo comando                    |
+| `url`, `website`, `github` | string (URL)         | Enlaces externos, se muestran como botones                   |
+| `resourceCategory`         | string               | Subcategoría de `resources/`, solo dentro de esa categoría   |
+| `technologies`             | string[] (ids)       | Cross-link a otras entradas por su id                        |
+| `problem`                  | string               | Ficha "Problema"                                             |
+| `whenToUse`                | string               | Ficha "Cuándo usarlo"                                        |
+| `tool`                     | string               | Ficha "Herramienta"                                          |
+| `language`                 | string               | Ficha "Lenguaje"                                             |
+| `framework`                | string               | Ficha "Framework"                                            |
+| `runtime`                  | string               | Ficha "Runtime"                                              |
+| `returns`                  | string               | Ficha "Devuelve"                                             |
+| `warnings`                 | string[]             | Lista de avisos destacados                                   |
+| `official`                 | booleano             | Marca si es la fuente oficial (recursos)                     |
+
+## Errores comunes
+
+| Mensaje / síntoma                                      | Qué pasó                                                                                                                             |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `pnpm build` falla señalando un archivo                | El frontmatter no cumple el esquema de `src/content.config.ts` — revisá el tipo del campo que indica el error                        |
+| La entrada no aparece en el sidebar                    | La subcategoría no está en `src/config/sidebar.ts`, o el `directory` del `autogenerate` no coincide con el nombre real de la carpeta |
+| La categoría no aparece en `/categories`               | No está en `src/config/categories.ts`, o la carpeta no coincide con la clave                                                         |
+| El chip de categoría sale sin color                    | Falta la variable en `src/styles/tokens.css`, o el nombre no coincide con `color` en `categories.ts`                                 |
+| Cambié `sidebar.ts`/`categories.ts` y no veo el cambio | Son archivos de configuración: hace falta reiniciar `pnpm dev`, no alcanza con guardar                                               |
+| Un enlace interno no lleva a ninguna parte             | No hay comprobación automática — revisalo a mano; asegurate de usar la ruta completa (`/categoria/subcategoria/archivo`)             |
+
+`private: true` es una clasificación editorial, **no un control de
+acceso**: la entrada conserva su ruta pública.

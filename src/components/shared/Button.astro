@@ -1,19 +1,14 @@
 ---
 import Icon from "@/components/shared/Icon.astro"
 
-/** El único botón del sitio: cuatro variantes, tres tamaños.
-    Con `href` sale un <a>; sin él, un <button>. */
-
 interface Props {
   variant?: "primary" | "secondary" | "outline" | "link"
   size?: "sm" | "md" | "lg"
   href?: string
   type?: "button" | "submit" | "reset"
-  /** Nombre del icono; el mismo que acepta <Icon>. */
   icon?: string
   iconPosition?: "start" | "end"
   iconSize?: number
-  /** Abre en otra pestaña y añade el rel seguro. */
   external?: boolean
   class?: string
   [key: string]: unknown

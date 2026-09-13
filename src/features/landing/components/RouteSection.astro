@@ -19,12 +19,6 @@ const outputs = route
         note: `el listado de ${route.category.label}`
       },
       {
-        from: "tipo",
-        href: `/tipos/${route.type.id}`,
-        value: `/tipos/${route.type.id}`,
-        note: `todo lo declarado como ${route.type.label}`
-      },
-      {
         from: "archivo",
         href: route.url,
         value: route.url,
@@ -66,7 +60,7 @@ const outputs = route
               <b>{route.subcategory.segment}</b>
             </span>
             <span class="wall-path__segment wall-path__segment--file">
-              <i>entrada · type: {route.type.id}</i>
+              <i>entrada</i>
               <b>{route.file.segment}</b>
             </span>
           </div>

@@ -1,22 +1,12 @@
-import { CATEGORIES, CATEGORY_IDS, getSubcategory } from "@/config/catalog"
-import { CONTENT_TYPES, CONTENT_TYPE_IDS } from "@/config/content-types"
-import type { ContentTypeId } from "@/config/content-types"
+import { CATEGORIES } from "@/config/categories"
 import {
   type AnyEntry,
   categoryOf,
   getAllEntries,
   getAllTags,
   getCategoryCounts,
-  subcategoryOf,
-  typeOf
+  subcategoryOf
 } from "@/lib/content"
-
-export interface LandingTypeCount {
-  id: ContentTypeId
-  label: string
-  count: number
-  share: number
-}
 
 export interface LandingCategoryCount {
   id: string
@@ -33,7 +23,6 @@ export interface LandingRoute {
   subcategory: { segment: string; label: string }
   file: { segment: string; title: string }
   url: string
-  type: { id: ContentTypeId; label: string }
 }
 
 export interface LandingRecent {
@@ -48,7 +37,6 @@ export interface LandingStats {
   categories: number
   subcategories: number
   tags: number
-  types: LandingTypeCount[]
   categoryList: LandingCategoryCount[]
   route: LandingRoute | null
   recent: LandingRecent[]
@@ -78,24 +66,24 @@ function buildRoute(entries: AnyEntry[]): LandingRoute | null {
   const categoryId = categoryOf(entry)
   const subcategoryId = subcategoryOf(entry)
 
+  const categoryMeta = CATEGORIES[categoryId as keyof typeof CATEGORIES]
+  const subMeta = (
+    categoryMeta.subcategories as Record<string, { label: string }>
+  )[subcategoryId ?? ""]
+
   return {
     root: "src/content/docs/",
     category: {
       segment: `${category}/`,
-      label: CATEGORIES[categoryId].label,
+      label: categoryMeta.label,
       href: `/categories/${categoryId}`
     },
     subcategory: {
       segment: `${subcategory}/`,
-      label:
-        getSubcategory(categoryId, subcategoryId ?? "")?.label ?? subcategory
+      label: subMeta?.label ?? subcategory
     },
     file: { segment: `${file}.md`, title: entry.data.title },
-    url: `/${entry.id}`,
-    type: {
-      id: typeOf(entry),
-      label: CONTENT_TYPES[typeOf(entry)].label
-    }
+    url: `/${entry.id}`
   }
 }
 
@@ -109,7 +97,7 @@ function buildRecent(entries: AnyEntry[]): LandingRecent[] {
     )
     .slice(0, 5)
     .map((entry) => {
-      const meta = CATEGORIES[categoryOf(entry)]
+      const meta = CATEGORIES[categoryOf(entry) as keyof typeof CATEGORIES]
       return {
         title: entry.data.title,
         url: `/${entry.id}`,
@@ -120,25 +108,11 @@ function buildRecent(entries: AnyEntry[]): LandingRecent[] {
 }
 
 function getStats(entries: AnyEntry[]): LandingStats {
-  const counted = CONTENT_TYPE_IDS.map((id) => ({
-    id,
-    label: CONTENT_TYPES[id].label,
-    count: entries.filter((entry) => entry.data.type === id).length
-  }))
-    .filter((type) => type.count > 0)
-    .sort((a, b) => b.count - a.count)
-
-  const largest = counted[0]?.count ?? 1
-
   return {
     docs: entries.length,
-    categories: CATEGORY_IDS.length,
+    categories: Object.keys(CATEGORIES).length,
     subcategories: countSubcategories(entries),
     tags: getAllTags(entries).length,
-    types: counted.map((type) => ({
-      ...type,
-      share: type.count / largest
-    })),
     categoryList: getCategoryCounts(entries).sort((a, b) => b.count - a.count),
     route: buildRoute(entries),
     recent: buildRecent(entries)

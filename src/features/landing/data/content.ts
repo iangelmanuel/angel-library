@@ -5,12 +5,6 @@ export interface LandingLeg {
   detail: string
 }
 
-export interface LandingOutput {
-  label: string
-  value: string
-  note: string
-}
-
 export const HERO = {
   titleTop: "Un segundo cerebro",
   titleBottom: "técnico, en disco.",
@@ -36,7 +30,7 @@ export const CATALOG = {
 
 export const ROUTE = {
   title: "La ruta es el sistema",
-  lead: "La carpeta decide la categoría y la subcategoría. El frontmatter solo declara el tipo. Mover un archivo lo recategoriza: no hay base de datos, ni panel, ni nada que editar aparte del archivo.",
+  lead: "La carpeta decide la categoría y la subcategoría. Mover un archivo lo recategoriza: no hay base de datos, ni panel, ni nada que editar aparte del archivo.",
   outputsTitle: "y de esa misma ruta salen",
   note: "El build valida la estructura, las relaciones entre entradas y los enlaces internos. Una carpeta mal nombrada o una referencia rota no llegan a publicarse: rompen la compilación con un mensaje en español."
 } as const
@@ -66,22 +60,9 @@ export const FLOW = {
   ] as LandingLeg[]
 } as const
 
-export const INVENTORY = {
-  title: "Qué guarda por dentro",
-  lead: "Cada entrada declara un tipo editorial y ese tipo decide qué campos son obligatorios: un comando exige su comando, un recurso exige su enlace, una integración exige al menos dos tecnologías. La convención se valida con Zod en cada compilación.",
-  allCategories: "Ver las categorías"
-} as const
-
 export const CTA = {
   title: "Entra y busca.",
   description:
     "Sin registro, sin cuentas y sin backend: el sitio es estático y la búsqueda corre en tu navegador.",
   action: "Abrir la biblioteca"
 } as const
-
-export const FOOTER_FIELDS: LandingOutput[] = [
-  { label: "contenido", value: "propio", note: "" },
-  { label: "idioma", value: "es", note: "" },
-  { label: "licencia", value: "CC BY-NC-SA", note: "" },
-  { label: "build", value: "estático", note: "" }
-]

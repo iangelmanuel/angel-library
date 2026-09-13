@@ -1,8 +1,8 @@
 # Landing
 
 Portada del sitio (`/`). Es la única página sin barra lateral: en vez de listar
-documentación, **dibuja el mecanismo** de la biblioteca — carpeta → tipo → ruta
-→ índice — con nodos, conducciones de 1px y celdas de rejilla fija.
+documentación, **dibuja el mecanismo** de la biblioteca — carpeta → ruta →
+índice — con nodos, conducciones de 1px y celdas de rejilla fija.
 
 ## Flujo
 
@@ -11,9 +11,9 @@ documentación, **dibuja el mecanismo** de la biblioteca — carpeta → tipo �
 ```
 LandingLayout          layouts/  BaseLayout + cabecera y pie propios, sin Sidebar
   HeroWall             identidad + el plano de archivado + el nodo «índice» (ctrl K)
+  CatalogSection        el índice de categorías con su conteo real
   RouteSection         una ruta real despiezada en lo que el sistema produce
   FlowSection          una línea con tres tomas: buscar → leer → reutilizar
-  InventorySection     tablero de tipos editoriales con su conteo real
   CtaSection           cierre en relleno --primary, la misma acción del hero
 ```
 
@@ -23,9 +23,9 @@ LandingLayout          layouts/  BaseLayout + cabecera y pie propios, sin Sideba
   ninguna cifra vive ahí.
 - **Cifras y la ruta de ejemplo** → `lib/stats.ts`. `loadStats()` lee la
   colección `docs` y devuelve documentos, categorías, subcarpetas con
-  contenido, tags, el conteo por tipo y `route`: una entrada real despiezada en
-  raíz / categoría / subcategoría / archivo. Si esa entrada desaparece se elige
-  otra automáticamente.
+  contenido, tags y `route`: una entrada real despiezada en raíz / categoría /
+  subcategoría / archivo. Si esa entrada desaparece se elige otra
+  automáticamente.
 - **Identidad y repositorio** → `config/site.ts`, que centraliza el nombre del
   sitio y los enlaces del repositorio.
 - **Estilos propios** → `styles/landing.css`, importado por `LandingLayout`.
@@ -39,8 +39,8 @@ Todo el lenguaje visual sale de tres piezas, no de tarjetas:
   tramo. La sangría la da `--node-depth`, nunca un margen escrito a mano.
 - **Conducción**: `border-left` + `border-bottom` de 1px (`.wall-node__branch`)
   o una línea de 1px (`.wall-output__drop`, `.wall-leg__tap`, `.wall-close__feed`).
-- **Celda de rejilla fija** (`.wall-figures`, `.wall-board`, `.wall-footer__cell`):
-  las columnas nunca se mueven, solo cambia lo que hay dentro.
+- **Celda de rejilla fija** (`.wall-figures`, `.wall-footer__cell`): las
+  columnas nunca se mueven, solo cambia lo que hay dentro.
 
 El único momento de animación de la página es el trazado del plano al cargar
 (`wall-draw` / `wall-mark` / `wall-feed`): se animan las conducciones y los

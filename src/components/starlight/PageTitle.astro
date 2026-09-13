@@ -1,22 +1,21 @@
 ---
 import Default from "@astrojs/starlight/components/PageTitle.astro"
 import Button from "@/components/shared/Button.astro"
-import {
-  CATEGORIES,
-  RESOURCE_CATEGORIES,
-  getSubcategory
-} from "@/config/catalog"
-import { CONTENT_TYPES, type ContentTypeId } from "@/config/content-types"
+import { CATEGORIES } from "@/config/categories"
 import { formatDate, getAllEntries } from "@/lib/content"
 
 const { entry } = Astro.locals.starlightRoute
 const data = entry.data as Record<string, unknown>
 
 const [category, subcategory] = entry.id.split("/")
-const categoryMeta = CATEGORIES[category]
-const subcategoryMeta = getSubcategory(category, subcategory)
-const typeMeta = data.type
-  ? CONTENT_TYPES[data.type as ContentTypeId]
+const categoryMeta = CATEGORIES[category as keyof typeof CATEGORIES]
+const subcategoryMeta = subcategory
+  ? (
+      categoryMeta?.subcategories as Record<
+        string,
+        { label: string; badge?: boolean }
+      >
+    )?.[subcategory]
   : undefined
 
 const tags = Array.isArray(data.tags) ? (data.tags as string[]) : []
@@ -80,7 +79,12 @@ const facts = [
   {
     label: "Categoría de recurso",
     value: data.resourceCategory
-      ? RESOURCE_CATEGORIES[String(data.resourceCategory)]
+      ? (
+          CATEGORIES.resources.subcategories as Record<
+            string,
+            { label: string }
+          >
+        )[String(data.resourceCategory)]?.label
       : null
   }
 ].filter((fact): fact is { label: string; value: string } =>
@@ -106,13 +110,12 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
       )
     }
     {
-      subcategoryMeta?.badge && (
+      subcategoryMeta && subcategoryMeta.badge !== false && (
         <a href={`/categories/${category}#${subcategory}`}>
           {subcategoryMeta.label}
         </a>
       )
     }
-    {typeMeta && <a href={`/tipos/${data.type}`}>{typeMeta.singular}</a>}
     {
       updatedAt && (
         <time

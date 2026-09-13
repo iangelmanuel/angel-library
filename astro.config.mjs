@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap"
 import starlight from "@astrojs/starlight"
 import tailwindcss from "@tailwindcss/vite"
 import icon from "astro-icon"
-import { buildSidebar } from "./src/config/sidebar.ts"
+import { SIDEBAR } from "./src/config/sidebar.ts"
 import { SITE } from "./src/config/site.ts"
 import { remarkPackageManagerTabs } from "./src/markdown/package-manager.mjs"
 
@@ -41,7 +41,6 @@ export default defineConfig({
   compressHTML: true,
 
   integrations: [
-    // Iconos: lucide vía iconify y los logos propios de src/icons.
     icon({ iconDir: "src/icons" }),
     starlight({
       title: SITE.info.name,
@@ -62,11 +61,9 @@ export default defineConfig({
         { icon: "x.com", label: "X", href: SITE.social.x }
       ],
 
-      sidebar: buildSidebar(),
+      sidebar: SIDEBAR,
 
       components: {
-        // Relaciones al pie y sin selector de tema.
-        Footer: "./src/components/starlight/Footer.astro",
         Header: "./src/components/starlight/Header.astro",
         PageTitle: "./src/components/starlight/PageTitle.astro",
         Sidebar: "./src/components/starlight/Sidebar.astro",

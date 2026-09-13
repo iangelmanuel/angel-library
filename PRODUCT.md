@@ -41,11 +41,11 @@ Restricciones vinculantes confirmadas por el autor:
 
 Capacidades y hechos técnicos actuales (implementación incumbente, no declarada inmutable por el autor):
 
-- 737 entradas en 24 categorías y 170 subcategorías; el último build generó 1793 páginas.
-- Tipos editoriales en uso: guides (419), resources (105), skills (80), libraries (40), patterns (19), recipes (19), utilities (12), hooks (9), practices (9), technologies (9), snippets (7), commands (4), tricks (3), integrations (2).
-- `src/config/` reúne la configuración: `site.ts` (identidad y SEO), `catalog.ts` (categorías y subcategorías), `content-types.ts`, `sidebar.ts`, `icons.ts` y `navigation.ts`. Las rutas, el menú y la validación de build se derivan de esas fuentes.
-- Starlight genera las páginas de documentación y el proyecto añade `/`, `/categories`, `/tipos/[type]`, `/tags`, 404, sitemap, robots y manifest.
-- El build valida estructura de carpetas, relaciones rotas y enlaces internos muertos, y falla con mensaje en español.
+- 737 entradas en 24 categorías y 170 subcategorías; el último build genera 1779 páginas (~248MB en `dist/`).
+- No hay tipos editoriales: la carpeta (categoría/subcategoría) es la única clasificación. Se retiraron a propósito, junto con `catalog.ts` (descubrimiento por `fs`), la validación de contenido en build y las relaciones al pie de cada entrada.
+- `src/config/` reúne la configuración: `site.ts` (identidad y SEO), `categories.ts` (las 24 categorías y sus subcategorías, un objeto estático a mano), `sidebar.ts` (el menú de Starlight, también estático), `icons.ts` y `navigation.ts`.
+- Starlight genera las páginas de documentación y el proyecto añade `/`, `/categories` (+ `/categories/[category]`), `/tags` (+ `/tags/[tag]`), 404, sitemap, robots y manifest. Las cuatro rutas de categorías/tags no llevan sidebar (`hasSidebar={false}`) — son listados, no lectura, y así no cargan las 737 entradas del menú en cada una.
+- Sin validación de contenido en build: no hay chequeo de enlaces rotos ni de referencias entre entradas. Se confía en quien escribe.
 - Búsqueda estática gestionada por Starlight y Pagefind; no existe un índice paralelo que mantener.
 - Tema oscuro único (`<html class="dark">`), cantos finos (`--radius-thin: 2px`, `--radius: 4px`, `--radius-field: 6px`), Tailwind v4 sin config: los tokens son variables CSS en `src/styles/tokens.css` y `global.css` solo encadena los imports. Fuentes Geist Sans y Geist Mono autoalojadas — la Pixel salió del diseño.
 - Sin test runner. `pnpm build` es la validación real; `pnpm check` corre diagnósticos de Astro/TypeScript.

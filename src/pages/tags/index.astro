@@ -6,9 +6,10 @@ const tags = getAllTags(await getAllEntries())
 ---
 
 <StarlightPage
+  hasSidebar={false}
   frontmatter={{
     title: "Tags",
-    description: "Todos los tags de la biblioteca: cruzan tipos y categorías."
+    description: "Todos los tags de la biblioteca: cruzan cualquier categoría."
   }}
 >
   <ul class="tag-cloud not-content">

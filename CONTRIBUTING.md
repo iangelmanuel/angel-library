@@ -11,7 +11,7 @@ Las contribuciones deben conservar el objetivo del proyecto: ser una referencia 
 
 ## Documentación
 
-Una entrada debe incluir título, descripción, `type`, tags y, cuando corresponda, `order` y relaciones. La categoría y la subcategoría salen de la carpeta en la que la coloques. La explicación ideal contiene:
+Una entrada debe incluir título, descripción y tags. La categoría y la subcategoría salen de la carpeta en la que la coloques. La explicación ideal contiene:
 
 - definición breve;
 - cuándo usarlo y cuándo evitarlo;
@@ -21,7 +21,7 @@ Una entrada debe incluir título, descripción, `type`, tags y, cuando correspon
 
 Los bloques de instalación deben escribirse una sola vez con npm, pnpm o Bun para que el sitio pueda generar las pestañas automáticamente.
 
-Para crear una entrada, copia el frontmatter de una similar y colócala en `src/content/docs/<categoría>/<subcategoría>/`. Las carpetas se descubren automáticamente; no hay que registrarlas en TypeScript. El archivo opcional `<categoría>/_meta.json` permite personalizar presentación y orden. Lee `src/content.config.ts` para conocer los campos de cada tipo. `pnpm build` valida estructura, referencias y enlaces internos.
+Para crear una entrada, copia el frontmatter de una similar y colócala en `src/content/docs/<categoría>/<subcategoría>/`. Si la categoría o subcategoría es nueva, agrégala primero a `src/config/categories.ts` y `src/config/sidebar.ts`. Lee `src/content.config.ts` para conocer los campos disponibles.
 
 Usa las plantillas y los criterios editoriales de [CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md). Una receta que depende de otra guía debe enlazar sus requisitos antes del primer bloque. Indica si el código es completo o un fragmento, dónde se ejecuta y cómo reconocer que funcionó. Las fuentes oficiales y la versión de las APIs forman parte de la explicación cuando condicionan el ejemplo.
 
@@ -29,7 +29,7 @@ Consulta la [guía de contenido](docs/CONTENT_GUIDE.md) para crear o modificar c
 
 ## Validación local
 
-Si cambias el catálogo, ejecuta también `pnpm check:catalog`. Reinicia el servidor de desarrollo después de cambios estructurales o de metadatos del menú.
+Reinicia el servidor de desarrollo después de cambios estructurales o en `categories.ts`/`sidebar.ts`.
 
 ```bash
 pnpm check
