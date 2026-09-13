@@ -3,7 +3,6 @@ import {
   type AnyEntry,
   categoryOf,
   getAllEntries,
-  getAllTags,
   getCategoryCounts,
   subcategoryOf
 } from "@/lib/content"
@@ -17,14 +16,6 @@ export interface LandingCategoryCount {
   count: number
 }
 
-export interface LandingRoute {
-  root: string
-  category: { segment: string; label: string; href: string }
-  subcategory: { segment: string; label: string }
-  file: { segment: string; title: string }
-  url: string
-}
-
 export interface LandingRecent {
   title: string
   url: string
@@ -36,13 +27,9 @@ export interface LandingStats {
   docs: number
   categories: number
   subcategories: number
-  tags: number
   categoryList: LandingCategoryCount[]
-  route: LandingRoute | null
   recent: LandingRecent[]
 }
-
-const PREFERRED_ROUTE_ID = "frontend/astro/astro-content-collections"
 
 function countSubcategories(entries: AnyEntry[]): number {
   const seen = new Set<string>()
@@ -53,38 +40,6 @@ function countSubcategories(entries: AnyEntry[]): number {
   }
 
   return seen.size
-}
-
-function buildRoute(entries: AnyEntry[]): LandingRoute | null {
-  const usable = entries.filter((entry) => entry.id.split("/").length === 3)
-  const entry =
-    usable.find((candidate) => candidate.id === PREFERRED_ROUTE_ID) ?? usable[0]
-
-  if (!entry) return null
-
-  const [category, subcategory, file] = entry.id.split("/")
-  const categoryId = categoryOf(entry)
-  const subcategoryId = subcategoryOf(entry)
-
-  const categoryMeta = CATEGORIES[categoryId as keyof typeof CATEGORIES]
-  const subMeta = (
-    categoryMeta.subcategories as Record<string, { label: string }>
-  )[subcategoryId ?? ""]
-
-  return {
-    root: "src/content/docs/",
-    category: {
-      segment: `${category}/`,
-      label: categoryMeta.label,
-      href: `/categories/${categoryId}`
-    },
-    subcategory: {
-      segment: `${subcategory}/`,
-      label: subMeta?.label ?? subcategory
-    },
-    file: { segment: `${file}.md`, title: entry.data.title },
-    url: `/${entry.id}`
-  }
 }
 
 function buildRecent(entries: AnyEntry[]): LandingRecent[] {
@@ -112,9 +67,7 @@ function getStats(entries: AnyEntry[]): LandingStats {
     docs: entries.length,
     categories: Object.keys(CATEGORIES).length,
     subcategories: countSubcategories(entries),
-    tags: getAllTags(entries).length,
-    categoryList: getCategoryCounts(entries).sort((a, b) => b.count - a.count),
-    route: buildRoute(entries),
+    categoryList: getCategoryCounts(entries),
     recent: buildRecent(entries)
   }
 }

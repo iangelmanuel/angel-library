@@ -28,8 +28,10 @@ concreto —un comando, un patrón, una receta— sin releer un artículo entero
   la categoría Frontend, subcategoría Astro, y se publica en esa misma ruta.
   Mover el archivo lo recategoriza: no hay base de datos ni panel, y no hay
   un "tipo" editorial aparte que mantener sincronizado.
-- **Tags cruzan categorías.** Cada entrada declara sus tags y `/tags` cruza
-  cualquier categoría con cualquier otra.
+- **Tags cruzan categorías.** Cada entrada declara sus tags como metadata
+  visible en la propia página; no hay una ruta `/tags` que los liste — cada
+  una repetía el árbol completo del sidebar en su HTML y se comía el
+  deployment storage.
 - **Sidebar nativo de Starlight.** Un array estático por categoría, sin
   descubrimiento por filesystem ni componente propio.
 
@@ -72,8 +74,8 @@ tags: [astro, navegación]
 ---
 ```
 
-El menú, los listados de categoría y las páginas de tags se actualizan solos.
-El paso a paso completo está en [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md).
+El menú se actualiza solo. El paso a paso completo está en
+[`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md).
 
 Las categorías y subcategorías viven a mano en `src/config/categories.ts` y
 el menú en `src/config/sidebar.ts` — ver [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).

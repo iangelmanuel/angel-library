@@ -19,20 +19,11 @@ export const HERO = {
 export const FIGURE_LABELS = {
   docs: "documentos",
   categories: "categorías",
-  subcategories: "subcarpetas",
-  tags: "tags"
+  subcategories: "subcarpetas"
 } as const
 
 export const CATALOG = {
-  title: "El índice",
-  all: "Todas las categorías"
-} as const
-
-export const ROUTE = {
-  title: "La ruta es el sistema",
-  lead: "La carpeta decide la categoría y la subcategoría. Mover un archivo lo recategoriza: no hay base de datos, ni panel, ni nada que editar aparte del archivo.",
-  outputsTitle: "y de esa misma ruta salen",
-  note: "El build valida la estructura, las relaciones entre entradas y los enlaces internos. Una carpeta mal nombrada o una referencia rota no llegan a publicarse: rompen la compilación con un mensaje en español."
+  title: "El índice"
 } as const
 
 export const FLOW = {

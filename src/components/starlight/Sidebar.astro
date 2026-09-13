@@ -39,6 +39,24 @@ const { sidebar } = Astro.locals.starlightRoute
   <MobileMenuFooter />
 </div>
 
+<script>
+  // Una sola categoría abierta a la vez: el atributo nativo `name` de
+  // <details> ya hace el acordeón excluyente, sin JS de por medio. Solo
+  // hace falta pegarlo, porque estos <details> los pinta SidebarSublist.
+  function exclusiveCategories() {
+    document
+      .querySelectorAll<HTMLDetailsElement>(
+        ".sidebar-content ul.top-level > li > ul > li > details"
+      )
+      .forEach((details) => {
+        details.name = "sidebar-category"
+      })
+  }
+
+  exclusiveCategories()
+  document.addEventListener("astro:page-load", exclusiveCategories)
+</script>
+
 <style>
   @layer starlight.core {
     ul.top-level {

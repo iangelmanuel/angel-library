@@ -12,7 +12,6 @@ documentación, **dibuja el mecanismo** de la biblioteca — carpeta → ruta �
 LandingLayout          layouts/  BaseLayout + cabecera y pie propios, sin Sidebar
   HeroWall             identidad + el plano de archivado + el nodo «índice» (ctrl K)
   CatalogSection        el índice de categorías con su conteo real
-  RouteSection         una ruta real despiezada en lo que el sistema produce
   FlowSection          una línea con tres tomas: buscar → leer → reutilizar
   CtaSection           cierre en relleno --primary, la misma acción del hero
 ```
@@ -21,11 +20,8 @@ LandingLayout          layouts/  BaseLayout + cabecera y pie propios, sin Sideba
 
 - **Textos fijos** → `data/content.ts`. Ningún componente escribe copy propio y
   ninguna cifra vive ahí.
-- **Cifras y la ruta de ejemplo** → `lib/stats.ts`. `loadStats()` lee la
-  colección `docs` y devuelve documentos, categorías, subcarpetas con
-  contenido, tags y `route`: una entrada real despiezada en raíz / categoría /
-  subcategoría / archivo. Si esa entrada desaparece se elige otra
-  automáticamente.
+- **Cifras** → `lib/stats.ts`. `loadStats()` lee la colección `docs` y
+  devuelve documentos, categorías y subcarpetas con contenido.
 - **Identidad y repositorio** → `config/site.ts`, que centraliza el nombre del
   sitio y los enlaces del repositorio.
 - **Estilos propios** → `styles/landing.css`, importado por `LandingLayout`.
@@ -55,7 +51,7 @@ anulado bajo `prefers-reduced-motion`.
 - El relleno azul sólido aparece dos veces y en ningún sitio más: el prompt `$`
   del nodo índice y la banda de cierre. Es la regla del sistema, no una
   excepción de esta página.
-- La landing no lista todas las categorías: enlaza a `/categories` con su
+- La landing no lista todas las categorías: solo su nube de nombres, con el
   conteo real.
 - Los iconos salen de `<Icon>`; añadir uno nuevo solo requiere que exista en
   lucide o en `src/config/icons.ts`.

@@ -28,7 +28,6 @@
      nunca un gris. El fuerte solo cierra campos activos o elevados. */
   --thread: color-mix(in srgb, var(--blue-400) 16%, transparent);
   --thread-strong: color-mix(in srgb, var(--blue-400) 34%, transparent);
-  --thread-bright: color-mix(in srgb, var(--blue-300) 58%, transparent);
 
   /* Grises neutros: el contrapeso del azul. Solo texto secundario, scrollbars
      y separadores neutros — nunca un relleno de campo. */
@@ -103,9 +102,6 @@
   --heading-primary: var(--blue-200);
   --heading-secondary: var(--blue-400);
   --heading-tertiary: var(--blue-500);
-  --heading-quaternary: var(--gray-300);
-  --related-accent: var(--blue-400);
-  --label-accent: var(--gray-400);
 
   /* Esmaltes de categoría: 23 piezas de la misma familia azul, separadas por
      tono Y por luz para que dos campos vecinos nunca se confundan. Son el
@@ -138,32 +134,18 @@
   /* Acentos disponibles para el color de una categoría en categories.ts. */
   --accent-blue: var(--blue-600);
   --accent-cyan: var(--blue-500);
-  --accent-green: var(--blue-400);
   --accent-pink: var(--blue-300);
   --accent-indigo: #2f6fb8;
   --accent-lime: #5aa7d8;
   --accent-red: #3f8fc4;
-  --accent-purple: #b6d9f5;
 
-  /* Cromo del navegador: gris oscuro, nunca azul. */
-  /* La rama del menú: tiene que leerse como carpeta entre la categoría
-     (blanca) y las entradas (grises), y leerse claramente azul — mezclarlo
-     con gris lo apagaba tanto que costaba distinguirlo de la categoría. */
+  /* Rama del menú: la subcategoría, azul — igual que antes de la limpieza
+     monocroma. */
   --branch: var(--blue-400);
 
+  /* Cromo del navegador: gris oscuro, nunca azul. */
   --scrollbar: var(--gray-800);
   --scrollbar-hover: #3f3f46;
-
-  /* El esmalte: un campo se rellena mezclando su color contra el negro en
-     oklab. Rebajado a propósito — en reposo 26%, encendido 36%: se lee el
-     color, pero veinte campos juntos no saturan la pantalla. */
-  --glaze: 26%;
-  --glaze-lit: 36%;
-
-  /* Teselas de categoría (/categories y el índice de la portada). Un único par
-     de valores para las dos: si aquí se sube, se sube en las dos a la vez. */
-  --glaze-tile: 30%;
-  --glaze-tile-lit: 44%;
 
   /* Cantos: finos, nunca cero, nunca de píldora. */
   --radius: 4px;

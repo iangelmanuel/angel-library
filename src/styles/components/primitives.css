@@ -18,27 +18,6 @@
     top: 1rem;
   }
 
-  /* Micro-título de UI: el rótulo de un campo. */
-  .section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.11em;
-    color: var(--label-accent);
-  }
-  .section-label::before {
-    content: "";
-    width: 0.5rem;
-    height: 0.5rem;
-    flex-shrink: 0;
-    border-radius: var(--radius-thin);
-    background: var(--accent-blue);
-  }
-
   /* Teclas: un campo hundido, no una tapa de plástico. */
   .kbd {
     display: inline-flex;
@@ -54,130 +33,11 @@
     line-height: 1.4;
   }
 
-  /* Badge de tipo de contenido: campo esmaltado tenue. */
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    border-radius: var(--radius-thin);
-    background: var(--enamel-800);
-    padding: 0.25rem 0.55rem;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    color: var(--gray-300);
-    white-space: nowrap;
-    transition:
-      background-color var(--dur-fast) var(--ease-enamel),
-      color var(--dur-fast) var(--ease-enamel);
-  }
-  a.badge:hover,
-  button.badge:hover {
-    background: var(--enamel-600);
-    color: var(--white);
-  }
-
-  /* Badge de categoría: toma el color del campo al que pertenece.
-     El color va aquí, no inline: un estilo inline gana siempre sobre :hover. */
-  .badge--category {
-    background: color-mix(in srgb, var(--card-accent) 16%, var(--enamel-900));
-    color: var(--card-accent);
-  }
-  a.badge--category:hover {
-    background: color-mix(in srgb, var(--card-accent) 28%, var(--enamel-900));
-    color: var(--white);
-  }
-
-  /* Tag suelto: solo texto azul, sin campo propio. */
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    background: transparent;
-    padding: 0;
-    font-size: 0.72rem;
-    line-height: 1.35;
-    color: var(--reading-link);
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-  .tag::before {
-    content: "#";
-    opacity: 0.55;
-  }
-  a.tag:hover,
-  a.tag:focus-visible {
-    color: var(--white);
-  }
-  .tag__name {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .tag__count {
-    margin-left: 0.15rem;
-    color: var(--muted-foreground);
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-  }
-
-  /* Tile de /tags: aquí el tag sí es un campo pulsable. */
-  .tag--tile {
-    justify-content: flex-start;
-    min-width: 0;
-    border-radius: var(--radius);
-    background: var(--enamel-900);
-    padding: 0.6rem 0.7rem;
-    color: var(--blue-300);
-    transition:
-      background-color var(--dur-fast) var(--ease-enamel),
-      color var(--dur-fast) var(--ease-enamel);
-  }
-  .tag--tile:hover,
-  .tag--tile:focus-visible {
-    background: var(--enamel-700);
-    color: var(--white);
-  }
-  .tag--tile .tag__count {
-    margin-left: auto;
-  }
-
-  /* Acentos por tipo: solo badges. Los títulos usan --heading-*. */
-  .type-technologies,
-  .type-libraries,
-  .type-utilities,
-  .type-patterns {
-    color: var(--accent-blue);
-  }
-  .type-integrations,
-  .type-tricks {
-    color: var(--accent-indigo);
-  }
-  .type-recipes,
-  .type-practices {
-    color: var(--accent-red);
-  }
-  .type-snippets {
-    color: var(--accent-cyan);
-  }
-  .type-hooks,
-  .type-resources,
-  .type-skills {
-    color: var(--accent-pink);
-  }
-  .type-commands,
-  .type-guides {
-    color: var(--accent-lime);
-  }
-
   /* Título de entrada y subtítulo. */
   main h1 {
     color: var(--heading-primary);
   }
   main header > p {
     color: var(--gray-400);
-  }
-
-  .toc-title {
-    color: var(--label-accent);
   }
 }

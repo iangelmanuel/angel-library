@@ -216,7 +216,7 @@ Una sola familia azul quemada contra el negro, con grises neutros como contrapes
 
 **The Enamel Fill Rule.** Un campo se rellena mezclando su acento contra el negro **en oklab**: `background: color-mix(in oklab, var(--card-accent) var(--glaze), #000000)`, y al encenderse sube a `var(--glaze-lit)` — **26% → 36%**. El espacio de mezcla no es opcional: en sRGB la misma fórmula da pizarra gris y la croma se pierde. Todo campo nuevo se pinta así.
 
-**The Low-Glaze Rule.** El vidriado se mide por lo que se ve junto, no por una pieza aislada. Un listado de tarjetas o un cierre de relaciones bajan del valor por defecto: 16% en las tarjetas de relación (26% encendidas). Las teselas de categoría son la excepción declarada: van al 30% (44% encendidas) mediante `--glaze-tile` y `--glaze-tile-lit`, porque el color de la categoría **es** la información y en `/categories` y en el índice de la portada tiene que leerse de lejos. Si una pantalla se ve «colorida», el número a bajar es el vidriado, nunca el color.
+**The Low-Glaze Rule.** El vidriado se mide por lo que se ve junto, no por una pieza aislada. Un listado de tarjetas baja del valor por defecto. Si una pantalla se ve «colorida», el número a bajar es el vidriado, nunca el color — el índice de categorías de la portada resuelve esto de otra manera: en vez de bajar el vidriado de 24 campos, no usa campos (ver "Índice de categorías" en Components).
 
 **The Thread Rule.** El sistema tiene una sola línea: el hilo (`--thread`, `--thread-strong`, `--thread-bright`), un azul claro a baja alfa. Un separador nunca es gris salvo en el cromo del navegador. El hilo separa; jamás sustituye al relleno como portador del color.
 
@@ -263,10 +263,8 @@ La portada tiene su propio armazón: hero a `calc(100svh - 4.25rem)` —el busca
 
 Cuadrículas observadas:
 
-- **Muro de categorías** (`/categories`): 6 columnas, `gap: 4px`. Las teselas ocupan 3 / 2 / 1 columnas según el volumen de la categoría. Bajo 768px: 2 columnas, y la tesela grande ocupa las dos.
-- **Índice de la portada**: `repeat(auto-fill, minmax(12.5rem, 1fr))`, `gap: 0.5rem` — las veintitrés categorías más la salida al listado completo.
+- **Índice de la portada**: `repeat(auto-fill, minmax(12.5rem, 1fr))`, `gap: 0.5rem` — las veinticuatro categorías, campos sin link (no hay `/categories` a donde llevar).
 - **Tipos de la portada** y **relaciones de una entrada**: `repeat(auto-fill, minmax(15rem, 1fr))` y `minmax(17rem, 1fr)`, ambos con `gap: 0.5rem`.
-- **Rejilla de tags**: `repeat(auto-fill, minmax(10rem, 1fr))`, `gap: 0.5rem`.
 - **Listas de renglones** (recientes de la portada, resultados del índice): columna de filas separadas por un hilo tenue, no tarjetas sueltas.
 
 Ritmo: 0.25 / 0.5 / 0.85 / 1 / 1.5rem dentro de las piezas; **6rem** arriba y abajo en cada sección de la portada; 4.5rem antes del cierre de relaciones de una entrada. Breakpoints reales: 639px (móvil), 767px, 1023px, 1024px (`lg`, aparece la barra lateral y la portada pasa a dos columnas).
@@ -308,40 +306,45 @@ Las viñetas de lista del markdown son cuadraditos de 0.34rem con radio de 2px, 
 
 ## Components
 
-### Card de contenido (rellena, sin borde)
+### Índice de categorías (párrafo centrado)
 
-Es la pieza matriz. Campo de esmalte lleno, sin canto — el relleno ya la separa del lienzo.
+Vive solo en la portada (`CatalogSection`) — no hay página `/categories` a la que enlazar. Pasó por cuatro formas: teselas rellenas (leían como botón, con o sin link real), barras de estadística (correctas pero frías), una nube con tamaños variables (demasiado ruido) y un párrafo centrado en prosa corriente (correcto pero soso). La que quedó: las 24 categorías en un solo párrafo centrado, mono, en mayúsculas y con tracking — el mismo registro que usa el resto del sitio para datos (rutas, cifras) — todas al mismo tamaño y peso, separadas por un punto azul.
 
-- **Forma:** canto de campo (6px), `overflow: hidden`, `isolation: isolate`.
-- **Color:** `color-mix(in oklab, var(--card-accent) var(--glaze), #000000)`, donde `--card-accent` lo inyecta el markup con el token de tipo de contenido o de categoría.
-- **Estructura:** barra de ruta arriba (mono 0.68rem, gris de prosa, fondo `color-mix(… 12%, transparent)`), cuerpo con badge de tipo, título blanco 1rem/600, descripción gris 0.85rem a tres líneas, y los tags al fondo (máximo 3 + contador `+N`).
-- **Hover/focus:** sube a `--glaze-lit` en 140ms `--ease-enamel`. Nada más: sin canto.
-- **Padding:** 1rem; alto mínimo 12.5rem en la variante de entrada.
+- **Un solo tratamiento.** `0.82rem/500` mono, mayúsculas, `letter-spacing: 0.04em`, blanco — sin variar por categoría; la igualdad de letra es la idea, no una limitación.
+- **El punto es el único color propio.** Azul (`--blue-500` al 70%) y uniforme para las 24 — ata el párrafo al resto de la portada sin que ninguna categoría destaque sobre otra.
+- **Centrado, ancho de lectura corto** (`max-width: 52rem`) para que las líneas no se estiren de punta a punta de la sección.
+- **Nada pulsable:** sin campo, sin radio de botón, sin hover, sin cursor de puntero.
 
-### Tesela de categoría (rellena, sin canto)
+### Cabecera de entrada (`PageTitle.astro`)
 
-La misma materia que la card, con el vidriado más bajo del sistema: en `/categories` hay veintitrés colores a la vez y cualquier valor más alto satura.
+Debajo del `h1`, todo lo que no es prosa vive en una sola columna angosta,
+sin chips de colores compitiendo entre sí:
 
-- **Fondo:** `color-mix(in oklab, var(--card-accent) var(--glaze-tile), #000000)` — 30%, y 44% encendida. Radio de campo (6px). Ningún borde en ningún estado.
-- **Contenido:** icono suelto en el color de la categoría, etiqueta blanca, contador en mono **gris** a la derecha — el color ya está dicho dos veces, no hace falta una tercera.
-- **Hover:** sube a 27%.
-- **Peso:** `--lg` (3 columnas, 5.5rem), `--md` (2 columnas, 4.5rem), base (2 columnas, 3.6rem).
+- **Línea de ruta:** `Categoría / Subcategoría · fecha`, texto plano (sin
+  campo, sin link) en una sola línea de 0.85rem — la categoría en su color
+  (`categories.ts`), la subcategoría en gris de prosa, la fecha en mono
+  apagado. Es la misma idea de "la carpeta es la categoría" que ya se ve en
+  el sidebar, dicha en una línea corta.
+- **Comando:** si la entrada declara `command`, un bloque de código de una
+  línea (mismo `--code-bg` que el resto del sitio).
+- **Panel de facts y acciones:** cuando hay `facts` (problema, herramienta,
+  lenguaje…) o botones (`url`/`website`/`github`), viven juntos dentro de
+  un único campo esmaltado (`color-mix(in oklab, var(--card-accent) 12%,
+#000000)`, radio de campo) en vez de flotar sueltos con un hueco entre
+  los dos — los facts a la izquierda en una rejilla, los botones empujados
+  a la derecha.
+- **Relacionado:** los links a `technologies` (otras entradas, no tags)
+  van aparte, bajo un rótulo mono en mayúsculas, para no confundirse con
+  lo que ya no está.
+- **Avisos:** lista de `warnings`, campo tenue en `--destructive`.
 
-### Tarjetas de relación (rejilla, esmalte rebajado)
+### Tags
 
-Cierre de entrada: la misma tarjeta de un listado, pero un paso más apagada — es el pie de la lectura, no su contenido.
-
-- **Rejilla:** `repeat(auto-fill, minmax(17rem, 1fr))`, `gap: 0.5rem`.
-- **Fondo:** `color-mix(in oklab, var(--card-accent) 16%, #000000)`; 26% al pasar. Sin canto.
-- **Barra de ruta:** el mismo tinte, al 12%.
-- Precedida por el rótulo de la relación (`Seguir leyendo`, `Recetas que lo usan`…) en 0.95rem/600, azul de relación.
-
-### Badges y tags
-
-- **Badge de tipo:** campo esmaltado tenue (`--enamel-800`), radio 2px, 0.68rem/500, texto gris de prosa. Hover: `--enamel-600` y letra blanca.
-- **Badge de categoría:** `color-mix(in srgb, var(--card-accent) 16%, var(--enamel-900))` con la letra en el color de la categoría; el color va en CSS y no inline, porque un estilo inline gana siempre sobre `:hover`.
-- **Tag suelto:** solo texto azul (`--reading-link`) con un `#` al 55% de opacidad; sin campo propio. Hover: blanco.
-- **Tag tesela** (en `/tags`): ahí sí es un campo pulsable — fondo `--enamel-900`, radio 4px, letra azul de título, contador en mono empujado a la derecha.
+Los `tags` del frontmatter no se pintan en ningún lado del sitio publicado
+— son metadata para el buscador (Pagefind), nada más. Se retiraron de la
+cabecera de entrada porque competían en color con el título. La única
+referencia cruzada que sí se ve como link es `technologies` (otras
+entradas, no tags), agrupada bajo el rótulo "Relacionado" en la cabecera.
 
 ### Barra lateral (cuatro niveles)
 
@@ -350,20 +353,37 @@ mínimo de `Sidebar.astro` (sección 5.5 de `docs/ARCHITECTURE.md`) pinta el
 bloque de navegación como un rótulo fijo, no colapsable; todo lo de ahí
 para abajo es el `SidebarSublist` de Starlight sin tocar, con
 `collapsed: true` en cada categoría y cada subcategoría
-(`src/config/sidebar.ts`). La jerarquía la dicen tamaño, peso, luz **y**
-sangría — sin icono ni color por categoría, sin filete. La sangría es la
-corrección de un defecto real: con cuatro niveles y letras a menos de
-0.1rem de diferencia, tamaño y color solos no bastaban para leerse de un
-vistazo — el usuario lo señaló en varias rondas hasta que se agregó el
-escalón de sangría (0.4 → 0.9 → 1.5rem) que faltaba.
+(`src/config/sidebar.ts`).
 
-- **Bloque de navegación** (Construir, Producto…): mono 0.7rem/600, mayúsculas, azul apagado (`--blue-600`), sin sangría. No es un `<details>` — no se puede cerrar.
-- **Categoría:** 0.84rem/600, blanca, sangría 0.4rem. Colapsada por defecto; Starlight la abre solo si contiene la página actual.
-- **Subcategoría:** 0.77rem/500, azul de rama (`--branch`) — la única etiqueta azul del menú; blanca al abrirse. Sangría 0.9rem. También colapsada por defecto: abrir una categoría no despliega sus subcategorías, solo la que contiene la página actual.
-- **Entrada:** 0.75rem/400, gris (`--gray-400`), sangría 1.5rem, una sola línea.
-- **Hover** (cualquier nivel): `color-mix(in oklab, var(--blue-800) 14–16%, #000000)` sobre la fila.
-- **Activa:** campo lleno `color-mix(in oklab, var(--blue-800) 40%, #000000)`, letra blanca, peso 500.
-- **Anidamiento:** hilo tenue de Starlight (`--sl-color-hairline-light`) bajo cada nivel; sin color propio por categoría.
+**Fichas, no franjas.** La primera versión de este menú pintaba cada fila
+como una franja de borde a borde con la sangría dicha solo por el padding
+del texto — el fondo de la fila seguía tocando el borde del menú aunque el
+texto pareciera más adentro. Con una forma de tabla apretada, el menú se
+leía cargado. Referencia mirada al rehacerlo: Astro Docs, TanStack y los
+docs de Vercel — los tres usan filas que flotan con aire alrededor en vez
+de ocupar todo el ancho, con la sangría de cada nivel movida al margen de
+la fila entera, no solo al padding de su texto.
+
+Cuando una categoría se despliega, sus subcategorías y entradas viven
+además dentro de un panel — un campo esmaltado muy tenue (7%) con esquinas
+redondeadas — que agrupa visualmente lo que está abierto y lo separa del
+resto del menú, que sigue siendo una lista plana sin fondo. Es el mismo
+lenguaje del resto del sitio (el color rellena, nunca una línea) aplicado
+a agrupar.
+
+La jerarquía por color sí volvió, a pedido explícito: cada nivel tiene su
+propio tono para que las separaciones se entiendan de un vistazo, sin
+depender solo del peso y la sangría.
+
+- **Fichas, no franjas** (la forma). Cada fila (categoría, subcategoría, entrada) es un campo con radio de campo (6px) y margen a los dos lados (`margin-inline`, no `padding`) — el fondo de hover/activo se mueve con la ficha entera. La sangría de cada nivel también es margen, no padding de texto.
+- **Bloque de navegación** (Construir, Producto…): 0.68rem/600, mayúsculas, azul de título (`--heading-primary`, el mismo de un `h1` de markdown) — así se lee como un título de sección, igual que en la prosa. Sans (no mono: el mono es solo para rutas y código). Sin ficha ni sangría — es el ancla. No es un `<details>` — no se puede cerrar.
+- **Categoría:** 0.85rem/600, blanca. Sin sangría extra (parte del margen base de toda ficha). Colapsada por defecto; Starlight la abre solo si contiene la página actual.
+- **Panel de categoría abierta:** al desplegarse, el `<ul>` de sus subcategorías gana `color-mix(in oklab, var(--blue-800) 7%, #000000)` y radio de campo — un contenedor visible que agrupa todo lo que está abierto ahí dentro.
+- **Subcategoría:** 0.8rem/500, azul de rama (`--branch`, `--blue-400`), abierta o cerrada — la etiqueta azul del menú, para distinguirla de la categoría (blanca) de un vistazo. Sangría 0.85rem. También colapsada por defecto: abrir una categoría no despliega sus subcategorías, solo la que contiene la página actual.
+- **Entrada:** 0.78rem/400, gris (`--gray-400`), sangría 1.45rem, una sola línea.
+- **Hover** (cualquier nivel): `color-mix(in oklab, var(--blue-800) 14–16%, #000000)` sobre la ficha.
+- **Activa:** la única ficha con campo lleno de verdad — `color-mix(in oklab, var(--blue-800) 40%, #000000)`, letra blanca, peso 500.
+- **Anidamiento:** hilo tenue de Starlight (`--sl-color-hairline-light`) bajo cada nivel.
 
 Los selectores cuentan la profundidad por anidamiento real del DOM de Starlight (`ul.top-level > li > details > …`), no por una clase propia — el sidebar no tiene markup propio que targetear.
 
@@ -417,8 +437,7 @@ Una sola curva (`--ease-enamel`: `cubic-bezier(0.16, 1, 0.3, 1)`) y dos duracion
 ### Do:
 
 - **Do** rellenar todo campo nuevo con `color-mix(in oklab, var(--card-accent) var(--glaze), #000000)` y encenderlo a `--glaze-lit` en hover. El espacio oklab es el material.
-- **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (16% en las relaciones): el número a mover es el vidriado, no el color. Las teselas de categoría suben en vez de bajar (30% / 44%) porque ahí el color es el dato.
-- **Do** tocar `--glaze-tile` y `--glaze-tile-lit` para cambiar las teselas: `/categories` y el índice de la portada leen los mismos dos tokens y no pueden separarse.
+- **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (16% en las relaciones): el número a mover es el vidriado, no el color. Las teselas de categoría suben en vez de bajar (30%) porque ahí el color es el dato.
 - **Do** decir el estado subiendo el vidriado, y solo eso.
 - **Do** ordenar la jerarquía por celdas — cuántas columnas ocupa una pieza — y dejar el tamaño de letra en dos escalones.
 - **Do** mantener la medida de lectura en 68ch y recortar los márgenes cuando falte espacio.

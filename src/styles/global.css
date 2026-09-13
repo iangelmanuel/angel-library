@@ -1,5 +1,5 @@
 /* Hoja de entrada: solo imports.
-   Orden: tokens → base → keyframes → componentes, de general a específico. */
+   Orden: tokens → base → componentes, de general a específico. */
 
 /* Fuentes: Sans para todo el texto y los títulos, Mono solo para código,
    rutas y datos medidos. */
@@ -14,7 +14,6 @@
 
 @import "./tokens.css";
 @import "./base.css";
-@import "./keyframes.css";
 @import "./chrome.css";
 @import "./components/button.css";
 @import "./search.css";

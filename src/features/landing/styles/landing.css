@@ -209,7 +209,7 @@
   .wall-figures {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem 0;
     border-top: 1px solid var(--thread);
     padding-block: 2rem 2.25rem;
@@ -217,7 +217,9 @@
   .wall-figure {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0.5rem;
+    text-align: center;
   }
   .wall-figure + .wall-figure {
     border-left: 1px solid var(--thread-soft);
@@ -273,81 +275,36 @@
     font-size: 0.72rem;
     color: var(--blue-600);
   }
-  .wall-catalog__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
-    gap: 0.5rem;
-    margin: 1.25rem 0 0;
-    padding: 0;
-    list-style: none;
+  /* Las 24 categorías como un solo párrafo centrado: mismo tamaño y peso
+     para todas, separadas por un punto — sin campo, sin canto, sin nada
+     pulsable. La igualdad de letra es la idea: ninguna categoría pesa más
+     que otra a la vista. Mono, tracking y mayúsculas en vez de prosa
+     corriente — el mismo registro que usa el resto del sitio para datos
+     (rutas, cifras); el punto en azul es el único color, uniforme para
+     las 24, que ata este párrafo al resto de la portada. */
+  .wall-cloud {
+    margin: 2.25rem auto 0;
+    max-width: 52rem;
+    text-align: center;
+    text-wrap: balance;
+    line-height: 2.7;
   }
-  /* Cada categoría es un campo esmaltado: el color rellena, no bordea. */
-  .wall-entry {
-    --field-accent: var(--blue-400);
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    height: 100%;
-    min-height: 3.25rem;
-    border-radius: var(--radius-field);
-    background: color-mix(
-      in oklab,
-      var(--field-accent) var(--glaze-tile),
-      #000000
-    );
-    padding-inline: 0.9rem;
-    transition: background-color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-entry:hover,
-  .wall-entry:focus-visible {
-    background: color-mix(
-      in oklab,
-      var(--field-accent) var(--glaze-tile-lit),
-      #000000
-    );
-  }
-  .wall-entry__chip {
-    flex-shrink: 0;
-    width: 0.3125rem;
-    height: 0.3125rem;
-    border-radius: 999px;
-    background: var(--field-accent);
-  }
-  .wall-entry__label {
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--white);
-  }
-  .wall-entry__count {
+  .wall-cloud__word {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-variant-numeric: tabular-nums;
-    color: var(--gray-300);
-  }
-  /* La salida al listado completo: mismo campo, pero neutro — no es una
-   categoría más, así que no toma color de ninguna. */
-  .wall-entry--all {
-    justify-content: space-between;
-    background: var(--enamel-900);
-    color: var(--blue-500);
-  }
-  .wall-entry--all:hover,
-  .wall-entry--all:focus-visible {
-    background: var(--enamel-700);
-  }
-  .wall-entry--all .wall-entry__label {
-    flex: 0 1 auto;
-    color: var(--blue-500);
-  }
-  .wall-entry--all:hover .wall-entry__label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--white);
   }
-
+  .wall-cloud__dot {
+    display: inline-block;
+    margin-inline: 0.75em;
+    color: var(--blue-500);
+    opacity: 0.7;
+    font-size: 0.7rem;
+    vertical-align: middle;
+  }
   /* ---------------------------------------------------------------- secciones */
 
   /* Cada sección es una parada: se abre con su propio hilo y, en pantallas
@@ -381,107 +338,6 @@
     font-size: 1rem;
     line-height: 1.75;
     color: var(--muted-foreground);
-  }
-
-  /* ------------------------------------------------------------------- ruta */
-
-  .wall-route {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-  /* La ruta: cuatro segmentos sobre una misma línea base. */
-  .wall-path {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 1.25rem 0;
-    border-bottom: 1px solid var(--thread-strong);
-    padding-bottom: 1.125rem;
-  }
-  .wall-path__segment {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5625rem;
-    min-width: 0;
-    padding-right: 1.375rem;
-  }
-  .wall-path__segment + .wall-path__segment {
-    border-left: 1px solid var(--thread);
-    padding-left: 1.375rem;
-  }
-  .wall-path__segment b {
-    overflow-wrap: anywhere;
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--gray-300);
-  }
-  .wall-path__segment i {
-    font-style: normal;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gray-450);
-  }
-  .wall-path__segment--root b {
-    color: var(--muted-foreground);
-  }
-  .wall-path__segment--file b {
-    color: var(--blue-400);
-  }
-  .wall-path__segment--file i {
-    color: var(--blue-500);
-  }
-
-  .wall-route__outputs-title {
-    margin-top: 1.875rem;
-  }
-  .wall-outputs {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-    gap: 1.75rem;
-    margin: 1rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .wall-output__link {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5625rem;
-    height: 100%;
-    border-top: 1px solid var(--thread);
-    padding-top: 1rem;
-    transition: border-color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-output__link:hover,
-  .wall-output__link:focus-visible {
-    border-color: var(--thread-bright);
-  }
-  .wall-output__from {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gray-450);
-  }
-  .wall-output__value {
-    overflow-wrap: anywhere;
-    font-family: var(--font-mono);
-    font-size: 0.84rem;
-    color: var(--blue-300);
-  }
-  .wall-output__note {
-    font-size: 0.81rem;
-    color: var(--gray-450);
-  }
-  .wall-route__note {
-    max-width: 68ch;
-    margin-top: 2.125rem;
-    font-size: 0.9rem;
-    line-height: 1.75;
-    color: var(--gray-450);
   }
 
   /* -------------------------------------------------------------- recorrido */
@@ -665,9 +521,6 @@
   /* --------------------------------------------------------- adaptación */
 
   @media (min-width: 640px) {
-    .wall-figures {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
     .wall-leg {
       grid-template-columns: 2.75rem minmax(0, 1fr) 18.75rem;
     }
@@ -697,18 +550,6 @@
     .chrome-header__inner,
     .wall-footer__inner {
       padding-inline: 1.25rem;
-    }
-    .wall-figure:nth-child(odd) {
-      border-left: 0;
-      padding-left: 0;
-    }
-    .wall-path__segment {
-      flex-basis: 100%;
-      border-left: 1px solid var(--thread);
-      padding-left: 0.875rem;
-    }
-    .wall-path__segment + .wall-path__segment {
-      padding-left: 0.875rem;
     }
   }
 }

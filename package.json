@@ -1,8 +1,8 @@
 {
   "name": "angel-library",
   "type": "module",
-  "version": "0.37.0",
-  "private": true,
+  "version": "0.38.0",
+  "private": false,
   "description": "Biblioteca personal y segundo cerebro técnico para aprender, recordar y reutilizar conocimiento sobre desarrollo de software",
   "license": "MIT",
   "packageManager": "pnpm@11.25.0",

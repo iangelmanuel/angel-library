@@ -14,8 +14,7 @@ const { stats } = Astro.props
 const figures = [
   { value: stats.docs, label: FIGURE_LABELS.docs },
   { value: stats.categories, label: FIGURE_LABELS.categories },
-  { value: stats.subcategories, label: FIGURE_LABELS.subcategories },
-  { value: stats.tags, label: FIGURE_LABELS.tags }
+  { value: stats.subcategories, label: FIGURE_LABELS.subcategories }
 ]
 ---
 
@@ -47,14 +46,14 @@ const figures = [
 
       <div class="wall-hero__actions">
         <Button
-          href="/categories"
+          href="/general/general-fundamentos/ruta-aprendizaje-web"
           icon="arrow-right"
         >
           {HERO.primaryCta}
         </Button>
 
         <Button
-          href="#la-ruta"
+          href="#el-indice"
           variant="outline"
           icon="arrow-down"
           iconSize={14}

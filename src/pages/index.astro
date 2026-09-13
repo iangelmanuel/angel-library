@@ -3,7 +3,6 @@ import {
   LandingLayout,
   HeroWall,
   CatalogSection,
-  RouteSection,
   FlowSection,
   CtaSection,
   loadStats
@@ -15,7 +14,6 @@ const stats = await loadStats()
 <LandingLayout>
   <HeroWall stats={stats} />
   <CatalogSection stats={stats} />
-  <RouteSection stats={stats} />
   <FlowSection />
   <CtaSection />
 </LandingLayout>

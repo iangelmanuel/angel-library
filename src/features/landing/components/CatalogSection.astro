@@ -1,5 +1,4 @@
 ---
-import Icon from "@/components/shared/Icon.astro"
 import { CATALOG } from "../data/content"
 import type { LandingStats } from "../lib/stats"
 
@@ -24,42 +23,21 @@ const listed = stats.categoryList
     <span class="wall-catalog__count">{stats.categories} categorías</span>
   </div>
 
-  <ul class="wall-catalog__list">
+  <p class="wall-cloud">
     {
-      listed.map((category) => (
-        <li>
-          <a
-            href={`/categories/${category.id}`}
-            class="wall-entry"
-            style={`--field-accent: var(${category.color})`}
-          >
+      listed.map((category, index) => (
+        <>
+          <span class="wall-cloud__word">{category.label}</span>
+          {index < listed.length - 1 && (
             <span
-              class="wall-entry__chip"
+              class="wall-cloud__dot"
               aria-hidden="true"
-            />
-            <span class="wall-entry__label">{category.label}</span>
-            <span
-              class="wall-entry__count"
-              data-numeric
             >
-              {category.count}
+              ·
             </span>
-          </a>
-        </li>
+          )}
+        </>
       ))
     }
-    <li>
-      <a
-        href="/categories"
-        class="wall-entry wall-entry--all"
-      >
-        <span class="wall-entry__label">{CATALOG.all}</span>
-        <Icon
-          name="arrow-right"
-          class="text-[var(--blue-500)]"
-          size={14}
-        />
-      </a>
-    </li>
-  </ul>
+  </p>
 </section>

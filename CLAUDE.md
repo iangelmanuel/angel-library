@@ -49,8 +49,9 @@ simplicidad — ver `docs/ARCHITECTURE.md`.
 
 ### Rutas
 
-Starlight genera los artículos. El proyecto añade `/`, `/categories`,
-`/categories/[category]`, `/tags`, `/tags/[tag]`.
+Starlight genera los artículos y su sidebar es la única navegación por
+categoría/tag — no hay páginas propias de listado. El proyecto solo añade
+`/` (la portada).
 
 ### Overrides de Starlight
 

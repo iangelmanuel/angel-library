@@ -8,6 +8,70 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.38.0] — 2026-09-13
+
+Se retiraron `/categories` y `/tags` del todo (no solo el sidebar), se
+rediseñó la cabecera de cada entrada y el índice de categorías de la
+portada, y el sidebar terminó de asentarse tras varias vueltas de diseño.
+
+### Quitado
+
+- **`/categories` y `/tags` desaparecen por completo** — antes solo se les había
+  quitado el sidebar (0.37.0) para bajar el peso del build; ahora las cuatro
+  rutas, `EntryList.astro` y las funciones que solo ellas usaban
+  (`getCategoryEntries`, `getEntriesByTag`) se borraron. Categoría y tag
+  siguen existiendo como metadata (chip de categoría en cada entrada,
+  `tags` para el buscador) pero sin página propia ni link. El navbar pasa de
+  "Inicio · Categorías · Tags" a "Inicio · Documentación" (apunta a la ruta
+  de aprendizaje). `dist/` bajó a 228MB.
+- **15 logos de marca sin usar**, borrados de `src/icons/` (`brand-astro`,
+  `brand-react`, `brand-nextjs`, etc.) — quedaban del diseño anterior del
+  sidebar y ningún componente los importaba. Solo sobreviven `brand-github`
+  y `brand-x`, los dos que sí se usan (header, botón de repositorio).
+- Tokens muertos en `tokens.css`: `--glaze-tile` (era de las teselas de
+  categoría, ya no existen) y, de nuevo, `--branch` quedó y volvió según la
+  vuelta de diseño del sidebar — ver abajo.
+- Secciones de `DESIGN.md` que describían componentes ya borrados en pases
+  anteriores («Card de contenido», «Tarjetas de relación», los badges de
+  tipo): se limpiaron en vez de seguir arrastrándolas desactualizadas.
+
+### Cambiado
+
+- **Cabecera de entrada (`PageTitle.astro`) rediseñada.** Los `tags` del
+  frontmatter ya no se muestran ahí (competían en color con el título; siguen
+  como metadata para el buscador). Categoría y subcategoría pasan de dos
+  chips sueltos a una sola línea de ruta (`Categoría / Subcategoría ·
+fecha`), en el color de la categoría. Los "facts" (problema, herramienta,
+  lenguaje…) y los botones de acción (`url`/`website`/`github`) ahora
+  comparten un solo campo esmaltado en vez de flotar por separado con un
+  hueco entre los dos. `technologies` quedó aparte, bajo el rótulo
+  "Relacionado".
+- **Índice de categorías de la portada, rediseñado.** La grilla de teselas
+  de color (heredada de antes de esta migración) leía como una grilla de
+  botones sin serlo — ningún link real detrás. Pasó por varias formas
+  (barras de estadística, nube tipográfica con tamaños variables) hasta
+  quedar en un párrafo centrado: las 24 categorías al mismo tamaño y peso,
+  mono, en mayúsculas y con tracking — el mismo registro que usa el resto
+  del sitio para datos —, separadas por un punto azul uniforme. Nada
+  pulsable, ninguna categoría pesa más que otra a la vista.
+- **Sidebar: de columna de color por nivel a fichas con acordeón
+  excluyente.** Tras la sangría progresiva de 0.37.0, el menú seguía
+  sintiéndose cargado. Se probaron y descartaron un pase monocromo (sin
+  color por nivel) y luego se asentó en: filas como fichas que flotan con
+  margen a los lados (no franjas de borde a borde — el fondo de hover/activo
+  se mueve con la ficha, no queda pegado al borde del menú), un panel
+  esmaltado tenue que agrupa las subcategorías de la categoría abierta, y
+  más aire entre categorías distintas que entre una categoría y sus propios
+  hijos. Categoría y subcategoría **conservan su color** (blanca y azul de
+  rama `--branch`, a pedido explícito) — solo el bloque de navegación
+  (Construir, Producto…) cambió, ahora en el mismo azul que un `h1` de
+  markdown en vez de mono apagado.
+  Además, **una sola categoría abierta a la vez**: abrir una colapsa
+  cualquier otra, en cualquier parte del menú — vía el atributo nativo
+  `name` de `<details>` (soporte de navegador, no lógica propia); un script
+  de una función le pega el atributo a los 24 `<details>` de categoría
+  porque los renderiza `SidebarSublist` de Starlight, no el override.
+
 ## [0.37.0] — 2026-09-12
 
 Migración completa a un proyecto Starlight nativo, más el rediseño del

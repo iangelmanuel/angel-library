@@ -80,13 +80,16 @@ header.header {
   padding-top: 1.25rem;
 }
 
-/* La fila que abre: etiqueta y flecha en una línea. */
+/* La fila que abre: etiqueta y flecha en una línea. Es una ficha que flota
+   con aire a los dos lados, no una franja de borde a borde — así el menú
+   deja de leerse como una tabla apretada. */
 .sidebar-content summary {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  border-radius: var(--radius-thin);
-  padding: 0.22rem 0.4rem;
+  margin-inline: 0.35rem;
+  border-radius: var(--radius-field);
+  padding: 0.32rem 0.55rem;
   cursor: pointer;
   user-select: none;
   transition: background-color var(--dur-fast) var(--ease-enamel);
@@ -117,41 +120,56 @@ header.header {
   min-width: 0;
 }
 
-/* Tres niveles, tres pesos de luz: bloque (mono, apagado, fijo) → categoría
-   (blanca) → subcategoría (azul, blanca al abrirse). El bloque de
-   navegación es un rótulo propio (`.nav-group-label`, en Sidebar.astro), no
-   un `<details>` — no se puede cerrar. Categoría y subcategoría sí son
-   `<details>` nativos de Starlight; la profundidad se cuenta por
-   anidamiento real, no por una clase propia. */
+/* Cuatro niveles, un solo acento y un solo idioma de forma: fichas que
+   flotan con aire alrededor, cada una un paso más adentro que la anterior
+   (margen, no relleno — así el fondo de la ficha se mueve con ella en vez
+   de quedar pegado al borde del menú). El bloque de navegación es un
+   rótulo propio (`.nav-group-label`, en Sidebar.astro), no un `<details>`
+   — no se puede cerrar. Categoría y subcategoría sí son `<details>`
+   nativos de Starlight; la profundidad se cuenta por anidamiento real, no
+   por una clase propia. */
 
-/* Nivel 1 — bloque de navegación (Construir, Producto…): rótulo fijo, sin
-   sangría — es el ancla de la que cuelgan los otros tres niveles, cada uno
-   un paso más adentro (0.4 → 0.9 → 1.5rem). */
+/* Nivel 1 — bloque de navegación (Construir, Producto…): rótulo mudo, sin
+   ficha ni sangría — el ancla de la que cuelgan los otros tres niveles.
+   Sans, no mono: el mono es solo para rutas y código. */
 .sidebar-content .nav-group-label {
-  margin: 0 0 0.4rem;
-  padding: 0.22rem 0.4rem 0.22rem 0;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  margin: 0 0.35rem 0.4rem;
+  padding: 0.22rem 0.2rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--blue-600);
+  color: var(--heading-primary);
 }
 
 /* Nivel 2 — categoría: blanca y la más pesada, es lo primero que hay que
-   distinguir. */
-.sidebar-content ul.top-level > li > ul > li > details > summary {
-  padding-inline-start: 0.4rem;
+   distinguir. Cada categoría se separa de la siguiente (0.3rem); sus
+   propios hijos, en cambio, le quedan pegados (0.15rem, abajo) — así se
+   lee cuál pertenece a quién por pura cercanía, sin necesitar más color. */
+.sidebar-content ul.top-level > li > ul > li + li {
+  margin-top: 0.3rem;
 }
 
 .sidebar-content ul.top-level > li > ul > li > details > summary .large {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--white);
 }
 
-/* Nivel 3 — subcategoría: azul cerrada, blanca al abrirse. Es la única
-   etiqueta azul del menú, un paso más adentro que la categoría. */
+/* Al abrir una categoría, sus subcategorías viven dentro de un panel
+   propio — un campo esmaltado muy tenue que agrupa visualmente lo que está
+   abierto y lo separa del resto del menú, que sigue siendo una lista
+   plana. Es el mismo lenguaje del resto del sitio (el color rellena, nunca
+   una línea) aplicado al menú. */
+.sidebar-content ul.top-level > li > ul > li > details[open] > ul {
+  margin: 0.15rem 0 0;
+  padding-block: 0.3rem;
+  border-radius: var(--radius-field);
+  background: color-mix(in oklab, var(--blue-800) 7%, #000000);
+}
+
+/* Nivel 3 — subcategoría: azul de rama, abierta o cerrada — es la marca de
+   que sigue siendo una subcategoría, no una entrada más. */
 .sidebar-content
   ul.top-level
   > li
@@ -162,7 +180,7 @@ header.header {
   > li
   > details
   > summary {
-  padding-inline-start: 0.9rem;
+  margin-inline-start: 0.85rem;
 }
 
 .sidebar-content
@@ -176,34 +194,23 @@ header.header {
   > details
   > summary
   .large {
-  font-size: 0.77rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: var(--branch);
 }
 
-.sidebar-content
-  ul.top-level
-  > li
-  > ul
-  > li
-  > details
-  > ul
-  > li
-  > details[open]
-  > summary
-  .large {
-  color: var(--white);
-}
-
 /* Nivel 4 — entrada: gris, una sola línea, el paso más profundo. */
 .sidebar-content a {
+  display: block;
   overflow: hidden;
-  border-radius: var(--radius-thin);
-  padding: 0.26rem 0.45rem 0.26rem 1.5rem;
+  margin-inline-start: 1.45rem;
+  margin-inline-end: 0.35rem;
+  border-radius: var(--radius-field);
+  padding: 0.22rem 0.5rem;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-size: 0.75rem;
-  line-height: 1.45;
+  font-size: 0.78rem;
+  line-height: 1.5;
   color: var(--gray-400);
   transition:
     background-color var(--dur-fast) var(--ease-enamel),
@@ -215,7 +222,7 @@ header.header {
   color: var(--white);
 }
 
-/* Activa: campo lleno, sin canto. */
+/* Activa: la única ficha con campo lleno de verdad. */
 .sidebar-content a[aria-current="page"],
 .sidebar-content a[aria-current="page"]:hover {
   background: color-mix(in oklab, var(--blue-800) 40%, #000000);
@@ -532,6 +539,12 @@ header.header {
 @media (min-width: 87.5rem) {
   :root {
     --shell-gutter: calc((100vw - 87.5rem) / 2);
+  }
+
+  /* Solo páginas con sidebar necesitan el desplazamiento — sin esto,
+     /categories y /tags (sin sidebar) heredaban el mismo hueco muerto a la
+     izquierda aunque no tuvieran nada que alinear ahí. */
+  :root[data-has-sidebar] {
     --sl-sidebar-width: calc(16rem + var(--shell-gutter));
     --sl-content-inline-start: calc(16rem + var(--shell-gutter));
   }

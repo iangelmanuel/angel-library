@@ -2,8 +2,10 @@ import { SITE } from "./site"
 
 export const SITE_NAV = [
   { label: "Inicio", href: "/" },
-  { label: "Categorías", href: "/categories" },
-  { label: "Tags", href: "/tags" }
+  {
+    label: "Documentación",
+    href: "/general/general-fundamentos/ruta-aprendizaje-web"
+  }
 ] as const
 
 export const SOCIAL_LINKS = [

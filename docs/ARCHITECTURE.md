@@ -61,7 +61,7 @@ Digamos que existe `src/content/docs/frontend/astro/astro-islands.md`.
    layout: cabecera, sidebar, el contenido en el medio, el índice de la
    página a la derecha, el pie. Nuestros overrides (sección 6) reemplazan
    piezas puntuales de ese layout — por ejemplo, `PageTitle.astro` agrega la
-   fila de chips (categoría, tags, fecha) justo debajo del título.
+   línea de ruta (categoría / subcategoría · fecha) justo debajo del título.
 7. **Queda un archivo HTML** en `dist/frontend/astro/astro-islands/index.html`
    listo para subir a un hosting estático (Vercel, en este caso).
 
@@ -80,7 +80,7 @@ src/
 ├─ config/                     datos y configuración, sin lógica pesada
 │  ├─ categories.ts             las 24 categorías + sus subcategorías
 │  ├─ sidebar.ts                 el árbol del menú de Starlight
-│  ├─ navigation.ts              links de cabecera/pie (Inicio, Categorías, Tags)
+│  ├─ navigation.ts              links de cabecera/pie (Inicio, Documentación)
 │  ├─ site.ts                     identidad del sitio, SEO, redes sociales
 │  └─ icons.ts                    tabla de iconos Lucide que llevan color fijo
 │
@@ -90,20 +90,15 @@ src/
 │
 ├─ pages/                      rutas propias, fuera de Starlight
 │  ├─ index.astro                 la portada (usa features/landing/)
-│  ├─ categories/index.astro      /categories — grilla de las 24 categorías
-│  ├─ categories/[category].astro /categories/frontend — artículos de una categoría
-│  ├─ tags/index.astro            /tags — nube de todos los tags
-│  ├─ tags/[tag].astro            /tags/astro — artículos con ese tag
 │  ├─ manifest.webmanifest.ts     el manifest de PWA (icono, nombre, colores)
 │  └─ robots.txt.ts               robots.txt generado desde site.ts
 │
 ├─ components/
 │  ├─ starlight/                  reemplazos de piezas del layout de Starlight
 │  │  ├─ Header.astro               cabecera (logo, nav, buscador, redes)
-│  │  ├─ PageTitle.astro            título + chips (categoría, tags, links, avisos)
+│  │  ├─ PageTitle.astro            título + ruta, links, facts y avisos
 │  │  ├─ Sidebar.astro              solo el primer nivel del menú (ver sección 5.5)
 │  │  └─ ThemeSelect.astro          vacío a propósito: sin selector de tema
-│  ├─ content/EntryList.astro      lista de tarjetas (título + descripción)
 │  ├─ seo/BaseHead.astro           metaetiquetas (Open Graph, Twitter, canonical…)
 │  ├─ seo/JsonLd.astro             inyecta el JSON-LD en `<script type="application/ld+json">`
 │  └─ shared/                      Button, Icon, Logo — usados en todo el sitio
@@ -152,9 +147,9 @@ carpeta y la clave en este archivo tienen que ser el mismo string.
 
 | Campo           | Para qué sirve                                                                                                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `label`         | El nombre que ves en `/categories` y en los chips de cada entrada                                                                                                                          |
+| `label`         | El nombre que ves en el chip de categoría de cada entrada y en el índice de la portada                                                                                                     |
 | `icon`          | Nombre de un icono [Lucide](https://lucide.dev/icons/) — hoy es un dato que se guarda pero ningún componente lo renderiza (quedó del diseño anterior del sidebar, con icono por categoría) |
-| `description`   | La frase debajo del nombre en `/categories`                                                                                                                                                |
+| `description`   | Descripción interna de la categoría; hoy no se pinta en ningún sitio del sitio publicado                                                                                                   |
 | `color`         | Variable CSS (definida en `src/styles/tokens.css`) para el acento visual                                                                                                                   |
 | `group`         | Uno de: `construir`, `producto`, `flujo`, `calidad`, `referencia` — en qué bloque del menú aparece                                                                                         |
 | `order`         | Número; menor aparece antes dentro de su `group`                                                                                                                                           |
@@ -162,8 +157,8 @@ carpeta y la clave en este archivo tienen que ser el mismo string.
 
 **Este archivo no se "regenera" solo.** Si creás una carpeta nueva en
 `src/content/docs/` sin agregarla acá, el contenido va a existir (Astro lo
-va a leer igual) pero **no va a aparecer** en `/categories` ni en el pie de
-categoría de cada entrada, porque `getCategoryCounts()`
+va a leer igual) pero **no va a aparecer** en el chip de categoría de cada
+entrada ni en el índice de la portada, porque `getCategoryCounts()`
 (`src/lib/content.ts`) recorre este objeto, no el disco.
 
 ## 5 · El menú: `src/config/sidebar.ts`
@@ -312,17 +307,18 @@ ninguna modificación.**
   Starlight sin tocar.
 - **`PageTitle.astro`**: el más largo de los tres. Debajo del título
   agrega:
-  - un chip con la categoría (con su color de `categories.ts`) y, si
-    corresponde, uno con la subcategoría;
-  - la fecha de actualización, si la entrada tiene `updatedAt`;
-  - los tags, como links a `/tags/<tag>`;
+  - una línea de ruta — `Categoría / Subcategoría · fecha` — en el color de
+    la categoría (`categories.ts`), sin link: no hay página de categoría a
+    la que llevar. Los `tags` del frontmatter no se muestran acá (se
+    retiraron del header por ruido visual — competían en color con el
+    título); siguen en el frontmatter para el buscador;
   - el bloque de `command`, si la entrada lo declara;
-  - los links a `technologies` (otras entradas relacionadas), resolviendo
-    cada id a su título real;
-  - una fila de "facts" (problema, cuándo usarlo, herramienta, lenguaje,
-    etc.) — cada uno solo aparece si el campo tiene valor;
-  - botones a `url`/`website`/`github`, decidiendo cuál es "el recurso" y
-    cuál "el repositorio" con una regexp que detecta URLs de GitHub;
+  - un panel esmaltado con los "facts" (problema, cuándo usarlo,
+    herramienta, lenguaje, etc. — cada uno solo si tiene valor) y los
+    botones a `url`/`website`/`github` juntos en un solo campo, en vez de
+    flotar sueltos;
+  - los links a `technologies` (otras entradas relacionadas) bajo el
+    rótulo "Relacionado", resolviendo cada id a su título real;
   - la lista de `warnings`, si las hay.
 - **`ThemeSelect.astro`**: literalmente vacío. Es la forma correcta de
   **apagar** una pieza de Starlight sin dejar un botón que no hace nada —
@@ -331,8 +327,6 @@ ninguna modificación.**
 Aparte de estos tres, hay componentes de uso general (no overrides de
 Starlight):
 
-- `content/EntryList.astro`: la grilla de tarjetas (título + descripción)
-  que se usa en `/categories/[category]`, `/tags/[tag]` y la portada.
 - `seo/BaseHead.astro` y `seo/JsonLd.astro`: metadatos para buscadores y
   redes sociales — no tienen relación con Starlight, son etiquetas
   `<head>` estándar de SEO.
@@ -397,16 +391,15 @@ Es el único archivo con lógica real de "consultar contenido". Todas sus
 funciones reciben el array de entradas ya cargado (nunca leen el disco
 ellas mismas):
 
-| Función                                                 | Qué hace                                                                                                      |
-| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `getAllEntries(includePrivate?)`                        | Carga la colección completa; filtra `private` (salvo que se pida lo contrario) y `draft` (solo se ven en dev) |
-| `categoryOf(entry)` / `subcategoryOf(entry)`            | Extraen categoría/subcategoría del id (la primera y segunda carpeta)                                          |
-| `getEntryUrl(entry)`                                    | La URL pública: `/` + el id                                                                                   |
-| `sortEntries(entries)`                                  | Orden único de todo el sitio: por `order` si existe, si no alfabético                                         |
-| `getCategoryEntries(all, category)`                     | Agrupa las entradas de una categoría por subcategoría, usando `categories.ts` como fuente de los grupos       |
-| `getCategoryCounts(entries)`                            | Cuenta cuántas entradas tiene cada categoría (para `/categories` y la portada)                                |
-| `getAllTags(entries)` / `getEntriesByTag(entries, tag)` | Para `/tags` y `/tags/[tag]`                                                                                  |
-| `formatDate(date)`                                      | Fecha en formato español (`es`)                                                                               |
+| Función                                      | Qué hace                                                                                                      |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `getAllEntries(includePrivate?)`             | Carga la colección completa; filtra `private` (salvo que se pida lo contrario) y `draft` (solo se ven en dev) |
+| `categoryOf(entry)` / `subcategoryOf(entry)` | Extraen categoría/subcategoría del id (la primera y segunda carpeta)                                          |
+| `getEntryUrl(entry)`                         | La URL pública: `/` + el id                                                                                   |
+| `sortEntries(entries)`                       | Orden único de todo el sitio: por `order` si existe, si no alfabético                                         |
+| `getCategoryCounts(entries)`                 | Cuenta cuántas entradas tiene cada categoría (para el índice de la portada)                                   |
+| `getAllTags(entries)`                        | Cuenta tags únicos (solo para la cifra "tags" de la portada; no hay listado navegable)                        |
+| `formatDate(date)`                           | Fecha en formato español (`es`)                                                                               |
 
 ## 10 · Decisiones deliberadas: qué NO tiene este sitio
 
@@ -424,6 +417,15 @@ un sistema más grande y se simplificó activamente:
 - **Sin tipos editoriales.** Antes cada entrada declaraba `type: "guides"`,
   `type: "commands"`, etc., y eso decidía qué campos exigir. Se quitó: la
   categoría/subcategoría (la carpeta) es la única clasificación.
+- **Sin `/categories` ni `/tags`.** Existieron una temporada: un índice y una
+  página por categoría/tag. Se quitaron porque Starlight inyecta el árbol
+  completo del sidebar como HTML en cada página (no hay componente
+  compartido en runtime) — con 24 categorías, 170 subcategorías y 737
+  entradas, cada una de esas páginas repetía ese árbol entero, y con
+  cientos de tags eso infló `dist/` a 516MB y con eso el deployment storage
+  de Vercel. Categoría y tag ahora son metadata en la propia entrada
+  (`PageTitle.astro`, sin link) y en el índice de la portada; navegar por
+  categoría es cosa del sidebar nativo de Starlight.
 - **Sin descubrimiento de categorías por filesystem.** Antes `categories.ts`
   no existía — un archivo (`catalog.ts`) leía el disco con Node `fs`,
   buscaba `_meta.json` en cada carpeta y armaba el catálogo en cada build.

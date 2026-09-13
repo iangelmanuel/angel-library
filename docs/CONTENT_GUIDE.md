@@ -38,11 +38,11 @@ tags: [astro, backend]
 
 Tres campos alcanzan para publicar:
 
-| Campo         | Qué es                                              |
-| ------------- | --------------------------------------------------- |
-| `title`       | El título. Sale en la página, el menú y el buscador |
-| `description` | Una frase. Sale en los listados y en el SEO         |
-| `tags`        | Lista de tags en minúsculas                         |
+| Campo         | Qué es                                                                                  |
+| ------------- | --------------------------------------------------------------------------------------- |
+| `title`       | El título. Sale en la página, el menú y el buscador                                     |
+| `description` | Una frase. Sale en los listados y en el SEO                                             |
+| `tags`        | Lista de tags en minúsculas — no se muestran en la página, es metadata para el buscador |
 
 Opcionales que se usan seguido:
 
@@ -192,8 +192,8 @@ frontend: {
 ```
 
 **La clave (`svelte`) tiene que ser exactamente el nombre de la carpeta**
-que creaste en el paso 1. `label` es lo que se ve en `/categories/frontend`
-y en el chip de cada entrada; `description` es opcional.
+que creaste en el paso 1. `label` es lo que se ve en el chip de cada
+entrada; `description` es opcional (no se pinta en ningún sitio hoy).
 
 ### Paso 3 · Registra la subcategoría en `src/config/sidebar.ts`
 
@@ -280,9 +280,9 @@ Cada campo:
 
 | Campo           | Qué es                                                                                                                                                       |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `label`         | Nombre visible en `/categories` y en los chips                                                                                                               |
+| `label`         | Nombre visible en los chips de cada entrada y en el índice de la portada                                                                                     |
 | `icon`          | Nombre de un icono de [lucide.dev/icons](https://lucide.dev/icons/) — se guarda pero hoy nada lo muestra; podés ponerlo por si en el futuro se vuelve a usar |
-| `description`   | Frase debajo del nombre en `/categories`                                                                                                                     |
+| `description`   | Descripción interna; hoy no se pinta en ningún sitio                                                                                                         |
 | `color`         | Variable CSS para el acento visual (paso 3)                                                                                                                  |
 | `group`         | En qué bloque del menú aparece: `construir`, `producto`, `flujo`, `calidad` o `referencia`                                                                   |
 | `order`         | Número; menor aparece antes dentro de su `group`                                                                                                             |
@@ -330,8 +330,8 @@ si en el paso 2 pusiste `group: "construir"`, va dentro del objeto
 ### Paso 5 · Comprueba
 
 Reiniciá `pnpm dev` (tocaste archivos de configuración, no contenido) y
-fijate que "Móvil" aparezca en `/categories` con su color e icono, y que
-el sidebar muestre el bloque nuevo. Después:
+fijate que el sidebar muestre el bloque nuevo, y que una entrada de "Móvil"
+pinte el chip de categoría con su color. Después:
 
 ```bash
 pnpm check
@@ -346,29 +346,29 @@ categoría simplemente no va a tener color (usa la variable como
 
 ## Referencia: todos los campos del frontmatter
 
-| Campo                      | Tipo                 | Para qué                                                     |
-| -------------------------- | -------------------- | ------------------------------------------------------------ |
-| `title`                    | string (obligatorio) | Título de la página, menú y buscador                         |
-| `description`              | string (obligatorio) | Frase para listados y SEO                                    |
-| `tags`                     | string[]             | Tags en minúsculas, para `/tags`                             |
-| `sidebar.order`            | número               | Orden manual dentro de su subcategoría (nativo de Starlight) |
-| `sidebar.label`            | string               | Etiqueta distinta a `title` solo para el menú                |
-| `updatedAt`                | fecha (`2026-09-12`) | Se muestra en la cabecera de la entrada                      |
-| `draft`                    | booleano             | Oculta la entrada fuera de `pnpm dev`                        |
-| `private`                  | booleano             | Oculta de menús/listados/buscador; **la URL sigue pública**  |
-| `command`                  | string               | El comando, para entradas de tipo comando                    |
-| `url`, `website`, `github` | string (URL)         | Enlaces externos, se muestran como botones                   |
-| `resourceCategory`         | string               | Subcategoría de `resources/`, solo dentro de esa categoría   |
-| `technologies`             | string[] (ids)       | Cross-link a otras entradas por su id                        |
-| `problem`                  | string               | Ficha "Problema"                                             |
-| `whenToUse`                | string               | Ficha "Cuándo usarlo"                                        |
-| `tool`                     | string               | Ficha "Herramienta"                                          |
-| `language`                 | string               | Ficha "Lenguaje"                                             |
-| `framework`                | string               | Ficha "Framework"                                            |
-| `runtime`                  | string               | Ficha "Runtime"                                              |
-| `returns`                  | string               | Ficha "Devuelve"                                             |
-| `warnings`                 | string[]             | Lista de avisos destacados                                   |
-| `official`                 | booleano             | Marca si es la fuente oficial (recursos)                     |
+| Campo                      | Tipo                 | Para qué                                                                       |
+| -------------------------- | -------------------- | ------------------------------------------------------------------------------ |
+| `title`                    | string (obligatorio) | Título de la página, menú y buscador                                           |
+| `description`              | string (obligatorio) | Frase para listados y SEO                                                      |
+| `tags`                     | string[]             | Tags en minúsculas — no se muestran en la página, es metadata para el buscador |
+| `sidebar.order`            | número               | Orden manual dentro de su subcategoría (nativo de Starlight)                   |
+| `sidebar.label`            | string               | Etiqueta distinta a `title` solo para el menú                                  |
+| `updatedAt`                | fecha (`2026-09-12`) | Se muestra en la cabecera de la entrada                                        |
+| `draft`                    | booleano             | Oculta la entrada fuera de `pnpm dev`                                          |
+| `private`                  | booleano             | Oculta de menús/listados/buscador; **la URL sigue pública**                    |
+| `command`                  | string               | El comando, para entradas de tipo comando                                      |
+| `url`, `website`, `github` | string (URL)         | Enlaces externos, se muestran como botones                                     |
+| `resourceCategory`         | string               | Subcategoría de `resources/`, solo dentro de esa categoría                     |
+| `technologies`             | string[] (ids)       | Cross-link a otras entradas por su id                                          |
+| `problem`                  | string               | Ficha "Problema"                                                               |
+| `whenToUse`                | string               | Ficha "Cuándo usarlo"                                                          |
+| `tool`                     | string               | Ficha "Herramienta"                                                            |
+| `language`                 | string               | Ficha "Lenguaje"                                                               |
+| `framework`                | string               | Ficha "Framework"                                                              |
+| `runtime`                  | string               | Ficha "Runtime"                                                                |
+| `returns`                  | string               | Ficha "Devuelve"                                                               |
+| `warnings`                 | string[]             | Lista de avisos destacados                                                     |
+| `official`                 | booleano             | Marca si es la fuente oficial (recursos)                                       |
 
 ## Errores comunes
 
@@ -376,7 +376,7 @@ categoría simplemente no va a tener color (usa la variable como
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `pnpm build` falla señalando un archivo                | El frontmatter no cumple el esquema de `src/content.config.ts` — revisá el tipo del campo que indica el error                        |
 | La entrada no aparece en el sidebar                    | La subcategoría no está en `src/config/sidebar.ts`, o el `directory` del `autogenerate` no coincide con el nombre real de la carpeta |
-| La categoría no aparece en `/categories`               | No está en `src/config/categories.ts`, o la carpeta no coincide con la clave                                                         |
+| El chip de categoría no aparece en la entrada          | No está en `src/config/categories.ts`, o la carpeta no coincide con la clave                                                         |
 | El chip de categoría sale sin color                    | Falta la variable en `src/styles/tokens.css`, o el nombre no coincide con `color` en `categories.ts`                                 |
 | Cambié `sidebar.ts`/`categories.ts` y no veo el cambio | Son archivos de configuración: hace falta reiniciar `pnpm dev`, no alcanza con guardar                                               |
 | Un enlace interno no lleva a ninguna parte             | No hay comprobación automática — revisalo a mano; asegurate de usar la ruta completa (`/categoria/subcategoria/archivo`)             |
