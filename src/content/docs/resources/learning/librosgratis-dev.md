@@ -2,7 +2,8 @@
 title: "librosgratis.dev — libros de programación gratuitos"
 description: "Catálogo comunitario de libros técnicos que pueden descargarse legalmente en español, con opciones para explorar la lista desde GitHub o desde una web."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [midudev, libros, lectura, gratis, espanol]
 url: https://librosgratis.dev/
 resourceCategory: learning

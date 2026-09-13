@@ -2,7 +2,8 @@
 title: Evaluaciones, observabilidad y costo en aplicaciones de IA
 description: Diseñar casos representativos, graders, regresiones y métricas de calidad, latencia y costo para cambiar prompts o modelos con evidencia.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [ai, evals, quality, observability, cost]
 related:
   - ai/ai-fundamentos/ai-fundamentals-terminology

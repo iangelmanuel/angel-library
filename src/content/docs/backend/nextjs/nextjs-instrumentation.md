@@ -2,7 +2,8 @@
 title: Instrumentation y observabilidad
 description: Inicialización del servidor, trazas OpenTelemetry y captura global de errores de request con instrumentation.ts.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [nextjs, observability, logging, opentelemetry]
 scope: next.js instrumentation
 related:

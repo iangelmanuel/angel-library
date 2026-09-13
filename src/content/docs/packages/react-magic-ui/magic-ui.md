@@ -2,7 +2,8 @@
 title: Magic UI
 description: Componentes React animados con Framer Motion, construidos sobre shadcn/ui y Tailwind CSS, pensados para landing pages.
 type: libraries
-order: 3
+sidebar:
+  order: 3
 tags: [react, tailwindcss, animations, components]
 website: https://magicui.design
 github: https://github.com/magicuidesign/magicui

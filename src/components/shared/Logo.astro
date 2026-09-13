@@ -31,7 +31,7 @@ import { SITE } from "@/config/site"
     width: 1.875rem;
     height: 1.875rem;
     flex-shrink: 0;
-    transition: transform var(--dur-fast) var(--ease-enamel);
+    transition: transform var(--dur-fast) var(--ease-out);
   }
 
   .brand:hover .brand__mark {
@@ -39,15 +39,15 @@ import { SITE } from "@/config/site"
   }
 
   .brand__name {
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: -0.02em;
-    color: var(--white);
-    transition: color var(--dur-fast) var(--ease-enamel);
+    color: var(--text-strong);
+    transition: color var(--dur-fast) var(--ease-out);
   }
 
   .brand:hover .brand__name {
-    color: var(--blue-400);
+    color: var(--accent);
   }
 </style>

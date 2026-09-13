@@ -2,7 +2,8 @@
 title: MCP — conectar servidores externos
 description: config.toml, con más control fino por tool (approval_mode individual) que las otras 3 herramientas.
 type: skills
-order: 6
+sidebar:
+  order: 6
 tags: [ai, codex, mcp]
 tool: Codex CLI
 updatedAt: 2026-08-17

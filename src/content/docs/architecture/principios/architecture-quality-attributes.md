@@ -2,7 +2,8 @@
 title: Atributos de calidad y diseño por escenarios
 description: Traducir disponibilidad, rendimiento, seguridad, mantenibilidad y costo en escenarios medibles que guíen decisiones arquitectónicas.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [architecture, quality, reliability, performance, tradeoffs]
 related:
   - architecture/principios/architecture-fundamentals-terminology

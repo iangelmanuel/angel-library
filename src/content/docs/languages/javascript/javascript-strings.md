@@ -2,7 +2,8 @@
 title: Strings y procesamiento de texto
 description: Creación, búsqueda, extracción, reemplazo, Unicode y formato de strings con tablas, resultados y casos de uso.
 type: guides
-order: 8
+sidebar:
+  order: 8
 tags: [javascript, strings, text, unicode, regexp]
 scope: tipos y métodos
 related:

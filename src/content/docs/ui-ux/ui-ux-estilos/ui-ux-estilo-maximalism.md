@@ -2,7 +2,8 @@
 title: "Maximalism"
 description: "Abundancia deliberada de color, tipografía y capas para que una interfaz se recuerde, sin que la tarea se pierda en el ruido."
 type: guides
-order: 7
+sidebar:
+  order: 7
 tags: [ui, diseño, estilos, maximalismo, tipografia, color]
 related:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales

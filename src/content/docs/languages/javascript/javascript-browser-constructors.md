@@ -2,7 +2,8 @@
 title: Constructores nativos y patrón new
 description: Cuándo usar new, qué constructores existen en el lenguaje y el navegador, qué devuelven y cuáles no deben instanciarse.
 type: guides
-order: 28
+sidebar:
+  order: 28
 tags: [javascript, constructors, new, web-api, reference]
 scope: mapa de referencia
 related:

@@ -2,7 +2,8 @@
 title: Discord — comunidad, soporte y bots
 description: Aplicación de comunicación para organizar comunidades o equipos en servidores y canales; también permite automatizar avisos y tareas mediante webhooks y bots.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [discord, comunidad, webhooks, bots, notificaciones]
 website: https://discord.com
 related:

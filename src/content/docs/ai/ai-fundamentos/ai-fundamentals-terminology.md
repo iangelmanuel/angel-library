@@ -3,7 +3,8 @@ title: Fundamentos y terminología de inteligencia artificial
 description: Vocabulario y modelo mental para trabajar con modelos generativos, prompts, herramientas, embeddings, RAG, agentes y evaluaciones.
 type: guides
 tags: [ia, llm, prompts, rag, agentes, fundamentos, glosario]
-order: 1
+sidebar:
+  order: 1
 updatedAt: 2026-08-25
 ---
 

@@ -2,7 +2,8 @@
 title: "Comandos de Docker Compose"
 description: up, down, build, logs y exec desde Compose — el día a día de trabajar con un docker-compose.yml.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [docker, compose, comandos]
 scope: comandos de Compose
 related: [devops/docker-compose/docker-compose-basico]

@@ -2,7 +2,8 @@
 title: "Archify: diagramas técnicos compilados desde una descripción"
 description: Skill y compilador open source que convierte una representación JSON tipada en diagramas HTML, SVG y otros artefactos reproducibles.
 type: resources
-order: 8
+sidebar:
+  order: 8
 tags: [archify, diagramas, arquitectura, agentes, documentacion-tecnica]
 url: https://github.com/tt-a1i/archify
 website: https://tt-a1i.github.io/archify/

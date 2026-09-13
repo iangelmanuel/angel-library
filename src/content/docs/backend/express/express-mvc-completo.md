@@ -2,7 +2,8 @@
 title: Estructura MVC completa (carpetas reales)
 description: El árbol de carpetas de la guía de arquitectura, pero con archivos reales y código andando — no solo el diagrama.
 type: recipes
-order: 27
+sidebar:
+  order: 27
 tags: [express, mvc, architecture]
 problem: Ver la estructura por capas (routes/controllers/services/repositories) con código de verdad en cada archivo, no solo la explicación conceptual.
 technologies: [backend/express/backend-mvc-structure]

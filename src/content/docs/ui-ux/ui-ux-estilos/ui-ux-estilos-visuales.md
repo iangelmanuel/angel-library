@@ -2,7 +2,8 @@
 title: "Estilos visuales de interfaz: panorama y cómo elegir"
 description: "Skeuomorphism, neumorphism, glassmorphism, claymorphism, minimalism, maximalism, brutalism, Liquid Glass y Spatial UI comparados, con criterios para decidir."
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [ui, diseño, estilos, tendencias, accesibilidad]
 updatedAt: 2026-08-30
 ---

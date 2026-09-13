@@ -2,7 +2,8 @@
 title: "docker build y tags"
 description: Construir una imagen a partir de un Dockerfile, nombrarla y versionarla con tags — convenciones que evitan el infame "latest" roto.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [docker, build, tags, imagenes]
 scope: docker build
 related: [devops/docker-imagenes/docker-dockerfile-basico]

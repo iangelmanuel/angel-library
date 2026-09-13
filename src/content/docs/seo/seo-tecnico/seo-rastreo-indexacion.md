@@ -2,7 +2,8 @@
 title: Rastreo, indexación, robots, sitemap y canonical
 description: Controlar cómo los buscadores descubren URLs, rastrean recursos, consolidan duplicados e interpretan qué páginas pueden indexar.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [seo, crawling, indexing, robots, sitemap, canonical]
 related:
   - seo/seo/seo-fundamentals-terminology

@@ -23,21 +23,16 @@ const listed = stats.categoryList
     <span class="wall-catalog__count">{stats.categories} categorías</span>
   </div>
 
-  <p class="wall-cloud">
+  <ul class="wall-cloud">
     {
-      listed.map((category, index) => (
-        <>
-          <span class="wall-cloud__word">{category.label}</span>
-          {index < listed.length - 1 && (
-            <span
-              class="wall-cloud__dot"
-              aria-hidden="true"
-            >
-              ·
-            </span>
-          )}
-        </>
+      listed.map((category) => (
+        <li
+          class="wall-cloud__word"
+          style={`--word-hue: var(${category.color})`}
+        >
+          {category.label}
+        </li>
       ))
     }
-  </p>
+  </ul>
 </section>

@@ -31,30 +31,6 @@ const { title, description, ...seoProps } = Astro.props
 
     <LandingFooter />
 
-    {
-      /* El modal de Pagefind: lo abren la cabecera y el hero, no un botón suyo. */
-    }
-    <Search class="landing-search" />
+    <Search class="search-modal" />
   </div>
 </BaseLayout>
-
-<script>
-  // Un único buscador en la portada: la cabecera y el campo del hero abren el
-  // mismo modal de Pagefind.
-  document.addEventListener("click", (event) => {
-    const disparador = (event.target as HTMLElement).closest(
-      "[data-open-search]"
-    )
-    if (!disparador) return
-
-    // En diferido: el modal se cierra solo si se abre mientras este mismo
-    // clic sigue propagándose, porque para él es un clic fuera del diálogo.
-    requestAnimationFrame(() => {
-      document
-        .querySelector<HTMLButtonElement>(
-          ".landing-search button[data-open-modal]"
-        )
-        ?.click()
-    })
-  })
-</script>

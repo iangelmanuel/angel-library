@@ -4,7 +4,8 @@ description: Diseñar una pirámide útil de tests unitarios, integración, cont
 type: guides
 tags: [testing, architecture, quality, e2e]
 scope: estrategia de pruebas
-order: 2
+sidebar:
+  order: 2
 related:
   - testing/nextjs/nextjs-testing
   - testing/astro/astro-testing

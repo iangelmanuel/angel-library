@@ -2,7 +2,8 @@
 title: MongoDB práctico — documentos, índices y agregaciones
 description: Modelar documentos de MongoDB, validar esquemas, consultar, actualizar, crear índices y utilizar pipelines de agregación con criterios de consistencia.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [mongodb, nosql, documentos, aggregation, indexes]
 related:
   - database/database-nosql/database-nosql-modelado

@@ -2,7 +2,8 @@
 title: "Historial y atajos de productividad"
 description: Ver y buscar el historial de comandos, atajos universales de la terminal, y cómo crear un alias, en Windows, macOS y Linux.
 type: guides
-order: 12
+sidebar:
+  order: 12
 tags: [terminal, historial, atajos, alias]
 scope: historial y atajos
 related:

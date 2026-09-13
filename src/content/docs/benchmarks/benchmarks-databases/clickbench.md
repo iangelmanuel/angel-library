@@ -2,7 +2,8 @@
 title: "ClickBench"
 description: "Benchmark abierto de bases de datos analíticas que compara carga, almacenamiento y 43 consultas sobre casi cien millones de eventos."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [benchmarks, bases-de-datos, olap, sql, analytics, clickhouse]
 url: https://benchmark.clickhouse.com/
 resourceCategory: developer-tools

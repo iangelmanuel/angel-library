@@ -2,7 +2,8 @@
 title: Prisma 7 con PostgreSQL
 description: Configuración compartida, esquema coherente, CRUD y transacciones para integrar Prisma en servidores JavaScript.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [prisma, postgresql, database, typescript]
 related: [backend/astro/astro-prisma, backend/express/express-prisma, backend/nextjs/nextjs-prisma]
 website: https://www.prisma.io/docs

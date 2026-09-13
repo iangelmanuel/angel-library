@@ -2,7 +2,8 @@
 title: Subagentes (multi-agente)
 description: Definidos en TOML, no markdown — orquestación experimental con fan-out configurable.
 type: skills
-order: 3
+sidebar:
+  order: 3
 tags: [ai, codex, agente]
 tool: Codex CLI
 updatedAt: 2026-08-17

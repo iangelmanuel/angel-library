@@ -2,7 +2,8 @@
 title: "WSL: Linux dentro de Windows"
 description: Instalar y manejar WSL — distros, comandos de gestión, acceso a filesystem cruzado y por qué el rendimiento importa según dónde vive el proyecto.
 type: guides
-order: 24
+sidebar:
+  order: 24
 tags: [terminal, wsl, windows, linux]
 scope: wsl
 related:

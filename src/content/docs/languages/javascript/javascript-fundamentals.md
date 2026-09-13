@@ -2,7 +2,8 @@
 title: Fundamentos de JavaScript
 description: Valores, tipos, variables, conversión y operadores explicados con resultados visibles y casos de uso.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [javascript, basics, variables, types, operators]
 scope: fundamentos del lenguaje
 related:

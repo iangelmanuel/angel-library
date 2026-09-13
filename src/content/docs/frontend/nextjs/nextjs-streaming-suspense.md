@@ -2,7 +2,8 @@
 title: Streaming, Suspense y loading.tsx
 description: Enviar una shell rápida y transmitir las partes lentas cuando terminan, con límites de carga útiles y fetching paralelo.
 type: guides
-order: 19
+sidebar:
+  order: 19
 tags: [nextjs, react, suspense, performance, streaming]
 scope: next.js app router
 related:

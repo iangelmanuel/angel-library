@@ -2,7 +2,8 @@
 title: express-validator
 description: Validación declarativa como middleware — chains de reglas por campo, y por qué en un proyecto con Zod puede no hacer falta.
 type: libraries
-order: 19
+sidebar:
+  order: 19
 tags: [express, validation]
 website: https://express-validator.github.io
 related: [packages/javascript-zod/zod]

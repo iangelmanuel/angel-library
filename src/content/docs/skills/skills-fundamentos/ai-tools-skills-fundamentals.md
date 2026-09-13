@@ -2,7 +2,8 @@
 title: "IA Tools: comandos, skills, plugins, hooks y MCP"
 description: "Cómo se diferencian las capacidades que amplían un agente de IA, qué problema resuelve cada una y qué revisar antes de incorporarlas a un proyecto."
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [ia, comandos, skills, plugins, hooks, mcp, herramientas, fundamentos]
 related:
   - agents/agents-fundamentos/coding-agents-fundamentals

@@ -2,7 +2,8 @@
 title: Axios
 description: Cliente HTTP con interceptores, instancias configuradas y manejo de errores más cómodo que fetch nativo.
 type: libraries
-order: 2
+sidebar:
+  order: 2
 tags: [react, http, api]
 website: https://axios-http.com
 github: https://github.com/axios/axios

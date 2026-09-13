@@ -2,7 +2,8 @@
 title: Contenido accesible — encabezados, imágenes, tablas y multimedia
 description: Hacer que el contenido conserve significado con lectores de pantalla, zoom, audio desactivado y formatos alternativos.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [accessibility, content, alt-text, tables, captions]
 related:
   - accessibility/a11y-fundamentos/accessibility-fundamentals-terminology

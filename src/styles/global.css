@@ -1,14 +1,10 @@
 /* Hoja de entrada: solo imports.
    Orden: tokens → base → componentes, de general a específico. */
 
-/* Fuentes: Sans para todo el texto y los títulos, Mono solo para código,
-   rutas y datos medidos. */
-@import "@fontsource/geist-sans/latin-400.css";
-@import "@fontsource/geist-sans/latin-500.css";
-@import "@fontsource/geist-sans/latin-600.css";
-@import "@fontsource/geist-sans/latin-700.css";
-@import "@fontsource/geist-mono/latin-400.css";
-@import "@fontsource/geist-mono/latin-500.css";
+/* Fuentes: Onest para interfaz y prosa, JetBrains Mono para código, teclas
+   y datos medidos. */
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/jetbrains-mono";
 
 @import "tailwindcss";
 
@@ -19,4 +15,18 @@
 @import "./search.css";
 @import "./components/primitives.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Utilidades de Tailwind sobre los tokens. Vive aquí y no en tokens.css
+   porque la documentación importa los tokens sin Tailwind. */
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-panel: var(--bg-panel);
+  --color-raised: var(--bg-raised);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--text-muted);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));

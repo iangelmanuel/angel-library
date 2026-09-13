@@ -2,7 +2,8 @@
 title: Excalidraw — diagramas y bocetos a mano alzada
 description: Pizarra para dibujar diagramas, flujos y bocetos rápidos sin conocimientos de diseño; permite colaborar y exportar el resultado como imagen o diagrama editable.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [excalidraw, diagramas, whiteboard, pwa]
 website: https://excalidraw.com
 related:

@@ -2,7 +2,8 @@
 title: "Skills for In-Demand Jobs (LinkedIn y Microsoft)"
 description: "Rutas breves de LinkedIn y Microsoft para practicar inteligencia artificial y habilidades laborales demandadas, con certificado al completar el contenido."
 type: resources
-order: 4
+sidebar:
+  order: 4
 tags: [cursos, microsoft, linkedin, ia, empleo, certificado, gratis]
 url: https://opportunity.linkedin.com/es-es/skills-for-in-demand-jobs
 resourceCategory: learning

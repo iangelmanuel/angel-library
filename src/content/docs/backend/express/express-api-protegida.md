@@ -2,7 +2,8 @@
 title: API protegida (auth + validación + rate limiting)
 description: Todas las piezas de seguridad juntas en un mismo endpoint — el ejemplo de referencia de cómo se ve una ruta "bien protegida".
 type: recipes
-order: 32
+sidebar:
+  order: 32
 tags: [express, security, auth, validation, rate-limiting]
 problem: Ver todas las capas de protección combinadas en una sola ruta real, en el orden correcto.
 technologies:

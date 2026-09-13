@@ -2,7 +2,8 @@
 title: "OpenWA — instalación y despliegue"
 description: "Levantar el gateway con Docker o en local, elegir perfil de servicios, entender los puertos y preparar el despliegue de producción."
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [whatsapp, docker, self-hosted, devops, nodejs]
 github: https://github.com/rmyndharis/OpenWA
 related:

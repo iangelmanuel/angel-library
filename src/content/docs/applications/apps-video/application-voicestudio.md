@@ -2,7 +2,8 @@
 title: "VoiceStudio — clonación, transcripción y doblaje de voz en local"
 description: "Aplicación abierta para clonar y diseñar voces, transcribir audio, doblar video y producir audiolibros en el propio equipo, sin cuenta ni pago por uso."
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [voicestudio, audio, voz, transcripcion, doblaje, tts, open-source, ia-local]
 website: https://voicestudio.sh/
 github: https://github.com/debpalash/VoiceStudio

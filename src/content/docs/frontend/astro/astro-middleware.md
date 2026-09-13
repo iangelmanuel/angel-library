@@ -2,7 +2,8 @@
 title: Middleware
 description: Interceptar cada request antes de que llegue a la página — context.locals, encadenar middlewares con sequence() y rewrite.
 type: guides
-order: 20
+sidebar:
+  order: 20
 tags: [astro, middleware, auth]
 scope: astro:middleware
 updatedAt: 2026-08-25

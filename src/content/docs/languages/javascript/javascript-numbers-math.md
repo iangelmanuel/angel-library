@@ -2,7 +2,8 @@
 title: Number, BigInt y Math
 description: Conversión, validación, precisión, formato y operaciones matemáticas con resultados visibles y casos de uso seguros.
 type: guides
-order: 9
+sidebar:
+  order: 9
 tags: [javascript, number, bigint, math, precision]
 scope: tipos y métodos
 related:

@@ -2,7 +2,8 @@
 title: Atributos HTML avanzados para formularios y recursos
 description: Autocomplete, inputmode, accept, capture, loading, decoding, fetchpriority y picture para mejorar intención, UX y rendimiento.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [html, forms, images, performance, mobile]
 scope: formularios y recursos
 related:

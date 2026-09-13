@@ -2,7 +2,8 @@
 title: useRouter
 description: Navegar por código desde un Client Component — push, replace, refresh, back/forward. El tercero de los hooks de navegación.
 type: guides
-order: 13
+sidebar:
+  order: 13
 tags: [nextjs, routing, hooks]
 scope: next.js (next/navigation)
 related:

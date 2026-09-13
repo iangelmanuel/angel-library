@@ -2,7 +2,8 @@
 title: Roles y permisos
 description: Del rol único por usuario a un modelo RBAC con permisos granulares — cuándo cada nivel de complejidad se justifica.
 type: guides
-order: 15
+sidebar:
+  order: 15
 tags: [express, rbac, authorization, permissions]
 scope: modelado de autorización
 related: [backend/express/express-auth-middleware]

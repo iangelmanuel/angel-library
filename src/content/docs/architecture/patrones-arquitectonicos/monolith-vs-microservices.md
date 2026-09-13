@@ -2,7 +2,8 @@
 title: Monolito vs. microservicios
 description: Una decisión de trade-offs, no de moda — cuándo un monolito bien organizado es suficiente y cuándo el dolor real justifica separar servicios.
 type: patterns
-order: 7
+sidebar:
+  order: 7
 tags: [arquitectura, patrones-arquitectonicos, monolito, microservicios]
 problem: Elegir microservicios por default, asumiendo que es "lo moderno", suma complejidad real antes de que exista un problema que la justifique.
 related:

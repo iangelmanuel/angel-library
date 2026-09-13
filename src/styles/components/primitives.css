@@ -1,43 +1,18 @@
-/* Primitivas: piezas pequeñas reutilizadas en todo el sitio.
-   Todas son campos de esmalte: relleno primero, hilo de 1px después. */
+/* Primitivas: piezas pequeñas reutilizadas en todo el sitio. */
 @layer components {
-  /* Skip link accesible */
   .skip-link {
     position: absolute;
     left: 1rem;
     top: -100%;
     z-index: 100;
     border-radius: var(--radius);
-    background: var(--primary);
-    color: var(--primary-foreground);
+    background: var(--accent);
+    color: var(--accent-contrast);
     padding: 0.55rem 0.9rem;
-    font-size: 0.8rem;
+    font-size: 0.84rem;
     font-weight: 600;
   }
   .skip-link:focus-visible {
     top: 1rem;
-  }
-
-  /* Teclas: un campo hundido, no una tapa de plástico. */
-  .kbd {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.5rem;
-    padding: 0.15rem 0.4rem;
-    border-radius: var(--radius-thin);
-    background: var(--gray-900);
-    color: var(--gray-300);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    line-height: 1.4;
-  }
-
-  /* Título de entrada y subtítulo. */
-  main h1 {
-    color: var(--heading-primary);
-  }
-  main header > p {
-    color: var(--gray-400);
   }
 }

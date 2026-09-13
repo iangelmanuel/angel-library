@@ -2,7 +2,8 @@
 title: Health checks, timeouts y apagado elegante
 description: Evitar tráfico hacia instancias rotas y terminar requests, jobs y conexiones sin corrupción durante deploys.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [health-checks, graceful-shutdown, reliability, backend]
 scope: ciclo de vida de servicios
 related:

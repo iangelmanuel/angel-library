@@ -2,7 +2,8 @@
 title: HTTP y ciclo completo de carga del navegador
 description: "Desde una URL hasta una página interactiva: DNS, conexiones, TLS, HTTP, caché, servidor, parsing, renderizado y métricas."
 type: guides
-order: 33
+sidebar:
+  order: 33
 tags: [http, browser, dns, cache, rendering]
 scope: plataforma web
 website: https://developer.mozilla.org/es/docs/Web/HTTP

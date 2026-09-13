@@ -2,7 +2,8 @@
 title: useEventListener
 description: Escuchar eventos de window o un elemento referenciado, con limpieza automática y callback actualizado.
 type: hooks
-order: 3
+sidebar:
+  order: 3
 tags: [react, hooks, dom, typescript]
 framework: React
 language: typescript

@@ -2,7 +2,8 @@
 title: Supabase en Next.js
 description: Instalación, clients separados para servidor y cliente con @supabase/ssr, RLS y storage — todo lo necesario para el App Router.
 type: guides
-order: 8
+sidebar:
+  order: 8
 tags: [nextjs, supabase, database]
 website: https://supabase.com
 related: [backend/nextjs/nextjs-backend-arquitectura]

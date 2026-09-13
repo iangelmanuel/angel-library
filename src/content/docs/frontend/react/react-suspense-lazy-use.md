@@ -2,7 +2,8 @@
 title: Suspense, lazy y use
 description: Diseñar límites de espera, cargar código bajo demanda y leer recursos compatibles sin confundir Suspense con cualquier operación asíncrona.
 type: guides
-order: 12
+sidebar:
+  order: 12
 tags: [react, suspense, lazy, use, streaming]
 scope: render asíncrono
 website: https://react.dev/reference/react/Suspense

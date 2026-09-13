@@ -2,7 +2,8 @@
 title: Estados de interfaz — carga, vacío, error y éxito
 description: Diseñar el recorrido completo de una función, incluidos espera, ausencia de datos, permisos, recuperación y confirmación.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [ux, loading, empty-state, errors, feedback]
 related:
   - ui-ux/ui-ux-interaccion/ui-ux-forms-feedback

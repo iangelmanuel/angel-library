@@ -2,7 +2,8 @@
 title: Navegación de directorios
 description: cd, pwd, ls y rutas relativas vs absolutas — moverse por el sistema de archivos desde la terminal en Windows, macOS y Linux.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [terminal, navegacion, cli]
 scope: cd / ls / pwd
 related:

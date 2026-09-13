@@ -2,7 +2,8 @@
 title: process — argv, exit codes y señales
 description: Argumentos de línea de comandos, cómo terminar un proceso con el código correcto, y manejar SIGINT/SIGTERM para un shutdown limpio.
 type: guides
-order: 13
+sidebar:
+  order: 13
 tags: [node, process, signals]
 scope: node:process
 updatedAt: 2026-08-16

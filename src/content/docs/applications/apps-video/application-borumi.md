@@ -2,7 +2,8 @@
 title: "Borumi — grabación de pantalla y edición por transcripción"
 description: "Aplicación para grabar la pantalla y editar el resultado como video o como texto transcrito; está pensada para crear demostraciones y tutoriales con menos trabajo manual."
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [video, screencast, grabacion, edicion, macos, windows]
 website: https://borumi.com/
 updatedAt: 2026-08-30

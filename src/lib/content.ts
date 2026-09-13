@@ -22,15 +22,6 @@ export function subcategoryOf(entry: AnyEntry): string | undefined {
   return segments.length > 2 ? segments[1] : undefined
 }
 
-// por `order` si lo declara, si no alfabético
-export function sortEntries<T extends AnyEntry>(entries: T[]): T[] {
-  return [...entries].sort(
-    (a, b) =>
-      (a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
-      a.data.title.localeCompare(b.data.title, "es")
-  )
-}
-
 export function getCategoryCounts(entries: AnyEntry[]) {
   const counts = new Map<string, number>()
   for (const entry of entries) {

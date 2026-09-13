@@ -2,7 +2,8 @@
 title: GitHub — configurar un repositorio mantenible
 description: Decidir visibilidad, rama por defecto, reglas de protección y archivos de comunidad para que un repositorio sea fácil de usar.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [github, repositorios, branch-protection, readme, seguridad]
 scope: configuración del repositorio
 related:

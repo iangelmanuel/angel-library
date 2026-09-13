@@ -2,7 +2,8 @@
 title: Atropos
 description: Efecto parallax 3D al pasar el mouse — capas con profundidad, táctil desde el mismo código.
 type: libraries
-order: 7
+sidebar:
+  order: 7
 tags: [react, animation, 3d]
 website: https://atroposjs.com
 related:

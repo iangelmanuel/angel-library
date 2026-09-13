@@ -2,7 +2,8 @@
 title: PostgreSQL — mantenimiento, seguridad y diagnóstico
 description: Comprender VACUUM, ANALYZE, roles, privilegios, RLS, logs, locks y estadísticas para operar PostgreSQL de forma segura.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [postgresql, vacuum, seguridad, roles, observabilidad]
 related:
   - database/database-postgresql/postgresql-practico

@@ -2,7 +2,8 @@
 title: "Helium — navegador Chromium minimalista y sin servicios de Google"
 description: "Navegador abierto basado en ungoogled-chromium que bloquea anuncios y rastreadores, evita conexiones sin consentimiento y conserva extensiones modernas."
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [helium, navegador, chromium, ungoogled-chromium, privacidad, open-source]
 website: https://helium.computer/
 github: https://github.com/imputnet/helium

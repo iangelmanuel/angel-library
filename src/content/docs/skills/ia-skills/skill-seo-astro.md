@@ -2,7 +2,8 @@
 title: "Skill: SEO en Astro (generar o migrar)"
 description: Skill propio con el código completo de la receta empaquetado en references/ — SITE.seo, JsonLd, seo.ts, BaseHead y el ensamblado final, listos para que Claude Code los lea e implemente.
 type: skills
-order: 20
+sidebar:
+  order: 20
 tags: [ai, skill, seo, astro]
 tool: Claude Code
 related: [seo/astro/astro-seo-completo]

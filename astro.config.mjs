@@ -73,18 +73,27 @@ export default defineConfig({
       customCss: ["./src/styles/starlight.css"],
 
       expressiveCode: {
-        themes: ["tokyo-night"],
+        themes: ["night-owl", "night-owl-light"],
         styleOverrides: {
-          borderRadius: "var(--radius-field)",
-          borderWidth: "0",
+          borderRadius: "var(--radius-lg)",
+          borderWidth: "1px",
+          borderColor: "var(--line)",
+          codeBackground: "var(--bg-code)",
+          codeFontFamily: "var(--font-mono)",
+          codeFontSize: "0.875rem",
+          uiFontFamily: "var(--font-sans)",
           frames: {
-            terminalTitlebarDotsOpacity: "0",
-            editorTabBarBackground: "var(--code-chrome)",
-            editorActiveTabBackground: "var(--code-chrome)",
-            editorActiveTabIndicatorTopColor: "transparent",
-            editorTabBarBorderBottomColor: "transparent",
-            terminalTitlebarBackground: "var(--code-chrome)",
-            terminalBackground: "var(--code-bg)",
+            terminalTitlebarDotsOpacity: "0.35",
+            editorTabBarBackground: "var(--bg-code-chrome)",
+            editorActiveTabBackground: "var(--bg-code)",
+            editorActiveTabForeground: "var(--text-strong)",
+            editorActiveTabIndicatorTopColor: "var(--accent)",
+            editorActiveTabIndicatorBottomColor: "transparent",
+            editorTabBarBorderBottomColor: "var(--line)",
+            terminalTitlebarBackground: "var(--bg-code-chrome)",
+            terminalTitlebarForeground: "var(--text-muted)",
+            terminalTitlebarBorderBottomColor: "var(--line)",
+            terminalBackground: "var(--bg-code)",
             frameBoxShadowCssValue: "none"
           }
         }
@@ -99,7 +108,16 @@ export default defineConfig({
           tag: "meta",
           attrs: {
             name: "theme-color",
+            media: "(prefers-color-scheme: dark)",
             content: SITE.seo.themeColor.dark
+          }
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "theme-color",
+            media: "(prefers-color-scheme: light)",
+            content: SITE.seo.themeColor.light
           }
         },
         {

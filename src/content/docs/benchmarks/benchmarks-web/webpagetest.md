@@ -2,7 +2,8 @@
 title: "WebPageTest"
 description: "Servicio de pruebas de rendimiento que carga páginas en navegadores y ubicaciones configurables para analizar métricas, video y cascadas de red."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [benchmarks, web, rendimiento, core-web-vitals, navegadores, diagnostico]
 url: https://www.webpagetest.org/
 resourceCategory: developer-tools

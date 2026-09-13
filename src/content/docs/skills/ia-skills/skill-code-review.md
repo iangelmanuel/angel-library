@@ -2,7 +2,8 @@
 title: code-review — revisión de código como skill
 description: Mismo objetivo que el comando /review, pero como skill — se activa solo cuando el contexto lo amerita, no solo al tipearlo.
 type: skills
-order: 6
+sidebar:
+  order: 6
 tags: [ai, skill, code-review]
 tool: Cross-tool
 updatedAt: 2026-08-17

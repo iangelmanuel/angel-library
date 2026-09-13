@@ -2,7 +2,8 @@
 title: Seguridad en Express — Helmet y buenas prácticas
 description: Endurecer una API Express con TLS, Helmet, límites, rate limiting, proxies confiables, cookies seguras y dependencias actualizadas.
 type: guides
-order: 7
+sidebar:
+  order: 7
 tags: [express, security, helmet]
 scope: helmet / seguridad básica
 related: [backend/express/express-cors]

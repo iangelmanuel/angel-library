@@ -2,7 +2,8 @@
 title: Buffer, bytes y datos binarios
 description: Representar bytes, convertir texto con encodings y evitar copias o límites incorrectos al procesar archivos y red.
 type: guides
-order: 7
+sidebar:
+  order: 7
 tags: [node, buffer, binary, encoding]
 scope: Buffer
 related:

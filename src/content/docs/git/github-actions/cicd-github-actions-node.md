@@ -2,7 +2,8 @@
 title: Pipeline Node.js con GitHub Actions
 description: Workflow con permisos mínimos, caché de pnpm y comprobaciones secuenciales para un proyecto Node.js.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [github-actions, nodejs, pnpm, ci]
 scope: automatización de CI
 related:

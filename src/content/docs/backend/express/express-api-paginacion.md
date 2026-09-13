@@ -2,7 +2,8 @@
 title: Paginación, filtrado y búsqueda
 description: Paginación offset-based vs cursor-based, filtros por query params, y búsqueda de texto — con ejemplos usando Prisma.
 type: guides
-order: 10
+sidebar:
+  order: 10
 tags: [express, api, pagination, filtering]
 technologies: [backend/express/express-prisma]
 updatedAt: 2026-08-16

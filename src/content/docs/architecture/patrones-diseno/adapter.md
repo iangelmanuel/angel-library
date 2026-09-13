@@ -2,7 +2,8 @@
 title: Adapter
 description: Traducir una interfaz incompatible (una librería externa, una API de terceros) a la interfaz que ya usa el resto del código.
 type: patterns
-order: 4
+sidebar:
+  order: 4
 tags: [arquitectura, patrones-diseno, adapter]
 related: [architecture/patrones-diseno/facade]
 problem: Integrar dos proveedores distintos (dos pasarelas de pago, dos SDKs) que resuelven lo mismo con interfaces distintas, sin ramificar el código que los consume.

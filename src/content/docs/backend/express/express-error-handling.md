@@ -2,7 +2,8 @@
 title: Manejo de errores centralizado
 description: El middleware de error (firma de 4 argumentos), next(err) para propagar, y por qué evita un try/catch repetido en cada ruta.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [express, errors, middleware]
 scope: error-handling middleware
 related: [backend/express/express-api-error-responses]

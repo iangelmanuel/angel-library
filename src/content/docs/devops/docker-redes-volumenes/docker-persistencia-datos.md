@@ -2,7 +2,8 @@
 title: "Por qué se pierden los datos y cómo evitarlo"
 description: El error clásico de arrancar de nuevo un contenedor y encontrar la base de datos vacía — y el patrón correcto para que no pase.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [docker, persistencia, volumenes, contenedores]
 scope: persistencia de datos
 problem: "Corrí docker rm en mi contenedor de Postgres y perdí toda la base de datos — ¿cómo evito que vuelva a pasar?"

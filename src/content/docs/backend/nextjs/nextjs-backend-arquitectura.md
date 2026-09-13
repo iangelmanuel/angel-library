@@ -2,7 +2,8 @@
 title: Backend en Next.js — mapa y arquitectura
 description: Ruta backend del App Router para elegir Route Handlers, Server Actions, Proxy, cookies y capas de dominio al aprender o consultar.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [nextjs, architecture, server, backend]
 scope: arquitectura backend en Next.js
 related:

@@ -2,7 +2,8 @@
 title: Commit Commands — plugin oficial de Claude Code
 description: Comandos de commit ya armados, sin copiar el archivo de comando a mano.
 type: skills
-order: 3
+sidebar:
+  order: 3
 tags: [ai, plugin, git]
 tool: Claude Code
 updatedAt: 2026-08-17

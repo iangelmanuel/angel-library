@@ -2,7 +2,8 @@
 title: Sequential Thinking — razonamiento paso a paso
 description: Servidor de referencia de Anthropic — estructura problemas complejos en pasos explícitos y revisables.
 type: skills
-order: 5
+sidebar:
+  order: 5
 tags: [ai, mcp, razonamiento]
 tool: Cross-tool
 updatedAt: 2026-08-17

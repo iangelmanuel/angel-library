@@ -33,7 +33,10 @@ concreto —un comando, un patrón, una receta— sin releer un artículo entero
   una repetía el árbol completo del sidebar en su HTML y se comía el
   deployment storage.
 - **Sidebar nativo de Starlight.** Un array estático por categoría, sin
-  descubrimiento por filesystem ni componente propio.
+  descubrimiento por filesystem. Cada subcategoría sigue el orden de
+  aprendizaje de sus entradas (`sidebar.order`).
+- **Tema claro y oscuro**, con un único botón compartido por la portada y
+  la documentación.
 
 ## Stack
 
@@ -86,7 +89,7 @@ el menú en `src/config/sidebar.ts` — ver [`docs/ARCHITECTURE.md`](docs/ARCHIT
 | ------------------------------------------------ | --------------------------------------- |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)   | Cómo está montado el proyecto y por qué |
 | [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) | Crear contenido, paso a paso            |
-| [`DESIGN.md`](DESIGN.md)                         | El sistema visual «El Esmalte»          |
+| [`DESIGN.md`](DESIGN.md)                         | El sistema visual «Tema de editor»      |
 | [`CHANGELOG.md`](CHANGELOG.md)                   | Historial de versiones                  |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md)             | Cómo contribuir                         |
 

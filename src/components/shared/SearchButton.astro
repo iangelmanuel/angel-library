@@ -1,0 +1,40 @@
+---
+import Icon from "@/components/shared/Icon.astro"
+
+// Buscador de la cabecera, el mismo en la portada y en la documentación.
+// No busca por sí mismo: abre el modal de Pagefind que monta `<Search>` de
+// Starlight (con su botón oculto, clase `search-modal`).
+---
+
+<button
+  type="button"
+  class="chrome-header__search chrome-search"
+  data-open-search
+  aria-label="Buscar"
+  aria-keyshortcuts="Control+K"
+>
+  <Icon
+    name="search"
+    size={16}
+  />
+  <span class="chrome-search__text">Buscar</span>
+  <kbd class="kbd">Ctrl K</kbd>
+</button>
+
+<script>
+  // Cualquier `[data-open-search]` (cabecera, hero, pie) abre el mismo modal.
+  document.addEventListener("click", (event) => {
+    const trigger = (event.target as HTMLElement).closest("[data-open-search]")
+    if (!trigger) return
+
+    // En diferido: si el modal se abre mientras este clic sigue propagándose,
+    // lo toma como un clic fuera del diálogo y se cierra solo.
+    requestAnimationFrame(() => {
+      document
+        .querySelector<HTMLButtonElement>(
+          ".search-modal button[data-open-modal]"
+        )
+        ?.click()
+    })
+  })
+</script>

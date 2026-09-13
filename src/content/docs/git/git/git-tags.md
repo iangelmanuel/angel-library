@@ -2,7 +2,8 @@
 title: Tags — versionar releases
 description: Marcar un commit puntual como una versión — tags anotados vs lightweight, versionado semántico y cómo publicarlos.
 type: guides
-order: 13
+sidebar:
+  order: 13
 tags: [git, tags, releases, versioning]
 scope: git tag
 updatedAt: 2026-08-16

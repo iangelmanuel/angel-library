@@ -2,7 +2,8 @@
 title: JWT + Express paso a paso
 description: Desde cero — instalar, firmar el primer token, verificarlo en un middleware, y probarlo con curl.
 type: recipes
-order: 25
+sidebar:
+  order: 25
 tags: [express, jwt]
 problem: La versión más chica posible de JWT funcionando en Express, para entender el mecanismo antes de sumar bcrypt/cookies/roles.
 technologies: [backend/express/express-jwt]

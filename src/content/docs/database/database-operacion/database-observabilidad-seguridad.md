@@ -2,7 +2,8 @@
 title: Observabilidad y seguridad de bases de datos
 description: Proteger acceso y datos, definir métricas y alertas, responder a saturación o consultas lentas y reducir el impacto de incidentes.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [database, observabilidad, seguridad, monitoreo, incidentes]
 related:
   - database/database-operacion/database-pooling-reliability

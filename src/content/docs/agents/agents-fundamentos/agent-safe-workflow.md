@@ -2,7 +2,8 @@
 title: Workflow seguro con agentes de programación
 description: Dar contexto mínimo, delimitar autoridad, revisar diffs y verificar resultados al usar skills, MCP, plugins o subagentes.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [ai, agents, workflow, permissions, review]
 related:
   - agents/agents-fundamentos/coding-agents-fundamentals

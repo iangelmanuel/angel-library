@@ -2,7 +2,8 @@
 title: Evitar que tumben la página — DDoS y resiliencia
 description: Diseñar capas de protección, límites y recuperación para mantener el sitio disponible ante abuso o picos reales.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [security, ddos, rate-limit, resilience, availability]
 scope: disponibilidad y abuso
 related:

@@ -8,6 +8,83 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.39.0] — 2026-09-13
+
+Rediseño visual completo del sitio —documentación y portada— con una
+paleta y tipografía nuevas, tema claro y oscuro, y el menú siguiendo por
+fin el orden de aprendizaje que ya traían las entradas.
+
+### Añadido
+
+- **Tema claro, además del oscuro.** Un botón (luna/sol) en la cabecera de
+  la portada y de la documentación alterna `data-theme` en `<html>` y
+  guarda la preferencia con la clave de Starlight (`starlight-theme`), así
+  las dos superficies arrancan con el mismo tema. La primera visita sigue
+  al sistema operativo. Componente compartido
+  `src/components/shared/ThemeToggle.astro`; el override `ThemeSelect.astro`
+  de Starlight lo renderiza en la cabecera y en el menú móvil.
+- **Transiciones entre páginas solo con CSS** (`@view-transition` en
+  `chrome.css`): el navegador funde una página con la siguiente, y la
+  cabecera y el menú se quedan quietos. Cada navegación sigue siendo una
+  carga normal, así que los scripts de Starlight se inician como siempre.
+  Sin soporte (Firefox) se navega igual que antes; con movimiento reducido
+  se desactivan.
+- **Menú numerado.** Cada entrada de una subcategoría lleva su número de
+  orden (01, 02…) en mono, como un número de línea, y la guía de sangría de
+  un editor marca qué cuelga de cada carpeta abierta.
+
+### Cambiado
+
+- **Nuevo sistema visual «Tema de editor»**, que reemplaza a «El Esmalte».
+  Los roles de sintaxis son los roles de la interfaz: violeta de keyword
+  para navegar y enlazar; verde, ámbar y coral solo para estados (consejo,
+  cuidado, peligro). Fondo carbón violáceo en oscuro (`#131318`, ya no
+  negro puro) y papel frío en claro (`#fbfbfd`). Los 23 colores de
+  categoría pasan de la familia azul a los roles de sintaxis. Tokens
+  reescritos en `src/styles/tokens.css`; `starlight.css`, `chrome.css`,
+  `search.css`, `button.css` y `landing.css` rehechos sobre ellos.
+- **Tipografía: Onest** para interfaz y prosa y **JetBrains Mono** para
+  código, teclas y datos, ambas variables y autoalojadas. Sale Geist.
+- **El sidebar respeta el orden de aprendizaje.** 669 entradas tenían un
+  campo `order` propio que Starlight no lee, así que el menú salía
+  alfabético. Se migró a su campo nativo `sidebar.order` (mismo número);
+  las 68 entradas sin orden quedan después, en orden alfabético.
+- **Bloques de código con Night Owl (oscuro) y Night Owl Light (claro)**,
+  la pareja oficial de un tema conocido, solo en las letras y sin
+  cursivas. Se probaron y descartaron Dracula (sus letras no se leían en
+  el tema claro), One Dark Pro y Monokai (no iban con la paleta del
+  sitio). Fondo, barra y bordes siguen los tokens del sitio (`--bg-code`,
+  `--bg-code-chrome`, `--line`) y cambian con el tema.
+- **Tablas a todo el ancho de la columna**, con celdas y cabecera
+  marcadas. Starlight las pinta como bloque y se encogían al ancho de su
+  contenido; en móvil siguen desplazándose de lado.
+- **Cabecera de entrada uniforme.** El panel de datos y enlaces
+  (`PageTitle.astro`) es el mismo en todas las categorías: aparece cuando
+  la entrada trae datos o enlaces (recurso, repositorio) y no aparece si no
+  trae ninguno.
+- **Un solo buscador para portada y documentación**
+  (`src/components/shared/SearchButton.astro`). En la documentación
+  reemplaza al botón de Starlight, cuyo `<Search />` sigue montado solo por
+  el modal de Pagefind y el atajo Ctrl+K. El modal pasa a ser una paleta de
+  comandos.
+- Portada: la búsqueda del hero como paleta de comandos, «Lo último» como
+  panel, las cifras como barra de estado y el índice de categorías como una
+  línea de código con el color de cada categoría. Sin halos de luz.
+- **Nueva imagen del README** (`public/angel-library.webp`, 1806×1080): la
+  portada rediseñada en tema oscuro, sobre un fondo rosa y violeta que va
+  con la paleta nueva en lugar del fondo azul anterior.
+
+### Quitado
+
+- **`ClientRouter` de Astro** en la portada, reemplazado por las
+  transiciones CSS de arriba para que todo el sitio navegue igual.
+- Dependencias `@fontsource/geist-sans` y `@fontsource/geist-mono`.
+- El campo `order` propio del esquema (`src/content.config.ts`) y
+  `sortEntries()` (`src/lib/content.ts`): sin uso tras la migración a
+  `sidebar.order`.
+- Estilos del botón de búsqueda y del selector de tema de Starlight, ya
+  reemplazados por los componentes compartidos.
+
 ## [0.38.0] — 2026-09-13
 
 Se retiraron `/categories` y `/tags` del todo (no solo el sidebar), se

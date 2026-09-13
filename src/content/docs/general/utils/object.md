@@ -2,7 +2,8 @@
 title: Object Utils — pick, omit y compact
 description: Seleccionar, excluir y limpiar propiedades de objetos con tipos inferidos, sin mutar el valor original.
 type: utilities
-order: 11
+sidebar:
+  order: 11
 tags: [typescript, objects, utilities]
 runtime: universal
 language: typescript

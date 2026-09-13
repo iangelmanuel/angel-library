@@ -2,7 +2,8 @@
 title: Cómo elegir una arquitectura sin sobrediseñar
 description: Partir de restricciones y riesgos para decidir módulos, límites, datos y despliegue antes de aplicar un patrón.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [architecture, tradeoffs, adr, design]
 scope: toma de decisiones arquitectónicas
 related:

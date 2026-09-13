@@ -2,7 +2,8 @@
 title: npm-check-updates
 description: CLI para encontrar y aplicar versiones más nuevas de las dependencias de un proyecto, respetando (o no) el rango semver actual del package.json.
 type: libraries
-order: 2
+sidebar:
+  order: 2
 tags: [npm, dependencies, cli, maintenance]
 website: https://www.npmjs.com/package/npm-check-updates
 github: https://github.com/raineorshine/npm-check-updates

@@ -2,7 +2,8 @@
 title: Cherry-pick — traer un commit puntual
 description: Aplicar un commit específico de otra rama sin traer el resto de su historial — para fixes urgentes y backports.
 type: guides
-order: 15
+sidebar:
+  order: 15
 tags: [git, cherry-pick, advanced]
 scope: git cherry-pick
 updatedAt: 2026-08-16

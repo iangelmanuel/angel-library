@@ -2,7 +2,8 @@
 title: "Midudev — plantilla de CV para desarrollo"
 description: "Plantilla y guía para presentar experiencia, proyectos y habilidades técnicas en un currículum fácil de revisar por empresas de tecnología."
 type: resources
-order: 3
+sidebar:
+  order: 3
 tags: [midudev, cv, empleo, entrevistas, plantillas]
 url: https://www.midu.link/cv
 resourceCategory: learning

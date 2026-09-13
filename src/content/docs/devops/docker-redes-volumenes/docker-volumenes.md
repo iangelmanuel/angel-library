@@ -2,7 +2,8 @@
 title: "Volúmenes: nombrados, bind mounts y tmpfs"
 description: Las tres formas de dar almacenamiento a un contenedor y cuándo usar cada una.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [docker, volumenes, persistencia]
 scope: volúmenes
 related:

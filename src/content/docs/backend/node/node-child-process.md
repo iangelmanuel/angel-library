@@ -2,7 +2,8 @@
 title: child_process — correr otros programas
 description: spawn vs exec para ejecutar comandos externos desde Node, y cuándo conviene cada uno.
 type: guides
-order: 15
+sidebar:
+  order: 15
 tags: [node, child_process]
 scope: node:child_process
 updatedAt: 2026-08-16

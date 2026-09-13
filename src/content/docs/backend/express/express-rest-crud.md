@@ -2,7 +2,8 @@
 title: REST y CRUD — convenciones de rutas y verbos
 description: Qué verbo HTTP y qué forma de ruta corresponde a cada operación CRUD, códigos de status correctos, y errores típicos de diseño.
 type: guides
-order: 9
+sidebar:
+  order: 9
 tags: [express, rest, api, crud]
 scope: diseño de rutas REST
 updatedAt: 2026-08-16

@@ -2,7 +2,8 @@
 title: shadcn/ui
 description: Componentes React sobre Radix UI y Tailwind CSS que se copian al proyecto en vez de instalarse como dependencia.
 type: libraries
-order: 1
+sidebar:
+  order: 1
 tags: [react, tailwindcss, radix, components]
 website: https://ui.shadcn.com
 github: https://github.com/shadcn-ui/ui

@@ -2,7 +2,8 @@
 title: Headers de seguridad y Content Security Policy
 description: Configurar CSP, HSTS, framing, MIME y referrer policy como defensa en profundidad sin romper la aplicación.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [security, headers, csp, xss]
 scope: navegador y HTTP
 related:

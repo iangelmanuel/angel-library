@@ -2,7 +2,8 @@
 title: Entornos, configuración y promoción de releases
 description: Separar artefacto y configuración, promover la misma build, administrar secretos y diseñar releases verificables y reversibles.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [devops, environments, releases, configuration, deployment]
 related:
   - devops/ci-cd/cicd-pipeline-fundamentals

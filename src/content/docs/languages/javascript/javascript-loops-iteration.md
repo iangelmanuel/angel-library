@@ -2,7 +2,8 @@
 title: Ciclos e iteración en JavaScript
 description: for, while, do while, for of, for in, for await, break y continue con resultados, decisiones y errores frecuentes.
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [javascript, loops, iteration, for, while]
 scope: fundamentos del lenguaje
 website: https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Loops_and_iteration

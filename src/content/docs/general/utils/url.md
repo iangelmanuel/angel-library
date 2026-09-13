@@ -2,7 +2,8 @@
 title: URL Utils — rutas y query params
 description: Construir URLs, agregar parámetros, normalizar paths y evitar concatenaciones frágiles con strings.
 type: utilities
-order: 10
+sidebar:
+  order: 10
 tags: [typescript, url, browser, backend]
 runtime: universal
 language: typescript

@@ -2,7 +2,8 @@
 title: "Impeccable — auditoría y refinamiento visual para agentes"
 description: "Skill y conjunto de comandos para dar contexto de producto a un agente, revisar interfaces existentes y corregir jerarquía, tipografía, color, accesibilidad y patrones genéricos."
 type: skills
-order: 2
+sidebar:
+  order: 2
 tags: [ai, skill, frontend, diseño, auditoria, codex]
 tool: Cross-tool
 related:

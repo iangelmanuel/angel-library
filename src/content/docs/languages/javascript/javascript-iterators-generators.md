@@ -2,7 +2,8 @@
 title: Iterables, iteradores y generators
 description: Protocolos de iteración, generators síncronos y asíncronos, for await, Iterator helpers y procesamiento bajo demanda.
 type: guides
-order: 16
+sidebar:
+  order: 16
 tags: [javascript, iterables, iterators, generators, lazy]
 scope: protocolos del lenguaje
 website: https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Iterators_and_generators

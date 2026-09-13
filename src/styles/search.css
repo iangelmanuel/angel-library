@@ -1,86 +1,51 @@
 /* Buscador — cromo compartido.
-   El botón y el modal de Pagefind aparecen tanto en la documentación como en
-   la portada, así que sus estilos no pueden vivir en la hoja de una sola de
-   las dos. */
+   El botón y el modal de Pagefind aparecen en la documentación y en la
+   portada. Es la paleta de comandos del editor. */
 
-/* Buscador: campo teñido, sin canto. */
-/* El mismo campo que el buscador del hero, en pequeño. */
-header.header site-search button[data-open-modal],
-site-search button[data-open-modal] {
-  width: 100%;
-  height: 2.25rem;
-  min-height: 2.25rem;
-  gap: 0.6rem;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
-  padding: 0 0.5rem 0 0.85rem;
-  font-size: 0.82rem;
-  color: var(--muted-foreground);
-  transition: background-color var(--dur-fast) var(--ease-enamel);
-}
-header.header site-search button[data-open-modal]:hover,
-site-search button[data-open-modal]:hover {
-  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
-}
-site-search button[data-open-modal] > svg {
-  color: var(--blue-400);
-}
-site-search button[data-open-modal] > kbd {
-  margin-left: auto;
+/* El botón de Starlight solo existe para montar el modal: el que se ve es
+   `SearchButton` (chrome.css), igual en la portada y en la documentación. */
+.search-modal > button[data-open-modal] {
+  display: none;
 }
 
-site-search button[data-open-modal] > kbd {
+/* Teclas: una tapa baja con su borde inferior, en mono. */
+.kbd {
+  display: inline-flex;
+  align-items: center;
   gap: 0.15rem;
-  padding: 0.15rem 0.4rem;
-  background: color-mix(in srgb, var(--blue-400) 12%, transparent);
-  color: var(--blue-300);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--text-muted);
 }
 
-/* Las teclas de dentro no llevan campo propio. */
-site-search button[data-open-modal] kbd kbd {
-  padding: 0;
-  background: transparent;
-  color: inherit;
-}
-site-search kbd {
-  background: color-mix(in srgb, var(--blue-400) 10%, transparent);
-  color: var(--blue-300);
-}
+/* ------------------------------------------------------------------- modal */
 
-/* ------------------------------------------------------------- buscador */
-
-/* La colocación la ponía la hoja de Starlight, que la portada no carga: sin
-   esto el modal aparece pegado a la esquina superior izquierda. */
 site-search dialog {
   position: fixed;
   inset: 0;
-  margin: 4rem auto auto;
+  margin: 4.5rem auto auto;
 }
 
 site-search dialog::backdrop {
-  background: rgb(0 0 0 / 0.72);
+  background: var(--backdrop);
 }
 
-/* El modal de Pagefind, con la materia del sitio. */
-dialog[aria-label*="Buscar"],
 site-search dialog {
-  width: min(46rem, calc(100vw - 2rem));
+  width: min(44rem, calc(100vw - 2rem));
   max-width: none;
-  max-height: min(44rem, calc(100dvh - 2rem));
-  border: 0;
-  border-radius: var(--radius-field);
-  background: var(--enamel-950);
+  max-height: min(42rem, calc(100dvh - 2rem));
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-xl);
+  background: var(--bg-panel);
   overflow: hidden;
   padding: 0;
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--white) 8%, transparent),
-    0 2px 6px rgb(0 0 0 / 0.5),
-    0 42px 90px -32px rgb(0 0 0 / 0.95);
-}
-
-site-search dialog::backdrop {
-  background: rgb(0 0 0 / 0.72);
+  box-shadow: var(--shadow-lg);
 }
 
 site-search .dialog-frame {
@@ -90,7 +55,7 @@ site-search .dialog-frame {
   max-height: inherit;
   border: 0;
   background: transparent;
-  padding: 1rem;
+  padding: 0.85rem;
 }
 
 site-search .search-container {
@@ -100,30 +65,27 @@ site-search .search-container {
 site-search [data-close-modal] {
   align-self: flex-end;
   border: 0;
-  border-radius: var(--radius-thin);
+  border-radius: var(--radius);
   background: transparent;
-  padding: 0.35rem 0.55rem;
-  color: var(--gray-400);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 site-search [data-close-modal]:hover,
 site-search [data-close-modal]:focus-visible {
-  background: color-mix(in oklab, var(--blue-800) 18%, #000000);
-  color: var(--white);
+  background: var(--bg-raised);
+  color: var(--text-strong);
 }
 
 site-search #starlight__search {
-  --pagefind-ui-primary: var(--blue-200);
-  --pagefind-ui-text: var(--reading-text);
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--text);
   --pagefind-ui-background: transparent;
-  --pagefind-ui-border: transparent;
-  --pagefind-ui-tag: var(--enamel-800);
-  --pagefind-ui-border-width: 0;
-  --pagefind-ui-border-radius: var(--radius-field);
+  --pagefind-ui-border: var(--line);
+  --pagefind-ui-tag: var(--bg-raised);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: var(--radius-lg);
   --pagefind-ui-font: var(--font-sans);
 }
 
@@ -132,44 +94,48 @@ site-search .pagefind-ui__form {
   flex-direction: column;
 }
 
-/* Campo de búsqueda: un solo objeto, sin canto. */
+site-search .pagefind-ui__form::before {
+  background-color: var(--text-faint);
+}
+
 site-search .pagefind-ui__search-input {
-  min-height: 3.25rem;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 18%, #000000);
+  min-height: 3rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
   padding-inline: 2.75rem 1rem;
   font-size: 1rem;
-  color: var(--white);
+  font-weight: 400;
+  color: var(--text-strong);
   transition:
-    background-color var(--dur-fast) var(--ease-enamel),
-    box-shadow var(--dur-fast) var(--ease-enamel);
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 site-search .pagefind-ui__search-input:focus {
   outline: 0;
-  background: color-mix(in oklab, var(--blue-800) 24%, #000000);
-  box-shadow: inset 0 0 0 2px var(--ring);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 site-search .pagefind-ui__search-input::placeholder {
-  color: var(--gray-450);
+  color: var(--text-faint);
 }
 
 site-search .pagefind-ui__search-clear {
-  border-radius: var(--radius-thin);
+  border-radius: var(--radius);
   background: transparent;
-  padding: 0.35rem 0.55rem;
-  color: var(--gray-450);
+  padding: 0.3rem 0.55rem;
+  color: var(--text-muted);
 }
 
 site-search .pagefind-ui__search-clear:hover {
-  background: color-mix(in oklab, var(--blue-400) 10%, transparent);
-  color: var(--white);
+  background: var(--bg-raised);
+  color: var(--text-strong);
 }
 
 site-search .pagefind-ui__drawer {
-  margin-top: 1rem;
+  margin-top: 0.85rem;
 }
 
 site-search .pagefind-ui__results-area {
@@ -177,87 +143,81 @@ site-search .pagefind-ui__results-area {
 }
 
 site-search .pagefind-ui__message {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.6rem;
   padding-inline: 0.25rem;
-  color: var(--gray-450);
+  font-size: 0.84rem;
+  color: var(--text-faint);
 }
 
 site-search .pagefind-ui__results {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.6rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Cada página es un grupo; sus coincidencias internas son filas, no ramas. */
 site-search .pagefind-ui__result {
   margin: 0;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 8%, #000000);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
   overflow: hidden;
   padding: 0;
-  transition:
-    background-color var(--dur-fast) var(--ease-enamel),
-    box-shadow var(--dur-fast) var(--ease-enamel);
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
 
 site-search .pagefind-ui__result:hover,
 site-search .pagefind-ui__result:focus-within {
-  background: color-mix(in oklab, var(--blue-800) 12%, #000000);
-  box-shadow: inset 0 0 0 1px var(--thread-strong);
+  border-color: var(--accent-line);
 }
 
 site-search .pagefind-ui__result-inner {
   min-width: 0;
 }
 
-/* El primer título identifica la página que contiene las coincidencias. */
 site-search
   .pagefind-ui__result-inner
   > .pagefind-ui__result-title:first-child {
-  background: color-mix(in oklab, var(--blue-800) 18%, #000000);
-  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-code-chrome);
+  padding: 0.7rem 0.95rem;
 }
 
 site-search
   .pagefind-ui__result-inner
   > .pagefind-ui__result-title:first-child::before {
-  width: 1.125rem;
-  height: 1.125rem;
-  margin-right: 0.7rem;
-  background-color: var(--blue-300);
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.6rem;
+  background-color: var(--accent);
 }
 
 site-search
   .pagefind-ui__result-inner
   > .pagefind-ui__result-title:first-child
   a {
-  color: var(--white);
-  font-size: 0.95rem;
+  font-size: 0.925rem;
   font-weight: 600;
+  color: var(--text-strong);
 }
 
-/* Cada sección encontrada queda separada por un hilo horizontal sutil. */
 site-search .pagefind-ui__result-nested {
   position: relative;
   margin: 0;
   border: 0;
-  border-top: 1px solid var(--thread);
-  padding: 0.75rem 1rem 0.8rem 2.65rem;
+  border-top: 1px solid var(--line-soft);
+  padding: 0.65rem 0.95rem 0.7rem 2.4rem;
 }
 
 site-search .pagefind-ui__result-nested::before {
   position: absolute;
-  top: 1.15rem;
-  left: 1.15rem;
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 999px;
-  background: var(--blue-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue-400) 12%, transparent);
-  content: "";
+  top: 0.75rem;
+  left: 1.05rem;
+  content: "#";
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
 }
 
 site-search .pagefind-ui__result-nested .pagefind-ui__result-title {
@@ -265,14 +225,14 @@ site-search .pagefind-ui__result-nested .pagefind-ui__result-title {
 }
 
 site-search .pagefind-ui__result-nested .pagefind-ui__result-title a {
-  color: var(--blue-200);
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 500;
   text-decoration: none;
+  color: var(--text);
 }
 
 site-search .pagefind-ui__result-nested .pagefind-ui__result-title a:hover {
-  color: var(--white);
+  color: var(--accent);
 }
 
 site-search .pagefind-ui__result-excerpt {
@@ -280,32 +240,32 @@ site-search .pagefind-ui__result-excerpt {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  margin: 0.35rem 0 0;
+  margin: 0.3rem 0 0;
   font-size: 0.82rem;
   line-height: 1.55;
-  color: var(--gray-400);
+  color: var(--text-muted);
 }
 
 site-search mark {
   border-radius: 2px;
-  background: color-mix(in srgb, var(--blue-400) 22%, transparent);
-  color: var(--blue-100);
+  background: var(--accent-soft);
+  color: var(--text-strong);
 }
 
 site-search .pagefind-ui__button {
   align-self: flex-start;
-  margin-top: 0.75rem;
-  border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 20%, #000000);
-  padding: 0.6rem 0.85rem;
-  color: var(--blue-200);
-  font-size: 0.8rem;
+  margin-top: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
+  color: var(--text-strong);
 }
 
 site-search .pagefind-ui__button:hover {
-  background: color-mix(in oklab, var(--blue-800) 32%, #000000);
+  border-color: var(--accent-line);
 }
 
 @media (max-width: 767px) {
@@ -316,7 +276,7 @@ site-search .pagefind-ui__button:hover {
   }
 
   site-search .dialog-frame {
-    padding: 0.75rem;
+    padding: 0.65rem;
   }
 
   site-search [data-close-modal] {
@@ -325,7 +285,6 @@ site-search .pagefind-ui__button:hover {
 }
 
 /* Cabecera de la documentación: la misma caja que la de la portada. */
-/* La cabecera de Starlight ya reserva su alto: el interior solo lo rellena. */
 header.header {
   padding-inline: 0;
 }
@@ -334,19 +293,14 @@ header.header .chrome-header__inner {
   height: 100%;
 }
 
-header.header .social-icons::after {
-  display: none;
-}
+/* En móvil el menú de Starlight ocupa la esquina derecha y ya trae las
+   redes: la cabecera se queda con logo y buscador. */
+@media (max-width: 49.99rem) {
+  header.header .chrome-header__social {
+    display: none;
+  }
 
-/* Iconos sociales: blancos, azules al pasar. */
-header.header .chrome-header__social a,
-header.header .social-icons a {
-  color: var(--white);
-  opacity: 1;
-  transition: color var(--dur-fast) var(--ease-enamel);
-}
-
-header.header .chrome-header__social a:hover,
-header.header .social-icons a:hover {
-  color: var(--blue-400);
+  header.header .chrome-header__right {
+    margin-inline-end: 2.75rem;
+  }
 }

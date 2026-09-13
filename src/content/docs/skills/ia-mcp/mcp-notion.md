@@ -2,7 +2,8 @@
 title: Notion MCP — documentación y notas
 description: Leer y escribir páginas de Notion desde el agente — servidor oficial del propio Notion.
 type: skills
-order: 8
+sidebar:
+  order: 8
 tags: [ai, mcp, notion, docs]
 tool: Cross-tool
 updatedAt: 2026-08-17

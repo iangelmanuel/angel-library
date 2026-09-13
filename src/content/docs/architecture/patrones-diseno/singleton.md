@@ -2,7 +2,8 @@
 title: Singleton
 description: Garantizar una única instancia compartida de algo (una conexión, un cliente) accesible desde cualquier parte del código.
 type: patterns
-order: 2
+sidebar:
+  order: 2
 tags: [arquitectura, patrones-diseno, singleton]
 related: [architecture/patrones-diseno/factory]
 problem: Crear una conexión a base de datos o un cliente de Redis nuevo cada vez que se importa el módulo, en vez de reutilizar siempre el mismo.

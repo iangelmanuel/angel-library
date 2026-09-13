@@ -2,7 +2,8 @@
 title: "docker ps, inspect y stats"
 description: Ver qué contenedores existen y su estado, inspeccionar su configuración completa, y monitorear uso de recursos en vivo.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [docker, ps, inspect, stats, contenedores]
 scope: inspección de contenedores
 related: [devops/docker-contenedores/docker-lifecycle]

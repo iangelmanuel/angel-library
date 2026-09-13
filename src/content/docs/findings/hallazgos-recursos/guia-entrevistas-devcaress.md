@@ -2,7 +2,8 @@
 title: "Guía de entrevistas de programación (DevCaress)"
 description: "Guía en español para entender las etapas de una entrevista de programación, preparar las pruebas técnicas y afrontar preguntas y negociación."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [entrevistas, empleo, github, espanol]
 url: https://github.com/DevCaress/guia-entrevistas-de-programacion
 resourceCategory: learning

@@ -2,7 +2,8 @@
 title: "Speedometer"
 description: "Benchmark colaborativo para medir la capacidad de respuesta de navegadores mediante interacciones simuladas sobre aplicaciones web representativas."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [benchmarks, web, navegadores, javascript, rendimiento, open-source]
 url: https://browserbench.org/Speedometer3.0/
 resourceCategory: developer-tools

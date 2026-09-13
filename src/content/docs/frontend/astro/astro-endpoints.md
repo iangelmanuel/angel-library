@@ -2,7 +2,8 @@
 title: Endpoints (API routes)
 description: Archivos en src/pages que responden JSON u otro contenido en vez de HTML — GET/POST, rutas dinámicas y modo on-demand.
 type: guides
-order: 18
+sidebar:
+  order: 18
 tags: [astro, api, backend]
 scope: astro:pages
 updatedAt: 2026-09-08

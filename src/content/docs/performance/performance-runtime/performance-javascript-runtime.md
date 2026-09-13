@@ -2,7 +2,8 @@
 title: Rendimiento de JavaScript e interacción
 description: Reducir tareas largas, hidratación, renders innecesarios y trabajo que empeora INP en dispositivos reales.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [performance, javascript, inp, rendering]
 scope: runtime e interacción
 related:

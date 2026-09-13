@@ -2,7 +2,8 @@
 title: "K2 Horizon: modelos abiertos de IFM"
 description: Familia de seis modelos de lenguaje de 0.9B a 375B parámetros que publica pesos, checkpoints, datos, recetas, código y evaluaciones para estudiar y reutilizar todo su ciclo de entrenamiento.
 type: resources
-order: 6
+sidebar:
+  order: 6
 tags: [ia, modelos-abiertos, llm, agentes, moe, mova, ifm, mbzuai]
 website: https://ifm.ai/blog/k2/
 url: https://huggingface.co/IFM

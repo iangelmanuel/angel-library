@@ -2,7 +2,8 @@
 title: Respuesta a incidentes y recuperación
 description: Detectar, contener, comunicar y aprender de caídas, ataques y pérdida de datos con un runbook practicable.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [incident-response, reliability, backups, security]
 scope: operación y recuperación
 related:

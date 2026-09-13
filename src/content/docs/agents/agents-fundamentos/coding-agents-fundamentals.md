@@ -2,7 +2,8 @@
 title: "Agentes de programación: conceptos fundamentales"
 description: "Qué distingue a un agente de un chat o autocompletado, cómo combina contexto y herramientas, qué autonomía recibe y cómo verificar el trabajo de Claude Code, Codex CLI, Cursor u OpenCode."
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [ia, agentes, contexto, herramientas, permisos, subagentes, fundamentos]
 related:
   - agents/agents-fundamentos/agent-safe-workflow

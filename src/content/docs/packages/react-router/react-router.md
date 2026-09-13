@@ -2,7 +2,8 @@
 title: React Router
 description: Routing para SPAs de React — un solo paquete (ya no react-router-dom), rutas, navegación y parámetros de URL.
 type: libraries
-order: 1
+sidebar:
+  order: 1
 tags: [react, routing]
 website: https://reactrouter.com
 github: https://github.com/remix-run/react-router

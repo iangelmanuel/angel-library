@@ -2,7 +2,8 @@
 title: Cómo elegir una biblioteca de UI
 description: Comparar componentes headless, kits visuales y bloques copiables por accesibilidad, control, mantenimiento y costo de migración.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [ui, libraries, design-system, accessibility, evaluation]
 related:
   - ui-ux/ui-ux-design-systems/ui-ux-design-systems

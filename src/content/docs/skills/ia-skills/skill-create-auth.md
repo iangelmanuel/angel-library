@@ -2,7 +2,8 @@
 title: create-auth — scaffolding de autenticación
 description: Detecta tu framework (Astro, Express, Next.js...) y tu base de datos (Prisma, Drizzle, Mongo) y genera la config de auth correspondiente — de better-auth.
 type: skills
-order: 14
+sidebar:
+  order: 14
 tags: [ai, skill, auth, better-auth]
 tool: Cross-tool
 related: [backend/express/express-better-auth]

@@ -2,7 +2,8 @@
 title: Boneyard
 description: "Genera skeletons de carga a partir de tus propios componentes: los renderiza de verdad, mide el DOM y guarda el resultado, en vez de mantenerlos a mano."
 type: libraries
-order: 6
+sidebar:
+  order: 6
 tags: [react, skeleton, loading, ui, vue, svelte]
 website: https://boneyard.vercel.app/
 github: https://github.com/0xGF/boneyard

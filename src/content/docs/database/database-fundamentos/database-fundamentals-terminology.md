@@ -3,7 +3,8 @@ title: Fundamentos y terminología de bases de datos
 description: Modelo mental para entender persistencia, SQL, esquemas, índices, transacciones y las decisiones más comunes al almacenar información.
 type: guides
 tags: [bases-de-datos, sql, persistencia, fundamentos, glosario]
-order: 1
+sidebar:
+  order: 1
 updatedAt: 2026-08-28
 ---
 

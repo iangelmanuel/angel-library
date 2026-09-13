@@ -2,7 +2,8 @@
 title: Agentes, herramientas, guardrails y evaluaciones
 description: Diseñar agentes como flujos controlados con herramientas tipadas, permisos mínimos, estados observables y evaluaciones repetibles.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [ia, agents, tools, guardrails, evals]
 related:
   - ai/ai-prompts/ai-prompts-contexto-salidas

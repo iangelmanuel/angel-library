@@ -2,7 +2,8 @@
 title: useInterval
 description: Intervalo declarativo con callback actualizado, pausa mediante null y cleanup automático al desmontar.
 type: hooks
-order: 8
+sidebar:
+  order: 8
 tags: [react, hooks, timers, polling]
 framework: React
 language: typescript

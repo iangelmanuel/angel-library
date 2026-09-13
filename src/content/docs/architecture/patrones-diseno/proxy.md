@@ -2,7 +2,8 @@
 title: Proxy
 description: Interceptar el acceso a un objeto (para loguear, cachear o validar) sin que quien lo usa note la diferencia.
 type: patterns
-order: 7
+sidebar:
+  order: 7
 tags: [arquitectura, patrones-diseno, proxy]
 related: [architecture/patrones-diseno/decorator]
 problem: Necesitas registrar qué propiedades se leen de un objeto, o almacenar en caché el resultado de una función costosa, sin cambiar cómo se invoca.

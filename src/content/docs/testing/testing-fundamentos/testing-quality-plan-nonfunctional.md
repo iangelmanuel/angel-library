@@ -2,7 +2,8 @@
 title: Plan de pruebas y calidad no funcional
 description: Convertir riesgos en un plan de pruebas, distinguir smoke, regresión y aceptación, y cubrir accesibilidad, seguridad, rendimiento y resiliencia.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [testing, quality, planning, non-functional, risk]
 related:
   - testing/testing-fundamentos/testing-fundamentals-terminology

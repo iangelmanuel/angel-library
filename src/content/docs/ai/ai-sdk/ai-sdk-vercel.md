@@ -3,7 +3,8 @@ title: "Vercel AI SDK y AI Gateway"
 description: Integración full stack con AI SDK, useChat, streaming, persistencia, herramientas y enrutamiento de modelos mediante Vercel AI Gateway.
 type: guides
 tags: [vercel, ai-sdk, ai-gateway, react, streaming, usechat, herramientas]
-order: 3
+sidebar:
+  order: 3
 related:
   - ai/ai-sdk/ai-sdk-fundamentos
   - ai/ai-sdk/ai-sdk-openai

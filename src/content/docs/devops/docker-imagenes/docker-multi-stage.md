@@ -2,7 +2,8 @@
 title: "Multi-stage builds"
 description: Separar la etapa de build de la etapa de runtime en un mismo Dockerfile, para que la imagen final no cargue herramientas de compilación que no necesita.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [docker, multi-stage, imagenes, performance]
 scope: multi-stage builds
 related: [devops/docker-imagenes/docker-dockerfile-basico]

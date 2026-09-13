@@ -2,7 +2,8 @@
 title: Bisect — encontrar el commit que rompió algo
 description: Búsqueda binaria automática sobre el historial para encontrar exactamente qué commit introdujo un bug, entre cientos en minutos.
 type: guides
-order: 17
+sidebar:
+  order: 17
 tags: [git, bisect, debugging, advanced]
 scope: git bisect
 updatedAt: 2026-08-16

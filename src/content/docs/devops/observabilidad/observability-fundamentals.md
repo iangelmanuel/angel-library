@@ -2,7 +2,8 @@
 title: Observabilidad — logs, métricas y trazas
 description: Instrumentar servicios para explicar qué ocurre, detectar degradación y relacionar una request con sus dependencias.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [observability, logs, metrics, tracing]
 scope: fundamentos de operación
 related:

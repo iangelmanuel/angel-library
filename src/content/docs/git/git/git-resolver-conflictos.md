@@ -2,7 +2,8 @@
 title: Resolver conflictos de merge
 description: Cómo se ven los marcadores de conflicto, el proceso paso a paso para resolverlos, y cómo abortar si algo sale mal.
 type: guides
-order: 12
+sidebar:
+  order: 12
 tags: [git, merge, conflicts]
 scope: conflictos de merge/rebase
 related: [git/git/git-merge-vs-rebase]

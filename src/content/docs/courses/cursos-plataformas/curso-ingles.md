@@ -2,7 +2,8 @@
 title: "curso-ingles.com"
 description: "Referencia gratuita de gramática inglesa explicada en español, útil para resolver una duda concreta y practicarla con ejercicios breves."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [cursos, ingles, gramatica, gratis, espanol]
 url: https://www.curso-ingles.com/
 resourceCategory: learning

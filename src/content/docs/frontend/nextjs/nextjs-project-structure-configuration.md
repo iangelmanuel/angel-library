@@ -2,7 +2,8 @@
 title: Estructura y configuración del proyecto
 description: Mapa de carpetas, convenciones especiales, next.config.ts, TypeScript y reglas para separar rutas, dominio y código compartido.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [nextjs, arquitectura, configuración, typescript]
 scope: next.js app router
 related:

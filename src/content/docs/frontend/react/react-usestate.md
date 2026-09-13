@@ -2,7 +2,8 @@
 title: useState
 description: El hook más básico de estado — cuándo pasar un valor directo vs una función, y el error más común con objetos/arrays.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [react, hooks, state]
 scope: react (useState)
 updatedAt: 2026-08-25

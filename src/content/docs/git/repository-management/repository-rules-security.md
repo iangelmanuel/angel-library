@@ -2,7 +2,8 @@
 title: Rulesets, automatización y seguridad del repositorio
 description: Proteger ramas, exigir comprobaciones, limitar permisos y mantener dependencias y secretos bajo control.
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [github, rulesets, branch-protection, actions, security]
 related:
   - git/repository-management/repository-management-fundamentals

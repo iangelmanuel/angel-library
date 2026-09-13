@@ -2,7 +2,8 @@
 title: GitHub Actions — workflows reutilizables y acciones compuestas
 description: Reducir duplicación con workflows llamados por otros workflows y acciones compuestas para pasos repetidos.
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [github-actions, reusable-workflows, composite-actions, automation]
 scope: reutilización en Actions
 related:

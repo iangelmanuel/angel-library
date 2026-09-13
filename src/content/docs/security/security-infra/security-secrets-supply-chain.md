@@ -2,7 +2,8 @@
 title: Secretos, dependencias y cadena de suministro
 description: Evitar filtraciones y paquetes comprometidos desde el equipo local hasta CI, imágenes y producción.
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [security, secrets, dependencies, supply-chain]
 scope: seguridad del ciclo de desarrollo
 related:

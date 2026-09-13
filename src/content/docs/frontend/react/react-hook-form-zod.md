@@ -2,7 +2,8 @@
 title: React Hook Form + Zod
 description: Cómo se conectan de verdad — zodResolver, tipos end-to-end, arrays dinámicos, errores del servidor y coerción de inputs nativos.
 type: integrations
-order: 1
+sidebar:
+  order: 1
 tags: [react, forms, validation, zod, typescript]
 technologies: [packages/react-hook-form/react-hook-form, packages/javascript-zod/zod]
 updatedAt: 2026-08-25

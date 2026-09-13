@@ -2,7 +2,8 @@
 title: Map, Set y colecciones débiles
 description: Colecciones por clave, valores únicos, operaciones de conjuntos y referencias débiles con resultados y casos de uso.
 type: guides
-order: 12
+sidebar:
+  order: 12
 tags: [javascript, map, set, weakmap, weakset, collections]
 scope: tipos y métodos
 related:

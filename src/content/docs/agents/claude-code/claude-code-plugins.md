@@ -2,7 +2,8 @@
 title: Plugins & Marketplace
 description: Empaquetar skills, agentes, hooks y MCP servers en un solo plugin instalable — y cómo publicar/consumir un marketplace propio.
 type: skills
-order: 7
+sidebar:
+  order: 7
 tags: [ai, claude-code, plugin]
 tool: Claude Code
 updatedAt: 2026-08-17

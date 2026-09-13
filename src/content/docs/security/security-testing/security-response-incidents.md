@@ -2,7 +2,8 @@
 title: Respuesta a incidentes de seguridad
 description: Preparar detección, contención, recuperación y aprendizaje para actuar sin improvisar ante filtraciones, abuso o compromiso.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [security, incident-response, logging, recovery, forensics]
 related:
   - security/security-fundamentos/security-threat-modeling

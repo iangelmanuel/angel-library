@@ -2,7 +2,8 @@
 title: Comprimir y descomprimir archivos
 description: zip, tar y Compress-Archive — crear y extraer archivos comprimidos desde la terminal en Windows, macOS y Linux.
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [terminal, compresion, zip, tar, cli]
 scope: zip / tar / Compress-Archive
 related:

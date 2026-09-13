@@ -2,7 +2,8 @@
 title: Datos binarios, typed arrays y memoria compartida
 description: ArrayBuffer, TypedArray, DataView, codificación de texto, transferencia, SharedArrayBuffer y Atomics con casos de uso.
 type: guides
-order: 17
+sidebar:
+  order: 17
 tags: [javascript, arraybuffer, typed-array, dataview, binary, atomics]
 scope: datos estructurados del lenguaje
 website: https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Typed_arrays

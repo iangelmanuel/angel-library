@@ -2,7 +2,8 @@
 title: cookies(), headers() y datos de la request
 description: Leer y escribir cookies, inspeccionar headers y entender por qué estas APIs vuelven dinámica una ruta.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [nextjs, cookies, headers, http, auth]
 scope: next/headers
 related:

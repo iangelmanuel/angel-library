@@ -2,7 +2,8 @@
 title: Contraste, zoom, reflow, color y movimiento
 description: Diseñar una interfaz perceptible a 200–400 % de zoom, con contraste suficiente, foco visible y preferencias de movimiento.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [accessibility, contrast, reflow, zoom, reduced-motion]
 related:
   - accessibility/a11y-contenido/accessibility-contenido-multimedia

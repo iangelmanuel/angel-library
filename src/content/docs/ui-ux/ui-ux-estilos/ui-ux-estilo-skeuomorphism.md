@@ -2,7 +2,8 @@
 title: "Skeuomorphism"
 description: "Interfaces que imitan objetos reales: texturas, relieve y sombras proyectadas para que un control se entienda sin explicación."
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [ui, diseño, estilos, skeuomorphism, css]
 related:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales

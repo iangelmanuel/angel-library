@@ -2,7 +2,8 @@
 title: useOnClickOutside
 description: Detectar un click o tap fuera de un elemento — la base de dropdowns, modales y menús que se cierran solos.
 type: hooks
-order: 4
+sidebar:
+  order: 4
 tags: [react, hooks, dom, typescript]
 framework: React
 language: typescript

@@ -2,7 +2,8 @@
 title: "Astro Storefront — comercio electrónico de referencia"
 description: "Tienda real construida por el equipo de Astro para estudiar cómo se combinan páginas rápidas, componentes interactivos, lógica de servidor, caché y configuración tipada."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [astro, ecommerce, solidjs, islas, rendimiento, typescript]
 url: https://github.com/withastro/storefront
 resourceCategory: developer-tools

@@ -2,7 +2,8 @@
 title: "Think Python en español — el libro traducido por midudev"
 description: "Traducción al español de la tercera edición de Think Python, con los 19 capítulos en notebooks ejecutables, descarga en PDF y cuadernos en blanco para practicar."
 type: resources
-order: 5
+sidebar:
+  order: 5
 tags: [cursos, midudev, python, libro, gratis, espanol, notebooks]
 url: https://libropython.es
 resourceCategory: learning

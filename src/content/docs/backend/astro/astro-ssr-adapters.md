@@ -2,7 +2,8 @@
 title: Renderizado on-demand y adapters
 description: Elegir entre páginas estáticas y SSR, configurar output, seleccionar rutas con prerender y entender el runtime del adapter.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [astro, ssr, adapters, deployment]
 scope: astro output y adapters
 related:

@@ -2,7 +2,8 @@
 title: express-typescript
 description: Convenciones de equipo para Express + TypeScript — naming, organización de archivos, patrón RO-RO, reglas estrictas.
 type: skills
-order: 16
+sidebar:
+  order: 16
 tags: [ai, skill, express, typescript]
 tool: Cross-tool
 updatedAt: 2026-08-17

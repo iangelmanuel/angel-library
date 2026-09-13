@@ -2,7 +2,8 @@
 title: GitHub CLI — instalación y autenticación
 description: Instalar la herramienta oficial de GitHub para usar repositorios, propuestas de cambio e incidencias desde la terminal; también aclara en qué se diferencia de Git.
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [git, github, gh, cli]
 scope: gh auth
 website: https://cli.github.com

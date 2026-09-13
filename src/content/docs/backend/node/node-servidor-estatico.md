@@ -2,7 +2,8 @@
 title: Servidor de archivos estáticos con fs
 description: Servir una carpeta de archivos (HTML, CSS, imágenes) a mano con Node puro — Content-Type por extensión y manejo de 404.
 type: recipes
-order: 17
+sidebar:
+  order: 17
 tags: [node, fs, http, static-files]
 problem: Entender cómo un servidor de archivos estáticos (lo que hacen Express.static, nginx, etc.) resuelve el mapeo ruta → archivo → Content-Type.
 related: [backend/node/node-filesystem, backend/node/node-http-server]

@@ -2,7 +2,8 @@
 title: Pipes, redirección, códigos de salida y procesos
 description: Componer comandos sin perder errores mediante stdin, stdout, stderr, redirecciones y señales en shells tipo Unix y PowerShell.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [terminal, shell, pipes, redirection, processes]
 related:
   - terminal/terminal/terminal-fundamentals-terminology

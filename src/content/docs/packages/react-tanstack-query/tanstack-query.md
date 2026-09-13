@@ -2,7 +2,8 @@
 title: TanStack Query
 description: Cache, refetch automático y estado de carga/error para datos async — sin armar ese estado a mano con useState/useEffect.
 type: libraries
-order: 3
+sidebar:
+  order: 3
 tags: [react, state, api]
 website: https://tanstack.com/query
 github: https://github.com/TanStack/query

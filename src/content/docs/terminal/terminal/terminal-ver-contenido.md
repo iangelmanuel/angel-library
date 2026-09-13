@@ -2,7 +2,8 @@
 title: Ver y buscar contenido de archivos
 description: cat, head/tail, grep y find — leer, paginar y buscar dentro de archivos desde la terminal en Windows, macOS y Linux.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [terminal, busqueda, archivos, cli]
 scope: cat / grep / find
 related:

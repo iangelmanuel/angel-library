@@ -2,7 +2,8 @@
 title: Estructura y configuración de Astro
 description: Organizar src y public, configurar site, base, output, integrations, aliases y Vite sin convertir astro.config en lógica de aplicación.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [astro, configuration, project-structure, vite, typescript]
 scope: astro.config y organización
 website: https://docs.astro.build/en/guides/configuring-astro/

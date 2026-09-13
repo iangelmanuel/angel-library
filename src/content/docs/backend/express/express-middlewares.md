@@ -2,7 +2,8 @@
 title: Middlewares en Express — la cadena req → res → next
 description: La firma (req, res, next), el orden de ejecución y la diferencia entre middleware propio y de terceros. Aquí se explica el propósito real de next().
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [express, middleware, node]
 scope: express middleware
 related: [backend/node/node-http-server]

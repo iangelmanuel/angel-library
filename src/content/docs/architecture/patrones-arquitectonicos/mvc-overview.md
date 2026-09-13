@@ -2,7 +2,8 @@
 title: MVC (Model-View-Controller)
 description: El patrón que separa datos, presentación y coordinación en tres piezas — de dónde viene y por qué sigue vivo, sobre todo en el backend.
 type: patterns
-order: 1
+sidebar:
+  order: 1
 tags: [arquitectura, patrones-arquitectonicos, mvc]
 problem: Mezclar datos, lógica de presentación y flujo de control en el mismo lugar hace que cambiar una cosa obligue a tocar todas las demás.
 related: [backend/express/backend-mvc-structure]

@@ -2,7 +2,8 @@
 title: JWT — qué es y cómo firmarlo/verificarlo
 description: Estructura de un JSON Web Token, firmar y verificar con jsonwebtoken, expiración y qué NO guardar dentro del payload.
 type: guides
-order: 12
+sidebar:
+  order: 12
 tags: [express, jwt, auth]
 scope: jsonwebtoken
 related: [backend/express/express-cookies-sesiones]

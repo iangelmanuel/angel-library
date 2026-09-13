@@ -2,7 +2,8 @@
 title: API protegida en Next.js
 description: Auth + validación + rate limiting combinados en un Route Handler, con la misma lógica que la versión Express.
 type: recipes
-order: 9
+sidebar:
+  order: 9
 tags: [nextjs, security, auth]
 problem: Ver todas las capas de protección aplicadas dentro de un Route Handler, sin la cadena de middlewares por ruta que tiene Express.
 technologies:

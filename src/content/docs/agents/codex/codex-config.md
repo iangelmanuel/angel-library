@@ -2,7 +2,8 @@
 title: config.toml — referencia rápida
 description: Un archivo único con más de 85 propiedades documentadas — sandbox, approval, modelo, telemetría, todo junto.
 type: skills
-order: 7
+sidebar:
+  order: 7
 tags: [ai, codex, config]
 tool: Codex CLI
 updatedAt: 2026-08-17

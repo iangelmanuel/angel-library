@@ -19,7 +19,7 @@ regenera los tipos tras tocar `src/content.config.ts`.
 
 Sitio estático con **Astro + Starlight**: una biblioteca técnica personal en
 español. Todo el contenido son Markdown locales en `src/content/docs/`. Sin
-backend, tema oscuro único.
+backend; tema claro y oscuro.
 
 Los textos de interfaz, los comentarios y el contenido van **en español**.
 
@@ -55,14 +55,23 @@ categoría/tag — no hay páginas propias de listado. El proyecto solo añade
 
 ### Overrides de Starlight
 
-Solo `Header.astro`, `PageTitle.astro` y `ThemeSelect.astro` en
-`src/components/starlight/`. El Sidebar y el Footer son los de Starlight
-sin tocar.
+`Header.astro`, `PageTitle.astro`, `Sidebar.astro` (solo el primer nivel
+del menú) y `ThemeSelect.astro` (renderiza el botón de tema) en
+`src/components/starlight/`. El Footer es el de Starlight sin tocar.
+El buscador y el botón de tema son componentes compartidos con la portada:
+`src/components/shared/SearchButton.astro` y `ThemeToggle.astro`.
 
 ### Estilos
 
-`src/styles/starlight.css` mapea el sistema visual a las variables de
-Starlight. `src/styles/global.css` (Tailwind v4) es solo para la portada.
+`src/styles/tokens.css` define el sistema visual («Tema de editor», ver
+`DESIGN.md`): oscuro en `:root`, claro en `:root[data-theme="light"]`.
+`src/styles/starlight.css` lo mapea a las variables de Starlight.
+`src/styles/global.css` (Tailwind v4) es solo para la portada.
+
+Los bloques de código usan Night Owl (oscuro) y Night Owl Light (claro) solo
+para las letras (`astro.config.mjs` → `expressiveCode`); el fondo sale de los tokens. Las
+transiciones entre páginas son solo CSS (`@view-transition` en
+`chrome.css`), sin `ClientRouter`.
 
 ## Escribir contenido
 
@@ -73,3 +82,6 @@ Ver `docs/CONTENT_GUIDE.md`. Copia el frontmatter de una entrada parecida.
 - Alias `@/*` → `./src/*`.
 - Los tipos de `astro:content` salen de `.astro/`; corre `pnpm sync` si algo
   parece desactualizado.
+- Tras cambiar `expressiveCode` en `astro.config.mjs`, corre
+  `pnpm astro sync --force`: Starlight guarda el Markdown ya renderizado y
+  seguiría enlazando la hoja de estilos de código anterior.

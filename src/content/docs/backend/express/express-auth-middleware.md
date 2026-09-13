@@ -2,7 +2,8 @@
 title: Middleware de autenticación y autorización
 description: Proteger rutas verificando el token, poblar req.user, y un middleware de roles reutilizable para autorización.
 type: guides
-order: 14
+sidebar:
+  order: 14
 tags: [express, auth, middleware, authorization]
 scope: middleware de auth
 related: [backend/express/express-middlewares, backend/express/express-jwt]

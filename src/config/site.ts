@@ -96,7 +96,7 @@ export const SITE = {
     classification: "Education",
     priceRange: null as string | null,
 
-    themeColor: { light: "#000000", dark: "#000000" },
+    themeColor: { light: "#fbfbfd", dark: "#131318" },
     manifestCategories: ["education", "reference", "developer-tools"],
 
     areaServed: null as Array<{ type: string; name: string }> | null

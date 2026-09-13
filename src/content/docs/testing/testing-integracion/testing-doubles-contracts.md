@@ -2,7 +2,8 @@
 title: Mocks, fakes y tests de contrato
 description: Elegir dobles de prueba sin acoplarse a la implementación y comprobar que APIs, adapters y consumidores siguen de acuerdo.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [testing, mocks, contracts, integration]
 scope: diseño de pruebas
 related:

@@ -2,7 +2,8 @@
 title: "Microsoft Learn — Centro de estudiantes"
 description: "Portal que reúne rutas abiertas de Microsoft y beneficios para estudiantes, como créditos de nube y acceso a herramientas; no es un curso único."
 type: resources
-order: 3
+sidebar:
+  order: 3
 tags: [cursos, microsoft, azure, github, estudiantes, ia, gratis]
 url: https://learn.microsoft.com/es-es/training/student-hub/
 resourceCategory: learning

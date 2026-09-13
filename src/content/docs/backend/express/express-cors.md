@@ -2,7 +2,8 @@
 title: CORS en Express
 description: Qué es Same-Origin Policy, por qué el navegador bloquea requests entre orígenes distintos, y cómo configurar el paquete cors.
 type: guides
-order: 8
+sidebar:
+  order: 8
 tags: [express, cors, security]
 scope: cors
 updatedAt: 2026-08-16

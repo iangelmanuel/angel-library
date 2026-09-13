@@ -2,7 +2,8 @@
 title: Modelo de amenazas para aplicaciones web
 description: Identificar activos, atacantes, superficies y controles antes de que un fallo llegue a producción.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [security, threat-modeling, architecture, risk]
 scope: fundamentos de seguridad
 related:

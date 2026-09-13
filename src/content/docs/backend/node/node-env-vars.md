@@ -2,7 +2,8 @@
 title: Variables de entorno y .env
 description: process.env, cargar un archivo .env con dotenv, y validar el resultado con Zod en vez de confiar en strings sueltos.
 type: guides
-order: 10
+sidebar:
+  order: 10
 tags: [node, env, config, dotenv]
 scope: process.env / dotenv
 related: [packages/javascript-zod/zod, architecture/principios/validate-at-boundaries]

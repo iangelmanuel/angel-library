@@ -2,7 +2,8 @@
 title: Linear — plugin partner (Cursor)
 description: Integración vetted del marketplace de Cursor — issues y proyectos de Linear disponibles directo en el agente.
 type: skills
-order: 5
+sidebar:
+  order: 5
 tags: [ai, plugin, linear, cursor]
 tool: Cursor
 updatedAt: 2026-08-17

@@ -2,7 +2,8 @@
 title: /changelog — generar desde el historial de git
 description: Lee los commits desde el último tag, los clasifica y arma un changelog formateado.
 type: skills
-order: 8
+sidebar:
+  order: 8
 tags: [ai, comando, git, changelog]
 tool: Cross-tool
 updatedAt: 2026-08-17

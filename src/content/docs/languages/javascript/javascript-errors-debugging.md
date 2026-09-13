@@ -2,7 +2,8 @@
 title: Errores, depuración y limpieza de recursos
 description: Excepciones, Error, try/catch/finally, errores personalizados, causas, debugging y liberación segura de recursos.
 type: guides
-order: 14
+sidebar:
+  order: 14
 tags: [javascript, errors, debugging, exceptions, resource-management]
 scope: robustez del lenguaje
 website: https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Control_flow_and_error_handling

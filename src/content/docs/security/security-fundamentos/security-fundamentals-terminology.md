@@ -3,7 +3,8 @@ title: "Seguridad web: fundamentos y terminología"
 description: Modelo mental para entender activos, amenazas, vulnerabilidades, riesgo, identidad, defensa en profundidad y ataques web comunes.
 type: guides
 tags: [seguridad, amenazas, riesgo, autenticacion, autorizacion, owasp]
-order: 1
+sidebar:
+  order: 1
 updatedAt: 2026-08-25
 ---
 

@@ -2,7 +2,8 @@
 title: "aprendiendo-react — repositorio del curso de React"
 description: "Código y apuntes que acompañan el curso de React de Midudev; permiten reproducir los ejemplos y comparar cada proyecto con la implementación original."
 type: resources
-order: 4
+sidebar:
+  order: 4
 tags: [cursos, midudev, react, github, gratis, espanol]
 url: https://github.com/midudev/aprendiendo-react
 resourceCategory: learning

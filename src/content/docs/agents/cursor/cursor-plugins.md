@@ -2,7 +2,8 @@
 title: Plugins & Marketplace
 description: Dos specs conviviendo — Agent Plugins (portable) y Cursor Plugins (propietario, más completo) — más el marketplace oficial.
 type: skills
-order: 5
+sidebar:
+  order: 5
 tags: [ai, cursor, plugin]
 tool: Cursor
 updatedAt: 2026-08-17

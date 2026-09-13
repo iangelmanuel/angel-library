@@ -2,7 +2,8 @@
 title: Testing en Astro — lógica, componentes y E2E
 description: Estrategia práctica con Vitest y Playwright para contenido estático, endpoints, Actions, scripts e islas.
 type: guides
-order: 11
+sidebar:
+  order: 11
 tags: [astro, testing, vitest, playwright]
 scope: testing de proyectos Astro
 related:

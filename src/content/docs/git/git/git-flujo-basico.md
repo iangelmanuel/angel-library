@@ -2,7 +2,8 @@
 title: El flujo básico — init, add, status, commit, log
 description: El ciclo que se repite todo el tiempo — tres zonas (working tree, staging, historial) y los comandos que mueven cambios entre ellas.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [git, basics, commits]
 scope: git add / commit / status / log
 updatedAt: 2026-08-16

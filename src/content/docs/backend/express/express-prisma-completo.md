@@ -2,7 +2,8 @@
 title: Prisma + Express
 description: Desde npx prisma init hasta un endpoint funcionando — el camino completo, sin saltarse pasos.
 type: recipes
-order: 28
+sidebar:
+  order: 28
 tags: [express, prisma, database]
 problem: La secuencia exacta de comandos y archivos para pasar de "Express vacío" a "un endpoint leyendo de Postgres vía Prisma".
 technologies: [backend/express/express-prisma]

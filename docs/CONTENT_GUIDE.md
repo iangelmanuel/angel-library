@@ -290,16 +290,17 @@ Cada campo:
 
 ### Paso 3 · Agrega el color en `src/styles/tokens.css`
 
-Buscá el bloque de acentos por categoría (comentario
-`/* Acentos disponibles para el color de una categoría en categories.ts. */`)
-y agregá uno:
+Buscá el bloque de colores de categoría (comentario
+`/* Color de categoría: cada una toma un rol de sintaxis… */`) y agregá
+uno que apunte a un rol de sintaxis:
 
 ```css
---cat-mobile: var(--blue-400); /* o cualquier otro color ya definido arriba */
+--cat-mobile: var(--syn-cyan); /* violet, green, amber, coral, cyan o pink */
 ```
 
-Podés reutilizar un color que ya exista si no querés inventar uno nuevo —
-lo único que hace falta es que la variable exista.
+Apuntá siempre a un `--syn-*` y nunca a un hexadecimal: esos roles tienen
+un valor para el tema oscuro y otro para el claro, así la categoría se lee
+bien en los dos.
 
 ### Paso 4 · Regístrala en `src/config/sidebar.ts`
 

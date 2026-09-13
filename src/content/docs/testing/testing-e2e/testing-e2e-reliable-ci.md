@@ -2,7 +2,8 @@
 title: E2E confiable en CI
 description: Diseñar pruebas end-to-end deterministas, con selectores estables, aislamiento de datos, trazas y manejo real de flakiness.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [testing, e2e, ci, playwright]
 scope: pruebas de flujos completos
 related:

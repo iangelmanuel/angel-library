@@ -3,7 +3,8 @@ title: "Testing: fundamentos y terminología"
 description: Modelo mental para entender tipos de prueba, aserciones, dobles, cobertura, pirámide, TDD y pruebas confiables.
 type: guides
 tags: [testing, pruebas, unitarias, integracion, e2e, fundamentos]
-order: 1
+sidebar:
+  order: 1
 updatedAt: 2026-08-28
 ---
 

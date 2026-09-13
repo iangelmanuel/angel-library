@@ -2,7 +2,8 @@
 title: Migraciones, backups y recuperación
 description: Cambiar esquemas y recuperar datos con despliegues compatibles, copias verificadas, objetivos RPO/RTO y simulacros de restauración.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [database, migrations, backups, restore, operations]
 related:
   - database/database-postgresql/postgresql-practico

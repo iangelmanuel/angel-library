@@ -2,7 +2,8 @@
 title: Diseño de casos de prueba — límites, tablas y estados
 description: Convertir requisitos y riesgos en casos útiles mediante particiones, valores límite, tablas de decisión, transiciones de estado y pruebas exploratorias.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [testing, test-design, quality, requirements]
 related:
   - testing/testing-fundamentos/testing-fundamentals-terminology

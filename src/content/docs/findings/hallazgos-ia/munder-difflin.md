@@ -2,7 +2,8 @@
 title: "Munder Difflin: oficina visual para varios agentes de código"
 description: Aplicación local de escritorio que ejecuta CLIs de agentes reales en pseudo-terminales y coordina tareas con memoria, mailbox y un agente router.
 type: resources
-order: 11
+sidebar:
+  order: 11
 tags: [munder-difflin, electron, react, agentes, terminal, memoria, orquestacion]
 url: https://github.com/chaitanyagiri/munder-difflin
 website: https://munderdiffl.in/

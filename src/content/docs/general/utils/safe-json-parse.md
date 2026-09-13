@@ -2,7 +2,8 @@
 title: JSON.parse seguro con Result
 description: Parsear JSON sin try/catch repetido y conservar el error para decidir fallback, logging o respuesta HTTP.
 type: tricks
-order: 13
+sidebar:
+  order: 13
 tags: [typescript, json, errors, validation]
 problem: JSON.parse lanza excepciones y obliga a repetir try/catch en storage, requests y archivos.
 related:

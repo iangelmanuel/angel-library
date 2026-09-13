@@ -2,7 +2,8 @@
 title: Plugins — código, no manifest
 description: Módulos JavaScript o TypeScript con hooks imperativos; sin marketplace, se distribuyen por npm o copiando archivos. Aquí también viven los hooks.
 type: skills
-order: 5
+sidebar:
+  order: 5
 tags: [ai, opencode, plugin, hook]
 tool: OpenCode
 updatedAt: 2026-08-17

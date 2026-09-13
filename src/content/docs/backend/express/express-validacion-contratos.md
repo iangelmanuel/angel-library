@@ -2,7 +2,8 @@
 title: Validación y contratos de entrada
 description: Validar params, query y body antes del negocio, diferenciar parsing de validación y devolver errores útiles sin confiar en TypeScript.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [express, validation, api, typescript]
 scope: validación HTTP
 related:

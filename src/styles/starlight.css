@@ -1,118 +1,156 @@
-/* El Esmalte sobre Starlight: sus variables, nuestros valores. */
-@import "@fontsource/geist-sans/latin-400.css";
-@import "@fontsource/geist-sans/latin-500.css";
-@import "@fontsource/geist-sans/latin-600.css";
-@import "@fontsource/geist-sans/latin-700.css";
-@import "@fontsource/geist-mono/latin-400.css";
-@import "@fontsource/geist-mono/latin-500.css";
+/* «Tema de editor» sobre Starlight: sus variables, nuestros valores.
+   La estructura es la de Starlight; la piel es la de un editor de código. */
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/jetbrains-mono";
 @import "./tokens.css";
 @import "./chrome.css";
 @import "./components/button.css";
 @import "./search.css";
 
-:root,
-[data-theme="dark"] {
-  --sl-color-accent-low: var(--enamel-700);
-  --sl-color-accent: var(--primary);
-  --sl-color-accent-high: var(--blue-200);
+/* Starlight define sus colores dentro de una capa; estas reglas sin capa
+   ganan en los dos temas, y los tokens ya cambian con `data-theme`. */
+:root {
+  --sl-color-white: var(--text-strong);
+  --sl-color-gray-1: var(--text-strong);
+  --sl-color-gray-2: var(--text);
+  --sl-color-gray-3: var(--text-muted);
+  --sl-color-gray-4: var(--text-faint);
+  --sl-color-gray-5: var(--line-strong);
+  --sl-color-gray-6: var(--bg-raised);
+  --sl-color-gray-7: var(--bg-panel);
+  --sl-color-black: var(--bg);
 
-  --sl-color-white: var(--white);
-  --sl-color-gray-1: var(--blue-100);
-  --sl-color-gray-2: var(--gray-300);
-  --sl-color-gray-3: var(--gray-400);
-  --sl-color-gray-4: var(--gray-450);
-  --sl-color-gray-5: var(--enamel-700);
-  --sl-color-gray-6: var(--enamel-900);
-  --sl-color-gray-7: var(--enamel-950);
-  --sl-color-black: var(--background);
+  --sl-color-accent-low: var(--accent-soft);
+  --sl-color-accent: var(--accent);
+  --sl-color-accent-high: var(--accent-strong);
 
-  --sl-color-text: var(--reading-text);
-  --sl-color-text-accent: var(--blue-400);
-  --sl-color-text-invert: var(--enamel-950);
-  --sl-color-bg: var(--background);
-  --sl-color-bg-nav: var(--background);
-  --sl-color-bg-sidebar: var(--background);
-  --sl-color-bg-inline-code: var(--code-chrome);
-  --sl-color-bg-accent: var(--primary);
+  /* Avisos: nota violeta, consejo verde, cuidado ámbar, peligro coral. */
+  --sl-color-blue-low: color-mix(in oklab, var(--syn-violet) 12%, var(--bg));
+  --sl-color-blue: var(--syn-violet);
+  --sl-color-blue-high: var(--syn-violet);
+  --sl-color-purple-low: color-mix(in oklab, var(--syn-green) 12%, var(--bg));
+  --sl-color-purple: var(--syn-green);
+  --sl-color-purple-high: var(--syn-green);
+  --sl-color-green-low: color-mix(in oklab, var(--syn-green) 12%, var(--bg));
+  --sl-color-green: var(--syn-green);
+  --sl-color-green-high: var(--syn-green);
+  --sl-color-orange-low: color-mix(in oklab, var(--syn-amber) 12%, var(--bg));
+  --sl-color-orange: var(--syn-amber);
+  --sl-color-orange-high: var(--syn-amber);
+  --sl-color-red-low: color-mix(in oklab, var(--syn-coral) 12%, var(--bg));
+  --sl-color-red: var(--syn-coral);
+  --sl-color-red-high: var(--syn-coral);
 
-  --sl-color-hairline: var(--thread);
-  --sl-color-hairline-light: var(--thread-soft);
-  --sl-color-hairline-shade: var(--thread);
+  --sl-color-text: var(--text);
+  --sl-color-text-accent: var(--accent);
+  --sl-color-text-invert: var(--accent-contrast);
+  --sl-color-bg: var(--bg);
+  --sl-color-bg-nav: var(--bg);
+  --sl-color-bg-sidebar: var(--bg);
+  --sl-color-bg-inline-code: var(--bg-raised);
+  --sl-color-bg-accent: var(--accent);
+  --sl-color-hairline: var(--line);
+  --sl-color-hairline-light: var(--line);
+  --sl-color-hairline-shade: var(--line);
+  --sl-color-backdrop-overlay: var(--backdrop);
 
-  --sl-color-backdrop-overlay: rgb(0 0 0 / 0.7);
+  --sl-shadow-sm: var(--shadow-sm);
+  --sl-shadow-md: var(--shadow-md);
+  --sl-shadow-lg: var(--shadow-lg);
 
   --sl-font: var(--font-sans);
   --sl-font-mono: var(--font-mono);
+  --sl-line-height: 1.75;
+  --sl-line-height-headings: 1.2;
 
-  --sl-nav-height: 3.75rem;
-  --sl-content-width: 50rem;
-  --sl-sidebar-width: 16rem;
-
-  --sl-shadow-md: var(--shadow-field);
-  --sl-shadow-lg: var(--shadow-lifted);
+  --sl-sidebar-width: 19rem;
+  --sl-content-width: 47rem;
 }
 
-/* Hilo más leve para listas largas. */
-:root {
-  --thread-soft: color-mix(in srgb, var(--blue-400) 10%, transparent);
+@media (min-width: 50em) {
+  :root {
+    --sl-nav-height: 3.75rem;
+    --sl-text-h1: 2.5rem;
+    --sl-text-h2: 1.625rem;
+    --sl-text-h3: 1.25rem;
+    --sl-text-h4: 1.0625rem;
+  }
 }
 
-/* ------------------------------------------------------------------ cromo */
-
-.site-title {
-  font-weight: 600;
-  letter-spacing: -0.02em;
+::selection {
+  background: var(--selection);
 }
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+body {
+  font-feature-settings: "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  caret-color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- cabecera */
 
 header.header {
-  border-bottom: 1px solid var(--thread);
-  background: color-mix(in srgb, var(--background) 88%, transparent);
-  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
 }
 
-/* ----------------------------------------------------------------- menú */
+/* El botón de tema (ThemeToggle) trae sus estilos en chrome.css, igual que
+   en la portada; aquí solo se centra en la fila. */
+.chrome-header__theme {
+  align-items: center;
+}
+
+/* -------------------------------------------------------------------- menú */
 
 .sidebar-pane {
-  border-inline-end: 1px solid var(--thread);
+  border-inline-end: 1px solid var(--line);
 }
 
 .sidebar-content {
   padding-top: 1.25rem;
+  font-size: 0.875rem;
 }
 
-/* La fila que abre: etiqueta y flecha en una línea. Es una ficha que flota
-   con aire a los dos lados, no una franja de borde a borde — así el menú
-   deja de leerse como una tabla apretada. */
+/* Cada bloque (Construir, Producto…) se separa del siguiente con una línea,
+   como las secciones del explorador de un editor. */
+.sidebar-content ul.top-level > li + li {
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.sidebar-content .nav-group-label {
+  margin: 0 0 0.35rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  color: var(--text-strong);
+}
+
 .sidebar-content summary {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-inline: 0.35rem;
-  border-radius: var(--radius-field);
-  padding: 0.32rem 0.55rem;
+  border-radius: var(--radius);
+  padding: 0.3rem 0.5rem;
   cursor: pointer;
   user-select: none;
-  transition: background-color var(--dur-fast) var(--ease-enamel);
+  transition: background-color var(--dur-fast) var(--ease-out);
 }
 
-.sidebar-content summary,
 .sidebar-content summary * {
   cursor: pointer;
 }
 
 .sidebar-content summary:hover {
-  background: color-mix(in oklab, var(--blue-800) 14%, #000000);
-}
-
-/* La flecha gira al abrir. */
-.sidebar-content details > summary .caret {
-  flex-shrink: 0;
-  color: var(--gray-450);
-  transition: transform var(--dur-fast) var(--ease-enamel);
-}
-
-.sidebar-content details[open] > summary .caret {
-  transform: rotate(90deg);
+  background: var(--bg-raised);
 }
 
 .sidebar-content .group-label {
@@ -120,236 +158,359 @@ header.header {
   min-width: 0;
 }
 
-/* Cuatro niveles, un solo acento y un solo idioma de forma: fichas que
-   flotan con aire alrededor, cada una un paso más adentro que la anterior
-   (margen, no relleno — así el fondo de la ficha se mueve con ella en vez
-   de quedar pegado al borde del menú). El bloque de navegación es un
-   rótulo propio (`.nav-group-label`, en Sidebar.astro), no un `<details>`
-   — no se puede cerrar. Categoría y subcategoría sí son `<details>`
-   nativos de Starlight; la profundidad se cuenta por anidamiento real, no
-   por una clase propia. */
-
-/* Nivel 1 — bloque de navegación (Construir, Producto…): rótulo mudo, sin
-   ficha ni sangría — el ancla de la que cuelgan los otros tres niveles.
-   Sans, no mono: el mono es solo para rutas y código. */
-.sidebar-content .nav-group-label {
-  margin: 0 0.35rem 0.4rem;
-  padding: 0.22rem 0.2rem;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--heading-primary);
+.sidebar-content details > summary .caret {
+  flex-shrink: 0;
+  color: var(--text-faint);
+  transition: transform var(--dur-fast) var(--ease-out);
 }
 
-/* Nivel 2 — categoría: blanca y la más pesada, es lo primero que hay que
-   distinguir. Cada categoría se separa de la siguiente (0.3rem); sus
-   propios hijos, en cambio, le quedan pegados (0.15rem, abajo) — así se
-   lee cuál pertenece a quién por pura cercanía, sin necesitar más color. */
-.sidebar-content ul.top-level > li > ul > li + li {
-  margin-top: 0.3rem;
+.sidebar-content details[open] > summary .caret {
+  transform: rotate(90deg);
 }
 
+/* Categoría. */
 .sidebar-content ul.top-level > li > ul > li > details > summary .large {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--white);
-}
-
-/* Al abrir una categoría, sus subcategorías viven dentro de un panel
-   propio — un campo esmaltado muy tenue que agrupa visualmente lo que está
-   abierto y lo separa del resto del menú, que sigue siendo una lista
-   plana. Es el mismo lenguaje del resto del sitio (el color rellena, nunca
-   una línea) aplicado al menú. */
-.sidebar-content ul.top-level > li > ul > li > details[open] > ul {
-  margin: 0.15rem 0 0;
-  padding-block: 0.3rem;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 7%, #000000);
-}
-
-/* Nivel 3 — subcategoría: azul de rama, abierta o cerrada — es la marca de
-   que sigue siendo una subcategoría, no una entrada más. */
-.sidebar-content
-  ul.top-level
-  > li
-  > ul
-  > li
-  > details
-  > ul
-  > li
-  > details
-  > summary {
-  margin-inline-start: 0.85rem;
-}
-
-.sidebar-content
-  ul.top-level
-  > li
-  > ul
-  > li
-  > details
-  > ul
-  > li
-  > details
-  > summary
-  .large {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: var(--branch);
+  color: var(--text);
 }
 
-/* Nivel 4 — entrada: gris, una sola línea, el paso más profundo. */
+.sidebar-content ul.top-level > li > ul > li > details[open] > summary .large {
+  color: var(--text-strong);
+}
+
+/* Todo lo que cuelga de una carpeta abierta lleva la guía de sangría del
+   editor: una línea fina a la altura de la flecha. */
+.sidebar-content details > ul {
+  margin: 0.1rem 0 0.25rem 0.7rem;
+  border-inline-start: 1px solid var(--line);
+  padding-inline-start: 0.35rem;
+  counter-reset: entrada;
+}
+
+/* Subcategoría. */
+.sidebar-content details details > summary .large {
+  font-size: 0.84rem;
+  font-weight: 450;
+  color: var(--text-muted);
+}
+
+.sidebar-content details details[open] > summary .large {
+  color: var(--text-strong);
+}
+
+/* Entrada: numerada como una línea de código. El número sigue el orden de
+   aprendizaje de la subcategoría (`sidebar.order`). */
 .sidebar-content a {
-  display: block;
+  display: grid;
+  grid-template-columns: 1.55rem minmax(0, 1fr);
+  align-items: baseline;
+  border-radius: var(--radius);
+  padding: 0.26rem 0.5rem 0.26rem 0.35rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  counter-increment: entrada;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.sidebar-content a::before {
+  content: counter(entrada, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-faint);
+  opacity: 0.75;
+}
+
+.sidebar-content a > span {
   overflow: hidden;
-  margin-inline-start: 1.45rem;
-  margin-inline-end: 0.35rem;
-  border-radius: var(--radius-field);
-  padding: 0.22rem 0.5rem;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: var(--gray-400);
-  transition:
-    background-color var(--dur-fast) var(--ease-enamel),
-    color var(--dur-fast) var(--ease-enamel);
 }
 
 .sidebar-content a:hover {
-  background: color-mix(in oklab, var(--blue-800) 16%, #000000);
-  color: var(--white);
+  background: var(--bg-raised);
+  color: var(--text-strong);
 }
 
-/* Activa: la única ficha con campo lleno de verdad. */
+/* Activa: el archivo abierto. Fondo, color y peso; el número también. */
 .sidebar-content a[aria-current="page"],
 .sidebar-content a[aria-current="page"]:hover {
-  background: color-mix(in oklab, var(--blue-800) 40%, #000000);
-  color: var(--white);
-  font-weight: 500;
+  background: var(--bg-active);
+  color: var(--accent-strong);
+  font-weight: 550;
 }
 
-/* ---------------------------------------------------------------- lectura */
-
-.content-panel h1,
-.content-panel h2,
-.content-panel h3 {
-  letter-spacing: -0.02em;
+.sidebar-content a[aria-current="page"]::before {
+  color: var(--accent);
+  opacity: 1;
 }
+
+:root[data-theme="light"] .sidebar-content a[aria-current="page"],
+:root[data-theme="light"] .sidebar-content a[aria-current="page"]:hover {
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- lectura */
 
 .content-panel h1 {
-  color: var(--heading-primary);
-}
-.content-panel h2 {
-  color: var(--heading-secondary);
-}
-.content-panel h3 {
-  color: var(--heading-tertiary);
+  font-weight: 650;
+  letter-spacing: -0.032em;
+  line-height: 1.12;
+  color: var(--text-strong);
 }
 
 .sl-markdown-content {
   font-size: 1rem;
   line-height: 1.75;
+  color: var(--text);
 }
 
-.sl-markdown-content a:not(:where(.not-content *)) {
-  color: var(--reading-link);
-  text-underline-offset: 0.25em;
+.sl-markdown-content :is(h2, h3, h4, h5) {
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.sl-markdown-content h2 {
+  font-weight: 650;
+  letter-spacing: -0.024em;
+}
+
+.sl-markdown-content h3 {
+  font-weight: 600;
+  letter-spacing: -0.016em;
+}
+
+.sl-markdown-content h4,
+.sl-markdown-content h5 {
+  font-weight: 600;
 }
 
 .sl-markdown-content
   :not(a, strong, em, del, span, input, code, pre)
   + :is(h2, h3, h4) {
-  margin-top: 2.25rem;
+  margin-top: 2.6rem;
 }
 
-/* Cita: campo tenue, sin filete. */
+.sl-markdown-content :is(h2, h3, h4) + * {
+  margin-top: 0.75rem;
+}
+
+.sl-markdown-content strong {
+  font-weight: 620;
+  color: var(--text-strong);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--accent);
+  text-decoration-color: color-mix(in oklab, var(--accent) 38%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  text-decoration-color: currentColor;
+}
+
+.sl-markdown-content :is(ul, ol) > li::marker {
+  color: var(--text-faint);
+}
+
+.sl-markdown-content hr {
+  border-color: var(--line);
+}
+
+/* Código en línea: un literal copiable, en el verde de string. */
+.sl-markdown-content code:not(:where(.not-content *)) {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+  padding: 0.08em 0.36em;
+  font-size: 0.86em;
+  color: var(--syn-green);
+}
+
+.sl-markdown-content kbd {
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-panel);
+  padding: 0.05em 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--text-strong);
+}
+
+.sl-markdown-content mark {
+  border-radius: 2px;
+  background: var(--accent-soft);
+  color: var(--text-strong);
+}
+
 .sl-markdown-content blockquote {
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--enamel-900);
-  padding: 0.9rem 1.15rem;
-  color: var(--gray-300);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-panel);
+  padding: 0.85rem 1.1rem;
+  color: var(--text-muted);
 }
 
-/* Tabla: solo hilos. */
+.sl-markdown-content img {
+  border-radius: var(--radius-lg);
+}
+
+/* Tablas con celdas, como la vista de datos de un editor. Starlight las
+   pinta como bloque para poder desplazarlas, y un bloque se encoge al ancho
+   de su contenido: en escritorio ocupan toda la columna. */
 .sl-markdown-content table {
+  display: table;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
   font-variant-numeric: tabular-nums;
 }
-.sl-markdown-content th,
-.sl-markdown-content td {
-  border-bottom: 1px solid var(--thread);
-}
 
-/* Código inline con el mismo azul del bloque. */
-.sl-markdown-content code:not(:where(.not-content *)) {
-  border-radius: var(--radius-thin);
-  color: var(--white);
-}
-
-/* Bloques: fondo azul rebajado, sin canto. */
-.expressive-code .frame pre {
-  background: var(--code-bg);
-}
-.expressive-code .frame .copy button {
-  border-radius: var(--radius-thin);
-  background: color-mix(in srgb, var(--white) 7%, transparent);
-}
-
-/* --------------------------------------------------------------- índices */
-
-.right-sidebar-panel a {
-  color: var(--gray-400);
-}
-.right-sidebar-panel a[aria-current="true"] {
-  color: var(--blue-300);
-}
-
-/* Paginación: dos campos, sin cantos. Mismo vidriado que las tarjetas de
-   relaciones que quedan justo encima. */
-.pagination-links a {
+.sl-markdown-content :is(th, td) {
   border: 0;
-  border-radius: var(--radius-field);
-  background: color-mix(in oklab, var(--blue-800) 22%, #000000);
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 0.95rem;
+  vertical-align: top;
+}
+
+.sl-markdown-content :is(th, td) + :is(th, td) {
+  border-inline-start: 1px solid var(--line);
+}
+
+.sl-markdown-content tr:last-child > td {
+  border-bottom: 0;
+}
+
+.sl-markdown-content th {
+  background: var(--bg-panel);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: start;
+  color: var(--text-muted);
+}
+
+.sl-markdown-content th:first-child {
+  border-start-start-radius: var(--radius-lg);
+}
+
+.sl-markdown-content th:last-child {
+  border-start-end-radius: var(--radius-lg);
+}
+
+@media (max-width: 50rem) {
+  .sl-markdown-content table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Avisos: un panel teñido del rol que representan, con canto fino. */
+.starlight-aside {
+  --aside-hue: var(--syn-violet);
+  border: 1px solid color-mix(in oklab, var(--aside-hue) 30%, var(--bg));
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklab, var(--aside-hue) 7%, var(--bg));
+  padding: 0.9rem 1.1rem;
+}
+
+.starlight-aside--tip {
+  --aside-hue: var(--syn-green);
+}
+
+.starlight-aside--caution {
+  --aside-hue: var(--syn-amber);
+}
+
+.starlight-aside--danger {
+  --aside-hue: var(--syn-coral);
+}
+
+.starlight-aside__title {
+  gap: 0.45rem;
+  font-size: 0.875rem;
+  font-weight: 650;
+  color: var(--aside-hue);
+}
+
+.starlight-aside__content {
+  color: var(--text);
+}
+
+.sl-badge {
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Tarjetas y enlaces de Starlight. */
+.sl-link-card,
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-panel);
   box-shadow: none;
-  transition: background-color var(--dur-fast) var(--ease-enamel);
-}
-.pagination-links a:hover,
-.pagination-links a:focus-visible {
-  background: color-mix(in oklab, var(--blue-800) 36%, #000000);
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
 
-/* --------------------------------------------------- copiar y anclas */
+.sl-link-card:hover {
+  border-color: var(--accent-line);
+  background: var(--bg-panel);
+}
 
-/* El botón de copiar habla el idioma del sitio: el icono es el mismo lucide
-   que el resto de la interfaz, el campo sube de vidriado al encenderse y no
-   dibuja canto. */
+/* Ancla del título. */
+.sl-markdown-content .sl-anchor-link {
+  color: var(--text-faint);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.sl-markdown-content .sl-anchor-link:hover,
+.sl-markdown-content .sl-anchor-link:focus-visible {
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------- bloques de código */
+
 .expressive-code {
   --ec-frm-copyIcon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'2'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Crect%20width%3D'14'%20height%3D'14'%20x%3D'8'%20y%3D'8'%20rx%3D'2'%20ry%3D'2'%2F%3E%3Cpath%20d%3D'M4%2016c-1.1%200-2-.9-2-2V4c0-1.1.9-2%202-2h10c1.1%200%202%20.9%202%202'%2F%3E%3C%2Fsvg%3E");
   --ec-copiedIcon: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'2'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M20%206L9%2017l-5-5'%2F%3E%3C%2Fsvg%3E");
-  --ec-frm-inlBtnFg: var(--blue-300);
-  /* Esmalte pleno, no azul claro: al pulsar el campo se hunde, no se lava. */
-  --ec-frm-inlBtnBg: var(--blue-800);
-  --ec-frm-inlBtnBgIdleOpa: 0.18;
-  --ec-frm-inlBtnBgHoverOrFocusOpa: 0.52;
-  --ec-frm-inlBtnBgActOpa: 0.72;
-  /* Sin anillo: aquí manda el relleno. */
+  --ec-frm-inlBtnFg: var(--text-muted);
+  --ec-frm-inlBtnBg: var(--text-strong);
+  --ec-frm-inlBtnBgIdleOpa: 0.06;
+  --ec-frm-inlBtnBgHoverOrFocusOpa: 0.14;
+  --ec-frm-inlBtnBgActOpa: 0.22;
   --ec-frm-inlBtnBrdOpa: 0;
 }
 
 .expressive-code .copy button {
-  border-radius: var(--radius-thin);
+  border-radius: var(--radius);
 }
 
-/* El aviso no es un globo verde flotando fuera del bloque: el propio botón
-   confirma cambiando el icono por un visto. */
+/* Los temas de código traen comentarios y palabras clave en cursiva; aquí
+   el código se lee recto. */
+.expressive-code .ec-line span {
+  font-style: normal !important;
+}
+
+/* El propio botón confirma la copia cambiando el icono por un visto verde;
+   el globo flotante de Expressive Code sobra. */
 .expressive-code .copy .feedback {
   display: none;
 }
 
-/* El aviso vive en la región `aria-live` que Expressive Code rellena al
-   copiar: los lectores de pantalla lo oyen, la vista no lo lee dos veces. */
 .expressive-code .copy > [aria-live] {
   position: absolute;
   width: 1px;
@@ -363,28 +524,9 @@ header.header {
   opacity: 1;
 }
 
-.expressive-code .copy:has(> [aria-live]:not(:empty)) button div {
-  animation: ec-copiado-campo 0.8s var(--ease-enamel) forwards;
-  opacity: 0.6;
-}
-
-@keyframes ec-copiado-campo {
-  0%,
-  62% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: var(--ec-frm-inlBtnBgIdleOpa);
-  }
-}
-
-/* El cambio de máscara no se puede interpolar: se hace de golpe. Para que no
-   se note, el visto se apaga antes del cambio y el icono de copiar entra ya
-   cambiado. Dos animaciones a la vez: una discreta para la forma, otra suave
-   para la entrada y la salida. */
 @keyframes ec-copiado {
   0% {
-    background-color: var(--blue-100);
+    background-color: var(--syn-green);
     -webkit-mask-image: var(--ec-copiedIcon);
     mask-image: var(--ec-copiedIcon);
   }
@@ -401,10 +543,7 @@ header.header {
     opacity: 1;
     transform: scale(1);
   }
-  76% {
-    opacity: 0;
-    transform: scale(0.82);
-  }
+  76%,
   84% {
     opacity: 0;
     transform: scale(0.82);
@@ -415,95 +554,65 @@ header.header {
   }
 }
 
-/* El visto se queda 0,8s y vuelve al icono de copiar por su cuenta: el aviso
-   de Expressive Code dura dos segundos y se hacía eterno. */
 .expressive-code .copy .feedback.show ~ button::after,
 .expressive-code .copy:has(> [aria-live]:not(:empty)) button::after {
   animation:
-    ec-copiado 0.8s step-end forwards,
-    ec-copiado-relevo 0.8s var(--ease-enamel) forwards;
+    ec-copiado 0.9s step-end forwards,
+    ec-copiado-relevo 0.9s var(--ease-out) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .expressive-code .copy .feedback.show ~ button::after,
   .expressive-code .copy:has(> [aria-live]:not(:empty)) button::after {
-    animation: ec-copiado 0.8s step-end forwards;
+    animation: ec-copiado 0.9s step-end forwards;
   }
 }
 
-/* Ancla del título: aparece en blanco al pasar por el encabezado y toma el
-   color del propio título cuando el puntero llega al icono. */
-.sl-markdown-content .sl-anchor-link {
-  color: var(--white);
-  transition:
-    opacity var(--dur-fast) var(--ease-enamel),
-    color var(--dur-fast) var(--ease-enamel);
-}
+/* ------------------------------------------------- pestañas de instalación */
 
-.sl-markdown-content .sl-anchor-link:hover,
-.sl-markdown-content .sl-anchor-link:focus-visible {
-  color: var(--heading-secondary);
-}
-
-/* ------------------------------------------------ pestañas de instalación */
-
+/* Las pestañas de gestor de paquetes son las pestañas del editor: la activa
+   lleva la marca violeta arriba, igual que los bloques de código. */
 .pm-tabs {
   position: relative;
   margin: 1.5rem 0;
-  border-radius: var(--radius-field);
-  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-code);
   overflow: hidden;
   isolation: isolate;
 }
 
 .pm-tabs__list {
   display: flex;
-  gap: 2px;
-  align-items: center;
-  background: var(--code-chrome);
-  /* Casi la misma altura que la cabecera de cualquier otro bloque de código,
-     y el texto de la pestaña a plomo con la primera letra del comando. */
-  padding: 0.3rem 0.5rem;
+  align-items: stretch;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-code-chrome);
 }
 
 .pm-tabs__tab {
-  border: 0;
-  border-radius: var(--radius-thin);
-  background: transparent;
-  /* El margen entre hermanos de la prosa no entra aquí: empujaba las dos
-     últimas pestañas 16px hacia abajo y estiraba la primera hasta el doble
-     de alto. Las tres miden lo mismo. */
   margin: 0;
-  padding: 0.2rem 0.6rem;
+  border: 0;
+  border-inline-end: 1px solid var(--line);
+  background: transparent;
+  padding: 0.45rem 0.95rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   line-height: 1.5;
-  color: var(--gray-450);
+  color: var(--text-faint);
   cursor: pointer;
   transition:
-    background-color var(--dur-fast) var(--ease-enamel),
-    color var(--dur-fast) var(--ease-enamel);
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
 }
 
-/* El estado sube el vidriado; no aparece ningún canto. */
 .pm-tabs__tab:hover {
-  background: color-mix(in oklab, var(--blue-800) 30%, #000000);
-  color: var(--gray-300);
+  color: var(--text-strong);
 }
 
-/* La activa no se destaca: es solo la que está abierta —y pnpm es la primera
-   por orden, no por rango—. Un escalón de luz y la letra en blanco bastan. */
 .pm-tabs__tab.is-active {
-  background: color-mix(in oklab, var(--blue-800) 26%, #000000);
-  color: var(--white);
-}
-
-/* Con ratón la barra mide lo mismo que la cabecera de cualquier otro bloque
-   de código; con dedo, el control conserva su área de toque. */
-@media (pointer: fine) {
-  .pm-tabs__tab {
-    min-height: 1.6rem;
-  }
+  background: var(--bg-code);
+  color: var(--text-strong);
+  box-shadow: inset 0 2px 0 var(--accent);
 }
 
 .pm-tabs__panel,
@@ -512,50 +621,97 @@ header.header {
   margin: 0;
 }
 
-/* La cabecera propia del marco sobra: su sitio lo ocupan las pestañas. */
+.pm-tabs__panel .expressive-code .frame {
+  border: 0;
+  border-radius: 0;
+}
+
 .pm-tabs__panel .frame.is-terminal .header {
   display: none;
 }
 
 .pm-tabs__panel .frame.is-terminal pre {
+  border: 0;
   border-radius: 0;
+  padding-inline-end: 3rem;
 }
 
-/* Sin cabecera propia, el botón de copiar de Expressive Code caía fuera del
-   bloque: contaba con los 38px del rótulo que ya no existe. Vuelve arriba y
-   el código le reserva su carril. */
 .pm-tabs__panel .expressive-code .frame.is-terminal .copy {
   top: 0.4rem;
   bottom: auto;
 }
 
-.pm-tabs__panel .frame.is-terminal pre {
-  padding-inline-end: 3rem;
+/* ------------------------------------------------------------------ índices */
+
+.right-sidebar {
+  border-inline-start: 1px solid var(--line);
 }
 
-/* En pantallas anchas el contenido queda centrado, pero el menú se quedaba
-   pegado al borde izquierdo y el índice al derecho. Aquí ambos toman el mismo
-   margen que la cabecera, así los tres bordes coinciden. */
+.right-sidebar-panel h2 {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: var(--text-strong);
+}
+
+.right-sidebar-panel a {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.right-sidebar-panel a:hover {
+  color: var(--text-strong);
+}
+
+.right-sidebar-panel a[aria-current="true"] {
+  font-weight: 550;
+  color: var(--accent);
+}
+
+/* Paginación: dos paneles con canto fino. */
+.pagination-links a {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.pagination-links a:hover,
+.pagination-links a:focus-visible {
+  border-color: var(--accent-line);
+  background: var(--bg-panel);
+}
+
+.pagination-links .link-title {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+footer .meta {
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+}
+
+/* En pantallas anchas el contenido queda centrado: menú e índice toman el
+   mismo margen que la cabecera, así los tres bordes coinciden. */
 @media (min-width: 87.5rem) {
   :root {
     --shell-gutter: calc((100vw - 87.5rem) / 2);
   }
 
-  /* Solo páginas con sidebar necesitan el desplazamiento — sin esto,
-     /categories y /tags (sin sidebar) heredaban el mismo hueco muerto a la
-     izquierda aunque no tuvieran nada que alinear ahí. */
   :root[data-has-sidebar] {
-    --sl-sidebar-width: calc(16rem + var(--shell-gutter));
-    --sl-content-inline-start: calc(16rem + var(--shell-gutter));
+    --sl-sidebar-width: calc(19rem + var(--shell-gutter));
+    --sl-content-inline-start: calc(19rem + var(--shell-gutter));
   }
 
   .sidebar-content {
     padding-inline-start: calc(var(--sl-sidebar-pad-x) + var(--shell-gutter));
   }
 
-  /* El índice se reparte el espacio sobrante, así que con el menú desplazado
-     crecía hacia el borde. Se le fija un ancho cómodo y su borde derecho
-     cae donde termina la cabecera. */
   .right-sidebar .sl-container {
     max-width: 17.5rem;
   }

@@ -2,7 +2,8 @@
 title: Configuración — IDE y CLI
 description: Settings del editor (estilo VS Code) más el config propio del Cursor CLI — dos superficies distintas.
 type: skills
-order: 8
+sidebar:
+  order: 8
 tags: [ai, cursor, config]
 tool: Cursor
 updatedAt: 2026-08-17

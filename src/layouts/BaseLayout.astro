@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from "astro:transitions"
 import Analytics from "@vercel/analytics/astro"
 
 import BaseHead from "@/components/seo/BaseHead.astro"
@@ -23,11 +22,18 @@ const { jsonLd = [], ...seoProps } = Astro.props
 ---
 
 <!doctype html>
-<html
-  lang={SITE.seo.lang}
-  class="dark"
->
+<html lang={SITE.seo.lang}>
   <head>
+    <script is:inline>
+      const stored = localStorage.getItem("starlight-theme")
+      document.documentElement.dataset.theme =
+        stored === "light" || stored === "dark"
+          ? stored
+          : matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark"
+    </script>
+
     <BaseHead {...seoProps} />
     <JsonLd
       id="ld-organization"
@@ -46,7 +52,6 @@ const { jsonLd = [], ...seoProps } = Astro.props
       ))
     }
     <Analytics />
-    <ClientRouter />
   </head>
   <body>
     <a

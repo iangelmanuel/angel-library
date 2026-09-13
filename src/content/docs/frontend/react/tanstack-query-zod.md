@@ -2,7 +2,8 @@
 title: TanStack Query + Zod
 description: Validar la respuesta directamente API dentro de queryFn — datos tipados sin genéricos manuales, y un error de forma se ve igual que un error de red.
 type: integrations
-order: 2
+sidebar:
+  order: 2
 tags: [react, api, validation, zod, typescript]
 technologies: [packages/react-tanstack-query/tanstack-query, packages/javascript-zod/zod]
 updatedAt: 2026-08-25

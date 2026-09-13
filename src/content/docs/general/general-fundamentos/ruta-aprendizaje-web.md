@@ -2,7 +2,8 @@
 title: Empieza aquí — ruta de desarrollo web con JavaScript
 description: Elegir un recorrido según tu experiencia y conectar fundamentos, implementación, pruebas y operación sin estudiar todas las herramientas a la vez.
 type: guides
-order: 0
+sidebar:
+  order: 0
 tags: [learning, javascript, web, roadmap]
 related:
   - languages/javascript/javascript-getting-started

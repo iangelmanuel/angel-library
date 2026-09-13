@@ -2,7 +2,8 @@
 title: useActionState
 description: Coordinar el resultado, la función y el estado pendiente de una acción sin construir esa máquina manualmente.
 type: guides
-order: 15
+sidebar:
+  order: 15
 tags: [react, hooks, forms]
 scope: react (useActionState)
 related:

@@ -2,7 +2,8 @@
 title: Rebase interactivo — limpiar el historial
 description: Combinar commits en uno solo, reordenarlos, editarlos o eliminarlos antes de abrir un Pull Request.
 type: guides
-order: 14
+sidebar:
+  order: 14
 tags: [git, rebase, advanced]
 scope: git rebase -i
 related: [git/git/git-merge-vs-rebase]

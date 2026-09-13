@@ -2,7 +2,8 @@
 title: "Learn Testing (web.dev)"
 description: "Curso conceptual y práctico para entender por qué se prueba una aplicación web y cómo combinar análisis estático, pruebas unitarias y pruebas de componentes."
 type: resources
-order: 5
+sidebar:
+  order: 5
 tags: [cursos, testing, web-dev, google, vitest, javascript]
 url: https://web.dev/learn/testing/welcome
 resourceCategory: learning

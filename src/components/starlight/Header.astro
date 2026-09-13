@@ -1,7 +1,9 @@
 ---
 import Search from "@astrojs/starlight/components/Search.astro"
 import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro"
+import ThemeSelect from "./ThemeSelect.astro"
 import Logo from "@/components/shared/Logo.astro"
+import SearchButton from "@/components/shared/SearchButton.astro"
 import { SITE_NAV } from "@/config/navigation"
 ---
 
@@ -24,8 +26,10 @@ import { SITE_NAV } from "@/config/navigation"
   </nav>
 
   <div class="chrome-header__right sl-flex print:hidden">
-    <div class="chrome-header__search">
-      <Search />
+    <SearchButton />
+    <Search class="search-modal" />
+    <div class="chrome-header__theme sl-hidden md:sl-flex">
+      <ThemeSelect />
     </div>
     <div class="chrome-header__social sl-flex">
       <SocialIcons />

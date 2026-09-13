@@ -2,7 +2,8 @@
 title: Cookies vs sesiones — JWT en cookie o session store
 description: httpOnly, secure, sameSite; y la diferencia real entre guardar el JWT en una cookie vs una sesión tradicional en base de datos.
 type: guides
-order: 13
+sidebar:
+  order: 13
 tags: [express, cookies, sessions, auth]
 scope: cookies / express-session
 updatedAt: 2026-08-16

@@ -2,7 +2,8 @@
 title: "Docker Compose: estructura básica"
 description: Qué problema resuelve Compose frente a encadenar comandos docker run, y la anatomía de un docker-compose.yml.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [docker, compose, yaml]
 scope: docker-compose.yml
 related:

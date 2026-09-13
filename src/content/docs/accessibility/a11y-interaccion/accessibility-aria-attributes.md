@@ -2,7 +2,8 @@
 title: Atributos ARIA — nombres, estados y relaciones
 description: Referencia práctica para usar aria-label, aria-labelledby, aria-describedby, estados, relaciones, regiones en vivo y roles sin reemplazar HTML nativo.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [accessibility, aria, html, screen-reader, semantics]
 scope: atributos y roles ARIA
 related:

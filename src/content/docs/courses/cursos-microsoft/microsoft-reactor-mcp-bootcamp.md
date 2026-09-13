@@ -2,7 +2,8 @@
 title: "MCP Bootcamp LATAM (Microsoft Reactor)"
 description: "Serie en español para crear un servidor MCP, conectarlo con un asistente de programación y publicarlo en Azure; requiere bases de desarrollo y terminal."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [cursos, microsoft, mcp, azure, copilot, ia, gratis, espanol]
 url: https://developer.microsoft.com/es-es/reactor/series/S-1567/
 resourceCategory: learning

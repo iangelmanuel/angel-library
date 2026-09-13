@@ -2,7 +2,8 @@
 title: package.json
 description: dependencies vs devDependencies, scripts, main/exports y versionado semver — los campos que se tocan todo el tiempo.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [node, npm, package.json]
 scope: package.json
 updatedAt: 2026-08-16

@@ -2,7 +2,8 @@
 title: "GEAR Get Certified (Google Cloud)"
 description: "Programa por convocatorias para preparar una certificación de Google Cloud mediante clases, laboratorios y mentoría; exige revisar requisitos y fechas de admisión."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [cursos, google, cloud, certificado, ia, gratis]
 url: https://developers.google.com/program/gear/getcertified
 resourceCategory: learning

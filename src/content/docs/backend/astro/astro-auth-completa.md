@@ -2,7 +2,8 @@
 title: Auth completa con better-auth en Astro
 description: Ensamblar registro, login, sesión y logout con Better Auth sobre un proyecto Astro con Prisma y servidor configurados.
 type: recipes
-order: 7
+sidebar:
+  order: 7
 tags: [astro, auth, better-auth]
 problem: Todas las piezas de better-auth en Astro juntas, de cero a una página protegida funcionando.
 technologies: [backend/astro/astro-better-auth]

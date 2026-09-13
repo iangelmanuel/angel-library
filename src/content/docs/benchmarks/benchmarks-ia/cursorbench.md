@@ -2,7 +2,8 @@
 title: "CursorBench"
 description: "Benchmark de Cursor para evaluar agentes de programación con tareas ambiguas y de varios archivos obtenidas de sesiones reales de ingeniería."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [benchmarks, inteligencia-artificial, agentes, programacion, cursor, llm]
 url: https://cursor.com/cursorbench
 resourceCategory: ia

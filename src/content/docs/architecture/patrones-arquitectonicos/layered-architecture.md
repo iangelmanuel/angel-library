@@ -2,7 +2,8 @@
 title: Arquitectura en capas (Layered)
 description: Organizar una app en capas horizontales donde cada una solo habla con la de abajo, sin saltos ni atajos.
 type: patterns
-order: 2
+sidebar:
+  order: 2
 tags: [arquitectura, patrones-arquitectonicos, layered, n-tier]
 problem: Sin capas explícitas, cualquier parte del código termina llamando a cualquier otra — HTTP mezclado con SQL, UI mezclada con reglas de negocio.
 related:

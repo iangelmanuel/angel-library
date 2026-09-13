@@ -2,7 +2,8 @@
 title: "Cloud in a Bottle — una nube personal sobre hardware propio"
 description: "Plataforma de código abierto que instala aplicaciones web desde un repositorio Git en una máquina que tú controlas, resolviendo por dentro contenedores, subdominios, DNS, HTTPS y autenticación."
 type: resources
-order: 4
+sidebar:
+  order: 4
 tags:
   [self-hosting, infraestructura, contenedores, podman, python, dns, https, privacidad]
 url: https://github.com/cloud-in-a-bottle/cloud-in-a-bottle

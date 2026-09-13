@@ -2,7 +2,8 @@
 title: "BenchBase"
 description: "Suite académica y abierta para ejecutar cargas transaccionales y analíticas comparables sobre distintos sistemas de bases de datos mediante JDBC."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [benchmarks, bases-de-datos, oltp, sql, java, academia, open-source]
 url: https://github.com/cmu-db/benchbase
 resourceCategory: developer-tools

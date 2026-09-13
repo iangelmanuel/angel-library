@@ -2,7 +2,8 @@
 title: Streams
 description: Readable, Writable y .pipe() — por qué importan para archivos grandes y respuestas HTTP, en vez de cargar todo en memoria.
 type: guides
-order: 11
+sidebar:
+  order: 11
 tags: [node, streams, performance]
 scope: node:stream
 updatedAt: 2026-08-16

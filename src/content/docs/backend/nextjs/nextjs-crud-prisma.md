@@ -2,7 +2,8 @@
 title: CRUD con Prisma en Next.js
 description: Las 5 operaciones sobre "posts", combinando Route Handlers y Server Actions con revalidatePath para refrescar la UI.
 type: recipes
-order: 8
+sidebar:
+  order: 8
 tags: [nextjs, crud, prisma]
 problem: Un CRUD real que compara Route Handler y Server Action y refresca la UI después de una mutación sin recargar la página.
 technologies: [backend/nextjs/nextjs-prisma, backend/nextjs/nextjs-api-rest]

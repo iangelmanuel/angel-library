@@ -2,7 +2,8 @@
 title: EventEmitter
 description: El patrón pub/sub nativo de Node — emitir eventos custom, suscribirse, y por qué medio ecosistema de Node está construido sobre esto.
 type: guides
-order: 12
+sidebar:
+  order: 12
 tags: [node, events, eventemitter]
 scope: node:events
 updatedAt: 2026-08-16

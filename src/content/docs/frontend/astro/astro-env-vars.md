@@ -2,7 +2,8 @@
 title: Variables de entorno
 description: import.meta.env, el prefijo PUBLIC_, y astro:env para variables tipadas y validadas en build.
 type: guides
-order: 17
+sidebar:
+  order: 17
 tags: [astro, config, security]
 scope: astro (import.meta.env / astro:env)
 updatedAt: 2026-08-25

@@ -2,7 +2,8 @@
 title: vitest-testing — referencia rápida
 description: Aserciones, tests async, mocks básicos, y cómo evitar falsos positivos — para cualquier proyecto que use Vitest.
 type: skills
-order: 19
+sidebar:
+  order: 19
 tags: [ai, skill, testing, vitest]
 tool: Cross-tool
 related:

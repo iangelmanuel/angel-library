@@ -2,7 +2,8 @@
 title: "Programa de Certificación MongoDB en Español"
 description: "Convocatoria oficial y gratuita para preparar una certificación de MongoDB mediante una ruta de University, sesiones en vivo y tres Skill Badges; tiene requisitos y fechas límite."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [cursos, mongodb, bases-de-datos, certificacion, badges, gratis, espanol]
 url: https://events.mongodb.com/certificationprogram-spanishla
 resourceCategory: learning

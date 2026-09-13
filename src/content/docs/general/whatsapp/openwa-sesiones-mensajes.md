@@ -2,7 +2,8 @@
 title: "OpenWA — sesiones y mensajes"
 description: "Crear una sesión, vincularla con el código QR y enviar mensajes por la API REST, con la autenticación por API key."
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [whatsapp, api, rest, curl, automation]
 github: https://github.com/rmyndharis/OpenWA
 related:

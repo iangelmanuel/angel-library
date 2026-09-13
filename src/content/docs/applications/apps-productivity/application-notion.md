@@ -2,7 +2,8 @@
 title: Notion — notas, documentación y bases de datos
 description: Espacio para combinar notas, documentación y bases de datos sencillas; explica cómo organizar información relacionada y automatizarla cuando una página deja de ser suficiente.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [notion, notas, documentacion, wiki, base-de-datos]
 website: https://www.notion.com
 related:

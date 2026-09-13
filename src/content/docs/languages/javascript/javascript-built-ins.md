@@ -2,7 +2,8 @@
 title: Mapa de tipos y APIs nativas de JavaScript
 description: Índice para encontrar métodos por intención, distinguir lenguaje y navegador, y comprobar retorno, mutación y compatibilidad.
 type: guides
-order: 7
+sidebar:
+  order: 7
 tags: [javascript, methods, built-ins, reference]
 scope: mapa de referencia
 related:

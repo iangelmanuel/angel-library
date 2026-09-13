@@ -1,25 +1,9 @@
-/* Portada — «Luz y regla».
-   El mismo esmalte de todo el sitio, pero sin campos rellenos: aquí la
-   profundidad la hace la LUZ (un halo azul detrás del titular y otro en el
-   horizonte del cierre) y el orden lo hacen las REGLAS de 1px. Ningún bloque
-   lleva caja: lo único que separa es un hilo. */
+/* Portada — «Tema de editor».
+   El mismo mundo que la documentación: la búsqueda es la paleta de comandos,
+   lo último editado son las pestañas abiertas y el índice de categorías es
+   una línea resaltada con los colores de sintaxis. */
 
-:root {
-  /* El hilo más leve del sistema: solo para filas de listas largas, donde el
-     hilo normal ya pesaría demasiado. */
-  --thread-soft: color-mix(in srgb, var(--blue-400) 10%, transparent);
-}
-
-/* Todo lo de la portada vive en la capa `components`, igual que el resto de
-   hojas del sitio: así una utilidad de Tailwind escrita en el marcado sigue
-   ganando, y estas reglas nunca se cuelan por encima sin querer. */
 @layer components {
-  /* El buscador de Starlight se monta solo por su modal: su botón vive en la
-     cabecera de la documentación, no aquí. */
-  .landing-search > button[data-open-modal] {
-    display: none;
-  }
-
   .wall-shell {
     width: 100%;
     max-width: 78rem;
@@ -29,42 +13,19 @@
 
   /* ------------------------------------------------------------------- hero */
 
-  /* El hero ocupa la altura de la ventana: el buscador y las cifras caben
-   enteros y todo lo demás empieza por debajo del pliegue. */
   .wall-hero {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: calc(100svh - 4.25rem);
-    overflow: hidden;
-  }
-  /* El halo: la única fuente de luz de la página, y lo único que hay detrás
-   del contenido — ninguna retícula, ningún cuadro. */
-  .wall-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(
-        58% 76% at 14% -6%,
-        color-mix(in srgb, var(--blue-800) 55%, transparent) 0%,
-        color-mix(in srgb, var(--blue-800) 14%, transparent) 42%,
-        transparent 72%
-      ),
-      radial-gradient(
-        38% 52% at 86% 8%,
-        color-mix(in srgb, var(--cat-frontend) 10%, transparent) 0%,
-        transparent 70%
-      );
+    min-height: calc(100svh - 3.75rem);
   }
   .wall-hero__inner {
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 3rem;
-    padding-block: 5rem 3.5rem;
+    padding-block: 4.5rem 3.5rem;
   }
   .wall-hero__identity {
     display: flex;
@@ -73,52 +34,56 @@
   }
   .wall-hero__title {
     margin-top: 0;
-    font-family: var(--font-display);
-    font-size: clamp(2.6rem, 5.4vw, 4.875rem);
-    font-weight: 600;
-    letter-spacing: -0.045em;
+    font-size: clamp(2.25rem, 5.6vw, 4.75rem);
+    font-weight: 680;
+    letter-spacing: -0.04em;
     line-height: 1.02;
-    color: var(--blue-100);
-    text-wrap: pretty;
+    color: var(--text-strong);
   }
   .wall-hero__title span {
     display: block;
   }
+  .wall-hero__title span + span {
+    color: var(--accent);
+  }
   .wall-hero__claim {
-    max-width: 47ch;
-    margin-top: 1.75rem;
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: var(--gray-300);
+    max-width: 46ch;
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--text-muted);
   }
 
-  /* El índice: el único objeto grande del hero. Un campo apenas vidriado, sin
-   canto — la sombra y el tamaño bastan para que sea lo primero que se toca. */
+  /* La paleta de comandos: el objeto principal del hero. */
   .wall-index {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.8rem;
     width: 100%;
-    max-width: 35rem;
-    min-height: 3.875rem;
-    margin-top: 2.5rem;
-    border-radius: var(--radius-field);
-    background: color-mix(in oklab, var(--blue-800) 22%, #000000);
-    padding: 0 0.875rem 0 1.125rem;
+    max-width: 34rem;
+    min-height: 3.5rem;
+    margin-top: 2.25rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xl);
+    background: var(--bg-panel);
+    padding: 0 0.7rem 0 1.05rem;
     text-align: left;
     cursor: pointer;
-    box-shadow:
-      0 1px 2px rgb(0 0 0 / 0.6),
-      0 24px 56px -28px color-mix(in srgb, var(--blue-800) 90%, transparent);
-    transition: background-color var(--dur-slow) var(--ease-enamel);
+    box-shadow: var(--shadow-md);
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-slow) var(--ease-out);
   }
   .wall-index:hover,
   .wall-index:focus-visible {
-    background: color-mix(in oklab, var(--blue-800) 36%, #000000);
+    border-color: var(--accent-line);
+    box-shadow:
+      var(--shadow-md),
+      0 0 0 3px var(--accent-soft);
   }
   .wall-index__icon {
     flex-shrink: 0;
-    color: var(--blue-400);
+    color: var(--accent);
   }
   .wall-index__text {
     flex: 1;
@@ -127,62 +92,70 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 1rem;
-    color: var(--muted-foreground);
+    color: var(--text-faint);
   }
   .wall-index .kbd {
     flex-shrink: 0;
-    background: color-mix(in srgb, var(--blue-400) 12%, transparent);
-    color: var(--blue-300);
   }
-  /* Las dos salidas del hero: leer, o ver cómo está montado. */
   .wall-hero__actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 1.25rem;
+    gap: 0.6rem;
     margin-top: 1.25rem;
   }
 
-  /* Lo último editado: una lista rayada, sin tarjetas. */
+  /* Lo último: las pestañas abiertas del editor, en un panel. */
+  .wall-hero__stack {
+    align-self: center;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--bg-panel);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
   .wall-recent__heading {
     display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-code-chrome);
+    padding: 0.7rem 1rem;
   }
-  .wall-recent__heading::after {
+  .wall-recent__heading::before {
     content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--thread);
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--accent);
   }
   .wall-recent {
     display: flex;
     flex-direction: column;
-    margin: 0.25rem 0 0;
-    padding: 0;
+    margin: 0;
+    padding: 0.35rem;
     list-style: none;
   }
   .wall-recent__row {
-    --card-accent: var(--blue-400);
+    --card-accent: var(--accent);
     display: grid;
-    grid-template-columns: 0.375rem minmax(0, 1fr) auto;
+    grid-template-columns: 0.5rem minmax(0, 1fr) auto;
     align-items: center;
     gap: 0.75rem;
-    border-bottom: 1px solid var(--thread-soft);
-    padding: 0.9rem 0;
-    transition: border-color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-recent li:last-child .wall-recent__row {
-    border-bottom: 0;
+    border-radius: var(--radius);
+    padding: 0.62rem 0.7rem;
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-out);
   }
   .wall-recent__row:hover,
   .wall-recent__row:focus-visible {
-    border-color: var(--thread-strong);
+    background: var(--bg-raised);
   }
   .wall-recent__chip {
-    width: 0.375rem;
-    height: 0.375rem;
-    border-radius: 999px;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 2px;
     background: var(--card-accent);
   }
   .wall-recent__title {
@@ -191,58 +164,57 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 0.9rem;
-    color: var(--white);
-    transition: color var(--dur-fast) var(--ease-enamel);
+    color: var(--text);
+    transition: color var(--dur-fast) var(--ease-out);
   }
   .wall-recent__row:hover .wall-recent__title {
-    color: var(--card-accent);
+    color: var(--text-strong);
   }
   .wall-recent__date {
     white-space: nowrap;
     font-family: var(--font-mono);
     font-size: 0.72rem;
     font-variant-numeric: tabular-nums;
-    color: var(--gray-450);
+    color: var(--text-faint);
   }
 
-  /* Las cifras: una sola línea, sin celdas. */
+  /* Las cifras: una barra de estado. */
   .wall-figures {
     position: relative;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem 0;
-    border-top: 1px solid var(--thread);
-    padding-block: 2rem 2.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--bg-panel);
+    width: calc(100% - 3rem);
+    max-width: 75rem;
+    margin-bottom: 2.5rem;
+    padding: 0;
   }
   .wall-figure {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    text-align: center;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 1.35rem 1.5rem;
   }
   .wall-figure + .wall-figure {
-    border-left: 1px solid var(--thread-soft);
-    padding-left: 1.75rem;
+    border-left: 1px solid var(--line);
   }
   .wall-figure__value {
     font-family: var(--font-mono);
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
     line-height: 1;
     font-variant-numeric: tabular-nums;
-    color: var(--blue-200);
+    color: var(--text-strong);
   }
 
-  /* --------------------------------------------------------- micro-etiquetas */
-
   .wall-micro {
-    font-family: var(--font-mono);
-    font-size: 0.69rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gray-450);
+    font-size: 0.8125rem;
+    font-weight: 550;
+    color: var(--text-muted);
   }
 
   /* -------------------------------------------------------------- el índice */
@@ -250,74 +222,74 @@
   .wall-catalog {
     display: grid;
     align-content: center;
-    border-top: 1px solid var(--thread);
-    padding-block: 6rem;
-    scroll-margin-top: 4.25rem;
+    border-top: 1px solid var(--line);
+    padding-block: 5.5rem;
+    scroll-margin-top: 4rem;
   }
   .wall-catalog__head {
     display: flex;
     align-items: baseline;
-    gap: 1.25rem;
+    gap: 1rem;
   }
   .wall-catalog__head h2 {
-    font-size: 0.94rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    color: var(--blue-300);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    color: var(--text-strong);
   }
   .wall-catalog__rule {
     flex: 1;
     height: 1px;
-    background: var(--thread);
+    background: var(--line);
   }
   .wall-catalog__count {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--blue-600);
+    font-size: 0.78rem;
+    color: var(--text-faint);
   }
-  /* Las 24 categorías como un solo párrafo centrado: mismo tamaño y peso
-     para todas, separadas por un punto — sin campo, sin canto, sin nada
-     pulsable. La igualdad de letra es la idea: ninguna categoría pesa más
-     que otra a la vista. Mono, tracking y mayúsculas en vez de prosa
-     corriente — el mismo registro que usa el resto del sitio para datos
-     (rutas, cifras); el punto en azul es el único color, uniforme para
-     las 24, que ata este párrafo al resto de la portada. */
+
+  /* Las categorías como una línea de código resaltada: cada palabra toma el
+     color de sintaxis de su categoría; ninguna pesa más que otra. */
+  /* Filas centradas; donde el navegador soporta `flex-wrap: balance`, además
+     las filas se reparten con un largo parecido en vez de dejar la última
+     casi vacía. */
   .wall-cloud {
-    margin: 2.25rem auto 0;
-    max-width: 52rem;
-    text-align: center;
-    text-wrap: balance;
-    line-height: 2.7;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem 1.75rem;
+    margin: 2.25rem 0 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--bg-code);
+    padding: 1.75rem 2rem;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  @supports (flex-wrap: balance) {
+    .wall-cloud {
+      flex-wrap: balance;
+    }
   }
   .wall-cloud__word {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--white);
+    margin: 0;
+    white-space: nowrap;
+    color: var(--word-hue, var(--text));
   }
-  .wall-cloud__dot {
-    display: inline-block;
-    margin-inline: 0.75em;
-    color: var(--blue-500);
-    opacity: 0.7;
-    font-size: 0.7rem;
-    vertical-align: middle;
-  }
+
   /* ---------------------------------------------------------------- secciones */
 
-  /* Cada sección es una parada: se abre con su propio hilo y, en pantallas
-   holgadas, ocupa la ventana entera con el contenido centrado. */
   .wall-section {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     align-content: center;
-    align-items: center;
+    align-items: start;
     gap: 2.5rem;
-    border-top: 1px solid var(--thread);
-    padding-block: 6rem;
-    scroll-margin-top: 4.25rem;
+    border-top: 1px solid var(--line);
+    padding-block: 5.5rem;
+    scroll-margin-top: 4rem;
   }
   .wall-title {
     display: flex;
@@ -326,18 +298,17 @@
   }
   .wall-title__text {
     margin-top: 0;
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 650;
     letter-spacing: -0.03em;
     line-height: 1.12;
-    color: var(--blue-200);
+    color: var(--text-strong);
   }
   .wall-title__lead {
-    margin-top: 1.375rem;
+    margin-top: 1.1rem;
     font-size: 1rem;
-    line-height: 1.75;
-    color: var(--muted-foreground);
+    line-height: 1.7;
+    color: var(--text-muted);
   }
 
   /* -------------------------------------------------------------- recorrido */
@@ -346,141 +317,121 @@
     display: flex;
     flex-direction: column;
     margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--bg-panel);
+    overflow: hidden;
     padding: 0;
     list-style: none;
   }
   .wall-leg {
     display: grid;
-    grid-template-columns: 2.75rem minmax(0, 1fr);
-    align-items: center;
-    gap: 0.75rem 1.5rem;
-    border-top: 1px solid var(--thread);
-    padding-block: 1.625rem;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.5rem 1.25rem;
+    padding: 1.4rem 1.5rem;
   }
-  .wall-leg:last-child {
-    border-bottom: 1px solid var(--thread);
+  .wall-leg + .wall-leg {
+    border-top: 1px solid var(--line);
   }
   .wall-leg__index {
     font-family: var(--font-mono);
-    font-size: 0.81rem;
-    color: var(--blue-600);
+    font-size: 0.84rem;
+    color: var(--accent);
   }
   .wall-leg__body {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
   .wall-leg__title {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 1.2rem;
+    font-weight: 600;
     letter-spacing: -0.015em;
-    color: var(--white);
+    color: var(--text-strong);
   }
   .wall-leg__line {
-    font-size: 0.94rem;
-    line-height: 1.65;
-    color: var(--muted-foreground);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
   }
   .wall-leg__detail {
     grid-column: 2;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     line-height: 1.7;
-    color: var(--gray-450);
+    color: var(--text-faint);
   }
 
   /* ------------------------------------------------------------------ cierre */
 
   .wall-close {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-top: 1px solid var(--thread);
-    overflow: hidden;
-  }
-  /* El horizonte: la segunda y última luz de la página. */
-  .wall-close::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      70% 130% at 50% 128%,
-      color-mix(in srgb, var(--blue-800) 85%, transparent) 0%,
-      color-mix(in srgb, var(--blue-800) 22%, transparent) 38%,
-      transparent 74%
-    );
+    border-top: 1px solid var(--line);
   }
   .wall-close__inner {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-block: 6.5rem 7rem;
+    padding-block: 6rem 6.5rem;
   }
   .wall-close__title {
-    font-family: var(--font-display);
-    font-size: clamp(2.1rem, 4.4vw, 3.625rem);
-    font-weight: 600;
+    font-size: clamp(2.1rem, 4.4vw, 3.5rem);
+    font-weight: 680;
     letter-spacing: -0.04em;
     line-height: 1.05;
     text-align: center;
-    color: var(--white);
+    color: var(--text-strong);
   }
   .wall-close__text {
     max-width: 52ch;
-    margin-top: 1.375rem;
+    margin-top: 1.1rem;
     font-size: 1.05rem;
     line-height: 1.7;
     text-align: center;
-    color: var(--blue-300);
+    color: var(--text-muted);
   }
   .wall-close__action {
-    margin-top: 2.25rem;
+    margin-top: 2rem;
   }
 
   /* --------------------------------------------------------------------- pie */
 
   .wall-footer {
-    border-top: 1px solid var(--thread);
+    border-top: 1px solid var(--line);
+    background: var(--bg-panel);
   }
   .wall-footer__inner {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 1rem 2.5rem;
-    padding-block: 2.25rem 2.5rem;
+    padding-block: 2rem 2.25rem;
   }
   .wall-footer__brand {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.25rem;
     margin-right: auto;
   }
   .wall-footer__name {
-    font-family: var(--font-display);
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 650;
     letter-spacing: -0.02em;
-    color: var(--white);
+    color: var(--text-strong);
   }
   .wall-footer__claim {
     max-width: 34ch;
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     line-height: 1.6;
-    color: var(--gray-450);
+    color: var(--text-faint);
   }
   .wall-footer__nav {
     display: flex;
     flex-wrap: wrap;
     gap: 1.25rem;
-    font-size: 0.84rem;
-    color: var(--gray-400);
+    font-size: 0.875rem;
+    color: var(--text-muted);
   }
-  /* «Buscar» abre el modal en vez de navegar, pero en el pie es una entrada de
-     navegación más: se ve exactamente igual que sus vecinas. */
   .wall-footer__nav a,
   .wall-footer__nav button {
     border: 0;
@@ -489,40 +440,31 @@
     font: inherit;
     color: inherit;
     cursor: pointer;
-    transition: color var(--dur-fast) var(--ease-enamel);
+    transition: color var(--dur-fast) var(--ease-out);
   }
   .wall-footer__nav a:hover,
   .wall-footer__nav a:focus-visible,
   .wall-footer__nav button:hover,
   .wall-footer__nav button:focus-visible {
-    color: var(--white);
+    color: var(--text-strong);
   }
   .wall-footer__social {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    color: var(--white);
-  }
-  .wall-footer__social a {
-    color: var(--white);
-    transition: color var(--dur-fast) var(--ease-enamel);
-  }
-  .wall-footer__social a:hover,
-  .wall-footer__social a:focus-visible {
-    color: var(--blue-400);
+    gap: 0.15rem;
   }
   .wall-footer__legal {
     flex-basis: 100%;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--gray-450);
+    font-size: 0.72rem;
+    color: var(--text-faint);
   }
 
   /* --------------------------------------------------------- adaptación */
 
   @media (min-width: 640px) {
     .wall-leg {
-      grid-template-columns: 2.75rem minmax(0, 1fr) 18.75rem;
+      grid-template-columns: 2.5rem minmax(0, 1fr) 17rem;
     }
     .wall-leg__detail {
       grid-column: 3;
@@ -532,15 +474,12 @@
 
   @media (min-width: 1024px) {
     .wall-hero__inner {
-      grid-template-columns: minmax(0, 1fr) 26.25rem;
-      gap: 5.5rem;
-      padding-block: 6.5rem 4.75rem;
-    }
-    .wall-hero__stack {
-      padding-top: 0.5rem;
+      grid-template-columns: minmax(0, 1fr) 27rem;
+      gap: 5rem;
+      padding-block: 6rem 4rem;
     }
     .wall-section {
-      grid-template-columns: 23.75rem minmax(0, 1fr);
+      grid-template-columns: 22rem minmax(0, 1fr);
       gap: 5rem;
     }
   }
@@ -549,7 +488,19 @@
     .wall-shell,
     .chrome-header__inner,
     .wall-footer__inner {
-      padding-inline: 1.25rem;
+      padding-inline: 1rem;
+    }
+    .wall-figures {
+      width: calc(100% - 2rem);
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .wall-figure + .wall-figure {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+    .wall-cloud {
+      padding: 1.25rem;
+      font-size: 0.85rem;
     }
   }
 }

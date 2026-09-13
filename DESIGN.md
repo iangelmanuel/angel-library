@@ -1,463 +1,470 @@
 ---
 name: Angel Library
-description: Un muro de esmalte: campos de color sobre negro para una biblioteca técnica personal en español.
+description: Tema de editor — la biblioteca técnica se ve como el editor donde se usa lo copiado, en oscuro y en claro.
 colors:
-  lienzo-negro: "#000000"
-  blanco-letra: "#ffffff"
-  azul-hielo: "#fcffff"
-  azul-titulo: "#c4dafa"
-  azul-vivo: "#84b6f4"
-  azul-medio: "#699fe0"
-  azul-hondo: "#4d82bc"
-  azul-esmalte-pleno: "#005187"
-  esmalte-950: "#030a11"
-  esmalte-900: "#05121d"
-  esmalte-800: "#071b2b"
-  esmalte-700: "#0a2438"
-  esmalte-600: "#0d2e46"
-  gris-prosa: "#d4d4d8"
-  gris-apagado: "#a1a1aa"
-  gris-legible: "#8e8e99"
-  gris-cromo: "#27272a"
-  gris-tecla: "#18181b"
-  hilo: "color-mix(in srgb, #84b6f4 16%, transparent)"
-  hilo-fuerte: "color-mix(in srgb, #84b6f4 34%, transparent)"
-  hilo-claro: "color-mix(in srgb, #a9cbf8 58%, transparent)"
-  texto-lectura: "#ededf0"
-  codigo-fondo: "color-mix(in oklab, #005187 34%, #000000)"
-  codigo-rotulo: "color-mix(in oklab, #005187 48%, #000000)"
-  destructivo: "#ffb3ba"
+  fondo: "#131318"
+  panel: "#17171e"
+  elevado: "#1e1e27"
+  activo: "#272238"
+  codigo: "#18181f"
+  codigo-cromo: "#1f1f29"
+  linea-suave: "#1f1f28"
+  linea: "#2a2a35"
+  linea-fuerte: "#3b3b49"
+  texto-fuerte: "#f2f2f7"
+  texto: "#cfcfdb"
+  texto-apagado: "#a3a3b4"
+  texto-tenue: "#858598"
+  violeta-keyword: "#b49cff"
+  verde-string: "#7fdcb4"
+  ambar-funcion: "#f2c97d"
+  coral-error: "#ff9090"
+  cian-tipo: "#80d0e6"
+  rosa-constante: "#f0a7d8"
+  acento-fuerte: "#d6c9ff"
+  acento-hover: "#c7b5ff"
+  acento-contraste: "#16121f"
+  fondo-claro: "#fbfbfd"
+  panel-claro: "#f5f5f9"
+  elevado-claro: "#ededf3"
+  activo-claro: "#ece7ff"
+  codigo-claro: "#f4f4f8"
+  codigo-cromo-claro: "#eaeaf1"
+  linea-suave-claro: "#ececf2"
+  linea-claro: "#e0e0e9"
+  linea-fuerte-claro: "#c9c9d6"
+  texto-fuerte-claro: "#15151d"
+  texto-claro: "#34343f"
+  texto-apagado-claro: "#555566"
+  texto-tenue-claro: "#6b6b7e"
+  violeta-keyword-claro: "#5b3fd1"
+  verde-string-claro: "#16714f"
+  ambar-funcion-claro: "#8a5600"
+  coral-error-claro: "#b8283f"
+  cian-tipo-claro: "#0a6f8c"
+  rosa-constante-claro: "#a3317a"
+  acento-fuerte-claro: "#3d27a3"
+  acento-hover-claro: "#4a30bd"
+  acento-contraste-claro: "#ffffff"
 typography:
   display:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.6rem, 5.4vw, 4.875rem)"
-    fontWeight: 600
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "clamp(2.25rem, 5.6vw, 4.75rem)"
+    fontWeight: 680
     lineHeight: 1.02
-    letterSpacing: "-0.045em"
+    letterSpacing: "-0.04em"
+  section:
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "clamp(1.6rem, 3vw, 2.25rem)"
+    fontWeight: 650
+    lineHeight: 1.12
+    letterSpacing: "-0.03em"
   headline:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.85rem"
-    fontWeight: 700
-    lineHeight: 1.3
-    letterSpacing: "-0.02em"
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "2.5rem"
+    fontWeight: 650
+    lineHeight: 1.12
+    letterSpacing: "-0.032em"
   title:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.4rem"
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "1.625rem"
+    fontWeight: 650
+    lineHeight: 1.2
+    letterSpacing: "-0.024em"
+  subtitle:
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "1.25rem"
     fontWeight: 600
-    lineHeight: 1.35
-    letterSpacing: "-0.02em"
+    lineHeight: 1.2
+    letterSpacing: "-0.016em"
   body:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.02rem"
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.75
     letterSpacing: "normal"
+    fontFeature: "ss01"
   body-ui:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.85rem"
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "0.84rem"
     fontWeight: 400
-    lineHeight: 1.65
+    lineHeight: 1.45
     letterSpacing: "normal"
   label:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.7rem"
-    fontWeight: 600
+    fontFamily: "Onest Variable, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 650
     lineHeight: 1.4
-    letterSpacing: "0.11em"
+    letterSpacing: "-0.005em"
   mono:
-    fontFamily: "Geist Mono, ui-monospace, SF Mono, Menlo, monospace"
-    fontSize: "0.72rem"
+    fontFamily: "JetBrains Mono Variable, ui-monospace, SF Mono, Menlo, Consolas, monospace"
+    fontSize: "0.875rem"
     fontWeight: 400
-    lineHeight: 1.5
+    lineHeight: 1.7
     letterSpacing: "normal"
     fontFeature: "tabular-nums"
 rounded:
-  thin: "2px"
-  md: "4px"
-  field: "6px"
+  sm: "4px"
+  md: "6px"
+  lg: "8px"
+  xl: "12px"
 spacing:
-  xs: "0.25rem"
-  sm: "0.5rem"
+  xs: "0.35rem"
+  sm: "0.6rem"
   md: "0.85rem"
-  lg: "1rem"
+  lg: "1.1rem"
   xl: "1.5rem"
-  section: "6rem"
+  section: "5.5rem"
 components:
-  card-field:
-    backgroundColor: "{colors.lienzo-negro}"
-    textColor: "{colors.blanco-letra}"
-    rounded: "{rounded.field}"
-    padding: "1rem"
-  card-field-hover:
-    backgroundColor: "{colors.lienzo-negro}"
-    textColor: "{colors.blanco-letra}"
-  tesela-categoria:
-    backgroundColor: "{colors.lienzo-negro}"
-    textColor: "{colors.blanco-letra}"
-    rounded: "{rounded.field}"
-    padding: "0.75rem 0.9rem"
-  badge:
-    backgroundColor: "{colors.esmalte-800}"
-    textColor: "{colors.gris-prosa}"
-    rounded: "{rounded.thin}"
-    padding: "0.25rem 0.55rem"
-    typography: "{typography.mono}"
-  badge-hover:
-    backgroundColor: "{colors.esmalte-600}"
-    textColor: "{colors.blanco-letra}"
-  tag:
+  button-primary:
+    backgroundColor: "{colors.violeta-keyword}"
+    textColor: "{colors.acento-contraste}"
+    rounded: "{rounded.md}"
+    padding: "0 1.1rem"
+    height: "2.6rem"
+  button-primary-hover:
+    backgroundColor: "{colors.acento-hover}"
+    textColor: "{colors.acento-contraste}"
+  button-secondary:
+    backgroundColor: "{colors.elevado}"
+    textColor: "{colors.texto-fuerte}"
+    rounded: "{rounded.md}"
+    padding: "0 1.1rem"
+    height: "2.6rem"
+  button-outline:
     backgroundColor: "transparent"
-    textColor: "{colors.azul-vivo}"
-    rounded: "0"
+    textColor: "{colors.texto}"
+    rounded: "{rounded.md}"
+    padding: "0 1.1rem"
+    height: "2.6rem"
+  button-outline-hover:
+    backgroundColor: "{colors.elevado}"
+    textColor: "{colors.texto-fuerte}"
+  button-link:
+    backgroundColor: "transparent"
+    textColor: "{colors.violeta-keyword}"
     padding: "0"
-  tag-tile:
-    backgroundColor: "{colors.esmalte-900}"
-    textColor: "{colors.azul-titulo}"
+  search-button:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.texto-tenue}"
     rounded: "{rounded.md}"
-    padding: "0.6rem 0.7rem"
-  nav-link:
+    padding: "0 0.35rem 0 0.7rem"
+    height: "2.25rem"
+    width: "15rem"
+  icon-button:
     backgroundColor: "transparent"
-    textColor: "{colors.gris-apagado}"
-    rounded: "{rounded.thin}"
-    padding: "0.28rem 0.45rem"
-  nav-link-active:
-    backgroundColor: "{colors.lienzo-negro}"
-    textColor: "{colors.blanco-letra}"
-  button-cta:
-    backgroundColor: "{colors.azul-esmalte-pleno}"
-    textColor: "{colors.blanco-letra}"
-    rounded: "{rounded.field}"
-    padding: "0 1.25rem"
-    height: "3rem"
-  field-index:
-    backgroundColor: "{colors.lienzo-negro}"
-    textColor: "{colors.gris-apagado}"
-    rounded: "{rounded.field}"
-    padding: "0 0.875rem 0 1.125rem"
-    height: "3.875rem"
-  chrome-search:
-    backgroundColor: "{colors.lienzo-negro}"
-    textColor: "{colors.gris-legible}"
-    rounded: "{rounded.field}"
-    padding: "0.4rem 0.5rem 0.4rem 0.75rem"
-  input-filter:
-    backgroundColor: "{colors.esmalte-800}"
-    textColor: "{colors.blanco-letra}"
+    textColor: "{colors.texto-apagado}"
     rounded: "{rounded.md}"
-    padding: "0 0.85rem"
-    height: "2.75rem"
-  code-block:
-    backgroundColor: "{colors.codigo-fondo}"
-    textColor: "{colors.texto-lectura}"
-    rounded: "{rounded.field}"
-    padding: "0.95rem 1.1rem 1.05rem"
-  code-block-header:
-    backgroundColor: "{colors.codigo-rotulo}"
-    textColor: "{colors.azul-titulo}"
-    rounded: "0"
-    padding: "0.4rem 0.5rem 0.4rem 1.1rem"
+    size: "2rem"
+  icon-button-hover:
+    backgroundColor: "{colors.elevado}"
+    textColor: "{colors.texto-fuerte}"
+  command-palette:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.texto-tenue}"
+    rounded: "{rounded.xl}"
+    padding: "0 0.7rem 0 1.05rem"
+    height: "3.5rem"
+    width: "34rem"
+  search-modal:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.texto}"
+    rounded: "{rounded.xl}"
+    padding: "0.85rem"
+    width: "44rem"
   kbd:
-    backgroundColor: "{colors.gris-tecla}"
-    textColor: "{colors.gris-prosa}"
-    rounded: "{rounded.thin}"
-    padding: "0.15rem 0.4rem"
+    backgroundColor: "{colors.fondo}"
+    textColor: "{colors.texto-apagado}"
+    rounded: "{rounded.sm}"
+    padding: "0.1rem 0.4rem"
+    typography: "{typography.mono}"
+  sidebar-entry:
+    backgroundColor: "transparent"
+    textColor: "{colors.texto-apagado}"
+    rounded: "{rounded.md}"
+    padding: "0.26rem 0.5rem 0.26rem 0.35rem"
+    typography: "{typography.body-ui}"
+  sidebar-entry-hover:
+    backgroundColor: "{colors.elevado}"
+    textColor: "{colors.texto-fuerte}"
+  sidebar-entry-active:
+    backgroundColor: "{colors.activo}"
+    textColor: "{colors.acento-fuerte}"
+  code-block:
+    backgroundColor: "{colors.codigo}"
+    rounded: "{rounded.lg}"
+    typography: "{typography.mono}"
+  code-tab-bar:
+    backgroundColor: "{colors.codigo-cromo}"
+    textColor: "{colors.texto-tenue}"
+    padding: "0.45rem 0.95rem"
+  code-tab-active:
+    backgroundColor: "{colors.codigo}"
+    textColor: "{colors.texto-fuerte}"
+  inline-code:
+    backgroundColor: "{colors.elevado}"
+    textColor: "{colors.verde-string}"
+    rounded: "{rounded.sm}"
+    padding: "0.08em 0.36em"
+  entry-command:
+    backgroundColor: "{colors.codigo}"
+    textColor: "{colors.verde-string}"
+    rounded: "{rounded.lg}"
+    padding: "0.6rem 0.8rem"
+  entry-panel:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.texto}"
+    rounded: "{rounded.lg}"
+    padding: "0.9rem 1.1rem"
+  table-header:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.texto-apagado}"
+    padding: "0.6rem 0.95rem"
+  recent-panel:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.texto}"
+    rounded: "{rounded.xl}"
+    padding: "0.35rem"
+  status-bar:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.texto-fuerte}"
+    rounded: "{rounded.xl}"
+    padding: "1.35rem 1.5rem"
+  category-line:
+    backgroundColor: "{colors.codigo}"
+    textColor: "{colors.texto}"
+    rounded: "{rounded.xl}"
+    padding: "1.75rem 2rem"
+    typography: "{typography.mono}"
 ---
 
 # Design System: Angel Library
 
 ## Overview
 
-**Creative North Star: "El Esmalte"**
+**Creative North Star: "Tema de editor"**
 
-Azulejo / cloisonné. La biblioteca es un muro de esmalte: campos de color sobre un lienzo negro, y el hilo fino solo separa — nunca lleva el color por sí solo. El lector reconoce la sección por su campo de color antes de leer una palabra, y encuentra la entrada sin perder densidad. El negro no es «tema oscuro»: es el barro bajo el vidriado, el material contra el que cada azul se quema.
+La biblioteca se ve como el editor donde se usa lo que se copia. Los roles de resaltado de sintaxis son los roles de la interfaz: el violeta de keyword navega y enlaza; el verde de string marca lo literal y copiable; el ámbar, el coral, el cian y el rosa nombran estados y categorías. Quien llega reconoce su propio editor —explorador de archivos a la izquierda, pestañas sobre el código, paleta de comandos con Ctrl K, barra de estado con cifras— y entiende sin instrucciones que todo lo que ve está para copiarse.
 
-El sitio tiene dos registros. En las superficies de trabajo —barra lateral de tres niveles, listados, resultados del índice— la densidad es alta y deliberada: campos contiguos separados por 2–8px y nada que respire por decoración. La portada es el otro registro: ahí manda la luz —un halo azul tras el titular y otro en el horizonte del cierre— y las secciones se separan con un hilo y 6rem de aire, porque quien llega a la portada todavía no sabe qué busca.
+La estructura es la de Starlight y no se toca: cabecera, menú, contenido y tabla de contenidos, como en la referencia que eligió el autor. La identidad vive en la piel: dos temas completos —carbón violáceo de noche, papel frío de día— que cambian con un solo botón, líneas de 1px que enmarcan igual que en un editor, tipografía Onest para leer y JetBrains Mono para todo lo medido. La densidad es de herramienta de trabajo: menú compacto y numerado, tablas con celdas, paneles con canto fino; la portada abre más aire (5.5rem entre secciones) pero habla el mismo idioma.
 
-La paleta es monocroma por convicción: veintitrés esmaltes de categoría, todos de la misma familia azul, separados por tono **y** por luz para que dos campos vecinos nunca se confundan. El vidriado general es bajo a propósito (26% en reposo, 36% encendido); las rejillas con muchos campos lo rebajan todavía más. Los grises no son parte del esmalte — son el contrapeso: prosa secundaria, scrollbars y separadores neutros, jamás un relleno de campo.
-
-Anti-referencia confirmada, sustituida por completo: el sitio anterior era negro con bordes grises de 1px, cero relleno, titulares en Geist Pixel, sombras duras desplazadas (`4px 4px 0`), scanlines de CRT y glifos de shell (`❯ $ ~/ _`). Nada de eso sobrevive. Tampoco entran degradados, glow de color, cristal ni sombra difusa coloreada.
+Rechazos confirmados por el autor: el azul como color de base, el negro puro, la familia Geist, un selector de tema en lugar de un botón, el fondo propio del tema de código y Dracula (ilegible en claro) y cualquier navegación con JavaScript (ClientRouter). El sistema anterior («El Esmalte»: lienzo negro con campos azules) queda descartado por completo.
 
 **Key Characteristics:**
 
-- Campos rellenos sobre negro puro; el color rellena, la línea solo separa.
-- **Ninguna tarjeta lleva canto.** Ni en reposo ni al encenderse: el estado sube el vidriado y nada más. El hilo de 1px queda para separar, no para cercar.
-- Un único hilo, azul a baja alfa, nunca gris.
-- Jerarquía por celdas y luminosidad, no por tamaño de letra ni por bordes apilados.
-- Monocromía azul con veintitrés esmaltes de categoría dentro de la misma familia, todos rebajados contra el negro.
-- Medida de lectura fija en 68ch; los márgenes ceden, la medida no.
-- Cantos finos (2/4/6px) en la UI; 10px solo en la ventana flotante de la terminal. Nunca cero, nunca píldora.
+- Dos temas completos definidos token a token; el oscuro es el predeterminado y el claro se activa con `data-theme="light"`.
+- Superficies en escalones de luz sobre un carbón violáceo, nunca negro puro; en claro, papel frío, nunca blanco puro.
+- Seis roles de sintaxis como color de letra y de marca; el relleno de color solo aparece como tinte suave o en el botón primario.
+- Líneas de 1px que separan y enmarcan: tablas, paneles, código, cabecera y menú.
+- Onest para interfaz y prosa; JetBrains Mono para código, teclas, fechas, cifras y la numeración del menú.
+- Estructura intacta de Starlight; transiciones entre páginas solo con CSS.
 
 ## Colors
 
-Una sola familia azul quemada contra el negro, con grises neutros como contrapeso de prosa y cromo.
+Una paleta de editor: neutros violáceos en cuatro escalones de superficie y cuatro de texto, más seis roles de sintaxis que se reajustan por tema para seguir siendo letra legible.
+
+Cada token existe dos veces: la clave sin sufijo es el tema oscuro (`:root`) y la clave `-claro` es su valor en `:root[data-theme="light"]`. Los componentes solo leen las variables (`--bg`, `--text`, `--syn-violet`…), nunca los hex.
 
 ### Primary
 
-- **Esmalte pleno** (`--primary` / `--blue-800`): el relleno saturado de la marca. Aparece en el botón del índice de la portada, en el pie de la ruta ilustrada de la landing, y en el filtro seleccionado (`[aria-pressed="true"]`). Es el único azul que se usa como fondo pleno de una acción. La pestaña activa del gestor de paquetes **no** lo usa: es la que está abierta, no la recomendada, y se dice con un escalón de luz.
-- **Azul vivo** (`--blue-400`): el azul de trabajo. Anillo de foco, caret, barra de progreso de lectura, hilo del TOC activo, enlaces de prosa, acento por defecto de cualquier campo (`--card-accent`).
-- **Azul de título** (`--blue-200`) y **azul medio** (`--blue-500`): los otros dos escalones de la rampa de títulos y de los estados hover del texto azul.
+- **Violeta keyword** (`--syn-violet`, que es `--accent`): el único acento de navegación. Enlaces de prosa, entrada activa del menú y su número, sección actual del TOC, enlace de cabecera actual, botón primario, anillo de foco, caret, marca superior de la pestaña activa de código, icono de la paleta de comandos y título de los avisos de nota. En claro baja a un violeta hondo para mantener 6.6:1 sobre el fondo.
+- **Acento fuerte / hover / contraste** (`--accent-strong`, `--accent-hover`, `--accent-contrast`): el texto de la entrada activa del menú en oscuro, el hover del botón primario y la letra sobre el violeta lleno (8:1 en oscuro, 6.8:1 en claro).
 
 ### Secondary
 
-- **Esmaltes de superficie** (`--enamel-950` → `--enamel-600`): azules quemados hacia el negro. No son «fondos de tarjeta»: son rellenos que definen profundidad por luminosidad. `--enamel-950` es el campo más hondo (panel del índice, consola de tags), `--enamel-800` el chrome de UI (badges, código inline, barra de filtro, botón de copiar), `--enamel-600` el escalón encendido en hover.
-- **Esmaltes de categoría** (23 tokens `--cat-*`, de `#7fd4ff` a `#4f7fd0`): el **origen** del relleno de cada campo. Son valores vivos a propósito porque se mezclan contra negro antes de pintarse. Tres de ellos salen del anillo azul estricto y se quedan así por decisión del autor.
-- **Acentos de tipo de contenido** (8 tokens `--accent-*`): apuntan a la misma escala azul; solo tiñen badges e iconos de tipo, nunca títulos.
+Los otros cinco roles de sintaxis. Son color de letra seguro en su tema (todos ≥ 5.5:1 sobre `--bg`):
+
+- **Verde string** (`--syn-green`): lo literal y copiable — código en línea, línea de comando de la cabecera de entrada, visto de «copiado» del botón de copiar. Avisos de consejo.
+- **Ámbar función** (`--syn-amber`): avisos de cuidado.
+- **Coral error** (`--syn-coral`): avisos de peligro y la lista de advertencias de una entrada.
+- **Cian tipo** (`--syn-cyan`) y **rosa constante** (`--syn-pink`): sin estado propio; existen para dar voz a las categorías.
+
+### Tertiary
+
+- **Color de categoría** (`--cat-*`, 23 tokens): cada categoría toma uno de los seis roles de sintaxis, agrupadas por afinidad (backend, terminal, testing y SEO en verde; git, seguridad y benchmarks en coral…). Se pintan como letra (palabras del índice de la portada, línea de ruta de la entrada) o como marca pequeña (el cuadradito de «Lo último»), nunca como relleno.
 
 ### Neutral
 
-- **Blanco de letra** (`#ffffff`): todo texto principal — títulos de card, etiquetas de tesela, fila activa, `<strong>` de prosa.
-- **Gris de prosa** (`--gray-300`): texto de segundo nivel dentro de un campo (barra de ruta de la card, cita, etiqueta de bloque de código).
-- **Gris apagado** (`--gray-400` / `--muted-foreground`): descripciones, contadores, metadatos. No compite con los azules.
-- **Gris legible** (`--gray-450`, `#8e8e99`): el gris más apagado del sistema — micro-rótulos, fechas, notas al pie de una sección, pie de la terminal. Da **5.9:1** sobre negro, por encima del 4.5:1 que pide la AA para texto pequeño; ningún texto baja de aquí.
-- **Gris cromo** (`--gray-800`, hover `#3f3f46`): scrollbars y separadores neutros del cromo del navegador.
-- **Texto de lectura** (`--reading-text`, `#ededf0`): el cuerpo del markdown, un blanco levemente rebajado para tramos largos.
+- **Fondo** (`--bg`): el lienzo de página, cabecera, menú y barra lateral de Starlight.
+- **Panel** (`--bg-panel`): paneles con canto — cabecera de tabla, cita, panel de la entrada, modal de búsqueda, paneles de la portada, pie.
+- **Elevado** (`--bg-raised`): hover de filas, enlaces y botones de icono; relleno del botón secundario y del código en línea.
+- **Activo** (`--bg-active`): exclusivamente la entrada abierta del menú, un carbón (o lavanda en claro) teñido de violeta.
+- **Código** (`--bg-code`) y **cromo de código** (`--bg-code-chrome`): cuerpo y barra de pestañas de todo bloque de código, pestañas de gestor de paquetes, comando de entrada, índice de categorías y cabecera de cada resultado de búsqueda.
+- **Líneas** (`--line-soft`, `--line`, `--line-strong`): `--line` es la línea de trabajo; `--line-soft` separa subresultados de búsqueda; `--line-strong` es el canto de lo que flota (modal, paleta de comandos), el hover de un canto y el pulgar de las barras de desplazamiento.
+- **Texto** (`--text-strong`, `--text`, `--text-muted`, `--text-faint`): títulos y énfasis; prosa; interfaz secundaria y menú; micro-datos (fechas, números de línea, placeholders). `--text-faint` es el suelo: 5.1:1 en oscuro, 5.0:1 en claro.
+- **Tintes derivados** (`--accent-soft` 14%, `--accent-line` 45%, `--selection` 32%): mezclas en oklab del acento con `--bg` que se resuelven solas en cada tema. Halo de foco, `mark`, canto de hover de tarjetas y resultados, selección de texto.
 
 ### Named Rules
 
-**The Enamel Fill Rule.** Un campo se rellena mezclando su acento contra el negro **en oklab**: `background: color-mix(in oklab, var(--card-accent) var(--glaze), #000000)`, y al encenderse sube a `var(--glaze-lit)` — **26% → 36%**. El espacio de mezcla no es opcional: en sRGB la misma fórmula da pizarra gris y la croma se pierde. Todo campo nuevo se pinta así.
+**The Syntax-Roles Rule.** Un color de sintaxis significa lo mismo en toda la interfaz: violeta navega, verde es literal, ámbar advierte, coral es peligro. Un color nuevo no se inventa; se elige el rol que ya lo dice.
 
-**The Low-Glaze Rule.** El vidriado se mide por lo que se ve junto, no por una pieza aislada. Un listado de tarjetas baja del valor por defecto. Si una pantalla se ve «colorida», el número a bajar es el vidriado, nunca el color — el índice de categorías de la portada resuelve esto de otra manera: en vez de bajar el vidriado de 24 campos, no usa campos (ver "Índice de categorías" en Components).
+**The Letter-Not-Fill Rule.** Los roles de sintaxis se usan como letra, marca o canto. El único relleno pleno de color es el botón primario violeta; todo lo demás es un tinte mezclado con `--bg` en oklab (7% en avisos, 8% en advertencias, 14% en `--accent-soft`).
 
-**The Thread Rule.** El sistema tiene una sola línea: el hilo (`--thread`, `--thread-strong`, `--thread-bright`), un azul claro a baja alfa. Un separador nunca es gris salvo en el cromo del navegador. El hilo separa; jamás sustituye al relleno como portador del color.
+**The Two-Themes Rule.** Todo token de color se define en los dos temas. Un componente que escribe un hex, o que solo se comprueba en oscuro, está roto.
 
-**The Grey-Never-Fills Rule.** Ningún gris entra a un campo. Los grises viven en prosa secundaria, scrollbars y separadores neutros. Un fondo gris es siempre un error de material.
-
-**The No-Border Rule.** Ninguna tarjeta, tesela, bloque de código o panel dibuja un canto: solo el fondo. Los bordes que quedan son separadores estructurales —cabeceras pegajosas, hilo de la barra lateral, `hr`, la raya que abre cada sección de la portada— y los anillos de foco. Si una pieza necesita destacar, sube su vidriado.
+**The No-Pure-Black Rule.** El fondo más hondo es `#131318` en oscuro y `#fbfbfd` en claro. Ni `#000` ni `#fff` como superficie.
 
 ## Typography
 
-**Display Font:** Geist Sans (con `ui-sans-serif`, `system-ui`, `sans-serif`)
-**Body Font:** Geist Sans — la misma familia; `--font-display` y `--font-sans` apuntan al mismo stack.
-**Label/Mono Font:** Geist Mono (con `ui-monospace`, `SF Mono`, `Menlo`) — solo código, rutas y datos medidos.
+**Display Font:** Onest Variable (con `ui-sans-serif`, `system-ui`, `-apple-system`, `Segoe UI`)
+**Body Font:** Onest Variable — la misma familia, con `font-feature-settings: "ss01"` en la documentación.
+**Label/Mono Font:** JetBrains Mono Variable (con `ui-monospace`, `SF Mono`, `Menlo`, `Consolas`)
 
-**Character:** Una sola voz geométrica y neutra, apretada en los títulos (`letter-spacing: -0.018em` global, `-0.02em` en markdown, `-0.035em` en el wordmark) y suelta en los micro-rótulos (`0.11em` en mayúsculas). El mono no decora: aparece únicamente donde el dato es una ruta, una cifra o un comando.
+**Character:** Onest es una sans humanista y cálida, apretada en los titulares (hasta `-0.04em`) y neutra en la prosa; JetBrains Mono es la letra del propio editor y aparece solo donde el dato es código o medida. Los pesos intermedios de la fuente variable (450, 550, 620, 650, 680) afinan la jerarquía sin saltos bruscos.
 
 ### Hierarchy
 
-- **Display** (600, `clamp(2.6rem, 5.4vw, 4.875rem)`, line-height 1.02, `-0.045em`): el titular de la portada, partido en dos líneas. Es el único texto de ese tamaño en todo el sitio.
-- **Section** (600, `clamp(1.8rem, 3.2vw, 2.5rem)`, `-0.03em`): los títulos de sección de la portada, en azul de título. Van solos: sin rótulo, sin numeración, sin antetítulo.
-- **Headline** (700, 1.85rem, `text-wrap: balance`): `h1` del markdown, en azul de título.
-- **Title** (600, 1.4rem / 1.1rem / 0.9rem): `h2` / `h3` / `h4` del markdown, bajando por la rampa de azul (`--heading-secondary` → `--heading-tertiary` → gris de prosa en `h4`).
-- **Body** (400, 1.02rem, line-height 1.75): prosa de entrada, limitada a `--reading-measure` (68ch).
-- **Body UI** (400, 0.85rem, line-height 1.65): descripciones de card y de listado.
-- **Label** (600, 0.7rem, `letter-spacing: 0.11em`, mayúsculas): `.section-label`, cabecera de relaciones, meta de resultados del índice.
-- **Mono** (400, 0.66–0.82rem, `tabular-nums`): rutas de entrada, contadores, fechas, bloques de código.
+- **Display** (680, `clamp(2.25rem, 5.6vw, 4.75rem)`, 1.02): el titular de la portada, en dos líneas; la segunda en violeta. El cierre de la portada usa la misma voz algo menor (`clamp(2.1rem, 4.4vw, 3.5rem)`).
+- **Section** (650, `clamp(1.6rem, 3vw, 2.25rem)`, 1.12): títulos de sección de la portada.
+- **Headline** (650, 2.5rem desde 50em, 1.12): el `h1` de cada entrada.
+- **Title** (650, 1.625rem) y **Subtitle** (600, 1.25rem): `h2` y `h3` de la prosa, siempre en `--text-strong` con `text-wrap: balance`; `h4` a 1.0625rem.
+- **Body** (400, 1rem, 1.75): prosa de entrada, medida de 47rem de columna (`--sl-content-width`).
+- **Body UI** (400–500, 0.84rem): menú, TOC, facts, resultados de búsqueda, buscador de cabecera.
+- **Label** (650, 0.8125rem): rótulos de bloque del menú, título del TOC, cabecera de tabla (600), rótulos de las cifras (550).
+- **Mono** (400, 0.875rem en bloques de código; 0.68–0.8rem en datos): código, teclas, fechas, contadores, numeración del menú y cifras de la barra de estado (500, `clamp(1.6rem, 3vw, 2.25rem)`), siempre con `tabular-nums` cuando son números.
 
 ### Named Rules
 
-**The Two-Sizes Rule.** La jerarquía dentro de un listado la hace el tamaño del campo, no el de la letra: dos tamaños de texto (≈1rem para el título de la pieza, ≈0.85rem para su descripción) sostienen casi toda la UI. Si una pantalla necesita un tercer tamaño para dejarse leer, el problema es la cuadrícula.
+**The Measured-Data Rule.** El mono es para lo que se copia o se mide: código, comandos, teclas, fechas, cifras y números de línea. Nunca para títulos ni prosa.
 
-**The Tabular Rule.** Toda cifra tabulada — `table`, `time`, `[data-numeric]`, contadores, fechas — va en `tabular-nums`. Las columnas de números no bailan.
+**The Upright-Code Rule.** El código se lee recto. Night Owl y Night Owl Light traen comentarios y keywords en cursiva; el CSS la anula (`font-style: normal`) y ningún bloque la recupera.
 
-**The Anchor Rule.** El enlace de ancla de un título no se ve hasta que el puntero entra en el encabezado, y entonces aparece **en blanco**: no compite con el título ni lo tiñe. Solo cuando el puntero llega al propio icono toma el color del título. Nunca al revés.
-
-**The Blue-Headings Rule.** Los títulos de prosa bajan por una única rampa azul; los títulos dentro de un campo esmaltado son blancos. Un título nunca toma el color de su categoría: ese color ya está en el relleno y en el icono.
+**The Tabular Rule.** Tablas, `time`, `[data-numeric]`, fechas y numeración van en `tabular-nums`.
 
 ## Layout
 
-Contenedor máximo de 1440px para el armazón documental (sidebar + contenido + TOC) y de 78rem (`max-width: 78rem`) para las secciones de la portada. La cabecera es baja: 3.5rem en el layout de docs, 4.25rem en la portada, siempre pegajosa y cerrada por un hilo.
+La estructura es la de Starlight: cabecera fija de 3.75rem, menú a la izquierda de 19rem, columna de contenido de 47rem y TOC a la derecha. A partir de 87.5rem el conjunto se centra: menú y TOC toman el mismo margen que la cabecera (`--shell-gutter`) para que los tres bordes coincidan, y el TOC se limita a 17.5rem. Cabecera, menú y TOC se separan del contenido con una línea de 1px. Por debajo de 50rem desaparece la navegación de cabecera, el buscador ocupa el ancho libre y las redes pasan al menú móvil.
 
-El layout de lectura es de tres columnas: barra lateral de 18rem (`w-72`, `sticky top-14`, alto `calc(100svh - 3.5rem)`, borde derecho de hilo) visible desde `lg`; el artículo centrado a `max-w-3xl` con la prosa recortada a 68ch; el TOC en el `aside` derecho. Padding del contenido: 1rem → 1.5rem (`sm`) → 2.5rem (`lg`).
+La portada usa un contenedor de 78rem con 1.5rem de margen lateral (1rem bajo 640px). El hero ocupa `calc(100svh - 3.75rem)`: titular, paleta de comandos y acciones a la izquierda; desde 1024px, el panel «Lo último» en una columna de 27rem a la derecha, y debajo la barra de estado de tres cifras. Las secciones siguientes se abren con una línea superior y 5.5rem de aire, en dos columnas (22rem de título + contenido) desde 1024px.
 
-La portada tiene su propio armazón: hero a `calc(100svh - 4.25rem)` —el buscador y las cifras caben enteros sobre el pliegue— y, debajo, secciones de dos columnas (`23.75rem` de título + resto de contenido) desde `lg`, cada una abierta por un hilo de 1px al ancho del contenido.
-
-Cuadrículas observadas:
-
-- **Índice de la portada**: `repeat(auto-fill, minmax(12.5rem, 1fr))`, `gap: 0.5rem` — las veinticuatro categorías, campos sin link (no hay `/categories` a donde llevar).
-- **Tipos de la portada** y **relaciones de una entrada**: `repeat(auto-fill, minmax(15rem, 1fr))` y `minmax(17rem, 1fr)`, ambos con `gap: 0.5rem`.
-- **Listas de renglones** (recientes de la portada, resultados del índice): columna de filas separadas por un hilo tenue, no tarjetas sueltas.
-
-Ritmo: 0.25 / 0.5 / 0.85 / 1 / 1.5rem dentro de las piezas; **6rem** arriba y abajo en cada sección de la portada; 4.5rem antes del cierre de relaciones de una entrada. Breakpoints reales: 639px (móvil), 767px, 1023px, 1024px (`lg`, aparece la barra lateral y la portada pasa a dos columnas).
-
-**The Fixed Measure Rule.** La medida de lectura es 68ch y no se negocia. En pantallas angostas se recortan los márgenes y el padding del campo (`.entry-head` baja de 1.6rem a 1.1rem), nunca la medida.
-
-**The Recency-On-Top Rule.** Lo último editado va arriba, nunca en un pie: «Lo último» comparte el hero con el titular, a su derecha, y el índice de categorías viene después.
-
-**The One-Rule-Per-Section Rule.** Cada sección de la portada se abre con un hilo al ancho del contenido y su título. Ese hilo es toda la separación que hay: ni cajas, ni fondos alternos, ni antetítulos numerados, ni ilustraciones de relleno.
-
-**The Cell-Hierarchy Rule.** El peso de un elemento se dice en cuántas celdas ocupa. Una categoría con mucho contenido abarca 3 columnas y 5.5rem de alto; una pequeña, 2 columnas y 3.6rem. El tipo de letra apenas cambia (0.9rem → 1rem).
-
-## Elevation & Depth
-
-Este sistema es plano y la profundidad la hace la **luminosidad sobre un único negro**. Tres niveles de luz (`--surface`, `--surface-raised`, `--surface-active` = enamel 900 / 800 / 700) y el propio porcentaje del vidriado (26% en reposo, 36% encendido) construyen todo el relieve. No hay bordes apilados, no hay cristal, no hay glow.
-
-Las sombras se usan poco y solo donde algo flota de verdad: el buscador del hero, el botón blanco del cierre y la ventana de la terminal. Todas son desplazamiento + desenfoque suave sobre negro; el único color admitido es un azul muy abierto y sin contorno bajo la ventana flotante.
-
-### Shadow Vocabulary
-
-- **Campo** (`--shadow-field`: `0 1px 2px rgb(0 0 0 / 0.6), 0 12px 32px -18px rgb(0 0 0 / 0.9)`): un campo que se despega apenas.
-- **Elevado** (`--shadow-lifted`: `0 2px 4px rgb(0 0 0 / 0.5), 0 24px 56px -28px rgb(0 0 0 / 0.95)`): lo que flota sobre el muro.
-- **Ventana** (terminal de búsqueda): `inset 0 1px 0` de blanco al 8% como reflejo del canto superior, más `0 2px 6px`, `0 42px 90px -32px` en negro y `0 0 120px -60px` del esmalte pleno. Sin anillo: la ventana se sostiene por sombra, no por borde.
-- **Buscador del hero**: `--shadow-field` con una segunda capa azul (`0 24px 56px -28px` del esmalte pleno al 90%) que lo separa del halo del fondo.
+Ritmo observado: 0.35 / 0.6 / 0.85 / 1.1 / 1.5rem dentro de las piezas; 2.6rem antes de un título de prosa y 0.75rem después; 5.5rem entre secciones de portada. Puntos de corte reales: 640px, 767px (modal de búsqueda a pantalla casi completa), 50rem (Starlight y cabecera), 1024px y 87.5rem.
 
 ### Named Rules
 
-**The Material-State Rule.** El estado se dice con materia, no con tono: al encender, el campo sube de vidriado (`--glaze` → `--glaze-lit`) y esa subida es el estado. Nada de cantos que aparecen, nada de cambiar solo la opacidad.
+**The Starlight-Skeleton Rule.** No se añade ni se quita estructura a la documentación: cabecera, menú, contenido y TOC son los de Starlight. El sistema cambia la piel, no el armazón.
 
-**The No-Colored-Halo Rule.** Jamás un halo de color ni un bloque sin desenfoque. Si una pieza necesita destacar, sube su vidriado o gana su hilo; no gana una sombra.
+**The Full-Column Table Rule.** Una tabla ocupa todo el ancho de la columna en escritorio (`display: table; width: 100%`), con celdas separadas por líneas y cabecera en `--bg-panel`. Solo bajo 50rem vuelve a ser un bloque desplazable.
+
+**The Learning-Order Rule.** Las entradas del menú se numeran como líneas de código (`01`, `02`…) con un contador CSS que sigue `sidebar.order`, el orden de aprendizaje de la subcategoría. El número es orden de lectura, no decoración.
+
+## Elevation & Depth
+
+El sistema es plano y la profundidad la hacen los escalones de superficie (`--bg` → `--bg-panel` → `--bg-raised` → `--bg-active`) y las líneas de 1px. Las tarjetas y la paginación de Starlight tienen `box-shadow: none`; su hover cambia el canto a `--accent-line`. Las sombras quedan para lo que flota de verdad o para el objeto principal de la portada, y cada tema tiene las suyas: negras y densas en oscuro, violáceas y muy tenues en claro.
+
+### Shadow Vocabulary
+
+- **Pequeña** (`--shadow-sm`, oscuro `0 1px 2px rgb(0 0 0 / 0.35)`): mapeada a `--sl-shadow-sm` para piezas de Starlight.
+- **Media** (`--shadow-md`, oscuro `0 1px 2px rgb(0 0 0 / 0.4), 0 14px 32px -14px rgb(0 0 0 / 0.65)`): la paleta de comandos y el panel «Lo último» del hero.
+- **Grande** (`--shadow-lg`, oscuro `0 2px 6px rgb(0 0 0 / 0.45), 0 32px 72px -24px rgb(0 0 0 / 0.75)`): el modal de búsqueda, sobre `--backdrop`.
+- **Halo de foco** (`0 0 0 3px var(--accent-soft)`): el campo del buscador enfocado y la paleta de comandos en hover. No es elevación: es estado.
+
+### Named Rules
+
+**The Line-First Rule.** Una pieza se separa del fondo con una línea de 1px y un escalón de superficie. La sombra no sustituye a la línea: solo se suma cuando el objeto flota sobre la página.
 
 ## Shapes
 
-Cantos finos y consistentes: 2px (`--radius-thin`) para piezas pequeñas — badges, teclas, código inline, enlaces de nav, viñetas de lista; 4px (`--radius`) para piezas medias — teselas, callouts, citas, barra de filtro, botón de copiar; 6px (`--radius-field`) para campos completos — cards, cabecera de entrada, bloque de código, panel del índice. Nunca 0, nunca píldora — la única excepción son los pulgares de scrollbar y el punto de categoría de la lista de recientes (`999px`), que son cromo y no forma.
+Cuatro radios: 4px (`--radius-sm`) para piezas pequeñas — código en línea, teclas, badges, anillo de foco de la portada; 6px (`--radius`) para controles — botones, buscador, botones de icono, filas del menú, pestañas del botón de copiar; 8px (`--radius-lg`) para paneles de la documentación — bloques de código, tablas, avisos, citas, panel de entrada, tarjetas, paginación, imágenes, resultados de búsqueda; 12px (`--radius-xl`) para los objetos grandes — modal de búsqueda y paneles de la portada (paleta, «Lo último», cifras, índice, recorrido).
 
-Cuando algo sí necesita un canto de 1px —el anillo de foco, el reflejo superior de la ventana de la terminal— se pinta con `box-shadow: inset 0 0 0 1px` y no con `border`, para que caiga dentro de la pieza y no altere su caja. `border` de 1px se reserva para separadores reales: cabeceras pegajosas, `nav-children`, `hr`, la raya que abre cada sección de la portada y las filas de una lista rayada.
-
-Las viñetas de lista del markdown son cuadraditos de 0.34rem con radio de 2px, no círculos: el mismo canto del sistema, en miniatura.
+La forma es de ventana de editor: rectángulos de esquina suave con canto de 1px y, cuando hay cromo, una barra superior en `--bg-code-chrome` separada por una línea. Las teclas ganan un borde inferior de 2px en la prosa. La pestaña activa se marca con `box-shadow: inset 0 2px 0 var(--accent)`, una raya violeta arriba. Los círculos solo aparecen en cromo (pulgar de scrollbar, punto del rótulo «Lo último»).
 
 ## Components
 
-### Índice de categorías (párrafo centrado)
+### Buttons
 
-Vive solo en la portada (`CatalogSection`) — no hay página `/categories` a la que enlazar. Pasó por cuatro formas: teselas rellenas (leían como botón, con o sin link real), barras de estadística (correctas pero frías), una nube con tamaños variables (demasiado ruido) y un párrafo centrado en prosa corriente (correcto pero soso). La que quedó: las 24 categorías en un solo párrafo centrado, mono, en mayúsculas y con tracking — el mismo registro que usa el resto del sitio para datos (rutas, cifras) — todas al mismo tamaño y peso, separadas por un punto azul.
+Cuatro variantes y ninguna más, compartidas por portada y documentación.
 
-- **Un solo tratamiento.** `0.82rem/500` mono, mayúsculas, `letter-spacing: 0.04em`, blanco — sin variar por categoría; la igualdad de letra es la idea, no una limitación.
-- **El punto es el único color propio.** Azul (`--blue-500` al 70%) y uniforme para las 24 — ata el párrafo al resto de la portada sin que ninguna categoría destaque sobre otra.
-- **Centrado, ancho de lectura corto** (`max-width: 52rem`) para que las líneas no se estiren de punta a punta de la sección.
-- **Nada pulsable:** sin campo, sin radio de botón, sin hover, sin cursor de puntero.
+- **Shape:** esquinas de control (6px), canto de 1px (transparente en el primario), peso 550, icono opcional.
+- **Tamaños:** sm 2.25rem, md 2.6rem, lg 2.9rem de alto mínimo.
+- **Primary:** violeta lleno con letra de contraste; hover a `--accent-hover`. Una sola acción principal por grupo (p. ej. «Abrir el recurso»).
+- **Secondary:** panel `--bg-raised` con canto `--line`; el hover solo refuerza el canto (`--line-strong`). Para la acción de apoyo (p. ej. «Repositorio»).
+- **Outline:** solo canto; al pasar gana `--bg-raised` y letra fuerte. Acompaña al primario en el hero.
+- **Link:** enlace violeta con forma de botón solo en el foco; hover a `--text-strong`.
+- **Hover / Focus:** transiciones de 140ms con `--ease-out`; foco global `outline: 2px solid var(--ring)` con 2px de separación.
 
-### Cabecera de entrada (`PageTitle.astro`)
+### Buscador de cabecera y botón de tema
 
-Debajo del `h1`, todo lo que no es prosa vive en una sola columna angosta,
-sin chips de colores compitiendo entre sí:
+- **Buscador** (`SearchButton`): un único botón, idéntico en portada y documentación. Panel `--bg-panel`, canto `--line`, 2.25rem de alto y 15rem de ancho (flexible en móvil), lupa, «Buscar» en `--text-faint` y la tecla `Ctrl K`. Hover: canto `--line-strong` y letra `--text-muted`. No busca: abre el modal de Pagefind.
+- **Botón de tema** (`ThemeToggle`): un botón de icono de 2rem que muestra la luna en oscuro y el sol en claro, igual en portada, cabecera de documentación y menú móvil (el override `ThemeSelect` de Starlight lo renderiza). Guarda la preferencia en `starlight-theme`.
 
-- **Línea de ruta:** `Categoría / Subcategoría · fecha`, texto plano (sin
-  campo, sin link) en una sola línea de 0.85rem — la categoría en su color
-  (`categories.ts`), la subcategoría en gris de prosa, la fecha en mono
-  apagado. Es la misma idea de "la carpeta es la categoría" que ya se ve en
-  el sidebar, dicha en una línea corta.
-- **Comando:** si la entrada declara `command`, un bloque de código de una
-  línea (mismo `--code-bg` que el resto del sitio).
-- **Panel de facts y acciones:** cuando hay `facts` (problema, herramienta,
-  lenguaje…) o botones (`url`/`website`/`github`), viven juntos dentro de
-  un único campo esmaltado (`color-mix(in oklab, var(--card-accent) 12%,
-#000000)`, radio de campo) en vez de flotar sueltos con un hueco entre
-  los dos — los facts a la izquierda en una rejilla, los botones empujados
-  a la derecha.
-- **Relacionado:** los links a `technologies` (otras entradas, no tags)
-  van aparte, bajo un rótulo mono en mayúsculas, para no confundirse con
-  lo que ya no está.
-- **Avisos:** lista de `warnings`, campo tenue en `--destructive`.
+### Navigation
 
-### Tags
+- **Cabecera:** fondo `--bg`, línea inferior, 3.75rem. Enlaces de 0.875rem/500 en `--text-muted` con radio de 6px; hover `--bg-raised`; el actual en violeta. Redes separadas por una línea vertical.
+- **Menú (explorador):** bloques separados por una línea; rótulo de bloque en 0.8125rem/650 `--text-strong`, fijo. Categoría 0.875rem/500 y subcategoría 0.84rem/450 como carpetas con flecha que gira 90°; al abrirse su letra pasa a `--text-strong`. Todo lo que cuelga de una carpeta abierta lleva una guía de sangría de 1px (`--line`). Solo una categoría abierta a la vez (`<details name>`).
+- **Entrada:** rejilla de 1.55rem de número + título en una línea; número mono 0.68rem en `--text-faint`. Hover `--bg-raised`.
+- **Entrada activa:** el archivo abierto — fondo `--bg-active`, letra `--accent-strong` (violeta `--accent` en claro), peso 550 y número en violeta.
+- **TOC:** 0.84rem en `--text-muted`; la sección actual en violeta 550.
 
-Los `tags` del frontmatter no se pintan en ningún lado del sitio publicado
-— son metadata para el buscador (Pagefind), nada más. Se retiraron de la
-cabecera de entrada porque competían en color con el título. La única
-referencia cruzada que sí se ve como link es `technologies` (otras
-entradas, no tags), agrupada bajo el rótulo "Relacionado" en la cabecera.
+### Bloques de código
 
-### Barra lateral (cuatro niveles)
+- **Colores de letra:** temas `night-owl` (oscuro) y `night-owl-light` (claro) de Expressive Code, solo para los tokens; Expressive Code cambia de uno a otro con `data-theme`.
+- **Superficie:** del sistema — cuerpo `--bg-code`, barra de pestañas y título de terminal `--bg-code-chrome`, canto `--line`, radio 8px, sin sombra. Se adapta a los dos temas.
+- **Pestaña activa:** fondo `--bg-code`, letra `--text-strong`, raya violeta superior.
+- **Botón de copiar:** icono de copiar sobre un velo de `--text-strong` al 6% (14% hover, 22% activo), radio 6px, sin canto. Al copiar, el icono pasa a un visto verde durante 0.9s y vuelve; no hay globo flotante, el aviso queda en la región `aria-live`.
+- **Pestañas de gestor de paquetes** (`pm-tabs`): el mismo panel de editor — barra `--bg-code-chrome`, pestañas mono 0.75rem separadas por líneas, la activa con la raya violeta; el bloque de terminal va soldado debajo sin su propia barra.
+- **Código en línea:** verde string sobre `--bg-raised`, canto `--line`, radio 4px, 0.86em.
 
-Bloque de navegación → categoría → subcategoría → entrada. Un override
-mínimo de `Sidebar.astro` (sección 5.5 de `docs/ARCHITECTURE.md`) pinta el
-bloque de navegación como un rótulo fijo, no colapsable; todo lo de ahí
-para abajo es el `SidebarSublist` de Starlight sin tocar, con
-`collapsed: true` en cada categoría y cada subcategoría
-(`src/config/sidebar.ts`).
+### Cabecera de entrada (`PageTitle`)
 
-**Fichas, no franjas.** La primera versión de este menú pintaba cada fila
-como una franja de borde a borde con la sangría dicha solo por el padding
-del texto — el fondo de la fila seguía tocando el borde del menú aunque el
-texto pareciera más adentro. Con una forma de tabla apretada, el menú se
-leía cargado. Referencia mirada al rehacerlo: Astro Docs, TanStack y los
-docs de Vercel — los tres usan filas que flotan con aire alrededor en vez
-de ocupar todo el ancho, con la sangría de cada nivel movida al margen de
-la fila entera, no solo al padding de su texto.
+Bajo el `h1`, en este orden y con 0.85rem entre piezas:
 
-Cuando una categoría se despliega, sus subcategorías y entradas viven
-además dentro de un panel — un campo esmaltado muy tenue (7%) con esquinas
-redondeadas — que agrupa visualmente lo que está abierto y lo separa del
-resto del menú, que sigue siendo una lista plana sin fondo. Es el mismo
-lenguaje del resto del sitio (el color rellena, nunca una línea) aplicado
-a agrupar.
+- **Línea de ruta:** `Categoría / Subcategoría · fecha` en 0.85rem; categoría en 600, subcategoría en `--text`, separadores en `--line-strong`, fecha mono en `--text-faint`.
+- **Comando:** si la entrada declara `command`, una línea `pre` en `--bg-code` con canto, radio 8px, mono 0.8rem en verde string.
+- **Panel de datos y acciones:** un único panel `--bg-panel` con canto `--line` y radio 8px que aparece cuando la entrada tiene facts o enlaces, idéntico para todas las categorías. Facts a la izquierda en rejilla (`dt` 0.75rem/600 `--text-faint`, `dd` 0.85rem `--text`); botones primario y secundario a la derecha.
+- **Relacionado:** rótulo en `--text-faint` y enlaces violeta a otras entradas.
+- **Advertencias:** lista sobre coral al 8% con canto coral al 32%, radio 8px.
 
-La jerarquía por color sí volvió, a pedido explícito: cada nivel tiene su
-propio tono para que las separaciones se entiendan de un vistazo, sin
-depender solo del peso y la sangría.
+### Lectura
 
-- **Fichas, no franjas** (la forma). Cada fila (categoría, subcategoría, entrada) es un campo con radio de campo (6px) y margen a los dos lados (`margin-inline`, no `padding`) — el fondo de hover/activo se mueve con la ficha entera. La sangría de cada nivel también es margen, no padding de texto.
-- **Bloque de navegación** (Construir, Producto…): 0.68rem/600, mayúsculas, azul de título (`--heading-primary`, el mismo de un `h1` de markdown) — así se lee como un título de sección, igual que en la prosa. Sans (no mono: el mono es solo para rutas y código). Sin ficha ni sangría — es el ancla. No es un `<details>` — no se puede cerrar.
-- **Categoría:** 0.85rem/600, blanca. Sin sangría extra (parte del margen base de toda ficha). Colapsada por defecto; Starlight la abre solo si contiene la página actual.
-- **Panel de categoría abierta:** al desplegarse, el `<ul>` de sus subcategorías gana `color-mix(in oklab, var(--blue-800) 7%, #000000)` y radio de campo — un contenedor visible que agrupa todo lo que está abierto ahí dentro.
-- **Subcategoría:** 0.8rem/500, azul de rama (`--branch`, `--blue-400`), abierta o cerrada — la etiqueta azul del menú, para distinguirla de la categoría (blanca) de un vistazo. Sangría 0.85rem. También colapsada por defecto: abrir una categoría no despliega sus subcategorías, solo la que contiene la página actual.
-- **Entrada:** 0.78rem/400, gris (`--gray-400`), sangría 1.45rem, una sola línea.
-- **Hover** (cualquier nivel): `color-mix(in oklab, var(--blue-800) 14–16%, #000000)` sobre la ficha.
-- **Activa:** la única ficha con campo lleno de verdad — `color-mix(in oklab, var(--blue-800) 40%, #000000)`, letra blanca, peso 500.
-- **Anidamiento:** hilo tenue de Starlight (`--sl-color-hairline-light`) bajo cada nivel.
+- **Tablas:** a toda la columna, canto `--line`, radio 8px, celdas con líneas verticales y horizontales, cabecera `--bg-panel` 0.8125rem/600 en `--text-muted`, cuerpo 0.9rem.
+- **Avisos:** panel teñido de su rol al 7% con canto al 30%, radio 8px; título en el color del rol (nota violeta, consejo verde, cuidado ámbar, peligro coral).
+- **Enlaces de prosa:** violeta con subrayado de 1px al 38% que se vuelve pleno en hover.
+- **Citas:** panel `--bg-panel` con canto y radio 8px, letra `--text-muted`.
 
-Los selectores cuentan la profundidad por anidamiento real del DOM de Starlight (`ul.top-level > li > details > …`), no por una clase propia — el sidebar no tiene markup propio que targetear.
+### Búsqueda (Ctrl/Cmd K) — componente insignia
 
-### Campos de entrada
+La paleta de comandos del editor. Modal de 44rem a 4.5rem del borde superior, `--bg-panel`, canto `--line-strong`, radio 12px, `--shadow-lg` sobre `--backdrop`. Campo de 3rem sobre `--bg` con radio 8px; al enfocar, canto violeta y halo `--accent-soft`. Cada resultado es un panel con barra superior `--bg-code-chrome` (título 0.925rem/600) y subresultados marcados con `#` mono en `--text-faint`, separados por `--line-soft`; hover del resultado con canto `--accent-line`. Coincidencias con `mark` en `--accent-soft`. Teclas (`.kbd`): tapa mono 0.68rem sobre `--bg` con canto y radio 4px.
 
-- **Barra de filtro:** fondo `--enamel-800`, radio 4px, alto 2.75rem, sin borde. `:focus-within` pinta `inset 0 0 0 1px var(--blue-400)`; el contador de resultados vive dentro, en mono.
-- **Toggle de filtro:** fondo `--enamel-800`, radio 2px. Seleccionado (`[aria-pressed="true"]`) se esmalta pleno con `--primary` y peso 600 — el estado es materia, no matiz.
-- **Foco global:** `outline: 2px solid var(--ring)` con `outline-offset: 2px` y radio 2px.
-- **Vacío:** un campo apenas vidriado (`--enamel-950`), sin canto, con el mensaje centrado en gris apagado.
-- **Buscador del cromo** (`.chrome-search`, cabecera de portada y de docs, y menú móvil): `color-mix(in oklab, var(--blue-800) 10%, #000000)`, 20% al pasar, con la tecla `ctrl K` en azul al 10%. Vive junto al logo: no debe pesar más que él.
+### Portada
 
-### Bloque de código
-
-Dos alturas del mismo azul, nunca dos colores.
-
-- **Cuerpo:** `--code-bg` = `color-mix(in oklab, var(--blue-800) 34%, #000000)`. Se lee azul, pero rebajado: no compite con la prosa que lo rodea. Sin canto.
-- **Rótulo:** `--code-chrome` = el mismo azul al 48% — un solo escalón por encima del cuerpo. Nombre de archivo en mono 0.72rem azul de título, alineado a la sangría del código (1.1rem).
-- **Botón de copiar:** icono `copy` de lucide, el mismo repertorio que el resto de la interfaz. Campo de esmalte pleno al 18% (52% al pasar, 72% al pulsar), radio de 2px y **sin anillo** — el borde que trae Expressive Code se apaga. Al copiar no aparece ningún globo: el icono se convierte en un visto durante 0,8s y vuelve solo; el «¡Copiado!» se queda en la región `aria-live` para quien use lector de pantalla.
-- **Pestañas pnpm/Bun/npm:** son la cabecera del bloque, no una barra flotando encima: ocupan el sitio del rótulo de la ventana de terminal y el código va soldado debajo, dentro del mismo campo. Las tres miden lo mismo y la abierta solo sube un escalón de luz (esmalte al 26%) con la letra en blanco — **pnpm es la primera por orden, no por rango**. El texto de la pestaña cae a plomo con la primera letra del comando.
-- **Cuerpo tipográfico:** Shiki `tokyo-night`, mono 0.82rem, line-height 1.7, padding `0.95rem 1.1rem 1.05rem`.
-- **Realce de líneas:** `color-mix(in srgb, var(--blue-400) 12%)`; diff añadido 16%; diff eliminado por opacidad 0.42.
-- **Código inline** en prosa: el mismo `--code-chrome`, radio 2px.
-
-### Índice (Ctrl/Cmd + K) — componente insignia
-
-Una terminal **moderna**, no un emulador de CRT: sin scanlines, sin pixel art, sin cursor parpadeante. Es una ventana de verdad, con la materia de un emulador actual.
-
-- **Ventana:** `top: 10vh`, ancho `min(92vw, 58rem)`, radio **10px** —la única excepción a los cantos de 2/4/6— y la sombra de ventana descrita arriba. Sin anillo.
-- **Centrado:** el `translate: -50% 0` va en su propia propiedad, no en `transform`, para que la animación de entrada pueda mover la ventana en vertical sin perder el centro. Entra **desde arriba** (`slide-in-from-top`), nunca de lado.
-- **Barra de título:** tres puntos apagados en azul (30 / 22 / 14%, dibujados con una sola pieza y su sombra), el nombre de la sesión y el modo como pastilla redonda.
-- **Alto de sesión:** la pantalla mide `min(64vh, 32rem)` con suelo de `20rem` — la ventana no se encoge con el contenido; el texto crece hacia abajo, como en una terminal abierta.
-- **Tipografía:** monoespaciada en todo, títulos de resultado incluidos.
-- **Renglón de entrada:** un campo propio dentro de la ventana (radio 8px, azul al 8%, 14% al enfocar) con el `›` en color de acento.
-- **Resultado:** rejilla `1rem / 1fr / auto`, radio 4px. Seleccionado u hover: `color-mix(in srgb, var(--result-accent) 22%, var(--field-panel))` y letra blanca — campo lleno, sin filete lateral.
-- **Cinco paletas** (`data-terminal-theme`): `angel` (negro pleno), `esmalte` (el azul del sitio), `tinta` (negro y un solo azul vivo), `niebla` (grises neutros, el azul solo marca lo activo), `hielo` (el extremo claro sobre azul muy hondo). Las cinco viven dentro del mundo: negro, escala azul, grises.
-
-### Hero de la portada
-
-- **Buscador:** el único objeto grande del hero. `color-mix(in oklab, var(--blue-800) 16%, #000000)` (28% al pasar), radio de campo, alto 3.875rem, sin borde, con la sombra azul que lo separa del halo.
-- **CTA:** botón de esmalte pleno (`--primary`) con «Leer la documentación», alto 3rem; al encender pasa a `color-mix(in srgb, var(--blue-700) 82%, var(--blue-500))`.
-- **Acción secundaria:** enlace azul medio con flecha, sin campo.
-- **Fondo:** solo el halo. Ninguna retícula, ningún cuadro, ninguna ilustración.
-- **Sin antetítulo:** el hero abre directamente con el titular. Ni rótulo en mayúsculas ni numeración.
+- **Paleta de comandos del hero:** el objeto principal. Panel `--bg-panel`, canto `--line-strong`, radio 12px, 3.5rem de alto y hasta 34rem de ancho, `--shadow-md`, lupa violeta y tecla `Ctrl K`. Hover: canto `--accent-line` y halo de 3px.
+- **«Lo último»:** panel de radio 12px con barra `--bg-code-chrome` (punto violeta + rótulo); filas de título en una línea, marca de 0.5rem en el color de su categoría y fecha mono.
+- **Barra de estado:** tres cifras mono en un panel de radio 12px, separadas por líneas verticales (horizontales en móvil).
+- **Índice de categorías:** una línea de código resaltada — lista mono 0.95rem sobre `--bg-code` con canto y radio 12px; cada categoría en su color de sintaxis, todas al mismo peso, separadas solo por aire (1.75rem) y centradas por filas, con `flex-wrap: balance` donde el navegador lo soporta. Sin puntos separadores: quedaban sueltos al inicio de una fila. No son enlaces.
+- **Recorrido:** pasos numerados en mono violeta dentro de un panel de radio 12px, separados por líneas.
 
 ### Movimiento
 
-Una sola curva (`--ease-enamel`: `cubic-bezier(0.16, 1, 0.3, 1)`) y dos duraciones: 140ms para estado (`--dur-fast`) y 320ms para lo que se despega (`--dur-slow`). Las view transitions duran 140ms. `prefers-reduced-motion` reduce todo a 0.01ms.
+Una curva (`--ease-out`: `cubic-bezier(0.16, 1, 0.3, 1)`) y dos duraciones: 140ms (`--dur-fast`) para estados y 280ms (`--dur-slow`) para lo que se despega. Entre páginas, `@view-transition { navigation: auto }` funde el contenido en 280ms mientras la cabecera (`cabecera`) y el menú (`menu`) conservan su propio nombre de transición y se quedan quietos. Cada navegación sigue siendo una carga completa. Con `prefers-reduced-motion` la transición entre páginas se desactiva y las animaciones se reducen a 0.01ms.
+
+### Tema de código por tema del sitio
+
+Cada tema del sitio tiene su tema de código: Night Owl en oscuro y Night Owl Light en claro. Dracula, One Dark Pro y Monokai se probaron y se descartaron. Dracula, además, tiene letras pensadas para fondo oscuro y sobre `--bg-code` claro (`#f4f4f8`) daban contrastes de 1.0–2.9:1. Cualquier tema de código nuevo se elige en pareja y se comprueba en los dos temas antes de adoptarlo.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** rellenar todo campo nuevo con `color-mix(in oklab, var(--card-accent) var(--glaze), #000000)` y encenderlo a `--glaze-lit` en hover. El espacio oklab es el material.
-- **Do** bajar el vidriado cuando muchas piezas de color comparten pantalla (16% en las relaciones): el número a mover es el vidriado, no el color. Las teselas de categoría suben en vez de bajar (30%) porque ahí el color es el dato.
-- **Do** decir el estado subiendo el vidriado, y solo eso.
-- **Do** ordenar la jerarquía por celdas — cuántas columnas ocupa una pieza — y dejar el tamaño de letra en dos escalones.
-- **Do** mantener la medida de lectura en 68ch y recortar los márgenes cuando falte espacio.
-- **Do** poner el color de categoría en el relleno y en el icono, y dejar los títulos en blanco o en la rampa azul.
-- **Do** separar las secciones de la portada con un hilo al ancho del contenido y 6rem de aire.
-- **Do** poner lo reciente arriba, en el hero, nunca en un pie.
-- **Do** usar mono solo para rutas, cifras, fechas y código, con `tabular-nums` — y en toda la terminal de búsqueda.
-- **Do** dejar el bloque de código en azul rebajado con su rótulo un escalón por encima.
-- **Do** mantener el texto más apagado en `--gray-450` o por encima: 4.5:1 es el suelo.
+- **Do** leer siempre variables de tema (`--bg`, `--text`, `--syn-*`, `--accent`) y comprobar cada pieza nueva en oscuro y en claro.
+- **Do** usar el violeta keyword para navegar y enlazar, y el resto de roles de sintaxis solo para su significado (literal, cuidado, peligro) o para la categoría.
+- **Do** separar y enmarcar con líneas de 1px (`--line`) y escalones de superficie antes de pensar en una sombra.
+- **Do** tomar los radios de la escala: 4px piezas pequeñas, 6px controles, 8px paneles de documentación, 12px modal y paneles de portada.
+- **Do** poner en mono (JetBrains Mono) código, comandos, teclas, fechas, cifras y números de línea, con `tabular-nums`.
+- **Do** dejar que las tablas ocupen toda la columna, con celdas y cabecera en `--bg-panel`.
+- **Do** mostrar el mismo panel de datos y acciones en la cabecera de entrada para cualquier categoría.
+- **Do** pintar el código con las letras de Night Owl / Night Owl Light sobre `--bg-code` y `--bg-code-chrome`, en recto.
+- **Do** usar el `SearchButton` y el `ThemeToggle` compartidos en cualquier cabecera nueva.
+- **Do** mantener `--text-faint` como el texto más tenue: 5:1 sobre el fondo en los dos temas.
 
 ### Don't:
 
-- **Don't** mezclar el vidriado en sRGB: da pizarra gris y mata la croma. Siempre `in oklab`.
-- **Don't** rellenar un campo con gris. Los grises son prosa secundaria, scrollbars y separadores neutros.
-- **Don't** ponerle canto a una tarjeta, tesela, bloque de código o panel — ni en reposo ni en hover. El relleno ya la separa del lienzo.
-- **Don't** teñir de azul una scrollbar; el cromo del navegador es gris oscuro (`--gray-800` / `#3f3f46`).
-- **Don't** usar degradados de relleno, glow de color, cristal ni bloques de sombra sin desenfoque. Los dos halos de la portada y el resplandor bajo la ventana de la terminal son la excepción tasada: radiales muy abiertos, sin contorno.
-- **Don't** volver a los titulares en fuente de píxeles, las scanlines de CRT ni los glifos de shell (`❯ $ ~/ _`): son la anti-referencia sustituida. La terminal es moderna, no retro.
-- **Don't** usar radio 0 ni radio de píldora en una superficie; los cantos son 2 / 4 / 6px, y 10px solo en la ventana flotante.
-- **Don't** poner el color de un campo en un estilo inline si necesita `:hover` — un inline gana siempre sobre la regla de estado.
-- **Don't** apilar bordes para simular profundidad; la profundidad es luminosidad sobre un solo negro.
-- **Don't** centrar un diálogo con `transform` si va a animarse: el centrado vive en `translate`, o la animación lo empuja de lado.
-- **Don't** escribir reglas de componente fuera de `@layer components`: lo no-capado gana a las utilidades de Tailwind y rompe el orden de especificidad del sitio.
+- **Don't** usar azul como color de base ni de superficie.
+- **Don't** usar negro puro (`#000`) como fondo ni blanco puro como superficie clara.
+- **Don't** usar Geist ni ninguna otra familia fuera de Onest Variable y JetBrains Mono Variable.
+- **Don't** reemplazar el botón de tema por un selector, ni dejar una superficie con un solo tema.
+- **Don't** usar el fondo propio del tema de código, ni recuperar sus cursivas, ni un tema de código que solo se lea en oscuro.
+- **Don't** rellenar una pieza con un color de sintaxis o de categoría; el único relleno pleno es el botón primario.
+- **Don't** variar la forma o el color del panel de la cabecera de entrada según la categoría.
+- **Don't** añadir `ClientRouter` ni navegación con JavaScript; las transiciones entre páginas son solo CSS.
+- **Don't** reestructurar el armazón de Starlight (cabecera, menú, contenido, TOC).
+- **Don't** escribir hex en un componente; si falta un color, falta un token en los dos temas.

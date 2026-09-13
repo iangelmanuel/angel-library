@@ -1,28 +1,24 @@
-/* Base: lienzo del documento, selección, scrollbars, accesibilidad.
-   Las superficies del navegador también llevan el esmalte: selección, caret,
+/* Base: lienzo del documento, tipografía y accesibilidad. Selección, caret,
    barras y anillo de foco salen de la paleta, no del sistema operativo. */
 @layer base {
   * {
-    border-color: var(--border);
+    border-color: var(--line);
   }
 
   html {
-    color-scheme: dark;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--bg);
+    color: var(--text);
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
     font-synthesis: none;
-    caret-color: var(--blue-400);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    caret-color: var(--accent);
     text-rendering: optimizeLegibility;
   }
 
@@ -32,9 +28,10 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.018em;
+    font-family: var(--font-sans);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    color: var(--text-strong);
     text-wrap: balance;
   }
 
@@ -45,7 +42,6 @@
     font-family: var(--font-mono);
   }
 
-  /* Cifras alineadas en cualquier dato tabulado. */
   table,
   time,
   [data-numeric] {
@@ -55,7 +51,7 @@
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
-    border-radius: var(--radius-thin);
+    border-radius: var(--radius-sm);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -71,10 +67,4 @@
       scroll-behavior: auto !important;
     }
   }
-}
-
-/* View transitions: rápidas y discretas */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 140ms;
 }

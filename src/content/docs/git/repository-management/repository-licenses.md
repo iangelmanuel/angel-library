@@ -2,7 +2,8 @@
 title: Licencias de software — cuál elegir y qué significa
 description: Diferencias prácticas entre no usar licencia, licencias permisivas y copyleft para escoger conscientemente en un repositorio.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [github, license, open-source, mit, apache, gpl]
 related:
   - git/repository-management/repository-management-fundamentals

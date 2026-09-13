@@ -2,7 +2,8 @@
 title: "Cursos de Midudev por tecnología"
 description: "Índice de cursos gratuitos en español organizado por tecnología, para elegir una ruta de Midudev según el tema y abrir directamente el video o la serie."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [cursos, midudev, youtube, javascript, gratis, espanol]
 url: https://www.youtube.com/@midudev
 resourceCategory: learning

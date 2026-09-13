@@ -2,7 +2,8 @@
 title: "Levantar Postgres con docker run"
 description: El comando completo para tener Postgres corriendo en la máquina en un minuto, con las variables de entorno de la imagen oficial y volumen para que los datos persistan.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [docker, postgres, base-de-datos]
 scope: Postgres con docker run
 related:

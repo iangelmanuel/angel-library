@@ -2,7 +2,8 @@
 title: Perfil público — bio, repos fijados y contribuciones
 description: Los campos del perfil de GitHub, cómo elegir los repositorios destacados y qué cuenta realmente el gráfico de contribuciones.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [github, perfil, contribuciones, organizaciones, privacidad]
 scope: presentación pública del perfil
 related:

@@ -2,7 +2,8 @@
 title: Context API con un hook propio
 description: Compartir estado entre componentes sin prop drilling — createContext, Provider y un hook custom que valida el uso correcto.
 type: guides
-order: 7
+sidebar:
+  order: 7
 tags: [react, state, hooks]
 scope: react (createContext / useContext)
 updatedAt: 2026-08-25

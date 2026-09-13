@@ -2,7 +2,8 @@
 title: Comandos personalizados
 description: Markdown + frontmatter, con un campo template que no existe en Claude Code — la diferencia principal entre ambos.
 type: skills
-order: 2
+sidebar:
+  order: 2
 tags: [ai, opencode, comando]
 tool: OpenCode
 updatedAt: 2026-08-17

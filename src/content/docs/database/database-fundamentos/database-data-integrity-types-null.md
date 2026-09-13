@@ -2,7 +2,8 @@
 title: Tipos de datos, NULL e integridad
 description: Elegir tipos que representen el dominio, comprender la lógica de NULL y proteger datos con restricciones, precisión y validación en varias capas.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [bases-de-datos, tipos, "null", integridad, constraints]
 related:
   - database/database-fundamentos/database-fundamentals-terminology

@@ -2,7 +2,8 @@
 title: React Compiler con Oxc y Vite
 description: Integrar el port de React Compiler escrito en Rust mediante oxc-transform-react y @vitejs/plugin-react, con memoización automática y un flujo de adopción medible.
 type: guides
-order: 17
+sidebar:
+  order: 17
 tags: [react, react-compiler, oxc, vite, rust, rendimiento]
 scope: React Compiler en Vite
 website: https://oxc.rs/blog/2026-08-18-react-compiler-support

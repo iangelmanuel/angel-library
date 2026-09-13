@@ -2,7 +2,8 @@
 title: "JavaScript Questions (lydiahallie)"
 description: "Colección de preguntas para comprobar cuánto entiendes de JavaScript; cada respuesta explica el comportamiento del lenguaje en lugar de limitarse a marcar una opción."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [javascript, github, entrevistas, quiz, espanol, aprendizaje]
 url: https://github.com/lydiahallie/javascript-questions/blob/master/es-ES/README-ES.md
 resourceCategory: learning

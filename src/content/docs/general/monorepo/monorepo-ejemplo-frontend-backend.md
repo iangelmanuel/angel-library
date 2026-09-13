@@ -2,7 +2,8 @@
 title: "Monorepo con frontend y backend — ejemplo completo"
 description: Un monorepo real con Express de backend, Vite + React de frontend y un paquete de tipos compartido entre los dos, más el comando que abre ambos servidores a la vez en pnpm, npm y Bun.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [monorepo, frontend, backend, express, vite, concurrently]
 scope: monorepo de frontend y backend con un comando de dev único
 related:

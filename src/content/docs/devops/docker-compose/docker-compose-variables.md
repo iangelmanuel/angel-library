@@ -2,7 +2,8 @@
 title: "Variables de entorno con Compose"
 description: Usar un archivo .env junto al docker-compose.yml e interpolar variables, para no hardcodear secretos en el YAML.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [docker, compose, variables-entorno, env]
 scope: variables con Compose
 related:

@@ -2,7 +2,8 @@
 title: Subagentes
 description: Markdown + YAML frontmatter — y Cursor también lee .claude/agents/ y .codex/agents/ directo, sin conversión.
 type: skills
-order: 4
+sidebar:
+  order: 4
 tags: [ai, cursor, agente]
 tool: Cursor
 updatedAt: 2026-08-17

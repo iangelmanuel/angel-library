@@ -2,7 +2,8 @@
 title: useTimeout
 description: Ejecutar un callback una vez después de un tiempo, conservando siempre la versión más reciente y limpiando al desmontar.
 type: hooks
-order: 7
+sidebar:
+  order: 7
 tags: [react, hooks, timers, typescript]
 framework: React
 language: typescript

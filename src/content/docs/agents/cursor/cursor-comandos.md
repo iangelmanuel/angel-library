@@ -2,7 +2,8 @@
 title: Comandos personalizados
 description: Prompts guardados en .cursor/commands/, disponibles en el menú / del IDE y del Cursor CLI.
 type: skills
-order: 3
+sidebar:
+  order: 3
 tags: [ai, cursor, comando]
 tool: Cursor
 updatedAt: 2026-08-17

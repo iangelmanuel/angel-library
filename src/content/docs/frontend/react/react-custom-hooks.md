@@ -2,7 +2,8 @@
 title: Hooks personalizados y reutilización de lógica
 description: Extraer sincronización y estado con una API clara, sin confundir reutilizar lógica con compartir la misma instancia de estado.
 type: guides
-order: 11
+sidebar:
+  order: 11
 tags: [react, hooks, custom-hooks, composition]
 scope: diseño de hooks
 website: https://react.dev/learn/reusing-logic-with-custom-hooks

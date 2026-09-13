@@ -2,7 +2,8 @@
 title: "Brave — navegador Chromium con privacidad integrada"
 description: "Navegador multiplataforma compatible con extensiones de Chromium que bloquea anuncios, rastreadores y cookies de terceros desde su capa Shields."
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [brave, navegador, chromium, privacidad, seguridad, extensiones]
 website: https://brave.com/es/
 github: https://github.com/brave/brave-browser

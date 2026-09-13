@@ -2,7 +2,8 @@
 title: CSS moderno y avanzado
 description: Cascada, layout, responsive design, custom properties, queries, containment y rendering para interfaces escalables.
 type: technologies
-order: 1
+sidebar:
+  order: 1
 tags: [css, layout, cascade, responsive, performance]
 website: https://developer.mozilla.org/es/docs/Web/CSS
 related:

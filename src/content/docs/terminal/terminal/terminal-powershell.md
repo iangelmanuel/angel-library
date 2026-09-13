@@ -2,7 +2,8 @@
 title: "PowerShell como terminal día a día"
 description: Perfil de usuario, política de ejecución, alias y la diferencia entre PowerShell 5.1 y 7+ para el uso interactivo diario.
 type: guides
-order: 21
+sidebar:
+  order: 21
 tags: [terminal, powershell, windows]
 scope: PowerShell
 related: [terminal/terminal/terminal-wsl, terminal/terminal/terminal-linux-cli]

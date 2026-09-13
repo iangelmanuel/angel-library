@@ -2,7 +2,8 @@
 title: "Motion (ex Framer Motion)"
 description: Animaciones declarativas en React — el componente motion, initial/animate/exit y AnimatePresence para animar la salida.
 type: libraries
-order: 6
+sidebar:
+  order: 6
 tags: [react, animation]
 website: https://motion.dev
 related:

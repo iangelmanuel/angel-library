@@ -2,7 +2,8 @@
 title: "Algoritmos y estructuras de datos en JavaScript (trekhleb)"
 description: "Repositorio para estudiar cómo se organizan y procesan datos mediante algoritmos clásicos, con implementaciones en JavaScript y explicaciones en español."
 type: resources
-order: 3
+sidebar:
+  order: 3
 tags: [javascript, algoritmos, estructuras-datos, github, espanol, aprendizaje]
 url: https://github.com/trekhleb/javascript-algorithms/blob/master/README.es-ES.md
 resourceCategory: learning

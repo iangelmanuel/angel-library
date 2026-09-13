@@ -2,7 +2,8 @@
 title: GitHub MCP — el oficial
 description: Repos, PRs, issues, Actions desde el agente — servidor oficial de GitHub, reemplazó al viejo @modelcontextprotocol/server-github.
 type: skills
-order: 1
+sidebar:
+  order: 1
 tags: [ai, mcp, github]
 tool: Cross-tool
 updatedAt: 2026-08-17

@@ -2,7 +2,8 @@
 title: "<Image /> — optimización"
 description: Extiende <img> con dimensiones, srcset, carga diferida, preload, placeholders y orígenes remotos controlados.
 type: guides
-order: 25
+sidebar:
+  order: 25
 tags: [nextjs, images, performance]
 scope: next.js (next/image)
 related:

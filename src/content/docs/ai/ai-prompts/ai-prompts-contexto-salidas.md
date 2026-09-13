@@ -2,7 +2,8 @@
 title: Prompts, contexto y salidas estructuradas
 description: Diseñar instrucciones verificables, administrar la ventana de contexto y obtener JSON confiable sin depender de frases mágicas.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [ia, prompts, contexto, structured-outputs, json]
 related:
   - ai/ai-fundamentos/ai-fundamentals-terminology

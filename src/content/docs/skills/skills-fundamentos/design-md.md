@@ -2,7 +2,8 @@
 title: "DESIGN.md"
 description: "Formato para describir una identidad visual a los agentes de codificación: tokens legibles por máquina y la justificación en prosa, en un solo archivo."
 type: resources
-order: 3
+sidebar:
+  order: 3
 tags: [ia, agentes, diseño, design-tokens, especificacion, google]
 url: https://github.com/google-labs-code/design.md
 resourceCategory: ia

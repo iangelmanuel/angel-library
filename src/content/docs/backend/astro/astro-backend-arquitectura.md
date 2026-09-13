@@ -2,7 +2,8 @@
 title: Backend en Astro — mapa y arquitectura
 description: Ruta backend de Astro para aprender cuándo usar endpoints, Actions, middleware, sesiones y render on-demand o consultar cada pieza rápidamente.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [astro, architecture, server, backend]
 scope: arquitectura backend en Astro
 related:

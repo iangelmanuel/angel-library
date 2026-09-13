@@ -2,7 +2,8 @@
 title: Hooks — automatizar en eventos del ciclo de vida
 description: Scripts que corren automáticamente antes/después de cada tool call, al empezar/terminar sesión, etc. — configurados en settings.json.
 type: skills
-order: 5
+sidebar:
+  order: 5
 tags: [ai, claude-code, hook]
 tool: Claude Code
 updatedAt: 2026-08-17

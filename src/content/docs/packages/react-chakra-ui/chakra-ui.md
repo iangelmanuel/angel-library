@@ -2,7 +2,8 @@
 title: Chakra UI
 description: Componentes React accesibles con sistema de estilos por props y theming, sin depender de Tailwind.
 type: libraries
-order: 4
+sidebar:
+  order: 4
 tags: [react, components, accessibility]
 website: https://www.chakra-ui.com
 github: https://github.com/chakra-ui/chakra-ui

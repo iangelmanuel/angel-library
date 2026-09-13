@@ -2,7 +2,8 @@
 title: Internacionalización y rutas por locale
 description: Detectar idioma, organizar app/[lang], cargar diccionarios server-side y generar rutas localizadas sin inflar el cliente.
 type: guides
-order: 29
+sidebar:
+  order: 29
 tags: [nextjs, i18n, routing, accessibility, seo]
 scope: next.js app router (internationalization)
 related:

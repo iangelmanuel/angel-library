@@ -1,94 +1,90 @@
 /* Botón — cuatro variantes y ninguna más.
-   El tamaño y el espaciado pueden cambiar; la forma, el radio y el color de
-   cada variante no. Vive aquí y no en una hoja de página porque lo usan tanto
-   la portada (global.css) como la documentación (starlight.css). */
+   Lo usan la portada (global.css) y la documentación (starlight.css). */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  border: 0;
-  border-radius: var(--radius-field);
+  gap: 0.55rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
   font-family: inherit;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 550;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   transition:
-    background-color var(--dur-fast) var(--ease-enamel),
-    color var(--dur-fast) var(--ease-enamel);
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
 }
 
-/* El icono hereda el color del botón: los de trazo por `stroke="currentColor"`
-   y los logos monocromos por `fill="currentColor"` en su propio archivo. */
 .btn__icon {
   flex-shrink: 0;
 }
 
-/* Tamaños. Lo único que se puede elegir por sitio. */
 .btn--sm {
-  min-height: 2.5rem;
-  padding-inline: 0.9rem;
-  font-size: 0.85rem;
+  min-height: 2.25rem;
+  padding-inline: 0.85rem;
+  font-size: 0.84rem;
 }
 .btn--md {
-  min-height: 2.85rem;
-  padding-inline: 1.15rem;
+  min-height: 2.6rem;
+  padding-inline: 1.1rem;
 }
 .btn--lg {
-  min-height: 3rem;
+  min-height: 2.9rem;
   padding-inline: 1.3rem;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
 }
 
-/* Primario y secundario son el mismo objeto: un campo de color y nada más.
-   Sin borde, sin degradado y sin relieve — la jerarquía la da el color, y el
-   hover solo cambia el relleno. */
-
-/* Primario: esmalte pleno. Al pasar por encima se quema hacia el negro. */
+/* Primario: el violeta de keyword lleno. */
 .btn--primary {
-  background: var(--primary-fill);
-  color: var(--primary-foreground);
+  background: var(--accent);
+  color: var(--accent-contrast);
 }
 .btn--primary:hover,
 .btn--primary:focus-visible {
-  background: var(--primary-fill-hover);
+  background: var(--accent-hover);
 }
 
-/* Secundario: el mismo campo en negro grisáceo, letra e icono blancos. Al
-   pasar por encima sube un escalón de gris. */
+/* Secundario: un panel con canto fino. */
 .btn--secondary {
-  background: var(--neutral-fill);
-  color: var(--white);
+  border-color: var(--line);
+  background: var(--bg-raised);
+  color: var(--text-strong);
 }
 .btn--secondary:hover,
 .btn--secondary:focus-visible {
-  background: var(--neutral-fill-hover);
+  border-color: var(--line-strong);
 }
 
-/* Outline: sin caja ni borde, la acción que acompaña al primario. */
+/* Outline: canto sin relleno, la acción que acompaña al primario. */
 .btn--outline {
+  border-color: var(--line);
   background: transparent;
-  color: var(--blue-500);
+  color: var(--text);
 }
 .btn--outline:hover,
 .btn--outline:focus-visible {
-  color: var(--white);
+  border-color: var(--line-strong);
+  background: var(--bg-raised);
+  color: var(--text-strong);
 }
 
 /* Link: el enlace de siempre, con forma de botón solo en el foco. */
 .btn--link {
-  gap: 0.5rem;
+  gap: 0.45rem;
   min-height: 0;
   padding: 0;
+  border: 0;
   background: transparent;
-  font-weight: 400;
-  color: var(--reading-link);
+  font-weight: 500;
+  color: var(--accent);
 }
 .btn--link:hover,
 .btn--link:focus-visible {
-  color: var(--white);
+  color: var(--text-strong);
 }

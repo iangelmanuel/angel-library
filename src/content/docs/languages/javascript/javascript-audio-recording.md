@@ -2,7 +2,8 @@
 title: Audio, análisis de sonido y grabación
 description: Reproducir audio, usar AudioContext, detectar nivel del micrófono, grabar con MediaRecorder y trabajar con síntesis de voz.
 type: guides
-order: 31
+sidebar:
+  order: 31
 tags: [javascript, audio, web-audio, media-recorder, speech]
 scope: Web APIs multimedia
 website: https://developer.mozilla.org/es/docs/Web/API/Web_Audio_API

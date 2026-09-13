@@ -2,7 +2,8 @@
 title: PUG
 description: Motor de templates server-side para Express — sintaxis por indentación, layouts, y cuándo un template engine sigue teniendo sentido.
 type: libraries
-order: 21
+sidebar:
+  order: 21
 tags: [express, templates, pug, ssr]
 website: https://pugjs.org
 updatedAt: 2026-08-16

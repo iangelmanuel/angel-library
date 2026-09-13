@@ -2,7 +2,8 @@
 title: /review — revisar el diff o PR actual
 description: Bugs, legibilidad y seguridad sobre los cambios actuales — sin editar nada, solo reporta.
 type: skills
-order: 2
+sidebar:
+  order: 2
 tags: [ai, comando, code-review]
 tool: Cross-tool
 updatedAt: 2026-08-17

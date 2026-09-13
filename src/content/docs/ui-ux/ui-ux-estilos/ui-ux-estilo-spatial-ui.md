@@ -2,7 +2,8 @@
 title: "Spatial UI"
 description: "Interfaces colocadas en un espacio tridimensional: profundidad real, entrada por mirada y gesto, y los límites ergonómicos que impone el cuerpo."
 type: guides
-order: 10
+sidebar:
+  order: 10
 tags: [ui, diseño, estilos, spatial, 3d, visionos, accesibilidad]
 related:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales

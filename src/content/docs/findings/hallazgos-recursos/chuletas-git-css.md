@@ -2,7 +2,8 @@
 title: "Chuletas de Git y CSS en PDF"
 description: "Hojas de consulta rápida para recordar comandos de Git y GitHub y propiedades de Flexbox y Grid; complementan la práctica, pero no sustituyen un curso."
 type: resources
-order: 4
+sidebar:
+  order: 4
 tags: [git, css, flexbox, grid, referencia, pdf]
 url: https://training.github.com/downloads/es_ES/github-git-cheat-sheet.pdf
 resourceCategory: learning

@@ -2,7 +2,8 @@
 title: "Astro CLI: comandos esenciales"
 description: Crear un proyecto con npm create astro, y los comandos del día a día — dev, build, preview, check, add y sync. Los mismos que usa este sitio.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [cli, astro, deploy]
 scope: astro
 related: [applications/apps-cli/cli-vercel, terminal/cli/cli-prisma]

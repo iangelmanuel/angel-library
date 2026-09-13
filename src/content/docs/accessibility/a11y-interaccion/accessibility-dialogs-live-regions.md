@@ -2,7 +2,8 @@
 title: Diálogos, menús y regiones en vivo
 description: Gestionar widgets complejos sin perder foco, contexto ni anuncios importantes para tecnologías asistivas.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [accessibility, dialogs, aria, focus]
 scope: componentes interactivos
 related:

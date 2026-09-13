@@ -1,6 +1,6 @@
 ---
-import geistSans400 from "@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2?url"
-import geistMono400 from "@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2?url"
+import onestLatin from "@fontsource-variable/onest/files/onest-latin-wght-normal.woff2?url"
+import jetbrainsMonoLatin from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url"
 import { SITE } from "@/config/site"
 import type { SeoProps } from "@/lib/seo"
 
@@ -194,7 +194,7 @@ const googlebot = noindex
 
 <meta
   name="color-scheme"
-  content="dark"
+  content="dark light"
 />
 <meta
   name="theme-color"
@@ -209,14 +209,14 @@ const googlebot = noindex
 
 <link
   rel="preload"
-  href={geistSans400}
+  href={onestLatin}
   as="font"
   type="font/woff2"
   crossorigin="anonymous"
 />
 <link
   rel="preload"
-  href={geistMono400}
+  href={jetbrainsMonoLatin}
   as="font"
   type="font/woff2"
   crossorigin="anonymous"

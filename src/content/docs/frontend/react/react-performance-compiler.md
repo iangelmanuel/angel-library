@@ -2,7 +2,8 @@
 title: Rendimiento, memoización y React Compiler
 description: Medir renders, usar memo, useMemo y useCallback con criterio, diferir trabajo y entender qué automatiza React Compiler.
 type: guides
-order: 16
+sidebar:
+  order: 16
 tags: [react, performance, memoization, compiler, profiler]
 scope: rendimiento de React
 website: https://react.dev/learn/react-compiler

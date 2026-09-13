@@ -2,7 +2,8 @@
 title: Content Collections
 description: Colecciones de contenido tipadas con Zod — defineCollection, loaders, getCollection, render y referencias entre colecciones.
 type: guides
-order: 13
+sidebar:
+  order: 13
 tags: [astro, content, zod]
 scope: astro:content
 related:

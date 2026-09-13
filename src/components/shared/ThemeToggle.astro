@@ -1,0 +1,36 @@
+---
+import Icon from "@/components/shared/Icon.astro"
+
+// Botón de tema compartido por la portada y la documentación. Guarda la
+// preferencia en la misma clave que usa Starlight (`starlight-theme`), así
+// ambas superficies arrancan con el tema elegido.
+---
+
+<button
+  type="button"
+  class="chrome-icon-button chrome-theme"
+  data-theme-toggle
+  aria-label="Cambiar entre tema claro y oscuro"
+>
+  <Icon
+    name="moon"
+    size={16}
+    class="chrome-theme__moon"
+  />
+  <Icon
+    name="sun"
+    size={16}
+    class="chrome-theme__sun"
+  />
+</button>
+
+<script>
+  document.addEventListener("click", (event) => {
+    const toggle = (event.target as HTMLElement).closest("[data-theme-toggle]")
+    if (!toggle) return
+    const next =
+      document.documentElement.dataset.theme === "light" ? "dark" : "light"
+    document.documentElement.dataset.theme = next
+    localStorage.setItem("starlight-theme", next)
+  })
+</script>

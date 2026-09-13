@@ -3,7 +3,8 @@ title: Validar en las fronteras del sistema
 description: Valida datos cuando cruzan una frontera, en lugar de confiar en tipos internos o sistemas externos.
 type: practices
 tags: [architecture, validation, typescript]
-order: 9
+sidebar:
+  order: 9
 practice: Validar requests, formularios, variables de entorno y respuestas de terceros antes de usarlas.
 why: Los tipos de TypeScript desaparecen en runtime y las fronteras reciben datos que no controlamos.
 related:

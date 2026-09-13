@@ -2,7 +2,8 @@
 title: Instrucciones de proyecto
 description: El análogo a CLAUDE.md en OpenCode — con la ventaja de poder aplicarse solo a archivos que matcheen un glob.
 type: skills
-order: 1
+sidebar:
+  order: 1
 tags: [ai, opencode, memoria, config]
 tool: OpenCode
 updatedAt: 2026-08-17

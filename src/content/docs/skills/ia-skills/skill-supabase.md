@@ -2,7 +2,8 @@
 title: supabase — integración completa
 description: DB, auth, storage, Edge Functions, Realtime, Vectors — oficial de Supabase, con soporte explícito para Astro, Next.js y React.
 type: skills
-order: 12
+sidebar:
+  order: 12
 tags: [ai, skill, supabase, database]
 tool: Cross-tool
 updatedAt: 2026-08-17

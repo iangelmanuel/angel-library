@@ -2,7 +2,8 @@
 title: /refactor — refactorizar sin cambiar comportamiento
 description: Simplifica y reorganiza un archivo o carpeta preservando el comportamiento externo, listando los problemas antes de tocar nada.
 type: skills
-order: 4
+sidebar:
+  order: 4
 tags: [ai, comando, refactor]
 tool: Cross-tool
 related: [skills/ia-comandos/comando-code-audit]

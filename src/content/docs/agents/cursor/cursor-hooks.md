@@ -2,7 +2,8 @@
 title: Hooks
 description: Comandos que corren en checkpoints del ciclo de vida — bloquear comandos peligrosos, formatear al editar, auditar tool calls.
 type: skills
-order: 6
+sidebar:
+  order: 6
 tags: [ai, cursor, hook]
 tool: Cursor
 updatedAt: 2026-08-17

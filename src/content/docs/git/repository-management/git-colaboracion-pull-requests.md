@@ -2,7 +2,8 @@
 title: Pull Requests — preparación, revisión y merge
 description: Preparar cambios revisables, describir evidencia y riesgos, responder comentarios y elegir una estrategia de integración consciente.
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [git, collaboration, commits, branches, pull-request]
 related:
   - git/git/git-mental-model-terminology

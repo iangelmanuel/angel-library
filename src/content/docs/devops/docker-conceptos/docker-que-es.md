@@ -2,7 +2,8 @@
 title: "Qué es Docker"
 description: El problema que resuelve Docker ("funciona en mi máquina"), qué es un contenedor a alto nivel y por qué se volvió el estándar.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [docker, conceptos]
 scope: introducción a Docker
 updatedAt: 2026-08-17

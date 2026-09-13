@@ -2,7 +2,8 @@
 title: frontend-design — UI que no se ve "genérica de IA"
 description: Skill oficial de Anthropic — guía la dirección estética y genera HTML/CSS/JS, React o Vue evitando los patrones predecibles típicos de código generado.
 type: skills
-order: 2
+sidebar:
+  order: 2
 tags: [ai, skill, frontend, diseño]
 tool: Claude Code
 updatedAt: 2026-08-17

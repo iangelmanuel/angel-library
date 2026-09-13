@@ -2,7 +2,8 @@
 title: JSON, serialización y almacenamiento local
 description: Convertir datos con seguridad, entender límites de JSON y elegir localStorage, sessionStorage, cookies o IndexedDB.
 type: guides
-order: 24
+sidebar:
+  order: 24
 tags: [javascript, json, storage, serialization, browser]
 scope: datos locales
 related:

@@ -2,7 +2,8 @@
 title: Observer
 description: Que varias partes del código reaccionen a un evento sin que quien lo dispara sepa quién está escuchando.
 type: patterns
-order: 8
+sidebar:
+  order: 8
 tags: [arquitectura, patrones-diseno, observer]
 problem: Cuando se crea un usuario hay que mandar un email de bienvenida, registrar el evento en analytics y sincronizar con el CRM — y ninguno de esos pasos debería vivir dentro del servicio que crea usuarios.
 updatedAt: 2026-08-17

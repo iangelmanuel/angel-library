@@ -2,7 +2,8 @@
 title: Prettier
 description: Formateador de código con opinión — instalación, plugins para ordenar imports y clases de Tailwind, qué hace cada campo, .prettierignore y las configuraciones listas para Astro y Next.js.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [prettier, formato, configuracion, imports, tailwind, eslint]
 scope: configuración de Prettier
 related:

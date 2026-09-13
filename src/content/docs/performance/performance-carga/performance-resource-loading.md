@@ -2,7 +2,8 @@
 title: Estrategia de carga de CSS, fuentes y scripts
 description: Priorizar recursos críticos, reducir bloqueo y evitar que terceros compitan con el contenido principal.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [performance, css, fonts, javascript, loading]
 scope: carga de recursos
 related:

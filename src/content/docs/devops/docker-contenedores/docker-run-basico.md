@@ -2,7 +2,8 @@
 title: "docker run: flags esenciales"
 description: Los flags de docker run que se usan todos los días — -d, -p, --name, --rm, -e, -v — y qué hace cada uno.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [docker, run, contenedores]
 scope: docker run
 related:

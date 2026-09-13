@@ -2,7 +2,8 @@
 title: Visual Studio Code — workspace de desarrollo
 description: Editor de código que reúne archivos, terminal, control de versiones y depuración; la guía separa la configuración personal de la que conviene compartir con el proyecto.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [vscode, editor, workspace, extensions, debugging]
 website: https://code.visualstudio.com
 related:

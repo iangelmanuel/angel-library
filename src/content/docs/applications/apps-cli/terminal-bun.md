@@ -2,7 +2,8 @@
 title: "Bun: runtime, gestor de paquetes y bundler en uno"
 description: Entorno para ejecutar JavaScript y TypeScript que también instala paquetes, ejecuta pruebas y empaqueta código; la guía muestra cómo evaluarlo sin reemplazar Node a ciegas.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [terminal, bun, node, gestor-de-paquetes, runtime]
 scope: bun
 website: https://bun.sh

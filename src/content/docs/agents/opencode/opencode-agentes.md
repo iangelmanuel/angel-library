@@ -2,7 +2,8 @@
 title: Agentes y subagentes
 description: Agentes primary (Tab-cycled) vs subagent (@mención) — modelo de sesiones hijas navegables, distinto a Claude Code.
 type: skills
-order: 3
+sidebar:
+  order: 3
 tags: [ai, opencode, agente]
 tool: OpenCode
 updatedAt: 2026-08-17

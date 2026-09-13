@@ -2,7 +2,8 @@
 title: /code-audit — auditoría general de calidad de código
 description: Duplicación, complejidad, código muerto y consistencia de estilo — más allá de bugs puntuales, sin tocar nada.
 type: skills
-order: 3
+sidebar:
+  order: 3
 tags: [ai, comando, code-quality]
 tool: Cross-tool
 related:

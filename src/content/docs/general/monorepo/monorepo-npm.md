@@ -2,7 +2,8 @@
 title: Monorepo con npm — workspaces sin instalar nada extra
 description: "Crear un monorepo con npm workspaces — el campo workspaces en package.json, --workspace para acotar comandos, y por qué el protocolo workspace: no es fiable en npm todavía."
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [monorepo, npm, workspaces]
 scope: monorepo con npm workspaces
 related:

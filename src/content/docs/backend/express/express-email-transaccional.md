@@ -2,7 +2,8 @@
 title: Email transaccional (Resend + Express)
 description: Email de confirmación al registrarse y de recuperación de contraseña — los dos flujos de email más comunes de cualquier backend.
 type: recipes
-order: 31
+sidebar:
+  order: 31
 tags: [express, email, resend]
 problem: Los dos casos de uso de email transaccional que casi todo backend termina necesitando, con tokens de un solo uso.
 technologies: [packages/node-resend/resend, backend/express/express-prisma]

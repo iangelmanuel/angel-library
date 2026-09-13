@@ -2,7 +2,8 @@
 title: code-review — plugin oficial de Claude Code
 description: Revisión de código estructurada, mantenida por Anthropic — parte del marketplace oficial.
 type: skills
-order: 1
+sidebar:
+  order: 1
 tags: [ai, plugin, code-review]
 tool: Claude Code
 updatedAt: 2026-08-17

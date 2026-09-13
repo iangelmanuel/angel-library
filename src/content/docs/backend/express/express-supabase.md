@@ -2,7 +2,8 @@
 title: Supabase en Express
 description: Instalación, client con service role, RLS, auth incluida y storage — todo lo necesario para usar Supabase en un backend Express.
 type: guides
-order: 19
+sidebar:
+  order: 19
 tags: [express, supabase, database]
 website: https://supabase.com
 updatedAt: 2026-08-17

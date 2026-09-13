@@ -3,7 +3,8 @@ title: "Terminal y CLI: fundamentos y terminología"
 description: Diferencias entre terminal, shell y CLI; argumentos, variables, procesos, streams, pipes, rutas y códigos de salida.
 type: guides
 tags: [terminal, shell, cli, procesos, fundamentos]
-order: 1
+sidebar:
+  order: 1
 updatedAt: 2026-08-25
 ---
 

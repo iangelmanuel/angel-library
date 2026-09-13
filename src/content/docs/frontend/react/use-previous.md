@@ -2,7 +2,8 @@
 title: usePrevious
 description: Conservar el valor del render anterior para comparar transiciones, depurar cambios o animar diferencias.
 type: hooks
-order: 9
+sidebar:
+  order: 9
 tags: [react, hooks, state, typescript]
 framework: React
 language: typescript

@@ -2,7 +2,8 @@
 title: "React 19.3: View Transitions, browser, Fragment Refs y Server Components"
 description: Guía completa de las APIs estables y cambios relevantes de React 19.3, con ejemplos de DOM, SSR, Suspense, Trusted Types y Context en Server Components.
 type: guides
-order: 18
+sidebar:
+  order: 18
 tags: [react, react-19, view-transitions, fragment-refs, browser, trusted-types, server-components, suspense]
 website: https://react.dev/blog/2026/09/09/react-19-3
 github: https://github.com/facebook/react

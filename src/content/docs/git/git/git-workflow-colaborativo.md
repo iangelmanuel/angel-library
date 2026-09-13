@@ -2,7 +2,8 @@
 title: Workflow colaborativo — ramas, commits y pull requests
 description: Organizar cambios pequeños, actualizar una rama, revisar una PR y mantener un historial recuperable sin imponer un modelo único.
 type: guides
-order: 7
+sidebar:
+  order: 7
 tags: [git, workflow, branches, pull-request, collaboration]
 related:
   - git/repository-management/git-colaboracion-pull-requests

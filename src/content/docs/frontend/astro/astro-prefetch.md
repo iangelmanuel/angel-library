@@ -2,7 +2,8 @@
 title: Prefetch de enlaces
 description: Precargar páginas con data-astro-prefetch, elegir estrategia y evitar descargas innecesarias en conexiones limitadas.
 type: guides
-order: 23
+sidebar:
+  order: 23
 tags: [astro, navigation, performance, prefetch]
 scope: astro prefetch
 related:

@@ -2,7 +2,8 @@
 title: Midscene.js — testing visual asistido por IA
 description: Integrar acciones, consultas y aserciones visuales con Playwright o Vitest, entendiendo configuración, costos y límites.
 type: libraries
-order: 2
+sidebar:
+  order: 2
 tags: [testing, ai, playwright, e2e, midscene]
 website: https://www.midscenejs.com/
 github: https://github.com/web-infra-dev/midscene

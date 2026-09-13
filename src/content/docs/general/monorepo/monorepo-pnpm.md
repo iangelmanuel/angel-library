@@ -2,7 +2,8 @@
 title: Monorepo con pnpm — workspaces, filter y catalogs
 description: Crear un monorepo con pnpm paso a paso — pnpm-workspace.yaml, el protocolo workspace:, --filter para ejecutar comandos en paquetes concretos, y catalogs para versiones compartidas.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [monorepo, pnpm, workspaces, catalogs]
 scope: monorepo con pnpm workspaces
 related:

@@ -2,7 +2,8 @@
 title: /explain — explicar un archivo, función o parte del repo
 description: Explicación clara y corta de cómo funciona algo, útil para onboarding o antes de tocar código ajeno.
 type: skills
-order: 5
+sidebar:
+  order: 5
 tags: [ai, comando, onboarding]
 tool: Cross-tool
 updatedAt: 2026-08-17

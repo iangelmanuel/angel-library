@@ -2,7 +2,8 @@
 title: useDebounce
 description: Retrasar un valor hasta que deje de cambiar, útil para búsquedas, filtros y validaciones costosas sin dispararlas en cada tecla.
 type: hooks
-order: 5
+sidebar:
+  order: 5
 tags: [react, hooks, debounce, performance]
 framework: React
 language: typescript

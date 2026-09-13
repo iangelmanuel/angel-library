@@ -2,7 +2,8 @@
 title: Supabase MCP — base de datos desde el agente
 description: Queries, migraciones y gestión del proyecto Supabase directo desde el agente, con el token en variable de entorno.
 type: skills
-order: 4
+sidebar:
+  order: 4
 tags: [ai, mcp, supabase, database]
 tool: Cross-tool
 updatedAt: 2026-08-17

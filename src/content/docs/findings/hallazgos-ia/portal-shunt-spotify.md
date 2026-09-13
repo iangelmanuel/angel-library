@@ -2,7 +2,8 @@
 title: "Portal de Spotify — enrutar el trabajo de E/S fuera del modelo caro"
 description: "Artículo de ingeniería de Spotify y sus plugins públicos: cómo desviar lecturas masivas y código repetitivo de Claude Code hacia modelos más baratos, con una reducción media del 90% de tokens en ese tipo de tarea."
 type: resources
-order: 5
+sidebar:
+  order: 5
 tags: [ia, agentes, claude-code, tokens, costes, enrutado, plugins, hooks]
 url: https://engineering.atspotify.com/2026/9/portal-by-spotify-cut-my-claude-code-token-usage-by-90
 github: https://github.com/spotify/portal-ai-plugins

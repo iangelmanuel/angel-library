@@ -2,7 +2,8 @@
 title: Inspeccionar cambios e historial en Git
 description: Leer el estado, los diffs y el historial con suficiente contexto para revisar cambios antes de confirmarlos o compartirlos.
 type: guides
-order: 8
+sidebar:
+  order: 8
 tags: [git, diff, log, historial, debugging]
 scope: git status / diff / log / show / blame
 related:

@@ -2,7 +2,8 @@
 title: Vitest práctico — estructura, async, mocks y cobertura
 description: Escribir pruebas unitarias legibles con aislamiento deliberado, timers, errores asíncronos y cobertura usada como señal, no como objetivo vacío.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [testing, vitest, unit-testing, mocks, coverage]
 related:
   - packages/node-vitest/vitest-backend

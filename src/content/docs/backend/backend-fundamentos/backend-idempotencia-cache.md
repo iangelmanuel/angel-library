@@ -2,7 +2,8 @@
 title: Idempotencia y caché en APIs
 description: Evitar operaciones duplicadas y respuestas obsoletas mediante claves de idempotencia, validadores HTTP y estrategias de invalidación.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [backend, api, idempotency, cache, http]
 related:
   - backend/backend-fundamentos/backend-api-design

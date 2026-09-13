@@ -2,7 +2,8 @@
 title: "12 principios de animación — movimiento aplicado a interfaces"
 description: "Explicación interactiva de doce principios que hacen que un movimiento resulte claro y natural, aplicados a botones, transiciones y otras interfaces web."
 type: resources
-order: 3
+sidebar:
+  order: 3
 tags: [animacion, ui, ux, diseño, interaccion, css]
 url: https://www.raphaelsalaja.com/library/12-principles-of-animation
 resourceCategory: animations

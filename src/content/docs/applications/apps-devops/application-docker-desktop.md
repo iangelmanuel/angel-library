@@ -2,7 +2,8 @@
 title: Docker Desktop — motor de contenedores con interfaz
 description: Aplicación que permite ejecutar y administrar contenedores desde una interfaz gráfica; explica qué componentes instala, cómo observarlos y cuándo conviene usar comandos.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [docker, contenedores, devops, desktop]
 website: https://www.docker.com/products/docker-desktop
 related:

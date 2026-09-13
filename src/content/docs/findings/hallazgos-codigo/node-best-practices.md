@@ -2,7 +2,8 @@
 title: "Node.js Best Practices (goldbergyoni)"
 description: "Referencia para revisar decisiones de arquitectura, seguridad, pruebas y producción en Node.js; está pensada para consultar por tema, no para empezar desde cero."
 type: resources
-order: 5
+sidebar:
+  order: 5
 tags: [nodejs, github, buenas-practicas, backend, espanol]
 url: https://github.com/goldbergyoni/nodebestpractices/blob/spanish-translation/README.spanish.md
 resourceCategory: learning

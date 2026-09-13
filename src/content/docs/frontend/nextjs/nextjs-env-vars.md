@@ -2,7 +2,8 @@
 title: Variables de entorno en Next.js
 description: Carga desde .env, variables privadas y NEXT_PUBLIC_, validación temprana y diferencias entre build y runtime.
 type: guides
-order: 28
+sidebar:
+  order: 28
 tags: [nextjs, config, environment, security]
 scope: next.js environment variables
 related:

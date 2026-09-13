@@ -2,7 +2,8 @@
 title: API REST con Route Handlers
 description: Los mismos principios de REST/CRUD/paginación de Express, aplicados a la sintaxis de Route Handlers de Next.js.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [nextjs, api, rest]
 related:
   - backend/express/express-rest-crud

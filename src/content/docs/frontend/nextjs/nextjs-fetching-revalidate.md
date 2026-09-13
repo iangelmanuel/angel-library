@@ -2,7 +2,8 @@
 title: Fetching con revalidate — las constantes de caché
 description: cache en fetch, next.revalidate/next.tags, y los exports dynamic/revalidate/fetchCache explicados uno por uno.
 type: guides
-order: 16
+sidebar:
+  order: 16
 tags: [nextjs, caching, performance]
 scope: next.js (route segment config)
 related:

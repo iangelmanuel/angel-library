@@ -2,7 +2,8 @@
 title: Transacciones, aislamiento y concurrencia en PostgreSQL
 description: Mantener invariantes cuando varias solicitudes escriben al mismo tiempo mediante transacciones, locks y niveles de aislamiento.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [postgresql, transactions, isolation, locks, mvcc]
 related:
   - database/database-modelado/database-modelado-relacional

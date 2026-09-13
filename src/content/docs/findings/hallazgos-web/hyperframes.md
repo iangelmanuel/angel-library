@@ -2,7 +2,8 @@
 title: "HyperFrames — HTML convertido en video determinista"
 description: "Herramienta que convierte una página creada con HTML y CSS en un video reproducible, útil para generar muchas piezas con el mismo diseño mediante código."
 type: resources
-order: 1
+sidebar:
+  order: 1
 tags: [video, html, css, animacion, cli, ia, agentes, typescript]
 url: https://github.com/heygen-com/hyperframes
 resourceCategory: developer-tools

@@ -2,7 +2,8 @@
 title: Código asíncrono, Promises y cancelación
 description: Entender callbacks, Promises, async/await, concurrencia, reintentos, errores y AbortController sin crear carreras.
 type: guides
-order: 19
+sidebar:
+  order: 19
 tags: [javascript, async, promises, await, abort-controller]
 scope: asincronía
 related:

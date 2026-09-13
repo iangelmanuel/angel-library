@@ -2,7 +2,8 @@
 title: ".dockerignore"
 description: Qué es el contexto de build, por qué excluir archivos de él, y la sintaxis del .dockerignore.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [docker, dockerignore, imagenes]
 scope: .dockerignore
 related:

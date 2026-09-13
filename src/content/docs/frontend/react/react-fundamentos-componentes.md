@@ -2,7 +2,8 @@
 title: React — JSX, componentes, props, estado y formularios
 description: Modelo mental inicial de React para construir componentes predecibles antes de entrar en hooks, efectos y optimizaciones.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [react, jsx, components, props, state, events]
 related:
   - frontend/react/react

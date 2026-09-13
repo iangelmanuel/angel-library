@@ -3,7 +3,8 @@ title: "Frontend: fundamentos y terminología"
 description: Modelo mental del navegador, renderizado, componentes, estado, hidratación, paquetes y arquitectura de una interfaz web.
 type: guides
 tags: [frontend, navegador, renderizado, componentes, fundamentos]
-order: 1
+sidebar:
+  order: 1
 updatedAt: 2026-08-19
 ---
 

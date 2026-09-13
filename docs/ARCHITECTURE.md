@@ -98,10 +98,10 @@ src/
 │  │  ├─ Header.astro               cabecera (logo, nav, buscador, redes)
 │  │  ├─ PageTitle.astro            título + ruta, links, facts y avisos
 │  │  ├─ Sidebar.astro              solo el primer nivel del menú (ver sección 5.5)
-│  │  └─ ThemeSelect.astro          vacío a propósito: sin selector de tema
+│  │  └─ ThemeSelect.astro          botón de tema claro/oscuro (ThemeToggle)
 │  ├─ seo/BaseHead.astro           metaetiquetas (Open Graph, Twitter, canonical…)
 │  ├─ seo/JsonLd.astro             inyecta el JSON-LD en `<script type="application/ld+json">`
-│  └─ shared/                      Button, Icon, Logo — usados en todo el sitio
+│  └─ shared/                      Button, Icon, Logo, SearchButton, ThemeToggle
 │
 ├─ features/landing/            la portada, como una mini-app aparte
 │  (ver sección 7)
@@ -272,7 +272,8 @@ para abajo (colapsar, abrir la rama actual, accesibilidad) sigue siendo
 100% comportamiento de fábrica. Es la única parte de todo el sidebar que
 tiene código propio; el resto es Starlight puro.
 
-El aspecto visual (tamaños, colores por nivel) es
+El aspecto visual (tamaños, colores por nivel, la numeración 01, 02… de
+cada entrada con un contador CSS que sigue `sidebar.order`) es
 `src/styles/starlight.css`, sección `/* ----- menú */`. El bloque de
 navegación se pinta por su clase propia (`.nav-group-label`); categoría y
 subcategoría se distinguen contando cuántos `ul > li > details` hay
@@ -295,12 +296,14 @@ components: {
 ```
 
 Solo reemplazamos estos cuatro. **Todo lo demás — el Footer, la tabla de
-contenidos, la paginación, el buscador — es el componente de Starlight sin
-ninguna modificación.**
+contenidos, la paginación, el modal de búsqueda — es el componente de
+Starlight sin ninguna modificación.**
 
-- **`Header.astro`**: logo + nav (Inicio/Categorías/Tags) + buscador +
-  iconos de redes. Usa `<Search />` y `<SocialIcons />`, que son
-  componentes de Starlight — solo cambiamos el layout alrededor.
+- **`Header.astro`**: logo + nav (Inicio/Documentación) + buscador + botón
+  de tema + iconos de redes. El buscador visible es `SearchButton`, el mismo
+  de la portada; `<Search />` de Starlight sigue montado, con su botón
+  oculto, porque aporta el modal de Pagefind y el atajo Ctrl+K.
+  `<SocialIcons />` también es de Starlight.
 - **`Sidebar.astro`**: el único override con lógica propia (ver 5.5). Solo
   cambia el primer nivel del menú (rótulo fijo en vez de colapsable);
   categoría, subcategoría y entradas siguen siendo el `SidebarSublist` de
@@ -313,18 +316,19 @@ ninguna modificación.**
     retiraron del header por ruido visual — competían en color con el
     título); siguen en el frontmatter para el buscador;
   - el bloque de `command`, si la entrada lo declara;
-  - un panel esmaltado con los "facts" (problema, cuándo usarlo,
-    herramienta, lenguaje, etc. — cada uno solo si tiene valor) y los
-    botones a `url`/`website`/`github` juntos en un solo campo, en vez de
-    flotar sueltos;
+  - un panel con los "facts" (problema, cuándo usarlo, herramienta,
+    lenguaje, etc. — cada uno solo si tiene valor) y los botones a
+    `url`/`website`/`github`. El panel es igual en todas las categorías:
+    aparece si la entrada trae facts o enlaces, y no aparece si no trae
+    ninguno;
   - los links a `technologies` (otras entradas relacionadas) bajo el
     rótulo "Relacionado", resolviendo cada id a su título real;
   - la lista de `warnings`, si las hay.
-- **`ThemeSelect.astro`**: literalmente vacío. Es la forma correcta de
-  **apagar** una pieza de Starlight sin dejar un botón que no hace nada —
-  el sitio es de tema oscuro único, no hace falta el selector.
+- **`ThemeSelect.astro`**: en vez del `<select>` de Starlight, renderiza
+  `ThemeToggle`, el mismo botón de tema de la portada. Starlight lo usa en
+  la cabecera y en el menú móvil.
 
-Aparte de estos tres, hay componentes de uso general (no overrides de
+Aparte de estos cuatro, hay componentes de uso general (no overrides de
 Starlight):
 
 - `seo/BaseHead.astro` y `seo/JsonLd.astro`: metadatos para buscadores y
@@ -332,6 +336,12 @@ Starlight):
   `<head>` estándar de SEO.
 - `shared/Button.astro`, `shared/Icon.astro`, `shared/Logo.astro`: piezas
   visuales chicas, reutilizadas en toda la interfaz (docs y portada).
+- `shared/SearchButton.astro`: el buscador de la cabecera. No busca por sí
+  mismo: cualquier `[data-open-search]` (cabecera, hero, pie) abre el modal
+  de Pagefind que monta `<Search class="search-modal" />`.
+- `shared/ThemeToggle.astro`: alterna `data-theme` en `<html>` y guarda la
+  preferencia con la clave de Starlight (`starlight-theme`), así portada y
+  documentación arrancan con el mismo tema.
 
 ## 7 · La portada: `src/features/landing/`
 
@@ -347,7 +357,6 @@ features/landing/
 ├─ components/
 │  ├─ HeroWall.astro           el titular + buscador + cifras del catálogo
 │  ├─ CatalogSection.astro     el índice de las 24 categorías
-│  ├─ RouteSection.astro       ejemplo real de cómo una carpeta se vuelve URL
 │  ├─ FlowSection.astro        los 3 pasos (buscar → leer → reutilizar)
 │  ├─ CtaSection.astro         el cierre, con el botón grande
 │  ├─ LandingHeader.astro      cabecera propia de la portada
@@ -363,7 +372,7 @@ features/landing/
 `loadStats()` y ordena las secciones una debajo de otra. Toda la
 composición real vive en `features/landing/`.
 
-## 8 · Estilos: el sistema "El Esmalte"
+## 8 · Estilos: el sistema «Tema de editor»
 
 Hay dos hojas de estilos "de entrada", según quién esté pintando la
 página:
@@ -372,14 +381,33 @@ página:
   (se declara en `astro.config.mjs` como `customCss`). Redefine las
   variables `--sl-color-*` que Starlight usa internamente, para que el
   sitio se vea con nuestra paleta en vez de la de fábrica. También tiene
-  reglas puntuales (el menú, los bloques de código, la paginación).
+  reglas puntuales (el menú numerado, tablas, avisos, bloques de código, la
+  paginación).
 - **`src/styles/global.css`** — la usa **solo la portada**. Es Tailwind v4
-  más las clases propias del "muro" visual de la portada.
+  más los tokens y las hojas compartidas; los estilos propios de la portada
+  están en `src/features/landing/styles/landing.css`.
 
-Ambas hojas importan **`src/styles/tokens.css`**, que es donde viven los
-valores reales: colores (`--blue-400`, `--cat-frontend`...), radios
-(`--radius-thin`, `--radius`, `--radius-field`), duraciones de animación,
-sombras. Cambiar un color del sitio entero es cambiar una línea acá.
+Ambas hojas importan **`src/styles/tokens.css`**, donde viven los valores
+reales: superficies (`--bg`, `--bg-panel`, `--bg-code`…), texto, los roles
+de sintaxis (`--syn-violet`, `--syn-green`…), el color de cada categoría
+(`--cat-frontend`…), radios, duraciones y sombras. El tema oscuro va en
+`:root` y el claro en `:root[data-theme="light"]`: cambiar un color del
+sitio entero es cambiar una línea acá. Las dos importan también
+`chrome.css` (cabecera, buscador, botón de tema, transiciones entre
+páginas), `search.css` (modal de Pagefind) y `components/button.css`.
+
+Dos detalles que no salen de los tokens:
+
+- **Bloques de código.** `astro.config.mjs` → `expressiveCode`: los temas
+  `night-owl` (oscuro) y `night-owl-light` (claro) solo ponen el color de las
+  letras; fondo, barra y bordes vienen
+  de `--bg-code`, `--bg-code-chrome` y `--line`. Las cursivas se anulan en
+  `starlight.css`. Tras cambiar ese bloque hay que correr
+  `pnpm astro sync --force`: Starlight guarda el Markdown ya renderizado y
+  seguiría enlazando la hoja de estilos anterior.
+- **Transiciones entre páginas.** Solo CSS (`@view-transition` en
+  `chrome.css`), sin `ClientRouter` de Astro: cada navegación es una carga
+  normal y los scripts de Starlight se inician como siempre.
 
 `DESIGN.md` (en la raíz del repo) documenta el sistema visual completo con
 mucho más detalle — nombres de todos los tokens, reglas de cuándo usar
@@ -395,10 +423,7 @@ ellas mismas):
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | `getAllEntries(includePrivate?)`             | Carga la colección completa; filtra `private` (salvo que se pida lo contrario) y `draft` (solo se ven en dev) |
 | `categoryOf(entry)` / `subcategoryOf(entry)` | Extraen categoría/subcategoría del id (la primera y segunda carpeta)                                          |
-| `getEntryUrl(entry)`                         | La URL pública: `/` + el id                                                                                   |
-| `sortEntries(entries)`                       | Orden único de todo el sitio: por `order` si existe, si no alfabético                                         |
 | `getCategoryCounts(entries)`                 | Cuenta cuántas entradas tiene cada categoría (para el índice de la portada)                                   |
-| `getAllTags(entries)`                        | Cuenta tags únicos (solo para la cifra "tags" de la portada; no hay listado navegable)                        |
 | `formatDate(date)`                           | Fecha en formato español (`es`)                                                                               |
 
 ## 10 · Decisiones deliberadas: qué NO tiene este sitio
@@ -431,11 +456,14 @@ un sistema más grande y se simplificó activamente:
   buscaba `_meta.json` en cada carpeta y armaba el catálogo en cada build.
   Ahora es un objeto estático escrito a mano.
 - **Sin icono ni color por categoría en el sidebar.** El `Sidebar.astro`
-  anterior pintaba un icono de color junto a cada categoría y tenía un
-  script que cerraba las demás secciones al abrir una. El override actual
-  (sección 5.5) es mucho más chico: solo decide que el bloque de
-  navegación no se cierra — categoría, subcategoría y entradas son el
-  `SidebarSublist` de Starlight, sin icono ni color propio.
+  anterior pintaba un icono de color junto a cada categoría. El override
+  actual (sección 5.5) es mucho más chico: decide que el bloque de
+  navegación no se cierra y le pone el atributo nativo `name` a los
+  `<details>` de categoría para que solo una quede abierta a la vez —
+  categoría, subcategoría y entradas son el `SidebarSublist` de Starlight,
+  sin icono ni color propio.
+- **Sin `ClientRouter` de Astro.** Las transiciones entre páginas son solo
+  CSS; ver sección 8.
 
 ## 11 · Comandos
 

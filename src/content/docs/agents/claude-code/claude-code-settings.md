@@ -2,7 +2,8 @@
 title: settings.json — referencia rápida
 description: Las opciones que más se tocan — permisos, modelo, hooks, statusline — y los 4 niveles de precedencia.
 type: skills
-order: 8
+sidebar:
+  order: 8
 tags: [ai, claude-code, config]
 tool: Claude Code
 updatedAt: 2026-08-17

@@ -2,7 +2,8 @@
 title: "Ciclo de vida de un contenedor"
 description: start, stop, restart, rm y los estados por los que pasa un contenedor — la diferencia entre detenido y borrado.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [docker, lifecycle, contenedores]
 scope: ciclo de vida
 related:

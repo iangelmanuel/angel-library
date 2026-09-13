@@ -2,7 +2,8 @@
 title: MCP — conectar servidores externos
 description: Cómo agregar un servidor MCP (Model Context Protocol) con el CLI o editando .mcp.json, y los 3 scopes disponibles.
 type: skills
-order: 6
+sidebar:
+  order: 6
 tags: [ai, claude-code, mcp]
 tool: Claude Code
 updatedAt: 2026-08-17

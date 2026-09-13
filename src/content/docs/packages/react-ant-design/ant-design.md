@@ -2,7 +2,8 @@
 title: Ant Design
 description: Sistema de diseño y componentes React orientado a aplicaciones empresariales, con tablas, formularios y layouts complejos listos.
 type: libraries
-order: 7
+sidebar:
+  order: 7
 tags: [react, components, enterprise]
 website: https://ant.design
 github: https://github.com/ant-design/ant-design

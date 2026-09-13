@@ -2,7 +2,8 @@
 title: Primeros pasos con React
 description: Preparar un proyecto, entender JSX, createRoot, StrictMode y el ciclo render-commit antes de estudiar estado y efectos.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [react, getting-started, jsx, rendering, strict-mode]
 scope: fundamentos de React
 website: https://react.dev/learn/creating-a-react-app

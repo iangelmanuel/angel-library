@@ -2,7 +2,8 @@
 title: Flujo completo — desde una rama nueva hasta el merge
 description: Todo lo de esta sección, encadenado en el orden real en que se usa — desde crear la rama hasta borrarla después de mergear el PR.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [git, github, gh, cli, workflow]
 scope: flujo git + gh
 related:

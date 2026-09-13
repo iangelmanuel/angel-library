@@ -2,7 +2,8 @@
 title: agent-browser — automatización de navegador para agentes
 description: Le da al agente control de un navegador real — navegar, clickear, leer contenido — sin configurar Playwright MCP a mano.
 type: skills
-order: 3
+sidebar:
+  order: 3
 tags: [ai, skill, browser, testing]
 tool: Cross-tool
 updatedAt: 2026-08-17

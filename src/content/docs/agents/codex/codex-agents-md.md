@@ -2,7 +2,8 @@
 title: AGENTS.md — instrucciones de proyecto
 description: Sin globs, solo anidamiento por carpeta — más simple (y más tosco) que las reglas .mdc de Cursor.
 type: skills
-order: 1
+sidebar:
+  order: 1
 tags: [ai, codex, memoria, config]
 tool: Codex CLI
 updatedAt: 2026-08-17

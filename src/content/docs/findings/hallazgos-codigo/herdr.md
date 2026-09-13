@@ -2,7 +2,8 @@
 title: "Herdr: terminales persistentes para agentes de código"
 description: Runtime de terminal escrito en Rust que mantiene sesiones, conecta máquinas locales y remotas y expone automatización para agentes.
 type: resources
-order: 9
+sidebar:
+  order: 9
 tags: [herdr, terminal, rust, agentes, ssh, automatizacion]
 url: https://github.com/herdrdev/herdr
 website: https://herdr.dev/

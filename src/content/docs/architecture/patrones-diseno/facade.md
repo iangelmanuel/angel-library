@@ -2,7 +2,8 @@
 title: Facade
 description: Esconder varios pasos o servicios que siempre se usan juntos detrás de una única función simple.
 type: patterns
-order: 5
+sidebar:
+  order: 5
 tags: [arquitectura, patrones-diseno, facade]
 related:
   [architecture/patrones-diseno/adapter, backend/express/backend-mvc-structure]

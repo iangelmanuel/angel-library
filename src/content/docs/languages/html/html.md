@@ -2,7 +2,8 @@
 title: HTML moderno
 description: Elementos y atributos nativos que resuelven accesibilidad, formularios, multimedia, rendimiento y componentes sin JavaScript innecesario.
 type: technologies
-order: 1
+sidebar:
+  order: 1
 tags: [html, web, semantics, browser, accessibility]
 website: https://developer.mozilla.org/es/docs/Web/HTML
 related:

@@ -2,7 +2,8 @@
 title: Fetch, HTTP y consumo de APIs
 description: Construir requests, validar respuestas, enviar JSON, manejar headers, errores, paginación, cache y seguridad desde JavaScript.
 type: guides
-order: 27
+sidebar:
+  order: 27
 tags: [javascript, fetch, http, api, json]
 scope: consumo de APIs
 related:

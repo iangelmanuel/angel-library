@@ -2,7 +2,8 @@
 title: MCP — conectar servidores externos
 description: Servidores local (stdio) y remote (URL) en opencode.json, con toggle de tools por servidor y por agente.
 type: skills
-order: 6
+sidebar:
+  order: 6
 tags: [ai, opencode, mcp]
 tool: OpenCode
 updatedAt: 2026-08-17

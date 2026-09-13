@@ -2,7 +2,8 @@
 title: "docker exec y docker logs"
 description: Entrar a un contenedor corriendo para inspeccionarlo, y ver su output con docker logs — las dos herramientas de debug más usadas.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [docker, exec, logs, debug, contenedores]
 scope: exec y logs
 related: [devops/docker-contenedores/docker-ps-inspect]

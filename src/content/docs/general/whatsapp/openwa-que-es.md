@@ -2,7 +2,8 @@
 title: "OpenWA — qué es y cuándo conviene usarlo"
 description: "Gateway de WhatsApp autoalojado y open source: qué resuelve, cómo se conecta, qué motor elegir y por qué no reemplaza a la API oficial."
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [whatsapp, api, self-hosted, automation, nodejs, docker]
 website: https://www.open-wa.org
 github: https://github.com/rmyndharis/OpenWA

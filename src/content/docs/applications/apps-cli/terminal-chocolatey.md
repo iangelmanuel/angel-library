@@ -2,7 +2,8 @@
 title: "Chocolatey: gestor de paquetes para Windows"
 description: Gestor de paquetes para instalar, actualizar y desinstalar programas de Windows mediante comandos, evitando buscar cada instalador manualmente.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [terminal, chocolatey, windows, gestor-de-paquetes]
 scope: choco
 website: https://chocolatey.org

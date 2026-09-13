@@ -2,7 +2,8 @@
 title: Renderizado, estado y flujo de datos en frontend
 description: Elegir dónde renderizar, dónde vivir el estado y cómo mantener un flujo de datos predecible entre UI, servidor y caché.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [frontend, react, state, rendering, data]
 scope: fundamentos de frontend
 related:

@@ -2,7 +2,8 @@
 title: CRUD completo
 description: Las 5 operaciones sobre un recurso "posts" — Prisma + Express + validación + los status codes correctos, todo junto.
 type: recipes
-order: 26
+sidebar:
+  order: 26
 tags: [express, crud, prisma, rest]
 problem: Un CRUD real de punta a punta, combinando REST, Prisma y manejo de errores en un solo archivo de referencia.
 technologies:

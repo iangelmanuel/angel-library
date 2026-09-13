@@ -2,7 +2,8 @@
 title: "<Image /> y <Picture />"
 description: Componentes de imagen optimizada de Astro — locales, remotas, responsive y con múltiples formatos.
 type: guides
-order: 10
+sidebar:
+  order: 10
 tags: [astro, images, performance]
 scope: astro:assets
 updatedAt: 2026-08-25

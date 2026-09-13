@@ -2,7 +2,8 @@
 title: Primeros pasos con Express
 description: Instalar Express, crear una aplicación mínima, ejecutar en desarrollo y comprender el recorrido completo de una request.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [express, node, http, getting-started]
 scope: inicio con Express
 related:

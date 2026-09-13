@@ -2,7 +2,8 @@
 title: "Supabase CLI: comandos esenciales"
 description: Herramienta de terminal para ejecutar Supabase en local, registrar cambios de la base de datos y generar tipos de TypeScript a partir de su estructura.
 type: guides
-order: 8
+sidebar:
+  order: 8
 tags: [cli, supabase, deploy, base-de-datos]
 scope: supabase
 website: https://supabase.com/docs/guides/local-development/cli/getting-started

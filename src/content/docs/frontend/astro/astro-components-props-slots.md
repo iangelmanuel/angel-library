@@ -2,7 +2,8 @@
 title: Componentes Astro — props, slots y composición
 description: Anatomía de un .astro, props tipadas, slots con nombre, fallback y patrones de composición sin runtime cliente.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [astro, components, props, slots, typescript]
 scope: componentes .astro
 related:

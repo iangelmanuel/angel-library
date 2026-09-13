@@ -2,7 +2,8 @@
 title: Supabase en Astro
 description: Instalación, client del servidor, RLS, auth incluida y storage — todo lo necesario para usar Supabase con output "server".
 type: guides
-order: 8
+sidebar:
+  order: 8
 tags: [astro, supabase, database]
 website: https://supabase.com
 related: [backend/astro/astro-backend-arquitectura]

@@ -2,7 +2,8 @@
 title: Context7 — docs actualizadas de cualquier librería
 description: Trae documentación oficial y ejemplos reales en tiempo real, para que el agente no alucine APIs viejas o inexistentes.
 type: skills
-order: 2
+sidebar:
+  order: 2
 tags: [ai, mcp, docs]
 tool: Cross-tool
 updatedAt: 2026-08-17

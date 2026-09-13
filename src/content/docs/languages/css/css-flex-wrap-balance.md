@@ -2,7 +2,8 @@
 title: "flex-wrap: balance — repartir las filas de un flex"
 description: "Nuevo valor de flex-wrap que reparte los items entre líneas para que ninguna quede casi vacía; incluye sintaxis, soporte y cómo aplicarlo con progressive enhancement."
 type: guides
-order: 4
+sidebar:
+  order: 4
 tags: [css, flexbox, layout, responsive, progressive-enhancement]
 website: https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap
 related:

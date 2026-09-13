@@ -2,7 +2,8 @@
 title: Islas de UI (client:*)
 description: Cuándo y cómo hidratar un componente de React/Vue/Svelte dentro de Astro — load, idle, visible, media y only.
 type: guides
-order: 15
+sidebar:
+  order: 15
 tags: [astro, islands, performance]
 scope: astro (directivas client:)
 updatedAt: 2026-08-25

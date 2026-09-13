@@ -2,7 +2,8 @@
 title: Optimización de imágenes para la web
 description: Elegir dimensiones, formato, compresión, imágenes responsive, prioridad y herramientas sin degradar la experiencia.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [performance, images, webp, avif, responsive]
 scope: imágenes web
 related:

@@ -2,7 +2,8 @@
 title: vercel-react-best-practices
 description: Buenas prácticas de React mantenidas por Vercel — patrones recomendados, qué evitar, convenciones actualizadas.
 type: skills
-order: 7
+sidebar:
+  order: 7
 tags: [ai, skill, react]
 tool: Cross-tool
 updatedAt: 2026-08-17

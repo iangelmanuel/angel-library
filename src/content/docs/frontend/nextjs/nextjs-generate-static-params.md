@@ -2,7 +2,8 @@
 title: generateStaticParams()
 description: El equivalente Next del getStaticPaths de Astro — qué valores directamente ruta dinámica generar en build, y qué hacer con el resto.
 type: guides
-order: 15
+sidebar:
+  order: 15
 tags: [nextjs, routing, performance]
 scope: next.js (generateStaticParams)
 related:

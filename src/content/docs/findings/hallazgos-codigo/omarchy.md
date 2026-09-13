@@ -2,7 +2,8 @@
 title: "Omarchy: entorno Linux opinionado para desarrollo y agentes"
 description: Distribución Linux basada en Arch y Hyprland que reúne herramientas de desarrollo, terminal, edición y automatización en una instalación coherente.
 type: resources
-order: 10
+sidebar:
+  order: 10
 tags: [omarchy, linux, arch, hyprland, terminal, desarrollo]
 url: https://github.com/omacom/omarchy
 website: https://omarchy.org/

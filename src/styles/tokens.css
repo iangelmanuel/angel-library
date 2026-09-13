@@ -1,209 +1,144 @@
-/* Tokens de diseño — «El Esmalte».
-   Lienzo negro, campos rellenos de esmalte azul, un hilo claro de 1px como
-   única línea. El color rellena; la línea solo separa. Ningún gris entra a un
-   campo: los grises viven solo en prosa secundaria. */
+/* Tokens de diseño — «Tema de editor».
+   La biblioteca se ve como el editor donde se usa lo copiado: los roles de
+   sintaxis son los roles de la interfaz. Violeta de keyword para navegar;
+   verde de string, ámbar de función y coral de error solo para estados.
+   Oscuro por defecto; el claro se activa con `data-theme="light"`. */
 
 :root {
-  /* Escala azul: la paleta de marca. 100 y 200 son literales; el resto
-     interpola entre ellos. 700/800 son rellenos, nunca color de letra:
-     contra el lienzo no llegan a 4.5:1 como texto. */
-  --blue-100: #fcffff;
-  --blue-200: #c4dafa;
-  --blue-300: #a9cbf8;
-  --blue-400: #84b6f4;
-  --blue-500: #699fe0;
-  --blue-600: #4d82bc;
-  --blue-700: #35659a;
-  --blue-800: #005187;
+  color-scheme: dark;
 
-  /* Esmalte: azules quemados hacia el negro. Son RELLENOS de superficie,
-     no fondos de tarjeta: definen la profundidad por luminosidad, sin caja. */
-  --enamel-950: #030a11;
-  --enamel-900: #05121d;
-  --enamel-800: #071b2b;
-  --enamel-700: #0a2438;
-  --enamel-600: #0d2e46;
+  /* Superficies: carbón violáceo, nunca negro puro. */
+  --bg: #131318;
+  --bg-panel: #17171e;
+  --bg-raised: #1e1e27;
+  --bg-active: #272238;
+  --bg-code: #18181f;
+  --bg-code-chrome: #1f1f29;
 
-  /* Hilo de metal: la única línea del sistema. Un azul claro a baja alfa,
-     nunca un gris. El fuerte solo cierra campos activos o elevados. */
-  --thread: color-mix(in srgb, var(--blue-400) 16%, transparent);
-  --thread-strong: color-mix(in srgb, var(--blue-400) 34%, transparent);
+  /* Líneas: separan y enmarcan tablas, paneles y código. */
+  --line-soft: #1f1f28;
+  --line: #2a2a35;
+  --line-strong: #3b3b49;
 
-  /* Grises neutros: el contrapeso del azul. Solo texto secundario, scrollbars
-     y separadores neutros — nunca un relleno de campo. */
-  --white: #ffffff;
-  --gray-300: #d4d4d8;
-  --gray-400: #a1a1aa;
-  /* El gris más apagado que sigue siendo legible sobre negro: 5.9:1, por
-     encima del 4.5:1 que pide la AA para texto pequeño. Nada de texto baja
-     de aquí. */
-  --gray-450: #8e8e99;
-  --gray-700: #3f3f46;
-  --gray-800: #27272a;
-  --gray-900: #18181b;
+  /* Texto. `--text-faint` es el suelo: 5:1 sobre el fondo. */
+  --text-strong: #f2f2f7;
+  --text: #cfcfdb;
+  --text-muted: #a3a3b4;
+  --text-faint: #858598;
 
-  /* La única excepción a la regla anterior: el relleno del botón secundario.
-     Un negro grisáceo que se despega del lienzo sin entrar en el azul. */
-  --neutral-fill: color-mix(in oklab, var(--gray-900) 65%, var(--gray-800));
-  --neutral-fill-hover: color-mix(
-    in oklab,
-    var(--gray-800) 55%,
-    var(--gray-700)
-  );
+  /* Roles de sintaxis. Son color de letra seguro en su tema. */
+  --syn-violet: #b49cff;
+  --syn-green: #7fdcb4;
+  --syn-amber: #f2c97d;
+  --syn-coral: #ff9090;
+  --syn-cyan: #80d0e6;
+  --syn-pink: #f0a7d8;
 
-  /* Esmalte pleno del botón primario: el mismo azul, un punto más vivo para
-     que el campo tenga cuerpo sin recurrir a un degradado. */
-  --primary-fill: color-mix(in oklab, var(--primary) 82%, var(--blue-700));
-  --primary-fill-hover: color-mix(in oklab, var(--primary) 78%, #000000);
+  /* Acento: el violeta de keyword. */
+  --accent: var(--syn-violet);
+  --accent-strong: #d6c9ff;
+  --accent-hover: #c7b5ff;
+  --accent-contrast: #16121f;
 
-  /* Superficies. Tres niveles de luz sobre el mismo negro. */
-  --background: #000000;
-  --foreground: var(--white);
-  --surface: var(--enamel-900);
-  --surface-raised: var(--enamel-800);
-  --surface-active: var(--enamel-700);
-  --card: var(--enamel-950);
-  --card-foreground: var(--white);
-  --popover: var(--enamel-900);
-  --popover-foreground: var(--white);
-
-  /* Esmalte pleno: el relleno saturado de la marca. */
-  --primary: var(--blue-800);
-  --primary-foreground: var(--white);
-  --secondary: var(--enamel-800);
-  --secondary-foreground: var(--gray-300);
-  --accent: var(--enamel-700);
-  --accent-foreground: var(--white);
-
-  /* Texto apagado: gris neutro leve. El azul se reserva para títulos,
-     iconos y rellenos; las descripciones no compiten con ellos. */
-  --muted: var(--enamel-800);
-  --muted-foreground: var(--gray-400);
-  --destructive: #ffb3ba;
-  --destructive-foreground: #12060a;
-
-  --border: var(--thread);
-  --border-strong: var(--thread-strong);
-  --input: var(--enamel-800);
-  --ring: var(--blue-400);
-
-  /* Código: negro esmaltado. El cuerpo se lee azul —leve, pero azul— y su
-     rótulo va un paso por encima: dos alturas del mismo color, nunca dos
-     colores distintos. */
-  --code-bg: color-mix(in oklab, var(--blue-800) 34%, #000000);
-  --code-chrome: color-mix(in oklab, var(--blue-800) 48%, #000000);
-
-  /* Lectura. La medida es fija; los márgenes se recortan, la medida no. */
-  --reading-measure: 68ch;
-  --reading-text: #ededf0;
-  --reading-link: var(--blue-400);
-
-  /* Jerarquía de títulos: una sola rampa de azul, de vivo a apagado. */
-  --heading-primary: var(--blue-200);
-  --heading-secondary: var(--blue-400);
-  --heading-tertiary: var(--blue-500);
-
-  /* Esmaltes de categoría: 23 piezas de la misma familia azul, separadas por
-     tono Y por luz para que dos campos vecinos nunca se confundan. Son el
-     ORIGEN del relleno: el campo se mezcla en oklab contra el negro, así que
-     estos valores son vivos a propósito. */
-  --cat-general: #7fd4ff;
-  --cat-languages: #4fc4f0;
-  --cat-frontend: #4aa8f5;
-  --cat-backend: #2f86e0;
-  --cat-database: #2f6fd0;
-  --cat-architecture: #5a6fe0;
-  --cat-devops: #7a86f2;
-  --cat-terminal: #43b8c8;
-  --cat-git: #6ad2d0;
-  --cat-applications: #8fb8ff;
-  --cat-ai: #9a8ff5;
-  --cat-agents: #b49bf0;
-  --cat-skills: #6f9ae8;
-  --cat-testing: #2fa9b8;
-  --cat-security: #3f8fd8;
-  --cat-performance: #5fc0e8;
-  --cat-accessibility: #86c9f0;
-  --cat-seo: #3f9ac0;
-  --cat-ui-ux: #a4c4ff;
-  --cat-resources: #6fb0e0;
-  --cat-courses: #90a8f0;
-  --cat-findings: #58c8e0;
-  --cat-benchmarks: #4f7fd0;
-
-  /* Acentos disponibles para el color de una categoría en categories.ts. */
-  --accent-blue: var(--blue-600);
-  --accent-cyan: var(--blue-500);
-  --accent-pink: var(--blue-300);
-  --accent-indigo: #2f6fb8;
-  --accent-lime: #5aa7d8;
-  --accent-red: #3f8fc4;
-
-  /* Rama del menú: la subcategoría, azul — igual que antes de la limpieza
-     monocroma. */
-  --branch: var(--blue-400);
-
-  /* Cromo del navegador: gris oscuro, nunca azul. */
-  --scrollbar: var(--gray-800);
-  --scrollbar-hover: #3f3f46;
-
-  /* Cantos: finos, nunca cero, nunca de píldora. */
-  --radius: 4px;
-  --radius-thin: 2px;
-  --radius-field: 6px;
-
-  /* Profundidad: sombra con desplazamiento y desenfoque suave, jamás un halo
-     de color ni un bloque sin blur. Se usa poco: la luz hace casi todo. */
-  --shadow-field:
-    0 1px 2px rgb(0 0 0 / 0.6), 0 12px 32px -18px rgb(0 0 0 / 0.9);
-  --shadow-lifted:
-    0 2px 4px rgb(0 0 0 / 0.5), 0 24px 56px -28px rgb(0 0 0 / 0.95);
-
-  /* Movimiento: una sola curva, dos duraciones. */
-  --ease-enamel: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 140ms;
-  --dur-slow: 320ms;
-  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --font-display: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 14px 32px -14px rgb(0 0 0 / 0.65);
+  --shadow-lg: 0 2px 6px rgb(0 0 0 / 0.45), 0 32px 72px -24px rgb(0 0 0 / 0.75);
+  --backdrop: rgb(8 8 12 / 0.72);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-surface-raised: var(--surface-raised);
-  --color-surface-active: var(--surface-active);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-blue-200: var(--blue-200);
-  --color-blue-300: var(--blue-300);
-  --color-blue-400: var(--blue-400);
-  --color-blue-500: var(--blue-500);
-  --color-blue-800: var(--blue-800);
+:root[data-theme="light"] {
+  color-scheme: light;
 
-  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --font-display: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --bg: #fbfbfd;
+  --bg-panel: #f5f5f9;
+  --bg-raised: #ededf3;
+  --bg-active: #ece7ff;
+  --bg-code: #f4f4f8;
+  --bg-code-chrome: #eaeaf1;
 
-  --radius-sm: var(--radius-thin);
-  --radius-md: var(--radius);
-  --radius-lg: var(--radius-field);
-  --radius-xl: var(--radius-field);
+  --line-soft: #ececf2;
+  --line: #e0e0e9;
+  --line-strong: #c9c9d6;
+
+  --text-strong: #15151d;
+  --text: #34343f;
+  --text-muted: #555566;
+  --text-faint: #6b6b7e;
+
+  --syn-violet: #5b3fd1;
+  --syn-green: #16714f;
+  --syn-amber: #8a5600;
+  --syn-coral: #b8283f;
+  --syn-cyan: #0a6f8c;
+  --syn-pink: #a3317a;
+
+  --accent-strong: #3d27a3;
+  --accent-hover: #4a30bd;
+  --accent-contrast: #ffffff;
+
+  --shadow-sm: 0 1px 2px rgb(24 22 48 / 0.06);
+  --shadow-md:
+    0 1px 2px rgb(24 22 48 / 0.06), 0 14px 32px -16px rgb(24 22 48 / 0.18);
+  --shadow-lg:
+    0 2px 6px rgb(24 22 48 / 0.08), 0 32px 72px -28px rgb(24 22 48 / 0.28);
+  --backdrop: rgb(36 34 56 / 0.4);
+}
+
+:root {
+  /* Tintes derivados: se resuelven con los valores del tema activo. */
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, var(--bg));
+  --accent-line: color-mix(in oklab, var(--accent) 45%, var(--bg));
+  --selection: color-mix(in oklab, var(--accent) 32%, transparent);
+
+  --ring: var(--accent);
+
+  --scrollbar: var(--line-strong);
+  --scrollbar-hover: var(--text-faint);
+
+  /* Color de categoría: cada una toma un rol de sintaxis, agrupadas por
+     afinidad. Se usan como color de letra y de marca, nunca de relleno. */
+  --cat-general: var(--syn-violet);
+  --cat-languages: var(--syn-amber);
+  --cat-frontend: var(--syn-cyan);
+  --cat-backend: var(--syn-green);
+  --cat-database: var(--syn-amber);
+  --cat-architecture: var(--syn-pink);
+  --cat-devops: var(--syn-cyan);
+  --cat-terminal: var(--syn-green);
+  --cat-git: var(--syn-coral);
+  --cat-applications: var(--syn-violet);
+  --cat-ai: var(--syn-pink);
+  --cat-agents: var(--syn-violet);
+  --cat-skills: var(--syn-pink);
+  --cat-testing: var(--syn-green);
+  --cat-security: var(--syn-coral);
+  --cat-performance: var(--syn-amber);
+  --cat-accessibility: var(--syn-cyan);
+  --cat-seo: var(--syn-green);
+  --cat-ui-ux: var(--syn-pink);
+  --cat-resources: var(--syn-amber);
+  --cat-courses: var(--syn-violet);
+  --cat-findings: var(--syn-cyan);
+  --cat-benchmarks: var(--syn-coral);
+
+  /* Lectura. */
+  --reading-measure: 70ch;
+
+  /* Cantos: 4 para piezas pequeñas, 6 para controles, 8 para paneles. */
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Movimiento: una curva, dos duraciones. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 140ms;
+  --dur-slow: 280ms;
+
+  --font-sans:
+    "Onest Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace;
 }

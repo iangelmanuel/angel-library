@@ -2,7 +2,8 @@
 title: "JS Camp — bootcamp full stack de Midudev"
 description: "Ruta extensa y ordenada para aprender desarrollo web con JavaScript desde los fundamentos hasta proyectos, pruebas, contenedores y automatización."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [cursos, midudev, bootcamp, javascript, fullstack, gratis, espanol]
 url: https://www.jscamp.dev/
 resourceCategory: learning

@@ -2,7 +2,8 @@
 title: Playwright MCP — control de navegador real
 description: El agente navega, clickea, lee la página y saca screenshots de un navegador real — de Microsoft, el mismo equipo de Playwright.
 type: skills
-order: 3
+sidebar:
+  order: 3
 tags: [ai, mcp, browser, testing]
 tool: Cross-tool
 updatedAt: 2026-08-17

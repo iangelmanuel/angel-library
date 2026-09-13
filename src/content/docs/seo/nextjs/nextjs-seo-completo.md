@@ -2,7 +2,8 @@
 title: "SEO completo en Next.js — Metadata API, JSON-LD, sitemap y manifest"
 description: "Paso a paso real: SITE.seo como única fuente de verdad, buildMetadata() sobre la Metadata API nativa, schemas de schema.org, robots.ts y sitemap.ts."
 type: recipes
-order: 2
+sidebar:
+  order: 2
 tags: [nextjs, seo, json-ld, structured-data, metadata, opengraph]
 problem: "Tener el SEO técnico completo de un sitio Next.js (App Router) centralizado en SITE.seo, sin datos sueltos hardcodeados en cada función o página."
 technologies: [seo/nextjs/nextjs-metadata-seo]

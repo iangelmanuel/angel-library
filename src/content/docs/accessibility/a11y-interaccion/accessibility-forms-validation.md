@@ -2,7 +2,8 @@
 title: Formularios accesibles y validación comprensible
 description: Etiquetas, ayudas, errores, autocomplete y estados para formularios utilizables con teclado y lectores de pantalla.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [accessibility, forms, validation, ux]
 scope: formularios
 related:

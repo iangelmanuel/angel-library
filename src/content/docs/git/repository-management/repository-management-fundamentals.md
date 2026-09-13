@@ -2,7 +2,8 @@
 title: "Gestión de repositorios: estructura y lista de comprobación"
 description: Qué necesita un repositorio mantenible desde su creación hasta releases, contribuciones, seguridad y archivo.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [github, repositorios, mantenimiento, colaboracion, gobernanza]
 related:
   - git/repository-management/repository-files-community

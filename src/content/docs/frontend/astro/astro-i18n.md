@@ -2,7 +2,8 @@
 title: Internacionalización y routing i18n
 description: Locales, idioma por defecto, prefijos, fallbacks y helpers de astro:i18n para sitios multilingües.
 type: guides
-order: 22
+sidebar:
+  order: 22
 tags: [astro, i18n, routing, accessibility, seo]
 scope: astro i18n routing
 related:

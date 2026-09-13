@@ -2,7 +2,8 @@
 title: Regresión visual y pruebas automáticas de accesibilidad
 description: Comparar capturas de forma estable, probar estados responsivos e integrar axe con Playwright sin confundir automatización con revisión humana.
 type: guides
-order: 2
+sidebar:
+  order: 2
 tags: [testing, visual, accessibility, playwright, axe]
 related:
   - testing/testing-e2e/testing-playwright-practico

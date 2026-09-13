@@ -29,4 +29,6 @@ Thumbs.db
 # Herramientas y notas de sesión, fuera del producto
 .impeccable/
 handoff.md
+.claude/skills/impeccable/scripts/bin/
+.agents/skills/impeccable/scripts/bin/
 skills-lock.json

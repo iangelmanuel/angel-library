@@ -4,7 +4,8 @@ description: Interpretar LCP, INP y CLS, encontrar la causa real y validar mejor
 type: guides
 tags: [performance, web-vitals, frontend, ux]
 scope: rendimiento web
-order: 2
+sidebar:
+  order: 2
 related:
   - frontend/astro/astro-image-picture
   - frontend/nextjs/nextjs-image

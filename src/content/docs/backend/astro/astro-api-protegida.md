@@ -2,7 +2,8 @@
 title: API protegida en Astro
 description: Auth + validación + rate limiting combinados en un endpoint de Astro, con la misma lógica que la versión Express.
 type: recipes
-order: 9
+sidebar:
+  order: 9
 tags: [astro, security, auth]
 problem: Ver todas las capas de protección aplicadas dentro de un endpoint de Astro, sin la cadena de middlewares por ruta que tiene Express.
 technologies:

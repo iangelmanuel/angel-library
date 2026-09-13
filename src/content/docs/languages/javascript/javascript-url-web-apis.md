@@ -2,7 +2,8 @@
 title: URL, requests, formularios y archivos
 description: URL, URLSearchParams, Headers, Request, Response, FormData, Blob, codificación, observación y cancelación.
 type: guides
-order: 26
+sidebar:
+  order: 26
 tags: [javascript, url, web-api, formdata, blob, abortcontroller]
 scope: APIs del runtime web
 related:

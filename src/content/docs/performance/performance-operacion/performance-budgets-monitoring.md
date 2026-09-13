@@ -2,7 +2,8 @@
 title: Presupuestos y monitoreo de rendimiento
 description: Convertir performance en un requisito verificable con budgets, CI, RUM, alertas y comparación por versiones.
 type: guides
-order: 5
+sidebar:
+  order: 5
 tags: [performance, monitoring, ci, web-vitals]
 scope: gobierno de rendimiento
 related:

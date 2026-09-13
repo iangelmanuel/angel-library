@@ -2,7 +2,8 @@
 title: "Minimalism"
 description: "Quitar hasta que solo quede lo necesario: espacio, jerarquía tipográfica y el riesgo de dejar la interfaz ambigua."
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [ui, diseño, estilos, minimalismo, tipografia, accesibilidad]
 related:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales

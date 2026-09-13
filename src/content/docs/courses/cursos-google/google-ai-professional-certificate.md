@@ -2,7 +2,8 @@
 title: "Google AI Professional Certificate (Coursera)"
 description: "Programa de ocho cursos para aprender a usar inteligencia artificial en tareas de trabajo, sin centrarse en programar los modelos; ofrece certificado profesional."
 type: resources
-order: 2
+sidebar:
+  order: 2
 tags: [cursos, google, ia, coursera, certificado, espanol]
 url: https://www.coursera.org/professional-certificates/google-ai
 resourceCategory: learning

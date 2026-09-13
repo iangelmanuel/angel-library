@@ -2,7 +2,8 @@
 title: UX de formularios, feedback y estados
 description: Reducir errores y ansiedad con campos claros, validación oportuna, estados de carga y recuperación accionable.
 type: guides
-order: 3
+sidebar:
+  order: 3
 tags: [ux, forms, feedback, errors]
 scope: interacción y formularios
 related:

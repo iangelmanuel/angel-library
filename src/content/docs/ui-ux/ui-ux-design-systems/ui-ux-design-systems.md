@@ -2,7 +2,8 @@
 title: Design systems y tokens
 description: Convertir decisiones visuales en tokens, componentes, estados y reglas que escalan sin perder coherencia.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [design-system, tokens, components, ui]
 scope: fundamentos de sistemas visuales
 related:

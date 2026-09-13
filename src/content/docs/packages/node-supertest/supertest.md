@@ -2,7 +2,8 @@
 title: Supertest
 description: Tests de integración HTTP contra tu app Express — sin levantar un servidor real, request/response completos incluyendo middlewares.
 type: libraries
-order: 2
+sidebar:
+  order: 2
 tags: [express, testing, supertest, http]
 website: https://github.com/ladjs/supertest
 related: [packages/node-vitest/vitest-backend]

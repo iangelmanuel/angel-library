@@ -2,7 +2,8 @@
 title: Filesystem — fs y path
 description: Leer y escribir archivos en sus tres variantes (síncrona, callback, promesas) y armar rutas cross-platform con path.
 type: guides
-order: 6
+sidebar:
+  order: 6
 tags: [node, fs, filesystem]
 scope: fs / path
 updatedAt: 2026-08-16

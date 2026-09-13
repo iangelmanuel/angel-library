@@ -2,7 +2,8 @@
 title: Figma — diseño de interfaces y handoff a código
 description: Herramienta colaborativa para diseñar interfaces antes de programarlas; explica sus conceptos principales y cómo convertir un diseño en código sin adivinar medidas o estilos.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [figma, diseño, ui, componentes, handoff]
 website: https://www.figma.com
 related:

@@ -2,7 +2,8 @@
 title: "Orca: orquestación visual de agentes en worktrees"
 description: Entorno de desarrollo que ejecuta agentes en worktrees aislados, centraliza sus cambios y permite automatizar el escritorio y la revisión.
 type: resources
-order: 8
+sidebar:
+  order: 8
 tags: [orca, agentes, git, worktrees, automatizacion, github, linear]
 url: https://github.com/stablyai/orca
 website: https://www.onorca.dev/

@@ -2,7 +2,8 @@
 title: Semántica, teclado y gestión del foco
 description: Construir interacciones operables con HTML nativo, orden lógico, foco visible y comportamiento predecible.
 type: guides
-order: 1
+sidebar:
+  order: 1
 tags: [accessibility, html, keyboard, focus]
 scope: fundamentos de interacción accesible
 related:
