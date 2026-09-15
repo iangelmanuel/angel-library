@@ -1,12 +1,12 @@
 ---
 title: GitHub Actions — artefactos, ambientes y despliegues
 description: Pasar un build verificable entre jobs y desplegar con ambientes protegidos, aprobaciones y secretos separados.
-type: guides
+tags: [github-actions, artifacts, environments, deployment, releases]
 sidebar:
   order: 5
-tags: [github-actions, artifacts, environments, deployment, releases]
+draft: false
 scope: entrega continua con Actions
-related:
+technologies:
   - git/github-actions/github-actions-secretos-permisos
   - devops/ci-cd/cicd-pipeline-fundamentals
   - git/github-actions/github-actions-workflows-reutilizables

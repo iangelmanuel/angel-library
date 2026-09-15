@@ -1,12 +1,12 @@
 ---
 title: useMediaQuery
 description: Consultar media queries desde React con suscripciones y un valor inicial coherente durante la hidratación.
-type: hooks
+tags: [react, hooks, responsive, typescript]
 sidebar:
   order: 2
-tags: [react, hooks, responsive, typescript]
+draft: false
+language: TypeScript
 framework: React
-language: typescript
 updatedAt: 2026-09-07
 ---
 

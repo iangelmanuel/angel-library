@@ -1,12 +1,12 @@
 ---
 title: GitHub — clone, pull, fetch y push
 description: Entender cómo traer, revisar y publicar cambios en un repositorio de GitHub sin confundir una copia local con la historia remota.
-type: guides
+tags: [github, clone, pull, fetch, push, remotos]
 sidebar:
   order: 2
-tags: [github, clone, pull, fetch, push, remotos]
+draft: false
 scope: sincronización con GitHub
-related:
+technologies:
   - git/git/git-remotos
   - git/github-platform/github-repositorio-local-remoto
 updatedAt: 2026-08-26

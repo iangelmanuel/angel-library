@@ -1,13 +1,14 @@
 ---
 title: Permisos, notificaciones y capacidades sensibles
 description: Consultar permisos, solicitar notificaciones, usar service workers, geolocalización, portapapeles y otras capacidades con una UX responsable.
-type: guides
+tags: [javascript, permissions, notifications, geolocation, clipboard]
 sidebar:
   order: 32
-tags: [javascript, permissions, notifications, geolocation, clipboard]
+draft: false
 scope: Web APIs con permisos
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/API/Permissions_API
-related:
+technologies:
   - languages/javascript/javascript-media-devices
   - languages/javascript/javascript-browser-constructors
   - security/security-aplicacion/security-common-web-attacks

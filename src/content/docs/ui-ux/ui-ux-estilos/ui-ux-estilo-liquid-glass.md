@@ -1,12 +1,13 @@
 ---
 title: "Liquid Glass"
 description: "El lenguaje visual que Apple presentó en la WWDC 2025: vidrio con refracción, profundidad y respuesta al movimiento, y hasta dónde se puede imitar en la web."
-type: guides
+tags: [ui, diseño, estilos, apple, liquid-glass, css]
 sidebar:
   order: 9
-tags: [ui, diseño, estilos, apple, liquid-glass, css]
+draft: false
+resourceCategory: Documentación oficial
 website: https://developer.apple.com/videos/play/wwdc2025/219/
-related:
+technologies:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales
   - ui-ux/ui-ux-estilos/ui-ux-estilo-glassmorphism
 updatedAt: 2026-08-30

@@ -1,15 +1,14 @@
 ---
 title: "Artificial Analysis"
 description: "Plataforma independiente para comparar modelos y proveedores de IA por capacidad, velocidad, latencia, precio y calidad en distintas modalidades."
-type: resources
-sidebar:
-  order: 1
 tags:
   [benchmarks, inteligencia-artificial, llm, agentes, inferencia, rendimiento]
-url: https://artificialanalysis.ai/
+sidebar:
+  order: 1
+draft: false
 resourceCategory: ia
 official: true
-personalNote: Úsalo para reducir candidatos, no para declarar un ganador universal; revisa la evaluación concreta y sus límites antes de tomar una decisión.
+url: https://artificialanalysis.ai/
 updatedAt: 2026-09-04
 ---
 

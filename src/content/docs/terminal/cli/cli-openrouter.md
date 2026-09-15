@@ -1,12 +1,12 @@
 ---
 title: "OpenRouter: sin CLI oficial, se usa vía API"
 description: OpenRouter no publica un CLI oficial de gestión — el patrón real es llamar su API HTTP compatible con OpenAI directamente con curl o cualquier SDK.
-type: guides
+tags: [cli, openrouter, ia, api]
 sidebar:
   order: 11
-tags: [cli, openrouter, ia, api]
+draft: false
 scope: curl
-related: [terminal/cli/cli-openai]
+technologies: [terminal/cli/cli-openai]
 updatedAt: 2026-08-17
 ---
 

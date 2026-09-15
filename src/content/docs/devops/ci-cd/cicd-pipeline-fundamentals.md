@@ -1,12 +1,12 @@
 ---
 title: CI/CD — pipeline desde commit hasta producción
 description: Diseñar integración y entrega continua con validaciones rápidas, artefactos inmutables, ambientes y promoción segura.
-type: guides
+tags: [devops, ci, cd, deployment]
 sidebar:
   order: 1
-tags: [devops, ci, cd, deployment]
+draft: false
 scope: fundamentos de entrega continua
-related:
+technologies:
   - git/github-actions/cicd-github-actions-node
   - devops/ci-cd/cicd-deployment-strategies
   - security/security-infra/security-secrets-supply-chain

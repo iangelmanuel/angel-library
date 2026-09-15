@@ -1,13 +1,13 @@
 ---
 title: useLocalStorage
 description: Preferencias persistentes con validación, hidratación consistente y sincronización entre componentes y pestañas.
-type: hooks
+tags: [react, hooks, storage, typescript]
 sidebar:
   order: 1
-tags: [react, hooks, storage, typescript]
+draft: false
+language: TypeScript
 framework: React
-language: typescript
-related: [general/utils/storage, frontend/react/use-media-query]
+technologies: [general/utils/storage, frontend/react/use-media-query]
 updatedAt: 2026-09-07
 ---
 

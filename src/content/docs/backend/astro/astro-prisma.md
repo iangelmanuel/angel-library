@@ -1,12 +1,16 @@
 ---
 title: Prisma en Astro
 description: Conectar Prisma 7 a endpoints y Actions de Astro usando una base compartida y autorización en el servidor.
-type: guides
+tags: [astro, prisma, database, orm]
 sidebar:
   order: 7
-tags: [astro, prisma, database, orm]
+draft: false
+resourceCategory: Documentación oficial
 website: https://www.prisma.io
-related: [database/database-prisma/prisma-configuracion, backend/astro/astro-backend-arquitectura, frontend/astro/astro-server-actions]
+technologies:
+  - database/database-prisma/prisma-configuracion
+  - backend/astro/astro-backend-arquitectura
+  - frontend/astro/astro-server-actions
 updatedAt: 2026-09-07
 ---
 

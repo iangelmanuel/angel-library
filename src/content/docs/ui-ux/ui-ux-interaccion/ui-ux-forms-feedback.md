@@ -1,12 +1,12 @@
 ---
 title: UX de formularios, feedback y estados
 description: Reducir errores y ansiedad con campos claros, validación oportuna, estados de carga y recuperación accionable.
-type: guides
+tags: [ux, forms, feedback, errors]
 sidebar:
   order: 3
-tags: [ux, forms, feedback, errors]
+draft: false
 scope: interacción y formularios
-related:
+technologies:
   - accessibility/a11y-interaccion/accessibility-forms-validation
   - ui-ux/ui-ux-design-systems/ui-ux-design-systems
 updatedAt: 2026-08-25

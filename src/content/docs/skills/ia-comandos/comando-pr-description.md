@@ -1,12 +1,12 @@
 ---
 title: /pr-description — generar la descripción de un PR
 description: Resumen y plan de testing a partir del diff y los commits de la rama actual, pensado para que se lea en menos de un minuto.
-type: skills
+tags: [ai, comando, git, pr]
 sidebar:
   order: 9
-tags: [ai, comando, git, pr]
+draft: false
 tool: Cross-tool
-related: [skills/ia-comandos/comando-changelog]
+technologies: [skills/ia-comandos/comando-changelog]
 updatedAt: 2026-08-17
 ---
 

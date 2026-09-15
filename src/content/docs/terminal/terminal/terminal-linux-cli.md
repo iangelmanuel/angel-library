@@ -1,17 +1,15 @@
 ---
 title: "bash y zsh: shells tipo Linux"
 description: Diferencia entre bash y zsh, sus archivos de configuración, y los gestores de paquetes del sistema por distro.
-type: guides
+tags: [terminal, bash, zsh, linux, gestor-de-paquetes]
 sidebar:
   order: 22
-tags: [terminal, bash, zsh, linux, gestor-de-paquetes]
+draft: false
 scope: bash / zsh
-related:
-  [
-    terminal/terminal/terminal-wsl,
-    terminal/terminal/terminal-powershell,
-    applications/apps-cli/terminal-nvm
-  ]
+technologies:
+  - terminal/terminal/terminal-wsl
+  - terminal/terminal/terminal-powershell
+  - applications/apps-cli/terminal-nvm
 updatedAt: 2026-08-17
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: Date, Temporal, RegExp e Intl
 description: Fechas, tiempo moderno, patrones y formato internacional con métodos, resultados visibles, límites y casos de uso.
-type: guides
+tags: [javascript, date, temporal, regexp, intl, localization]
 sidebar:
   order: 13
-tags: [javascript, date, temporal, regexp, intl, localization]
+draft: false
 scope: APIs nativas del lenguaje
-related:
+technologies:
   - languages/javascript/javascript-strings
   - languages/javascript/javascript-numbers-math
   - languages/javascript/javascript-built-ins

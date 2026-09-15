@@ -1,13 +1,14 @@
 ---
 title: Primeros pasos con Astro
 description: Crear un proyecto, reconocer su estructura, ejecutar los comandos esenciales y entender qué ocurre en servidor y navegador.
-type: guides
+tags: [astro, getting-started, installation, project-structure]
 sidebar:
   order: 1
-tags: [astro, getting-started, installation, project-structure]
+draft: false
 scope: fundamentos de Astro
+resourceCategory: Documentación oficial
 website: https://docs.astro.build/en/install-and-setup/
-related:
+technologies:
   - frontend/astro/astro
   - frontend/astro/astro-project-configuration
   - frontend/astro/astro-components-props-slots

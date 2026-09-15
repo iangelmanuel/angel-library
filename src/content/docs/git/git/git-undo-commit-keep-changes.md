@@ -1,15 +1,14 @@
 ---
 title: Deshacer el último commit conservando los cambios
 description: Vuelve un commit atrás dejando los cambios en staging, listos para corregir o rehacer el commit.
-type: commands
+tags: [git, commits, recovery]
 sidebar:
   order: 21
-tags: [git, commits, recovery]
-command: git reset --soft HEAD~1
-whenToUse: Acabas de hacer un commit (todavía sin push) y quieres corregirlo, partirlo en varios o cambiar el mensaje sin perder nada.
+draft: false
 warnings:
   - "Si ya hiciste push, no reescribas el historial compartido: usa git revert en su lugar."
   - "--soft conserva staging; --mixed (default) lo deja en el working tree; --hard lo borra todo."
+whenToUse: Acabas de hacer un commit (todavía sin push) y quieres corregirlo, partirlo en varios o cambiar el mensaje sin perder nada.
 updatedAt: 2026-08-06
 ---
 

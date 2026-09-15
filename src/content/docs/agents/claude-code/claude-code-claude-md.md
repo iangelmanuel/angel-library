@@ -1,10 +1,10 @@
 ---
 title: CLAUDE.md — instrucciones de proyecto
 description: Memoria persistente que Claude Code lee al arrancar — convenciones, comandos, arquitectura del proyecto.
-type: skills
+tags: [ai, claude-code, memoria, config]
 sidebar:
   order: 1
-tags: [ai, claude-code, memoria, config]
+draft: false
 tool: Claude Code
 updatedAt: 2026-08-17
 ---

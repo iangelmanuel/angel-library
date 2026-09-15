@@ -1,11 +1,11 @@
 ---
 title: Diseño de respuestas de error
 description: Un formato de error consistente en toda la API, códigos de error propios (no solo status HTTP), y qué exponer vs qué ocultar.
-type: guides
+tags: [express, api, errors]
 sidebar:
   order: 11
-tags: [express, api, errors]
-related: [backend/express/express-error-handling]
+draft: false
+technologies: [backend/express/express-error-handling]
 updatedAt: 2026-09-07
 ---
 

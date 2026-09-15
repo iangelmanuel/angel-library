@@ -1,12 +1,11 @@
 ---
 title: Clipboard Utils — Referencia rápida
 description: Copiar y leer el portapapeles con detección de soporte y fallback, sin librerías.
-type: utilities
 tags: [typescript, clipboard, browser]
-runtime: browser
-language: typescript
-related:
-  - general/utils/storage
+draft: false
+language: TypeScript
+runtime: Navegador
+technologies: [general/utils/storage]
 updatedAt: 2026-08-15
 ---
 

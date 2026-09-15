@@ -1,11 +1,11 @@
 ---
 title: Redis práctico — estructuras, TTL y caché
 description: Elegir estructuras de Redis, diseñar claves y expiración, implementar caché, rate limiting, locks y persistencia sin convertir Redis en un punto de fallo.
-type: guides
+tags: [redis, cache, ttl, nosql, rate-limiting]
 sidebar:
   order: 3
-tags: [redis, cache, ttl, nosql, rate-limiting]
-related:
+draft: false
+technologies:
   - database/database-nosql/database-nosql-modelado
   - backend/backend-fundamentos/backend-idempotencia-cache
   - database/database-operacion/database-pooling-reliability

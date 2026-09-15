@@ -1,12 +1,10 @@
 ---
 title: Animaciones CSS — Referencia rápida
 description: Keyframes reutilizables, animaciones ligadas al scroll con animation-timeline y respeto a prefers-reduced-motion.
-type: snippets
-language: css
 tags: [css, animation, scroll]
-related:
-  - general/utils/dom
-  - languages/css/css-variables
+draft: false
+language: CSS
+technologies: [general/utils/dom, languages/css/css-variables]
 updatedAt: 2026-08-16
 ---
 

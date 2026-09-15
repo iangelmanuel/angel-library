@@ -1,12 +1,12 @@
 ---
 title: Formularios accesibles y validación comprensible
 description: Etiquetas, ayudas, errores, autocomplete y estados para formularios utilizables con teclado y lectores de pantalla.
-type: guides
+tags: [accessibility, forms, validation, ux]
 sidebar:
   order: 3
-tags: [accessibility, forms, validation, ux]
+draft: false
 scope: formularios
-related:
+technologies:
   - accessibility/a11y-interaccion/accessibility-aria-attributes
   - accessibility/a11y-testing/accessibility-checklist
   - ui-ux/ui-ux-interaccion/ui-ux-forms-feedback

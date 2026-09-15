@@ -1,13 +1,14 @@
 ---
 title: Web Components y etiquetas personalizadas
 description: Crear componentes con script, custom elements, lifecycle, Shadow DOM, templates, slots, atributos y eventos personalizados.
-type: guides
+tags: [javascript, web-components, custom-elements, shadow-dom, components]
 sidebar:
   order: 29
-tags: [javascript, web-components, custom-elements, shadow-dom, components]
+draft: false
 scope: plataforma web
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/API/Web_components
-related:
+technologies:
   - languages/javascript/javascript-dom-events
   - languages/javascript/javascript-events
   - languages/html/html-web-components-metadata

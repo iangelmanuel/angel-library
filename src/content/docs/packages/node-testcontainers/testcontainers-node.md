@@ -1,13 +1,14 @@
 ---
 title: Testcontainers para Node.js
 description: Levantar PostgreSQL, Redis u otros servicios reales en contenedores efímeros para pruebas de integración reproducibles y aisladas.
-type: libraries
+tags: [testing, testcontainers, docker, database, integration]
 sidebar:
   order: 3
-tags: [testing, testcontainers, docker, database, integration]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://node.testcontainers.org/
 github: https://github.com/testcontainers/testcontainers-node
-related:
+technologies:
   - testing/testing-integracion/testing-backend-database
   - database/database-operacion/database-migraciones-backups
   - devops/docker-conceptos/docker-contenedores-vs-vms

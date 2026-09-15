@@ -1,14 +1,14 @@
 ---
 title: Zustand
 description: Estado global sin Provider ni boilerplate — create(), selectors para evitar re-renders y el middleware persist.
-type: libraries
+tags: [react, state, typescript]
 sidebar:
   order: 4
-tags: [react, state, typescript]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://zustand.docs.pmnd.rs
 github: https://github.com/pmndrs/zustand
-related:
-  - frontend/react/react-context-api
+technologies: [frontend/react/react-context-api]
 updatedAt: 2026-08-25
 ---
 

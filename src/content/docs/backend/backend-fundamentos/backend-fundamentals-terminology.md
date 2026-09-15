@@ -1,10 +1,10 @@
 ---
 title: "Backend: fundamentos y terminología"
 description: Modelo mental de servidores, APIs, solicitudes, middleware, concurrencia, estado, caché, colas y operación segura.
-type: guides
 tags: [backend, servidor, api, http, concurrencia, fundamentos]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

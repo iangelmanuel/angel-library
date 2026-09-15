@@ -1,13 +1,14 @@
 ---
 title: "Vercel CLI: comandos esenciales"
 description: Herramienta de terminal para vincular un proyecto con Vercel, probar su entorno y crear despliegues de prueba o de producción sin depender del panel web.
-type: guides
+tags: [cli, vercel, deploy]
 sidebar:
   order: 7
-tags: [cli, vercel, deploy]
+draft: false
 scope: vercel
+resourceCategory: Sitio oficial
 website: https://vercel.com/docs/cli
-related: [terminal/cli/cli-astro]
+technologies: [terminal/cli/cli-astro]
 updatedAt: 2026-08-28
 ---
 

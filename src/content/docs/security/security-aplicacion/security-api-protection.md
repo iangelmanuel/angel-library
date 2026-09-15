@@ -1,11 +1,11 @@
 ---
 title: Seguridad de APIs — objetos, funciones, consumo y SSRF
 description: Aplicar autorización por recurso, límites, inventario y validación de servicios externos frente a los riesgos principales de una API.
-type: guides
+tags: [security, api, bola, ssrf, authorization, rate-limit]
 sidebar:
   order: 1
-tags: [security, api, bola, ssrf, authorization, rate-limit]
-related:
+draft: false
+technologies:
   - security/security-aplicacion/security-auth-access-control
   - backend/backend-fundamentos/backend-api-design
   - security/security-testing/web-security-checklist

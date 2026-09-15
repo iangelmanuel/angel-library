@@ -1,11 +1,11 @@
 ---
 title: Testing asistido por IA — criterios y límites
 description: Entender dónde aportan los agentes visuales, cómo evitar pruebas ambiguas y qué partes deben seguir siendo deterministas.
-type: guides
+tags: [testing, ai, e2e, visual-testing]
 sidebar:
   order: 1
-tags: [testing, ai, e2e, visual-testing]
-related:
+draft: false
+technologies:
   - packages/node-midscene/midscene
   - testing/testing-e2e/testing-e2e-reliable-ci
   - agents/agents-fundamentos/agent-safe-workflow

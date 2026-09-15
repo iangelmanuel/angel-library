@@ -1,16 +1,16 @@
 ---
 title: Auth completa (registro + login + JWT + cookies)
 description: Laboratorio de registro y login con bcrypt, JWT y cookie HttpOnly sobre una aplicación Express y Prisma ya preparada.
-type: recipes
+tags: [express, auth, jwt, bcrypt, cookies]
 sidebar:
   order: 24
-tags: [express, auth, jwt, bcrypt, cookies]
-problem: Armar autenticación manual completa, sin ninguna librería de auth managed, entendiendo cada pieza.
+draft: false
 technologies:
   - backend/express/express-jwt
   - packages/node-bcrypt/bcrypt
   - backend/express/express-cookies-sesiones
   - backend/express/express-auth-middleware
+problem: Armar autenticación manual completa, sin ninguna librería de auth managed, entendiendo cada pieza.
 updatedAt: 2026-09-07
 ---
 

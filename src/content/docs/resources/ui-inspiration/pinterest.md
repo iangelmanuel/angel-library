@@ -1,14 +1,11 @@
 ---
 title: "Pinterest — tableros de ideas y referencias visuales"
 description: "Buscador visual para descubrir imágenes, agrupar referencias en tableros y construir moodboards de interfaz, marca, fotografía o dirección artística."
-type: resources
 tags: [inspiracion, imagenes, moodboard, ui, branding, busqueda-visual]
-url: https://www.pinterest.com/
+draft: false
 resourceCategory: ui-inspiration
-technologies: []
-personalNote: "Crear un tablero por proyecto y separar referencias de estructura, tipografía, color e imagen evita convertir el moodboard en una colección sin criterio."
-related:
-  - resources/ui-inspiration/dribbble
+url: https://www.pinterest.com/
+technologies: [resources/ui-inspiration/dribbble]
 updatedAt: 2026-09-04
 ---
 

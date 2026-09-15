@@ -1,15 +1,14 @@
 ---
 title: "Matt Pocock Skills: habilidades de agentes para ingeniería real"
 description: Colección editable y composable de skills para planificar, revisar, documentar e implementar cambios con asistentes de código.
-type: resources
+tags: [skills, agentes, matt-pocock, arquitectura, code-review, especificaciones]
 sidebar:
   order: 5
-tags: [skills, agentes, matt-pocock, arquitectura, code-review, especificaciones]
-url: https://github.com/mattpocock/skills
-website: https://www.aihero.dev/skills
+draft: false
 resourceCategory: ia
 official: true
-personalNote: Instala solo las skills que encajen con tu flujo y léelas como instrucciones versionadas; una skill no compensa un criterio de aceptación ambiguo.
+website: https://www.aihero.dev/skills
+url: https://github.com/mattpocock/skills
 updatedAt: 2026-09-10
 ---
 

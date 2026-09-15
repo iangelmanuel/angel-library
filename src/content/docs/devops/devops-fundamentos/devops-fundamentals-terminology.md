@@ -1,10 +1,10 @@
 ---
 title: "DevOps: fundamentos y terminología"
 description: Modelo mental de entrega continua, artefactos, entornos, infraestructura, despliegues, observabilidad e incidentes.
-type: guides
 tags: [devops, ci-cd, despliegue, infraestructura, observabilidad, fundamentos]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

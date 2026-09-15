@@ -1,15 +1,13 @@
 ---
 title: "A2 English for Developers (freeCodeCamp)"
 description: "Curso gratuito de inglés básico aplicado al trabajo en desarrollo, con vocabulario para reuniones, instrucciones, errores y colaboración en equipo."
-type: resources
+tags: [cursos, ingles, freecodecamp, certificado, gratis]
 sidebar:
   order: 2
-tags: [cursos, ingles, freecodecamp, certificado, gratis]
-url: https://www.freecodecamp.org/espanol/learn/a2-english-for-developers
+draft: false
 resourceCategory: learning
-personalNote: El inglés técnico limita más carreras que cualquier framework; esta es de las pocas rutas gratuitas con certificado y contexto de programación.
-related:
-  - courses/cursos-plataformas/curso-ingles
+url: https://www.freecodecamp.org/espanol/learn/a2-english-for-developers
+technologies: [courses/cursos-plataformas/curso-ingles]
 updatedAt: 2026-08-30
 ---
 

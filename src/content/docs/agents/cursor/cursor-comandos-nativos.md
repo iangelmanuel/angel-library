@@ -1,10 +1,10 @@
 ---
 title: Comandos nativos (Cursor CLI) — cheat-sheet
 description: Los 30+ comandos slash built-in de la terminal de Cursor, sin configurar nada.
-type: skills
+tags: [ai, cursor, comando]
 sidebar:
   order: 9
-tags: [ai, cursor, comando]
+draft: false
 tool: Cursor
 updatedAt: 2026-08-17
 ---

@@ -1,14 +1,13 @@
 ---
 title: Promise Utils — delay, timeout y concurrencia
 description: Helpers pequeños para espera cancelable, timeout de promesas y procesamiento con límite de concurrencia.
-type: utilities
+tags: [typescript, promises, async, concurrency]
 sidebar:
   order: 12
-tags: [typescript, promises, async, concurrency]
-runtime: universal
-language: typescript
-related:
-  - general/utils/fetch
+draft: false
+language: TypeScript
+runtime: Universal
+technologies: [general/utils/fetch]
 updatedAt: 2026-09-07
 ---
 

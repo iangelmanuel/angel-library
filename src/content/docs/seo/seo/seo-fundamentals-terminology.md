@@ -1,10 +1,10 @@
 ---
 title: "SEO técnico: fundamentos y terminología"
 description: Guía para entender rastreo, indexación, metadatos, canonical, robots, datos estructurados y renderizado orientado a buscadores.
-type: guides
 tags: [seo, metadata, indexacion, rastreo, datos-estructurados, fundamentos]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

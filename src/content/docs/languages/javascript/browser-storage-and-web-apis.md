@@ -1,12 +1,12 @@
 ---
 title: Storage, Cache API y coordinación entre pestañas
 description: Elegir cookies, Web Storage, IndexedDB, Cache Storage y mecanismos de coordinación según tamaño, vida útil y sensibilidad.
-type: guides
+tags: [javascript, browser, storage, indexeddb, cache]
 sidebar:
   order: 25
-tags: [javascript, browser, storage, indexeddb, cache]
+draft: false
 scope: plataforma web
-related:
+technologies:
   - languages/javascript/javascript-json-storage
   - languages/javascript/http-browser-fundamentals
   - general/utils/storage

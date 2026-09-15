@@ -1,13 +1,12 @@
 ---
 title: Endpoints (Route Handlers)
 description: Archivos route.ts dentro de app/ que responden con las Web APIs Request/Response en vez de renderizar UI.
-type: guides
+tags: [nextjs, api, backend]
 sidebar:
   order: 22
-tags: [nextjs, api, backend]
+draft: false
 scope: next.js (route.ts)
-related:
-  - frontend/nextjs/nextjs-server-actions
+technologies: [frontend/nextjs/nextjs-server-actions]
 updatedAt: 2026-08-25
 ---
 

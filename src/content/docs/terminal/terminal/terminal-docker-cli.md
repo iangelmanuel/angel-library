@@ -1,17 +1,15 @@
 ---
 title: "Docker CLI: lo esencial desde la terminal"
 description: Verificar que el CLI de Docker está instalado y andando, y los comandos del día a día — con enlace a la documentación completa de Docker.
-type: guides
+tags: [terminal, docker, cli]
 sidebar:
   order: 19
-tags: [terminal, docker, cli]
+draft: false
 scope: docker
-related:
-  [
-    devops/docker-conceptos/docker-instalacion,
-    devops/docker-contenedores/docker-run-basico,
-    devops/docker-compose/docker-compose-basico
-  ]
+technologies:
+  - devops/docker-conceptos/docker-instalacion
+  - devops/docker-contenedores/docker-run-basico
+  - devops/docker-compose/docker-compose-basico
 updatedAt: 2026-08-17
 ---
 

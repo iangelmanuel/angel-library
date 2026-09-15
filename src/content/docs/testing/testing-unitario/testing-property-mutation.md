@@ -1,11 +1,11 @@
 ---
 title: Property-based testing y mutation testing
 description: Generar entradas para comprobar invariantes y medir si la suite detecta cambios defectuosos, con ejemplos y criterios de uso.
-type: guides
+tags: [testing, unit-testing, property-based, mutation-testing, fast-check]
 sidebar:
   order: 2
-tags: [testing, unit-testing, property-based, mutation-testing, fast-check]
-related:
+draft: false
+technologies:
   - testing/testing-unitario/testing-vitest-practico
   - testing/testing-fundamentos/testing-test-design-techniques
 updatedAt: 2026-08-28

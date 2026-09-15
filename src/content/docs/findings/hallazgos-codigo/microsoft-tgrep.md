@@ -1,16 +1,14 @@
 ---
 title: "tgrep: búsqueda indexada de código"
 description: Herramienta de Microsoft escrita en Rust que indexa un repositorio una vez y permite buscarlo mediante una arquitectura cliente-servidor y un observador de archivos.
-type: resources
+tags: [tgrep, rust, busqueda-de-codigo, ripgrep, github-copilot, herramientas-de-desarrollo]
 sidebar:
   order: 7
-tags: [tgrep, rust, busqueda-de-codigo, ripgrep, github-copilot, herramientas-de-desarrollo]
-url: https://github.com/microsoft/tgrep
+draft: false
 resourceCategory: developer-tools
 official: true
-personalNote: La arquitectura persistente tiene sentido cuando repites muchas búsquedas en un repositorio grande; para una búsqueda puntual en un proyecto pequeño, ripgrep sigue siendo más sencillo.
-related:
-  - findings/hallazgos-codigo/node-best-practices
+url: https://github.com/microsoft/tgrep
+technologies: [findings/hallazgos-codigo/node-best-practices]
 updatedAt: 2026-09-09
 ---
 

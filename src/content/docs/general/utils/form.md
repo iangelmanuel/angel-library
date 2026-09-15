@@ -1,13 +1,11 @@
 ---
 title: Form Utils — Referencia rápida
 description: Utilidades tipadas para leer, poblar y escuchar formularios HTML con FormData, sin librerías.
-type: utilities
 tags: [typescript, forms, validation]
-runtime: browser
-language: typescript
-related:
-  - general/utils/dom
-  - packages/javascript-zod/zod
+draft: false
+language: TypeScript
+runtime: Navegador
+technologies: [general/utils/dom, packages/javascript-zod/zod]
 updatedAt: 2026-09-07
 ---
 

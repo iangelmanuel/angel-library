@@ -1,12 +1,16 @@
 ---
 title: Prisma en Next.js
 description: Consultar Prisma 7 desde Route Handlers y Server Actions con runtime Node, sesión verificada y revalidación.
-type: guides
+tags: [nextjs, prisma, database, orm]
 sidebar:
   order: 7
-tags: [nextjs, prisma, database, orm]
+draft: false
+resourceCategory: Documentación oficial
 website: https://www.prisma.io
-related: [database/database-prisma/prisma-configuracion, backend/nextjs/nextjs-backend-arquitectura, backend/nextjs/nextjs-auth-js]
+technologies:
+  - database/database-prisma/prisma-configuracion
+  - backend/nextjs/nextjs-backend-arquitectura
+  - backend/nextjs/nextjs-auth-js
 updatedAt: 2026-09-07
 ---
 

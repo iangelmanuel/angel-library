@@ -1,12 +1,11 @@
 ---
 title: DOM Utils — Referencia rápida
 description: Utilidades mínimas y declarativas para seleccionar y manipular el DOM desde scripts de navegador.
-type: utilities
 tags: [typescript, dom, browser]
-runtime: browser
-language: typescript
-related:
-  - general/utils/form
+draft: false
+language: TypeScript
+runtime: Navegador
+technologies: [general/utils/form]
 updatedAt: 2026-08-15
 ---
 

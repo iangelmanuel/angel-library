@@ -1,13 +1,11 @@
 ---
 title: "CSS Glass — generador de glassmorphism"
 description: Generador del efecto de vidrio translúcido conocido como glassmorphism; permite ajustar fondo, desenfoque y borde y copiar el CSS.
-type: resources
 tags: [css, glassmorphism, ui, backgrounds]
-url: https://css.glass/
+draft: false
 resourceCategory: css
-technologies: []
-personalNote: "Usarlo con moderación: el blur no debe reducir contraste ni legibilidad."
-related: [resources/css/css-gradient, resources/css/neumorphism]
+url: https://css.glass/
+technologies: [resources/css/css-gradient, resources/css/neumorphism]
 updatedAt: 2026-08-15
 ---
 

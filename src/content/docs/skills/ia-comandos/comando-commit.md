@@ -1,10 +1,10 @@
 ---
 title: /commit — mensajes de commit convencionales
 description: Genera un commit siguiendo Conventional Commits a partir del diff en staging, sin escribir el mensaje a mano.
-type: skills
+tags: [ai, comando, git]
 sidebar:
   order: 1
-tags: [ai, comando, git]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

@@ -1,12 +1,12 @@
 ---
 title: Template, slot y Web Components
 description: Crear componentes nativos encapsulados con template, custom elements y slots, entendiendo cuándo aportan valor.
-type: guides
+tags: [html, web-components, shadow-dom, components]
 sidebar:
   order: 4
-tags: [html, web-components, shadow-dom, components]
+draft: false
 scope: componentes nativos
-related:
+technologies:
   - languages/html/html
   - frontend/react/frontend-rendering-state-data-flow
 updatedAt: 2026-08-18

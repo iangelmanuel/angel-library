@@ -1,14 +1,11 @@
 ---
 title: "Higgsfield — generación y edición de imágenes y video con IA"
 description: "Estudio web que reúne modelos de imagen y video, controles de cámara, referencias visuales y herramientas de edición para crear piezas y secuencias desde un mismo flujo."
-type: resources
 tags: [ia, imagenes, video, generacion, edicion, cinematografia]
-url: https://higgsfield.ai/
+draft: false
 resourceCategory: ia
-technologies: []
-personalNote: "Destaca cuando una imagen debe continuar como video: permite preparar el fotograma, fijar referencias y controlar el movimiento sin cambiar de plataforma."
-related:
-  - resources/ia/midjourney
+url: https://higgsfield.ai/
+technologies: [resources/ia/midjourney]
 updatedAt: 2026-09-04
 ---
 

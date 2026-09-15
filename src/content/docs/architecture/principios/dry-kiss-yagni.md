@@ -1,15 +1,15 @@
 ---
 title: "DRY, KISS y YAGNI"
 description: Tres principios que se malinterpretan seguido — evitar duplicar conocimiento (no código parecido), preferir lo simple, y no construir para un futuro hipotético.
-type: practices
 tags: [architecture, principles, design]
 sidebar:
   order: 8
-practice: No repetir conocimiento de negocio, elegir la solución más simple que funciona, y no construir flexibilidad que nadie pidió.
-why: Aplicados de forma dogmática, estos tres principios crean más acoplamiento y complejidad de la que evitan.
-related:
+draft: false
+technologies:
   - architecture/principios/cohesion-acoplamiento
   - architecture/principios/deuda-tecnica
+practice: No repetir conocimiento de negocio, elegir la solución más simple que funciona, y no construir flexibilidad que nadie pidió.
+why: Aplicados de forma dogmática, estos tres principios crean más acoplamiento y complejidad de la que evitan.
 updatedAt: 2026-08-17
 ---
 

@@ -1,12 +1,13 @@
 ---
 title: Vitest (backend)
 description: Configurar Vitest para tests de Node/Express — setup de base de datos de test, mocks, y qué se testea sin Supertest.
-type: libraries
+tags: [express, testing, vitest]
 sidebar:
   order: 2
-tags: [express, testing, vitest]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://vitest.dev
-related: [packages/node-supertest/supertest]
+technologies: [packages/node-supertest/supertest]
 updatedAt: 2026-08-28
 ---
 

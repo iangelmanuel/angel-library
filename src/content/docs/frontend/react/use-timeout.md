@@ -1,17 +1,15 @@
 ---
 title: useTimeout
 description: Ejecutar un callback una vez después de un tiempo, conservando siempre la versión más reciente y limpiando al desmontar.
-type: hooks
+tags: [react, hooks, timers, typescript]
 sidebar:
   order: 7
-tags: [react, hooks, timers, typescript]
+draft: false
+language: TypeScript
 framework: React
-language: typescript
 parameters: [callback, delayMs]
 returns: función para cancelar el timeout
-related:
-  - frontend/react/use-interval
-  - frontend/react/use-debounce
+technologies: [frontend/react/use-interval, frontend/react/use-debounce]
 updatedAt: 2026-08-25
 ---
 

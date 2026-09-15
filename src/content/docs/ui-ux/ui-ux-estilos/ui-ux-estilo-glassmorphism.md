@@ -1,11 +1,11 @@
 ---
 title: "Glassmorphism"
 description: "Superficies de vidrio esmerilado con backdrop-filter: cómo se construyen, cuánto cuestan en rendimiento y cómo mantener el texto legible."
-type: guides
+tags: [ui, diseño, estilos, glassmorphism, css, backdrop-filter]
 sidebar:
   order: 4
-tags: [ui, diseño, estilos, glassmorphism, css, backdrop-filter]
-related:
+draft: false
+technologies:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales
   - ui-ux/ui-ux-estilos/ui-ux-estilo-liquid-glass
 updatedAt: 2026-08-30

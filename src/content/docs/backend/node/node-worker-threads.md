@@ -1,12 +1,12 @@
 ---
 title: Worker threads y trabajo de CPU
 description: Ejecutar cálculos en paralelo sin bloquear el event loop, comunicar mensajes y diseñar un pool reutilizable.
-type: guides
+tags: [node, worker-threads, cpu, concurrency]
 sidebar:
   order: 14
-tags: [node, worker-threads, cpu, concurrency]
+draft: false
 scope: node:worker_threads
-related:
+technologies:
   - backend/node/node-runtime-event-loop
   - backend/node/node-child-process
   - backend/backend-fundamentos/backend-colas-jobs

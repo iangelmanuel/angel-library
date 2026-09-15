@@ -1,14 +1,13 @@
 ---
 title: "Guía de entrevistas de programación (DevCaress)"
 description: "Guía en español para entender las etapas de una entrevista de programación, preparar las pruebas técnicas y afrontar preguntas y negociación."
-type: resources
+tags: [entrevistas, empleo, github, espanol]
 sidebar:
   order: 2
-tags: [entrevistas, empleo, github, espanol]
-url: https://github.com/DevCaress/guia-entrevistas-de-programacion
+draft: false
 resourceCategory: learning
-personalNote: "Cubre la parte no técnica que casi nadie documenta: qué preguntar tú, cómo hablar de expectativas salariales y qué señales miran."
-related:
+url: https://github.com/DevCaress/guia-entrevistas-de-programacion
+technologies:
   - findings/hallazgos-recursos/midudev-plantillas-cv
   - findings/hallazgos-codigo/javascript-questions-lydiahallie
 updatedAt: 2026-08-30

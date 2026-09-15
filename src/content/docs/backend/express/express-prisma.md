@@ -1,12 +1,16 @@
 ---
 title: Prisma en Express
 description: Conectar Prisma 7 a Express 5, servir consultas acotadas y separar persistencia, permisos y errores.
-type: guides
+tags: [express, prisma, database, orm]
 sidebar:
   order: 18
-tags: [express, prisma, database, orm]
+draft: false
+resourceCategory: Documentación oficial
 website: https://www.prisma.io
-related: [database/database-prisma/prisma-configuracion, backend/express/backend-mvc-structure, backend/express/express-api-protegida]
+technologies:
+  - database/database-prisma/prisma-configuracion
+  - backend/express/backend-mvc-structure
+  - backend/express/express-api-protegida
 updatedAt: 2026-09-07
 ---
 

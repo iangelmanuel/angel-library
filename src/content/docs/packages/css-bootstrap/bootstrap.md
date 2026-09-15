@@ -1,10 +1,11 @@
 ---
 title: Bootstrap
 description: Framework CSS clásico con componentes HTML, JS propio y sistema de grid, sin depender de Tailwind.
-type: libraries
+tags: [html, css, components]
 sidebar:
   order: 6
-tags: [html, css, components]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://getbootstrap.com
 github: https://github.com/twbs/bootstrap
 updatedAt: 2026-08-17

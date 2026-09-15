@@ -1,12 +1,12 @@
 ---
 title: "Instalación de Docker"
 description: Docker Desktop con WSL2 en Windows, instalación en Mac y Linux, y cómo verificar que todo funciona.
-type: guides
+tags: [docker, conceptos, instalacion, windows, wsl2]
 sidebar:
   order: 4
-tags: [docker, conceptos, instalacion, windows, wsl2]
+draft: false
 scope: instalación de Docker
-related: [devops/docker-conceptos/docker-arquitectura]
+technologies: [devops/docker-conceptos/docker-arquitectura]
 updatedAt: 2026-08-17
 ---
 

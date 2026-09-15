@@ -1,11 +1,12 @@
 ---
 title: Node.js
 description: Ruta de Node.js para aprender el runtime desde cero o consultar rápidamente módulos, I/O, red, streams, procesos y concurrencia.
-type: technologies
 tags: [node, javascript, backend, runtime]
+draft: false
+resourceCategory: Documentación oficial
 website: https://nodejs.org
 github: https://github.com/nodejs/node
-related:
+technologies:
   - backend/node/node-primeros-pasos
   - backend/node/node-runtime-event-loop
   - backend/node/node-errores-asincronia

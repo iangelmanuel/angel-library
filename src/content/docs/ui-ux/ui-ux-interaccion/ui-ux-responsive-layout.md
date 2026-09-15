@@ -1,12 +1,12 @@
 ---
 title: Layout responsive guiado por contenido
 description: Diseñar interfaces fluidas con jerarquía, límites legibles, container queries y estados extremos antes que breakpoints arbitrarios.
-type: guides
+tags: [responsive, layout, css, ux]
 sidebar:
   order: 2
-tags: [responsive, layout, css, ux]
+draft: false
 scope: diseño responsive
-related:
+technologies:
   - ui-ux/ui-ux-design-systems/ui-ux-design-systems
   - languages/css/css-layout-tricks
 updatedAt: 2026-08-25

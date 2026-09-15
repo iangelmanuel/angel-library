@@ -1,14 +1,12 @@
 ---
 title: Git worktree — varias ramas en carpetas separadas
 description: Trabajar con más de una rama al mismo tiempo sin clonar el repositorio varias veces ni guardar cambios a medias.
-type: guides
+tags: [git, worktree, branches, productividad]
 sidebar:
   order: 20
-tags: [git, worktree, branches, productividad]
+draft: false
 scope: git worktree
-related:
-  - git/git/git-ramas
-  - git/git/git-stash
+technologies: [git/git/git-ramas, git/git/git-stash]
 updatedAt: 2026-08-26
 ---
 

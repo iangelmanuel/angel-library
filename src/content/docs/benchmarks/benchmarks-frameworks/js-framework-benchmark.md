@@ -1,14 +1,13 @@
 ---
 title: "js-framework-benchmark"
 description: "Benchmark abierto que compara operaciones de renderizado, memoria y tamaño de transferencia en implementaciones de frameworks frontend."
-type: resources
+tags: [benchmarks, frontend, javascript, frameworks, dom, open-source]
 sidebar:
   order: 2
-tags: [benchmarks, frontend, javascript, frameworks, dom, open-source]
-url: https://github.com/krausest/js-framework-benchmark
+draft: false
 resourceCategory: developer-tools
 official: true
-personalNote: Es excelente para estudiar el coste de actualizar tablas grandes; no convierte una diferencia sintética en una recomendación automática de framework.
+url: https://github.com/krausest/js-framework-benchmark
 updatedAt: 2026-09-04
 ---
 

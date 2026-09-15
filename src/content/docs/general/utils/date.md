@@ -1,11 +1,10 @@
 ---
 title: Date Utils — Referencia rápida
 description: Utilidades tipadas para formatear fechas y tiempo relativo con Intl, sin librerías.
-type: utilities
 tags: [typescript, date, intl]
-runtime: universal
-language: typescript
-related: []
+draft: false
+language: TypeScript
+runtime: Universal
 updatedAt: 2026-08-15
 ---
 

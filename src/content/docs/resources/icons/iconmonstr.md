@@ -1,13 +1,11 @@
 ---
 title: "iconmonstr — iconos simples en varias colecciones"
 description: Catálogo de iconos sencillos que se descargan individualmente en varios formatos, útil cuando no se quiere instalar una biblioteca completa.
-type: resources
 tags: [icons, svg, ui]
-url: https://iconmonstr.com/
+draft: false
 resourceCategory: icons
-technologies: []
-personalNote: Útil cuando se busca un icono sencillo y directo sin introducir una librería completa.
-related: [resources/icons/tabler-icons, resources/icons/font-awesome]
+url: https://iconmonstr.com/
+technologies: [resources/icons/tabler-icons, resources/icons/font-awesome]
 updatedAt: 2026-08-15
 ---
 

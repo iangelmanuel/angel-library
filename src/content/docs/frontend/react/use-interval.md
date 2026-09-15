@@ -1,16 +1,15 @@
 ---
 title: useInterval
 description: Intervalo declarativo con callback actualizado, pausa mediante null y cleanup automático al desmontar.
-type: hooks
+tags: [react, hooks, timers, polling]
 sidebar:
   order: 8
-tags: [react, hooks, timers, polling]
+draft: false
+language: TypeScript
 framework: React
-language: typescript
 parameters: [callback, delayMs]
 returns: void
-related:
-  - frontend/react/use-timeout
+technologies: [frontend/react/use-timeout]
 updatedAt: 2026-08-25
 ---
 

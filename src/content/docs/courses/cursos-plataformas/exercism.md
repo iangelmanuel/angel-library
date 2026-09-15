@@ -1,13 +1,12 @@
 ---
 title: "Exercism"
 description: "Plataforma gratuita para aprender un lenguaje resolviendo ejercicios pequeños y recibiendo comentarios automáticos o mentoría humana sobre la solución."
-type: resources
+tags: [cursos, ejercicios, practica, mentoria, gratis, algoritmos]
 sidebar:
   order: 4
-tags: [cursos, ejercicios, practica, mentoria, gratis, algoritmos]
-url: https://exercism.org/
+draft: false
 resourceCategory: learning
-personalNote: "Lo que lo diferencia de otras plataformas de retos es la mentoría: alguien lee tu solución y comenta el estilo, no solo si pasa los tests."
+url: https://exercism.org/
 updatedAt: 2026-08-30
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: Sessions en Astro
 description: Estado server-side entre requests, drivers de almacenamiento, tipado, regeneración y uso desde páginas, middleware y Actions.
-type: guides
+tags: [astro, sessions, auth, security, state]
 sidebar:
   order: 4
-tags: [astro, sessions, auth, security, state]
+draft: false
 scope: Astro.session
-related:
+technologies:
   - backend/astro/astro-ssr-adapters
   - frontend/astro/astro-server-actions
   - frontend/astro/astro-middleware

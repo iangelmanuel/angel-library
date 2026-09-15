@@ -1,10 +1,10 @@
 ---
 title: Rules — .mdc con globs
 description: Reglas de proyecto con auto-activación por patrón de archivo — más granular que un CLAUDE.md único, con 4 modos de activación.
-type: skills
+tags: [ai, cursor, reglas, config]
 sidebar:
   order: 1
-tags: [ai, cursor, reglas, config]
+draft: false
 tool: Cursor
 updatedAt: 2026-08-17
 ---

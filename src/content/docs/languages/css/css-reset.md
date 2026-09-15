@@ -1,9 +1,9 @@
 ---
 title: CSS Reset — Referencia rápida
 description: Reset moderno y mínimo para arrancar cualquier proyecto sin los estilos por defecto del navegador.
-type: snippets
-language: css
 tags: [css, reset]
+draft: false
+language: CSS
 updatedAt: 2026-08-16
 ---
 

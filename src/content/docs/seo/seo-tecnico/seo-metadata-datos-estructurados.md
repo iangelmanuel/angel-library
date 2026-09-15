@@ -1,11 +1,11 @@
 ---
 title: Metadata, Open Graph y datos estructurados
 description: Describir cada página para buscadores y redes mediante títulos, descripciones, imágenes sociales y JSON-LD verificable.
-type: guides
+tags: [seo, metadata, open-graph, json-ld, schema-org]
 sidebar:
   order: 2
-tags: [seo, metadata, open-graph, json-ld, schema-org]
-related:
+draft: false
+technologies:
   - seo/nextjs/nextjs-metadata-seo
   - seo/astro/astro-seo-completo
   - seo/nextjs/nextjs-seo-completo

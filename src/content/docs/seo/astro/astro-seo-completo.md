@@ -1,12 +1,12 @@
 ---
 title: "SEO completo en Astro — meta tags, JSON-LD, sitemap y manifest"
 description: "Paso a paso real: SITE.seo como única fuente de verdad, componente JsonLd, helpers de schema.org, BaseHead reordenado y manifest/robots/sitemap desde cero."
-type: recipes
+tags: [astro, seo, json-ld, structured-data, meta-tags, opengraph]
 sidebar:
   order: 1
-tags: [astro, seo, json-ld, structured-data, meta-tags, opengraph]
-problem: "Tener el SEO técnico completo de un sitio Astro centralizado en un solo lugar (SITE.seo), sin datos sueltos hardcodeados por el código."
+draft: false
 technologies: [frontend/astro/astro-endpoints]
+problem: "Tener el SEO técnico completo de un sitio Astro centralizado en un solo lugar (SITE.seo), sin datos sueltos hardcodeados por el código."
 updatedAt: 2026-08-17
 ---
 

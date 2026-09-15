@@ -1,10 +1,10 @@
 ---
 title: vercel-composition-patterns
 description: Patrones de composición de componentes React — cuándo componer vs. cuándo agregar props, slots, compound components.
-type: skills
+tags: [ai, skill, react]
 sidebar:
   order: 8
-tags: [ai, skill, react]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

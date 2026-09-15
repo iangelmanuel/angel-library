@@ -1,13 +1,14 @@
 ---
 title: Prototypes, clases y construcción de objetos
 description: Cadena de prototypes, new, funciones constructoras, class, campos privados, herencia, composición y métodos estáticos.
-type: guides
+tags: [javascript, prototypes, classes, inheritance, new]
 sidebar:
   order: 15
-tags: [javascript, prototypes, classes, inheritance, new]
+draft: false
 scope: modelo de objetos
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
-related:
+technologies:
   - languages/javascript/javascript-objects
   - languages/javascript/javascript-browser-constructors
   - languages/javascript/javascript-advanced-language

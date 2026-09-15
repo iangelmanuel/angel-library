@@ -1,13 +1,14 @@
 ---
 title: "Animista — animaciones CSS ajustables y copiables"
 description: Catálogo visual para elegir una animación, ajustar su velocidad y movimiento y copiar el código CSS resultante al proyecto.
-type: resources
 tags: [css, animation, transitions, frontend]
-url: https://animista.net/
+draft: false
 resourceCategory: animations
-technologies: []
-personalNote: Útil para explorar easing y keyframes, pero respetar prefers-reduced-motion en la implementación final.
-related: [resources/animations/animated-icons, resources/css/css-gradient]
+url: https://animista.net/
+technologies:
+  - resources/animations/animated-icons
+  - resources/css/css-gradient
+note: Útil para explorar easing y keyframes, pero respetar prefers-reduced-motion en la implementación final.
 updatedAt: 2026-08-15
 ---
 

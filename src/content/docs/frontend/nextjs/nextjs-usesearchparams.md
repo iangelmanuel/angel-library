@@ -1,12 +1,12 @@
 ---
 title: useSearchParams
 description: Leer la query string desde un Client Component — con URLSearchParams real, y por qué casi siempre necesita Suspense.
-type: guides
+tags: [nextjs, routing, hooks]
 sidebar:
   order: 12
-tags: [nextjs, routing, hooks]
+draft: false
 scope: next.js (next/navigation)
-related:
+technologies:
   - frontend/nextjs/nextjs-usepathname
   - frontend/nextjs/nextjs-userouter
 updatedAt: 2026-08-25

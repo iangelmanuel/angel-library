@@ -1,15 +1,14 @@
 ---
 title: "OpenMontage: producción de vídeo guiada por agentes"
 description: Plataforma open source que coordina investigación, guion, assets, edición y render mediante pipelines declarativos, checkpoints y aprobación humana.
-type: resources
+tags: [openmontage, video, agentes, pipelines, ffmpeg, python, produccion]
 sidebar:
   order: 10
-tags: [openmontage, video, agentes, pipelines, ffmpeg, python, produccion]
-url: https://github.com/calesthio/OpenMontage
-website: https://www.openmontage.video/
+draft: false
 resourceCategory: ia
 official: true
-personalNote: "Estúdialo como arquitectura de producción reproducible: el agente coordina etapas y herramientas registradas, pero las decisiones editoriales siguen necesitando revisión humana."
+website: https://www.openmontage.video/
+url: https://github.com/calesthio/OpenMontage
 updatedAt: 2026-09-10
 ---
 

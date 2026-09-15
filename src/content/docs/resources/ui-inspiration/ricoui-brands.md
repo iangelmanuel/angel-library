@@ -1,12 +1,11 @@
 ---
 title: "RICOUI Brands — sistemas visuales de marcas reales en DESIGN.md"
 description: "Colección de archivos DESIGN.md que describen el sistema visual de marcas conocidas, con tokens de color, tipografía y componentes listos para pasar a un asistente de IA."
-type: resources
 tags: [ui, diseno, design-system, tokens, ia, tailwind]
-url: https://design.ricoui.com/brands
+draft: false
 resourceCategory: ui-inspiration
 official: false
-personalNote: "Contra el problema de que cada IA genere la misma interfaz genérica: en vez de pedir 'algo bonito', le pasas un sistema visual concreto y decidido."
+url: https://design.ricoui.com/brands
 updatedAt: 2026-09-01
 ---
 

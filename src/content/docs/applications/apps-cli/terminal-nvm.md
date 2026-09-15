@@ -1,18 +1,17 @@
 ---
 title: "nvm: manejar versiones de Node"
 description: Herramienta para mantener varias versiones de Node.js y activar la que necesita cada proyecto; explica por qué Windows usa una implementación diferente.
-type: guides
+tags: [terminal, nvm, node, herramientas]
 sidebar:
   order: 3
-tags: [terminal, nvm, node, herramientas]
+draft: false
 scope: nvm
+resourceCategory: Sitio oficial
 website: https://github.com/nvm-sh/nvm
-related:
-  [
-    terminal/terminal/terminal-npm,
-    applications/apps-cli/terminal-pnpm,
-    applications/apps-cli/terminal-bun
-  ]
+technologies:
+  - terminal/terminal/terminal-npm
+  - applications/apps-cli/terminal-pnpm
+  - applications/apps-cli/terminal-bun
 updatedAt: 2026-08-28
 ---
 

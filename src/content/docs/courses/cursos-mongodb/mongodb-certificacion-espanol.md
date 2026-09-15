@@ -1,16 +1,15 @@
 ---
 title: "Programa de Certificación MongoDB en Español"
 description: "Convocatoria oficial y gratuita para preparar una certificación de MongoDB mediante una ruta de University, sesiones en vivo y tres Skill Badges; tiene requisitos y fechas límite."
-type: resources
+tags: [cursos, mongodb, bases-de-datos, certificacion, badges, gratis, espanol]
 sidebar:
   order: 1
-tags: [cursos, mongodb, bases-de-datos, certificacion, badges, gratis, espanol]
-url: https://events.mongodb.com/certificationprogram-spanishla
+draft: false
 resourceCategory: learning
 official: true
-personalNote: Registrarse no entrega la certificación; hay que completar la ruta elegida, obtener tres Skill Badges, asistir a una sesión en vivo y presentar el examen dentro del plazo de la convocatoria.
-related:
-  - database/database-nosql/database-mongodb-practico
+url: https://events.mongodb.com/certificationprogram-spanishla
+technologies: [database/database-nosql/database-mongodb-practico]
+note: Registrarse no entrega la certificación; hay que completar la ruta elegida, obtener tres Skill Badges, asistir a una sesión en vivo y presentar el examen dentro del plazo de la convocatoria.
 updatedAt: 2026-09-04
 ---
 

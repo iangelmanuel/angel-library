@@ -1,10 +1,10 @@
 ---
 title: "Wrangler CLI: comandos esenciales"
 description: La CLI de Cloudflare para Workers, Pages y D1 — instalación local recomendada, login, correr local, deploy, logs en vivo y las bases de D1.
-type: guides
+tags: [cli, cloudflare, wrangler, deploy]
 sidebar:
   order: 5
-tags: [cli, cloudflare, wrangler, deploy]
+draft: false
 scope: wrangler
 updatedAt: 2026-08-17
 ---

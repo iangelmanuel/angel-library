@@ -1,12 +1,14 @@
 ---
 title: "SSH: llaves, conexión y configuración"
 description: Generar un par de llaves SSH, copiarlas a un servidor, conectarse y guardar hosts en ~/.ssh/config.
-type: guides
+tags: [terminal, ssh, herramientas, seguridad]
 sidebar:
   order: 23
-tags: [terminal, ssh, herramientas, seguridad]
+draft: false
 scope: ssh
-related: [terminal/terminal/terminal-linux-cli, terminal/terminal/terminal-wsl]
+technologies:
+  - terminal/terminal/terminal-linux-cli
+  - terminal/terminal/terminal-wsl
 updatedAt: 2026-08-17
 ---
 

@@ -1,17 +1,16 @@
 ---
 title: "RapidAPI Hub — descubrir, probar y consumir APIs"
 description: Plataforma para buscar APIs, probar solicitudes y administrar sus claves desde un mismo lugar; algunas opciones son gratuitas y otras tienen cuotas o pago.
-type: resources
 tags: [api, backend, marketplace, integration, testing]
-url: https://rapidapi.com/hub
+draft: false
 resourceCategory: apis
-technologies: []
-personalNote: Útil para prototipos y para descubrir proveedores, pero antes de depender de una API revisa precio, límites, licencia de datos, estabilidad y posibilidad de migrar fuera de RapidAPI.
-related:
+url: https://rapidapi.com/hub
+technologies:
   - resources/apis/public-apis
   - languages/javascript/http-browser-fundamentals
   - languages/javascript/javascript-fetch-apis
   - security/security-aplicacion/security-api-protection
+note: Útil para prototipos y para descubrir proveedores, pero antes de depender de una API revisa precio, límites, licencia de datos, estabilidad y posibilidad de migrar fuera de RapidAPI.
 updatedAt: 2026-08-28
 ---
 

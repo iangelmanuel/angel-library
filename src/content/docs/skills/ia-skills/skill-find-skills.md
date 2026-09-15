@@ -1,10 +1,10 @@
 ---
 title: find-skills — meta-skill para descubrir otros skills
 description: El skill más instalado de skills.sh (3M+ instalaciones) — busca y sugiere skills relevantes para lo que estés haciendo.
-type: skills
+tags: [ai, skill, general]
 sidebar:
   order: 1
-tags: [ai, skill, general]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

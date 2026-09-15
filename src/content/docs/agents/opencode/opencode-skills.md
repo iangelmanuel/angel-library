@@ -1,12 +1,12 @@
 ---
 title: Skills — el mismo estándar que Claude Code
 description: SKILL.md, mismo formato abierto — OpenCode incluso lee directamente .claude/skills/, sin migrar nada.
-type: skills
+tags: [ai, opencode, skill]
 sidebar:
   order: 4
-tags: [ai, opencode, skill]
+draft: false
 tool: OpenCode
-related: [agents/claude-code/claude-code-skills]
+technologies: [agents/claude-code/claude-code-skills]
 updatedAt: 2026-08-17
 ---
 

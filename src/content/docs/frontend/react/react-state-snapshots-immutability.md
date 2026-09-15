@@ -1,13 +1,14 @@
 ---
 title: Estado como snapshot, batching e inmutabilidad
 description: Entender por qué el estado no cambia dentro del render actual, cómo React agrupa actualizaciones y cuándo conserva o reinicia una instancia.
-type: guides
+tags: [react, state, snapshots, batching, immutability, keys]
 sidebar:
   order: 4
-tags: [react, state, snapshots, batching, immutability, keys]
+draft: false
 scope: modelo de estado
+resourceCategory: Documentación oficial
 website: https://react.dev/learn/state-as-a-snapshot
-related:
+technologies:
   - frontend/react/react-usestate
   - frontend/react/react-usereducer
   - frontend/react/frontend-rendering-state-data-flow

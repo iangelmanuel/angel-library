@@ -1,10 +1,11 @@
 ---
 title: Mantine
 description: Más de 100 componentes y hooks React, con theming y modo oscuro incorporados de fábrica.
-type: libraries
+tags: [react, components, hooks]
 sidebar:
   order: 5
-tags: [react, components, hooks]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://mantine.dev
 github: https://github.com/mantinedev/mantine
 technologies: [frontend/react/react]

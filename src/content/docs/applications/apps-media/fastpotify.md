@@ -1,10 +1,11 @@
 ---
 title: "Fastpotify — cliente de Spotify nativo y ligero"
 description: "Cliente de escritorio de Spotify escrito en Rust que reproduce con librespot; explica su instalación por sistema operativo, sus requisitos y qué gana frente a la app oficial."
-type: guides
+tags: [spotify, rust, escritorio, musica, librespot, rendimiento]
 sidebar:
   order: 1
-tags: [spotify, rust, escritorio, musica, librespot, rendimiento]
+draft: false
+resourceCategory: Sitio oficial
 website: https://fastpotify.rocks
 github: https://github.com/crmne/fastpotify
 updatedAt: 2026-09-01

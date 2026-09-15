@@ -1,10 +1,11 @@
 ---
 title: Preline UI
 description: Componentes HTML sobre Tailwind CSS con un plugin de JavaScript propio (sin jQuery ni Alpine) para la interactividad.
-type: libraries
+tags: [html, tailwindcss, components]
 sidebar:
   order: 4
-tags: [html, tailwindcss, components]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://preline.co
 github: https://github.com/htmlstreamofficial/preline
 updatedAt: 2026-08-17

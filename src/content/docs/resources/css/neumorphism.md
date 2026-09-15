@@ -1,13 +1,11 @@
 ---
 title: "Neumorphism.io — generador de sombras neumórficas"
 description: Generador del estilo neumórfico, que usa luces y sombras suaves para hacer que un control parezca salir de la superficie; entrega el CSS como punto de partida.
-type: resources
 tags: [css, ui, shadows, design]
-url: https://neumorphism.io/
+draft: false
 resourceCategory: css
-technologies: []
-personalNote: Buena referencia visual, pero revisar accesibilidad porque las sombras suaves pueden reducir los límites de los controles.
-related: [resources/css/css-glass, resources/css/css-gradient]
+url: https://neumorphism.io/
+technologies: [resources/css/css-glass, resources/css/css-gradient]
 updatedAt: 2026-08-15
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: "it's free*.ai — directorio de APIs gratuitas de modelos de IA"
 description: "Directorio que compara las capas gratuitas de proveedores de modelos de IA, con sus límites por minuto y por día, ventana de contexto y requisitos de registro."
-type: resources
 tags: [ia, api, llm, gratis, limites]
-url: https://itsfree.ai/
+draft: false
 resourceCategory: ia
 official: false
-personalNote: "Sirve para prototipar sin tarjeta, no para producción: la mayoría de capas gratuitas no garantizan disponibilidad y varias entrenan con lo que les envías."
+url: https://itsfree.ai/
+note: "Sirve para prototipar sin tarjeta, no para producción: la mayoría de capas gratuitas no garantizan disponibilidad y varias entrenan con lo que les envías."
 updatedAt: 2026-09-01
 ---
 

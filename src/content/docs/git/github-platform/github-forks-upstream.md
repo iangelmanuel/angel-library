@@ -1,12 +1,12 @@
 ---
 title: GitHub — forks, upstream y contribuciones
 description: Trabajar en un repositorio donde no tienes permisos de escritura usando un fork, dos remotos y una Pull Request.
-type: guides
+tags: [github, fork, upstream, pull-request, open-source]
 sidebar:
   order: 3
-tags: [github, fork, upstream, pull-request, open-source]
+draft: false
 scope: colaboración entre repositorios
-related:
+technologies:
   - git/github-platform/github-clone-pull-push
   - git/repository-management/git-colaboracion-pull-requests
   - git/repository-management/repository-issues-planning

@@ -1,11 +1,11 @@
 ---
 title: "Claymorphism"
 description: "Formas infladas de aspecto plastilina: radios enormes, colores pastel y una sombra interior que da volumen sin imitar ningún objeto real."
-type: guides
+tags: [ui, diseño, estilos, claymorphism, css]
 sidebar:
   order: 5
-tags: [ui, diseño, estilos, claymorphism, css]
-related:
+draft: false
+technologies:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales
   - ui-ux/ui-ux-estilos/ui-ux-estilo-neumorphism
 updatedAt: 2026-08-30

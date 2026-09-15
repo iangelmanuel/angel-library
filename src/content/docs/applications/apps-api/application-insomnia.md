@@ -1,12 +1,13 @@
 ---
 title: Insomnia — desarrollo y pruebas de APIs
 description: Aplicación para enviar solicitudes a una API y revisar sus respuestas antes de crear una interfaz; permite organizar pruebas, autenticación y variables sin exponer secretos.
-type: guides
+tags: [insomnia, api, http, testing, openapi]
 sidebar:
   order: 1
-tags: [insomnia, api, http, testing, openapi]
+draft: false
+resourceCategory: Sitio oficial
 website: https://insomnia.rest
-related:
+technologies:
   - backend/backend-fundamentos/backend-api-design
   - languages/javascript/http-browser-fundamentals
   - testing/testing-integracion/testing-backend-database

@@ -1,12 +1,12 @@
 ---
 title: Server Actions
 description: Mutar datos con 'use server' — un solo roundtrip que devuelve el resultado Y la UI actualizada, más las protecciones de seguridad que trae el framework.
-type: guides
+tags: [nextjs, forms, backend]
 sidebar:
   order: 21
-tags: [nextjs, forms, backend]
+draft: false
 scope: next.js (use server)
-related:
+technologies:
   - frontend/nextjs/nextjs-directivas
   - frontend/react/react-useactionstate
   - packages/javascript-zod/zod

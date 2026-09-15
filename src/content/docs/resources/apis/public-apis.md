@@ -1,12 +1,11 @@
 ---
 title: "Public APIs — catálogo de APIs públicas gratuitas"
 description: Catálogo de servicios que permiten obtener datos para practicar o prototipar; cada API tiene reglas propias de acceso, uso y disponibilidad.
-type: resources
 tags: [api, javascript, backend, learning]
-url: https://publicapis.dev/
+draft: false
 resourceCategory: apis
-personalNote: Útil para practicar fetch, estados de carga, errores y consumo de APIs externas.
-related: [resources/developer-tools/omatsuri]
+url: https://publicapis.dev/
+technologies: [resources/developer-tools/omatsuri]
 updatedAt: 2026-08-15
 ---
 

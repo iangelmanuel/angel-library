@@ -1,11 +1,11 @@
 ---
 title: Webhooks, SSE y WebSockets
 description: Elegir comunicación servidor a servidor o actualizaciones en tiempo real, con firmas, reconexión, orden y límites operativos.
-type: guides
+tags: [backend, webhooks, sse, websockets, realtime]
 sidebar:
   order: 6
-tags: [backend, webhooks, sse, websockets, realtime]
-related:
+draft: false
+technologies:
   - backend/backend-fundamentos/backend-api-design
   - ai/ai-sdk/ai-sdk-fundamentos
   - security/security-aplicacion/security-api-protection

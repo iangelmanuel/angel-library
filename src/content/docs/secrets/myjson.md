@@ -1,21 +1,20 @@
 ---
 title: Configuración personal de VS Code
 description: Preferencias personales de editor, terminal, explorador, formato, Git y asistentes para Visual Studio Code.
-type: commands
 tags: [vscode, configuración, editor, terminal, personal]
-command: /myjson
-whenToUse: Ejecuta /myjson en la terminal interna para abrir esta configuración privada.
+draft: false
+private: true
 warnings:
   - "Esta entrada es privada y queda fuera del sidebar, los listados, las etiquetas y el índice de búsqueda público."
   - "Algunas preferencias dependen de extensiones instaladas en VS Code, como Prettier, ESLint, One Dark Pro y Flow Deep."
-private: true
+whenToUse: Ejecuta /myjson en la terminal interna para abrir esta configuración privada.
 updatedAt: 2026-08-26
 ---
 
 ## Cómo abrirla
 
 Escribe `/myjson` en la terminal de búsqueda de `angel.library`. El comando abre
-esta entrada directamente en `/applications/apps-editors/myjson` y conserva el mismo layout,
+esta entrada directamente en `/secrets/myjson` y conserva el mismo layout,
 tipografía, navegación y bloques de código que el resto de la documentación.
 
 También puedes copiar el bloque completo y pegarlo en **Preferences: Open User

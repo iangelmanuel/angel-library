@@ -1,10 +1,10 @@
 ---
 title: Hooks
 description: Comparten explícitamente los mismos nombres de evento que Claude Code — el paralelismo más directo entre las 4 herramientas.
-type: skills
+tags: [ai, codex, hook]
 sidebar:
   order: 5
-tags: [ai, codex, hook]
+draft: false
 tool: Codex CLI
 updatedAt: 2026-08-17
 ---

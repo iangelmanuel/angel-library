@@ -1,10 +1,10 @@
 ---
 title: AGENTS.md — el que Cursor lee sin config
 description: Cursor lee AGENTS.md (y CLAUDE.md) directo en Chat, Composer y Agent — sin frontmatter ni globs, scoping solo por carpeta.
-type: skills
+tags: [ai, cursor, memoria, config]
 sidebar:
   order: 2
-tags: [ai, cursor, memoria, config]
+draft: false
 tool: Cursor
 updatedAt: 2026-08-17
 ---

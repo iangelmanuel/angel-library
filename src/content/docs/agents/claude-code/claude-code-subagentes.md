@@ -1,10 +1,10 @@
 ---
 title: Subagentes propios
 description: Agentes especializados con su propio contexto, herramientas y modelo — .claude/agents/*.md.
-type: skills
+tags: [ai, claude-code, agente]
 sidebar:
   order: 4
-tags: [ai, claude-code, agente]
+draft: false
 tool: Claude Code
 updatedAt: 2026-08-17
 ---

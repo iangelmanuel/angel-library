@@ -1,12 +1,12 @@
 ---
 title: Routing basado en archivos
 description: Rutas estáticas, dinámicas, rest params, prioridades, páginas excluidas y cuándo interviene getStaticPaths.
-type: guides
+tags: [astro, routing, pages]
 sidebar:
   order: 4
-tags: [astro, routing, pages]
+draft: false
 scope: src/pages
-related:
+technologies:
   - frontend/astro/astro-get-static-paths
   - frontend/astro/astro-endpoints
   - backend/astro/astro-ssr-adapters

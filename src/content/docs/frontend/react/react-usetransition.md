@@ -1,10 +1,10 @@
 ---
 title: useTransition
 description: Marcar una actualización de estado como "no urgente" para que la UI no se congele — isPending y startTransition.
-type: guides
+tags: [react, hooks, performance]
 sidebar:
   order: 13
-tags: [react, hooks, performance]
+draft: false
 scope: react (useTransition)
 updatedAt: 2026-08-25
 ---

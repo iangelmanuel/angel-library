@@ -1,11 +1,11 @@
 ---
 title: "OpenAI SDK: Responses, streaming y memoria"
 description: Instalación y uso completo del SDK de OpenAI desde Node.js, parámetros, headers, herramientas, sesiones con memoria y consumo del stream desde React.
-type: guides
 tags: [openai, sdk, responses-api, streaming, react, agentes, memoria]
 sidebar:
   order: 2
-related:
+draft: false
+technologies:
   - ai/ai-sdk/ai-sdk-fundamentos
   - ai/ai-sdk/ai-sdk-vercel
   - ai/ai-sdk/ai-sdk-openrouter

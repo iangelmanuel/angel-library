@@ -1,10 +1,10 @@
 ---
 title: Directivas de plantilla — set:html, class:list y más
 description: Atributos especiales de Astro para inyectar HTML crudo, armar clases condicionales y pasar variables al cliente.
-type: guides
+tags: [astro, templating]
 sidebar:
   order: 6
-tags: [astro, templating]
+draft: false
 scope: sintaxis de archivos .astro
 updatedAt: 2026-08-25
 ---

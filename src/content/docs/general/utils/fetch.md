@@ -1,12 +1,11 @@
 ---
 title: Fetch Utils — Referencia rápida
 description: Wrapper tipado sobre fetch con manejo de errores HTTP, timeout y reintentos, sin librerías.
-type: utilities
 tags: [typescript, fetch, http, errors]
-runtime: universal
-language: typescript
-related:
-  - packages/javascript-zod/zod
+draft: false
+language: TypeScript
+runtime: Universal
+technologies: [packages/javascript-zod/zod]
 updatedAt: 2026-09-07
 ---
 

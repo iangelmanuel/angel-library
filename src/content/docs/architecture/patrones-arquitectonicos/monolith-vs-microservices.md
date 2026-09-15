@@ -1,16 +1,14 @@
 ---
 title: Monolito vs. microservicios
 description: Una decisión de trade-offs, no de moda — cuándo un monolito bien organizado es suficiente y cuándo el dolor real justifica separar servicios.
-type: patterns
+tags: [arquitectura, patrones-arquitectonicos, monolito, microservicios]
 sidebar:
   order: 7
-tags: [arquitectura, patrones-arquitectonicos, monolito, microservicios]
+draft: false
+technologies:
+  - architecture/patrones-arquitectonicos/layered-architecture
+  - architecture/patrones-arquitectonicos/event-driven
 problem: Elegir microservicios por default, asumiendo que es "lo moderno", suma complejidad real antes de que exista un problema que la justifique.
-related:
-  [
-    architecture/patrones-arquitectonicos/layered-architecture,
-    architecture/patrones-arquitectonicos/event-driven
-  ]
 updatedAt: 2026-08-17
 ---
 

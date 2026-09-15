@@ -1,10 +1,10 @@
 ---
 title: Claude Command Suite — 55+ comandos y agentes
 description: Recurso comunitario con workflows completos ya armados — code review, seguridad, arquitectura, creación de features.
-type: skills
+tags: [ai, comando, recurso]
 sidebar:
   order: 11
-tags: [ai, comando, recurso]
+draft: false
 tool: Claude Code
 updatedAt: 2026-08-17
 ---

@@ -1,11 +1,11 @@
 ---
 title: "Brutalism"
 description: "Mostrar el material crudo de la web: HTML sin disfraz, bordes duros, tipografía de sistema y cero degradados."
-type: guides
+tags: [ui, diseño, estilos, brutalismo, css, tipografia]
 sidebar:
   order: 8
-tags: [ui, diseño, estilos, brutalismo, css, tipografia]
-related:
+draft: false
+technologies:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales
   - ui-ux/ui-ux-estilos/ui-ux-estilo-minimalism
 updatedAt: 2026-08-30

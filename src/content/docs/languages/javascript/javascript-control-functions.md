@@ -1,12 +1,12 @@
 ---
 title: Control de flujo, funciones y alcance
 description: Condiciones, bucles, funciones, parámetros, scope, closures y recursión con resultados visibles y casos de uso.
-type: guides
+tags: [javascript, control-flow, functions, scope, closures]
 sidebar:
   order: 5
-tags: [javascript, control-flow, functions, scope, closures]
+draft: false
 scope: fundamentos del lenguaje
-related:
+technologies:
   - languages/javascript/javascript-fundamentals
   - languages/javascript/javascript-loops-iteration
   - languages/javascript/javascript-arrays-objects

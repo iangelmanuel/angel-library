@@ -1,10 +1,11 @@
 ---
 title: "GridStack.js"
 description: "Rejilla de widgets arrastrables y redimensionables para construir dashboards, con envoltorio propio para React y sin dependencias externas."
-type: libraries
+tags: [react, dashboard, grid, drag-and-drop, typescript]
 sidebar:
   order: 7
-tags: [react, dashboard, grid, drag-and-drop, typescript]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://gridstackjs.com
 github: https://github.com/gridstack/gridstack.js
 technologies: [frontend/react/react]

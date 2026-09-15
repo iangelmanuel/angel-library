@@ -1,11 +1,12 @@
 ---
 title: useEffect — y cómo evitar loops infinitos
 description: Sincronizar sistemas externos y distinguir bucles, dependencias obsoletas y suscripciones que se repiten.
-type: guides
+tags: [react, hooks, effects]
 sidebar:
   order: 9
-tags: [react, hooks, effects]
+draft: false
 scope: react (useEffect)
+note: "`useEffectEvent`, que aparece al final, está disponible desde React 19.2."
 updatedAt: 2026-09-07
 ---
 

@@ -1,10 +1,10 @@
 ---
 title: supabase-postgres-best-practices
 description: Patrones de Postgres específicos de Supabase — diseño de schema, RLS, indexing, performance de queries.
-type: skills
+tags: [ai, skill, supabase, database]
 sidebar:
   order: 13
-tags: [ai, skill, supabase, database]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

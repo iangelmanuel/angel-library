@@ -1,13 +1,12 @@
 ---
 title: getStaticPaths()
 description: Cómo Astro sabe qué páginas generar en build para una ruta dinámica — params, props y paginación.
-type: guides
+tags: [astro, routing]
 sidebar:
   order: 14
-tags: [astro, routing]
+draft: false
 scope: astro:pages
-related:
-  - frontend/astro/astro-content-collections
+technologies: [frontend/astro/astro-content-collections]
 updatedAt: 2026-08-25
 ---
 

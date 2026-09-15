@@ -1,16 +1,16 @@
 ---
 title: "How To Secure A Linux Server — guía de endurecimiento paso a paso"
 description: "Guía comunitaria para endurecer un servidor Linux explicando el porqué de cada medida; sirve como recorrido ordenado por SSH, red, cortafuegos y auditoría."
-type: resources
+tags: [seguridad, linux, servidor, ssh, firewall, hardening, debian, github]
 sidebar:
   order: 6
-tags: [seguridad, linux, servidor, ssh, firewall, hardening, debian, github]
-url: https://github.com/imthenachoman/How-To-Secure-A-Linux-Server
+draft: false
 resourceCategory: learning
-personalNote: "El propio autor avisa de que no lo copies a ciegas. Léelo entero antes de tocar nada: hay pasos donde el orden importa y otros que pueden dejarte fuera del servidor."
-related:
+url: https://github.com/imthenachoman/How-To-Secure-A-Linux-Server
+technologies:
   - security/security-infra/security-secrets-supply-chain
   - security/security-testing/web-security-checklist
+note: "El propio autor avisa de que no lo copies a ciegas. Léelo entero antes de tocar nada: hay pasos donde el orden importa y otros que pueden dejarte fuera del servidor."
 updatedAt: 2026-09-01
 ---
 

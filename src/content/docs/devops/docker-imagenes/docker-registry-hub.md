@@ -1,12 +1,12 @@
 ---
 title: "Docker Hub y registries"
 description: Qué es un registry, cómo hacer pull/push de imágenes, y cómo usar un registry privado.
-type: guides
+tags: [docker, registry, docker-hub, imagenes]
 sidebar:
   order: 6
-tags: [docker, registry, docker-hub, imagenes]
+draft: false
 scope: registries
-related: [devops/docker-imagenes/docker-build-tags]
+technologies: [devops/docker-imagenes/docker-build-tags]
 updatedAt: 2026-08-17
 ---
 

@@ -1,18 +1,17 @@
 ---
 title: "pnpm: gestor de paquetes rápido y estricto"
 description: Gestor de paquetes para proyectos JavaScript que ahorra espacio y detecta dependencias mal declaradas; compara su funcionamiento con npm y reúne el flujo básico.
-type: guides
+tags: [terminal, pnpm, node, gestor-de-paquetes]
 sidebar:
   order: 4
-tags: [terminal, pnpm, node, gestor-de-paquetes]
+draft: false
 scope: pnpm
+resourceCategory: Sitio oficial
 website: https://pnpm.io
-related:
-  [
-    terminal/terminal/terminal-npm,
-    applications/apps-cli/terminal-nvm,
-    applications/apps-cli/terminal-bun
-  ]
+technologies:
+  - terminal/terminal/terminal-npm
+  - applications/apps-cli/terminal-nvm
+  - applications/apps-cli/terminal-bun
 updatedAt: 2026-08-28
 ---
 

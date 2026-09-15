@@ -1,10 +1,10 @@
 ---
 title: MCP — conectar servidores externos
 description: .cursor/mcp.json, transporte stdio o HTTP/SSE, con interpolación de variables en cualquier campo.
-type: skills
+tags: [ai, cursor, mcp]
 sidebar:
   order: 7
-tags: [ai, cursor, mcp]
+draft: false
 tool: Cursor
 updatedAt: 2026-08-17
 ---

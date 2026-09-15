@@ -1,13 +1,14 @@
 ---
 title: TypeScript
 description: Sistema de tipos estático para JavaScript que mejora diseño, refactor y contratos, sin validar datos en runtime.
-type: technologies
+tags: [typescript, types, javascript]
 sidebar:
   order: 1
-tags: [typescript, types, javascript]
+draft: false
+resourceCategory: Documentación oficial
 website: https://www.typescriptlang.org
 github: https://github.com/microsoft/TypeScript
-related:
+technologies:
   - packages/javascript-zod/zod
   - general/typescript/typescript-path-aliases
   - architecture/principios/validate-at-boundaries

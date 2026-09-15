@@ -1,15 +1,13 @@
 ---
 title: "30 Days of JavaScript (Asabeneh)"
 description: "Ruta gratuita para empezar JavaScript desde cero: cada día introduce un concepto, muestra ejemplos y propone ejercicios para practicarlo."
-type: resources
+tags: [javascript, github, principiantes, ejercicios, espanol, aprendizaje]
 sidebar:
   order: 1
-tags: [javascript, github, principiantes, ejercicios, espanol, aprendizaje]
-url: https://github.com/Asabeneh/30-Days-Of-JavaScript/tree/master/Spanish
+draft: false
 resourceCategory: learning
-personalNote: La estructura por días funciona si respetas el ritmo; hacer diez días de golpe y abandonar es el patrón de fracaso más común con estos retos.
-related:
-  - findings/hallazgos-codigo/javascript-questions-lydiahallie
+url: https://github.com/Asabeneh/30-Days-Of-JavaScript/tree/master/Spanish
+technologies: [findings/hallazgos-codigo/javascript-questions-lydiahallie]
 updatedAt: 2026-08-30
 ---
 

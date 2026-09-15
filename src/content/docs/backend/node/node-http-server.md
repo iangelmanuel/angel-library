@@ -1,12 +1,12 @@
 ---
 title: Servidor HTTP nativo
 description: http.createServer(req, res) sin frameworks, qué resuelve Node y qué abstracciones añade Express sobre esta base.
-type: guides
+tags: [node, http, server]
 sidebar:
   order: 8
-tags: [node, http, server]
+draft: false
 scope: node:http
-related: [backend/node/node-rest-api-minima]
+technologies: [backend/node/node-rest-api-minima]
 updatedAt: 2026-08-16
 ---
 

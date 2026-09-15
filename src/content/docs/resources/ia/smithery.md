@@ -1,12 +1,11 @@
 ---
 title: "Smithery — registro e instalador de servidores MCP"
 description: Directorio de servidores MCP que permiten a un asistente de IA conectarse con herramientas y fuentes de datos externas, acompañado de instrucciones de instalación.
-type: resources
 tags: [ai, mcp]
-url: https://smithery.ai
+draft: false
 resourceCategory: ia
 official: false
-personalNote: Complementa la lista curada de servidores MCP en IA Tools — útil cuando hace falta uno que no esté ya documentado ahí.
+url: https://smithery.ai
 updatedAt: 2026-08-17
 ---
 

@@ -1,11 +1,11 @@
 ---
 title: Migraciones, backups y recuperación
 description: Cambiar esquemas y recuperar datos con despliegues compatibles, copias verificadas, objetivos RPO/RTO y simulacros de restauración.
-type: guides
+tags: [database, migrations, backups, restore, operations]
 sidebar:
   order: 1
-tags: [database, migrations, backups, restore, operations]
-related:
+draft: false
+technologies:
   - database/database-postgresql/postgresql-practico
   - devops/ci-cd/cicd-pipeline-fundamentals
 updatedAt: 2026-08-28

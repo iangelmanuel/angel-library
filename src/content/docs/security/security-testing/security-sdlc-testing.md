@@ -1,11 +1,11 @@
 ---
 title: Desarrollo seguro — controles desde diseño hasta producción
 description: Integrar threat modeling, revisión, análisis de dependencias, pruebas y monitoreo en el SDLC sin convertir seguridad en un paso final.
-type: guides
+tags: [security, sdlc, testing, review, supply-chain]
 sidebar:
   order: 1
-tags: [security, sdlc, testing, review, supply-chain]
-related:
+draft: false
+technologies:
   - security/security-fundamentos/security-threat-modeling
   - security/security-infra/security-secrets-supply-chain
   - security/security-testing/web-security-checklist

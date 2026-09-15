@@ -1,16 +1,14 @@
 ---
 title: "Docker Compose: estructura básica"
 description: Qué problema resuelve Compose frente a encadenar comandos docker run, y la anatomía de un docker-compose.yml.
-type: guides
+tags: [docker, compose, yaml]
 sidebar:
   order: 1
-tags: [docker, compose, yaml]
+draft: false
 scope: docker-compose.yml
-related:
-  [
-    devops/docker-redes-volumenes/docker-redes,
-    devops/docker-compose/docker-compose-comandos
-  ]
+technologies:
+  - devops/docker-redes-volumenes/docker-redes
+  - devops/docker-compose/docker-compose-comandos
 updatedAt: 2026-08-17
 ---
 

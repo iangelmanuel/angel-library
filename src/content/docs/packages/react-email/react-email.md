@@ -1,12 +1,12 @@
 ---
 title: React Email
 description: Emails HTML armados con componentes React en vez de tablas — preview local y envío con Resend.
-type: libraries
+tags: [react, email]
 sidebar:
   order: 9
-tags: [react, email]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://react.email
-related: []
 updatedAt: 2026-08-25
 ---
 

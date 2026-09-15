@@ -1,13 +1,12 @@
 ---
 title: "<Image /> — optimización"
 description: Extiende <img> con dimensiones, srcset, carga diferida, preload, placeholders y orígenes remotos controlados.
-type: guides
+tags: [nextjs, images, performance]
 sidebar:
   order: 25
-tags: [nextjs, images, performance]
+draft: false
 scope: next.js (next/image)
-related:
-  - frontend/astro/astro-image-picture
+technologies: [frontend/astro/astro-image-picture]
 updatedAt: 2026-08-25
 ---
 

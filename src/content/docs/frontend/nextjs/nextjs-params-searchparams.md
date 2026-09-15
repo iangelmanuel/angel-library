@@ -1,10 +1,10 @@
 ---
 title: Leer params y searchParams en una página
 description: Ambos son promesas desde Next 15 — cómo leerlos en Server y Client Components, y el helper PageProps tipado.
-type: guides
+tags: [nextjs, routing, typescript]
 sidebar:
   order: 9
-tags: [nextjs, routing, typescript]
+draft: false
 scope: next.js app router (page props)
 updatedAt: 2026-08-25
 ---

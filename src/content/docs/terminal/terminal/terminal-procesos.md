@@ -1,16 +1,14 @@
 ---
 title: "Ver y matar procesos"
 description: Listar procesos corriendo y matarlos por PID o por nombre, en Windows, macOS y Linux.
-type: guides
+tags: [terminal, procesos, kill]
 sidebar:
   order: 8
-tags: [terminal, procesos, kill]
+draft: false
 scope: procesos
-related:
-  [
-    terminal/terminal/terminal-puertos,
-    terminal/terminal/terminal-historial-atajos
-  ]
+technologies:
+  - terminal/terminal/terminal-puertos
+  - terminal/terminal/terminal-historial-atajos
 updatedAt: 2026-08-17
 ---
 

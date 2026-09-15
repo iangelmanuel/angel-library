@@ -1,12 +1,12 @@
 ---
 title: nodejs-backend-patterns
 description: Arquitectura por capas, dependency injection, middlewares, JWT y jerarquías de errores para Express/Fastify — 15 buenas prácticas documentadas.
-type: skills
+tags: [ai, skill, express, node]
 sidebar:
   order: 15
-tags: [ai, skill, express, node]
+draft: false
 tool: Cross-tool
-related: [backend/express/backend-mvc-structure]
+technologies: [backend/express/backend-mvc-structure]
 updatedAt: 2026-08-17
 ---
 

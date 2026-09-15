@@ -1,10 +1,10 @@
 ---
 title: opencode.json — referencia rápida
 description: A diferencia de Claude Code, la config se mergea entre hasta 8 fuentes en vez de sobre-escribirse por scope.
-type: skills
+tags: [ai, opencode, config]
 sidebar:
   order: 7
-tags: [ai, opencode, config]
+draft: false
 tool: OpenCode
 updatedAt: 2026-08-17
 ---

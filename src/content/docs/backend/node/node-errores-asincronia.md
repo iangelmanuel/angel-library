@@ -1,12 +1,12 @@
 ---
 title: Errores, promesas y cancelación
 description: Propagar fallos asíncronos, evitar promesas huérfanas, cancelar operaciones y distinguir errores operativos de bugs.
-type: guides
+tags: [node, errors, promises, abortcontroller]
 sidebar:
   order: 5
-tags: [node, errors, promises, abortcontroller]
+draft: false
 scope: errores asíncronos en Node.js
-related:
+technologies:
   - backend/node/node-runtime-event-loop
   - backend/node/node-process
   - backend/express/express-error-handling

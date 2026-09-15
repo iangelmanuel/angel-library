@@ -1,11 +1,11 @@
 ---
 title: IA multimodal, privacidad y manejo de archivos
 description: Procesar imágenes, audio y documentos con límites, formatos, consentimiento, minimización de datos y salidas verificables.
-type: guides
+tags: [ia, multimodal, vision, audio, privacy, files]
 sidebar:
   order: 2
-tags: [ia, multimodal, vision, audio, privacy, files]
-related:
+draft: false
+technologies:
   - ai/ai-fundamentos/ai-fundamentals-terminology
   - security/security-aplicacion/security-common-web-attacks
   - ai/ai-sdk/ai-sdk-openai

@@ -1,12 +1,12 @@
 ---
 title: /add-tests — escribir tests para un archivo o función
 description: Genera tests nuevos con casos borde reales, siguiendo las convenciones del repo — distinto de /fix-tests, que solo arregla fallas existentes.
-type: skills
+tags: [ai, comando, testing]
 sidebar:
   order: 6
-tags: [ai, comando, testing]
+draft: false
 tool: Cross-tool
-related: [skills/ia-comandos/comando-fix-tests]
+technologies: [skills/ia-comandos/comando-fix-tests]
 updatedAt: 2026-08-17
 ---
 

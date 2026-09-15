@@ -1,13 +1,15 @@
 ---
 title: better-auth en Next.js
 description: Instalación, configuración con adapter y providers, Route Handler catch-all, y el cliente con hooks para Client Components.
-type: guides
+tags: [nextjs, better-auth, auth]
 sidebar:
   order: 6
-tags: [nextjs, better-auth, auth]
+draft: false
+resourceCategory: Documentación oficial
 website: https://www.better-auth.com
-related:
-  [backend/nextjs/nextjs-backend-arquitectura, backend/nextjs/nextjs-auth-js]
+technologies:
+  - backend/nextjs/nextjs-backend-arquitectura
+  - backend/nextjs/nextjs-auth-js
 updatedAt: 2026-09-07
 ---
 

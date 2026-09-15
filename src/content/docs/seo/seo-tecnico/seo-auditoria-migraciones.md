@@ -1,11 +1,11 @@
 ---
 title: Auditoría SEO, Search Console y migraciones
 description: Revisar cobertura técnica, contenido y rendimiento, y mover dominios o rutas sin perder señales ni dejar errores invisibles.
-type: guides
+tags: [seo, audit, search-console, migrations, redirects]
 sidebar:
   order: 4
-tags: [seo, audit, search-console, migrations, redirects]
-related:
+draft: false
+technologies:
   - seo/seo-tecnico/seo-rastreo-indexacion
   - seo/seo-tecnico/seo-metadata-datos-estructurados
   - performance/performance-fundamentos/core-web-vitals

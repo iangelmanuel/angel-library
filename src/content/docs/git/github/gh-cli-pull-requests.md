@@ -1,12 +1,12 @@
 ---
 title: GitHub CLI — Pull Requests
 description: Crear, revisar, mergear y navegar Pull Requests sin salir de la terminal — el flujo que más tiempo ahorra de toda la CLI.
-type: guides
+tags: [git, github, gh, cli, pull-requests]
 sidebar:
   order: 3
-tags: [git, github, gh, cli, pull-requests]
+draft: false
 scope: gh pr
-related: [git/git/git-ramas, git/github/gh-cli-workflow-completo]
+technologies: [git/git/git-ramas, git/github/gh-cli-workflow-completo]
 updatedAt: 2026-08-16
 ---
 

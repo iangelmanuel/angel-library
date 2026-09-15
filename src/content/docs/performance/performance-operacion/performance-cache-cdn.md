@@ -1,11 +1,11 @@
 ---
 title: Caché, CDN, compresión y estrategia de red
 description: Reducir latencia y transferencia mediante caché HTTP, CDN, archivos versionados, compresión y invalidación medible.
-type: guides
+tags: [performance, cache, cdn, compression, http]
 sidebar:
   order: 1
-tags: [performance, cache, cdn, compression, http]
-related:
+draft: false
+technologies:
   - performance/performance-carga/performance-resource-loading
   - backend/backend-fundamentos/backend-idempotencia-cache
   - performance/performance-fundamentos/core-web-vitals

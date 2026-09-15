@@ -1,13 +1,14 @@
 ---
 title: Eventos del DOM y EventTarget
 description: Tipos de eventos, propagación, delegación, teclado, pointer, formularios, eventos personalizados y limpieza de listeners.
-type: guides
+tags: [javascript, events, eventtarget, bubbling, delegation]
 sidebar:
   order: 23
-tags: [javascript, events, eventtarget, bubbling, delegation]
+draft: false
 scope: navegador
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/API/EventTarget
-related:
+technologies:
   - languages/javascript/javascript-dom-events
   - languages/javascript/javascript-runtime-event-loop
   - accessibility/a11y-interaccion/accessibility-semantics-keyboard-focus

@@ -1,11 +1,11 @@
 ---
 title: Strategy
 description: Intercambiar un algoritmo en runtime eligiéndolo por clave, en vez de un if/switch gigante.
-type: patterns
+tags: [arquitectura, patrones-diseno, strategy]
 sidebar:
   order: 9
-tags: [arquitectura, patrones-diseno, strategy]
-related: [architecture/patrones-diseno/factory]
+draft: false
+technologies: [architecture/patrones-diseno/factory]
 problem: Calcular un descuento o validar una contraseña según el tipo de cuenta termina en un switch con ocho casos que crece cada vez que se agrega una variante.
 updatedAt: 2026-08-17
 ---

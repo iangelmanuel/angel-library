@@ -1,13 +1,14 @@
 ---
 title: Cámara, micrófono y dispositivos multimedia
 description: Detectar dispositivos, solicitar cámara o micrófono, cambiar fuentes, compartir pantalla, capturar una imagen y liberar recursos.
-type: guides
+tags: [javascript, media-devices, camera, microphone, getusermedia]
 sidebar:
   order: 30
-tags: [javascript, media-devices, camera, microphone, getusermedia]
+draft: false
 scope: Web APIs con permisos
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/API/MediaDevices
-related:
+technologies:
   - languages/javascript/javascript-audio-recording
   - languages/javascript/javascript-permissions-notifications
   - languages/javascript/javascript-browser-constructors

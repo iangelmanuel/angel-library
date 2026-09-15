@@ -1,12 +1,12 @@
 ---
 title: zod-4 — referencia completa de la API
 description: Migración de Zod 3 a 4, referencia completa de la API, discriminated unions, e integración con React Hook Form.
-type: skills
+tags: [ai, skill, zod]
 sidebar:
   order: 17
-tags: [ai, skill, zod]
+draft: false
 tool: Cross-tool
-related: [packages/javascript-zod/zod, backend/express/express-jwt]
+technologies: [packages/javascript-zod/zod, backend/express/express-jwt]
 updatedAt: 2026-08-17
 ---
 

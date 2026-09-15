@@ -1,13 +1,12 @@
 ---
 title: "LLMs from Scratch"
 description: "Ruta avanzada para construir un modelo de lenguaje similar a GPT con Python y PyTorch, desde sus componentes internos hasta el entrenamiento y ajuste."
-type: resources
+tags: [ia, llm, pytorch, python, deep-learning, aprendizaje, github]
 sidebar:
   order: 4
-tags: [ia, llm, pytorch, python, deep-learning, aprendizaje, github]
-url: https://github.com/rasbt/LLMs-from-scratch
+draft: false
 resourceCategory: learning
-personalNote: "La mejor forma de dejar de tratar un modelo como una caja negra; construirlo entero explica de golpe por qué existe la ventana de contexto y qué cuesta cada token."
+url: https://github.com/rasbt/LLMs-from-scratch
 updatedAt: 2026-09-07
 ---
 

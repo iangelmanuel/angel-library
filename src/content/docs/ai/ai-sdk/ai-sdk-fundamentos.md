@@ -1,11 +1,11 @@
 ---
 title: "SDK para IA: fundamentos y arquitectura"
 description: Arquitectura segura, parámetros de generación, headers, streaming, memoria y criterios para integrar modelos de IA desde un backend.
-type: guides
 tags: [ia, sdk, llm, api, streaming, sse, seguridad]
 sidebar:
   order: 1
-related:
+draft: false
+technologies:
   - ai/ai-sdk/ai-sdk-openai
   - ai/ai-sdk/ai-sdk-vercel
   - ai/ai-sdk/ai-sdk-openrouter

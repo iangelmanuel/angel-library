@@ -1,12 +1,12 @@
 ---
 title: "Skill: SEO en Next.js (generar o migrar)"
 description: Skill propio con el código completo de la receta empaquetado en references/ — SITE.seo, buildMetadata(), los builders de JSON-LD, robots.ts/sitemap.ts y el layout raíz, listos para que Claude Code los lea e implemente.
-type: skills
+tags: [ai, skill, seo, nextjs]
 sidebar:
   order: 21
-tags: [ai, skill, seo, nextjs]
+draft: false
 tool: Claude Code
-related: [seo/nextjs/nextjs-seo-completo]
+technologies: [seo/nextjs/nextjs-seo-completo]
 updatedAt: 2026-08-17
 ---
 

@@ -1,12 +1,13 @@
 ---
 title: better-auth en Express
 description: Instalación, configuración con adapter, providers y sesión, Route Handler catch-all, y cómo leer el usuario en un middleware.
-type: guides
+tags: [express, better-auth, auth]
 sidebar:
   order: 16
-tags: [express, better-auth, auth]
+draft: false
+resourceCategory: Documentación oficial
 website: https://www.better-auth.com
-related: [backend/express/express-jwt]
+technologies: [backend/express/express-jwt]
 updatedAt: 2026-09-07
 ---
 

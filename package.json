@@ -1,7 +1,7 @@
 {
   "name": "angel-library",
   "type": "module",
-  "version": "0.39.0",
+  "version": "0.40.0",
   "private": false,
   "description": "Biblioteca personal y segundo cerebro técnico para aprender, recordar y reutilizar conocimiento sobre desarrollo de software",
   "license": "MIT",

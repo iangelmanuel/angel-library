@@ -1,13 +1,12 @@
 ---
 title: useActionState
 description: Coordinar el resultado, la función y el estado pendiente de una acción sin construir esa máquina manualmente.
-type: guides
+tags: [react, hooks, forms]
 sidebar:
   order: 15
-tags: [react, hooks, forms]
+draft: false
 scope: react (useActionState)
-related:
-  - frontend/react/react-useoptimistic
+technologies: [frontend/react/react-useoptimistic]
 updatedAt: 2026-09-07
 ---
 

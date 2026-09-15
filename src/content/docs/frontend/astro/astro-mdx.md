@@ -1,12 +1,12 @@
 ---
 title: MDX en Astro
 description: Cuándo combinar Markdown con componentes, configurar la integración y mantener contenido portable sin abusar de JSX.
-type: guides
+tags: [astro, mdx, markdown, content]
 sidebar:
   order: 25
-tags: [astro, mdx, markdown, content]
+draft: false
 scope: "@astrojs/mdx"
-related:
+technologies:
   - frontend/astro/astro-content-collections
   - frontend/astro/astro-components-props-slots
   - frontend/astro/astro-integrations

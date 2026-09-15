@@ -1,11 +1,12 @@
 ---
 title: bcrypt
 description: Hashear y comparar contraseñas — por qué nunca se guardan en texto plano, qué es el salt, y el costo (rounds) configurable.
-type: libraries
+tags: [express, bcrypt, security, passwords]
 sidebar:
   order: 18
-tags: [express, bcrypt, security, passwords]
-related: [backend/express/express-jwt]
+draft: false
+github: https://github.com/kelektiv/node.bcrypt.js
+technologies: [backend/express/express-jwt]
 updatedAt: 2026-08-16
 ---
 

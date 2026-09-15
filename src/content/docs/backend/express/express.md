@@ -1,11 +1,12 @@
 ---
 title: Express
 description: Ruta completa de Express para aprender routing y middleware desde cero o consultar validación, errores, seguridad, APIs y arquitectura.
-type: technologies
 tags: [express, node, backend, http, middleware]
+draft: false
+resourceCategory: Documentación oficial
 website: https://expressjs.com
 github: https://github.com/expressjs/express
-related:
+technologies:
   - backend/node/nodejs
   - backend/express/express-primeros-pasos
   - backend/express/express-routing-request-response

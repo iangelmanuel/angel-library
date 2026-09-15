@@ -1,11 +1,11 @@
 ---
 title: Patrones de modelado relacional
 description: Resolver jerarquías, etiquetas, direcciones, estados, metadatos y límites entre agregados con patrones que evolucionan sin perder integridad.
-type: guides
+tags: [database, modelado, patrones, jerarquias, historial]
 sidebar:
   order: 2
-tags: [database, modelado, patrones, jerarquias, historial]
-related:
+draft: false
+technologies:
   - database/database-modelado/database-modelado-relacional
   - database/database-fundamentos/database-data-integrity-types-null
   - database/database-sql/database-sql-consultas

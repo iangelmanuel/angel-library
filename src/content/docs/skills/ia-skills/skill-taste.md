@@ -1,12 +1,12 @@
 ---
 title: "Taste Skill — dirección visual para frontends menos genéricos"
 description: "Colección de skills que añade criterios de composición, tipografía, movimiento y densidad a los agentes para evitar interfaces repetitivas o con apariencia de plantilla."
-type: skills
+tags: [ai, skill, frontend, diseño, ui, codex]
 sidebar:
   order: 2
-tags: [ai, skill, frontend, diseño, ui, codex]
+draft: false
 tool: Cross-tool
-related:
+technologies:
   - skills/ia-skills/skill-frontend-design
   - skills/ia-skills/skill-impeccable
 updatedAt: 2026-09-04

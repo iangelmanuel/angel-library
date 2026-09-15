@@ -1,13 +1,12 @@
 ---
 title: "redirect() y notFound()"
 description: Funciones que cortan el render y navegan o muestran el 404 — de dónde se pueden llamar y cómo difieren.
-type: guides
+tags: [nextjs, routing]
 sidebar:
   order: 14
-tags: [nextjs, routing]
+draft: false
 scope: next.js (next/navigation)
-related:
-  - frontend/nextjs/nextjs-page-error-loading
+technologies: [frontend/nextjs/nextjs-page-error-loading]
 updatedAt: 2026-08-25
 ---
 

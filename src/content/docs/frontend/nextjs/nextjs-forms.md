@@ -1,12 +1,12 @@
 ---
 title: Formularios con Server Actions
 description: Validación, errores por campo, estados pending, actualizaciones optimistas y progressive enhancement en formularios del App Router.
-type: guides
+tags: [nextjs, forms, server-actions, validation, react]
 sidebar:
   order: 20
-tags: [nextjs, forms, server-actions, validation, react]
+draft: false
 scope: next.js app router (forms)
-related:
+technologies:
   - frontend/nextjs/nextjs-server-actions
   - frontend/react/react-useactionstate
   - frontend/react/react-useoptimistic

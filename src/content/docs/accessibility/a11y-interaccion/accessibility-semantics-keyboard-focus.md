@@ -1,12 +1,12 @@
 ---
 title: Semántica, teclado y gestión del foco
 description: Construir interacciones operables con HTML nativo, orden lógico, foco visible y comportamiento predecible.
-type: guides
+tags: [accessibility, html, keyboard, focus]
 sidebar:
   order: 1
-tags: [accessibility, html, keyboard, focus]
+draft: false
 scope: fundamentos de interacción accesible
-related:
+technologies:
   - accessibility/a11y-interaccion/accessibility-aria-attributes
   - accessibility/a11y-testing/accessibility-checklist
   - accessibility/a11y-interaccion/accessibility-dialogs-live-regions

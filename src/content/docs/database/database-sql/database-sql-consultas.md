@@ -1,11 +1,11 @@
 ---
 title: SQL práctico — consultas, joins, agregaciones y CTE
 description: Leer y transformar datos con SELECT, filtros, joins, grupos, subconsultas, CTE y funciones de ventana sin perder claridad.
-type: guides
+tags: [sql, consultas, joins, cte, window-functions]
 sidebar:
   order: 1
-tags: [sql, consultas, joins, cte, window-functions]
-related:
+draft: false
+technologies:
   - database/database-modelado/database-modelado-relacional
   - database/database-sql/database-indices-explain
 updatedAt: 2026-08-28

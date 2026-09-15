@@ -1,13 +1,13 @@
 ---
 title: "Cool Contrast — combinaciones de color y contraste"
 description: Herramienta para comparar colores de texto y fondo antes de usarlos, combinando exploración visual con una comprobación posterior de accesibilidad.
-type: resources
 tags: [colors, accessibility, ui, ux]
-url: https://coolcontrast.app/
+draft: false
 resourceCategory: colors
-technologies: []
-personalNote: Usarlo junto con un contrast checker WCAG para combinar estética y accesibilidad.
-related: [resources/colors/colour-contrast-checker, resources/colors/uicolors]
+url: https://coolcontrast.app/
+technologies:
+  - resources/colors/colour-contrast-checker
+  - resources/colors/uicolors
 updatedAt: 2026-08-15
 ---
 

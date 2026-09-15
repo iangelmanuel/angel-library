@@ -1,10 +1,10 @@
 ---
 title: Comandos nativos — cheat-sheet
 description: Los comandos slash built-in que ya vienen con Claude Code, sin configurar nada.
-type: skills
+tags: [ai, claude-code, comando]
 sidebar:
   order: 9
-tags: [ai, claude-code, comando]
+draft: false
 tool: Claude Code
 updatedAt: 2026-08-17
 ---

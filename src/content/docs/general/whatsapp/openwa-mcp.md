@@ -1,13 +1,12 @@
 ---
 title: "OpenWA — servidor MCP para agentes"
 description: "Exponer WhatsApp como herramientas MCP para que Claude Code, Cursor u otro agente puedan leer y responder, con una clave de mínimo privilegio."
-type: guides
+tags: [whatsapp, mcp, ia, agentes, claude-code, seguridad]
 sidebar:
   order: 5
-tags: [whatsapp, mcp, ia, agentes, claude-code, seguridad]
+draft: false
 github: https://github.com/rmyndharis/OpenWA
-related:
-  - general/whatsapp/openwa-sesiones-mensajes
+technologies: [general/whatsapp/openwa-sesiones-mensajes]
 updatedAt: 2026-08-30
 ---
 

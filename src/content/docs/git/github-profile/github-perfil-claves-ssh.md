@@ -1,12 +1,12 @@
 ---
 title: Claves SSH — autenticarte sin escribir credenciales
 description: Generar una clave ed25519, registrarla en GitHub, cargarla en el agente en Windows, macOS y Linux, y migrar un remoto de HTTPS a SSH.
-type: guides
+tags: [github, ssh, autenticacion, claves, seguridad]
 sidebar:
   order: 3
-tags: [github, ssh, autenticacion, claves, seguridad]
+draft: false
 scope: autenticación con claves SSH
-related:
+technologies:
   - git/git/git-remotos
   - applications/apps-cli/gh-cli-instalacion-auth
   - terminal/terminal/terminal-ssh

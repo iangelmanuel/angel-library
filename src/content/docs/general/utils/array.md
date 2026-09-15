@@ -1,12 +1,11 @@
 ---
 title: Array Utils — Referencia rápida
 description: Utilidades tipadas para dividir, deduplicar, agrupar y generar arrays sin librerías.
-type: utilities
 tags: [typescript, arrays, utilities]
-runtime: universal
-language: typescript
-related:
-  - general/utils/string
+draft: false
+language: TypeScript
+runtime: Universal
+technologies: [general/utils/string]
 updatedAt: 2026-08-15
 ---
 

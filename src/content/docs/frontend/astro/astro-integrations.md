@@ -1,10 +1,10 @@
 ---
 title: Integrations — astro add
 description: Cómo se agrega una librería/framework al proyecto — el CLI astro add y la config manual en astro.config.mjs.
-type: guides
+tags: [astro, config]
 sidebar:
   order: 21
-tags: [astro, config]
+draft: false
 scope: astro (astro add / astro.config.mjs)
 updatedAt: 2026-08-25
 ---

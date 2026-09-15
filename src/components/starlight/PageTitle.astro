@@ -1,6 +1,7 @@
 ---
 import Default from "@astrojs/starlight/components/PageTitle.astro"
 import Button from "@/components/shared/Button.astro"
+import Icon from "@/components/shared/Icon.astro"
 import { CATEGORIES } from "@/config/categories"
 import { formatDate, getAllEntries } from "@/lib/content"
 
@@ -18,18 +19,26 @@ const subcategoryMeta = subcategory
     )?.[subcategory]
   : undefined
 
-const warnings = Array.isArray(data.warnings) ? (data.warnings as string[]) : []
 const text = (field: string) =>
-  typeof data[field] === "string" ? (data[field] as string) : null
+  typeof data[field] === "string" && data[field] !== ""
+    ? (data[field] as string)
+    : null
+const list = (field: string) =>
+  Array.isArray(data[field]) ? (data[field] as string[]) : []
 
-// Tecnologías: de la ruta al título de la entrada.
-const techRefs = Array.isArray(data.technologies)
-  ? (data.technologies as string[])
-  : []
-const entries = techRefs.length > 0 ? await getAllEntries(true) : []
-const technologies = techRefs
-  .map((ref) => entries.find((item) => item.id === ref))
-  .filter((item) => item !== undefined)
+// Zona 1 — la ruta: categoría / subcategoría · fecha, más el sello de
+// fuente oficial cuando la entrada lo declara.
+const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
+const isOfficial = data.official === true
+
+// El texto de `resourceCategory`. Acepta las dos formas que hay escritas:
+// la clave de una subcategoría de `resources/` (`developer-tools`), que se
+// traduce a su nombre, o el texto tal cual ("Documentación del paquete").
+const resourceCategoryLabel = data.resourceCategory
+  ? ((CATEGORIES.resources.subcategories as Record<string, { label: string }>)[
+      String(data.resourceCategory)
+    ]?.label ?? String(data.resourceCategory))
+  : null
 
 const isRepo = (href: string | null): href is string =>
   href !== null && /^https:\/\/(www\.)?github\.com\/.+/.test(href)
@@ -67,38 +76,90 @@ if (repoHref) {
   })
 }
 
-const facts = [
-  { label: "Problema", value: text("problem") },
-  { label: "Cuándo usarlo", value: text("whenToUse") },
-  { label: "Herramienta", value: text("tool") },
-  { label: "Lenguaje", value: text("language") },
-  { label: "Framework", value: text("framework") },
-  { label: "Runtime", value: text("runtime") },
-  { label: "Devuelve", value: text("returns") },
+// Zonas 2 y 3 — el recurso: la tarjeta de acciones. A la izquierda, qué se
+// abre; a la derecha, los botones. El texto lo pone `resourceCategory` en
+// el frontmatter y el esquema lo exige cuando la entrada trae enlace, así
+// que la tarjeta nunca sale a medias.
+const destinationLabel = resourceCategoryLabel
+
+// Zona 4 — los datos: una rejilla de dos columnas con lo que quepa en una
+// línea. Lo que es un párrafo va a la nota (`note`) o se queda
+// como metadata (`problem`, `whenToUse`, `practice`, `why`), porque el
+// artículo es el cuerpo del Markdown.
+const specs = [
+  { label: "Alcance", value: text("scope"), mono: false },
+  { label: "Herramienta", value: text("tool"), mono: false },
+  { label: "Lenguaje", value: text("language"), mono: false },
+  { label: "Framework", value: text("framework"), mono: false },
+  { label: "Runtime", value: text("runtime"), mono: false },
   {
+    label: "Parámetros",
+    value: list("parameters").length > 0 ? list("parameters").join(", ") : null,
+    mono: true
+  },
+  { label: "Devuelve", value: text("returns"), mono: false },
+  {
+    // Si hay botones, la categoría del recurso ya se dice en la tarjeta de
+    // acciones: repetirla aquí sería decir dos veces lo mismo.
     label: "Categoría de recurso",
-    value: data.resourceCategory
-      ? (
-          CATEGORIES.resources.subcategories as Record<
-            string,
-            { label: string }
-          >
-        )[String(data.resourceCategory)]?.label
-      : null
+    value: links.length > 0 ? null : resourceCategoryLabel,
+    mono: false
   }
-].filter((fact): fact is { label: string; value: string } =>
-  Boolean(fact.value)
+].filter((spec): spec is { label: string; value: string; mono: boolean } =>
+  Boolean(spec.value)
 )
 
-const command = text("command")
-const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
+// Zona 5 — entradas relacionadas: de la ruta al título real de la entrada.
+const techRefs = list("technologies")
+const entries = techRefs.length > 0 ? await getAllEntries(true) : []
+const technologies = techRefs
+  .map((ref) => entries.find((item) => item.id === ref))
+  .filter((item) => item !== undefined)
+
+// Zona 6 — las notas, con la misma receta que los avisos del Markdown
+// (`.starlight-aside`): filete y tinte del color del rol, título en ese
+// color. Violeta para la nota informativa, coral para las advertencias —
+// los mismos roles de sintaxis que usa el resto del sitio.
+//
+// `note` no es una opinión sobre la entrada: es el dato que hay que saber
+// antes de usarla (una versión, un requisito, una licencia, un límite).
+const note = text("note")
+const warnings = list("warnings")
+// El texto de la nota puede traer `código` entre comillas invertidas, como
+// cualquier frase del sitio: se parte en trozos y los impares se pintan
+// como código en línea.
+const segments = (value: string) =>
+  value.split("`").map((part, index) => ({ text: part, code: index % 2 === 1 }))
+
+const notes: {
+  hue: "violet" | "coral"
+  icon: string
+  title: string
+  items: { text: string; code: boolean }[][]
+}[] = []
+if (note) {
+  notes.push({
+    hue: "violet",
+    icon: "info",
+    title: "Nota",
+    items: [segments(note)]
+  })
+}
+if (warnings.length > 0) {
+  notes.push({
+    hue: "coral",
+    icon: "triangle-alert",
+    title: warnings.length > 1 ? "Advertencias" : "Advertencia",
+    items: warnings.map(segments)
+  })
+}
 ---
 
 <Default><slot /></Default>
 
 <div class="entry-meta not-content">
   {
-    (categoryMeta || updatedAt) && (
+    (categoryMeta || updatedAt || isOfficial) && (
       <p
         class="entry-meta__path"
         style={
@@ -133,73 +194,118 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
             {formatDate(updatedAt)}
           </time>
         )}
+        {isOfficial && <span class="entry-meta__official">Fuente oficial</span>}
       </p>
     )
   }
 
-  {command && <pre class="entry-meta__command">{command}</pre>}
-
   {
-    (facts.length > 0 || links.length > 0) && (
-      <div class="entry-meta__panel">
-        {facts.length > 0 && (
-          <dl class="entry-meta__facts">
-            {facts.map((fact) => (
-              <div>
-                <dt>{fact.label}</dt>
-                <dd>{fact.value}</dd>
-              </div>
-            ))}
+    links.length > 0 && (
+      <div class="entry-meta__action">
+        {destinationLabel && (
+          <dl class="entry-meta__destination">
+            <dt>Categoría de recurso</dt>
+            <dd>{destinationLabel}</dd>
           </dl>
         )}
 
-        {links.length > 0 && (
-          <div class="entry-meta__links">
-            {links.map((link) => (
-              <Button
-                href={link.href}
-                variant={link.variant}
-                icon={link.icon}
-                iconPosition="start"
-                external
-              >
-                {link.label}
-              </Button>
-            ))}
-          </div>
-        )}
+        <div class="entry-meta__links">
+          {links.map((link) => (
+            <Button
+              href={link.href}
+              variant={link.variant}
+              icon={link.icon}
+              iconPosition="start"
+              external
+            >
+              {link.label}
+            </Button>
+          ))}
+        </div>
       </div>
+    )
+  }
+
+  {
+    specs.length > 0 && (
+      <dl class="entry-meta__specs">
+        {specs.map((spec) => (
+          <div>
+            <dt>{spec.label}</dt>
+            <dd data-mono={spec.mono ? "" : undefined}>{spec.value}</dd>
+          </div>
+        ))}
+      </dl>
     )
   }
 
   {
     technologies.length > 0 && (
-      <div class="entry-meta__tech">
+      <nav
+        class="entry-meta__tech"
+        aria-label="Entradas relacionadas"
+      >
         <span class="entry-meta__tech-label">Relacionado</span>
         {technologies.map((tech) => (
           <a href={`/${tech.id}`}>{tech.data.title}</a>
         ))}
-      </div>
+      </nav>
     )
   }
 
   {
-    warnings.length > 0 && (
-      <ul class="entry-meta__warnings">
-        {warnings.map((warning) => (
-          <li>{warning}</li>
-        ))}
-      </ul>
-    )
+    notes.map((note) => (
+      <aside
+        class="entry-note"
+        data-hue={note.hue}
+      >
+        <p class="entry-note__title">
+          <Icon
+            name={note.icon}
+            size={15}
+          />
+          {note.title}
+        </p>
+        {note.items.length > 1 ? (
+          <ul class="entry-note__list">
+            {note.items.map((item) => (
+              <li>
+                {item.map((part) =>
+                  part.code ? <code>{part.text}</code> : part.text
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="entry-note__body">
+            {note.items[0].map((part) =>
+              part.code ? <code>{part.text}</code> : part.text
+            )}
+          </p>
+        )}
+      </aside>
+    ))
   }
 </div>
 
 <style>
+  /* Seis zonas, siempre en este orden: ruta, acciones, datos,
+     relacionado, nota y advertencias. Cada zona aparece solo si el
+     frontmatter trae sus campos, pero ninguna cambia de sitio por lo que
+     traigan las demás: dos entradas con los mismos campos se ven
+     idénticas, estén en Hallazgos o en Paquetes.
+
+     Las cajas son la tarjeta de acciones y las notas; los datos y los
+     enlaces relacionados van sin caja, para que la cabecera no sea una
+     pila de paneles. Ningún filete separa zonas: varios filetes seguidos
+     borran el límite entre cabecera y artículo, y ese límite lo marca el
+     `margin-bottom` de aquí abajo. */
   .entry-meta {
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
     margin-top: 0.85rem;
+    margin-bottom: 1.5rem;
   }
 
   /* La categoría es una ruta, no una ficha: "Frontend / Astro · 24 ago
@@ -233,24 +339,28 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     gap: 0.35rem;
     font-family: var(--font-mono);
     font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
     color: var(--text-faint);
   }
 
-  .entry-meta__command {
-    margin: 0;
-    border-radius: var(--radius-lg);
+  /* `official: true` es un sello discreto al final de la ruta, en neutro:
+     el color de acento lo llevan las notas, y dos violetas en la misma
+     cabecera se pelean. */
+  .entry-meta__official {
+    margin-left: 0.15rem;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--line);
-    background: var(--bg-code);
-    padding: 0.6rem 0.8rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--syn-green);
-    overflow-x: auto;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.01em;
+    color: var(--text-faint);
   }
 
-  /* Datos y acciones comparten un solo panel, sea cual sea la categoría:
-     si la entrada trae algo de eso, aparece el panel; si no, no. */
-  .entry-meta__panel {
+  /* La tarjeta de acciones: a la izquierda qué se abre y dónde, a la
+     derecha los botones. Nunca queda medio vacía — el destino siempre
+     existe cuando hay botón, así que la caja siempre tiene las dos
+     mitades. */
+  .entry-meta__action {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -262,36 +372,88 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     padding: 0.9rem 1.1rem;
   }
 
-  .entry-meta__facts {
-    flex: 1 1 16rem;
+  /* Las dos líneas se apilan con una rejilla y con `line-height` propio, no
+     con el interlineado heredado de la documentación: así la altura del
+     bloque es la de sus letras y `align-items: center` lo centra de verdad
+     contra el botón, que mide 2.6rem exactos. Con el interlineado heredado
+     sobraba espacio arriba y abajo y el texto quedaba un par de píxeles
+     fuera de eje. */
+  .entry-meta__destination {
+    flex: 1 1 12rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    gap: 0.6rem;
+    gap: 0.2rem;
     margin: 0;
+    min-width: 0;
+    line-height: 1.3;
   }
 
-  .entry-meta__facts dt {
+  .entry-meta__destination dt {
     font-size: 0.75rem;
     letter-spacing: 0.01em;
     font-weight: 600;
     color: var(--text-faint);
   }
 
-  .entry-meta__facts dd {
-    margin: 0.2rem 0 0;
+  .entry-meta__destination dd {
+    margin: 0;
     font-size: 0.85rem;
     color: var(--text);
   }
 
+  /* `margin-left: auto` mantiene los botones pegados a la derecha aunque el
+     destino sea corto. En pantalla angosta, donde el destino ya ocupa su
+     propia fila, vuelven a la izquierda. */
   .entry-meta__links {
+    margin-left: auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
   }
 
-  /* Tecnologías: entradas reales de la biblioteca, no tags — con su propio
-     rótulo para no confundirse con lo que se acaba de quitar. */
+  @media (max-width: 40rem) {
+    .entry-meta__links {
+      margin-left: 0;
+    }
+  }
+
+  /* Los datos van fuera de la tarjeta, en dos columnas: cada dato ocupa su
+     sitio en la rejilla en vez de amontonarse contra los botones. */
+  .entry-meta__specs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem 1.5rem;
+    margin: 0;
+  }
+
+  @media (max-width: 40rem) {
+    .entry-meta__specs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .entry-meta__specs dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.01em;
+    font-weight: 600;
+    color: var(--text-faint);
+  }
+
+  .entry-meta__specs dd {
+    margin: 0.2rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  /* Un valor que es identificador se lee en mono, como el resto de lo
+     medido del sitio. */
+  .entry-meta__specs dd[data-mono] {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  /* Relacionado: entradas reales de la biblioteca, no tags — con su propio
+     rótulo para no confundirse con los tags que ya no se muestran. */
   .entry-meta__tech {
     display: flex;
     flex-wrap: wrap;
@@ -307,22 +469,81 @@ const updatedAt = data.updatedAt instanceof Date ? data.updatedAt : null
     color: var(--text-faint);
   }
 
+  /* Los enlaces relacionados son enlaces, y se ven como los del cuerpo del
+     artículo: acento, subrayado fino y a la misma distancia de la línea de
+     base, con el mismo hover. Copiado de `.sl-markdown-content a` en
+     `starlight.css` — si eso cambia, esto cambia con él. */
   .entry-meta__tech a {
     color: var(--accent);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--accent) 38%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
   }
 
   .entry-meta__tech a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Notas y advertencias: barra del color del rol a la izquierda y tinte
+     suave, como los avisos de la referencia. El rol pone el color: violeta
+     para la nota del autor, coral para las advertencias. */
+  .entry-note {
+    --note-hue: var(--syn-violet);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    border-radius: var(--radius-sm) var(--radius-lg) var(--radius-lg)
+      var(--radius-sm);
+    border-inline-start: 3px solid var(--note-hue);
+    background: color-mix(in oklab, var(--note-hue) 8%, var(--bg));
+    padding: 0.8rem 1.1rem;
+  }
+
+  .entry-note[data-hue="coral"] {
+    --note-hue: var(--syn-coral);
+  }
+
+  .entry-note__title {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 650;
+    color: var(--note-hue);
+  }
+
+  .entry-note__body {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .entry-note__list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .entry-note :is(.entry-note__body, .entry-note__list) code {
+    border-radius: var(--radius-sm);
+    border: 1px solid color-mix(in oklab, var(--note-hue) 22%, var(--bg));
+    background: color-mix(in oklab, var(--note-hue) 12%, var(--bg));
+    padding: 0.08em 0.36em;
+    font-family: var(--font-mono);
+    font-size: 0.8em;
     color: var(--text-strong);
   }
 
-  .entry-meta__warnings {
-    margin: 0;
-    border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in oklab, var(--syn-coral) 32%, var(--bg));
-    background: color-mix(in oklab, var(--syn-coral) 8%, var(--bg));
-    padding: 0.6rem 0.8rem 0.6rem 1.8rem;
-    font-size: 0.82rem;
-    color: var(--text);
+  .entry-note__list li::marker {
+    color: color-mix(in oklab, var(--note-hue) 70%, var(--text-faint));
   }
 </style>

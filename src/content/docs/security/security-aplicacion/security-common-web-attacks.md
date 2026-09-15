@@ -1,12 +1,12 @@
 ---
 title: Ataques web comunes — cómo ocurren y cómo evitarlos
 description: XSS, CSRF, inyección, SSRF, traversal y uploads explicados desde el punto de entrada hasta el control defensivo.
-type: guides
+tags: [security, xss, csrf, injection, ssrf]
 sidebar:
   order: 2
-tags: [security, xss, csrf, injection, ssrf]
+draft: false
 scope: vulnerabilidades web
-related:
+technologies:
   - security/security-fundamentos/security-threat-modeling
   - security/security-aplicacion/security-headers-csp
   - security/security-testing/web-security-checklist

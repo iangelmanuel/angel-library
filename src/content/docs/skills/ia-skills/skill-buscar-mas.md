@@ -1,10 +1,10 @@
 ---
 title: Cómo buscar más skills por tecnología
 description: Para stacks específicos no cubiertos aquí (Astro, Express, Zod, tu librería puntual) — dónde buscar en vivo, el catálogo cambia rápido.
-type: skills
+tags: [ai, skill, general]
 sidebar:
   order: 10
-tags: [ai, skill, general]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

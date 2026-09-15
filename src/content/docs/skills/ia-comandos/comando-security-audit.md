@@ -1,10 +1,10 @@
 ---
 title: /security-audit — auditoría rápida de seguridad
 description: Busca los problemas de seguridad más comunes — secretos hardcodeados, inputs sin validar, dependencias vulnerables.
-type: skills
+tags: [ai, comando, seguridad]
 sidebar:
   order: 10
-tags: [ai, comando, seguridad]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

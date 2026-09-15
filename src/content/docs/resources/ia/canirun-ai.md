@@ -1,12 +1,12 @@
 ---
 title: "canirun.ai — qué modelos de IA corre tu máquina"
 description: Compara la memoria y capacidad del equipo con los requisitos de distintos modelos de IA para estimar cuáles pueden ejecutarse localmente y con qué rendimiento.
-type: resources
 tags: [ai, modelos-locales, hardware]
-url: https://www.canirun.ai
+draft: false
 resourceCategory: ia
 official: false
-personalNote: Útil antes de instalar un modelo local grande — evita bajar algo que la RAM/VRAM no va a poder mover bien. Filtra por tipo de tarea, licencia y specs (parámetros, VRAM requerida, context length).
+url: https://www.canirun.ai
+note: Útil antes de instalar un modelo local grande — evita bajar algo que la RAM/VRAM no va a poder mover bien. Filtra por tipo de tarea, licencia y specs (parámetros, VRAM requerida, context length).
 updatedAt: 2026-08-17
 ---
 

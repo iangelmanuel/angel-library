@@ -1,12 +1,12 @@
 ---
 title: "Contenedores vs máquinas virtuales"
 description: Qué comparten y qué no un contenedor, una máquina virtual y un proceso nativo — por qué los contenedores son mucho más livianos.
-type: guides
+tags: [docker, conceptos, virtualizacion]
 sidebar:
   order: 2
-tags: [docker, conceptos, virtualizacion]
+draft: false
 scope: contenedores vs VMs
-related: [devops/docker-conceptos/docker-arquitectura]
+technologies: [devops/docker-conceptos/docker-arquitectura]
 updatedAt: 2026-08-17
 ---
 

@@ -1,14 +1,12 @@
 ---
 title: Inspeccionar cambios e historial en Git
 description: Leer el estado, los diffs y el historial con suficiente contexto para revisar cambios antes de confirmarlos o compartirlos.
-type: guides
+tags: [git, diff, log, historial, debugging]
 sidebar:
   order: 8
-tags: [git, diff, log, historial, debugging]
+draft: false
 scope: git status / diff / log / show / blame
-related:
-  - git/git/git-flujo-basico
-  - git/git/git-remotos
+technologies: [git/git/git-flujo-basico, git/git/git-remotos]
 updatedAt: 2026-08-26
 ---
 

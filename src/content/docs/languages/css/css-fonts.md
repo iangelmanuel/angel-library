@@ -1,9 +1,9 @@
 ---
 title: Fuentes en CSS — Referencia rápida
 description: Cómo cargar fuentes propias con @font-face, font-display y fuentes variables sin depender de Google Fonts.
-type: snippets
-language: css
 tags: [css, fonts, performance]
+draft: false
+language: CSS
 updatedAt: 2026-08-16
 ---
 

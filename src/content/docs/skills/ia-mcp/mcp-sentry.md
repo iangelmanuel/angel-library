@@ -1,10 +1,10 @@
 ---
 title: Sentry MCP — errores de producción desde el agente
 description: El agente lee issues de Sentry, contexto del error, y puede investigar la causa directo desde el stack trace real.
-type: skills
+tags: [ai, mcp, sentry, errores]
 sidebar:
   order: 6
-tags: [ai, mcp, sentry, errores]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

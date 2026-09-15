@@ -1,10 +1,10 @@
 ---
 title: Figma — plugin partner (Cursor)
 description: Integración vetted del marketplace de Cursor — leer diseños de Figma directo desde el agente para implementarlos en código.
-type: skills
+tags: [ai, plugin, figma, cursor]
 sidebar:
   order: 6
-tags: [ai, plugin, figma, cursor]
+draft: false
 tool: Cursor
 updatedAt: 2026-08-17
 ---

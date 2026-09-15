@@ -1,15 +1,14 @@
 ---
 title: "OmniRoute: gateway compatible con OpenAI y fallback entre modelos"
 description: Gateway local que unifica proveedores de IA, detecta salud y cuota y redirige solicitudes cuando un modelo o su límite no está disponible.
-type: resources
+tags: [omniroute, ai-gateway, modelos, fallback, openai-compatible, proveedores]
 sidebar:
   order: 7
-tags: [omniroute, ai-gateway, modelos, fallback, openai-compatible, proveedores]
-url: https://github.com/diegosouzapw/OmniRoute
-website: https://www.omniroute.online/
+draft: false
 resourceCategory: ia
 official: true
-personalNote: "Trátalo como una capa de enrutamiento local: conserva tus clientes compatibles con OpenAI y cambia proveedores sin repartir esa lógica por toda la aplicación."
+website: https://www.omniroute.online/
+url: https://github.com/diegosouzapw/OmniRoute
 updatedAt: 2026-09-10
 ---
 

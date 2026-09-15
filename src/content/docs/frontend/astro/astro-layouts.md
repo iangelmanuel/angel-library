@@ -1,10 +1,10 @@
 ---
 title: Layouts (.astro) y &lt;slot /&gt;
 description: Componentes que envuelven el contenido de una página con <slot />, layouts anidados y layouts declarados desde Markdown.
-type: guides
+tags: [astro, layouts, templating]
 sidebar:
   order: 5
-tags: [astro, layouts, templating]
+draft: false
 scope: astro (componentes de layout)
 updatedAt: 2026-08-25
 ---

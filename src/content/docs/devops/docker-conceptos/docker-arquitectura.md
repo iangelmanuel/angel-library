@@ -1,16 +1,14 @@
 ---
 title: "Arquitectura de Docker"
 description: Docker Engine, el daemon, la CLI y Docker Desktop — cómo encajan las piezas y qué pasa realmente al correr un comando.
-type: guides
+tags: [docker, conceptos, arquitectura]
 sidebar:
   order: 3
-tags: [docker, conceptos, arquitectura]
+draft: false
 scope: arquitectura de Docker
-related:
-  [
-    devops/docker-conceptos/docker-que-es,
-    devops/docker-conceptos/docker-instalacion
-  ]
+technologies:
+  - devops/docker-conceptos/docker-que-es
+  - devops/docker-conceptos/docker-instalacion
 updatedAt: 2026-08-17
 ---
 

@@ -1,11 +1,11 @@
 ---
 title: API REST con endpoints de Astro
 description: Los mismos principios de REST/CRUD/paginación de Express, aplicados a la sintaxis de endpoints de Astro.
-type: guides
+tags: [astro, api, rest]
 sidebar:
   order: 2
-tags: [astro, api, rest]
-related:
+draft: false
+technologies:
   - backend/express/express-rest-crud
   - backend/express/express-api-paginacion
   - frontend/astro/astro-endpoints

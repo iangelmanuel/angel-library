@@ -1,12 +1,12 @@
 ---
 title: Arquitectura orientada a eventos
 description: Desacoplar servicios que no deberían conocerse directamente, publicando eventos en vez de llamarse entre sí.
-type: patterns
+tags: [arquitectura, patrones-arquitectonicos, event-driven, pub-sub]
 sidebar:
   order: 6
-tags: [arquitectura, patrones-arquitectonicos, event-driven, pub-sub]
+draft: false
+technologies: [architecture/patrones-arquitectonicos/layered-architecture]
 problem: Que el servicio A llame directo al servicio B (y C, y D) lo acopla a todos ellos y obliga a tocarlo cada vez que aparece un nuevo interesado.
-related: [architecture/patrones-arquitectonicos/layered-architecture]
 updatedAt: 2026-08-17
 ---
 

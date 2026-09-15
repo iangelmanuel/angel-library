@@ -1,13 +1,12 @@
 ---
 title: "Open Executive — equipo ejecutivo con agentes de IA"
 description: "Proyecto que coordina ocho agentes especializados para producir una respuesta conjunta y recordar decisiones; sirve para estudiar orquestación y memoria de agentes."
-type: resources
+tags: [ia, agentes, claude, python, fastapi, nextjs, multi-agente]
 sidebar:
   order: 2
-tags: [ia, agentes, claude, python, fastapi, nextjs, multi-agente]
-url: https://github.com/SenteLabsAI/OpenExecutive
+draft: false
 resourceCategory: ia
-personalNote: "El patrón vale más que el producto: varios agentes especializados por detrás y una sola voz por delante, en vez de obligar al usuario a elegir con cuál habla."
+url: https://github.com/SenteLabsAI/OpenExecutive
 updatedAt: 2026-08-30
 ---
 

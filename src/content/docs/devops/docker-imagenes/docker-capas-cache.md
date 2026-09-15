@@ -1,12 +1,12 @@
 ---
 title: "Capas y cache de build"
 description: Cómo se forma una imagen en capas, cómo Docker reutiliza capas sin cambios entre builds, y cómo ordenar el Dockerfile para aprovechar eso.
-type: guides
+tags: [docker, cache, capas, imagenes, performance]
 sidebar:
   order: 3
-tags: [docker, cache, capas, imagenes, performance]
+draft: false
 scope: cache de build
-related: [devops/docker-imagenes/docker-dockerfile-basico]
+technologies: [devops/docker-imagenes/docker-dockerfile-basico]
 updatedAt: 2026-08-17
 ---
 

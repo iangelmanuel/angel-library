@@ -1,14 +1,12 @@
 ---
 title: JSON.parse seguro con Result
 description: Parsear JSON sin try/catch repetido y conservar el error para decidir fallback, logging o respuesta HTTP.
-type: tricks
+tags: [typescript, json, errors, validation]
 sidebar:
   order: 13
-tags: [typescript, json, errors, validation]
+draft: false
+technologies: [general/utils/storage, packages/javascript-zod/zod]
 problem: JSON.parse lanza excepciones y obliga a repetir try/catch en storage, requests y archivos.
-related:
-  - general/utils/storage
-  - packages/javascript-zod/zod
 updatedAt: 2026-08-18
 ---
 

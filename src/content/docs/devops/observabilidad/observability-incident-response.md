@@ -1,12 +1,12 @@
 ---
 title: Respuesta a incidentes y recuperación
 description: Detectar, contener, comunicar y aprender de caídas, ataques y pérdida de datos con un runbook practicable.
-type: guides
+tags: [incident-response, reliability, backups, security]
 sidebar:
   order: 3
-tags: [incident-response, reliability, backups, security]
+draft: false
 scope: operación y recuperación
-related:
+technologies:
   - devops/observabilidad/observability-fundamentals
   - security/security-infra/security-ddos-resilience
   - devops/ci-cd/cicd-deployment-strategies

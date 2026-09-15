@@ -1,13 +1,11 @@
 ---
 title: "Omatsuri — herramientas pequeñas para frontend"
 description: Conjunto de utilidades web para generar colores, formas, datos y fragmentos de CSS durante el desarrollo de una interfaz, sin instalar paquetes.
-type: resources
 tags: [javascript, css, generators, developer-tools]
-url: https://omatsuri.app/
+draft: false
 resourceCategory: developer-tools
-technologies: []
-personalNote: Buen sitio para utilidades rápidas sin instalar dependencias.
-related: [resources/apis/public-apis, resources/css/css-gradient]
+url: https://omatsuri.app/
+technologies: [resources/apis/public-apis, resources/css/css-gradient]
 updatedAt: 2026-08-15
 ---
 

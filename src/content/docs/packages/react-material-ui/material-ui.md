@@ -1,10 +1,11 @@
 ---
 title: Material UI (MUI)
 description: Implementación en React de Material Design, con amplio ecosistema (Joy UI, Base UI, X) y theming.
-type: libraries
+tags: [react, components, material-design]
 sidebar:
   order: 6
-tags: [react, components, material-design]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://mui.com
 github: https://github.com/mui/material-ui
 technologies: [frontend/react/react]

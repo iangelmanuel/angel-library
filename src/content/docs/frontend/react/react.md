@@ -1,11 +1,12 @@
 ---
 title: React
 description: Ruta completa de React organizada para aprender componentes y estado desde cero o consultar Hooks, Suspense, Actions y rendimiento rápidamente.
-type: technologies
 tags: [react, ui, javascript]
+draft: false
+resourceCategory: Documentación oficial
 website: https://react.dev
 github: https://github.com/facebook/react
-related:
+technologies:
   - frontend/react/react-getting-started
   - frontend/react/react-fundamentos-componentes
   - frontend/react/frontend-rendering-state-data-flow

@@ -1,11 +1,11 @@
 ---
 title: Módulos, límites y dirección de dependencias
 description: Dividir un sistema por capacidades y contratos para contener cambios, evitar ciclos y mantener infraestructura fuera del dominio.
-type: guides
+tags: [architecture, modules, boundaries, dependencies, coupling]
 sidebar:
   order: 4
-tags: [architecture, modules, boundaries, dependencies, coupling]
-related:
+draft: false
+technologies:
   - architecture/principios/architecture-fundamentals-terminology
   - backend/backend-fundamentos/backend-api-design
 updatedAt: 2026-08-19

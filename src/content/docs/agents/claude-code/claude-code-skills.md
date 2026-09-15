@@ -1,12 +1,12 @@
 ---
 title: Skills — crear un skill propio
 description: SKILL.md con progressive disclosure — el mecanismo primario de Claude Code hoy, sucesor de los comandos slash clásicos.
-type: skills
+tags: [ai, claude-code, skill]
 sidebar:
   order: 2
-tags: [ai, claude-code, skill]
+draft: false
 tool: Claude Code
-related: [agents/claude-code/claude-code-slash-commands]
+technologies: [agents/claude-code/claude-code-slash-commands]
 updatedAt: 2026-08-17
 ---
 

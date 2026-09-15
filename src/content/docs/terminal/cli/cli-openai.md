@@ -1,12 +1,12 @@
 ---
 title: "OpenAI CLI: qué tan vigente está"
 description: El CLI moderno de OpenAI (distinto del que traía el paquete de Python), su instalación, autenticación por variable de entorno y cuándo tiene sentido usarlo frente al SDK.
-type: guides
+tags: [cli, openai, ia, api]
 sidebar:
   order: 10
-tags: [cli, openai, ia, api]
+draft: false
 scope: openai
-related: [terminal/cli/cli-openrouter]
+technologies: [terminal/cli/cli-openrouter]
 updatedAt: 2026-08-17
 ---
 

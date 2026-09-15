@@ -1,12 +1,12 @@
 ---
 title: Módulos de JavaScript
 description: Import y export, módulos por defecto y nombrados, dependencias circulares, carga dinámica y límites entre cliente y servidor.
-type: guides
+tags: [javascript, modules, esm, imports, architecture]
 sidebar:
   order: 21
-tags: [javascript, modules, esm, imports, architecture]
+draft: false
 scope: organización del código
-related:
+technologies:
   - languages/javascript/javascript
   - general/typescript/typescript-path-aliases
   - languages/javascript/javascript-runtime-event-loop

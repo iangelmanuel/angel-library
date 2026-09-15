@@ -1,11 +1,11 @@
 ---
 title: Archivos esenciales y documentación comunitaria
 description: README, CONTRIBUTING, LICENSE, SECURITY, CODEOWNERS, plantillas, configuración y archivos que hacen entendible un repositorio.
-type: guides
+tags: [github, readme, contributing, codeowners, repository]
 sidebar:
   order: 2
-tags: [github, readme, contributing, codeowners, repository]
-related:
+draft: false
+technologies:
   - git/repository-management/repository-management-fundamentals
   - git/repository-management/repository-licenses
   - git/repository-management/repository-rules-security

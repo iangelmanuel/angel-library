@@ -1,10 +1,10 @@
 ---
 title: Configuración inicial de Git
 description: Lo primero que hay que configurar antes de usar Git en serio — identidad, editor, rama por defecto y aliases que ahorran tipeo.
-type: guides
+tags: [git, config, setup]
 sidebar:
   order: 2
-tags: [git, config, setup]
+draft: false
 scope: git config
 updatedAt: 2026-08-16
 ---

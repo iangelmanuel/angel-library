@@ -1,15 +1,15 @@
 ---
 title: Checklist de seguridad para aplicaciones web
 description: Controles esenciales en autenticación, autorización, validación, sesiones, headers, dependencias y manejo de secretos.
-type: practices
+tags: [security, backend, auth, validation]
 sidebar:
   order: 3
-tags: [security, backend, auth, validation]
-practice: Tratar todo input y toda identidad como no confiables hasta validarlos en el servidor.
-why: La mayoría de fallos graves aparecen en límites repetidos — permisos, datos externos, secretos y configuración—, no en algoritmos sofisticados.
-related:
+draft: false
+technologies:
   - architecture/principios/validate-at-boundaries
   - backend/express/express-seguridad
+practice: Tratar todo input y toda identidad como no confiables hasta validarlos en el servidor.
+why: La mayoría de fallos graves aparecen en límites repetidos — permisos, datos externos, secretos y configuración—, no en algoritmos sofisticados.
 updatedAt: 2026-08-18
 ---
 

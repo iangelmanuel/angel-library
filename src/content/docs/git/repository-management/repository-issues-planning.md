@@ -1,11 +1,11 @@
 ---
 title: Issues, etiquetas y planificación del trabajo
 description: Convertir errores, propuestas y tareas en Issues accionables sin usar GitHub como una lista desordenada de pendientes.
-type: guides
+tags: [github, issues, planning, labels, triage]
 sidebar:
   order: 3
-tags: [github, issues, planning, labels, triage]
-related:
+draft: false
+technologies:
   - git/repository-management/git-colaboracion-pull-requests
   - git/repository-management/repository-files-community
 updatedAt: 2026-08-25

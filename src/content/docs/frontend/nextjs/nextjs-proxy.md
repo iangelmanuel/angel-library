@@ -1,10 +1,10 @@
 ---
 title: Proxy (antes Middleware)
 description: Código que corre antes de cada request para redirigir, reescribir o modificar headers — Middleware se renombró en Next 16.
-type: guides
+tags: [nextjs, auth, routing]
 sidebar:
   order: 23
-tags: [nextjs, auth, routing]
+draft: false
 scope: next.js (proxy.ts)
 updatedAt: 2026-08-25
 ---

@@ -1,12 +1,12 @@
 ---
 title: Objetos, propiedades y copias
 description: Crear, consultar, transformar, copiar y proteger objetos con métodos, resultados visibles y casos de uso.
-type: guides
+tags: [javascript, objects, properties, immutability, prototype]
 sidebar:
   order: 11
-tags: [javascript, objects, properties, immutability, prototype]
+draft: false
 scope: tipos y métodos
-related:
+technologies:
   - languages/javascript/javascript-arrays-objects
   - languages/javascript/javascript-built-ins
   - languages/javascript/javascript-prototypes-classes

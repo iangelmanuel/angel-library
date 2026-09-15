@@ -1,13 +1,12 @@
 ---
 title: "Font Awesome — catálogo amplio de iconos y símbolos"
 description: Catálogo amplio de iconos con paquetes para distintos frameworks; resulta útil cuando se necesita mucha variedad, pero mezcla opciones gratuitas y de pago.
-type: resources
 tags: [icons, ui, fonts]
-url: https://fontawesome.com/
+draft: false
 resourceCategory: icons
-technologies: []
-personalNote: Útil por su cobertura; revisar diferencias de licencia entre iconos gratuitos y Pro.
-related: [resources/icons/iconmonstr, resources/icons/tabler-icons]
+url: https://fontawesome.com/
+technologies: [resources/icons/iconmonstr, resources/icons/tabler-icons]
+note: Útil por su cobertura; revisar diferencias de licencia entre iconos gratuitos y Pro.
 updatedAt: 2026-08-15
 ---
 

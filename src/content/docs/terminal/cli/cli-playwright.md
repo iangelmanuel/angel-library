@@ -1,10 +1,10 @@
 ---
 title: "Playwright CLI: setup y comandos esenciales"
 description: Scaffoldear un proyecto de Playwright, instalar navegadores y los comandos del día a día — test, --ui, codegen y show-report.
-type: guides
+tags: [cli, playwright, testing, e2e]
 sidebar:
   order: 13
-tags: [cli, playwright, testing, e2e]
+draft: false
 scope: npx playwright
 updatedAt: 2026-08-17
 ---

@@ -1,10 +1,10 @@
 ---
 title: Command
 description: Encapsular una acción, con todo lo necesario para ejecutarla, como un objeto que se puede guardar, encolar o deshacer.
-type: patterns
+tags: [arquitectura, patrones-diseno, command]
 sidebar:
   order: 10
-tags: [arquitectura, patrones-diseno, command]
+draft: false
 problem: Un sistema de undo/redo o una cola de jobs necesita tratar cada acción como un dato manipulable, no como una llamada de función que ya pasó.
 updatedAt: 2026-08-17
 ---

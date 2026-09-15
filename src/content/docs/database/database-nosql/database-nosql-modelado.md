@@ -1,11 +1,11 @@
 ---
 title: NoSQL y modelado por patrones de acceso
 description: Elegir documentos, clave-valor o relaciones según consistencia, consultas y crecimiento, con criterios para embeber o referenciar datos.
-type: guides
+tags: [nosql, mongodb, documents, key-value, modeling]
 sidebar:
   order: 1
-tags: [nosql, mongodb, documents, key-value, modeling]
-related:
+draft: false
+technologies:
   - database/database-fundamentos/database-fundamentals-terminology
   - database/database-modelado/database-modelado-relacional
 updatedAt: 2026-08-28

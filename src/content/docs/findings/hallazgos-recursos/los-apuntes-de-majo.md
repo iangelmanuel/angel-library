@@ -1,13 +1,12 @@
 ---
 title: "Los apuntes de Majo"
 description: "Resúmenes visuales en español sobre varias tecnologías; sirven para repasar conceptos y sintaxis después de haberlos estudiado con una fuente más completa."
-type: resources
+tags: [apuntes, javascript, react, python, git, sql, espanol]
 sidebar:
   order: 1
-tags: [apuntes, javascript, react, python, git, sql, espanol]
-url: https://losapuntesdemajo.vercel.app/
+draft: false
 resourceCategory: learning
-personalNote: "Formato poco común y muy útil para repasar: apuntes a mano, con esquemas, para imprimir o mirar en el móvil antes de una entrevista."
+url: https://losapuntesdemajo.vercel.app/
 updatedAt: 2026-08-30
 ---
 

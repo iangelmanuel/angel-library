@@ -1,11 +1,11 @@
 ---
 title: Evals para aplicaciones con IA y LLM
 description: Diseñar datasets, métricas, graders y regresiones para salidas probabilísticas, RAG y agentes sin depender únicamente de coincidencias exactas.
-type: guides
+tags: [testing, ai, evals, llm, rag]
 sidebar:
   order: 2
-tags: [testing, ai, evals, llm, rag]
-related:
+draft: false
+technologies:
   - testing/testing-ai/testing-ai-principles
   - ai/ai-rag/ai-rag-embeddings
   - ai/ai-agentes/ai-agentes-herramientas-evaluacion

@@ -1,12 +1,12 @@
 ---
 title: "Variables de entorno en la terminal"
 description: Definir, ver y persistir variables de entorno — y la diferencia entre variable de sesión y variable permanente — en Windows, macOS y Linux.
-type: guides
+tags: [terminal, variables de entorno, path]
 sidebar:
   order: 10
-tags: [terminal, variables de entorno, path]
+draft: false
 scope: variables de entorno
-related: [terminal/terminal/terminal-historial-atajos]
+technologies: [terminal/terminal/terminal-historial-atajos]
 updatedAt: 2026-08-17
 ---
 

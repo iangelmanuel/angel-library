@@ -1,7 +1,6 @@
 ---
 title: Configuración inicial de Next.js
 description: Paso a paso privado para iniciar un proyecto Next.js con Tailwind CSS, configuración base, GitHub Actions, Prettier, ESLint, SITE, SEO y archivos de repositorio.
-type: commands
 tags:
   [
     nextjs,
@@ -16,19 +15,19 @@ tags:
     seo,
     privado
   ]
-command: /mynext
-whenToUse: Ejecuta /mynext en la terminal interna cuando quieras iniciar un proyecto Next.js con esta configuración.
-warnings:
-  - "Esta entrada es privada y solo se abre mediante el comando /mynext en la terminal de búsqueda."
-  - "Reemplaza los nombres, dominios y datos de Acme antes de publicar."
+draft: false
 private: true
-related:
+technologies:
   - frontend/nextjs/nextjs-getting-started
   - frontend/nextjs/nextjs-project-structure-configuration
   - seo/nextjs/nextjs-metadata-seo
   - general/typescript/typescript-path-aliases
   - general/config/site-config-global
   - seo/nextjs/nextjs-seo-completo
+warnings:
+  - "Esta entrada es privada y solo se abre mediante el comando /mynext en la terminal de búsqueda."
+  - "Reemplaza los nombres, dominios y datos de Acme antes de publicar."
+whenToUse: Ejecuta /mynext en la terminal interna cuando quieras iniciar un proyecto Next.js con esta configuración.
 updatedAt: 2026-08-27
 ---
 

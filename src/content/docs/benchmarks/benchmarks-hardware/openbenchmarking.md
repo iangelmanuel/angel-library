@@ -1,14 +1,13 @@
 ---
 title: "OpenBenchmarking.org y Phoronix Test Suite"
 description: "Plataforma y cliente abierto para ejecutar, compartir y comparar pruebas reproducibles de CPU, GPU, memoria, almacenamiento y software."
-type: resources
+tags: [benchmarks, hardware, sistemas, cpu, gpu, linux, open-source]
 sidebar:
   order: 1
-tags: [benchmarks, hardware, sistemas, cpu, gpu, linux, open-source]
-url: https://openbenchmarking.org/
+draft: false
 resourceCategory: developer-tools
 official: true
-personalNote: Antes de comparar resultados comunitarios, iguala versión de la prueba, hardware, controladores, refrigeración y configuración; la plataforma no convierte equipos distintos en condiciones equivalentes.
+url: https://openbenchmarking.org/
 updatedAt: 2026-09-04
 ---
 

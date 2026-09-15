@@ -1,14 +1,13 @@
 ---
 title: "UI Colors — escalas de color para Tailwind"
 description: Generador que convierte un color principal en tonos claros y oscuros para estados, fondos y texto, listos para adaptar a Tailwind o a un sistema de diseño.
-type: resources
 tags: [colors, tailwind, design-system, ui]
-url: https://uicolors.app/
+draft: false
 resourceCategory: colors
-technologies: []
-personalNote: Útil para crear escalas semánticas antes de definir los tokens de una interfaz.
-related:
-  [resources/colors/colour-contrast-checker, resources/colors/cool-contrast]
+url: https://uicolors.app/
+technologies:
+  - resources/colors/colour-contrast-checker
+  - resources/colors/cool-contrast
 updatedAt: 2026-08-15
 ---
 

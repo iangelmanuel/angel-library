@@ -1,12 +1,12 @@
 ---
 title: Parallel Routes e Intercepting Routes
 description: Slots simultáneos y rutas interceptadas para dashboards, modales con URL y vistas que preservan contexto.
-type: guides
+tags: [nextjs, routing, modals, architecture]
 sidebar:
   order: 30
-tags: [nextjs, routing, modals, architecture]
+draft: false
 scope: next.js app router (routing avanzado)
-related:
+technologies:
   - frontend/nextjs/nextjs-route-groups
   - frontend/nextjs/nextjs-layouts
 updatedAt: 2026-08-25

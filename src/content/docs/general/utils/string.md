@@ -1,11 +1,10 @@
 ---
 title: String Utils — Referencia rápida
 description: Utilidades tipadas para slugs, truncado, capitalización y escape de HTML sin librerías.
-type: utilities
 tags: [typescript, strings, utilities]
-runtime: universal
-language: typescript
-related: []
+draft: false
+language: TypeScript
+runtime: Universal
 updatedAt: 2026-08-15
 ---
 

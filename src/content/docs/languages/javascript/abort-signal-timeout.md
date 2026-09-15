@@ -1,14 +1,14 @@
 ---
 title: Timeout y combinación de AbortSignal
 description: Cancelar fetch por timeout y combinar la cancelación del usuario con un límite de tiempo sin administrar timers a mano.
-type: tricks
 tags: [javascript, fetch, abort-controller, timeout]
-problem: Una petición debe cancelarse por timeout, navegación o acción explícita sin dejar trabajo colgado.
-related:
+draft: false
+technologies:
   - languages/javascript/javascript-async-promises
   - languages/javascript/javascript-fetch-apis
   - general/utils/fetch
   - general/utils/promise
+problem: Una petición debe cancelarse por timeout, navegación o acción explícita sin dejar trabajo colgado.
 updatedAt: 2026-08-25
 ---
 

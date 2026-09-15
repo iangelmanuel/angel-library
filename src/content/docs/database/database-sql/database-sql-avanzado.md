@@ -1,11 +1,11 @@
 ---
 title: SQL avanzado — subconsultas, ventanas y conjuntos
 description: Resolver análisis y consultas complejas con EXISTS, CTE recursivas, operaciones de conjuntos, funciones de ventana y agregaciones condicionales.
-type: guides
+tags: [sql, window-functions, cte, subqueries, analytics]
 sidebar:
   order: 3
-tags: [sql, window-functions, cte, subqueries, analytics]
-related:
+draft: false
+technologies:
   - database/database-sql/database-sql-consultas
   - database/database-sql/database-indices-explain
 updatedAt: 2026-08-28

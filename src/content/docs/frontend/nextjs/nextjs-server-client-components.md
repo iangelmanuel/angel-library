@@ -1,12 +1,12 @@
 ---
 title: Server Components y Client Components
 description: Cómo decidir dónde corre cada componente, qué cruza la frontera servidor-cliente y cómo evitar enviar JavaScript innecesario.
-type: guides
+tags: [nextjs, react, rendering, performance]
 sidebar:
   order: 4
-tags: [nextjs, react, rendering, performance]
+draft: false
 scope: next.js app router
-related:
+technologies:
   - frontend/nextjs/nextjs-directivas
   - frontend/nextjs/nextjs-streaming-suspense
 updatedAt: 2026-08-25

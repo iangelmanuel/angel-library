@@ -1,18 +1,16 @@
 ---
 title: Arquitectura hexagonal (Ports & Adapters)
 description: Aislar el dominio de la infraestructura para que la base de datos, el framework HTTP o el proveedor de email sean detalles intercambiables.
-type: patterns
-sidebar:
-  order: 3
 tags:
   [arquitectura, patrones-arquitectonicos, hexagonal, ports-and-adapters, ddd]
+sidebar:
+  order: 3
+draft: false
+technologies:
+  - architecture/patrones-arquitectonicos/layered-architecture
+  - architecture/patrones-arquitectonicos/repository-pattern
+  - architecture/patrones-arquitectonicos/dependency-injection
 problem: La lógica de negocio termina acoplada a detalles de infraestructura (el ORM, el framework HTTP) que deberían poder cambiarse sin tocarla.
-related:
-  [
-    architecture/patrones-arquitectonicos/layered-architecture,
-    architecture/patrones-arquitectonicos/repository-pattern,
-    architecture/patrones-arquitectonicos/dependency-injection
-  ]
 updatedAt: 2026-08-17
 ---
 

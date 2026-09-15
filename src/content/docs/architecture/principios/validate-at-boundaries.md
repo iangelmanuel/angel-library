@@ -1,14 +1,13 @@
 ---
 title: Validar en las fronteras del sistema
 description: Valida datos cuando cruzan una frontera, en lugar de confiar en tipos internos o sistemas externos.
-type: practices
 tags: [architecture, validation, typescript]
 sidebar:
   order: 9
+draft: false
+technologies: [packages/javascript-zod/zod]
 practice: Validar requests, formularios, variables de entorno y respuestas de terceros antes de usarlas.
 why: Los tipos de TypeScript desaparecen en runtime y las fronteras reciben datos que no controlamos.
-related:
-  - packages/javascript-zod/zod
 updatedAt: 2026-08-25
 ---
 

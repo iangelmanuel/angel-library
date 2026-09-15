@@ -1,13 +1,14 @@
 ---
 title: /code-audit — auditoría general de calidad de código
 description: Duplicación, complejidad, código muerto y consistencia de estilo — más allá de bugs puntuales, sin tocar nada.
-type: skills
+tags: [ai, comando, code-quality]
 sidebar:
   order: 3
-tags: [ai, comando, code-quality]
+draft: false
 tool: Cross-tool
-related:
-  [skills/ia-comandos/comando-review, skills/ia-comandos/comando-refactor]
+technologies:
+  - skills/ia-comandos/comando-review
+  - skills/ia-comandos/comando-refactor
 updatedAt: 2026-08-17
 ---
 

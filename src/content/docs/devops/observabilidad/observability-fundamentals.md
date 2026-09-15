@@ -1,12 +1,12 @@
 ---
 title: Observabilidad — logs, métricas y trazas
 description: Instrumentar servicios para explicar qué ocurre, detectar degradación y relacionar una request con sus dependencias.
-type: guides
+tags: [observability, logs, metrics, tracing]
 sidebar:
   order: 1
-tags: [observability, logs, metrics, tracing]
+draft: false
 scope: fundamentos de operación
-related:
+technologies:
   - devops/observabilidad/observability-health-shutdown
   - devops/observabilidad/observability-incident-response
   - backend/nextjs/nextjs-instrumentation

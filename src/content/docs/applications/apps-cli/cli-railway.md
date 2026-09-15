@@ -1,13 +1,14 @@
 ---
 title: "Railway CLI: comandos esenciales"
 description: Herramienta de terminal para conectar un proyecto con Railway, publicarlo, consultar registros de ejecución y usar localmente las variables configuradas en la plataforma.
-type: guides
+tags: [cli, railway, deploy]
 sidebar:
   order: 9
-tags: [cli, railway, deploy]
+draft: false
 scope: railway
+resourceCategory: Sitio oficial
 website: https://docs.railway.com/cli
-related: [terminal/cli/cli-prisma]
+technologies: [terminal/cli/cli-prisma]
 updatedAt: 2026-08-28
 ---
 

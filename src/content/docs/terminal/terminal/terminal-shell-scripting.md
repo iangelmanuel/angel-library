@@ -1,11 +1,11 @@
 ---
 title: Shell scripting seguro y portable
 description: Escribir scripts pequeños con argumentos, códigos de salida, quoting, errores y limpieza sin depender de comandos pegados a ciegas.
-type: guides
+tags: [terminal, shell, scripting, bash, powershell]
 sidebar:
   order: 13
-tags: [terminal, shell, scripting, bash, powershell]
-related:
+draft: false
+technologies:
   - terminal/terminal/terminal-pipes-redirection-processes
   - terminal/terminal/terminal-variables-entorno
   - terminal/terminal/terminal-powershell

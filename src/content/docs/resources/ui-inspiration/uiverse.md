@@ -1,13 +1,12 @@
 ---
 title: "Uiverse — componentes HTML y CSS de la comunidad"
 description: Galería de botones, formularios y otros componentes creados con HTML y CSS; sirve como inspiración o base que debe revisarse antes de copiar.
-type: resources
 tags: [css, ui, components, inspiration]
-url: https://uiverse.io/
+draft: false
 resourceCategory: ui-inspiration
-technologies: []
-personalNote: Usarlo como inspiración o punto de partida; revisar el código y la licencia de cada componente.
-related: [resources/ui-inspiration/dark-design, resources/css/css-glass]
+url: https://uiverse.io/
+technologies: [resources/ui-inspiration/dark-design, resources/css/css-glass]
+note: Usarlo como inspiración o punto de partida; revisar el código y la licencia de cada componente.
 updatedAt: 2026-08-15
 ---
 

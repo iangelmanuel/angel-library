@@ -1,13 +1,11 @@
 ---
 title: "Shots — mockups y video a partir de una captura"
 description: "Editor para presentar una captura dentro de un teléfono, tableta o escritorio y exportarla como imagen o video con fondos y movimiento."
-type: resources
 tags: [capturas, mockup, dispositivos, video, diseño, redes-sociales]
-url: https://shots.so/
+draft: false
 resourceCategory: images
-personalNote: "Frente a PostSpark, aquí el punto fuerte es la animación: convierte un mockup estático en un video corto con zoom, útil para presentar producto en redes."
-related:
-  - resources/images/postspark
+url: https://shots.so/
+technologies: [resources/images/postspark]
 updatedAt: 2026-08-30
 ---
 

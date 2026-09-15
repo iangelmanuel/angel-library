@@ -1,12 +1,13 @@
 ---
 title: GSAP
 description: Animaciones con timelines y scroll con GSAP + ScrollTrigger, y cómo limpiarlas correctamente al navegar con View Transitions.
-type: libraries
+tags: [astro, animation, scroll]
 sidebar:
   order: 2
-tags: [astro, animation, scroll]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://gsap.com
-related:
+technologies:
   - frontend/astro/astro-view-transitions
   - languages/css/css-animations
 updatedAt: 2026-08-25

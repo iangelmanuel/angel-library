@@ -1,12 +1,12 @@
 ---
 title: Monorepo con Bun — workspaces, filter y self-contained
 description: Crear un monorepo con Bun workspaces — el campo workspaces con globs y negación, el protocolo workspace:, --filter para instalar o correr scripts en paquetes concretos, y self-contained para empaquetadores como Electron.
-type: guides
+tags: [monorepo, bun, workspaces]
 sidebar:
   order: 4
-tags: [monorepo, bun, workspaces]
+draft: false
 scope: monorepo con Bun workspaces
-related:
+technologies:
   - general/monorepo/monorepo-que-es
   - general/monorepo/monorepo-pnpm
   - general/monorepo/monorepo-npm

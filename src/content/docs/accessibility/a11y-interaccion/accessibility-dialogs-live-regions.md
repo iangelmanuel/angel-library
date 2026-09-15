@@ -1,12 +1,12 @@
 ---
 title: Diálogos, menús y regiones en vivo
 description: Gestionar widgets complejos sin perder foco, contexto ni anuncios importantes para tecnologías asistivas.
-type: guides
+tags: [accessibility, dialogs, aria, focus]
 sidebar:
   order: 4
-tags: [accessibility, dialogs, aria, focus]
+draft: false
 scope: componentes interactivos
-related:
+technologies:
   - accessibility/a11y-interaccion/accessibility-semantics-keyboard-focus
   - accessibility/a11y-interaccion/accessibility-aria-attributes
   - accessibility/a11y-testing/accessibility-checklist

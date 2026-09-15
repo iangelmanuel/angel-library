@@ -1,12 +1,12 @@
 ---
 title: Estrategia de testing — qué probar en cada nivel
 description: Diseñar una pirámide útil de tests unitarios, integración, contratos y E2E sin duplicar las mismas comprobaciones.
-type: guides
 tags: [testing, architecture, quality, e2e]
-scope: estrategia de pruebas
 sidebar:
   order: 2
-related:
+draft: false
+scope: estrategia de pruebas
+technologies:
   - testing/nextjs/nextjs-testing
   - testing/astro/astro-testing
   - packages/node-vitest/vitest-backend

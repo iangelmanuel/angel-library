@@ -1,12 +1,12 @@
 ---
 title: "<Link />"
 description: La forma primaria de navegar entre rutas — extiende <a> con prefetch automático y navegación de cliente.
-type: guides
+tags: [nextjs, routing]
 sidebar:
   order: 10
-tags: [nextjs, routing]
+draft: false
 scope: next.js (next/link)
-related:
+technologies:
   - frontend/nextjs/nextjs-usepathname
   - frontend/nextjs/nextjs-userouter
 updatedAt: 2026-08-25

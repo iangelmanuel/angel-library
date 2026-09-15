@@ -1,16 +1,14 @@
 ---
 title: "Conectarse a Postgres en Docker"
 description: Conectar desde psql, un cliente GUI o la connection string de la app — y cómo resetear los datos a propósito.
-type: guides
+tags: [docker, postgres, psql, base-de-datos]
 sidebar:
   order: 3
-tags: [docker, postgres, psql, base-de-datos]
+draft: false
 scope: conectar a Postgres
-related:
-  [
-    devops/docker-bases-datos/docker-postgres-run,
-    devops/docker-contenedores/docker-exec-logs
-  ]
+technologies:
+  - devops/docker-bases-datos/docker-postgres-run
+  - devops/docker-contenedores/docker-exec-logs
 updatedAt: 2026-08-17
 ---
 

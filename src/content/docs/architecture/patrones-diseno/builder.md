@@ -1,10 +1,10 @@
 ---
 title: Builder
 description: Construir un objeto complejo paso a paso, encadenando llamadas, en vez de usar una función con diez parámetros.
-type: patterns
+tags: [arquitectura, patrones-diseno, builder]
 sidebar:
   order: 3
-tags: [arquitectura, patrones-diseno, builder]
+draft: false
 problem: Construir un objeto con muchos parámetros opcionales termina en una función con una lista interminable de argumentos posicionales.
 updatedAt: 2026-08-17
 ---

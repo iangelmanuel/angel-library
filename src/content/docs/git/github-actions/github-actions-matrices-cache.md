@@ -1,12 +1,12 @@
 ---
 title: GitHub Actions — matrices, dependencias y cache
 description: Ejecutar una misma verificación en varias versiones, ordenar jobs con needs y acelerar instalaciones sin cachear resultados incorrectos.
-type: guides
+tags: [github-actions, matrix, cache, ci, nodejs, pnpm]
 sidebar:
   order: 2
-tags: [github-actions, matrix, cache, ci, nodejs, pnpm]
+draft: false
 scope: jobs paralelos y rendimiento
-related:
+technologies:
   - git/github-actions/github-actions-fundamentos
   - git/github-actions/cicd-github-actions-node
 updatedAt: 2026-08-26

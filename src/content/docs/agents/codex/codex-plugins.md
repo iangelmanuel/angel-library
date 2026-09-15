@@ -1,10 +1,10 @@
 ---
 title: Plugins
 description: Bundles de skills + apps + MCP servers — el mecanismo más nuevo y menos documentado de las 4 herramientas.
-type: skills
+tags: [ai, codex, plugin]
 sidebar:
   order: 4
-tags: [ai, codex, plugin]
+draft: false
 tool: Codex CLI
 updatedAt: 2026-08-17
 ---

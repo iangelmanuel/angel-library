@@ -1,14 +1,13 @@
 ---
 title: "ClickBench"
 description: "Benchmark abierto de bases de datos analíticas que compara carga, almacenamiento y 43 consultas sobre casi cien millones de eventos."
-type: resources
+tags: [benchmarks, bases-de-datos, olap, sql, analytics, clickhouse]
 sidebar:
   order: 1
-tags: [benchmarks, bases-de-datos, olap, sql, analytics, clickhouse]
-url: https://benchmark.clickhouse.com/
+draft: false
 resourceCategory: developer-tools
 official: true
-personalNote: Es una referencia útil para cargas OLAP similares a eventos o logs; su propietario es ClickHouse y el ranking necesita una lectura crítica de cada configuración.
+url: https://benchmark.clickhouse.com/
 updatedAt: 2026-09-04
 ---
 

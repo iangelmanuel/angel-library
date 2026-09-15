@@ -1,14 +1,13 @@
 ---
 title: "TechEmpower Framework Benchmarks"
 description: "Proyecto comunitario que compara el rendimiento de frameworks backend con implementaciones equivalentes y varias cargas HTTP y de base de datos."
-type: resources
+tags: [benchmarks, backend, frameworks, http, bases-de-datos, open-source]
 sidebar:
   order: 1
-tags: [benchmarks, backend, frameworks, http, bases-de-datos, open-source]
-url: https://www.techempower.com/benchmarks/
+draft: false
 resourceCategory: developer-tools
 official: true
-personalNote: Compara la prueba y el código de cada implementación, no solo la tabla general; el mayor throughput rara vez decide por sí solo una arquitectura.
+url: https://www.techempower.com/benchmarks/
 updatedAt: 2026-09-04
 ---
 

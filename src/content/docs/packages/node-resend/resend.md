@@ -1,10 +1,11 @@
 ---
 title: Resend
 description: Enviar emails transaccionales desde el backend — API simple, dominios verificados, y por qué no usar SMTP directo.
-type: libraries
+tags: [express, email, resend]
 sidebar:
   order: 20
-tags: [express, email, resend]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://resend.com
 updatedAt: 2026-08-16
 ---

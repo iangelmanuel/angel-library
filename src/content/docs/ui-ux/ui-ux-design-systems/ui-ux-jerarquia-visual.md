@@ -1,11 +1,11 @@
 ---
 title: Jerarquía visual, tipografía, espacio y color
 description: Convertir importancia y relaciones en una composición legible mediante escala, contraste, alineación, ritmo y tokens.
-type: guides
+tags: [ui, visual-hierarchy, typography, spacing, color]
 sidebar:
   order: 2
-tags: [ui, visual-hierarchy, typography, spacing, color]
-related:
+draft: false
+technologies:
   - ui-ux/ui-ux-design-systems/ui-ux-design-systems
   - accessibility/a11y-contenido/accessibility-visual-reflow-motion
   - ui-ux/ui-ux-interaccion/ui-ux-responsive-layout

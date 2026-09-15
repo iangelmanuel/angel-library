@@ -1,11 +1,11 @@
 ---
 title: SQL para escribir datos de forma segura
 description: Crear, actualizar y eliminar filas con parámetros, RETURNING, upsert, transacciones, lotes e idempotencia sin afectar datos inesperados.
-type: guides
+tags: [sql, insert, update, delete, upsert, transacciones]
 sidebar:
   order: 2
-tags: [sql, insert, update, delete, upsert, transacciones]
-related:
+draft: false
+technologies:
   - database/database-sql/database-sql-consultas
   - database/database-postgresql/postgresql-transacciones-concurrencia
   - database/database-operacion/database-migraciones-backups

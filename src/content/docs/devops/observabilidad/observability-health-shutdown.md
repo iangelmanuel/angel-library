@@ -1,12 +1,12 @@
 ---
 title: Health checks, timeouts y apagado elegante
 description: Evitar tráfico hacia instancias rotas y terminar requests, jobs y conexiones sin corrupción durante deploys.
-type: guides
+tags: [health-checks, graceful-shutdown, reliability, backend]
 sidebar:
   order: 2
-tags: [health-checks, graceful-shutdown, reliability, backend]
+draft: false
 scope: ciclo de vida de servicios
-related:
+technologies:
   - devops/observabilidad/observability-fundamentals
   - security/security-infra/security-ddos-resilience
 updatedAt: 2026-08-25

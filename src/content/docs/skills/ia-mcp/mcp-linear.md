@@ -1,10 +1,10 @@
 ---
 title: Linear MCP — issues y proyectos
 description: Crear, buscar y actualizar issues de Linear directo desde el agente — servidor remoto oficial, sin instalar nada local.
-type: skills
+tags: [ai, mcp, linear, project-management]
 sidebar:
   order: 7
-tags: [ai, mcp, linear, project-management]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

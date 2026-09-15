@@ -1,10 +1,10 @@
 ---
 title: security-guidance — plugin oficial de Claude Code
 description: Guía de seguridad integrada al flujo normal — señala riesgos mientras se escribe código, no solo al final.
-type: skills
+tags: [ai, plugin, seguridad]
 sidebar:
   order: 2
-tags: [ai, plugin, seguridad]
+draft: false
 tool: Claude Code
 updatedAt: 2026-08-17
 ---

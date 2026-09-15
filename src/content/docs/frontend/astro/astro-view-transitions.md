@@ -1,13 +1,12 @@
 ---
 title: View Transitions
 description: Transiciones animadas entre páginas con el ClientRouter — transition:name, eventos de navegación, animaciones custom y redirección.
-type: guides
+tags: [astro, animation, routing]
 sidebar:
   order: 24
-tags: [astro, animation, routing]
+draft: false
 scope: astro:transitions
-related:
-  - languages/css/css-animations
+technologies: [languages/css/css-animations]
 updatedAt: 2026-08-25
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: CRUD con Prisma en Astro
 description: Las 5 operaciones sobre "posts" combinando endpoints, Server Actions y el repository — cuándo usar cada mecanismo.
-type: recipes
+tags: [astro, crud, prisma]
 sidebar:
   order: 8
-tags: [astro, crud, prisma]
-problem: Un CRUD real mostrando la elección entre endpoint y Server Action para cada operación, no solo una de las dos formas.
+draft: false
 technologies: [backend/astro/astro-prisma, backend/astro/astro-api-rest]
+problem: Un CRUD real mostrando la elección entre endpoint y Server Action para cada operación, no solo una de las dos formas.
 updatedAt: 2026-08-16
 ---
 

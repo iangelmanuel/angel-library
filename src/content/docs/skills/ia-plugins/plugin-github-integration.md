@@ -1,10 +1,10 @@
 ---
 title: GitHub — integración partner (Claude Code)
 description: Plugin vetted del marketplace oficial que empaqueta el MCP de GitHub junto a comandos para el flujo de PRs/issues.
-type: skills
+tags: [ai, plugin, github]
 sidebar:
   order: 4
-tags: [ai, plugin, github]
+draft: false
 tool: Claude Code
 updatedAt: 2026-08-17
 ---

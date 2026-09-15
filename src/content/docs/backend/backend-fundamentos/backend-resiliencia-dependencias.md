@@ -1,12 +1,12 @@
 ---
 title: Resiliencia ante servicios externos
 description: Timeouts, cancelación, reintentos, backoff, circuit breakers y límites de concurrencia para depender de APIs sin arrastrar sus fallos.
-type: guides
+tags: [backend, resilience, timeout, retries, availability]
 sidebar:
   order: 4
-tags: [backend, resilience, timeout, retries, availability]
+draft: false
 scope: dependencias externas
-related:
+technologies:
   - backend/backend-fundamentos/backend-api-design
   - backend/backend-fundamentos/backend-colas-jobs
   - devops/observabilidad/observability-fundamentals

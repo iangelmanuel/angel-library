@@ -1,12 +1,14 @@
 ---
 title: Merge vs Rebase
 description: Dos formas de integrar los cambios de una rama en otra — qué hace cada una con el historial y cuándo conviene elegirla.
-type: guides
+tags: [git, merge, rebase, branches]
 sidebar:
   order: 11
-tags: [git, merge, rebase, branches]
+draft: false
 scope: git merge / git rebase
-related: [git/git/git-rebase-interactivo, git/git/git-resolver-conflictos]
+technologies:
+  - git/git/git-rebase-interactivo
+  - git/git/git-resolver-conflictos
 updatedAt: 2026-08-16
 ---
 

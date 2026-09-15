@@ -1,16 +1,16 @@
 ---
 title: "K2 Horizon: modelos abiertos de IFM"
 description: Familia de seis modelos de lenguaje de 0.9B a 375B parámetros que publica pesos, checkpoints, datos, recetas, código y evaluaciones para estudiar y reutilizar todo su ciclo de entrenamiento.
-type: resources
+tags: [ia, modelos-abiertos, llm, agentes, moe, mova, ifm, mbzuai]
 sidebar:
   order: 6
-tags: [ia, modelos-abiertos, llm, agentes, moe, mova, ifm, mbzuai]
+draft: false
+resourceCategory: ia
+official: true
 website: https://ifm.ai/blog/k2/
 url: https://huggingface.co/IFM
 github: https://github.com/ifm-ai/horizon-post-train
-resourceCategory: ia
-official: true
-personalNote: El valor de K2 Horizon está tanto en los pesos como en la trazabilidad del entrenamiento; conviene leer las condiciones de cada dataset antes de reutilizar sus datos.
+note: El valor de K2 Horizon está tanto en los pesos como en la trazabilidad del entrenamiento; conviene leer las condiciones de cada dataset antes de reutilizar sus datos.
 updatedAt: 2026-09-09
 ---
 

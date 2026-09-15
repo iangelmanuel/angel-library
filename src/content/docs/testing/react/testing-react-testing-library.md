@@ -1,11 +1,11 @@
 ---
 title: React Testing Library — probar como una persona usuaria
 description: Consultar por rol y nombre, simular interacción realista y comprobar estados accesibles sin acoplarse al DOM interno.
-type: guides
+tags: [testing, react, testing-library, user-event, accessibility]
 sidebar:
   order: 1
-tags: [testing, react, testing-library, user-event, accessibility]
-related:
+draft: false
+technologies:
   - frontend/react/react-fundamentos-componentes
   - testing/testing-fundamentos/testing-strategy
   - accessibility/a11y-testing/accessibility-testing-manual-automatico

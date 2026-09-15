@@ -1,10 +1,10 @@
 ---
 title: "UI y UX: fundamentos y terminología"
 description: "Conceptos para diseñar interfaces comprensibles: modelos mentales, affordances, jerarquía, feedback, flujos y sistemas de diseño."
-type: guides
 tags: [ui, ux, diseño, usabilidad, sistemas-de-diseno, fundamentos]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

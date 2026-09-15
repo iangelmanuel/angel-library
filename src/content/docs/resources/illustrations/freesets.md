@@ -1,13 +1,13 @@
 ---
 title: "FreeSerts — recursos visuales gratuitos para prototipos"
 description: Catálogo de ilustraciones y otros recursos visuales para completar un prototipo sin diseñarlos desde cero; cada elemento puede tener una licencia diferente.
-type: resources
 tags: [resources, design, frontend, illustrations]
-url: https://freesets.com/
+draft: false
 resourceCategory: illustrations
-technologies: []
-personalNote: Útil para descubrir recursos visuales antes de crear una ilustración desde cero.
-related: [resources/developer-tools/omatsuri, resources/generators/blobmaker]
+url: https://freesets.com/
+technologies:
+  - resources/developer-tools/omatsuri
+  - resources/generators/blobmaker
 updatedAt: 2026-08-15
 ---
 

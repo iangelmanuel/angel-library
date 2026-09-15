@@ -1,15 +1,15 @@
 ---
 title: HeroUI (antes NextUI)
 description: Componentes React sobre Tailwind CSS y React Aria, con animaciones de Framer Motion y foco en accesibilidad.
-type: libraries
+tags: [react, tailwindcss, components, accessibility]
 sidebar:
   order: 2
-tags: [react, tailwindcss, components, accessibility]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://www.heroui.com
 github: https://github.com/heroui-inc/heroui
-technologies: [frontend/react/react]
+technologies: [frontend/react/react, packages/react-shadcn-ui/shadcn-ui]
 updatedAt: 2026-08-17
-related: [packages/react-shadcn-ui/shadcn-ui]
 ---
 
 Se renombró de NextUI a HeroUI en 2024 (mismo equipo, mismo proyecto). A diferencia de shadcn/ui, sí es un paquete npm normal: se instala y se importa, no se copia código.

@@ -1,15 +1,15 @@
 ---
 title: Magic UI
 description: Componentes React animados con Framer Motion, construidos sobre shadcn/ui y Tailwind CSS, pensados para landing pages.
-type: libraries
+tags: [react, tailwindcss, animations, components]
 sidebar:
   order: 3
-tags: [react, tailwindcss, animations, components]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://magicui.design
 github: https://github.com/magicuidesign/magicui
-technologies: [frontend/react/react]
+technologies: [frontend/react/react, packages/react-shadcn-ui/shadcn-ui]
 updatedAt: 2026-08-17
-related: [packages/react-shadcn-ui/shadcn-ui]
 ---
 
 Se instala igual que shadcn/ui (registro compatible con el mismo CLI): copia el código del componente al proyecto en vez de agregar una dependencia npm. Requiere shadcn/ui ya inicializado (`components.json`, Tailwind configurado).

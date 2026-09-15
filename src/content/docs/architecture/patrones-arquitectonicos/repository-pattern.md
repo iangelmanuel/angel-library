@@ -1,16 +1,14 @@
 ---
 title: Repository pattern
 description: Esconder las consultas a la base de datos detrás de una interfaz orientada al dominio, para que el resto de la aplicación no sepa cómo se guardan los datos.
-type: patterns
+tags: [arquitectura, patrones-arquitectonicos, repository, orm]
 sidebar:
   order: 4
-tags: [arquitectura, patrones-arquitectonicos, repository, orm]
+draft: false
+technologies:
+  - architecture/patrones-arquitectonicos/hexagonal-architecture
+  - architecture/patrones-arquitectonicos/layered-architecture
 problem: La lógica de negocio termina llena de queries SQL o llamadas a un ORM específico, en vez de hablar en términos del dominio.
-related:
-  [
-    architecture/patrones-arquitectonicos/hexagonal-architecture,
-    architecture/patrones-arquitectonicos/layered-architecture
-  ]
 updatedAt: 2026-08-17
 ---
 

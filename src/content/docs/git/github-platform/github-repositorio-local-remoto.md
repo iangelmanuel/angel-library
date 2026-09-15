@@ -1,12 +1,12 @@
 ---
 title: GitHub — crear un repositorio y conectarlo con Git
 description: Crear un repositorio en GitHub, inicializar el proyecto local y publicar la rama principal por primera vez.
-type: guides
+tags: [github, repositorios, git, init, remote, push]
 sidebar:
   order: 1
-tags: [github, repositorios, git, init, remote, push]
+draft: false
 scope: repositorio local y remoto
-related:
+technologies:
   - git/git/git-flujo-basico
   - git/github-platform/github-clone-pull-push
   - git/repository-management/repository-management-fundamentals

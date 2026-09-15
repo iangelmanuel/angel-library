@@ -1,15 +1,15 @@
 ---
 title: Alta cohesión, bajo acoplamiento
 description: Qué tan relacionadas están las responsabilidades dentro de un módulo, y qué tan dependiente es un módulo de los detalles internos de otro.
-type: practices
 tags: [architecture, modules, design]
 sidebar:
   order: 5
-practice: Agrupar lo que cambia junto, y comunicar módulos distintos a través de contratos chicos en vez de conocimiento compartido.
-why: Predice mejor qué tan doloroso va a ser cambiar el código después que cualquier métrica de líneas o complejidad ciclomática.
-related:
+draft: false
+technologies:
   - architecture/principios/dry-kiss-yagni
   - architecture/principios/composicion-sobre-herencia
+practice: Agrupar lo que cambia junto, y comunicar módulos distintos a través de contratos chicos en vez de conocimiento compartido.
+why: Predice mejor qué tan doloroso va a ser cambiar el código después que cualquier métrica de líneas o complejidad ciclomática.
 updatedAt: 2026-08-17
 ---
 

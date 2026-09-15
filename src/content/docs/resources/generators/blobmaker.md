@@ -1,13 +1,13 @@
 ---
 title: "Blobmaker — formas SVG orgánicas para fondos"
 description: Generador de formas curvas y orgánicas que se descargan como SVG, un formato que mantiene su nitidez al cambiar de tamaño.
-type: resources
 tags: [svg, generators, illustrations, ui]
-url: https://www.blobmaker.app/
+draft: false
 resourceCategory: generators
-technologies: []
-personalNote: Copiar el SVG y optimizarlo antes de incorporarlo al bundle final.
-related: [resources/illustrations/freesets, resources/developer-tools/omatsuri]
+url: https://www.blobmaker.app/
+technologies:
+  - resources/illustrations/freesets
+  - resources/developer-tools/omatsuri
 updatedAt: 2026-08-15
 ---
 

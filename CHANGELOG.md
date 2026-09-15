@@ -8,6 +8,84 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.40.0] — 2026-09-15
+
+Cabecera de entrada reconstruida, frontmatter unificado en las 755 entradas
+y 18 entradas nuevas. El frontmatter deja de mezclar metadata muerta con
+datos de presentación: cada campo o se pinta, o configura, o es metadata
+declarada.
+
+### Añadido
+
+- **18 entradas nuevas.** Siete paquetes —Temporal, Chart.js, Pragmatic
+  drag and drop, Fontsource, Better Auth, TanStack Table y nuqs— y once
+  hallazgos: ClawScan, Mural, TradingAgents, LibreChat, MoneyPrinterTurbo,
+  Agentic Inbox, VoxCPM, Fincept Terminal, Flowsint, Nango y la colección
+  de skills de Addy Osmani. Zod, Motion y Zustand ya existían y se
+  omitieron; HyperFrames ya estaba documentado en Hallazgos.
+- **Siete subcategorías nuevas en Paquetes**, declaradas en
+  `categories.ts` y `sidebar.ts`.
+- **Avisos en la cabecera.** `note` se pinta como aviso violeta y
+  `warnings` como aviso coral, con la barra del color del rol y el título
+  con icono — la misma idea que los `:::note` del Markdown. El texto admite
+  `código` entre comillas invertidas.
+- **Tarjeta de acciones.** Cuando la entrada trae enlace, los botones van a
+  la derecha y a su izquierda se dice qué se abre, con el texto de
+  `resourceCategory`. El esquema ahora **exige** ese campo en toda entrada
+  con `website` o `url`: si falta, el build se detiene señalando el
+  archivo.
+- **Categoría `secrets/`** para las entradas privadas (`myastro`, `myjson`,
+  `mynext`). Conservan su URL y siguen apareciendo en el buscador, pero no
+  están en ninguna rama del sidebar ni cuentan como aplicaciones.
+- **`draft` explícito en las 755 entradas**, aunque sea `false`: publicada
+  pasa a ser una decisión escrita, no la ausencia de una línea.
+
+### Cambiado
+
+- **La cabecera de una entrada se reestructuró en cuatro zonas de orden
+  fijo** —ruta, tarjeta de acciones, datos en dos columnas, relacionado y
+  avisos—. Cada zona aparece solo si la entrada trae sus campos y ninguna
+  cambia de sitio por lo que traigan las demás, así que dos entradas con
+  los mismos campos se ven igual, estén en Hallazgos o en Paquetes. Antes
+  el panel repartía el espacio con `justify-content: space-between` y los
+  botones se movían según si había datos o no.
+- **`related` → `technologies`** en 506 entradas. `related` no estaba en el
+  esquema, así que Astro lo descartaba y esos 1.095 cross-links no se veían
+  en ninguna página; ahora se pintan bajo "Relacionado", con el mismo
+  subrayado y el mismo hover que un enlace del cuerpo del artículo.
+- **`personalNote` → `note`**, y cambia lo que significa: no es una
+  valoración de la entrada, es el dato que hay que saber antes de usarla
+  (una versión, un requisito, una licencia, un límite). Se revisaron las
+  116 notas existentes: 31 se conservaron, 84 se quitaron por ser
+  editoriales y se escribieron 10 nuevas con datos de versión —Zod 4,
+  React 19 en `useOptimistic`, React 19.2 en `useEffectEvent`, los runtimes
+  de Temporal, los mínimos de nuqs—.
+- **Orden único del frontmatter** en las 755 entradas: identidad,
+  configuración, campos de cabecera y, al final, la metadata que no se
+  pinta.
+- **Los paquetes se agrupan por familia** en `categories.ts` y
+  `sidebar.ts`: JavaScript, CSS, Astro, React y Node, con cada entrada
+  nueva junto a su pariente temático.
+- **El índice de la portada sigue un orden deliberado**
+  (`getCategoryCounts`): construir, producto, calidad, flujo y referencia,
+  en vez del orden alfabético por clave en que están escritas las
+  categorías.
+- **Cifras actualizadas a 752 entradas, 24 categorías y 177
+  subcategorías** en `README.md` y `docs/ARCHITECTURE.md`, que seguían
+  diciendo 737 y 170.
+
+### Quitado
+
+- **El campo `type`** (`libraries`, `guides`, `resources`…) de las 755
+  entradas. Nunca estuvo en el esquema —el build lo descartaba— y
+  contradecía la regla de que la carpeta es la única clasificación.
+- **El campo `command`** y su bloque en la cabecera. Existía para la
+  terminal que el sitio tenía antes; un comando es contenido y va en el
+  cuerpo, en un bloque de código.
+- **Los campos de párrafo dejan de pintarse** en la cabecera (`problem`,
+  `whenToUse`, `practice`, `why`). Siguen en el esquema como metadata: el
+  artículo es el cuerpo del Markdown y la cabecera no compite con él.
+
 ## [0.39.0] — 2026-09-13
 
 Rediseño visual completo del sitio —documentación y portada— con una
@@ -2605,7 +2683,13 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.35.5...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.40.0...HEAD
+[0.40.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.40.0
+[0.39.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.39.0
+[0.38.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.38.0
+[0.37.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.37.0
+[0.36.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.36.1
+[0.36.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.36.0
 [0.35.5]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.5
 [0.35.4]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.4
 [0.35.3]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.35.3

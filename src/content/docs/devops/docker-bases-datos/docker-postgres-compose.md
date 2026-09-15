@@ -1,16 +1,14 @@
 ---
 title: "Postgres con Docker Compose"
 description: El patrón recomendado para tener Postgres en un proyecto día a día — un docker-compose.yml con volumen, .env y healthcheck.
-type: guides
+tags: [docker, postgres, compose, base-de-datos]
 sidebar:
   order: 2
-tags: [docker, postgres, compose, base-de-datos]
+draft: false
 scope: Postgres con Compose
-related:
-  [
-    devops/docker-bases-datos/docker-postgres-run,
-    devops/docker-compose/docker-compose-variables
-  ]
+technologies:
+  - devops/docker-bases-datos/docker-postgres-run
+  - devops/docker-compose/docker-compose-variables
 updatedAt: 2026-08-17
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: Uploads con multer
 description: Subir archivos a Express — memoria vs disco, validar tipo y tamaño, y guardar la referencia en la base.
-type: recipes
+tags: [express, uploads, multer, files]
 sidebar:
   order: 30
-tags: [express, uploads, multer, files]
-problem: Recibir un archivo (imagen de perfil, adjunto) desde un form-data, validarlo, y persistirlo.
+draft: false
 technologies: [backend/express/express-prisma]
+problem: Recibir un archivo (imagen de perfil, adjunto) desde un form-data, validarlo, y persistirlo.
 updatedAt: 2026-08-16
 ---
 

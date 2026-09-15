@@ -1,10 +1,10 @@
 ---
 title: Stash — guardar cambios sin commitear
 description: Guardar el trabajo en curso en una pila temporal para cambiar de rama limpio, y recuperarlo después exactamente como estaba.
-type: guides
+tags: [git, stash, branches]
 sidebar:
   order: 10
-tags: [git, stash, branches]
+draft: false
 scope: git stash
 updatedAt: 2026-08-16
 ---

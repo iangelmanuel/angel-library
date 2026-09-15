@@ -1,12 +1,11 @@
 ---
 title: "DeepWiki — documentación generada de cualquier repositorio"
 description: "Servicio que genera documentación navegable de un repositorio público de GitHub cambiando una palabra en la URL, con diagramas de arquitectura y preguntas sobre el código."
-type: resources
 tags: [ia, documentacion, github, repositorios, onboarding]
-url: https://deepwiki.com/
+draft: false
 resourceCategory: developer-tools
 official: false
-personalNote: "El truco de la URL es lo que lo hace útil: no hay que registrar el repo ni esperar nada. Léelo como un resumen generado, no como documentación oficial."
+url: https://deepwiki.com/
 updatedAt: 2026-09-01
 ---
 

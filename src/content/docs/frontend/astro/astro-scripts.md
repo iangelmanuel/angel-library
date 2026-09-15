@@ -1,12 +1,12 @@
 ---
 title: Scripts de cliente y eventos
 description: Cómo procesa Astro los script, diferencias con is:inline, deduplicación, data attributes y Web Components sin framework.
-type: guides
+tags: [astro, javascript, browser, web-components]
 sidebar:
   order: 9
-tags: [astro, javascript, browser, web-components]
+draft: false
 scope: scripts en componentes .astro
-related:
+technologies:
   - frontend/astro/astro-components-props-slots
   - frontend/astro/astro-islas
   - frontend/astro/astro-view-transitions

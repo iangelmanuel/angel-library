@@ -1,10 +1,10 @@
 ---
 title: useRef
 description: Acceder a un elemento del DOM y guardar un valor mutable que no dispara re-render.
-type: guides
+tags: [react, hooks, dom]
 sidebar:
   order: 8
-tags: [react, hooks, dom]
+draft: false
 scope: react (useRef)
 updatedAt: 2026-08-25
 ---

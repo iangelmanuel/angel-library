@@ -1,10 +1,10 @@
 ---
 title: "AWS CLI: configuración y patrones de uso"
 description: Instalación por sistema operativo (AWS CLI v2), configuración inicial con aws configure, verificar identidad y manejar múltiples cuentas con profiles.
-type: guides
+tags: [cli, aws, cloud]
 sidebar:
   order: 6
-tags: [cli, aws, cloud]
+draft: false
 scope: aws
 updatedAt: 2026-08-17
 ---

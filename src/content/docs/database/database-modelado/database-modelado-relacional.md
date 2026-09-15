@@ -1,11 +1,11 @@
 ---
 title: Modelado relacional, claves y restricciones
 description: Convertir reglas de negocio en entidades, relaciones, claves y restricciones; normalizar el esquema y diseñar historial sin perder los casos de uso.
-type: guides
+tags: [database, modelado, relaciones, constraints, normalizacion]
 sidebar:
   order: 1
-tags: [database, modelado, relaciones, constraints, normalizacion]
-related:
+draft: false
+technologies:
   - database/database-fundamentos/database-fundamentals-terminology
   - database/database-sql/database-sql-consultas
   - database/database-postgresql/postgresql-transacciones-concurrencia

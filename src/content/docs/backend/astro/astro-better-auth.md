@@ -1,12 +1,13 @@
 ---
 title: better-auth en Astro
 description: Instalación, configuración con adapter y providers, el endpoint catch-all, y leer la sesión en middleware/páginas — sin JWT manual, sin CORS.
-type: guides
+tags: [astro, better-auth, auth]
 sidebar:
   order: 5
-tags: [astro, better-auth, auth]
+draft: false
+resourceCategory: Documentación oficial
 website: https://www.better-auth.com
-related: [backend/astro/astro-backend-arquitectura]
+technologies: [backend/astro/astro-backend-arquitectura]
 updatedAt: 2026-09-07
 ---
 

@@ -1,13 +1,12 @@
 ---
 title: "nodeterm — terminales y agentes sobre un lienzo infinito"
 description: "Proyecto que coloca terminales y sesiones de agentes como nodos arrastrables en un canvas; sirve para estudiar cómo una disposición espacial sustituye a las pestañas ocultas."
-type: resources
+tags: [ia, agentes, terminal, tmux, electron, claude-code, canvas]
 sidebar:
   order: 3
-tags: [ia, agentes, terminal, tmux, electron, claude-code, canvas]
-url: https://github.com/eneskirca/nodeterm
+draft: false
 resourceCategory: ia
-personalNote: "La idea que vale la pena robar no es el canvas: es que el estado vive en tmux, así que la interfaz puede morir y las sesiones siguen ahí."
+url: https://github.com/eneskirca/nodeterm
 updatedAt: 2026-09-01
 ---
 

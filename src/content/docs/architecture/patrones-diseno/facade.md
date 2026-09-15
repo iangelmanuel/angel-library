@@ -1,12 +1,13 @@
 ---
 title: Facade
 description: Esconder varios pasos o servicios que siempre se usan juntos detrás de una única función simple.
-type: patterns
+tags: [arquitectura, patrones-diseno, facade]
 sidebar:
   order: 5
-tags: [arquitectura, patrones-diseno, facade]
-related:
-  [architecture/patrones-diseno/adapter, backend/express/backend-mvc-structure]
+draft: false
+technologies:
+  - architecture/patrones-diseno/adapter
+  - backend/express/backend-mvc-structure
 problem: Cada lugar que hace checkout tiene que acordarse de validar stock, cobrar, crear la orden y mandar el email, en ese orden.
 updatedAt: 2026-08-17
 ---

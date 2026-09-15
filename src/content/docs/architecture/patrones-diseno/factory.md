@@ -1,11 +1,11 @@
 ---
 title: Factory
 description: Centralizar la construcción de instancias en una función, para que el código que las usa no dependa del detalle de cómo se arman.
-type: patterns
+tags: [arquitectura, patrones-diseno, factory]
 sidebar:
   order: 1
-tags: [arquitectura, patrones-diseno, factory]
-related: [architecture/patrones-diseno/strategy]
+draft: false
+technologies: [architecture/patrones-diseno/strategy]
 problem: El código que necesita una instancia (un cliente HTTP, un notificador) termina duplicando la lógica de configuración en cada lugar que la usa.
 updatedAt: 2026-08-17
 ---

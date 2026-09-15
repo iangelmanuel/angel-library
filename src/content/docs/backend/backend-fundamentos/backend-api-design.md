@@ -1,12 +1,12 @@
 ---
 title: Diseño de APIs backend mantenibles
 description: Contratos HTTP, validación, errores, paginación, idempotencia y observabilidad para endpoints que pueden evolucionar.
-type: guides
+tags: [backend, api, http, validation, architecture]
 sidebar:
   order: 2
-tags: [backend, api, http, validation, architecture]
+draft: false
 scope: diseño de servicios
-related:
+technologies:
   - languages/javascript/http-browser-fundamentals
   - architecture/principios/validate-at-boundaries
   - security/security-aplicacion/security-auth-access-control

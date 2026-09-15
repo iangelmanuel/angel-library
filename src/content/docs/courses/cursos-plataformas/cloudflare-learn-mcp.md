@@ -1,15 +1,13 @@
 ---
 title: "Learn MCP (Cloudflare Workers)"
 description: "Taller práctico para crear un servidor que conecta asistentes de IA con herramientas externas mediante MCP y publicarlo en Cloudflare Workers."
-type: resources
+tags: [cursos, mcp, cloudflare, workers, ia, typescript]
 sidebar:
   order: 7
-tags: [cursos, mcp, cloudflare, workers, ia, typescript]
-url: https://learnmcp.examples.workers.dev/
+draft: false
 resourceCategory: learning
-personalNote: De los pocos materiales de MCP que terminan en algo desplegado y con estado, no en un servidor de ejemplo que solo responde "hola".
-related:
-  - courses/cursos-microsoft/microsoft-reactor-mcp-bootcamp
+url: https://learnmcp.examples.workers.dev/
+technologies: [courses/cursos-microsoft/microsoft-reactor-mcp-bootcamp]
 updatedAt: 2026-08-30
 ---
 

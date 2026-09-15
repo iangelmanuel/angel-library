@@ -1,15 +1,13 @@
 ---
 title: "Squoosh — comprimir y convertir imágenes en el navegador"
 description: Herramienta para reducir el peso de una imagen y convertirla a formatos como WebP o AVIF, comparando visualmente la calidad antes de descargarla.
-type: resources
 tags: [images, compression, webp, avif, performance]
-url: https://squoosh.app/
+draft: false
 resourceCategory: images
-technologies: []
-personalNote: Recomendación principal para optimización manual; procesa la imagen localmente y permite comparar el resultado visual.
 official: true
-related:
-  - performance/performance-carga/performance-image-optimization
+url: https://squoosh.app/
+technologies: [performance/performance-carga/performance-image-optimization]
+note: Recomendación principal para optimización manual; procesa la imagen localmente y permite comparar el resultado visual.
 updatedAt: 2026-08-18
 ---
 

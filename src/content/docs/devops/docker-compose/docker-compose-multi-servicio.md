@@ -1,16 +1,14 @@
 ---
 title: "Compose con varios servicios"
 description: Un docker-compose.yml realista con app, base de datos y un servicio extra, comunicándose por red interna.
-type: guides
+tags: [docker, compose, redes, multi-servicio]
 sidebar:
   order: 4
-tags: [docker, compose, redes, multi-servicio]
+draft: false
 scope: Compose multi-servicio
-related:
-  [
-    devops/docker-compose/docker-compose-basico,
-    devops/docker-redes-volumenes/docker-redes
-  ]
+technologies:
+  - devops/docker-compose/docker-compose-basico
+  - devops/docker-redes-volumenes/docker-redes
 updatedAt: 2026-08-17
 ---
 

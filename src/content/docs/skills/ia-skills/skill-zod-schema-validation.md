@@ -1,12 +1,12 @@
 ---
 title: zod-schema-validation — patrones avanzados
 description: Schemas recursivos con z.lazy(), tuning de performance de validación, mensajes de error con i18n.
-type: skills
+tags: [ai, skill, zod]
 sidebar:
   order: 18
-tags: [ai, skill, zod]
+draft: false
 tool: Cross-tool
-related: [packages/javascript-zod/zod]
+technologies: [packages/javascript-zod/zod]
 updatedAt: 2026-08-17
 ---
 

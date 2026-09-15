@@ -1,14 +1,13 @@
 ---
 title: Deuda técnica
 description: Tomar un atajo hoy para ir más rápido implica pagar interés después. Cómo distinguir deuda deliberada de accidental, y cómo priorizar qué pagar primero.
-type: practices
 tags: [architecture, maintenance, quality]
 sidebar:
   order: 10
+draft: false
+technologies: [architecture/principios/dry-kiss-yagni]
 practice: Tratar los atajos de diseño como una deuda financiera — tomarla a propósito, con un plan de repago, y priorizar pagar la que más duele.
 why: No toda deuda técnica vale la pena pagar; priorizar mal desperdicia tiempo en código que nadie va a volver a tocar.
-related:
-  - architecture/principios/dry-kiss-yagni
 updatedAt: 2026-08-17
 ---
 

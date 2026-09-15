@@ -1,13 +1,12 @@
 ---
 title: "skills.sh — directorio de skills para agentes"
 description: Directorio de instrucciones reutilizables que enseñan a distintos agentes de programación cómo realizar tareas o trabajar con una tecnología concreta.
-type: resources
 tags: [ai, skills]
-url: https://www.skills.sh
+draft: false
 resourceCategory: ia
 official: false
-personalNote: Fuente de los skills reales listados en la subcategoría Skills de IA Tools — la lista propia queda desactualizada rápido, esto no.
-related: [skills/ia-skills/skill-find-skills]
+url: https://www.skills.sh
+technologies: [skills/ia-skills/skill-find-skills]
 updatedAt: 2026-08-17
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: Runtime, event loop y concurrencia
 description: Cómo Node coordina callbacks, promesas, timers e I/O, qué bloquea el hilo de JavaScript y cómo detectar saturación.
-type: guides
+tags: [node, event-loop, async, concurrency]
 sidebar:
   order: 4
-tags: [node, event-loop, async, concurrency]
+draft: false
 scope: event loop de Node.js
-related:
+technologies:
   - languages/javascript/javascript-runtime-event-loop
   - backend/node/node-streams
   - backend/node/node-worker-threads

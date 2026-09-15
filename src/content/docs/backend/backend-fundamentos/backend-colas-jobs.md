@@ -1,11 +1,11 @@
 ---
 title: Colas, workers y jobs en segundo plano
 description: Mover trabajo lento fuera de la solicitud con entrega reintentable, idempotencia, backoff, dead-letter queues y observabilidad.
-type: guides
+tags: [backend, queues, workers, jobs, retries]
 sidebar:
   order: 5
-tags: [backend, queues, workers, jobs, retries]
-related:
+draft: false
+technologies:
   - backend/backend-fundamentos/backend-idempotencia-cache
   - devops/observabilidad/observability-fundamentals
   - security/security-infra/security-ddos-resilience

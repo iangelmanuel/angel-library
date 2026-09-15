@@ -1,12 +1,12 @@
 ---
 title: Fundamentos de routing
 description: Comprende segmentos, páginas, layouts, rutas dinámicas y navegación antes de entrar en patrones avanzados del App Router.
-type: guides
+tags: [nextjs, routing, app-router, navegación]
 sidebar:
   order: 3
-tags: [nextjs, routing, app-router, navegación]
+draft: false
 scope: next.js app router
-related:
+technologies:
   - frontend/nextjs/nextjs-project-structure-configuration
   - frontend/nextjs/nextjs-layouts
   - frontend/nextjs/nextjs-params-searchparams

@@ -1,15 +1,15 @@
 ---
 title: "DeepSeek Harness: agentes componibles sobre Cordis"
 description: Entorno open source en preview para montar modelos, herramientas, skills, sesiones, sandboxes, almacenamiento y bucles de agentes como plugins.
-type: resources
+tags: [deepseek, harness, cordis, agentes, plugins, node, sandboxes]
 sidebar:
   order: 9
-tags: [deepseek, harness, cordis, agentes, plugins, node, sandboxes]
-url: https://github.com/deepseek-ai/deepseek-harness
-website: https://deepseek.com/harness/en/
+draft: false
 resourceCategory: ia
 official: true
-personalNote: Es material de exploración para entender un runtime componible; al estar en preview, fija versiones y aísla los experimentos antes de usarlo en un flujo real.
+website: https://deepseek.com/harness/en/
+url: https://github.com/deepseek-ai/deepseek-harness
+note: Es material de exploración para entender un runtime componible; al estar en preview, fija versiones y aísla los experimentos antes de usarlo en un flujo real.
 updatedAt: 2026-09-10
 ---
 

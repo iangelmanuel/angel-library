@@ -1,15 +1,14 @@
 ---
 title: "AnyDoc: documentos a Markdown desde Rust, Node y Python"
 description: Librería y CLI de Firecrawl que convierte documentos de oficina, PDF, EPUB, CSV y texto en Markdown estructurado.
-type: resources
+tags: [anydoc, firecrawl, markdown, documentos, rust, node, python]
 sidebar:
   order: 11
-tags: [anydoc, firecrawl, markdown, documentos, rust, node, python]
-url: https://github.com/firecrawl/anydoc
-website: https://firecrawl.github.io/anydoc/
+draft: false
 resourceCategory: developer-tools
 official: true
-personalNote: Es una buena pieza para pipelines de documentación o RAG locales; separa la conversión de archivos de la indexación y deja visible cuándo interviene OCR remoto.
+website: https://firecrawl.github.io/anydoc/
+url: https://github.com/firecrawl/anydoc
 updatedAt: 2026-09-10
 ---
 

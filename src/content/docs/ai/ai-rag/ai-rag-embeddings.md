@@ -1,11 +1,11 @@
 ---
 title: Embeddings y RAG — recuperar antes de generar
 description: Construir una búsqueda semántica con chunking, metadatos, ranking, citas y evaluación para responder sobre conocimiento propio.
-type: guides
+tags: [ia, embeddings, rag, vector-search, retrieval]
 sidebar:
   order: 1
-tags: [ia, embeddings, rag, vector-search, retrieval]
-related:
+draft: false
+technologies:
   - ai/ai-prompts/ai-prompts-contexto-salidas
   - database/database-sql/database-indices-explain
   - ai/ai-agentes/ai-agentes-herramientas-evaluacion

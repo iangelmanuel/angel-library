@@ -1,12 +1,12 @@
 ---
 title: Directivas — 'use client', 'use server', 'use cache'
 description: Las tres directivas que definen dónde corre cada parte de tu app — la base de todo lo demás en el App Router.
-type: guides
+tags: [nextjs, rendering]
 sidebar:
   order: 5
-tags: [nextjs, rendering]
+draft: false
 scope: next.js app router (directivas)
-related:
+technologies:
   - frontend/nextjs/nextjs-server-client-components
   - frontend/nextjs/nextjs-cache-components
 updatedAt: 2026-08-25

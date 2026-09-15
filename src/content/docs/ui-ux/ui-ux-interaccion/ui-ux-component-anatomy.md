@@ -1,11 +1,11 @@
 ---
 title: Anatomía de un componente confiable
 description: Diseñar API, estados, contenido, interacción, accesibilidad y responsive de un componente antes de pulir su apariencia.
-type: guides
+tags: [ui, ux, components, states, accessibility]
 sidebar:
   order: 4
-tags: [ui, ux, components, states, accessibility]
-related:
+draft: false
+technologies:
   - ui-ux/ui-ux-interaccion/ui-ux-estados-interfaz
   - ui-ux/ui-ux-interaccion/ui-ux-forms-feedback
   - accessibility/a11y-interaccion/accessibility-semantics-keyboard-focus

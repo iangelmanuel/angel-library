@@ -1,13 +1,12 @@
 ---
 title: "Buzz — espacio de trabajo para personas y agentes"
 description: "Proyecto que trata a personas y agentes de IA como participantes del mismo espacio de trabajo; permite estudiar permisos, trazabilidad y colaboración entre ambos."
-type: resources
+tags: [ia, agentes, nostr, rust, colaboracion, self-hosted]
 sidebar:
   order: 1
-tags: [ia, agentes, nostr, rust, colaboracion, self-hosted]
-url: https://github.com/block/buzz
+draft: false
 resourceCategory: ia
-personalNote: "Lo interesante no es que haya agentes en un chat, sino que tengan exactamente los mismos permisos que una persona y dejen el mismo rastro auditable."
+url: https://github.com/block/buzz
 updatedAt: 2026-08-30
 ---
 

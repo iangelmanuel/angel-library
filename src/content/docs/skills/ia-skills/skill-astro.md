@@ -1,10 +1,10 @@
 ---
 title: astro — guía de uso oficial del framework
 description: Configuración, comandos CLI y referencias a la documentación oficial de Astro, como skill instalable.
-type: skills
+tags: [ai, skill, astro]
 sidebar:
   order: 11
-tags: [ai, skill, astro]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

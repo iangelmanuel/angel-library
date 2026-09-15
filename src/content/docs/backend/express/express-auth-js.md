@@ -1,12 +1,15 @@
 ---
 title: Auth.js en Express
 description: Instalación, ruta catch-all, providers (social y Credentials), los callbacks jwt/session para meter datos propios en la sesión, y cómo tiparlos.
-type: guides
+tags: [express, auth-js, nextauth, auth]
 sidebar:
   order: 17
-tags: [express, auth-js, nextauth, auth]
+draft: false
+resourceCategory: Documentación oficial
 website: https://authjs.dev
-related: [packages/node-bcrypt/bcrypt, backend/express/express-auth-middleware]
+technologies:
+  - packages/node-bcrypt/bcrypt
+  - backend/express/express-auth-middleware
 updatedAt: 2026-08-17
 ---
 

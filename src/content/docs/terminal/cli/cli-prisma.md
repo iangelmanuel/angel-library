@@ -1,12 +1,12 @@
 ---
 title: "Prisma CLI: comandos esenciales"
 description: Se usa vía npx sin instalación global — init, generate, y la diferencia clave entre migrate dev, migrate deploy y db push.
-type: guides
+tags: [cli, prisma, orm, base-de-datos]
 sidebar:
   order: 3
-tags: [cli, prisma, orm, base-de-datos]
+draft: false
 scope: npx prisma
-related: [applications/apps-cli/cli-supabase, terminal/cli/cli-astro]
+technologies: [applications/apps-cli/cli-supabase, terminal/cli/cli-astro]
 updatedAt: 2026-08-17
 ---
 

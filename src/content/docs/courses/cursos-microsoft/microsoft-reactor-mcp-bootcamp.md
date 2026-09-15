@@ -1,16 +1,16 @@
 ---
 title: "MCP Bootcamp LATAM (Microsoft Reactor)"
 description: "Serie en español para crear un servidor MCP, conectarlo con un asistente de programación y publicarlo en Azure; requiere bases de desarrollo y terminal."
-type: resources
+tags: [cursos, microsoft, mcp, azure, copilot, ia, gratis, espanol]
 sidebar:
   order: 2
-tags: [cursos, microsoft, mcp, azure, copilot, ia, gratis, espanol]
-url: https://developer.microsoft.com/es-es/reactor/series/S-1567/
+draft: false
 resourceCategory: learning
-personalNote: Ojo con la confusión de series; esta S-1567 es el bootcamp de MCP, no la de Python + Agentes, que es la S-1633.
-related:
+url: https://developer.microsoft.com/es-es/reactor/series/S-1567/
+technologies:
   - courses/cursos-microsoft/microsoft-reactor-python-agentes
   - courses/cursos-plataformas/cloudflare-learn-mcp
+note: Ojo con la confusión de series; esta S-1567 es el bootcamp de MCP, no la de Python + Agentes, que es la S-1633.
 updatedAt: 2026-08-30
 ---
 

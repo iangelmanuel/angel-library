@@ -1,10 +1,10 @@
 ---
 title: CommonJS vs ES Modules
 description: require/module.exports vs import/export, el campo "type" en package.json, interop entre ambos, y cómo Node resuelve un import.
-type: guides
+tags: [node, modules, commonjs, esm]
 sidebar:
   order: 3
-tags: [node, modules, commonjs, esm]
+draft: false
 scope: sistema de módulos
 updatedAt: 2026-08-16
 ---

@@ -1,13 +1,13 @@
 ---
 title: "Cursos gratuitos de IA de NVIDIA"
 description: "Índice de cursos gratuitos de NVIDIA para explorar inteligencia artificial generativa, redes neuronales, agentes y procesamiento acelerado de datos."
-type: resources
+tags: [cursos, nvidia, ia, gratis, deep-learning, catalogo]
 sidebar:
   order: 8
-tags: [cursos, nvidia, ia, gratis, deep-learning, catalogo]
-url: https://v0-nvidia-free-courses.vercel.app/
+draft: false
 resourceCategory: learning
-personalNote: La página es un índice hecho por la comunidad, no de NVIDIA; los cursos sí son oficiales y viven en learn.nvidia.com y academy.nvidia.com.
+url: https://v0-nvidia-free-courses.vercel.app/
+note: La página es un índice hecho por la comunidad, no de NVIDIA; los cursos sí son oficiales y viven en learn.nvidia.com y academy.nvidia.com.
 updatedAt: 2026-08-30
 ---
 

@@ -132,6 +132,31 @@ export const SIDEBAR = [
             items: [{ autogenerate: { directory: "packages/javascript-zod" } }]
           },
           {
+            label: "JavaScript - Temporal",
+            collapsed: true,
+            items: [
+              { autogenerate: { directory: "packages/javascript-temporal" } }
+            ]
+          },
+          {
+            label: "JavaScript - Chart.js",
+            collapsed: true,
+            items: [
+              { autogenerate: { directory: "packages/javascript-chartjs" } }
+            ]
+          },
+          {
+            label: "JavaScript - Pragmatic drag and drop",
+            collapsed: true,
+            items: [
+              {
+                autogenerate: {
+                  directory: "packages/javascript-pragmatic-drag-and-drop"
+                }
+              }
+            ]
+          },
+          {
             label: "CSS - Pico CSS",
             collapsed: true,
             items: [{ autogenerate: { directory: "packages/css-pico-css" } }]
@@ -174,6 +199,11 @@ export const SIDEBAR = [
             ]
           },
           {
+            label: "CSS - Fontsource",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "packages/css-fontsource" } }]
+          },
+          {
             label: "Astro - Nanostores",
             collapsed: true,
             items: [
@@ -198,6 +228,13 @@ export const SIDEBAR = [
             ]
           },
           {
+            label: "React - TanStack Table",
+            collapsed: true,
+            items: [
+              { autogenerate: { directory: "packages/react-tanstack-table" } }
+            ]
+          },
+          {
             label: "React - React Hook Form",
             collapsed: true,
             items: [{ autogenerate: { directory: "packages/react-hook-form" } }]
@@ -206,6 +243,11 @@ export const SIDEBAR = [
             label: "React - Zustand",
             collapsed: true,
             items: [{ autogenerate: { directory: "packages/react-zustand" } }]
+          },
+          {
+            label: "React - nuqs",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "packages/react-nuqs" } }]
           },
           {
             label: "React - React Router",
@@ -308,6 +350,13 @@ export const SIDEBAR = [
             label: "Node - bcrypt",
             collapsed: true,
             items: [{ autogenerate: { directory: "packages/node-bcrypt" } }]
+          },
+          {
+            label: "Node - Better Auth",
+            collapsed: true,
+            items: [
+              { autogenerate: { directory: "packages/node-better-auth" } }
+            ]
           },
           {
             label: "Node - PUG",

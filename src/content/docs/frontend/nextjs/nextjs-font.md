@@ -1,13 +1,12 @@
 ---
 title: "API de fonts (next/font)"
 description: Fuentes de Google o locales, self-hosted automáticamente en build — sin requests externos ni layout shift.
-type: guides
+tags: [nextjs, fonts, performance]
 sidebar:
   order: 26
-tags: [nextjs, fonts, performance]
+draft: false
 scope: next.js (next/font)
-related:
-  - languages/css/css-fonts
+technologies: [languages/css/css-fonts]
 updatedAt: 2026-08-25
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: Auth completa con Auth.js en Next.js
 description: Setup completo — config, Route Handler, proxy.ts, página protegida y botones de login/logout, de punta a punta.
-type: recipes
+tags: [nextjs, auth, auth-js]
 sidebar:
   order: 7
-tags: [nextjs, auth, auth-js]
-problem: Todas las piezas de Auth.js en Next.js juntas, de cero a una página protegida funcionando.
+draft: false
 technologies: [backend/nextjs/nextjs-auth-js]
+problem: Todas las piezas de Auth.js en Next.js juntas, de cero a una página protegida funcionando.
 updatedAt: 2026-09-07
 ---
 

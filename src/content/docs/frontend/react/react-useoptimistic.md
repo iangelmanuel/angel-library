@@ -1,11 +1,12 @@
 ---
 title: useOptimistic
 description: Mostrar el resultado esperado de una acción antes de que el servidor confirme y reconciliarlo con el estado real.
-type: guides
+tags: [react, hooks, forms]
 sidebar:
   order: 14
-tags: [react, hooks, forms]
+draft: false
 scope: react (useOptimistic)
+note: "`useOptimistic` requiere React 19."
 updatedAt: 2026-09-07
 ---
 

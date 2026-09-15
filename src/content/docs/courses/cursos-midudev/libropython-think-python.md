@@ -1,16 +1,15 @@
 ---
 title: "Think Python en español — el libro traducido por midudev"
 description: "Traducción al español de la tercera edición de Think Python, con los 19 capítulos en notebooks ejecutables, descarga en PDF y cuadernos en blanco para practicar."
-type: resources
+tags: [cursos, midudev, python, libro, gratis, espanol, notebooks]
 sidebar:
   order: 5
-tags: [cursos, midudev, python, libro, gratis, espanol, notebooks]
-url: https://libropython.es
+draft: false
 resourceCategory: learning
 official: false
-personalNote: "Cada capítulo es un notebook que se abre en Colab: se lee ejecutando el código, no mirándolo. Los cuadernos en blanco son la parte que de verdad enseña."
-related:
-  - resources/learning/librosgratis-dev
+url: https://libropython.es
+technologies: [resources/learning/librosgratis-dev]
+note: "Cada capítulo es un notebook que se abre en Colab: se lee ejecutando el código, no mirándolo. Los cuadernos en blanco son la parte que de verdad enseña."
 updatedAt: 2026-09-01
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: README de perfil — el repositorio especial
 description: El repositorio con tu propio nombre de usuario que GitHub muestra en la cabecera del perfil; qué markdown admite, qué se sanea y cómo mantenerlo actualizado.
-type: guides
+tags: [github, perfil, readme, markdown, presentacion]
 sidebar:
   order: 1
-tags: [github, perfil, readme, markdown, presentacion]
+draft: false
 scope: repositorio especial de perfil
-related:
+technologies:
   - git/github-platform/github-repositorio-configuracion
   - git/repository-management/repository-files-community
 updatedAt: 2026-08-26

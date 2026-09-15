@@ -1,12 +1,13 @@
 ---
 title: Cursor — editor y agente de código
 description: Editor de código basado en VS Code que incorpora un asistente capaz de explicar y modificar archivos; la guía enseña a controlar su contexto, revisar sus cambios y proteger datos sensibles.
-type: guides
+tags: [cursor, editor, ai, agent, rules]
 sidebar:
   order: 2
-tags: [cursor, editor, ai, agent, rules]
+draft: false
+resourceCategory: Sitio oficial
 website: https://www.cursor.com
-related:
+technologies:
   - agents/cursor/cursor-rules
   - agents/cursor/cursor-config
   - agents/agents-fundamentos/agent-safe-workflow

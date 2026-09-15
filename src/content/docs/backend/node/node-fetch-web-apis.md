@@ -1,12 +1,12 @@
 ---
 title: Fetch, URL y Web APIs en Node.js
 description: Consumir HTTP con fetch, construir URLs seguras, cancelar requests y reconocer APIs web disponibles en Node.
-type: guides
+tags: [node, fetch, url, web-apis, http]
 sidebar:
   order: 9
-tags: [node, fetch, url, web-apis, http]
+draft: false
 scope: Web APIs en Node.js
-related:
+technologies:
   - backend/node/node-http-server
   - backend/node/node-errores-asincronia
   - backend/backend-fundamentos/backend-resiliencia-dependencias

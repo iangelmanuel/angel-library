@@ -1,11 +1,11 @@
 ---
 title: Índices y EXPLAIN — optimizar con evidencia
 description: Entender índices compuestos, selectividad, planes de ejecución y costos de escritura para acelerar consultas reales.
-type: guides
+tags: [database, sql, indexes, explain, performance]
 sidebar:
   order: 4
-tags: [database, sql, indexes, explain, performance]
-related:
+draft: false
+technologies:
   - database/database-sql/database-sql-consultas
   - performance/performance-operacion/performance-budgets-monitoring
 updatedAt: 2026-08-28

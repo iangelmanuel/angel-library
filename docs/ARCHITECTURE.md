@@ -39,7 +39,7 @@ Digamos que existe `src/content/docs/frontend/astro/astro-islands.md`.
    es `src/content.config.ts`. Ahí se declara: "todo archivo dentro de
    `src/content/docs/` pertenece a la colección `docs`, y tiene que cumplir
    este esquema (schema)". El esquema es una lista de campos permitidos:
-   `title`, `description`, `tags`, `command`, `url`, etc. Astro usa
+   `title`, `description`, `tags`, `draft`, `url`, etc. Astro usa
    [Zod](https://zod.dev) para esto — es solo una librería para decir "este
    campo es un string opcional", "este campo es obligatorio", etc.
 3. **Astro lee el archivo `astro-islands.md`.** Separa el frontmatter (lo
@@ -65,7 +65,7 @@ Digamos que existe `src/content/docs/frontend/astro/astro-islands.md`.
 7. **Queda un archivo HTML** en `dist/frontend/astro/astro-islands/index.html`
    listo para subir a un hosting estático (Vercel, en este caso).
 
-Ese mismo recorrido pasa **737 veces** en cada build — una vez por cada
+Ese mismo recorrido pasa **752 veces** en cada build — una vez por cada
 entrada de contenido.
 
 ## 3 · Mapa completo de `src/`
@@ -73,7 +73,8 @@ entrada de contenido.
 ```text
 src/
 ├─ content/
-│  └─ docs/<categoría>/<subcategoría>/*.md   ← 737 artículos reales
+│  └─ docs/<categoría>/<subcategoría>/*.md   ← 752 artículos reales
+│     └─ secrets/*.md                         ← privados: fuera del sidebar
 ├─ content.config.ts                          ← el esquema (paso 2 de arriba)
 ├─ env.d.ts                                   ← tipos globales de Astro
 │
@@ -96,7 +97,7 @@ src/
 ├─ components/
 │  ├─ starlight/                  reemplazos de piezas del layout de Starlight
 │  │  ├─ Header.astro               cabecera (logo, nav, buscador, redes)
-│  │  ├─ PageTitle.astro            título + ruta, links, facts y avisos
+│  │  ├─ PageTitle.astro            título + ruta, acciones, datos, links y avisos
 │  │  ├─ Sidebar.astro              solo el primer nivel del menú (ver sección 5.5)
 │  │  └─ ThemeSelect.astro          botón de tema claro/oscuro (ThemeToggle)
 │  ├─ seo/BaseHead.astro           metaetiquetas (Open Graph, Twitter, canonical…)
@@ -315,15 +316,38 @@ Starlight sin ninguna modificación.**
     la que llevar. Los `tags` del frontmatter no se muestran acá (se
     retiraron del header por ruido visual — competían en color con el
     título); siguen en el frontmatter para el buscador;
-  - el bloque de `command`, si la entrada lo declara;
-  - un panel con los "facts" (problema, cuándo usarlo, herramienta,
-    lenguaje, etc. — cada uno solo si tiene valor) y los botones a
-    `url`/`website`/`github`. El panel es igual en todas las categorías:
-    aparece si la entrada trae facts o enlaces, y no aparece si no trae
-    ninguno;
+  - una tarjeta de acciones cuando la entrada trae enlace: a la izquierda
+    `resourceCategory` (qué se abre), a la derecha los botones a
+    `url`/`website`/`github`, centrados con el texto de la izquierda
+    (`align-items: center`) y con `margin-left: auto`. El esquema exige
+    `resourceCategory` en toda entrada con `website` o `url`
+    (`superRefine` en `content.config.ts`), así que la tarjeta no puede
+    quedar medio vacía. El campo acepta la clave de una subcategoría de
+    `resources/`, que se traduce a su nombre, o el texto tal cual;
+  - los datos de una línea (alcance, herramienta, lenguaje, runtime,
+    parámetros, devuelve, y `resourceCategory` solo si no hay botones) en
+    una rejilla de dos columnas, ya sin caja;
   - los links a `technologies` (otras entradas relacionadas) bajo el
     rótulo "Relacionado", resolviendo cada id a su título real;
-  - la lista de `warnings`, si las hay.
+  - `note` como aviso violeta y `warnings` como aviso coral: barra
+    de 3px del color del rol a la izquierda y tinte al 8%, con el título en
+    ese color y su icono.
+
+  Son seis zonas en orden fijo —ruta, acciones, datos, relacionado, nota,
+  advertencias—: cada una aparece solo si la entrada trae sus campos, y
+  ninguna cambia de sitio por lo que traigan las demás.
+
+  Las únicas cajas son la tarjeta de acciones y las notas; ningún filete
+  separa zonas, porque varios filetes seguidos borran el límite entre
+  cabecera y artículo. Ese límite lo marca el `margin-bottom` de
+  `.entry-meta`.
+
+  A los datos **solo entran valores de una línea** (etiqueta + valor
+  corto). Los campos de párrafo que explican la entrada (`problem`,
+  `whenToUse`, `practice`, `why`) están en el esquema pero no se pintan:
+  son metadata de referencia. La cabecera identifica, enlaza y avisa; el
+  artículo es el cuerpo del Markdown, y no se reparte entre los dos.
+
 - **`ThemeSelect.astro`**: en vez del `<select>` de Starlight, renderiza
   `ThemeToggle`, el mismo botón de tema de la portada. Starlight lo usa en
   la cabecera y en el menú móvil.
@@ -445,7 +469,7 @@ un sistema más grande y se simplificó activamente:
 - **Sin `/categories` ni `/tags`.** Existieron una temporada: un índice y una
   página por categoría/tag. Se quitaron porque Starlight inyecta el árbol
   completo del sidebar como HTML en cada página (no hay componente
-  compartido en runtime) — con 24 categorías, 170 subcategorías y 737
+  compartido en runtime) — con 24 categorías, 177 subcategorías y 752
   entradas, cada una de esas páginas repetía ese árbol entero, y con
   cientos de tags eso infló `dist/` a 516MB y con eso el deployment storage
   de Vercel. Categoría y tag ahora son metadata en la propia entrada
@@ -470,7 +494,7 @@ un sistema más grande y se simplificó activamente:
 ```bash
 pnpm dev              # servidor de desarrollo
 pnpm build            # genera el sitio en dist/, valida el esquema contra
-                       # las 737 entradas reales
+                       # las 752 entradas reales
 pnpm preview          # sirve dist/ para probarlo como en producción
 pnpm check            # diagnósticos de Astro/TypeScript
 pnpm eslint           # linter

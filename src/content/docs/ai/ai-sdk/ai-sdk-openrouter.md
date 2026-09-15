@@ -1,11 +1,11 @@
 ---
 title: "OpenRouter SDK: modelos, routing y streaming"
 description: Uso de OpenRouter con su SDK y la API compatible con OpenAI, headers, selección de proveedores, fallbacks, privacidad, memoria y React.
-type: guides
 tags: [openrouter, sdk, gateway, routing, streaming, react, modelos]
 sidebar:
   order: 4
-related:
+draft: false
+technologies:
   - ai/ai-sdk/ai-sdk-fundamentos
   - ai/ai-sdk/ai-sdk-openai
   - ai/ai-sdk/ai-sdk-vercel

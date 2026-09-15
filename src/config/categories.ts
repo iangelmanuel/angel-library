@@ -573,6 +573,20 @@ export const CATEGORIES = {
         label: "JavaScript - Zod",
         description: "Definir esquemas y validar datos en tiempo de ejecución."
       },
+      "javascript-temporal": {
+        label: "JavaScript - Temporal",
+        description:
+          "La API estándar de fechas y horas de JavaScript, con su polyfill."
+      },
+      "javascript-chartjs": {
+        label: "JavaScript - Chart.js",
+        description: "Gráficas sobre canvas para la web, con tipos listos."
+      },
+      "javascript-pragmatic-drag-and-drop": {
+        label: "JavaScript - Pragmatic drag and drop",
+        description:
+          "Arrastrar y soltar sobre la API nativa del navegador, sin framework."
+      },
       "css-pico-css": {
         label: "CSS - Pico CSS",
         description:
@@ -608,6 +622,11 @@ export const CATEGORIES = {
         label: "CSS - Tailwind Plus",
         description: "Plantillas y componentes premium basados en Tailwind CSS."
       },
+      "css-fontsource": {
+        label: "CSS - Fontsource",
+        description:
+          "Tipografías de código abierto servidas desde tu propio proyecto."
+      },
       "astro-nanostores": {
         label: "Astro - Nanostores",
         description:
@@ -626,6 +645,11 @@ export const CATEGORIES = {
         label: "React - TanStack Query",
         description: "Consultar, cachear y sincronizar datos remotos en React."
       },
+      "react-tanstack-table": {
+        label: "React - TanStack Table",
+        description:
+          "Tablas headless: lógica de datagrid sin marcado ni estilos propios."
+      },
       "react-hook-form": {
         label: "React - React Hook Form",
         description:
@@ -634,6 +658,10 @@ export const CATEGORIES = {
       "react-zustand": {
         label: "React - Zustand",
         description: "Estado global sencillo para aplicaciones React."
+      },
+      "react-nuqs": {
+        label: "React - nuqs",
+        description: "Estado de la interfaz guardado en la URL, tipado."
       },
       "react-router": {
         label: "React - React Router",
@@ -713,6 +741,11 @@ export const CATEGORIES = {
       "node-bcrypt": {
         label: "Node - bcrypt",
         description: "Hash seguro de contraseñas en aplicaciones Node.js."
+      },
+      "node-better-auth": {
+        label: "Node - Better Auth",
+        description:
+          "Autenticación y sesiones en TypeScript, agnóstica del framework."
       },
       "node-pug": {
         label: "Node - PUG",

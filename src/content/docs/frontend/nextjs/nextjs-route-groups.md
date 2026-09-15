@@ -1,12 +1,12 @@
 ---
 title: Route Groups y organización de app/
 description: Organizar rutas por área sin cambiar la URL, compartir layouts y separar zonas públicas, privadas o administrativas.
-type: guides
+tags: [nextjs, routing, architecture]
 sidebar:
   order: 8
-tags: [nextjs, routing, architecture]
+draft: false
 scope: next.js app router
-related:
+technologies:
   - frontend/nextjs/nextjs-layouts
   - frontend/nextjs/nextjs-parallel-intercepting-routes
 updatedAt: 2026-08-25

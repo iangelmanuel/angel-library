@@ -76,7 +76,6 @@ uno aparece en la página solo si le pusiste valor:
 
 | Campo                                                                         | Para qué                                                               |
 | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `command`                                                                     | El comando, si la entrada es sobre un comando concreto                 |
 | `url`, `website`, `github`                                                    | Enlaces externos (se muestran como botones en la cabecera)             |
 | `resourceCategory`                                                            | Subcategoría de `resources/`, solo si la entrada vive en esa categoría |
 | `technologies`                                                                | Lista de ids de otras entradas relacionadas (cross-link)               |
@@ -347,29 +346,175 @@ categoría simplemente no va a tener color (usa la variable como
 
 ## Referencia: todos los campos del frontmatter
 
-| Campo                      | Tipo                 | Para qué                                                                       |
-| -------------------------- | -------------------- | ------------------------------------------------------------------------------ |
-| `title`                    | string (obligatorio) | Título de la página, menú y buscador                                           |
-| `description`              | string (obligatorio) | Frase para listados y SEO                                                      |
-| `tags`                     | string[]             | Tags en minúsculas — no se muestran en la página, es metadata para el buscador |
-| `sidebar.order`            | número               | Orden manual dentro de su subcategoría (nativo de Starlight)                   |
-| `sidebar.label`            | string               | Etiqueta distinta a `title` solo para el menú                                  |
-| `updatedAt`                | fecha (`2026-09-12`) | Se muestra en la cabecera de la entrada                                        |
-| `draft`                    | booleano             | Oculta la entrada fuera de `pnpm dev`                                          |
-| `private`                  | booleano             | Oculta de menús/listados/buscador; **la URL sigue pública**                    |
-| `command`                  | string               | El comando, para entradas de tipo comando                                      |
-| `url`, `website`, `github` | string (URL)         | Enlaces externos, se muestran como botones                                     |
-| `resourceCategory`         | string               | Subcategoría de `resources/`, solo dentro de esa categoría                     |
-| `technologies`             | string[] (ids)       | Cross-link a otras entradas por su id                                          |
-| `problem`                  | string               | Ficha "Problema"                                                               |
-| `whenToUse`                | string               | Ficha "Cuándo usarlo"                                                          |
-| `tool`                     | string               | Ficha "Herramienta"                                                            |
-| `language`                 | string               | Ficha "Lenguaje"                                                               |
-| `framework`                | string               | Ficha "Framework"                                                              |
-| `runtime`                  | string               | Ficha "Runtime"                                                                |
-| `returns`                  | string               | Ficha "Devuelve"                                                               |
-| `warnings`                 | string[]             | Lista de avisos destacados                                                     |
-| `official`                 | booleano             | Marca si es la fuente oficial (recursos)                                       |
+El frontmatter no es el artículo. El artículo es el cuerpo del Markdown —
+todo lo que se lee de la entrada vive ahí. El frontmatter solo guarda tres
+clases de dato:
+
+1. **Lo que se pinta en la cabecera** — datos de una línea que identifican
+   o enlazan la entrada.
+2. **Configuración** — cómo se publica o se ordena (`draft`, `private`,
+   `sidebar`).
+3. **Metadata** — datos para el buscador, el SEO o para tu propia
+   referencia, que no se pintan en ningún sitio.
+
+Si algo es un párrafo de explicación, va en el cuerpo. Solo sube a la
+cabecera lo que quepa en una línea y sirva para identificar la entrada.
+
+### 1 · Se pinta en la cabecera
+
+| Campo                      | Tipo                 | Dónde sale                                      |
+| -------------------------- | -------------------- | ----------------------------------------------- |
+| `title`                    | string (obligatorio) | El título de la página, el menú y el buscador   |
+| `updatedAt`                | fecha (`2026-09-12`) | La fecha, en la línea de ruta                   |
+| `official`                 | booleano             | Sello "Fuente oficial", junto a la fecha        |
+| `scope`                    | string               | Ficha "Alcance"                                 |
+| `tool`                     | string               | Ficha "Herramienta"                             |
+| `language`                 | string               | Ficha "Lenguaje"                                |
+| `framework`                | string               | Ficha "Framework"                               |
+| `runtime`                  | string               | Ficha "Runtime"                                 |
+| `parameters`               | string[]             | Ficha "Parámetros" (se unen con comas)          |
+| `returns`                  | string               | Ficha "Devuelve"                                |
+| `resourceCategory`         | string               | "Categoría de recurso" — obligatorio con enlace |
+| `url`, `website`, `github` | string (URL)         | Los botones "Abrir el recurso" y "Repositorio"  |
+| `technologies`             | string[] (ids)       | Los enlaces bajo el rótulo "Relacionado"        |
+| `note`                     | string               | Aviso "Nota", en violeta                        |
+| `warnings`                 | string[]             | Aviso "Advertencias", en coral                  |
+
+Los datos del panel son **etiqueta + valor corto**: "Alcance: variables de
+entorno", "Runtime: Navegador". Si el valor no cabe en una línea, no va en la
+panel: o es una nota (`note`) o es un párrafo del cuerpo.
+
+**`resourceCategory` es obligatorio si la entrada trae `website` o `url`.**
+Es el texto que acompaña a los botones ("Categoría de recurso: Documentación
+del paquete"), y sin él la tarjeta de acciones quedaría medio vacía. El
+esquema lo exige: si falta, `pnpm build` se detiene señalando el archivo.
+
+Acepta las dos formas que hay escritas: la clave de una subcategoría de
+`resources/` (`developer-tools`, `learning`, `ia`…), que se traduce a su
+nombre, o el texto tal cual —"Documentación del paquete", "Sitio oficial",
+"Documentación oficial"—. Escribí el que describa lo que se abre.
+
+Cuando hay botones, ese texto ya se dice en la tarjeta, así que no se
+repite entre los datos.
+
+`note` y `warnings` se pintan como avisos: barra del color del rol a
+la izquierda, tinte suave y título con icono. Violeta para la nota, coral
+para las advertencias.
+
+### 2 · Configuración
+
+| Campo           | Tipo                   | Qué hace                                                     |
+| --------------- | ---------------------- | ------------------------------------------------------------ |
+| `draft`         | booleano (obligatorio) | `true` oculta la entrada fuera de `pnpm dev`                 |
+| `private`       | booleano               | Oculta de menús/listados/buscador; **la URL sigue pública**  |
+| `sidebar.order` | número                 | Orden manual dentro de su subcategoría (nativo de Starlight) |
+| `sidebar.label` | string                 | Etiqueta distinta a `title`, solo para el menú               |
+
+`draft` se escribe **siempre**, aunque sea `false`: así el estado de la
+entrada se lee de un vistazo y "publicada" es una decisión escrita, no la
+ausencia de una línea. `private` solo se escribe cuando es `true`.
+
+Una entrada privada vive en **`src/content/docs/secrets/`**, que no está
+declarada ni en `categories.ts` ni en `sidebar.ts`. Consecuencias: no
+aparece en el menú, no cuenta en las cifras de la portada y no lleva chip de
+categoría — pero su URL responde (`/secrets/<archivo>`) y sigue estando en
+el buscador, que es como se llega a ella.
+
+### 3 · Metadata, no se pinta
+
+| Campo         | Tipo                 | Para qué                                                |
+| ------------- | -------------------- | ------------------------------------------------------- |
+| `description` | string (obligatorio) | Listados, buscador y meta de SEO                        |
+| `tags`        | string[]             | Metadata del buscador; no se muestra en la página       |
+| `problem`     | string               | Nota de referencia: el problema que resuelve la entrada |
+| `whenToUse`   | string               | Nota de referencia: cuándo aplica                       |
+| `practice`    | string               | Nota de referencia: la práctica en una frase            |
+| `why`         | string               | Nota de referencia: por qué importa                     |
+
+Estos cuatro son párrafos de explicación: se conservan como metadata, pero
+**no se pintan**. Si querés que el lector los vea, escribilos en el cuerpo
+del artículo, que es donde se lee.
+
+`note` es distinto y sí se pinta: no es una opinión sobre la entrada, es el
+dato que hay que saber antes de usarla — una versión ("los ejemplos siguen
+Zod 4"), un requisito ("requiere React 19"), una licencia, un límite o un
+riesgo. Si lo que ibas a escribir es una valoración ("lo interesante de esto
+es…"), no es una nota: o va en el cuerpo o no va.
+
+### El orden de las claves
+
+Todas las entradas escriben el frontmatter en el mismo orden — identidad,
+configuración, cabecera y, al final, la metadata que no se pinta:
+
+```yaml
+---
+title: …
+description: …
+tags: [...]
+sidebar:
+  order: 1
+draft: false
+private: true # solo si lo es
+scope: … # de aquí para abajo, fichas de la cabecera
+tool: …
+language: …
+framework: …
+runtime: …
+parameters: [...]
+returns: …
+resourceCategory: …
+official: true
+website: … # enlaces y relaciones
+url: …
+github: …
+technologies: [...]
+note: … # aviso violeta
+warnings: [...] # aviso coral
+problem: … # metadata, no se pinta
+whenToUse: …
+practice: …
+why: …
+updatedAt: 2026-09-14
+---
+```
+
+Solo `title`, `description` y `draft` van siempre; del resto se escribe lo
+que la entrada necesite, en este orden.
+
+### La cabecera, zona por zona
+
+Seis zonas, siempre en este orden. Cada una aparece solo si la entrada
+trae sus campos, y ninguna cambia de sitio ni de forma por lo que traigan
+las otras — dos entradas con los mismos campos se ven igual, estén en
+Hallazgos o en Paquetes:
+
+1. **Ruta** — categoría / subcategoría · `updatedAt` · sello `official`.
+2. **Acciones** — una tarjeta con `resourceCategory` a la izquierda (qué se
+   abre) y los botones de `website`/`url`/`github` a la derecha.
+3. **Datos** — el resto de campos de una línea, en dos columnas, ya sin
+   caja.
+4. **Relacionado** — `technologies`.
+5. **Nota** — `note`, aviso violeta.
+6. **Advertencias** — `warnings`, aviso coral.
+
+Después de eso empieza el artículo, y de ahí para abajo manda el Markdown.
+
+### Tres campos que ya no existen
+
+- **`type`** (`libraries`, `guides`, `resources`…): estaba en las 755
+  entradas, nunca estuvo en el esquema —así que el build lo descartaba— y
+  contradecía la regla de que la carpeta es la única clasificación. Se
+  quitó.
+- **`related`**: era otro nombre para lo mismo que `technologies` y, al no
+  estar en el esquema, esos cross-links no se veían en ninguna página. Se
+  fundió en `technologies`, que es el campo que sí se pinta.
+- **`command`**: pintaba el comando en un bloque propio de la cabecera,
+  pensado para la terminal que el sitio tenía antes. Ya no hay terminal, y
+  un comando es contenido: va en el cuerpo, en un bloque de código.
+
+Escribir uno de los dos no da error: el esquema lo ignora en silencio y el
+dato no llega a la página. Por eso conviene copiar el frontmatter de una
+entrada parecida en vez de inventar campos.
 
 ## Errores comunes
 

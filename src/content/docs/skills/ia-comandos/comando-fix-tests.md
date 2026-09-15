@@ -1,10 +1,10 @@
 ---
 title: /fix-tests — correr y arreglar tests fallidos
 description: Corre el test runner, lee las fallas, y arregla el código o el test según corresponda.
-type: skills
+tags: [ai, comando, testing]
 sidebar:
   order: 7
-tags: [ai, comando, testing]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

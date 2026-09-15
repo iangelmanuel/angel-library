@@ -1,13 +1,14 @@
 ---
 title: Render estático, bajo demanda e hidratación
 description: Diferenciar prerender, SSR, código del navegador, server islands y adapters para elegir dónde se ejecuta cada parte de una página Astro.
-type: guides
+tags: [astro, rendering, static, ssr, hydration, adapters]
 sidebar:
   order: 11
-tags: [astro, rendering, static, ssr, hydration, adapters]
+draft: false
 scope: modelo de renderizado
+resourceCategory: Documentación oficial
 website: https://docs.astro.build/en/guides/on-demand-rendering/
-related:
+technologies:
   - frontend/astro/astro
   - frontend/astro/astro-project-configuration
   - frontend/astro/astro-islas

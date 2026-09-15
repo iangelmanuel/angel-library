@@ -1,12 +1,12 @@
 ---
 title: CSS avanzado para rendering y performance
 description: Containment, content-visibility, compositing, animaciones y estilos críticos sin convertir cada elemento en una capa.
-type: guides
+tags: [css, performance, rendering, animations, containment]
 sidebar:
   order: 3
-tags: [css, performance, rendering, animations, containment]
+draft: false
 scope: rendering CSS
-related:
+technologies:
   - performance/performance-fundamentos/core-web-vitals
   - languages/css/css-animations
   - performance/performance-carga/performance-resource-loading

@@ -1,12 +1,13 @@
 ---
 title: JavaScript
 description: Ruta completa de ECMAScript y la plataforma web, organizada para aprender desde cero o consultar sintaxis, métodos y APIs rápidamente.
-type: technologies
+tags: [javascript, ecmascript, web, browser, runtime]
 sidebar:
   order: 1
-tags: [javascript, ecmascript, web, browser, runtime]
+draft: false
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/JavaScript
-related:
+technologies:
   - languages/javascript/javascript-getting-started
   - languages/javascript/javascript-fundamentals
   - languages/javascript/javascript-expressions-operators

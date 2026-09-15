@@ -1,13 +1,13 @@
 ---
 title: "Dark.design — galería de interfaces oscuras"
 description: Galería para estudiar cómo sitios reales organizan contraste, superficies y colores de acento cuando la interfaz usa un fondo oscuro.
-type: resources
 tags: [ui, ux, inspiration, dark-mode]
-url: https://dark.design/
+draft: false
 resourceCategory: ui-inspiration
-technologies: []
-personalNote: Útil para estudiar jerarquía, contraste y composición sin copiar una interfaz concreta.
-related: [resources/colors/cool-contrast, resources/ui-inspiration/uiverse]
+url: https://dark.design/
+technologies:
+  - resources/colors/cool-contrast
+  - resources/ui-inspiration/uiverse
 updatedAt: 2026-08-15
 ---
 

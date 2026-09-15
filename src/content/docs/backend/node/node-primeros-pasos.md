@@ -1,12 +1,12 @@
 ---
 title: Primeros pasos con Node.js
 description: Instalar, ejecutar scripts, reconocer el runtime y crear un proyecto mínimo antes de entrar en módulos y APIs nativas.
-type: guides
+tags: [node, javascript, runtime, npm]
 sidebar:
   order: 1
-tags: [node, javascript, runtime, npm]
+draft: false
 scope: inicio con Node.js
-related:
+technologies:
   - backend/node/nodejs
   - backend/node/node-package-json
   - backend/node/node-commonjs-vs-esm

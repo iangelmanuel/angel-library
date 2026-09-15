@@ -1,10 +1,10 @@
 ---
 title: useReducer
 description: Estado complejo con lógica centralizada — patrón básico y acciones tipadas con payload usando discriminated unions.
-type: guides
+tags: [react, hooks, state, typescript]
 sidebar:
   order: 6
-tags: [react, hooks, state, typescript]
+draft: false
 scope: react (useReducer)
 updatedAt: 2026-08-25
 ---

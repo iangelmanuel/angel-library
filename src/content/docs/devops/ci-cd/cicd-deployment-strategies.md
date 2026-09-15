@@ -1,12 +1,12 @@
 ---
 title: Estrategias de despliegue y rollback
 description: Elegir rolling, blue-green, canary o recreate según riesgo, capacidad, migraciones y tiempo de recuperación.
-type: guides
+tags: [deployment, rollback, canary, devops]
 sidebar:
   order: 3
-tags: [deployment, rollback, canary, devops]
+draft: false
 scope: publicación a producción
-related:
+technologies:
   - devops/ci-cd/cicd-pipeline-fundamentals
   - devops/observabilidad/observability-fundamentals
   - devops/observabilidad/observability-incident-response

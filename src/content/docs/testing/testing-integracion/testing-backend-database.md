@@ -1,11 +1,11 @@
 ---
 title: Testing de integración backend y base de datos
 description: Probar la frontera HTTP con persistencia real, aislar datos y verificar transacciones, permisos e idempotencia sin mocks engañosos.
-type: guides
+tags: [testing, backend, database, integration, api]
 sidebar:
   order: 2
-tags: [testing, backend, database, integration, api]
-related:
+draft: false
+technologies:
   - testing/testing-fundamentos/testing-strategy
   - packages/node-supertest/supertest
   - database/database-operacion/database-migraciones-backups

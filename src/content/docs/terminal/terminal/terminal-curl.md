@@ -1,12 +1,12 @@
 ---
 title: "curl: requests HTTP desde la terminal"
 description: Los flags de curl que se usan todos los días — GET, POST con JSON, headers, guardar en archivo, seguir redirects.
-type: guides
+tags: [terminal, curl, http, herramientas]
 sidebar:
   order: 20
-tags: [terminal, curl, http, herramientas]
+draft: false
 scope: curl
-related: [terminal/terminal/terminal-ssh]
+technologies: [terminal/terminal/terminal-ssh]
 updatedAt: 2026-08-17
 ---
 

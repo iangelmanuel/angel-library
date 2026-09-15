@@ -1,15 +1,13 @@
 ---
 title: "Clean Code en JavaScript"
 description: "Guía para reconocer código JavaScript difícil de mantener y mejorarlo mediante nombres, funciones y estructuras más claras, con ejemplos comparados."
-type: resources
+tags: [javascript, clean-code, buenas-practicas, github, aprendizaje]
 sidebar:
   order: 4
-tags: [javascript, clean-code, buenas-practicas, github, aprendizaje]
-url: https://github.com/ryanmcdermott/clean-code-javascript
+draft: false
 resourceCategory: learning
-personalNote: Léelo como guía de criterio, no como reglamento; varias recomendaciones son discutibles y el propio repositorio lo advierte.
-related:
-  - findings/hallazgos-codigo/node-best-practices
+url: https://github.com/ryanmcdermott/clean-code-javascript
+technologies: [findings/hallazgos-codigo/node-best-practices]
 updatedAt: 2026-08-30
 ---
 

@@ -1,16 +1,14 @@
 ---
 title: "Dockerfile básico"
 description: Las instrucciones esenciales de un Dockerfile — FROM, RUN, COPY, WORKDIR, CMD, ENTRYPOINT, EXPOSE — y cómo se leen de arriba a abajo.
-type: guides
+tags: [docker, dockerfile, imagenes]
 sidebar:
   order: 1
-tags: [docker, dockerfile, imagenes]
+draft: false
 scope: Dockerfile
-related:
-  [
-    devops/docker-imagenes/docker-capas-cache,
-    devops/docker-imagenes/docker-build-tags
-  ]
+technologies:
+  - devops/docker-imagenes/docker-capas-cache
+  - devops/docker-imagenes/docker-build-tags
 updatedAt: 2026-08-17
 ---
 

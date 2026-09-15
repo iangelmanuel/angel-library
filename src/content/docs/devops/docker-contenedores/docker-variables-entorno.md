@@ -1,16 +1,14 @@
 ---
 title: "Variables de entorno en Docker"
 description: Pasar variables de entorno a un contenedor con -e y --env-file, y por qué nunca van hardcodeadas en la imagen.
-type: guides
+tags: [docker, variables-entorno, env, contenedores]
 sidebar:
   order: 5
-tags: [docker, variables-entorno, env, contenedores]
+draft: false
 scope: variables de entorno
-related:
-  [
-    devops/docker-contenedores/docker-run-basico,
-    devops/docker-imagenes/docker-dockerignore
-  ]
+technologies:
+  - devops/docker-contenedores/docker-run-basico
+  - devops/docker-imagenes/docker-dockerignore
 updatedAt: 2026-08-17
 ---
 

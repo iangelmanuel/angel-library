@@ -1,12 +1,12 @@
 ---
 title: Monorepo — qué es, cómo funciona y cuándo usarlo
 description: Qué es un monorepo, en qué se diferencia de un multi-repo y de un repo con submódulos, cómo funciona por dentro (workspaces, hoisting, el protocolo workspace:) y cuándo conviene o no.
-type: guides
+tags: [monorepo, workspaces, arquitectura, pnpm, npm, bun]
 sidebar:
   order: 1
-tags: [monorepo, workspaces, arquitectura, pnpm, npm, bun]
+draft: false
 scope: qué es un monorepo y cómo funciona
-related:
+technologies:
   - general/monorepo/monorepo-pnpm
   - general/monorepo/monorepo-npm
   - general/monorepo/monorepo-bun

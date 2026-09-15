@@ -1,12 +1,12 @@
 ---
 title: Permisos de archivos
 description: chmod, chown y sudo en macOS/Linux vs el modelo de ACLs de Windows — dos formas distintas de pensar quién puede hacer qué.
-type: guides
+tags: [terminal, permisos, seguridad, cli]
 sidebar:
   order: 7
-tags: [terminal, permisos, seguridad, cli]
+draft: false
 scope: chmod / chown / sudo
-related: [terminal/terminal/terminal-archivos-carpetas]
+technologies: [terminal/terminal/terminal-archivos-carpetas]
 updatedAt: 2026-08-17
 ---
 

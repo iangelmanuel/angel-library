@@ -1,14 +1,13 @@
 ---
 title: "ADR: Architectural Decision Records"
 description: Un documento corto que registra una decisión de arquitectura, su contexto, las alternativas consideradas y por qué se eligió — para no perder el "por qué" con el tiempo.
-type: practices
 tags: [architecture, decisions, documentation]
 sidebar:
   order: 11
+draft: false
+technologies: [architecture/principios/deuda-tecnica]
 practice: Escribir un documento corto por cada decisión de arquitectura costosa de revertir, numerado, versionado en el repo y nunca editado retroactivamente.
 why: Seis meses después nadie recuerda por qué se eligió Postgres sobre Mongo, y la persona que lo decidió puede ya no estar en el proyecto.
-related:
-  - architecture/principios/deuda-tecnica
 updatedAt: 2026-08-17
 ---
 

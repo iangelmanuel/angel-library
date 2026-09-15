@@ -1,14 +1,15 @@
 ---
 title: Tailwind Plus (Tailwind UI)
 description: Catálogo oficial de Tailwind Labs con cientos de componentes HTML (también React) listos para copiar y pegar, curados por el equipo que hace Tailwind CSS.
-type: libraries
+tags: [html, tailwindcss, components, official]
 sidebar:
   order: 1
-tags: [html, tailwindcss, components, official]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://tailwindcss.com/plus/ui-blocks
 github: https://github.com/tailwindlabs
+technologies: [packages/css-hyperui/hyperui]
 updatedAt: 2026-08-17
-related: [packages/css-hyperui/hyperui]
 ---
 
 Antes se llamaba Tailwind UI; se renombró a Tailwind Plus cuando sumó plantillas completas y bloques de aplicación además de los componentes sueltos. Es de pago (con vista previa gratuita del código de cada componente), a diferencia de HyperUI o Flowbite.

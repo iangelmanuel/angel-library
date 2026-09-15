@@ -1,12 +1,12 @@
 ---
 title: "Turso CLI: base de datos SQLite distribuida"
 description: Instalar el CLI de Turso, autenticarse y los comandos esenciales para crear bases de datos, entrar al shell y generar tokens de conexión.
-type: guides
+tags: [cli, turso, base-de-datos, sqlite]
 sidebar:
   order: 8
-tags: [cli, turso, base-de-datos, sqlite]
+draft: false
 scope: turso
-related: [terminal/cli/cli-neon]
+technologies: [terminal/cli/cli-neon]
 updatedAt: 2026-08-17
 ---
 

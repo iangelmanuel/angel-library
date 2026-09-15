@@ -1,11 +1,12 @@
 ---
 title: Next.js
 description: "Ruta de aprendizaje y referencia rápida de Next.js: App Router, renderizado, datos, caché, mutaciones, APIs y optimización."
-type: technologies
 tags: [nextjs, react, framework, fullstack]
+draft: false
+resourceCategory: Documentación oficial
 website: https://nextjs.org
 github: https://github.com/vercel/next.js
-related:
+technologies:
   - frontend/react/react
   - frontend/nextjs/nextjs-getting-started
   - frontend/nextjs/nextjs-routing-fundamentals

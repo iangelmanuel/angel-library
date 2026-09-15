@@ -1,11 +1,11 @@
 ---
 title: Decorator
 description: Agregar comportamiento a algo envolviéndolo, sin tocar su código original ni crear una subclase por cada combinación.
-type: patterns
+tags: [arquitectura, patrones-diseno, decorator]
 sidebar:
   order: 6
-tags: [arquitectura, patrones-diseno, decorator]
-related: [architecture/patrones-diseno/proxy]
+draft: false
+technologies: [architecture/patrones-diseno/proxy]
 problem: Agregar autenticación, logging o cualquier otro comportamiento transversal a un componente o handler sin duplicar ese código en cada uno.
 updatedAt: 2026-08-17
 ---

@@ -1,13 +1,12 @@
 ---
 title: Islas dinámicas (Server Islands)
 description: Renderizar un fragmento personalizado o dinámico bajo demanda con server:defer, sin sacrificar el prerender del resto de la página.
-type: guides
+tags: [astro, performance, ssr]
 sidebar:
   order: 16
-tags: [astro, performance, ssr]
+draft: false
 scope: astro (directiva server:defer)
-related:
-  - frontend/astro/astro-islas
+technologies: [frontend/astro/astro-islas]
 updatedAt: 2026-08-25
 ---
 

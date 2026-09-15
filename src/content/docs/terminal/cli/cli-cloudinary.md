@@ -1,10 +1,10 @@
 ---
 title: "Cloudinary CLI: subir y transformar assets"
 description: Instalar cloudinary-cli, configurar las credenciales por variable de entorno y los comandos para subir archivos, buscar recursos y generar URLs con transformaciones.
-type: guides
+tags: [cli, cloudinary, imagenes, video]
 sidebar:
   order: 12
-tags: [cli, cloudinary, imagenes, video]
+draft: false
 scope: cld
 updatedAt: 2026-08-17
 ---

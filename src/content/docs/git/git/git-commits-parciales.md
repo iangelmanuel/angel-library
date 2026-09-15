@@ -1,12 +1,12 @@
 ---
 title: Commits parciales y correcciones locales
 description: Separar cambios con git add -p, corregir el último commit y preparar un historial limpio sin perder trabajo.
-type: guides
+tags: [git, commits, staging, add-p, amend, fixup]
 sidebar:
   order: 19
-tags: [git, commits, staging, add-p, amend, fixup]
+draft: false
 scope: git add -p / commit --amend / reset
-related:
+technologies:
   - git/git/git-inspeccionar-cambios-historial
   - git/git/git-rebase-interactivo
   - git/git/git-deshacer-cambios

@@ -1,10 +1,10 @@
 ---
 title: tdd — desarrollo guiado por tests
 description: Fuerza el ciclo red-green-refactor — escribir el test que falla antes que el código que lo hace pasar.
-type: skills
+tags: [ai, skill, testing, tdd]
 sidebar:
   order: 4
-tags: [ai, skill, testing, tdd]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

@@ -1,12 +1,12 @@
 ---
 title: Number, BigInt y Math
 description: Conversión, validación, precisión, formato y operaciones matemáticas con resultados visibles y casos de uso seguros.
-type: guides
+tags: [javascript, number, bigint, math, precision]
 sidebar:
   order: 9
-tags: [javascript, number, bigint, math, precision]
+draft: false
 scope: tipos y métodos
-related:
+technologies:
   - languages/javascript/javascript-built-ins
   - languages/javascript/javascript-date-regexp-intl
   - languages/javascript/javascript-collections

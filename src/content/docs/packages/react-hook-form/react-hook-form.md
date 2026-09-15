@@ -1,13 +1,14 @@
 ---
 title: React Hook Form
 description: Formularios performantes en React con mínimos re-renders. Instalación, uso básico y patrones que uso.
-type: libraries
+tags: [react, forms, typescript]
 sidebar:
   order: 5
-tags: [react, forms, typescript]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://react-hook-form.com
 github: https://github.com/react-hook-form/react-hook-form
-related: [packages/javascript-zod/zod]
+technologies: [packages/javascript-zod/zod]
 updatedAt: 2026-08-25
 ---
 

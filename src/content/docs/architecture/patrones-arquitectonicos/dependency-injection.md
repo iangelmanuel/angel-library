@@ -1,16 +1,14 @@
 ---
 title: Inyección de dependencias
 description: Recibir las dependencias de un módulo desde afuera en vez de construirlas adentro, para poder reemplazarlas sin tocar el código que las usa.
-type: patterns
+tags: [arquitectura, patrones-arquitectonicos, dependency-injection, testing]
 sidebar:
   order: 5
-tags: [arquitectura, patrones-arquitectonicos, dependency-injection, testing]
+draft: false
+technologies:
+  - architecture/patrones-arquitectonicos/hexagonal-architecture
+  - architecture/patrones-arquitectonicos/repository-pattern
 problem: Un módulo que construye sus propias dependencias (`new PrismaClient()` dentro de una función) no se puede reemplazar por un doble en las pruebas ni por otra implementación en otro contexto.
-related:
-  [
-    architecture/patrones-arquitectonicos/hexagonal-architecture,
-    architecture/patrones-arquitectonicos/repository-pattern
-  ]
 updatedAt: 2026-08-17
 ---
 

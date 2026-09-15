@@ -1,11 +1,11 @@
 ---
 title: Conexiones, pooling y operación confiable
 description: Administrar conexiones, transacciones, timeouts, réplicas y fallos para que la base no se convierta en el cuello de botella del servicio.
-type: guides
+tags: [database, pooling, reliability, timeout, operations]
 sidebar:
   order: 2
-tags: [database, pooling, reliability, timeout, operations]
-related:
+draft: false
+technologies:
   - database/database-operacion/database-migraciones-backups
   - database/database-postgresql/postgresql-transacciones-concurrencia
   - performance/performance-operacion/performance-backend-database

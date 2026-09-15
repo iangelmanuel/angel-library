@@ -1,11 +1,11 @@
 ---
 title: Primer proyecto TypeScript — comprobar, ejecutar y validar
 description: Crear un laboratorio estricto y distinguir la comprobación estática de la validación de datos al ejecutar.
-type: guides
+tags: [typescript, javascript, learning, validation]
 sidebar:
   order: 2
-tags: [typescript, javascript, learning, validation]
-related:
+draft: false
+technologies:
   - general/typescript/typescript
   - general/typescript/typescript-path-aliases
   - packages/javascript-zod/zod

@@ -1,11 +1,11 @@
 ---
 title: Intención de búsqueda, arquitectura y enlaces internos
 description: Diseñar contenido encontrable y útil mediante intención, jerarquía, URLs estables, encabezados y relaciones entre páginas.
-type: guides
+tags: [seo, content, search-intent, information-architecture, internal-links]
 sidebar:
   order: 1
-tags: [seo, content, search-intent, information-architecture, internal-links]
-related:
+draft: false
+technologies:
   - seo/seo-tecnico/seo-rastreo-indexacion
   - ui-ux/ui-ux-fundamentos/ui-ux-fundamentals-terminology
   - accessibility/a11y-contenido/accessibility-contenido-multimedia

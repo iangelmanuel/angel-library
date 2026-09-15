@@ -1,11 +1,11 @@
 ---
 title: Fundamentos de nube — regiones, servicios y responsabilidad
 description: Entender regiones, zonas, cómputo, red, almacenamiento, servicios administrados y el modelo de responsabilidad compartida.
-type: guides
+tags: [devops, cloud, regions, networking, managed-services]
 sidebar:
   order: 1
-tags: [devops, cloud, regions, networking, managed-services]
-related:
+draft: false
+technologies:
   - devops/devops-fundamentos/devops-fundamentals-terminology
   - security/security-infra/security-secrets-supply-chain
   - devops/observabilidad/observability-fundamentals

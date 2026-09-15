@@ -41,6 +41,28 @@ filesystem). El sidebar de Starlight es otro archivo estático,
 (`tags`, `command`, `url`, `technologies`…). Nada se exige por tipo o
 categoría.
 
+El esquema es la lista cerrada de campos: lo que no esté ahí se descarta en
+silencio al construir. No existen `type` ni `related` (se quitaron de todas
+las entradas); para enlazar con otra entrada, `technologies` con su id.
+
+El frontmatter guarda tres clases de dato: lo que se pinta en la cabecera
+(datos de una línea), configuración (`draft`, `private`, `sidebar`) y
+metadata que no se pinta (`description`, `tags`, y los campos de párrafo
+`problem`, `whenToUse`, `practice`, `why`). **El artículo es el cuerpo del
+Markdown**: una explicación no se escribe en el frontmatter.
+`PageTitle.astro` arma la cabecera en cinco zonas de orden fijo — ruta,
+barra de datos y acciones, relacionado, nota (`note`) y
+advertencias (`warnings`), las dos últimas como avisos con la receta de
+`.starlight-aside`. Ver `docs/CONTENT_GUIDE.md`.
+
+`draft` se escribe en todas las entradas, aunque sea `false`; `private`
+solo cuando es `true`. Las entradas privadas viven en `secrets/`, una
+carpeta que **no está en `sidebar.ts` ni en `categories.ts`**: conservan su
+URL y siguen en el buscador, pero no aparecen en el menú ni cuentan en las
+cifras de la portada. `resourceCategory` es obligatorio en cuanto hay
+`website` o `url`: es el texto que acompaña a los botones de la cabecera y
+el build falla si falta.
+
 ### Sin validación ni relaciones (a propósito)
 
 No hay chequeo de enlaces/referencias rotas en build, ni una sección de

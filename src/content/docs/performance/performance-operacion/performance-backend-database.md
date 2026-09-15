@@ -1,11 +1,11 @@
 ---
 title: Rendimiento de backend y base de datos
 description: Separar latencia de red, colas, cómputo y consultas para optimizar el camino crítico sin esconder cuellos de botella.
-type: guides
+tags: [performance, backend, database, latency, profiling]
 sidebar:
   order: 2
-tags: [performance, backend, database, latency, profiling]
-related:
+draft: false
+technologies:
   - database/database-sql/database-indices-explain
   - devops/observabilidad/observability-fundamentals
   - backend/backend-fundamentos/backend-colas-jobs

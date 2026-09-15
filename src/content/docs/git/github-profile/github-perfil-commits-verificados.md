@@ -1,12 +1,12 @@
 ---
 title: Firmar commits — el distintivo Verified
 description: Por qué el autor de un commit no prueba nada, cómo firmar con la clave SSH que ya tienes, verificar en local y activar el modo vigilante en GitHub.
-type: guides
+tags: [github, git, firma, seguridad, ssh, gpg]
 sidebar:
   order: 4
-tags: [github, git, firma, seguridad, ssh, gpg]
+draft: false
 scope: firma y verificación de commits
-related:
+technologies:
   - git/github-profile/github-perfil-claves-ssh
   - git/git/git-configuracion-inicial
   - git/repository-management/repository-rules-security

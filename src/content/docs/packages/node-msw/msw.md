@@ -1,13 +1,14 @@
 ---
 title: MSW — simular APIs en navegador y Node
 description: Interceptar HTTP a nivel de red con Mock Service Worker, reutilizar handlers y probar éxito, errores, latencia y contratos sin mockear fetch.
-type: libraries
+tags: [testing, msw, api, mocks, integration]
 sidebar:
   order: 1
-tags: [testing, msw, api, mocks, integration]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://mswjs.io/
 github: https://github.com/mswjs/msw
-related:
+technologies:
   - testing/testing-integracion/testing-doubles-contracts
   - testing/react/testing-react-testing-library
   - testing/testing-e2e/testing-e2e-reliable-ci

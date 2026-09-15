@@ -1,14 +1,14 @@
 ---
 title: Nanostores
 description: Estado compartido entre islas de Astro (o entre componentes de cualquier framework) sin Context ni prop drilling.
-type: libraries
+tags: [astro, react, state]
 sidebar:
   order: 1
-tags: [astro, react, state]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://github.com/nanostores/nanostores
 github: https://github.com/nanostores/nanostores
-related:
-  - frontend/astro/astro-islas
+technologies: [frontend/astro/astro-islas]
 updatedAt: 2026-08-25
 ---
 

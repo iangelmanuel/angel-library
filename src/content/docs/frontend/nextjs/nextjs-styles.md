@@ -1,14 +1,12 @@
 ---
 title: CSS y estilos en Next.js
 description: Elige entre estilos globales, CSS Modules, Tailwind CSS, Sass y CSS-in-JS sin romper el límite entre servidor y cliente.
-type: guides
+tags: [nextjs, css, estilos, performance]
 sidebar:
   order: 24
-tags: [nextjs, css, estilos, performance]
+draft: false
 scope: next.js app router
-related:
-  - frontend/nextjs/nextjs-font
-  - frontend/nextjs/nextjs-image
+technologies: [frontend/nextjs/nextjs-font, frontend/nextjs/nextjs-image]
 updatedAt: 2026-08-25
 ---
 

@@ -1,13 +1,12 @@
 ---
 title: "UX Planet — alternativas al negro puro en texto y fondos"
 description: "Artículo que explica cuándo el negro absoluto puede dificultar la lectura y propone grises oscuros para crear fondos, texto y niveles de superficie."
-type: resources
 tags: [color, accesibilidad, dark-mode, contraste, diseño]
-url: https://uxplanet.org/alternatives-to-using-pure-black-000000-for-text-and-backgrounds-54ef0e733cdb
+draft: false
 resourceCategory: colors
-personalNote: "El dato accionable es #121212 como fondo oscuro, la recomendación de Material Design; cambiar eso solo ya mejora una interfaz oscura."
-related:
-  - resources/colors/cool-contrast
+url: https://uxplanet.org/alternatives-to-using-pure-black-000000-for-text-and-backgrounds-54ef0e733cdb
+technologies: [resources/colors/cool-contrast]
+note: "El dato accionable es #121212 como fondo oscuro, la recomendación de Material Design; cambiar eso solo ya mejora una interfaz oscura."
 updatedAt: 2026-08-30
 ---
 

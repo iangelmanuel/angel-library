@@ -1,13 +1,11 @@
 ---
 title: "Colour Contrast Checker — contraste según WCAG"
 description: Comprueba si un color de texto se distingue suficientemente de su fondo según las pautas de accesibilidad WCAG.
-type: resources
 tags: [accessibility, colors, ui, ux]
-url: https://colourcontrast.cc/
+draft: false
 resourceCategory: colors
-technologies: []
-personalNote: Consultarlo antes de fijar colores de texto secundarios en interfaces oscuras.
-related: [resources/colors/cool-contrast, resources/colors/uicolors]
+url: https://colourcontrast.cc/
+technologies: [resources/colors/cool-contrast, resources/colors/uicolors]
 updatedAt: 2026-08-15
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: Primer proyecto con Next.js
 description: Instala Next.js, reconoce el App Router y construye una primera ruta entendiendo qué ejecuta el servidor y qué recibe el navegador.
-type: guides
+tags: [nextjs, react, fundamentos, app-router]
 sidebar:
   order: 1
-tags: [nextjs, react, fundamentos, app-router]
+draft: false
 scope: next.js app router
-related:
+technologies:
   - frontend/nextjs/nextjs
   - frontend/nextjs/nextjs-project-structure-configuration
   - frontend/nextjs/nextjs-routing-fundamentals

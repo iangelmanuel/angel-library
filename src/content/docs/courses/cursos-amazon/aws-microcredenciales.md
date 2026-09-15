@@ -1,14 +1,14 @@
 ---
 title: "Microcredenciales de AWS — exámenes prácticos gratuitos"
 description: "Evaluaciones cronometradas dentro de un entorno real de AWS que otorgan una credencial verificable; explica las ocho disponibles, el formato y las reglas de reintento."
-type: resources
+tags: [cursos, aws, certificacion, cloud, gratis, credencial, evaluacion]
 sidebar:
   order: 1
-tags: [cursos, aws, certificacion, cloud, gratis, credencial, evaluacion]
-url: https://skillbuilder.aws/certification/microcredentials
+draft: false
 resourceCategory: learning
 official: true
-personalNote: "No son cursos: son exámenes. Empieza por la vista previa, que se repite sin límite — si suspendes la real hay que esperar 25 días."
+url: https://skillbuilder.aws/certification/microcredentials
+note: "No son cursos: son exámenes. Empieza por la vista previa, que se repite sin límite — si suspendes la real hay que esperar 25 días."
 updatedAt: 2026-09-01
 ---
 

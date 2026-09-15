@@ -1,13 +1,11 @@
 ---
 title: "CSS Gradient — generador y galería de degradados"
 description: Editor visual para combinar varios colores en un degradado lineal o circular y copiar el código CSS que reproduce el resultado.
-type: resources
 tags: [css, gradients, colors, ui]
-url: https://cssgradient.io/
+draft: false
 resourceCategory: css
-technologies: []
-personalNote: Útil para construir fondos suaves, hero sections y accents sin usar imágenes.
-related: [resources/css/css-glass, resources/animations/animista]
+url: https://cssgradient.io/
+technologies: [resources/css/css-glass, resources/animations/animista]
 updatedAt: 2026-08-15
 ---
 

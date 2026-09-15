@@ -1,13 +1,15 @@
 ---
 title: Zod
 description: Validación de schemas con inferencia de tipos TypeScript — crear schemas, tipos de datos, refinamientos, parseo, manejo de errores y las novedades de Zod 4.5.
-type: libraries
+tags: [typescript, validation, schema, forms]
 sidebar:
   order: 1
-tags: [typescript, validation, schema, forms]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://zod.dev
 github: https://github.com/colinhacks/zod
-related: [general/utils/form]
+technologies: [general/utils/form]
+note: "Los ejemplos siguen Zod 4. Ahí los formatos (`z.email()`, `z.url()`, `z.uuid()`) son funciones de nivel superior; en Zod 3 eran métodos encadenados sobre `z.string()`."
 updatedAt: 2026-09-01
 ---
 

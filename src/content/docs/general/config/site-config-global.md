@@ -1,18 +1,16 @@
 ---
 title: "SITE — variable global de configuración"
 description: Un solo objeto con todo lo que cambia de empresa a empresa — identidad, ubicación, contacto, redes, navegación y SEO — para no tener datos de la empresa repartidos ni duplicados por el código.
-type: patterns
+tags: [frontend, site-config, seo, architecture]
 sidebar:
   order: 2
-tags: [frontend, site-config, seo, architecture]
+draft: false
+technologies:
+  - seo/astro/astro-seo-completo
+  - seo/nextjs/nextjs-seo-completo
+  - skills/ia-skills/skill-seo-astro
+  - skills/ia-skills/skill-seo-nextjs
 problem: Datos de la empresa (nombre, contacto, SEO, redes, horario, navegación) repetidos o hardcodeados en distintos componentes, sin una sola fuente de verdad que renderizar en el HTML.
-related:
-  [
-    seo/astro/astro-seo-completo,
-    seo/nextjs/nextjs-seo-completo,
-    skills/ia-skills/skill-seo-astro,
-    skills/ia-skills/skill-seo-nextjs
-  ]
 updatedAt: 2026-08-17
 ---
 

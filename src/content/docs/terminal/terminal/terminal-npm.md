@@ -1,17 +1,15 @@
 ---
 title: "npm: el gestor de paquetes de Node"
 description: Los comandos de npm del día a día — install, run, uninstall, update, npx, ci — y cuándo usar cada uno.
-type: guides
+tags: [terminal, npm, node, gestor-de-paquetes]
 sidebar:
   order: 17
-tags: [terminal, npm, node, gestor-de-paquetes]
+draft: false
 scope: npm
-related:
-  [
-    applications/apps-cli/terminal-pnpm,
-    applications/apps-cli/terminal-nvm,
-    applications/apps-cli/terminal-bun
-  ]
+technologies:
+  - applications/apps-cli/terminal-pnpm
+  - applications/apps-cli/terminal-nvm
+  - applications/apps-cli/terminal-bun
 updatedAt: 2026-08-17
 ---
 

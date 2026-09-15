@@ -1,13 +1,11 @@
 ---
 title: "PostSpark — capturas presentables con marco de navegador"
 description: "Editor para colocar una captura dentro de un marco de navegador, añadir fondo y anotaciones y convertirla en una imagen clara para documentación o presentación."
-type: resources
 tags: [capturas, imagenes, diseño, documentacion, redes-sociales]
-url: https://postspark.app/screenshot
+draft: false
 resourceCategory: images
-personalNote: "Sirve tanto para redes como para documentación técnica: un marco de navegador da contexto de dónde ocurre lo que se muestra sin escribir una línea."
-related:
-  - resources/images/shots-so
+url: https://postspark.app/screenshot
+technologies: [resources/images/shots-so]
 updatedAt: 2026-08-30
 ---
 

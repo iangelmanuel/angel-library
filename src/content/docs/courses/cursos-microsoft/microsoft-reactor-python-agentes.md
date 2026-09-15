@@ -1,13 +1,12 @@
 ---
 title: "Python + Agentes con Agent Framework (Microsoft Reactor)"
 description: "Serie técnica en español para construir agentes de IA con Python, darles herramientas y memoria, coordinarlos y observar cómo toman decisiones."
-type: resources
+tags: [cursos, microsoft, python, agentes, ia, mcp, gratis, espanol]
 sidebar:
   order: 1
-tags: [cursos, microsoft, python, agentes, ia, mcp, gratis, espanol]
-url: https://developer.microsoft.com/en-us/reactor/series/S-1633/
+draft: false
 resourceCategory: learning
-personalNote: De lo poco que cubre la parte aburrida y necesaria de los agentes -observabilidad, evaluación de salidas y revisión humana-, no solo hacer que respondan.
+url: https://developer.microsoft.com/en-us/reactor/series/S-1633/
 updatedAt: 2026-08-30
 ---
 

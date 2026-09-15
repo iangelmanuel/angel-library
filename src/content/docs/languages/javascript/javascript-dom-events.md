@@ -1,13 +1,14 @@
 ---
 title: DOM y manipulación de documentos
 description: Árbol DOM, selección, recorrido, creación, atributos, contenido, formularios, foco y rendimiento con resultados visibles.
-type: guides
+tags: [javascript, dom, document, elements, forms]
 sidebar:
   order: 22
-tags: [javascript, dom, document, elements, forms]
+draft: false
 scope: navegador
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/API/Document_Object_Model
-related:
+technologies:
   - languages/javascript/javascript-events
   - languages/javascript/javascript-web-components
   - accessibility/a11y-interaccion/accessibility-semantics-keyboard-focus

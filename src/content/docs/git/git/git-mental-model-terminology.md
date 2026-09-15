@@ -1,10 +1,10 @@
 ---
 title: "Git: modelo mental y terminología"
 description: Cómo entender working tree, staging, commits, ramas, HEAD, remotos, merge, rebase y pull requests antes de memorizar comandos.
-type: guides
 tags: [git, control-de-versiones, commits, ramas, fundamentos]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

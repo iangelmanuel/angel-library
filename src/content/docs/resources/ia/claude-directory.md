@@ -1,12 +1,11 @@
 ---
 title: "Claude Directory — plugins, agentes y MCP para Claude Code"
 description: Catálogo no oficial de extensiones e integraciones para Claude Code; ayuda a descubrir opciones, pero cada una debe revisarse antes de instalarla.
-type: resources
 tags: [ai, plugin, mcp, claude-code]
-url: https://www.claudedirectory.org
+draft: false
 resourceCategory: ia
 official: false
-personalNote: Bueno para descubrir plugins más allá del marketplace oficial de Anthropic — cubre plugins, agentes, MCP y más en un solo lugar.
+url: https://www.claudedirectory.org
 updatedAt: 2026-08-17
 ---
 

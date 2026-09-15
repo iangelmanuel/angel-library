@@ -1,14 +1,14 @@
 ---
 title: "Astro Storefront — comercio electrónico de referencia"
 description: "Tienda real construida por el equipo de Astro para estudiar cómo se combinan páginas rápidas, componentes interactivos, lógica de servidor, caché y configuración tipada."
-type: resources
+tags: [astro, ecommerce, solidjs, islas, rendimiento, typescript]
 sidebar:
   order: 2
-tags: [astro, ecommerce, solidjs, islas, rendimiento, typescript]
-url: https://github.com/withastro/storefront
+draft: false
 resourceCategory: developer-tools
+url: https://github.com/withastro/storefront
 technologies: [frontend/astro/astro]
-personalNote: "Está marcado como alfa y su último cambio es de finales de 2024; sirve como referencia de patrones, no como plantilla para arrancar hoy sin revisar."
+note: "Está marcado como alfa y su último cambio es de finales de 2024; sirve como referencia de patrones, no como plantilla para arrancar hoy sin revisar."
 updatedAt: 2026-08-30
 ---
 

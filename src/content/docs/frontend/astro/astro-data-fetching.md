@@ -1,12 +1,12 @@
 ---
 title: Data fetching en Astro
 description: Cuándo corre fetch en estático y SSR, consultas paralelas, endpoints internos y cómo decidir si hace falta una isla cliente.
-type: guides
+tags: [astro, fetch, data, performance]
 sidebar:
   order: 12
-tags: [astro, fetch, data, performance]
+draft: false
 scope: data fetching
-related:
+technologies:
   - backend/astro/astro-ssr-adapters
   - frontend/astro/astro-islas
   - general/utils/fetch

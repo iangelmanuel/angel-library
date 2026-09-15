@@ -1,11 +1,11 @@
 ---
 title: Pruebas de accesibilidad manuales y automáticas
 description: Combinar teclado, zoom, lectores de pantalla, árbol accesible, axe y pruebas de componentes sin confiar en una sola herramienta.
-type: guides
+tags: [accessibility, testing, keyboard, screen-reader, axe]
 sidebar:
   order: 1
-tags: [accessibility, testing, keyboard, screen-reader, axe]
-related:
+draft: false
+technologies:
   - accessibility/a11y-testing/accessibility-checklist
   - accessibility/a11y-interaccion/accessibility-semantics-keyboard-focus
   - testing/testing-e2e/testing-e2e-reliable-ci

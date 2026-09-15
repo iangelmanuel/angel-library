@@ -1,12 +1,12 @@
 ---
 title: URL, requests, formularios y archivos
 description: URL, URLSearchParams, Headers, Request, Response, FormData, Blob, codificación, observación y cancelación.
-type: guides
+tags: [javascript, url, web-api, formdata, blob, abortcontroller]
 sidebar:
   order: 26
-tags: [javascript, url, web-api, formdata, blob, abortcontroller]
+draft: false
 scope: APIs del runtime web
-related:
+technologies:
   - languages/javascript/javascript-built-ins
   - languages/javascript/javascript-binary-data
   - languages/javascript/javascript-browser-constructors

@@ -1,13 +1,12 @@
 ---
 title: El objeto Astro
 description: Astro.props, Astro.params, Astro.url, Astro.redirect(), Astro.cookies y Astro.locals — la API disponible en cualquier archivo .astro.
-type: guides
+tags: [astro, api]
 sidebar:
   order: 7
-tags: [astro, api]
+draft: false
 scope: astro (global Astro)
-related:
-  - frontend/astro/astro-middleware
+technologies: [frontend/astro/astro-middleware]
 updatedAt: 2026-08-25
 ---
 

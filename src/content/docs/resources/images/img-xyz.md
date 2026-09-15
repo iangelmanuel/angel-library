@@ -1,16 +1,15 @@
 ---
 title: img.xyz — verificar antes de usar
 description: Registro de una herramienta de imágenes que no está operativa ni puede verificarse con seguridad; se conserva para explicar por qué no debe utilizarse ahora.
-type: resources
 tags: [images, security, privacy, status]
-url: https://img.xyz/
+draft: false
 resourceCategory: images
-technologies: []
-personalNote: A agosto de 2026 el dominio aparece estacionado y sin HTTPS operativo; no subir archivos ni datos sensibles hasta verificar su estado.
 official: false
-related:
+url: https://img.xyz/
+technologies:
   - performance/performance-carga/performance-image-optimization
   - resources/images/squoosh
+note: A agosto de 2026 el dominio aparece estacionado y sin HTTPS operativo; no subir archivos ni datos sensibles hasta verificar su estado.
 updatedAt: 2026-08-18
 ---
 

@@ -1,13 +1,11 @@
 ---
 title: "SpinKit — spinners CSS listos para copiar"
 description: Colección de indicadores de carga hechos solo con CSS, útiles para mostrar que una operación sigue en proceso sin añadir JavaScript.
-type: resources
 tags: [css, loaders, animation, ui]
-url: https://tobiasahlin.com/spinkit/
+draft: false
 resourceCategory: loaders
-technologies: []
-personalNote: Buena fuente para loaders sin JavaScript; adaptar color, tamaño y reduced motion.
-related: [resources/animations/animista]
+url: https://tobiasahlin.com/spinkit/
+technologies: [resources/animations/animista]
 updatedAt: 2026-08-15
 ---
 

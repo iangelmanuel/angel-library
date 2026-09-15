@@ -1,10 +1,11 @@
 ---
 title: daisyUI
 description: Plugin de Tailwind CSS que agrega clases de componentes semánticas (btn, card, modal) sin JavaScript, en HTML puro.
-type: libraries
+tags: [html, tailwindcss, css]
 sidebar:
   order: 3
-tags: [html, tailwindcss, css]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://daisyui.com
 github: https://github.com/saadeghi/daisyui
 updatedAt: 2026-09-07

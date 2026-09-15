@@ -1,15 +1,14 @@
 ---
 title: "Dribbble — mockups e inspiración para interfaces"
 description: "Galería de trabajos de diseño para estudiar páginas, aplicaciones, componentes y formas de presentar un producto antes de definir una dirección visual propia."
-type: resources
 tags: [ui, ux, inspiracion, mockups, web-design, referencias]
-url: https://dribbble.com/
+draft: false
 resourceCategory: ui-inspiration
-technologies: []
-personalNote: "Usarlo para comparar soluciones visuales, no para copiar una pantalla completa ni asumir que cada mockup se puede descargar o reutilizar."
-related:
+url: https://dribbble.com/
+technologies:
   - resources/ui-inspiration/pinterest
   - resources/ui-inspiration/dark-design
+note: "Usarlo para comparar soluciones visuales, no para copiar una pantalla completa ni asumir que cada mockup se puede descargar o reutilizar."
 updatedAt: 2026-09-04
 ---
 

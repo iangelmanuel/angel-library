@@ -1,13 +1,14 @@
 ---
 title: Git — instalación y flujo esencial desde la terminal
 description: Instalar Git y aprender el flujo mínimo para registrar cambios, separar trabajo en ramas y sincronizar un proyecto local con un repositorio remoto.
-type: guides
+tags: [git, cli, control-de-versiones, repositorios]
 sidebar:
   order: 1
-tags: [git, cli, control-de-versiones, repositorios]
+draft: false
 scope: git
+resourceCategory: Sitio oficial
 website: https://git-scm.com
-related:
+technologies:
   - git/git/git-mental-model-terminology
   - git/git/git-configuracion-inicial
   - git/git/git-flujo-basico

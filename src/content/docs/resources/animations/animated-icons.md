@@ -1,13 +1,11 @@
 ---
 title: "Animated Icons — iconos animados en Lottie, SVG y PNG"
 description: Colección de símbolos con movimiento para representar acciones o estados; se pueden descargar en formatos para web, aplicaciones o imágenes.
-type: resources
 tags: [icons, animation, lottie, ui]
-url: https://animatedicons.co/
+draft: false
 resourceCategory: animations
-technologies: []
-personalNote: Reservarlo para estados o acciones importantes; demasiadas animaciones reducen la claridad de la interfaz.
-related: [resources/animations/animista, resources/icons/tabler-icons]
+url: https://animatedicons.co/
+technologies: [resources/animations/animista, resources/icons/tabler-icons]
 updatedAt: 2026-08-15
 ---
 

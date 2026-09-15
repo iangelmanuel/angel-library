@@ -1,14 +1,12 @@
 ---
 title: Server Actions
 description: Funciones backend con validación Zod integrada — defineAction, llamarlas desde el cliente, formularios con progressive enhancement y manejo de errores.
-type: guides
+tags: [astro, forms, backend]
 sidebar:
   order: 19
-tags: [astro, forms, backend]
+draft: false
 scope: astro:actions
-related:
-  - packages/javascript-zod/zod
-  - general/utils/form
+technologies: [packages/javascript-zod/zod, general/utils/form]
 updatedAt: 2026-08-25
 ---
 

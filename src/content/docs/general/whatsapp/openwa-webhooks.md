@@ -1,13 +1,12 @@
 ---
 title: "OpenWA — webhooks y filtros"
 description: "Recibir eventos de WhatsApp en tu servidor, verificar la firma HMAC y filtrar antes del envío para no procesar ruido."
-type: guides
+tags: [whatsapp, webhooks, hmac, eventos, seguridad]
 sidebar:
   order: 4
-tags: [whatsapp, webhooks, hmac, eventos, seguridad]
+draft: false
 github: https://github.com/rmyndharis/OpenWA
-related:
-  - general/whatsapp/openwa-sesiones-mensajes
+technologies: [general/whatsapp/openwa-sesiones-mensajes]
 updatedAt: 2026-08-30
 ---
 

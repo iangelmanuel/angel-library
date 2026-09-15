@@ -1,13 +1,12 @@
 ---
 title: Layouts anidados
 description: UI compartida que no se remonta al navegar — el layout raíz obligatorio, layouts anidados y route groups para organizar sin tocar la URL.
-type: guides
+tags: [nextjs, routing]
 sidebar:
   order: 6
-tags: [nextjs, routing]
+draft: false
 scope: next.js (layout.tsx)
-related:
-  - frontend/nextjs/nextjs-page-error-loading
+technologies: [frontend/nextjs/nextjs-page-error-loading]
 updatedAt: 2026-08-25
 ---
 

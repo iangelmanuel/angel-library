@@ -1,10 +1,10 @@
 ---
 title: Estructura MVC para APIs Express
 description: Organización por capas (routes, controllers, services, repositories) para backends Express que no se vuelvan spaghetti.
-type: patterns
+tags: [node, express, architecture, mvc]
 sidebar:
   order: 1
-tags: [node, express, architecture, mvc]
+draft: false
 problem: Los routers de Express crecen hasta mezclar HTTP, lógica de negocio y acceso a datos en el mismo archivo.
 updatedAt: 2026-08-16
 ---

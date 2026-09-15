@@ -1,10 +1,10 @@
 ---
 title: prisma-database-setup
 description: Skill oficial de Prisma — schema, migraciones y configuración inicial siguiendo las convenciones recomendadas del equipo.
-type: skills
+tags: [ai, skill, prisma, database]
 sidebar:
   order: 9
-tags: [ai, skill, prisma, database]
+draft: false
 tool: Cross-tool
 updatedAt: 2026-08-17
 ---

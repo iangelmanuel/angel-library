@@ -1,13 +1,14 @@
 ---
 title: HTTP y ciclo completo de carga del navegador
 description: "Desde una URL hasta una página interactiva: DNS, conexiones, TLS, HTTP, caché, servidor, parsing, renderizado y métricas."
-type: guides
+tags: [http, browser, dns, cache, rendering]
 sidebar:
   order: 33
-tags: [http, browser, dns, cache, rendering]
+draft: false
 scope: plataforma web
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/HTTP
-related:
+technologies:
   - languages/javascript/javascript
   - languages/javascript/javascript-events
   - performance/performance-fundamentos/core-web-vitals

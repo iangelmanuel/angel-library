@@ -1,12 +1,12 @@
 ---
 title: Scripts de terceros y carga diferida
 description: Usa next/script y next/dynamic para controlar cuándo se descargan scripts, widgets y componentes pesados.
-type: guides
+tags: [nextjs, scripts, lazy-loading, performance]
 sidebar:
   order: 27
-tags: [nextjs, scripts, lazy-loading, performance]
+draft: false
 scope: next.js app router
-related:
+technologies:
   - frontend/nextjs/nextjs-server-client-components
   - frontend/nextjs/nextjs-streaming-suspense
 updatedAt: 2026-08-25

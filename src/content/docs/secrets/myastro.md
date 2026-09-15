@@ -1,7 +1,6 @@
 ---
 title: Configuración inicial de Astro
 description: Paso a paso privado para iniciar un proyecto Astro con metadatos, configuración base, GitHub Actions, aliases, Tailwind, Prettier, ESLint, SITE, SEO y archivos de repositorio.
-type: commands
 tags:
   [
     astro,
@@ -15,18 +14,18 @@ tags:
     seo,
     privado
   ]
-command: /myastro
-whenToUse: Ejecuta /myastro en la terminal interna cuando quieras iniciar un proyecto Astro con esta configuración.
-warnings:
-  - "Esta entrada es privada y solo se abre mediante el comando /myastro en la terminal de búsqueda."
-  - "Completa únicamente los datos reales del proyecto y conserva en null los campos que no apliquen."
+draft: false
 private: true
-related:
+technologies:
   - frontend/astro/astro-getting-started
   - frontend/astro/astro-project-configuration
   - general/typescript/typescript-path-aliases
   - general/config/site-config-global
   - seo/astro/astro-seo-completo
+warnings:
+  - "Esta entrada es privada y solo se abre mediante el comando /myastro en la terminal de búsqueda."
+  - "Completa únicamente los datos reales del proyecto y conserva en null los campos que no apliquen."
+whenToUse: Ejecuta /myastro en la terminal interna cuando quieras iniciar un proyecto Astro con esta configuración.
 updatedAt: 2026-08-27
 ---
 

@@ -1,15 +1,13 @@
 ---
 title: "Aprende SQL — curso interactivo con certificado gratuito"
 description: "Curso interactivo en español para aprender a consultar y modificar bases de datos con SQL, practicando cada concepto en un editor integrado."
-type: resources
+tags: [cursos, midudev, sql, bases-de-datos, certificado, gratis, espanol]
 sidebar:
   order: 3
-tags: [cursos, midudev, sql, bases-de-datos, certificado, gratis, espanol]
-url: https://www.aprendesql.dev/
+draft: false
 resourceCategory: learning
-personalNote: "Se practica escribiendo consultas de verdad dentro de la lección, que es lo que separa aprender SQL de haber visto un video sobre SQL."
-related:
-  - courses/cursos-midudev/midudev-cursos-por-tecnologia
+url: https://www.aprendesql.dev/
+technologies: [courses/cursos-midudev/midudev-cursos-por-tecnologia]
 updatedAt: 2026-08-30
 ---
 

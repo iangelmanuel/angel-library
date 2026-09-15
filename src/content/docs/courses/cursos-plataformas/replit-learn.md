@@ -1,13 +1,12 @@
 ---
 title: "Replit Learn"
 description: "Cursos breves para convertir una idea en una aplicación usando la asistencia de IA y la plataforma de Replit, desde las instrucciones iniciales hasta el despliegue."
-type: resources
+tags: [cursos, replit, ia, vibe-coding, despliegue]
 sidebar:
   order: 6
-tags: [cursos, replit, ia, vibe-coding, despliegue]
-url: https://learn.replit.com/
+draft: false
 resourceCategory: learning
-personalNote: Está atado a la plataforma de Replit; útil para entender el flujo de construir con IA, menos transferible que un curso independiente.
+url: https://learn.replit.com/
 updatedAt: 2026-08-30
 ---
 

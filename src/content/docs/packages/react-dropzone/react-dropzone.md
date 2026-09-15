@@ -1,14 +1,14 @@
 ---
 title: React Dropzone
 description: Zonas de drag & drop para subir archivos — useDropzone, validación de tipo/tamaño y manejo de archivos rechazados.
-type: libraries
+tags: [react, forms, files]
 sidebar:
   order: 8
-tags: [react, forms, files]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://react-dropzone.js.org
 github: https://github.com/react-dropzone/react-dropzone
-related:
-  - packages/react-hook-form/react-hook-form
+technologies: [packages/react-hook-form/react-hook-form]
 updatedAt: 2026-08-25
 ---
 

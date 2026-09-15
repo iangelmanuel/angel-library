@@ -1,13 +1,14 @@
 ---
 title: "JavaScript avanzado: this, Symbols y metaprogramación"
 description: Reglas de this, call/apply/bind, Symbols, conversión personalizada, Proxy y Reflect sin ocultar el flujo del programa.
-type: guides
+tags: [javascript, this, symbols, proxy, reflect, metaprogramming]
 sidebar:
   order: 18
-tags: [javascript, this, symbols, proxy, reflect, metaprogramming]
+draft: false
 scope: lenguaje avanzado
+resourceCategory: Documentación oficial
 website: https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Meta_programming
-related:
+technologies:
   - languages/javascript/javascript-prototypes-classes
   - languages/javascript/javascript-iterators-generators
   - languages/javascript/javascript-objects

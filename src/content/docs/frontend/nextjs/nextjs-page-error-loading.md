@@ -1,10 +1,10 @@
 ---
 title: "page.tsx, error.tsx, loading.tsx"
 description: Los archivos especiales directamente ruta — qué hace cada uno y cómo se envuelven entre sí (Suspense + error boundary automáticos).
-type: guides
+tags: [nextjs, routing]
 sidebar:
   order: 7
-tags: [nextjs, routing]
+draft: false
 scope: next.js app router (file conventions)
 updatedAt: 2026-08-25
 ---

@@ -1,11 +1,11 @@
 ---
 title: Infraestructura como código — estado, plan y despliegue
 description: Versionar recursos cloud mediante cambios revisables, estado protegido, módulos pequeños y detección de drift.
-type: guides
+tags: [devops, iac, terraform, infrastructure, cloud]
 sidebar:
   order: 1
-tags: [devops, iac, terraform, infrastructure, cloud]
-related:
+draft: false
+technologies:
   - devops/cloud-fundamentos/devops-cloud-fundamentals
   - devops/ci-cd/cicd-pipeline-fundamentals
   - security/security-infra/security-secrets-supply-chain

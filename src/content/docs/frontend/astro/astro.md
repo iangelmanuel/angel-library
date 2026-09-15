@@ -1,11 +1,12 @@
 ---
 title: Astro
 description: Ruta de Astro para aprender desde la instalación hasta islas, contenido y render bajo demanda, o consultar rápidamente una API concreta.
-type: technologies
 tags: [astro, framework, static, islands]
+draft: false
+resourceCategory: Documentación oficial
 website: https://astro.build
 github: https://github.com/withastro/astro
-related:
+technologies:
   - frontend/astro/astro-getting-started
   - frontend/astro/astro-project-configuration
   - frontend/astro/astro-components-props-slots

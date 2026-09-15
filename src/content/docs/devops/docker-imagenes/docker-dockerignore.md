@@ -1,16 +1,14 @@
 ---
 title: ".dockerignore"
 description: Qué es el contexto de build, por qué excluir archivos de él, y la sintaxis del .dockerignore.
-type: guides
+tags: [docker, dockerignore, imagenes]
 sidebar:
   order: 5
-tags: [docker, dockerignore, imagenes]
+draft: false
 scope: .dockerignore
-related:
-  [
-    devops/docker-imagenes/docker-build-tags,
-    devops/docker-imagenes/docker-capas-cache
-  ]
+technologies:
+  - devops/docker-imagenes/docker-build-tags
+  - devops/docker-imagenes/docker-capas-cache
 updatedAt: 2026-08-17
 ---
 

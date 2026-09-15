@@ -1,13 +1,13 @@
 ---
 title: "GEAR Get Certified (Google Cloud)"
 description: "Programa por convocatorias para preparar una certificación de Google Cloud mediante clases, laboratorios y mentoría; exige revisar requisitos y fechas de admisión."
-type: resources
+tags: [cursos, google, cloud, certificado, ia, gratis]
 sidebar:
   order: 1
-tags: [cursos, google, cloud, certificado, ia, gratis]
-url: https://developers.google.com/program/gear/getcertified
+draft: false
 resourceCategory: learning
-personalNote: El requisito de trabajar en una empresa cliente de Google Cloud con correo corporativo deja fuera a mucha gente; conviene comprobarlo antes de ilusionarse.
+url: https://developers.google.com/program/gear/getcertified
+note: El requisito de trabajar en una empresa cliente de Google Cloud con correo corporativo deja fuera a mucha gente; conviene comprobarlo antes de ilusionarse.
 updatedAt: 2026-08-30
 ---
 

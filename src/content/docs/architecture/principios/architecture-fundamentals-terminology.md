@@ -1,10 +1,10 @@
 ---
 title: "Arquitectura de software: fundamentos y terminología"
 description: Vocabulario para razonar sobre límites, módulos, acoplamiento, cohesión, capas, dependencias y decisiones arquitectónicas.
-type: guides
 tags: [arquitectura, diseno, modulos, dependencias, fundamentos]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

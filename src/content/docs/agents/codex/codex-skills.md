@@ -1,12 +1,12 @@
 ---
 title: Skills — el mecanismo primario
 description: SKILL.md, el estándar abierto que Codex ayuda a impulsar — reemplaza a los Custom Prompts, hoy deprecados.
-type: skills
+tags: [ai, codex, skill]
 sidebar:
   order: 2
-tags: [ai, codex, skill]
+draft: false
 tool: Codex CLI
-related: [agents/claude-code/claude-code-skills]
+technologies: [agents/claude-code/claude-code-skills]
 updatedAt: 2026-08-17
 ---
 

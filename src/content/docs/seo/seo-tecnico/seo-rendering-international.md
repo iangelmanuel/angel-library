@@ -1,11 +1,11 @@
 ---
 title: SEO con JavaScript e internacionalización
 description: Diseñar HTML rastreable, URLs por idioma, hreflang, canonical y contenido dinámico sin crear versiones duplicadas o invisibles.
-type: guides
+tags: [seo, javascript, rendering, i18n, hreflang]
 sidebar:
   order: 3
-tags: [seo, javascript, rendering, i18n, hreflang]
-related:
+draft: false
+technologies:
   - seo/seo-tecnico/seo-rastreo-indexacion
   - seo/seo-tecnico/seo-metadata-datos-estructurados
   - seo/seo-tecnico/seo-auditoria-migraciones

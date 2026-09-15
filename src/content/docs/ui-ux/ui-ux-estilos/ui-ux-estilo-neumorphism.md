@@ -1,11 +1,11 @@
 ---
 title: "Neumorphism"
 description: "Elementos que parecen extruidos del propio fondo con dos sombras opuestas, y por qué casi siempre falla en contraste."
-type: guides
+tags: [ui, diseño, estilos, neumorphism, css, accesibilidad]
 sidebar:
   order: 3
-tags: [ui, diseño, estilos, neumorphism, css, accesibilidad]
-related:
+draft: false
+technologies:
   - ui-ux/ui-ux-estilos/ui-ux-estilos-visuales
   - ui-ux/ui-ux-estilos/ui-ux-estilo-skeuomorphism
 updatedAt: 2026-08-30

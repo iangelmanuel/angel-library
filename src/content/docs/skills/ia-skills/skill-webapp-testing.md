@@ -1,10 +1,10 @@
 ---
 title: webapp-testing — testing de aplicaciones web
 description: Skill oficial de Anthropic para escribir y correr tests directamente webapp de punta a punta.
-type: skills
+tags: [ai, skill, testing]
 sidebar:
   order: 5
-tags: [ai, skill, testing]
+draft: false
 tool: Claude Code
 updatedAt: 2026-08-17
 ---

@@ -1,12 +1,12 @@
 ---
 title: Supabase + Express
 description: Un endpoint Express que lee/escribe en Supabase con la service role key, y otro que verifica un usuario autenticado vía Supabase Auth.
-type: recipes
+tags: [express, supabase, database]
 sidebar:
   order: 29
-tags: [express, supabase, database]
-problem: Conectar Express a un proyecto Supabase ya creado, para datos y para verificar sesiones de un frontend que usa Supabase Auth.
+draft: false
 technologies: [backend/express/express-supabase]
+problem: Conectar Express a un proyecto Supabase ya creado, para datos y para verificar sesiones de un frontend que usa Supabase Auth.
 updatedAt: 2026-08-16
 ---
 

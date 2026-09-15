@@ -1,12 +1,12 @@
 ---
 title: "Diagnóstico de red básico"
 description: "ping, ver la IP local y resolver DNS desde la terminal, en Windows, macOS y Linux."
-type: guides
+tags: [terminal, red, dns, ping]
 sidebar:
   order: 11
-tags: [terminal, red, dns, ping]
+draft: false
 scope: red
-related: [terminal/terminal/terminal-puertos]
+technologies: [terminal/terminal/terminal-puertos]
 updatedAt: 2026-08-17
 ---
 

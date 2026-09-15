@@ -1,12 +1,12 @@
 ---
 title: Optimización de imágenes para la web
 description: Elegir dimensiones, formato, compresión, imágenes responsive, prioridad y herramientas sin degradar la experiencia.
-type: guides
+tags: [performance, images, webp, avif, responsive]
 sidebar:
   order: 2
-tags: [performance, images, webp, avif, responsive]
+draft: false
 scope: imágenes web
-related:
+technologies:
   - performance/performance-fundamentos/core-web-vitals
   - frontend/astro/astro-image-picture
   - frontend/nextjs/nextjs-image

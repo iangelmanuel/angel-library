@@ -1,15 +1,13 @@
 ---
 title: "curso-ingles.com"
 description: "Referencia gratuita de gramática inglesa explicada en español, útil para resolver una duda concreta y practicarla con ejercicios breves."
-type: resources
+tags: [cursos, ingles, gramatica, gratis, espanol]
 sidebar:
   order: 1
-tags: [cursos, ingles, gramatica, gratis, espanol]
-url: https://www.curso-ingles.com/
+draft: false
 resourceCategory: learning
-personalNote: Funciona mejor como referencia de gramática para resolver una duda concreta que como curso para seguir de principio a fin.
-related:
-  - courses/cursos-plataformas/freecodecamp-a2-english
+url: https://www.curso-ingles.com/
+technologies: [courses/cursos-plataformas/freecodecamp-a2-english]
 updatedAt: 2026-08-30
 ---
 

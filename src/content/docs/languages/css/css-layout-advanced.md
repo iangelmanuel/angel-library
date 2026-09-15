@@ -1,12 +1,12 @@
 ---
 title: "Layout CSS avanzado: grid, subgrid y contextos"
 description: Entender sizing, minmax, subgrid, containing blocks, stacking contexts y patrones de layout que suelen causar bugs.
-type: guides
+tags: [css, grid, layout, subgrid, stacking-context]
 sidebar:
   order: 2
-tags: [css, grid, layout, subgrid, stacking-context]
+draft: false
 scope: layout avanzado
-related:
+technologies:
   - languages/css/css-layout-tricks
   - languages/css/css-full-bleed
   - languages/css/css-cascade-layers-container

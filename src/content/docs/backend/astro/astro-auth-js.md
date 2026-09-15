@@ -1,12 +1,13 @@
 ---
 title: Auth.js (auth-astro) en Astro
 description: Instalación con astro add, providers (social y Credentials), los callbacks jwt/session para meter datos propios en la sesión, y cómo tiparlos.
-type: guides
+tags: [astro, auth-js, nextauth, auth]
 sidebar:
   order: 6
-tags: [astro, auth-js, nextauth, auth]
+draft: false
+resourceCategory: Documentación oficial
 website: https://authjs.dev
-related: [backend/astro/astro-backend-arquitectura]
+technologies: [backend/astro/astro-backend-arquitectura]
 updatedAt: 2026-08-17
 ---
 

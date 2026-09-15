@@ -1,10 +1,10 @@
 ---
 title: Logging de requests
 description: morgan para logs automáticos de cada request, y un logger propio cuando hace falta más control o structured logging.
-type: guides
+tags: [express, logging, morgan]
 sidebar:
   order: 6
-tags: [express, logging, morgan]
+draft: false
 scope: logging middleware
 updatedAt: 2026-08-16
 ---

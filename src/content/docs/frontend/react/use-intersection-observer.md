@@ -1,12 +1,12 @@
 ---
 title: useIntersectionObserver
 description: Saber si un elemento está visible en el viewport — lazy loading, infinite scroll y animaciones al hacer scroll, sin listeners de scroll a mano.
-type: hooks
+tags: [react, hooks, dom, performance, typescript]
 sidebar:
   order: 6
-tags: [react, hooks, dom, performance, typescript]
+draft: false
+language: TypeScript
 framework: React
-language: typescript
 updatedAt: 2026-08-25
 ---
 

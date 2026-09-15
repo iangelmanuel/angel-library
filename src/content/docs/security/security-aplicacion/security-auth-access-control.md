@@ -1,12 +1,12 @@
 ---
 title: Autenticación, sesiones y control de acceso
 description: Proteger identidad y recursos evitando sesiones robadas, enumeración, escalada de privilegios e IDOR.
-type: guides
+tags: [security, authentication, authorization, sessions]
 sidebar:
   order: 3
-tags: [security, authentication, authorization, sessions]
+draft: false
 scope: identidad y permisos
-related:
+technologies:
   - security/security-fundamentos/security-threat-modeling
   - security/security-testing/web-security-checklist
 updatedAt: 2026-08-18

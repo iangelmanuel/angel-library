@@ -1,12 +1,12 @@
 ---
 title: Cache Components — use cache, cacheLife y cacheTag
 description: El modelo moderno para mezclar shell estática, datos cacheados y contenido dinámico con Partial Prerendering.
-type: guides
+tags: [nextjs, caching, performance, rendering]
 sidebar:
   order: 17
-tags: [nextjs, caching, performance, rendering]
+draft: false
 scope: next.js cache components
-related:
+technologies:
   - frontend/nextjs/nextjs-directivas
   - frontend/nextjs/nextjs-fetching-revalidate
   - frontend/nextjs/nextjs-streaming-suspense

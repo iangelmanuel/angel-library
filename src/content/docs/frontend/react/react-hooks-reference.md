@@ -1,13 +1,14 @@
 ---
 title: Mapa de Hooks y APIs nativas de React
 description: Referencia por intención de los Hooks actuales, sus firmas, el valor que devuelven y el problema que realmente resuelven.
-type: guides
+tags: [react, hooks, reference, api]
 sidebar:
   order: 10
-tags: [react, hooks, reference, api]
+draft: false
 scope: referencia de React
+resourceCategory: Documentación oficial
 website: https://react.dev/reference/react/hooks
-related:
+technologies:
   - frontend/react/react
   - frontend/react/react-usestate
   - frontend/react/react-useeffect

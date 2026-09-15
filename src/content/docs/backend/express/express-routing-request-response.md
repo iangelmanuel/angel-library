@@ -1,12 +1,12 @@
 ---
 title: Routing, Request y Response
 description: Definir rutas y routers, leer params/query/body/headers y terminar respuestas sin mezclar transporte con negocio.
-type: guides
+tags: [express, routing, request, response]
 sidebar:
   order: 2
-tags: [express, routing, request, response]
+draft: false
 scope: Express Router y HTTP
-related:
+technologies:
   - backend/express/express-primeros-pasos
   - backend/express/express-middlewares
   - backend/backend-fundamentos/backend-api-design

@@ -1,11 +1,11 @@
 ---
 title: PostgreSQL práctico — esquemas, tipos y consultas
 description: Empezar con PostgreSQL, organizar objetos en esquemas y tomar decisiones cotidianas sobre tipos, JSONB, extensiones, consultas y conexiones.
-type: guides
+tags: [postgresql, jsonb, pooling, types, sql]
 sidebar:
   order: 1
-tags: [postgresql, jsonb, pooling, types, sql]
-related:
+draft: false
+technologies:
   - database/database-postgresql/postgresql-transacciones-concurrencia
   - database/database-sql/database-indices-explain
 updatedAt: 2026-08-28

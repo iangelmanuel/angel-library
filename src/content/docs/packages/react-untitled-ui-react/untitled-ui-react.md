@@ -1,10 +1,11 @@
 ---
 title: "Untitled UI React"
 description: "Colección abierta de componentes React sobre Tailwind CSS y React Aria que se copian al proyecto, con modo oscuro y accesibilidad incluidos."
-type: libraries
+tags: [react, tailwindcss, componentes, accesibilidad, react-aria, typescript]
 sidebar:
   order: 8
-tags: [react, tailwindcss, componentes, accesibilidad, react-aria, typescript]
+draft: false
+resourceCategory: Documentación del paquete
 website: https://www.untitledui.com/react
 github: https://github.com/untitleduico/react
 technologies: [frontend/react/react]

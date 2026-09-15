@@ -1,10 +1,10 @@
 ---
 title: "Accesibilidad web: fundamentos y terminología"
 description: Modelo mental para comprender WCAG, semántica, tecnologías asistivas, nombre accesible, foco, teclado y pruebas de accesibilidad.
-type: guides
 tags: [accesibilidad, a11y, wcag, aria, semantica, fundamentos]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

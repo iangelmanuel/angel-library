@@ -1,11 +1,11 @@
 ---
 title: Datos de prueba, factories, fixtures y snapshots
 description: Preparar datos legibles y aislados con builders y fixtures, decidir cuándo usar snapshots y evitar suites frágiles por estado compartido.
-type: guides
+tags: [testing, fixtures, factories, snapshots, test-data]
 sidebar:
   order: 3
-tags: [testing, fixtures, factories, snapshots, test-data]
-related:
+draft: false
+technologies:
   - testing/testing-unitario/testing-vitest-practico
   - testing/testing-fundamentos/testing-test-design-techniques
   - testing/testing-integracion/testing-backend-database

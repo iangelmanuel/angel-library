@@ -1,12 +1,12 @@
 ---
 title: "Redes en Docker"
 description: La red bridge por defecto, crear redes propias, y cómo los contenedores se encuentran entre sí por nombre.
-type: guides
+tags: [docker, redes, networking]
 sidebar:
   order: 2
-tags: [docker, redes, networking]
+draft: false
 scope: redes
-related: [devops/docker-compose/docker-compose-multi-servicio]
+technologies: [devops/docker-compose/docker-compose-multi-servicio]
 updatedAt: 2026-08-17
 ---
 

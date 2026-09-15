@@ -1,12 +1,12 @@
 ---
 title: "Neon CLI: Postgres serverless con branching"
 description: Instalar neonctl, autenticarse y los comandos esenciales para crear proyectos, ramas de base de datos y obtener el connection string.
-type: guides
+tags: [cli, neon, postgres, base-de-datos]
 sidebar:
   order: 9
-tags: [cli, neon, postgres, base-de-datos]
+draft: false
 scope: neon
-related: [terminal/cli/cli-turso]
+technologies: [terminal/cli/cli-turso]
 updatedAt: 2026-08-17
 ---
 

@@ -1,14 +1,12 @@
 ---
 title: "Napkin AI — texto convertido en diagramas editables"
 description: Herramienta que interpreta un texto y propone una forma visual de explicarlo, como un flujo o una jerarquía; el resultado se puede editar y exportar.
-type: resources
 tags: [ai, diagramas, visuales, documentacion, presentaciones, svg]
-url: https://www.napkin.ai/
+draft: false
 resourceCategory: ia
-technologies: []
-personalNote: Lo valioso es que exporta SVG y todo queda editable; sirve para ilustrar documentación técnica sin abrir una herramienta de diseño. El plan gratuito no incluye SVG ni PPT.
-related:
-  - resources/ia/vibiz-ai
+url: https://www.napkin.ai/
+technologies: [resources/ia/vibiz-ai]
+note: Lo valioso es que exporta SVG y todo queda editable; sirve para ilustrar documentación técnica sin abrir una herramienta de diseño. El plan gratuito no incluye SVG ni PPT.
 updatedAt: 2026-08-30
 ---
 

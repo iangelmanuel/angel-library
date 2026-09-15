@@ -1,11 +1,11 @@
 ---
 title: Playwright práctico — navegador, locators y fixtures
 description: Configurar Playwright, escribir recorridos por comportamiento, usar auto-wait, proyectos, autenticación, red, API y trazas sin crear pruebas frágiles.
-type: guides
+tags: [testing, playwright, e2e, browser, fixtures]
 sidebar:
   order: 1
-tags: [testing, playwright, e2e, browser, fixtures]
-related:
+draft: false
+technologies:
   - terminal/cli/cli-playwright
   - testing/testing-e2e/testing-e2e-reliable-ci
   - testing/testing-e2e/testing-visual-accessibility

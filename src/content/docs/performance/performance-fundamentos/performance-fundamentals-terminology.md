@@ -1,10 +1,10 @@
 ---
 title: "Rendimiento web: fundamentos y terminología"
 description: Modelo mental para entender red, renderizado, métricas de usuario, trabajo del hilo principal, caché y presupuestos de rendimiento.
-type: guides
 tags: [performance, rendimiento, web-vitals, rum, red, renderizado]
 sidebar:
   order: 1
+draft: false
 updatedAt: 2026-08-25
 ---
 

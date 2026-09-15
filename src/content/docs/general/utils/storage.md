@@ -1,11 +1,10 @@
 ---
 title: Storage Utils — Referencia rápida
 description: Wrapper tipado sobre localStorage/sessionStorage con parseo JSON seguro y detección de disponibilidad.
-type: utilities
 tags: [typescript, storage, browser]
-runtime: browser
-language: typescript
-related: []
+draft: false
+language: TypeScript
+runtime: Navegador
 updatedAt: 2026-08-15
 ---
 

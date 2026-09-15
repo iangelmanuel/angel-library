@@ -1,12 +1,12 @@
 ---
 title: Testing en Next.js — unitario, componentes y E2E
 description: Qué probar con Vitest y Testing Library, qué dejar a Playwright y cómo tratar Server Components y Server Actions.
-type: guides
+tags: [nextjs, testing, vitest, playwright]
 sidebar:
   order: 10
-tags: [nextjs, testing, vitest, playwright]
+draft: false
 scope: next.js app router (testing)
-related:
+technologies:
   - packages/node-vitest/vitest-backend
   - terminal/cli/cli-playwright
 updatedAt: 2026-08-28
