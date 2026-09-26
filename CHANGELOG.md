@@ -8,6 +8,52 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.41.0] — 2026-09-26
+
+16 entradas nuevas sobre agentes, SDKs de IA y herramientas de desarrollo,
+seis subcategorías nuevas y Herdr reubicado y ampliado. Solo contenido y
+configuración de categorías: no cambia ninguna lógica del sitio.
+
+### Añadido
+
+- **16 entradas nuevas.**
+  - **Agentes → Jev (TypeSafe)**, subcategoría nueva con cuatro entradas:
+    qué es un modelo System One, primitivas (Choice, Score, Noul) y API
+    HTTP, SDK de Python, JavaScript y el proveedor `@ai-sdk/typesafe-ai`
+    con la skill oficial, y confianza, patrones y límites de `jev-1.13`.
+  - **Agentes → Asistentes**, subcategoría nueva: Hermes CLI y Hermes
+    Desktop, de Nous Research.
+  - **IA SDK → Strands Agents**, el SDK de agentes de AWS para Python y
+    TypeScript (agent loop, MCP, hooks, sesiones, multiagente y A2A).
+  - **IA Tools → security-audit**, la skill de auditoría de seguridad en
+    seis fases de Cloudflare.
+  - **Aplicaciones → WezTerm**, terminal y multiplexor configurable con Lua.
+  - **Paquetes → React Bits**, con la colección Micro de microinteracciones.
+  - **Terminal & CLI → TryCloudflare**, Quick Tunnels de `cloudflared` para
+    compartir `localhost`.
+  - **Recursos → Perplexity** (app, Agent API, Search API, CLI `pplx` y MCP)
+    y **Higgsfield CLI**.
+  - **Hallazgos**: Kev (modelos de decisión locales tipo Jev), AX (el
+    orquestador de agentes de Google) y Univer (SDK de hojas, documentos y
+    presentaciones).
+- **Seis subcategorías nuevas**, declaradas en `categories.ts` y
+  `sidebar.ts`: `agents/jev`, `agents/asistentes`,
+  `applications/apps-orchestration` («Orquestación de agentes»),
+  `packages/react-bits`, `resources/ia-research` («IA · Research») y
+  `resources/ia-media` («IA · Imagen y video»).
+
+### Cambiado
+
+- **Herdr pasa de Hallazgos a Aplicaciones → Orquestación de agentes**
+  (`/applications/apps-orchestration/herdr`) y se actualizó: restauración
+  tras reinicio, varias máquinas en una ventana, plugins, instalación en
+  Windows y enlaces a la documentación actual.
+- **Higgsfield y Midjourney pasan de `resources/ia` a `resources/ia-media`**,
+  junto a la nueva Higgsfield CLI. Cambian sus URLs; se actualizaron los
+  enlaces cruzados entre ellas.
+- **Cifras actualizadas a 768 entradas, 24 categorías y 183
+  subcategorías** en `README.md` y `docs/ARCHITECTURE.md`.
+
 ## [0.40.0] — 2026-09-15
 
 Cabecera de entrada reconstruida, frontmatter unificado en las 755 entradas
@@ -2683,7 +2729,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.40.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.41.0...HEAD
+[0.41.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.41.0
 [0.40.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.40.0
 [0.39.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.39.0
 [0.38.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.38.0

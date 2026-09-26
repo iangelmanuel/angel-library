@@ -303,6 +303,11 @@ export const SIDEBAR = [
             items: [{ autogenerate: { directory: "packages/react-magic-ui" } }]
           },
           {
+            label: "React - React Bits",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "packages/react-bits" } }]
+          },
+          {
             label: "React - Boneyard",
             collapsed: true,
             items: [{ autogenerate: { directory: "packages/react-boneyard" } }]
@@ -630,6 +635,16 @@ export const SIDEBAR = [
             label: "OpenCode",
             collapsed: true,
             items: [{ autogenerate: { directory: "agents/opencode" } }]
+          },
+          {
+            label: "Asistentes",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "agents/asistentes" } }]
+          },
+          {
+            label: "Jev (TypeSafe)",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "agents/jev" } }]
           }
         ]
       },
@@ -998,6 +1013,13 @@ export const SIDEBAR = [
             label: "Comunicación",
             collapsed: true,
             items: [{ autogenerate: { directory: "applications/apps-comms" } }]
+          },
+          {
+            label: "Orquestación de agentes",
+            collapsed: true,
+            items: [
+              { autogenerate: { directory: "applications/apps-orchestration" } }
+            ]
           }
         ]
       },
@@ -1180,6 +1202,16 @@ export const SIDEBAR = [
             label: "IA",
             collapsed: true,
             items: [{ autogenerate: { directory: "resources/ia" } }]
+          },
+          {
+            label: "IA · Research",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "resources/ia-research" } }]
+          },
+          {
+            label: "IA · Imagen y video",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "resources/ia-media" } }]
           }
         ]
       }

@@ -3,9 +3,9 @@ title: "Midjourney — exploración y generación de imágenes con IA"
 description: "Servicio para convertir instrucciones y referencias visuales en imágenes, variaciones y clips cortos; resulta útil para explorar conceptos y definir una dirección artística."
 tags: [ia, imagenes, video, generacion, moodboard, direccion-artistica]
 draft: false
-resourceCategory: ia
+resourceCategory: ia-media
 url: https://www.midjourney.com/
-technologies: [resources/ia/higgsfield]
+technologies: [resources/ia-media/higgsfield]
 note: "Usarlo para explorar una dirección visual y producir referencias; comprobar visibilidad, derechos y consistencia antes de tratar el resultado como asset final."
 updatedAt: 2026-09-04
 ---

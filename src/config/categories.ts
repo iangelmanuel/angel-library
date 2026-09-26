@@ -57,6 +57,16 @@ export const CATEGORIES = {
       opencode: {
         label: "OpenCode",
         description: "Asistente de código abierto para la terminal."
+      },
+      asistentes: {
+        label: "Asistentes",
+        description:
+          "Agentes personales autónomos con memoria, skills propias y acceso desde terminal, escritorio y mensajería."
+      },
+      jev: {
+        label: "Jev (TypeSafe)",
+        description:
+          "Modelo System One de TypeSafe: decisiones tipadas y probabilidades calibradas en lugar de texto generado."
       }
     }
   },
@@ -158,6 +168,11 @@ export const CATEGORIES = {
         label: "Comunicación",
         description:
           "Canales para conversar, dar soporte y conectar notificaciones o automatizaciones con un equipo o comunidad."
+      },
+      "apps-orchestration": {
+        label: "Orquestación de agentes",
+        description:
+          "Runtimes y entornos para lanzar, vigilar y coordinar varios agentes de código a la vez."
       }
     }
   },
@@ -703,6 +718,11 @@ export const CATEGORIES = {
         label: "React - Magic UI",
         description: "Componentes visuales y animados para React."
       },
+      "react-bits": {
+        label: "React - React Bits",
+        description:
+          "Componentes animados, microinteracciones y fondos para copiar y pegar."
+      },
       "react-boneyard": {
         label: "React - Boneyard",
         description:
@@ -893,6 +913,18 @@ export const CATEGORIES = {
         label: "IA",
         description:
           "Herramientas y directorios para trabajar con modelos, agentes e integraciones de inteligencia artificial.",
+        badge: false
+      },
+      "ia-research": {
+        label: "IA · Research",
+        description:
+          "Buscadores y motores de investigación con IA que responden con fuentes citadas.",
+        badge: false
+      },
+      "ia-media": {
+        label: "IA · Imagen y video",
+        description:
+          "Plataformas y CLIs para generar y editar imágenes, video, audio y 3D con modelos de IA.",
         badge: false
       }
     }
