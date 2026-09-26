@@ -8,6 +8,15 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.41.1] — 2026-09-26
+
+### Corregido
+
+- **El build de producción fallaba** porque pnpm no ejecutaba los scripts
+  de instalación de las dependencias nativas. `pnpm-workspace.yaml` ahora
+  permite (`allowBuilds`) los de `esbuild`, que antes estaba bloqueado
+  explícitamente, y los de `sharp`, que no estaba declarado.
+
 ## [0.41.0] — 2026-09-26
 
 16 entradas nuevas sobre agentes, SDKs de IA y herramientas de desarrollo,
@@ -2729,7 +2738,8 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.41.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.41.1...HEAD
+[0.41.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.41.1
 [0.41.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.41.0
 [0.40.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.40.0
 [0.39.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.39.0
