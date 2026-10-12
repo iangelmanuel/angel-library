@@ -597,6 +597,11 @@ export const CATEGORIES = {
         label: "JavaScript - Chart.js",
         description: "Gráficas sobre canvas para la web, con tipos listos."
       },
+      "javascript-tanstack-charts": {
+        label: "JavaScript - TanStack Charts",
+        description:
+          "Gráficas SVG ligeras y sin estilos impuestos para React, Vue, Solid, Svelte y Angular."
+      },
       "javascript-pragmatic-drag-and-drop": {
         label: "JavaScript - Pragmatic drag and drop",
         description:
@@ -925,6 +930,12 @@ export const CATEGORIES = {
         label: "IA · Imagen y video",
         description:
           "Plataformas y CLIs para generar y editar imágenes, video, audio y 3D con modelos de IA.",
+        badge: false
+      },
+      servicios: {
+        label: "Servicios con capa gratuita",
+        description:
+          "Servicios en la nube (bases de datos, email, monitorización, revisión de código) que ofrecen un plan gratuito suficiente para proyectos personales y prototipos.",
         badge: false
       }
     }
