@@ -1,38 +1,79 @@
 ---
 title: "it's free*.ai — directorio de APIs gratuitas de modelos de IA"
-description: "Directorio que compara las capas gratuitas de proveedores de modelos de IA, con sus límites por minuto y por día, ventana de contexto y requisitos de registro."
-tags: [ia, api, llm, gratis, limites]
+description: "Directorio que compara las capas gratuitas de proveedores de modelos de IA, con sus límites por minuto y por día, ventana de contexto y requisitos de registro, además de runtimes locales y herramientas alrededor de los modelos."
+tags: [ia, api, llm, gratis, limites, openai-compatible, local]
 draft: false
 resourceCategory: ia
 official: false
 url: https://itsfree.ai/
-note: "Sirve para prototipar sin tarjeta, no para producción: la mayoría de capas gratuitas no garantizan disponibilidad y varias entrenan con lo que les envías."
-updatedAt: 2026-09-01
+github: https://github.com/midudev/itsfree.ai
+technologies: [resources/ia/canirun-ai, ai/ai-sdk/ai-sdk-openrouter, terminal/cli/cli-openrouter]
+note: "Sirve para prototipar sin tarjeta, no para producción: la mayoría de capas gratuitas no garantizan disponibilidad y varias entrenan con lo que les envías. Las cifras de esta página son las que mostraba el sitio en octubre de 2026."
+warnings:
+  - "Las capas gratuitas cambian sin previo aviso: confirma el límite en la documentación del proveedor antes de construir encima."
+  - "No envíes datos de clientes ni código privado a un endpoint gratuito sin leer su política de entrenamiento."
+updatedAt: 2026-10-12
 ---
 
-Un catálogo de **todas las formas gratuitas de ejecutar un modelo de IA**: 463 modelos repartidos entre 25 proveedores en la nube, más 9 runtimes locales. La gracia no es la lista en sí, sino que compara lo que de verdad decide si un proveedor te sirve.
+Un catálogo de **todas las formas gratuitas de ejecutar un modelo de IA**. A octubre de 2026 el sitio contaba **463 modelos gratuitos**, **25 proveedores** en la nube con una capa gratuita real y **9 runtimes locales**, con una fecha de verificación visible en la portada. Lo creó [midudev](https://x.com/midudev) y el código está en GitHub (`midudev/itsfree.ai`).
+
+La gracia no es la lista en sí, sino que compara en una misma tabla lo que de verdad decide si un proveedor te sirve.
+
+## Qué es una "capa gratuita" de una API de IA
+
+Muchos proveedores de modelos (Google, Groq, NVIDIA, Mistral…) dejan llamar a su API sin pagar, con un tope de peticiones por minuto o por día, un crédito único o un saldo mensual. Son útiles para probar un modelo o hacer un prototipo, pero cada una tiene reglas distintas y están repartidas por decenas de páginas de precios. it's free\*.ai las junta en un solo sitio.
 
 ## Qué compara
 
-La tabla es ordenable y muestra, para cada proveedor:
+La tabla de **Free APIs** es ordenable y muestra, para cada proveedor:
 
-- **Peticiones por minuto y por día** de la capa gratuita.
-- **Ventana de contexto** de los modelos disponibles.
-- **URL base** del endpoint, para saber si puedes apuntar ahí un cliente que ya tengas.
-- **Qué te pide**: nada, un email, o un teléfono.
+| Columna       | Qué dice                                                          |
+| ------------- | ----------------------------------------------------------------- |
+| **Free tier** | El límite gratuito: peticiones por minuto/día, créditos o saldo   |
+| **Context**   | Ventana de contexto máxima de sus modelos gratuitos               |
+| **Models**    | Cuántos modelos gratuitos ofrece                                  |
+| **Signup**    | Qué te pide para darte de alta: nada, email, teléfono o tarjeta   |
+| **Includes**  | Datos extra, como la URL base del endpoint                        |
 
-Se puede filtrar por lo que suele importar de verdad: _sin tarjeta_, _sin registro_ y _compatible con OpenAI_. Cada ficha enlaza a las instrucciones de alta del propio proveedor.
+Se puede filtrar por tipo (APIs, runtimes, chat y playground, agentes de código, herramientas) y por lo que suele importar de verdad: **sin tarjeta**, **sin registro** y **compatible con OpenAI**. Cada ficha enlaza a las instrucciones de alta del propio proveedor.
+
+"Compatible con OpenAI" significa que el proveedor acepta el mismo formato de petición que el SDK de OpenAI: cambias la URL base y la clave, y el resto del código queda igual. Es lo que permite usar un mismo cliente contra varios proveedores.
 
 ## Ejemplos de lo que lista
 
-| Proveedor            | Capa gratuita                                       |
-| -------------------- | --------------------------------------------------- |
-| **Groq**             | 1.000 peticiones al día, modelos GPT-OSS y Qwen     |
-| **Google AI Studio** | 1.500 peticiones al día, contexto de 1M, multimodal |
-| **NVIDIA NIM**       | 40 peticiones por minuto sobre 82 modelos abiertos  |
-| **Ollama**           | Local, sin límite de peticiones                     |
+Datos tal como los mostraba el sitio en octubre de 2026:
 
-También aparecen DeepSeek, Mistral AI, Cohere, Hugging Face, Cloudflare Workers AI y Cerebras. **21 proveedores no piden cuenta en absoluto.**
+| Proveedor                 | Capa gratuita                          | Contexto | Alta     |
+| ------------------------- | -------------------------------------- | -------- | -------- |
+| **Google AI Studio**      | 1.500 peticiones al día                | 1M       | email    |
+| **Groq**                  | 1.000 peticiones al día                | 131K     | email    |
+| **NVIDIA NIM**            | 40 peticiones por minuto, 82 modelos   | 1M       | teléfono |
+| **OpenRouter**            | 18 modelos a coste cero                | 1M       | email    |
+| **Cloudflare Workers AI** | 10.000 neuronas al día                 | 262K     | email    |
+| **Cerebras**              | Crédito único de 5 USD                 | 65K      | tarjeta  |
+| **Hugging Face**          | 0,10 USD de créditos al mes            | 131K     | email    |
+| **LLM7.io**               | 10 peticiones/min (40 con token)       | 1M       | ninguno  |
+
+Entre los demás proveedores aparecen Vercel AI Gateway, Mistral AI, Cohere, DeepSeek, SambaNova, ModelScope, Z.ai, OVHcloud AI Endpoints, Alibaba Model Studio, OpenCode Zen y Nebius, entre otros. Hay modelos de imagen (FLUX.1 Schnell, Stable Diffusion XL, Imagen 4 Fast) dentro de las fichas de los proveedores, sin una sección aparte.
+
+Según el propio FAQ, no hay un ganador absoluto: Google AI Studio lidera en peticiones por día, NVIDIA NIM en peticiones por minuto y Cerebras en tokens por día.
+
+## Runtimes locales y herramientas
+
+Además de las APIs, el sitio tiene dos secciones que conviene conocer:
+
+- **Run it on your own machine**: los 9 runtimes para ejecutar modelos en tu equipo — Ollama, LM Studio, llama.cpp, Jan, GPT4All, vLLM, MLX, llamafile y KoboldCpp. No necesitas GPU para modelos pequeños (llama.cpp o GPT4All corren en CPU); la GPU aporta velocidad. Para saber qué modelo cabe en tu máquina enlaza a [CanIRun.ai](/resources/ia/canirun-ai).
+- **Around the models**: herramientas alrededor de los modelos, como agentes de código (OpenCode, Cline, Kilo Code, Continue, Aider), Google Colab, LMArena, Hugging Face Spaces, los rankings de OpenRouter, Artificial Analysis y Tiktokenizer.
+
+## Cuándo conviene y cuándo no
+
+**Conviene** para:
+
+- Probar si un modelo resuelve tu caso antes de pagar por él.
+- Tener un plan B cuando se agota la cuota del proveedor principal (por ejemplo, detrás de un enrutador como [OpenRouter](/ai/ai-sdk/ai-sdk-openrouter)).
+- Proyectos personales, demos y aprendizaje.
+
+**No conviene** como base de un producto: sin SLA, un modelo gratuito puede desaparecer, degradarse o cambiar su límite cuando más lo necesites.
 
 ## Qué revisar antes de apoyarte en uno
 
@@ -41,7 +82,10 @@ El propio sitio avisa de que **las capas gratuitas cambian sin previo aviso**, a
 Tres cosas más que conviene comprobar en cada caso:
 
 - **Uso en producción**: muchas capas de evaluación lo prohíben en sus términos.
-- **Disponibilidad**: sin SLA, un modelo gratuito puede desaparecer o degradarse cuando más lo necesites.
-- **Privacidad**: es habitual que entrenen con lo que envías salvo que digan lo contrario de forma explícita. No mandes datos de clientes ni código privado por un endpoint gratuito sin leer esa cláusula.
+- **Disponibilidad**: no hay garantía de uptime en las capas gratuitas.
+- **Privacidad**: algunos proveedores entrenan con lo que envías; el FAQ menciona la capa gratuita de Gemini como ejemplo. Para material confidencial, la recomendación del sitio es un runtime local.
 
-El uso natural es el prototipo: probar si un modelo resuelve tu caso antes de pagar por él, o tener un plan B para cuando se agote la cuota del proveedor principal.
+## Fuentes
+
+- [itsfree.ai](https://itsfree.ai/)
+- [Repositorio midudev/itsfree.ai](https://github.com/midudev/itsfree.ai)

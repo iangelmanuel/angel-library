@@ -146,6 +146,17 @@ export const SIDEBAR = [
             ]
           },
           {
+            label: "JavaScript - TanStack Charts",
+            collapsed: true,
+            items: [
+              {
+                autogenerate: {
+                  directory: "packages/javascript-tanstack-charts"
+                }
+              }
+            ]
+          },
+          {
             label: "JavaScript - Pragmatic drag and drop",
             collapsed: true,
             items: [
@@ -1212,6 +1223,11 @@ export const SIDEBAR = [
             label: "IA · Imagen y video",
             collapsed: true,
             items: [{ autogenerate: { directory: "resources/ia-media" } }]
+          },
+          {
+            label: "Servicios con capa gratuita",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "resources/servicios" } }]
           }
         ]
       }

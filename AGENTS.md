@@ -1,14 +1,109 @@
-# Agent Instructions
+# CLAUDE.md
 
-- Astro 7 + Starlight 0.42 site. Use Node.js `>=22.12.0` and pnpm `11`; do not introduce another package manager.
-- `pnpm check` for Astro/TypeScript diagnostics, `pnpm build` for the real integration check. ESLint and Prettier have package scripts. Run `pnpm sync` after changing `src/content.config.ts`.
-- Site identity lives in `src/config/site.ts`. Categories/subcategories are a plain static object in `src/config/categories.ts` — no filesystem discovery, no per-folder metadata files. Adding a category means adding an entry there and creating the matching folder under `src/content/docs/`.
-- The sidebar is native Starlight: `src/config/sidebar.ts` exports a static `SIDEBAR` array using `autogenerate: { directory }` per subcategory, passed straight into `astro.config.mjs`. There is no custom Sidebar component.
-- Content is local Markdown in `src/content/docs/<category>/<subcategory>/<module>.md` — the folder is the only classification, there is no `type` field. `src/content.config.ts` extends Starlight's schema with a handful of optional fields; nothing is required by category.
-- There is no build-time link/reference validation and no "related content" feature — removed on purpose for simplicity.
-- Personal entries carry `private: true`: they keep their route but are excluded from public navigation, listings, tags, and search.
-- Starlight generates every documentation entry page; `categories/[category].astro` and `tags/[tag].astro` generate the custom listings.
-- Icons live in `src/config/icons.ts`. Own logos are SVG files in `src/icons/`; `src/components/shared/Icon.astro` resolves both sources.
-- Astro and Starlight own the site UI. Tailwind is v4 via `@tailwindcss/vite`, used only by the landing page.
-- Match the repository's Spanish-language content and UI conventions.
-- For fuller architecture notes, consult `docs/ARCHITECTURE.md` and `docs/CONTENT_GUIDE.md`.
+Guía para Claude Code al trabajar en este repositorio.
+
+## Comandos
+
+Gestor de paquetes: **pnpm**.
+
+```bash
+pnpm dev
+pnpm build
+pnpm check
+```
+
+`pnpm eslint` y `pnpm prettier:check` son lo que corre el CI. `pnpm sync`
+regenera los tipos tras tocar `src/content.config.ts`.
+
+## Qué es esto
+
+Sitio estático con **Astro + Starlight**: una biblioteca técnica personal en
+español. Todo el contenido son Markdown locales en `src/content/docs/`. Sin
+backend; tema claro y oscuro.
+
+Los textos de interfaz, los comentarios y el contenido van **en español**.
+
+## Arquitectura
+
+### Contenido: la carpeta manda
+
+`src/content/docs/<categoría>/<subcategoría>/<archivo>.md`. La carpeta
+decide categoría y subcategoría — es la única clasificación, no hay un
+campo `type`. La URL es la ruta.
+
+Categorías y subcategorías están declaradas a mano en
+`src/config/categories.ts` (un objeto plano, sin descubrimiento por
+filesystem). El sidebar de Starlight es otro archivo estático,
+`src/config/sidebar.ts`, con `autogenerate: { directory }` por subcategoría
+— Starlight arma el árbol nativamente en build.
+
+`src/content.config.ts` extiende `docsSchema` con campos opcionales
+(`tags`, `command`, `url`, `technologies`…). Nada se exige por tipo o
+categoría.
+
+El esquema es la lista cerrada de campos: lo que no esté ahí se descarta en
+silencio al construir. No existen `type` ni `related` (se quitaron de todas
+las entradas); para enlazar con otra entrada, `technologies` con su id.
+
+El frontmatter guarda tres clases de dato: lo que se pinta en la cabecera
+(datos de una línea), configuración (`draft`, `private`, `sidebar`) y
+metadata que no se pinta (`description`, `tags`, y los campos de párrafo
+`problem`, `whenToUse`, `practice`, `why`). **El artículo es el cuerpo del
+Markdown**: una explicación no se escribe en el frontmatter.
+`PageTitle.astro` arma la cabecera en cinco zonas de orden fijo — ruta,
+barra de datos y acciones, relacionado, nota (`note`) y
+advertencias (`warnings`), las dos últimas como avisos con la receta de
+`.starlight-aside`. Ver `docs/CONTENT_GUIDE.md`.
+
+`draft` se escribe en todas las entradas, aunque sea `false`; `private`
+solo cuando es `true`. Las entradas privadas viven en `secrets/`, una
+carpeta que **no está en `sidebar.ts` ni en `categories.ts`**: conservan su
+URL y siguen en el buscador, pero no aparecen en el menú ni cuentan en las
+cifras de la portada. `resourceCategory` es obligatorio en cuanto hay
+`website` o `url`: es el texto que acompaña a los botones de la cabecera y
+el build falla si falta.
+
+### Sin validación ni relaciones (a propósito)
+
+No hay chequeo de enlaces/referencias rotas en build, ni una sección de
+"relacionadas" al pie de cada entrada. Es una decisión deliberada por
+simplicidad — ver `docs/ARCHITECTURE.md`.
+
+### Rutas
+
+Starlight genera los artículos y su sidebar es la única navegación por
+categoría/tag — no hay páginas propias de listado. El proyecto solo añade
+`/` (la portada).
+
+### Overrides de Starlight
+
+`Header.astro`, `PageTitle.astro`, `Sidebar.astro` (solo el primer nivel
+del menú) y `ThemeSelect.astro` (renderiza el botón de tema) en
+`src/components/starlight/`. El Footer es el de Starlight sin tocar.
+El buscador y el botón de tema son componentes compartidos con la portada:
+`src/components/shared/SearchButton.astro` y `ThemeToggle.astro`.
+
+### Estilos
+
+`src/styles/tokens.css` define el sistema visual («Tema de editor», ver
+`DESIGN.md`): oscuro en `:root`, claro en `:root[data-theme="light"]`.
+`src/styles/starlight.css` lo mapea a las variables de Starlight.
+`src/styles/global.css` (Tailwind v4) es solo para la portada.
+
+Los bloques de código usan Night Owl (oscuro) y Night Owl Light (claro) solo
+para las letras (`astro.config.mjs` → `expressiveCode`); el fondo sale de los tokens. Las
+transiciones entre páginas son solo CSS (`@view-transition` en
+`chrome.css`), sin `ClientRouter`.
+
+## Escribir contenido
+
+Ver `docs/CONTENT_GUIDE.md`. Copia el frontmatter de una entrada parecida.
+
+## Notas
+
+- Alias `@/*` → `./src/*`.
+- Los tipos de `astro:content` salen de `.astro/`; corre `pnpm sync` si algo
+  parece desactualizado.
+- Tras cambiar `expressiveCode` en `astro.config.mjs`, corre
+  `pnpm astro sync --force`: Starlight guarda el Markdown ya renderizado y
+  seguiría enlazando la hoja de estilos de código anterior.

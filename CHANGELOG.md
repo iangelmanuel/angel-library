@@ -8,6 +8,53 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.42.0] — 2026-10-12
+
+34 entradas nuevas, dos subcategorías nuevas y dos hallazgos reubicados en
+Skills. Solo contenido, configuración de categorías y herramientas de
+trabajo con agentes: no cambia ninguna lógica del sitio.
+
+### Añadido
+
+- **34 entradas nuevas.**
+  - **IA Tools → Skills**: Awesome Claude Skills, Caveman, Claude SEO,
+    Fernando Skills, Graphify, Ponytail, Scroll World, Superpowers,
+    UI UX Pro Max y Understand Anything. **IA Tools → MCP**: MCP Mobile.
+  - **Paquetes → JavaScript - TanStack Charts**, subcategoría nueva con
+    TanStack Charts.
+  - **Recursos → Servicios con capa gratuita**, subcategoría nueva:
+    CodeRabbit, Resend, Turso y UptimeRobot. **Recursos → Iconos**: SVGL.
+  - **Hallazgos**: AnyPS5, God's Eye View, Laya, Prompting Claude Opus 5.5,
+    REA, VoiceStudio, Inditex Tech, OpenGym, Openship y Protected Quick
+    Tunnels.
+  - **Agentes → Claude Code**: Claude Code Unpacked.
+  - **Aplicaciones → DevOps y contenedores**: Coolify.
+  - **Benchmarks → IA**: NerfBench.
+  - **Cursos → Plataformas educativas**: curso de OpenAI Codex.
+  - **Git → Gestión de repositorios**: gh-secure.
+  - **Seguridad → Fundamentos y amenazas**: OWASP Cheat Sheet Series.
+  - **Testing → Testing asistido por IA**: E2E Tester Army.
+- **Dos subcategorías nuevas**, declaradas en `categories.ts` y
+  `sidebar.ts`: `packages/javascript-tanstack-charts` y
+  `resources/servicios`.
+- **Agentes de Claude Code para el contenido** en `.claude/agents/`:
+  `docs-writer`, que investiga recursos y redacta entradas siguiendo
+  `docs/CONTENT_GUIDE.md`, y `docs-reviewer`, que revisa un lote de
+  entradas y valida con build y Prettier.
+
+### Cambiado
+
+- **Archify y la colección de skills de Addy Osmani pasan de Hallazgos a
+  IA Tools → Skills** (`skill-archify` y `skill-addyosmani-agent-skills`).
+  Cambian sus URLs.
+- **Entradas ampliadas**: Public APIs, itsfree.ai, Impeccable y dos
+  entradas privadas.
+- **`CLAUDE.md` se sustituye por `AGENTS.md`**, reescrito en español con la
+  guía completa del repositorio.
+- **La rama principal pasa de `master` a `main`.**
+- **Cifras actualizadas a 802 entradas, 24 categorías y 185
+  subcategorías** en `README.md` y `docs/ARCHITECTURE.md`.
+
 ## [0.41.1] — 2026-09-26
 
 ### Corregido

@@ -24,11 +24,12 @@ technologies:
   - general/typescript/typescript-path-aliases
   - general/config/site-config-global
   - seo/nextjs/nextjs-seo-completo
+  - skills/ia-skills/skill-fernando-skills
 warnings:
   - "Esta entrada es privada y solo se abre mediante el comando /mynext en la terminal de búsqueda."
   - "Reemplaza los nombres, dominios y datos de Acme antes de publicar."
 whenToUse: Ejecuta /mynext en la terminal interna cuando quieras iniciar un proyecto Next.js con esta configuración.
-updatedAt: 2026-08-27
+updatedAt: 2026-10-12
 ---
 
 ## Antes de comenzar
@@ -1345,10 +1346,78 @@ archivos de comunidad se agregan cuando exista una persona responsable de
 mantenerlos. Nunca guardes tokens reales en ejemplos,
 Issues, logs de CI o capturas de pantalla.
 
-## 17. Estructura final recomendada
+## 17. Instalar las skills de Fernando (fernando-skills)
+
+### Objetivo
+
+Dejar instaladas en el proyecto las dos skills de desarrollo guiado por specs
+de [fernando-skills](/skills/ia-skills/skill-fernando-skills): `/spec` diseña
+el documento de una funcionalidad haciendo preguntas y `/spec-impl` implementa
+una spec aprobada paso a paso. Va después de los archivos del repositorio
+porque `/spec` lee primero la memoria del proyecto (`CLAUDE.md`, `AGENTS.md`,
+`GEMINI.md` o `README.md`, el primero que exista); con la base terminada y el
+README escrito, la primera spec ya parte del contexto real del proyecto.
+
+Desde la raíz del proyecto:
+
+```bash
+npx skills@latest add Klerith/fernando-skills
+```
+
+El asistente pregunta en qué agentes instalarlas y si enlazarlas o copiarlas.
+Con el alcance por defecto (proyecto) quedan así:
+
+| Ruta               | Qué contiene                                                    |
+| ------------------ | --------------------------------------------------------------- |
+| `.agents/skills/`  | Copia canónica de `spec/` y `spec-impl/` (con su `SKILL.md`)    |
+| `.claude/skills/`  | Enlaces a esa copia para Claude Code                            |
+| `skills-lock.json` | Origen y versión de cada skill instalada, para reinstalar igual |
+
+Si trabajas en Windows sin permisos para crear enlaces simbólicos, elige
+**Copy** en el asistente. Con `-g` se instalarían en tu carpeta de usuario y no
+en el repositorio; aquí interesa el alcance de proyecto para que el equipo las
+reciba con el código.
+
+Crea la carpeta donde vivirán las specs, numeradas como `specs/NN-slug.md`:
+
+```bash
+mkdir specs
+```
+
+Comprueba que el agente las detecta:
+
+```bash
+npx skills list
+```
+
+En Claude Code, escribe `/` en una sesión nueva: deben aparecer `/spec` y
+`/spec-impl`. Las dos llevan `disable-model-invocation: true`, así que el
+agente no las ejecuta por su cuenta; solo corren cuando las invocas.
+
+Los archivos de las skills son de terceros y no siguen el `.prettierrc` del
+paso 6. Añádelos a `.prettierignore` para que `prettier:check` no falle en
+CI por ellos:
+
+```text title=".prettierignore (añadir)"
+.agents
+.claude
+skills-lock.json
+```
+
+Revisa el diff antes del commit: es contenido de terceros que entra al
+repositorio y que el agente obedecerá. Para actualizarlas usa
+`npx skills update`; para quitarlas, `npx skills@latest remove Klerith/fernando-skills`.
+
+## 18. Estructura final recomendada
 
 ```text
 mi-proyecto/
+├── .agents/
+│   └── skills/
+│       ├── spec/
+│       └── spec-impl/
+├── .claude/
+│   └── skills/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
@@ -1368,6 +1437,7 @@ mi-proyecto/
 │   │   └── site.ts
 │   └── libs/
 │       └── seo.ts
+├── specs/
 ├── .env.example
 ├── .env.local
 ├── .prettierignore
@@ -1375,6 +1445,7 @@ mi-proyecto/
 ├── eslint.config.mjs
 ├── next.config.ts
 ├── package.json
+├── skills-lock.json
 └── tsconfig.json
 ```
 
@@ -1382,7 +1453,7 @@ Coloca componentes compartidos en `src/components`, acceso a datos y helpers en
 `src/lib`, y decisiones de identidad en `src/config`. Las carpetas internas de
 una ruta pueden vivir junto a esa ruta cuando no se reutilizan fuera de ella.
 
-## 18. Verificar el proyecto
+## 19. Verificar el proyecto
 
 Ejecuta las comprobaciones en el mismo orden que el CI del paso 3, para que un
 fallo local sea exactamente el mismo fallo que verías en el pull request:
@@ -1419,6 +1490,7 @@ entorno y código que depende accidentalmente del navegador.
 - [ ] `robots.txt`, `sitemap.xml` y `manifest.webmanifest` responden correctamente.
 - [ ] Los schemas JSON-LD describen contenido visible y verificable.
 - [ ] Favicon, imagen social, logo e iconos existen en las rutas documentadas.
+- [ ] `/spec` y `/spec-impl` aparecen en el agente, existe `specs/` y `.prettierignore` excluye las skills.
 - [ ] `check`, `eslint`, `prettier:check` y `build` terminan sin errores.
 
 Referencias oficiales: [instalación de Next.js](https://nextjs.org/docs/app/getting-started/installation),
