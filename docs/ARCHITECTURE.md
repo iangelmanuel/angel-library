@@ -65,7 +65,7 @@ Digamos que existe `src/content/docs/frontend/astro/astro-islands.md`.
 7. **Queda un archivo HTML** en `dist/frontend/astro/astro-islands/index.html`
    listo para subir a un hosting estático (Vercel, en este caso).
 
-Ese mismo recorrido pasa **802 veces** en cada build — una vez por cada
+Ese mismo recorrido pasa **815 veces** en cada build — una vez por cada
 entrada de contenido.
 
 ## 3 · Mapa completo de `src/`
@@ -73,7 +73,7 @@ entrada de contenido.
 ```text
 src/
 ├─ content/
-│  └─ docs/<categoría>/<subcategoría>/*.md   ← 802 artículos reales
+│  └─ docs/<categoría>/<subcategoría>/*.md   ← 815 artículos reales
 │     └─ secrets/*.md                         ← privados: fuera del sidebar
 ├─ content.config.ts                          ← el esquema (paso 2 de arriba)
 ├─ env.d.ts                                   ← tipos globales de Astro
@@ -253,17 +253,15 @@ fueran rótulos fijos (no algo para tocar), hay un override chico de
 `Sidebar.astro` que solo cambia **ese primer nivel**:
 
 ```astro
-{
-  entry.type === "group" && (
-    <>
-      <p class="nav-group-label">{entry.label}</p>
-      <SidebarSublist
-        sublist={entry.entries}
-        nested
-      />
-    </>
-  )
-}
+{entry.type === "group" && (
+  <>
+    <p class="nav-group-label">{entry.label}</p>
+    <SidebarSublist
+      sublist={entry.entries}
+      nested
+    />
+  </>
+)}
 ```
 
 Para cada bloque de navegación, en vez de un `<details>` pinta un `<p>`
@@ -469,7 +467,7 @@ un sistema más grande y se simplificó activamente:
 - **Sin `/categories` ni `/tags`.** Existieron una temporada: un índice y una
   página por categoría/tag. Se quitaron porque Starlight inyecta el árbol
   completo del sidebar como HTML en cada página (no hay componente
-  compartido en runtime) — con 24 categorías, 185 subcategorías y 802
+  compartido en runtime) — con 24 categorías, 186 subcategorías y 815
   entradas, cada una de esas páginas repetía ese árbol entero, y con
   cientos de tags eso infló `dist/` a 516MB y con eso el deployment storage
   de Vercel. Categoría y tag ahora son metadata en la propia entrada
@@ -494,7 +492,7 @@ un sistema más grande y se simplificó activamente:
 ```bash
 pnpm dev              # servidor de desarrollo
 pnpm build            # genera el sitio en dist/, valida el esquema contra
-                       # las 802 entradas reales
+                       # las 815 entradas reales
 pnpm preview          # sirve dist/ para probarlo como en producción
 pnpm check            # diagnósticos de Astro/TypeScript
 pnpm eslint           # linter

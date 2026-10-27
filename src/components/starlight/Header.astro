@@ -11,18 +11,16 @@ import { SITE_NAV } from "@/config/navigation"
   <Logo />
 
   <nav class="chrome-header__nav">
-    {
-      SITE_NAV.map((item) => (
-        <a
-          href={item.href}
-          class:list={{
-            "is-current": Astro.url.pathname === item.href
-          }}
-        >
-          {item.label}
-        </a>
-      ))
-    }
+    {SITE_NAV.map((item) => (
+      <a
+        href={item.href}
+        class:list={{
+          "is-current": Astro.url.pathname === item.href
+        }}
+      >
+        {item.label}
+      </a>
+    ))}
   </nav>
 
   <div class="chrome-header__right sl-flex print:hidden">

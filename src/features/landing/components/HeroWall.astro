@@ -63,51 +63,47 @@ const figures = [
       </div>
     </div>
 
-    {
-      stats.recent.length > 0 && (
-        <div class="wall-hero__stack">
-          <h2 class="wall-recent__heading wall-micro">{HERO.recentTitle}</h2>
-          <ol class="wall-recent">
-            {stats.recent.map((item) => (
-              <li>
-                <a
-                  href={item.url}
-                  class="wall-recent__row"
-                  style={`--card-accent: var(${item.category.color})`}
+    {stats.recent.length > 0 && (
+      <div class="wall-hero__stack">
+        <h2 class="wall-recent__heading wall-micro">{HERO.recentTitle}</h2>
+        <ol class="wall-recent">
+          {stats.recent.map((item) => (
+            <li>
+              <a
+                href={item.url}
+                class="wall-recent__row"
+                style={`--card-accent: var(${item.category.color})`}
+              >
+                <span
+                  class="wall-recent__chip"
+                  aria-hidden="true"
+                />
+                <span class="wall-recent__title">{item.title}</span>
+                <time
+                  class="wall-recent__date"
+                  datetime={item.updatedAt.toISOString()}
                 >
-                  <span
-                    class="wall-recent__chip"
-                    aria-hidden="true"
-                  />
-                  <span class="wall-recent__title">{item.title}</span>
-                  <time
-                    class="wall-recent__date"
-                    datetime={item.updatedAt.toISOString()}
-                  >
-                    {formatDate(item.updatedAt)}
-                  </time>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </div>
-      )
-    }
+                  {formatDate(item.updatedAt)}
+                </time>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
   </div>
 
   <div class="wall-shell wall-figures">
-    {
-      figures.map((figure) => (
-        <div class="wall-figure">
-          <span
-            class="wall-figure__value"
-            data-numeric
-          >
-            {figure.value}
-          </span>
-          <span class="wall-micro">{figure.label}</span>
-        </div>
-      ))
-    }
+    {figures.map((figure) => (
+      <div class="wall-figure">
+        <span
+          class="wall-figure__value"
+          data-numeric
+        >
+          {figure.value}
+        </span>
+        <span class="wall-micro">{figure.label}</span>
+      </div>
+    ))}
   </div>
 </section>

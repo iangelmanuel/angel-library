@@ -43,22 +43,21 @@ const { jsonLd = [], ...seoProps } = Astro.props
       id="ld-website"
       data={webSiteLd()}
     />
-    {
-      jsonLd.map((block) => (
-        <JsonLd
-          id={block.id}
-          data={block.data}
-        />
-      ))
-    }
+    {jsonLd.map((block) => (
+      <JsonLd
+        id={block.id}
+        data={block.data}
+      />
+    ))}
     <Analytics />
   </head>
   <body>
     <a
       href="#contenido"
       class="skip-link"
-      >Saltar al contenido</a
     >
+      Saltar al contenido
+    </a>
 
     <slot />
   </body>

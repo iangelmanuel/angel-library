@@ -607,6 +607,11 @@ export const CATEGORIES = {
         description:
           "Arrastrar y soltar sobre la API nativa del navegador, sin framework."
       },
+      "javascript-pele": {
+        label: "JavaScript - Pele",
+        description:
+          "Diagramas en SVG a partir de texto, ligera alternativa a Mermaid."
+      },
       "css-pico-css": {
         label: "CSS - Pico CSS",
         description:

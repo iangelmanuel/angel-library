@@ -8,6 +8,56 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.43.0] — 2026-10-27
+
+13 entradas nuevas, una subcategoría nueva, HyperFrames al día y todas las
+dependencias actualizadas y fijadas a versión exacta. El sitio genera las
+mismas páginas que antes; los únicos cambios de código son de formato y
+una regla nueva de ESLint.
+
+### Añadido
+
+- **13 entradas nuevas** y una subcategoría nueva.
+  - **Hallazgos**: Fieldwatch, xtool, NXNative y AI Job Search.
+  - **IA Tools → Skills**: Anatomy. **IA Tools → Plugins**: Better Claude.
+  - **Aplicaciones → Editores de código**: ThinkRail.
+  - **Paquetes → JavaScript - Pele**, subcategoría nueva con Pele.
+  - **Recursos**: runonweb (IA), AnimateIcons (Animaciones), Algorithms de
+    Jeff Erickson (Aprendizaje) y Oracle Cloud Always Free (Servicios con
+    capa gratuita).
+  - **Cursos → Plataformas educativas**: Stanford CS336.
+- **Una subcategoría nueva**, declarada en `categories.ts` y `sidebar.ts`:
+  `packages/javascript-pele`.
+- **`docs/WEEKLY_RESOURCES_PROMPT.md`**: prompt y formato para pasarle a
+  Claude Code la lista semanal de recursos.
+- **`saveExact` y `savePrefix: ""`** en `pnpm-workspace.yaml`: cada
+  `pnpm add` guarda la versión exacta, sin `^`.
+
+### Cambiado
+
+- **Dependencias actualizadas a su última versión y fijadas sin `^`** en
+  `package.json`.
+  - Sitio: Astro 7.3.5 → 7.4.2, Starlight 0.42.4 → 0.42.7,
+    @astrojs/markdown-remark 7.3.4, @iconify-json/lucide 1.2.147 y
+    unist-util-visit 5.2.0.
+  - Desarrollo, con cambio mayor: ESLint y @eslint/js 9 → 10,
+    eslint-plugin-astro 1 → 3, prettier-plugin-astro 0.14 → 1.1,
+    prettier-plugin-tailwindcss 0.6 → 0.8 y
+    @trivago/prettier-plugin-sort-imports 5 → 6.
+  - Desarrollo, sin cambio mayor: @astrojs/check 0.9.12, Prettier 3.9.10,
+    typescript-eslint 8.72.0, @types/node 26.6.5 y sharp 0.35.5.
+- **TypeScript se queda en 6.0.3** (la última 6.x): `astro check` no admite
+  TypeScript 7 y typescript-eslint pide `<6.1.0`.
+- **Formato de los `.astro`**: prettier-plugin-astro 1 escribe las
+  expresiones `{...}` en línea. Se reformatearon 10 componentes y un
+  ejemplo de `docs/ARCHITECTURE.md`; no cambia el HTML generado.
+- **`public/pm-tabs.js`**: quitados dos `= null` iniciales que la regla
+  `no-useless-assignment` de ESLint 10 marca como asignaciones inútiles.
+- HyperFrames actualizado: web oficial, requisitos, compatibilidad con
+  agentes, skills y Studio.
+- Cifras del README, `docs/ARCHITECTURE.md` y `PRODUCT.md`: 815 entradas,
+  24 categorías y 186 subcategorías.
+
 ## [0.42.0] — 2026-10-12
 
 34 entradas nuevas, dos subcategorías nuevas y dos hallazgos reubicados en
@@ -2785,7 +2835,9 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.41.1...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.43.0...HEAD
+[0.43.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.43.0
+[0.42.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.42.0
 [0.41.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.41.1
 [0.41.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.41.0
 [0.40.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.40.0

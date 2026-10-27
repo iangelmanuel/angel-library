@@ -168,6 +168,11 @@ export const SIDEBAR = [
             ]
           },
           {
+            label: "JavaScript - Pele",
+            collapsed: true,
+            items: [{ autogenerate: { directory: "packages/javascript-pele" } }]
+          },
+          {
             label: "CSS - Pico CSS",
             collapsed: true,
             items: [{ autogenerate: { directory: "packages/css-pico-css" } }]
