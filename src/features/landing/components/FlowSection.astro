@@ -14,22 +14,20 @@ import { FLOW } from "../data/content"
   />
 
   <ol class="wall-legs">
-    {
-      FLOW.legs.map((leg, index) => (
-        <li class="wall-leg">
-          <span
-            class="wall-leg__index"
-            aria-hidden="true"
-          >
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <div class="wall-leg__body">
-            <h3 class="wall-leg__title">{leg.title}</h3>
-            <p class="wall-leg__line">{leg.line}</p>
-          </div>
-          <p class="wall-leg__detail">{leg.detail}</p>
-        </li>
-      ))
-    }
+    {FLOW.legs.map((leg, index) => (
+      <li class="wall-leg">
+        <span
+          class="wall-leg__index"
+          aria-hidden="true"
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div class="wall-leg__body">
+          <h3 class="wall-leg__title">{leg.title}</h3>
+          <p class="wall-leg__line">{leg.line}</p>
+        </div>
+        <p class="wall-leg__detail">{leg.detail}</p>
+      </li>
+    ))}
   </ol>
 </section>

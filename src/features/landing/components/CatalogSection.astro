@@ -24,15 +24,13 @@ const listed = stats.categoryList
   </div>
 
   <ul class="wall-cloud">
-    {
-      listed.map((category) => (
-        <li
-          class="wall-cloud__word"
-          style={`--word-hue: var(${category.color})`}
-        >
-          {category.label}
-        </li>
-      ))
-    }
+    {listed.map((category) => (
+      <li
+        class="wall-cloud__word"
+        style={`--word-hue: var(${category.color})`}
+      >
+        {category.label}
+      </li>
+    ))}
   </ul>
 </section>

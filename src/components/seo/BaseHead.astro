@@ -40,15 +40,13 @@ const googlebot = noindex
   rel="canonical"
   href={canonical}
 />
-{
-  SITE.seo.locales.map((locale) => (
-    <link
-      rel="alternate"
-      hreflang={locale.hreflang}
-      href={canonical}
-    />
-  ))
-}
+{SITE.seo.locales.map((locale) => (
+  <link
+    rel="alternate"
+    hreflang={locale.hreflang}
+    href={canonical}
+  />
+))}
 <link
   rel="alternate"
   hreflang="x-default"
@@ -109,22 +107,18 @@ const googlebot = noindex
   name="twitter:card"
   content={SITE.seo.twitterCard}
 />
-{
-  SITE.seo.twitterHandle && (
-    <meta
-      name="twitter:site"
-      content={SITE.seo.twitterHandle}
-    />
-  )
-}
-{
-  SITE.seo.twitterAuthor && (
-    <meta
-      name="twitter:creator"
-      content={SITE.seo.twitterAuthor}
-    />
-  )
-}
+{SITE.seo.twitterHandle && (
+  <meta
+    name="twitter:site"
+    content={SITE.seo.twitterHandle}
+  />
+)}
+{SITE.seo.twitterAuthor && (
+  <meta
+    name="twitter:creator"
+    content={SITE.seo.twitterAuthor}
+  />
+)}
 <meta
   name="twitter:title"
   content={pageTitle}

@@ -14,16 +14,14 @@ import { SITE_NAV, SOCIAL_LINKS } from "@/config/navigation"
       class="chrome-header__nav"
       aria-label="Secciones de la biblioteca"
     >
-      {
-        SITE_NAV.map((item) => (
-          <a
-            href={item.href}
-            class:list={{ "is-current": item.href === "/" }}
-          >
-            {item.label}
-          </a>
-        ))
-      }
+      {SITE_NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={{ "is-current": item.href === "/" }}
+        >
+          {item.label}
+        </a>
+      ))}
     </nav>
 
     <div class="chrome-header__right">
@@ -32,21 +30,19 @@ import { SITE_NAV, SOCIAL_LINKS } from "@/config/navigation"
       <ThemeToggle />
 
       <div class="chrome-header__social">
-        {
-          SOCIAL_LINKS.map((item) => (
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={item.label}
-            >
-              <Icon
-                name={item.icon}
-                size={16}
-              />
-            </a>
-          ))
-        }
+        {SOCIAL_LINKS.map((item) => (
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={item.label}
+          >
+            <Icon
+              name={item.icon}
+              size={16}
+            />
+          </a>
+        ))}
       </div>
     </div>
   </div>

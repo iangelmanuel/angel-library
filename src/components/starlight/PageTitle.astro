@@ -155,137 +155,129 @@ if (warnings.length > 0) {
 }
 ---
 
-<Default><slot /></Default>
+<Default>
+  <slot />
+</Default>
 
 <div class="entry-meta not-content">
-  {
-    (categoryMeta || updatedAt || isOfficial) && (
-      <p
-        class="entry-meta__path"
-        style={
-          categoryMeta ? `--chip-accent: var(${categoryMeta.color})` : undefined
-        }
-      >
-        {categoryMeta && (
-          <span class="entry-meta__category">{categoryMeta.label}</span>
-        )}
-        {subcategoryMeta && subcategoryMeta.badge !== false && (
-          <>
-            <span
-              class="entry-meta__sep"
-              aria-hidden="true"
-            >
-              /
-            </span>
-            <span class="entry-meta__subcategory">{subcategoryMeta.label}</span>
-          </>
-        )}
-        {updatedAt && (
-          <time
-            class="entry-meta__date"
-            datetime={updatedAt.toISOString()}
+  {(categoryMeta || updatedAt || isOfficial) && (
+    <p
+      class="entry-meta__path"
+      style={
+        categoryMeta ? `--chip-accent: var(${categoryMeta.color})` : undefined
+      }
+    >
+      {categoryMeta && (
+        <span class="entry-meta__category">{categoryMeta.label}</span>
+      )}
+      {subcategoryMeta && subcategoryMeta.badge !== false && (
+        <>
+          <span
+            class="entry-meta__sep"
+            aria-hidden="true"
           >
-            <span
-              class="entry-meta__sep"
-              aria-hidden="true"
-            >
-              ·
-            </span>
-            {formatDate(updatedAt)}
-          </time>
-        )}
-        {isOfficial && <span class="entry-meta__official">Fuente oficial</span>}
-      </p>
-    )
-  }
+            /
+          </span>
+          <span class="entry-meta__subcategory">{subcategoryMeta.label}</span>
+        </>
+      )}
+      {updatedAt && (
+        <time
+          class="entry-meta__date"
+          datetime={updatedAt.toISOString()}
+        >
+          <span
+            class="entry-meta__sep"
+            aria-hidden="true"
+          >
+            ·
+          </span>
+          {formatDate(updatedAt)}
+        </time>
+      )}
+      {isOfficial && <span class="entry-meta__official">Fuente oficial</span>}
+    </p>
+  )}
 
-  {
-    links.length > 0 && (
-      <div class="entry-meta__action">
-        {destinationLabel && (
-          <dl class="entry-meta__destination">
-            <dt>Categoría de recurso</dt>
-            <dd>{destinationLabel}</dd>
-          </dl>
-        )}
+  {links.length > 0 && (
+    <div class="entry-meta__action">
+      {destinationLabel && (
+        <dl class="entry-meta__destination">
+          <dt>Categoría de recurso</dt>
+          <dd>{destinationLabel}</dd>
+        </dl>
+      )}
 
-        <div class="entry-meta__links">
-          {links.map((link) => (
-            <Button
-              href={link.href}
-              variant={link.variant}
-              icon={link.icon}
-              iconPosition="start"
-              external
-            >
-              {link.label}
-            </Button>
-          ))}
-        </div>
+      <div class="entry-meta__links">
+        {links.map((link) => (
+          <Button
+            href={link.href}
+            variant={link.variant}
+            icon={link.icon}
+            iconPosition="start"
+            external
+          >
+            {link.label}
+          </Button>
+        ))}
       </div>
-    )
-  }
+    </div>
+  )}
 
-  {
-    specs.length > 0 && (
-      <dl class="entry-meta__specs">
-        {specs.map((spec) => (
-          <div>
-            <dt>{spec.label}</dt>
-            <dd data-mono={spec.mono ? "" : undefined}>{spec.value}</dd>
-          </div>
-        ))}
-      </dl>
-    )
-  }
+  {specs.length > 0 && (
+    <dl class="entry-meta__specs">
+      {specs.map((spec) => (
+        <div>
+          <dt>{spec.label}</dt>
+          <dd data-mono={spec.mono ? "" : undefined}>{spec.value}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
 
-  {
-    technologies.length > 0 && (
-      <nav
-        class="entry-meta__tech"
-        aria-label="Entradas relacionadas"
-      >
-        <span class="entry-meta__tech-label">Relacionado</span>
-        {technologies.map((tech) => (
-          <a href={`/${tech.id}`}>{tech.data.title}</a>
-        ))}
-      </nav>
-    )
-  }
+  {technologies.length > 0 && (
+    <nav
+      class="entry-meta__tech"
+      aria-label="Entradas relacionadas"
+    >
+      <span class="entry-meta__tech-label">Relacionado</span>
+      {technologies.map((tech) => (
+        <a href={`/${tech.id}`}>{tech.data.title}</a>
+      ))}
+    </nav>
+  )}
 
-  {
-    notes.map((note) => (
-      <aside
-        class="entry-note"
-        data-hue={note.hue}
-      >
-        <p class="entry-note__title">
-          <Icon
-            name={note.icon}
-            size={15}
-          />
-          {note.title}
+  {notes.map((note) => (
+    <aside
+      class="entry-note"
+      data-hue={note.hue}
+    >
+      <p class="entry-note__title">
+        <Icon
+          name={note.icon}
+          size={15}
+        />
+        {note.title}
+      </p>
+      {note.items.length > 1 ? (
+        <ul class="entry-note__list">
+          {note.items.map((item) => (
+            <li>
+              {item.map((part) =>
+                part.code ? <code>{part.text}</code> : part.text
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="entry-note__body">
+          {note.items[0].map((part) =>
+            part.code ? <code>{part.text}</code> : part.text
+          )}
         </p>
-        {note.items.length > 1 ? (
-          <ul class="entry-note__list">
-            {note.items.map((item) => (
-              <li>
-                {item.map((part) =>
-                  part.code ? <code>{part.text}</code> : part.text
-                )}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p class="entry-note__body">
-            {note.items[0].map((part) =>
-              part.code ? <code>{part.text}</code> : part.text
-            )}
-          </p>
-        )}
-      </aside>
-    ))
-  }
+      )}
+    </aside>
+  ))}
 </div>
 
 <style>

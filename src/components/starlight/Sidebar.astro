@@ -8,30 +8,28 @@ const { sidebar } = Astro.locals.starlightRoute
 
 <SidebarPersister>
   <ul class="top-level">
-    {
-      sidebar.map((entry) => (
-        <li>
-          {entry.type === "group" ? (
-            <>
-              <p class="nav-group-label">{entry.label}</p>
-              <SidebarSublist
-                sublist={entry.entries}
-                nested
-              />
-            </>
-          ) : (
-            <a
-              href={entry.href}
-              aria-current={entry.isCurrent ? "page" : undefined}
-              class="large"
-              {...entry.attrs}
-            >
-              {entry.label}
-            </a>
-          )}
-        </li>
-      ))
-    }
+    {sidebar.map((entry) => (
+      <li>
+        {entry.type === "group" ? (
+          <>
+            <p class="nav-group-label">{entry.label}</p>
+            <SidebarSublist
+              sublist={entry.entries}
+              nested
+            />
+          </>
+        ) : (
+          <a
+            href={entry.href}
+            aria-current={entry.isCurrent ? "page" : undefined}
+            class="large"
+            {...entry.attrs}
+          >
+            {entry.label}
+          </a>
+        )}
+      </li>
+    ))}
   </ul>
 </SidebarPersister>
 

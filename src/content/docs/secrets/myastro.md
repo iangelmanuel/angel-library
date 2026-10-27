@@ -169,6 +169,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+          check-latest: true
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
@@ -189,6 +190,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+          check-latest: true
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
@@ -214,6 +216,12 @@ sincronizado.
 la versión directamente de `packageManager` en `package.json` (paso 2). Fijarla
 en los dos lugares a la vez es la causa típica de `ERR_PNPM_BAD_PM_VERSION`
 en cuanto se desincronizan.
+
+`check-latest: true` obliga a `setup-node` a resolver el último parche de
+Node 22 en vez de usar el que trae precargado la imagen de `ubuntu-latest`, que
+puede ir semanas por detrás. Sin él, en cuanto Astro o Next suben su mínimo
+(p. ej. `>=22.23.4`) el CI falla con `Node.js v22.x.y is not supported` aunque
+en local todo funcione. Mantén `engines.node` alineado con ese mínimo.
 
 `"prettier:check"` va entre comillas porque los dos puntos sin comillas son
 sintaxis de mapa en YAML.

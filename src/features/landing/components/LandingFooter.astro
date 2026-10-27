@@ -17,7 +17,9 @@ const year = new Date().getFullYear()
       class="wall-footer__nav"
       aria-label="Secciones de la biblioteca"
     >
-      {SITE_NAV.slice(1).map((item) => <a href={item.href}>{item.label}</a>)}
+      {SITE_NAV.slice(1).map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
 
       <button
         type="button"
@@ -29,23 +31,23 @@ const year = new Date().getFullYear()
     </nav>
 
     <div class="wall-footer__social chrome-social">
-      {
-        SOCIAL_LINKS.map((item) => (
-          <a
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={item.label}
-          >
-            <Icon
-              name={item.icon}
-              size={16}
-            />
-          </a>
-        ))
-      }
+      {SOCIAL_LINKS.map((item) => (
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={item.label}
+        >
+          <Icon
+            name={item.icon}
+            size={16}
+          />
+        </a>
+      ))}
     </div>
 
-    <span class="wall-footer__legal">© {year} {SITE.info.author}</span>
+    <span class="wall-footer__legal">
+      © {year} {SITE.info.author}
+    </span>
   </div>
 </footer>

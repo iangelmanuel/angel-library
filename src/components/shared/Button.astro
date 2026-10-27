@@ -49,23 +49,19 @@ const attrs = href
   {...attrs}
   {...rest}
 >
-  {
-    icon && iconPosition === "start" && (
-      <Icon
-        name={icon}
-        class="btn__icon"
-        size={iconSize}
-      />
-    )
-  }
+  {icon && iconPosition === "start" && (
+    <Icon
+      name={icon}
+      class="btn__icon"
+      size={iconSize}
+    />
+  )}
   <slot />
-  {
-    icon && iconPosition === "end" && (
-      <Icon
-        name={icon}
-        class="btn__icon"
-        size={iconSize}
-      />
-    )
-  }
+  {icon && iconPosition === "end" && (
+    <Icon
+      name={icon}
+      class="btn__icon"
+      size={iconSize}
+    />
+  )}
 </Tag>

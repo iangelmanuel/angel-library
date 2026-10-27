@@ -37,7 +37,7 @@
     if (!tab) return
 
     var index = ORDER.indexOf(tab.dataset.pmTab)
-    var next = null
+    var next
 
     if (event.key === "ArrowRight") next = (index + 1) % ORDER.length
     else if (event.key === "ArrowLeft")
@@ -56,7 +56,7 @@
   })
 
   function restore() {
-    var stored = null
+    var stored
     try {
       stored = localStorage.getItem(KEY)
     } catch {

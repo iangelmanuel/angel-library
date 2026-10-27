@@ -41,10 +41,10 @@ Restricciones vinculantes confirmadas por el autor:
 
 Capacidades y hechos técnicos actuales (implementación incumbente, no declarada inmutable por el autor):
 
-- 737 entradas en 24 categorías y 170 subcategorías; el último build genera 1779 páginas (~248MB en `dist/`).
+- 815 entradas en 24 categorías y 186 subcategorías; el último build genera 820 páginas HTML (~280MB en `dist/`).
 - No hay tipos editoriales: la carpeta (categoría/subcategoría) es la única clasificación. Se retiraron a propósito, junto con `catalog.ts` (descubrimiento por `fs`), la validación de contenido en build y las relaciones al pie de cada entrada.
 - `src/config/` reúne la configuración: `site.ts` (identidad y SEO), `categories.ts` (las 24 categorías y sus subcategorías, un objeto estático a mano), `sidebar.ts` (el menú de Starlight, también estático), `icons.ts` y `navigation.ts`.
-- Starlight genera las páginas de documentación y el proyecto añade `/`, 404, sitemap, robots y manifest. No hay páginas propias de listado (`/categories`, `/tags`): existieron una temporada, pero cada una repetía el árbol completo del sidebar en su HTML (24 categorías, 170 subcategorías, 737 entradas) y con cientos de tags esa duplicación se comía el deployment storage de Vercel — 516MB de `dist/`. Se retiraron; categoría y tag ahora son metadata visible en cada entrada (`PageTitle.astro`) y en el índice de la portada, sin ruta propia. La navegación por categoría/tag es la del sidebar de Starlight.
+- Starlight genera las páginas de documentación y el proyecto añade `/`, 404, sitemap, robots y manifest. No hay páginas propias de listado (`/categories`, `/tags`): existieron una temporada, pero cada una repetía el árbol completo del sidebar en su HTML (24 categorías, 186 subcategorías, 815 entradas) y con cientos de tags esa duplicación se comía el deployment storage de Vercel — 516MB de `dist/`. Se retiraron; categoría y tag ahora son metadata visible en cada entrada (`PageTitle.astro`) y en el índice de la portada, sin ruta propia. La navegación por categoría/tag es la del sidebar de Starlight.
 - Sin validación de contenido en build: no hay chequeo de enlaces rotos ni de referencias entre entradas. Se confía en quien escribe.
 - Búsqueda estática gestionada por Starlight y Pagefind; no existe un índice paralelo que mantener.
 - Tema claro y oscuro (`data-theme` en `<html>`, preferencia compartida con Starlight en `localStorage`), cantos de 4 / 6 / 8 / 12px, Tailwind v4 sin config: los tokens son variables CSS en `src/styles/tokens.css` y `global.css` solo encadena los imports. Fuentes Onest y JetBrains Mono (variables) autoalojadas.
@@ -61,7 +61,7 @@ Decisión abierta: el español latinoamericano es la implementación actual, per
 
 ## Evidence on Hand
 
-- Contenido real: 737 entradas Markdown propias en `src/content/docs/`.
+- Contenido real: 815 entradas Markdown propias en `src/content/docs/`.
 - Documentación del repo: `README.md`, `docs/ARCHITECTURE.md`, `docs/CONTENT_GUIDE.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, `src/features/landing/README.md`.
 - Licencias reales: código MIT; contenido educativo CC BY-NC-SA 4.0.
 - No existen testimonios, clientes, métricas de tráfico, precios ni casos de estudio. No inventarlos.
