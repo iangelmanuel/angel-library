@@ -27,7 +27,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: 26
           check-latest: true
           cache: pnpm
 
@@ -54,7 +54,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: 26
           check-latest: true
           cache: pnpm
 

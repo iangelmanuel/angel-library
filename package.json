@@ -1,11 +1,11 @@
 {
   "name": "angel-library",
   "type": "module",
-  "version": "0.43.0",
+  "version": "0.44.0",
   "private": false,
   "description": "Biblioteca personal y segundo cerebro técnico para aprender, recordar y reutilizar conocimiento sobre desarrollo de software",
   "license": "MIT",
-  "packageManager": "pnpm@11.25.0",
+  "packageManager": "pnpm@12.18.0",
   "homepage": "https://github.com/iangelmanuel/angel-library",
   "keywords": [
     "astro",
@@ -35,8 +35,8 @@
     "url": "https://github.com/iangelmanuel/angel-library/issues"
   },
   "engines": {
-    "node": ">=22.23.4",
-    "pnpm": "11.x"
+    "node": ">=26.13.0",
+    "pnpm": ">=12.18.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -51,31 +51,31 @@
     "prettier:check": "prettier . --check"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "7.3.4",
+    "@astrojs/markdown-remark": "7.3.6",
     "@astrojs/sitemap": "3.7.4",
-    "@astrojs/starlight": "0.42.7",
+    "@astrojs/starlight": "0.42.10",
     "@fontsource-variable/jetbrains-mono": "5.3.0",
     "@fontsource-variable/onest": "5.3.1",
-    "@iconify-json/lucide": "1.2.147",
-    "@tailwindcss/vite": "4.3.3",
+    "@iconify-json/lucide": "1.2.152",
+    "@tailwindcss/vite": "4.3.5",
     "@vercel/analytics": "2.0.1",
-    "astro": "7.4.2",
+    "astro": "7.4.7",
     "astro-icon": "1.2.0",
-    "tailwindcss": "4.3.3",
+    "tailwindcss": "4.3.5",
     "unist-util-visit": "5.2.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
     "@eslint/js": "10.0.1",
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
-    "@types/node": "26.6.5",
-    "eslint": "10.13.0",
+    "@types/node": "26.6.6",
+    "eslint": "10.14.0",
     "eslint-plugin-astro": "3.2.1",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.2",
     "prettier-plugin-tailwindcss": "0.8.1",
     "sharp": "0.35.5",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.72.0"
+    "typescript-eslint": "8.72.1"
   }
 }

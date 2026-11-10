@@ -8,6 +8,25 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.44.0] — 2026-11-09
+
+Actualización de Node.js a la LTS actual y estandarización del proyecto. El
+contenido publicado no cambia.
+
+### Cambiado
+
+- **Node.js 26.13.0** (LTS) en `engines`, `.nvmrc` y CI; antes Node 22.
+- **pnpm 12.18.0** como `packageManager`.
+- **Dependencias actualizadas** a su última versión exacta: Astro 7.4.7,
+  Starlight 0.42.10, Tailwind CSS 4.3.5, ESLint 10.14.0 y demás.
+- `tsconfig.json`: se elimina `baseUrl` (deprecado en TypeScript 6); el alias
+  `@/*` se mantiene vía `paths`.
+
+### Fijado
+
+- `@emnapi/core` y `@emnapi/runtime` fijados a `1.11.3` (estable) mediante `overrides` en `pnpm-workspace.yaml`: la versión beta arrastrada por `@napi-rs/wasm-runtime` falla al terminar el proceso en Node 26.
+- TypeScript se mantiene en 6.0.3: `typescript-eslint` aún no soporta TS 7.
+
 ## [0.43.0] — 2026-10-27
 
 13 entradas nuevas, una subcategoría nueva, HyperFrames al día y todas las
