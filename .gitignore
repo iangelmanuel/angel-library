@@ -32,3 +32,13 @@ handoff.md
 .claude/skills/impeccable/scripts/bin/
 .agents/skills/impeccable/scripts/bin/
 skills-lock.json
+
+# Herramientas de agentes y skills: no se versionan (exponen infraestructura interna)
+.claude/
+.agents/
+.codex/
+.cursor/
+.impeccable/
+.github/agents/
+.github/hooks/
+skills-lock.json
