@@ -8,6 +8,29 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 - Nuevas notas, snippets y mejoras de contenido que todavía no formen parte de una versión publicada.
 
+## [0.45.0] — 2026-11-17
+
+12 entradas nuevas, sin categorías ni subcategorías nuevas.
+
+### Añadido
+
+- **12 entradas nuevas**.
+  - **Hallazgos → Código y desarrollo**: Floci, AWS Emulator, Scrapling,
+    steamac y bootvine.
+  - **Hallazgos → IA y agentes**: el memo de Amazon sobre el rol del
+    ingeniero de software con IA.
+  - **Hallazgos → Web y producto**: PMTiles.
+  - **Hallazgos → Recursos de la comunidad**: DevOps Exercises.
+  - **Aplicaciones → DevOps y contenedores**: Kiri.
+  - **Aplicaciones → Herramientas de terminal (CLI)**: npkill.
+  - **Cursos → Midudev**: Aprende Rust.
+  - **IA Tools → Skills**: Modern Web Guidance.
+
+### Cambiado
+
+- Cifras del README, `docs/ARCHITECTURE.md` y `PRODUCT.md`: 827 entradas,
+  24 categorías y 186 subcategorías.
+
 ## [0.44.0] — 2026-11-09
 
 Actualización de Node.js a la LTS actual y estandarización del proyecto. El
@@ -2854,7 +2877,9 @@ Primera versión organizada para publicar el proyecto en GitHub. `angel.library`
 - Build estático de producción generado correctamente.
 - Referencias de contenido y schemas validados durante el build.
 
-[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.43.0...HEAD
+[Unreleased]: https://github.com/iangelmanuel/angel-library/compare/v0.45.0...HEAD
+[0.45.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.45.0
+[0.44.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.44.0
 [0.43.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.43.0
 [0.42.0]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.42.0
 [0.41.1]: https://github.com/iangelmanuel/angel-library/releases/tag/v0.41.1
